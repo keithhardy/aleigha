@@ -13,3 +13,81 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_DATABASE_URL")
 }
+
+model User {
+  id        String       @id @default(cuid())
+  name      String
+  email     String
+  position  UserPosition
+  phone     String?
+  signature String?
+  picture   String?
+  logs      Log[]
+  groups    Group[]
+  messages  Message[]
+
+  @@unique([email])
+}
+
+enum UserPosition {
+  ADMINISTRATOR
+  MANAGER
+  SUPERVISOR
+  PLANNER
+  OPERATIVE
+  CLIENT
+}
+
+model Log {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  model     LogModel
+  action    LogAction
+  status    LogStatus
+  message   String
+  createdAt DateTime  @default(now())
+}
+
+enum LogModel {
+  USER
+  PERMISSION
+  QUALIFICATION
+  EQUIPMENT
+  CONTRACTOR
+  CLIENT
+  PROPERTY
+  CERTIFICATE
+  JOB
+  MESSAGE_GROUP
+  MESSAGE
+}
+
+enum LogAction {
+  CREATE
+  READ
+  UPDATE
+  DELETE
+}
+
+enum LogStatus {
+  SUCCESS
+  FAILED
+}
+
+model Group {
+  id       String    @id @default(cuid())
+  name     String
+  users    User[]
+  messages Message[]
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  content   String
+  sender    User     @relation(fields: [senderId], references: [id])
+  senderId  String
+  group     Group    @relation(fields: [groupId], references: [id])
+  groupId   String
+  createdAt DateTime @default(now())
+}
