@@ -1,4 +1,5 @@
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
+
 import CreateGroupForm from "./form";
 
 export default async function Group() {
