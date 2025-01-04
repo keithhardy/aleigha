@@ -14,7 +14,7 @@ export async function createMessageAction(
 ): Promise<ServerActionResponse<Message>> {
   try {
     const message = await prisma.message.create({ data, include: { group: true } });
-    
+
     await prisma.log.create({
       data: {
         model: 'MESSAGE',

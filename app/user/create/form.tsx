@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { useToast } from '@/hooks/use-toast';
-import { createUserAction } from '@/app/user/action';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -26,6 +25,7 @@ import {
 } from '@/components/ui/select';
 
 import { CreateUserSchema } from './schema';
+import { createUserAction } from './action';
 
 export default function CreateUserForm() {
   const { toast } = useToast();

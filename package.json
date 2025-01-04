@@ -9,6 +9,7 @@
     "lint": "next lint --fix"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^4.0.0-beta.13",
     "@hookform/resolvers": "^3.9.1",
     "@prisma/client": "^6.1.0",
     "@prisma/extension-accelerate": "^1.2.1",

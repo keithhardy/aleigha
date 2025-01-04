@@ -19,7 +19,11 @@ import { useToast } from '@/hooks/use-toast';
 import { CreateMessageSchema } from './schema';
 import { createMessageAction } from './action';
 
-export default function CreateMessageForm() {
+export default function CreateMessageForm({
+  groupId
+}: {
+  groupId: string
+}) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof CreateMessageSchema>>({
@@ -30,7 +34,7 @@ export default function CreateMessageForm() {
         connect: { id: 'cm5heg65w0000uqpkaqo0uv5m' }
       },
       group: {
-        connect: { id: 'cm5hejpgk0000620v05blxcjq' }
+        connect: { id: groupId }
       },
     },
   });
