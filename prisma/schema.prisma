@@ -46,6 +46,7 @@ model Log {
   action    LogAction
   status    LogStatus
   message   String
+  error     String?
   createdAt DateTime  @default(now())
 }
 
@@ -59,7 +60,7 @@ enum LogModel {
   PROPERTY
   CERTIFICATE
   JOB
-  MESSAGE_GROUP
+  GROUP
   MESSAGE
 }
 
