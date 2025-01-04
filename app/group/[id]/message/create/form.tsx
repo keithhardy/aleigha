@@ -16,8 +16,8 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 
-import { CreateMessageSchema } from './schema';
 import { createMessageAction } from './action';
+import { CreateMessageSchema } from './schema';
 
 export default function CreateMessageForm({
   groupId

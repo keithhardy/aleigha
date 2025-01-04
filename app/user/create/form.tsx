@@ -5,7 +5,6 @@ import { $Enums } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -23,9 +22,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useToast } from '@/hooks/use-toast';
 
-import { CreateUserSchema } from './schema';
 import { createUserAction } from './action';
+import { CreateUserSchema } from './schema';
 
 export default function CreateUserForm() {
   const { toast } = useToast();
@@ -35,6 +35,7 @@ export default function CreateUserForm() {
     defaultValues: {
       name: '',
       email: '',
+      password: '',
       position: undefined,
     },
   });
@@ -77,6 +78,19 @@ export default function CreateUserForm() {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input type="email" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input type="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

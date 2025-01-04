@@ -25,11 +25,14 @@ const eslintConfig = [
             "index",
           ],
           "newlines-between": "always",
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
         },
       ],
     },
   },
-
 ];
 
 export default eslintConfig;

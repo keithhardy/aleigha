@@ -1,12 +1,20 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { User } from '@prisma/client';
+import { Check, ChevronsUpDown } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Check, ChevronsUpDown } from 'lucide-react';
-import { User } from '@prisma/client';
 
 import { Button } from '@/components/ui/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
 import {
   Form,
   FormControl,
@@ -17,18 +25,10 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
 import { useToast } from '@/hooks/use-toast';
 
-import { CreateGroupSchema } from './schema';
 import { createGroupAction } from './action';
+import { CreateGroupSchema } from './schema';
 
 export default function CreateGroupForm({
   users

@@ -17,7 +17,7 @@ datasource db {
 model User {
   id        String       @id @default(cuid())
   name      String
-  email     String
+  email     String       @unique
   position  UserPosition
   phone     String?
   signature String?
@@ -25,8 +25,6 @@ model User {
   logs      Log[]
   groups    Group[]
   messages  Message[]
-
-  @@unique([email])
 }
 
 enum UserPosition {

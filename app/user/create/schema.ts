@@ -21,6 +21,14 @@ export const CreateUserSchema = z.object({
     .string()
     .regex(/^(?:\+44|0)(?:\d{9}|\d{10}|\d{11}|\d{12})$/, { message: 'Invalid phone number format' })
     .optional(),
+  password: z
+    .string()
+    .min(8, { message: 'Password must be at least 8 characters long' })
+    .regex(/[a-zA-Z]/, { message: 'Password must contain at least one letter' })
+    .regex(/[0-9]/, { message: 'Password must contain at least one digit' })
+    .regex(/[!@#$%^&*(),.?":{}|<>]/, {
+      message: 'Password must contain at least one special character',
+    }),
   position: z.nativeEnum($Enums.UserPosition),
   signature: z.string().url().optional(),
   picture: z.string().url().optional(),
