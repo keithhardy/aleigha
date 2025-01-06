@@ -30,13 +30,21 @@ export default async function User({
       
       <div className="space-y-2">
         <div key={user.id} className="flex flex-col space-y-2">
-          <p className="text-lg font-semibold">{user.name}</p>
           <div className="flex flex-col space-y-2">
-            <p>Email: {user.email}</p>
-            <p>Position: {user.position.toTitleCase()}</p>
+            <p>Name</p>
+            <p className="font-semibold">{user.name.toTitleCase()}</p>
+            <p>Email</p>
+            <p className="font-semibold">{user.email}</p>
+            <p>Position</p>
+            <p className="font-semibold">{user.position.toTitleCase()}</p>
+            <p>Picture</p>
+            <p className="font-semibold">{user.picture || 'No picture'}</p>
+            <p>Phone</p>
+            <p className="font-semibold">{user.phone || 'No phone'}</p>
+            <p>Signature</p>
+            <p className="font-semibold">{user.signature || 'No signature'}</p>
           </div>
-          <div className="flex space-x-4">
-            <Link href={`/workspace/users/${user.id}/update`}>Update</Link>
+          <div>
             <Link href={`/workspace/users/${user.id}/delete`}>Delete</Link>
           </div>
         </div>

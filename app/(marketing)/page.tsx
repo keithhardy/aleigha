@@ -13,7 +13,7 @@ export default async function Marketing() {
             Welcome, {user.name}!
           </p>
           <Link href="/workspace">
-            Go to Application
+            Go to Workspace
           </Link>
         </div>
       ) : (

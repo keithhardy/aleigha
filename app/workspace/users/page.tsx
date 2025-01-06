@@ -11,18 +11,15 @@ export default async function Users() {
 
       <div className="flex flex-col space-y-2">
         <Link href="/workspace">Back to Workspace</Link>
-        <Link href="/workspace/users/create">Create</Link>
+        <Link href="/workspace/users/create">Create User</Link>
       </div>
 
       <div className="space-y-2">
         {users.map((user) => (
-          <div key={user.id} className="flex flex-col space-y-2">
-            <p className="text-lg font-semibold">{user.name.toTitleCase()}</p>
-            <div className="flex space-x-4">
-              <Link href={`/workspace/users/${user.id}`}>View</Link>
-              <Link href={`/workspace/users/${user.id}/update`}>Update</Link>
-              <Link href={`/workspace/users/${user.id}/delete`}>Delete</Link>
-            </div>
+          <div key={user.id} className="flex space-x-2 items-baseline">
+            <p className="font-semibold">{user.name.toTitleCase()}</p>
+            <Link href={`/workspace/users/${user.id}`}>View</Link>
+            <Link href={`/workspace/users/${user.id}/delete`}>Delete</Link>
           </div>
         ))}
       </div>

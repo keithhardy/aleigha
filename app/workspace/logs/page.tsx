@@ -7,7 +7,7 @@ export default async function Users() {
 
   return (
     <div className="space-y-2">
-      <h1 className="text-lg font-semibold">Activity</h1>
+      <h1 className="text-lg font-semibold">Logs</h1>
 
       <div className="flex flex-col space-y-2">
         <Link href="/workspace">Back to Workspace</Link>
