@@ -16,6 +16,7 @@ datasource db {
 
 model User {
   id        String       @id @default(cuid())
+  auth0Id   String       @unique
   name      String
   email     String       @unique
   position  UserPosition

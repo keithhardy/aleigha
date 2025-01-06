@@ -1,28 +1,34 @@
 'use server';
 
 import { User } from '@prisma/client';
+import { redirect } from 'next/navigation';
 
+import { getCurrentUser, isCurrentUser } from '@/lib/auth';
 import { auth0Management } from '@/lib/auth0-management';
 import { prisma } from '@/lib/prisma';
 import { ServerActionResponse } from '@/lib/types';
 import { getFormattedDateTime } from '@/lib/utils';
 
-import { getCurrentUser } from '../actions';
+export async function deleteUserAction(
+  data: User
+): Promise<ServerActionResponse<User>> {
+  const user = await getCurrentUser()
 
-export async function deleteUserAction(data: User): Promise<ServerActionResponse<User>> {
-  const currentUser = await getCurrentUser()
-
-  if (!['ADMINISTRATOR', 'MANAGER'].includes(currentUser.position)) {
+  if (!user) redirect('/auth/login')
+  
+  const hasAccess = await isCurrentUser(['ADMINISTRATOR', 'MANAGER']);
+  
+  if (!hasAccess) {
     return {
       status: 'error',
       heading: 'User Deletion Failed',
-      message: 'Only administrators or managers can delete users.',
+      message: 'You must be an administrator or manager to delete users.',
     };
   }
   
   try {
     await auth0Management.users.delete({
-      id: currentUser.auth0Id,
+      id: data.auth0Id,
     });
     
     await prisma.user.delete({ 
@@ -39,7 +45,7 @@ export async function deleteUserAction(data: User): Promise<ServerActionResponse
         message: `User ${data.name} was deleted on ${getFormattedDateTime()}`,
         user: {
           connect: {
-            email: currentUser.email
+            id: user.id
           }
         }
       }
@@ -62,7 +68,7 @@ export async function deleteUserAction(data: User): Promise<ServerActionResponse
         error: errorMessage,
         user: {
           connect: {
-            email: currentUser.email
+            id: user.id
           }
         }
       }

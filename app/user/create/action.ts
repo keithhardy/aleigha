@@ -2,20 +2,27 @@
 
 import { User } from '@prisma/client';
 import { omit } from 'lodash';
+import { redirect } from 'next/navigation'
 import { z } from 'zod';
 
+import { getCurrentUser, isCurrentUser } from '@/lib/auth';
 import { auth0Management } from '@/lib/auth0-management';
 import { prisma } from '@/lib/prisma';
 import { ServerActionResponse } from '@/lib/types';
 import { getFormattedDateTime } from '@/lib/utils';
 
 import { CreateUserSchema } from './schema';
-import { getCurrentUser } from '../actions';
 
-export async function createUserAction( data: z.infer<typeof CreateUserSchema> ): Promise<ServerActionResponse<User>> {
-  const currentUser = await getCurrentUser()
+export async function createUserAction(
+  data: z.infer<typeof CreateUserSchema>
+): Promise<ServerActionResponse<User>> {
+  const user = await getCurrentUser()
+  
+  if (!user) redirect('/auth/login')
+  
+  const hasAccess = await isCurrentUser(['ADMINISTRATOR', 'MANAGER']);
 
-  if (!['ADMINISTRATOR', 'MANAGER'].includes(currentUser.position)) {
+  if (!hasAccess) {
     return {
       status: 'error',
       heading: 'User Creation Failed',
@@ -24,15 +31,15 @@ export async function createUserAction( data: z.infer<typeof CreateUserSchema> )
   }
   
   try {
-    await auth0Management.users.create({
+    const auth0User = await auth0Management.users.create({
       connection: 'Username-Password-Authentication',
       name: data.name,
       email: data.email,
       password: data.password
     });
-    
-    await prisma.user.create({
-      data: omit(data, 'password')
+
+    const prismaUser = await prisma.user.create({
+      data: {...omit(data, 'password'), auth0Id: auth0User.data.user_id}
     });
 
     await prisma.log.create({
@@ -40,10 +47,10 @@ export async function createUserAction( data: z.infer<typeof CreateUserSchema> )
         model: 'USER',
         action: 'CREATE',
         status: 'SUCCESS',
-        message: `User ${data.name} was created on ${getFormattedDateTime()}`,
+        message: `User ${prismaUser.name} was created on ${getFormattedDateTime()}`,
         user: {
           connect: {
-            email: currentUser.email
+            id: user.id
           }
         }
       }
@@ -66,7 +73,7 @@ export async function createUserAction( data: z.infer<typeof CreateUserSchema> )
         error: errorMessage,
         user: {
           connect: {
-            email: currentUser.email
+            id: user.id
           }
         }
       }
@@ -77,19 +84,5 @@ export async function createUserAction( data: z.infer<typeof CreateUserSchema> )
       heading: 'User Creation Failed',
       message: 'There was an issue creating the user. Please try again.',
     };
-  }
-}
-
-export async function checkEmailExists(
-  email: string
-): Promise<boolean> {
-  try {
-    const user = await prisma.user.findUnique({
-      where: { email }
-    });
-
-    return user !== null;
-  } catch {
-    throw new Error('Failed to check email availability');
   }
 }

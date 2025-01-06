@@ -1,7 +1,8 @@
 import { $Enums } from '@prisma/client';
 import { z } from 'zod';
 
-import { checkEmailExists } from './action';
+import { checkEmailExists } from '../actions';
+
 
 export const CreateUserSchema = z.object({
   name: z
