@@ -10,7 +10,7 @@ export default async function Marketing() {
       {user ? (
         <div>
           <p className="text-lg">
-            Welcome, {user.name}!
+            Welcome back, {user.name}!
           </p>
           <Link href="/workspace">
             Go to Workspace

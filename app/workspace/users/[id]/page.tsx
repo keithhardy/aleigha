@@ -38,11 +38,11 @@ export default async function User({
             <p>Position</p>
             <p className="font-semibold">{user.position.toTitleCase()}</p>
             <p>Picture</p>
-            <p className="font-semibold">{user.picture || 'No picture'}</p>
+            <p className="font-semibold">{user.picture || '-'}</p>
             <p>Phone</p>
-            <p className="font-semibold">{user.phone || 'No phone'}</p>
+            <p className="font-semibold">{user.phone || '-'}</p>
             <p>Signature</p>
-            <p className="font-semibold">{user.signature || 'No signature'}</p>
+            <p className="font-semibold">{user.signature || '-'}</p>
           </div>
           <div>
             <Link href={`/workspace/users/${user.id}/delete`}>Delete</Link>

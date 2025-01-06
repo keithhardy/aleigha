@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { $Enums } from '@prisma/client';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -26,7 +27,6 @@ import { useToast } from '@/hooks/use-toast';
 
 import { createUserAction } from './action';
 import { CreateUserSchema } from './schema';
-import Link from 'next/link';
 
 export default function CreateUserForm() {
   const { toast } = useToast();
