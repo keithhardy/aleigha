@@ -26,6 +26,7 @@ import { useToast } from '@/hooks/use-toast';
 
 import { createUserAction } from './action';
 import { CreateUserSchema } from './schema';
+import Link from 'next/link';
 
 export default function CreateUserForm() {
   const { toast } = useToast();
@@ -56,7 +57,15 @@ export default function CreateUserForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto max-w-lg p-4 space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+        <div className='space-y-2'>
+          <h1 className="text-lg font-semibold">Users</h1>
+
+          <div className="flex flex-col space-y-2">
+            <Link href="/workspace/users">Back to Users</Link>
+          </div>
+        </div>
+        
         <FormField
           control={form.control}
           name="name"

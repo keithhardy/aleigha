@@ -2,7 +2,9 @@ import { notFound } from "next/navigation";
 
 import { prisma } from "@/lib/prisma";
 
-export default async function User({
+import DeleteUserForm from "./form";
+
+export default async function DeleteUser({
   params
 }: {
   params: Promise<{ id: string }>
@@ -19,7 +21,5 @@ export default async function User({
     notFound();
   }
   
-  return (
-    <p>{user.name}</p>
-  );
-};
+  return <DeleteUserForm user={user} />;
+}
