@@ -1,8 +1,15 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { getCurrentUser } from "@/lib/auth";
+
+import { WorkspaceSidebar } from "./components/workspace-sidebar";
+import { Separator } from "@/components/ui/separator";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { cookies } from "next/headers";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Bell, BellDot, PlusCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default async function WorkspaceLayout({
   children,
@@ -10,33 +17,49 @@ export default async function WorkspaceLayout({
   children: React.ReactNode;
 }>) {
   const user = await getCurrentUser();
-
   if (!user) redirect('/auth/login')
 
+  const cookieStore = await cookies()
+  const defaultOpen = cookieStore.get("sidebar:state")?.value === "true"
+
   return (
-    <div className="grid grid-cols-6 gap-4 p-4">
-      <aside className="col-span-1">
-        <nav className="flex flex-col space-y-2">
-          <section className="flex flex-col space-y-2">
-            <h2 className="text-lg font-semibold">Workspace</h2>
-            <Link className="nav-link" href="/workspace">Workspace</Link>
-            <Link className="nav-link" href="/workspace/users">Users</Link>
-            <Link className="nav-link" href="/workspace/logs">Logs</Link>
-          </section>
-
-          <section className="flex flex-col space-y-2">
-            <h2 className="text-lg font-semibold">{user.name.toTitleCase()}</h2>
-            <Link className="nav-link" href={`/workspace/users/${user.id}`}>Account</Link>
-            <a className="nav-link" href="/auth/logout">Logout</a>
-          </section>
-
-          <ThemeToggle />
-        </nav>
-      </aside>
-
-      <main className="col-span-5 flex flex-col space-y-4">
-        {children}
-      </main>
-    </div>
+    <SidebarProvider defaultOpen={defaultOpen}>
+      <WorkspaceSidebar />
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 justify-between">
+          <div className="flex items-center gap-2 px-4">
+            <SidebarTrigger className="-ml-1" />
+            <Separator orientation="vertical" className="mr-2 h-4" />
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem className="hidden md:block">
+                  <BreadcrumbLink href="#">
+                    Reiyen
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Workspace</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+          <div className="flex items-center gap-2 px-4">
+            <Button variant="ghost" size="icon" className="h-7 w-7">
+              <PlusCircle />
+            </Button>
+            <Separator orientation="vertical" className="h-4" />
+            <Button variant="ghost" size="icon" className="h-7 w-7">
+              <Bell />
+            </Button>
+            <Separator orientation="vertical" className="h-4" />
+            <ThemeToggle />
+          </div>
+        </header>
+        <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          {children}
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
