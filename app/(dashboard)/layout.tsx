@@ -3,15 +3,16 @@ import { redirect } from "next/navigation";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { getCurrentUser } from "@/lib/auth";
 
-import { WorkspaceSidebar } from "./components/workspace-sidebar";
+import { DashboardSidebar } from "./components/dashboard-sidebar";
 import { Separator } from "@/components/ui/separator";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { cookies } from "next/headers";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Bell, BellDot, PlusCircle } from "lucide-react";
+import { Bell, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-export default async function WorkspaceLayout({
+export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -24,7 +25,7 @@ export default async function WorkspaceLayout({
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
-      <WorkspaceSidebar />
+      <DashboardSidebar />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 justify-between">
           <div className="flex items-center gap-2 px-4">
@@ -33,13 +34,13 @@ export default async function WorkspaceLayout({
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Reiyen
+                  <BreadcrumbLink asChild>
+                    <Link href="/">Dashboard</Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Workspace</BreadcrumbPage>
+                  <BreadcrumbPage>Logs</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

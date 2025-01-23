@@ -7,7 +7,7 @@ export default async function User({
   params
 }: {
   params: Promise<{ id: string }>
-  }) {
+}) {
   const { id } = await params
 
   const user = await prisma.user.findUnique({
@@ -19,15 +19,15 @@ export default async function User({
   if (!user) {
     notFound();
   }
-  
+
   return (
     <div className='space-y-2'>
       <h1 className="text-lg font-semibold">User</h1>
 
       <div className="flex flex-col space-y-2">
-        <Link href="/workspace/users">Back to Users</Link>
+        <Link href="/users">Back to Users</Link>
       </div>
-      
+
       <div className="space-y-2">
         <div key={user.id} className="flex flex-col space-y-2">
           <div className="flex flex-col space-y-2">
@@ -45,7 +45,7 @@ export default async function User({
             <p className="font-semibold">{user.signature || '-'}</p>
           </div>
           <div>
-            <Link href={`/workspace/users/${user.id}/delete`}>Delete</Link>
+            <Link href={`/users/${user.id}/delete`}>Delete</Link>
           </div>
         </div>
       </div>
