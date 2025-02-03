@@ -62,10 +62,10 @@ export default function CreateUserForm() {
           <h1 className="text-lg font-semibold">Users</h1>
 
           <div className="flex flex-col space-y-2">
-            <Link href="/workspace/users">Back to Users</Link>
+            <Link href="/users">Back to Users</Link>
           </div>
         </div>
-        
+
         <FormField
           control={form.control}
           name="name"

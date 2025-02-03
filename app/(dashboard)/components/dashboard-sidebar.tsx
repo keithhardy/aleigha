@@ -16,31 +16,31 @@ import {
 import Link from "next/link"
 import Logo from "@/components/logo"
 
-const workspace = [
+const dashboard = [
   {
     title: "Dashboard",
-    url: "/workspace",
+    url: "/",
     icon: LayoutPanelLeft,
     isActive: true
   },
   {
     title: "Users",
-    url: "/workspace/users",
+    url: "/users",
     icon: Users,
   },
   {
     title: "Logs",
-    url: "/workspace/logs",
+    url: "/logs",
     icon: Logs,
   },
   {
     title: "Settings",
-    url: "#",
+    url: "/settings",
     icon: Settings2,
   },
 ]
 
-export async function WorkspaceSidebar() {
+export async function DashboardSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -65,10 +65,10 @@ export async function WorkspaceSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+          <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {workspace.map((item) => (
+              {dashboard.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild tooltip={item.title}>
                     <Link href={item.url}>
