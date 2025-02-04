@@ -28,7 +28,7 @@ export function ElectricalInstallationConditionReport() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: Schema) => console.log(data))} className='container m-auto p-4 space-y-4'>        <Card>
+      <form onSubmit={form.handleSubmit((data: Schema) => console.log(data))} className='space-y-4'>        <Card>
         <CardHeader>
           <CardTitle>Contractor</CardTitle>
         </CardHeader>
@@ -99,7 +99,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Client Reference Number</FormLabel>
                 <FormControl>
-                  <Input placeholder="REF123456" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -108,7 +108,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Trading Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="ABC Corp" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -117,7 +117,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Address</FormLabel>
                 <FormControl>
-                  <Input placeholder="456 Business Rd, London" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -126,7 +126,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Postcode</FormLabel>
                 <FormControl>
-                  <Input placeholder="EC1A 1BB" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -135,7 +135,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Telephone</FormLabel>
                 <FormControl>
-                  <Input placeholder="+44 9876 543210" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -152,7 +152,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Property Reference Number</FormLabel>
                 <FormControl>
-                  <Input placeholder="PR123456789" {...field} />
+                  <Input  {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -161,7 +161,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Occupier</FormLabel>
                 <FormControl>
-                  <Input placeholder="John Doe" {...field} />
+                  <Input  {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -170,7 +170,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Address</FormLabel>
                 <FormControl>
-                  <Input placeholder="789 Elm St, Hometown" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -179,7 +179,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Postcode</FormLabel>
                 <FormControl>
-                  <Input placeholder="HT1 4AB" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -188,7 +188,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Telephone</FormLabel>
                 <FormControl>
-                  <Input placeholder="+44 1234 567890" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -283,7 +283,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Description of Premises</FormLabel>
                 <FormControl>
-                  <Input placeholder="Dwelling" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -292,7 +292,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Estimated Age of Installation</FormLabel>
                 <FormControl>
-                  <Input placeholder="10 Years" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -310,7 +310,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Estimated Age of Alterations</FormLabel>
                 <FormControl>
-                  <Input placeholder="2 Years" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -327,7 +327,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>General Condition</FormLabel>
                 <FormControl>
-                  <Textarea className="min-h-[160px]" placeholder="General condition of the installation (in terms of electrical safety)" {...field} />
+                  <Textarea className="min-h-[160px]" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -336,7 +336,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Overall Assessment</FormLabel>
                 <FormControl>
-                  <Input placeholder="Satisfactory" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -380,7 +380,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Agreed With</FormLabel>
                 <FormControl>
-                  <Input placeholder="John Doe" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -428,7 +428,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Inspector&apos;s Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="John Doe" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -451,7 +451,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Qualified Supervisor&apos;s Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Jane Smith" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -482,7 +482,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>System Type and Earthing Arrangements</FormLabel>
                 <FormControl>
-                  <Input placeholder="TN-C-S" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -491,7 +491,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Supply Protective Device BS Number</FormLabel>
                 <FormControl>
-                  <Input placeholder="BS 1361" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -500,7 +500,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Supply Protective Device Type</FormLabel>
                 <FormControl>
-                  <Input placeholder="IIb" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -509,7 +509,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Rated Current of Supply Protective Device</FormLabel>
                 <FormControl>
-                  <Input placeholder="80 A" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -518,7 +518,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Number and Type of Live Conductors</FormLabel>
                 <FormControl>
-                  <Input placeholder="2 Wire Single Phase AC" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -536,7 +536,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Other Sources of Supply</FormLabel>
                 <FormControl>
-                  <Input placeholder="Photovoltaic System" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -545,7 +545,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Nominal Voltage Between Lines (U)</FormLabel>
                 <FormControl>
-                  <Input placeholder="N/A" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -554,7 +554,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Nominal Line Voltage to Earth (U0)</FormLabel>
                 <FormControl>
-                  <Input placeholder="230 V" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -563,7 +563,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Nominal Frequency (f)</FormLabel>
                 <FormControl>
-                  <Input placeholder="50 Hz" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -572,7 +572,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Prospective Fault Current (Ipf)</FormLabel>
                 <FormControl>
-                  <Input placeholder="2.0 KA" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -581,7 +581,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>External Earth Fault Loop Impedance (Ze)</FormLabel>
                 <FormControl>
-                  <Input placeholder="0.35 Ω" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -598,7 +598,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Maximum Demand</FormLabel>
                 <FormControl>
-                  <Input placeholder="100 A" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -625,7 +625,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Earth Electrode Type</FormLabel>
                 <FormControl>
-                  <Input placeholder="Rod" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -634,7 +634,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Earth Electrode Location</FormLabel>
                 <FormControl>
-                  <Input placeholder="Front Garden" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -643,7 +643,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Electrode Resistance to Earth</FormLabel>
                 <FormControl>
-                  <Input placeholder="10.0 Ω" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -652,7 +652,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Earthing Conductor Material</FormLabel>
                 <FormControl>
-                  <Input placeholder="Copper" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -661,7 +661,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Earthing Conductor CSA</FormLabel>
                 <FormControl>
-                  <Input placeholder="16 mm²" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -679,7 +679,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Main Protective Bonding Conductor Material</FormLabel>
                 <FormControl>
-                  <Input placeholder="Copper" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -688,7 +688,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Main Protective Bonding Conductor CSA</FormLabel>
                 <FormControl>
-                  <Input placeholder="10 mm²" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -706,7 +706,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Water Installation Pipes</FormLabel>
                 <FormControl>
-                  <Input placeholder="0.02 Ω" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -715,7 +715,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Gas Installation Pipes</FormLabel>
                 <FormControl>
-                  <Input placeholder="0.01 Ω" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -724,7 +724,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Structural Steel</FormLabel>
                 <FormControl>
-                  <Input placeholder="N/A" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -733,7 +733,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Oil Installation Pipes</FormLabel>
                 <FormControl>
-                  <Input placeholder="N/A" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -742,7 +742,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Lightning Protection</FormLabel>
                 <FormControl>
-                  <Input placeholder="N/A" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -751,7 +751,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Other</FormLabel>
                 <FormControl>
-                  <Input placeholder="N/A" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -760,7 +760,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Main Switch Photo</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -769,7 +769,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Main Switch Location</FormLabel>
                 <FormControl>
-                  <Input placeholder="Electric Cupboard" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -778,7 +778,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Main Switch BS Number</FormLabel>
                 <FormControl>
-                  <Input placeholder="BS 60898" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -787,7 +787,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Main Switch Type</FormLabel>
                 <FormControl>
-                  <Input placeholder="B" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -796,7 +796,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Main Switch Rating / Setting</FormLabel>
                 <FormControl>
-                  <Input placeholder="100 A" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -805,7 +805,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Main Switch Number of Poles</FormLabel>
                 <FormControl>
-                  <Input placeholder="2" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -814,7 +814,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Main Switch Current Rating</FormLabel>
                 <FormControl>
-                  <Input placeholder="100 A" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -823,7 +823,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Main Switch Voltage Rating</FormLabel>
                 <FormControl>
-                  <Input placeholder="230 V" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -832,7 +832,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Main Switch RCD Operating Current</FormLabel>
                 <FormControl>
-                  <Input placeholder="30 mA" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -841,7 +841,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Main Switch RCD Type</FormLabel>
                 <FormControl>
-                  <Input placeholder="A" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -850,7 +850,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Main Switch RCD Rated Time Delay</FormLabel>
                 <FormControl>
-                  <Input placeholder="120 mS" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -859,7 +859,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Main Switch RCD Measured Operating Time</FormLabel>
                 <FormControl>
-                  <Input placeholder="92 mS" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
