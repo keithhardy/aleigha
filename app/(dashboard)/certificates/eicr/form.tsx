@@ -35,67 +35,68 @@ export function ElectricalInstallationConditionReport() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: Schema) => console.log(data))} className='space-y-4'>        <Card>
-        <CardHeader>
-          <CardTitle>Contractor</CardTitle>
-        </CardHeader>
-        <CardContent className='space-y-2'>
-          <FormField control={form.control} name="contractorTradingName" render={({ field }) => (
-            <FormItem>
-              <FormLabel>Trading Name</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )} />
-          <FormField control={form.control} name="contractorAddress" render={({ field }) => (
-            <FormItem>
-              <FormLabel>Address</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )} />
-          <FormField control={form.control} name="contractorPhone" render={({ field }) => (
-            <FormItem>
-              <FormLabel>Telephone</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )} />
-          <FormField control={form.control} name="contractorEmail" render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )} />
-          <FormField control={form.control} name="contractorGoverningBody" render={({ field }) => (
-            <FormItem>
-              <FormLabel>Governing Body</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )} />
-          <FormField control={form.control} name="contractorGoverningBodyNumber" render={({ field }) => (
-            <FormItem>
-              <FormLabel>Governing Body Number</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )} />
-        </CardContent>
-      </Card>
+      <form onSubmit={form.handleSubmit((data: Schema) => console.log(data))} className='space-y-4'>
+        <Card>
+          <CardHeader>
+            <CardTitle>Contractor</CardTitle>
+          </CardHeader>
+          <CardContent className='space-y-2'>
+            <FormField control={form.control} name="contractorTradingName" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Trading Name</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
+            <FormField control={form.control} name="contractorAddress" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Address</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
+            <FormField control={form.control} name="contractorPhone" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Telephone</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
+            <FormField control={form.control} name="contractorEmail" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
+            <FormField control={form.control} name="contractorGoverningBody" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Governing Body</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
+            <FormField control={form.control} name="contractorGoverningBodyNumber" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Governing Body Number</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
+          </CardContent>
+        </Card>
 
         <Card>
           <CardHeader>
