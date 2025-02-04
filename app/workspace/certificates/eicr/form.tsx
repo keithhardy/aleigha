@@ -1,6 +1,6 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
+import { useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
@@ -16,6 +16,8 @@ import { inspectionItems } from './components/inspection-items'
 import { RadioGroupComponent } from './components/radio-group'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { observations } from './components/observations'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 export function ElectricalInstallationConditionReport() {
   const form = useForm<z.infer<typeof schema>>({
@@ -23,71 +25,71 @@ export function ElectricalInstallationConditionReport() {
     defaultValues: DefaultValues,
   })
 
+  const { fields, append, remove } = useFieldArray({ control: form.control, name: 'observations' })
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: Schema) => console.log(data))} className='container m-auto p-4 space-y-4'>
-        <Card>
-          <CardHeader>
-            <CardTitle>Contractor</CardTitle>
-            <CardDescription>Enter contractor details.</CardDescription>
-          </CardHeader>
-          <CardContent className='space-y-2'>
-            <FormField control={form.control} name="contractorTradingName" render={({ field }) => (
-              <FormItem>
-                <FormLabel>Trading Name</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )} />
-            <FormField control={form.control} name="contractorAddress" render={({ field }) => (
-              <FormItem>
-                <FormLabel>Address</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )} />
-            <FormField control={form.control} name="contractorPhone" render={({ field }) => (
-              <FormItem>
-                <FormLabel>Telephone</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )} />
-            <FormField control={form.control} name="contractorEmail" render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )} />
-            <FormField control={form.control} name="contractorGoverningBody" render={({ field }) => (
-              <FormItem>
-                <FormLabel>Governing Body</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )} />
-            <FormField control={form.control} name="contractorGoverningBodyNumber" render={({ field }) => (
-              <FormItem>
-                <FormLabel>Governing Body Number</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )} />
-          </CardContent>
-        </Card>
+      <form onSubmit={form.handleSubmit((data: Schema) => console.log(data))} className='container m-auto p-4 space-y-4'>        <Card>
+        <CardHeader>
+          <CardTitle>Contractor</CardTitle>
+        </CardHeader>
+        <CardContent className='space-y-2'>
+          <FormField control={form.control} name="contractorTradingName" render={({ field }) => (
+            <FormItem>
+              <FormLabel>Trading Name</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )} />
+          <FormField control={form.control} name="contractorAddress" render={({ field }) => (
+            <FormItem>
+              <FormLabel>Address</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )} />
+          <FormField control={form.control} name="contractorPhone" render={({ field }) => (
+            <FormItem>
+              <FormLabel>Telephone</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )} />
+          <FormField control={form.control} name="contractorEmail" render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )} />
+          <FormField control={form.control} name="contractorGoverningBody" render={({ field }) => (
+            <FormItem>
+              <FormLabel>Governing Body</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )} />
+          <FormField control={form.control} name="contractorGoverningBodyNumber" render={({ field }) => (
+            <FormItem>
+              <FormLabel>Governing Body Number</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )} />
+        </CardContent>
+      </Card>
 
         <Card>
           <CardHeader>
@@ -465,24 +467,6 @@ export function ElectricalInstallationConditionReport() {
                     value={field.value ? new Date(field.value).toISOString().split("T")[0] : ""}
                     onChange={(e) => field.onChange(e.target.value ? new Date(e.target.value) : null)}
                   />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )} />
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Observations</CardTitle>
-          </CardHeader>
-          <CardContent className='space-y-2'>
-            {/* Add useFieldArray to append observations  */}
-            <FormField control={form.control} name="observations" render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  {/* <Input type="hidden" {...field} /> */}
-                  <p>TODO: Observations</p>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -881,6 +865,67 @@ export function ElectricalInstallationConditionReport() {
                 <FormMessage />
               </FormItem>
             )} />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Observations</CardTitle>
+          </CardHeader>
+          <CardContent className='space-y-2'>
+            <div className="grid grid-cols-9 gap-2">
+              <FormLabel>Item Number</FormLabel>
+              <FormLabel className="col-span-4">Details</FormLabel>
+              <FormLabel>Code</FormLabel>
+              <FormLabel className="col-span-2">Location</FormLabel>
+            </div>
+
+            {fields.map((field, index) => (
+              <div key={field.id} className="grid grid-cols-9 items-end gap-2">
+                <FormField control={form.control} name={`observations.${index}.observationItemNumber`} render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={form.control} name={`observations.${index}.observationDetails`} render={({ field }) => (
+                  <FormItem className="col-span-4">
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={form.control} name={`observations.${index}.observationCode`} render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={form.control} name={`observations.${index}.observationLocation`} render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <Button type="button" onClick={() => remove(index)} className="ml-2">Delete</Button>
+              </div>
+            ))}
+
+            <Button type="button" onClick={() => append({
+              observationItemNumber: '',
+              observationDetails: '',
+              observationCode: '',
+              observationLocation: '',
+            })}>
+              Add
+            </Button>
           </CardContent>
         </Card>
 
