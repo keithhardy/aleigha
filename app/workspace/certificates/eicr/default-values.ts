@@ -1,4 +1,7 @@
-export const DefaultValues = {
+import { z } from "zod";
+import { schema } from "./schema";
+
+export const DefaultValues: z.infer<typeof schema> = {
   contractorTradingName: "",
   contractorAddress: "",
   contractorPhone: "",
@@ -19,11 +22,11 @@ export const DefaultValues = {
   propertyTelephone: "",
 
   purpose: "",
-  startDate: "",
-  endDate: "",
+  startDate: new Date(),
+  endDate: new Date(),
   recordsAvailable: false,
   previousReportAvailable: false,
-  previousReportDate: "",
+  previousReportDate: new Date(),
 
   descriptionOfPremises: "",
   estimatedAgeOfElectricalInstallation: "",
@@ -41,12 +44,12 @@ export const DefaultValues = {
 
   inspectorsName: "",
   inspectorsSignature: "",
-  inspectorsSignatureDate: "",
-  retestDate: "",
+  inspectorsSignatureDate: new Date(),
+  retestDate: new Date(),
   reasonForRecommendation: "",
   qualifiedSupervisorsName: "",
   qualifiedSupervisorsSignature: "",
-  qualifiedSupervisorsSignatureDate: "",
+  qualifiedSupervisorsSignatureDate: new Date(),
 
   observations: [
     {

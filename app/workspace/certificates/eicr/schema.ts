@@ -21,11 +21,11 @@ export const schema = z.object({
   propertyTelephone: z.string(),
 
   purpose: z.string(),
-  startDate: z.string(),
-  endDate: z.string(),
+  startDate: z.date(),
+  endDate: z.date(),
   recordsAvailable: z.boolean(),
   previousReportAvailable: z.boolean(),
-  previousReportDate: z.string(),
+  previousReportDate: z.date(),
 
   descriptionOfPremises: z.string(),
   estimatedAgeOfElectricalInstallation: z.string(),
@@ -43,12 +43,12 @@ export const schema = z.object({
 
   inspectorsName: z.string(),
   inspectorsSignature: z.string(),
-  inspectorsSignatureDate: z.string(),
-  retestDate: z.string(),
+  inspectorsSignatureDate: z.date(),
+  retestDate: z.date(),
   reasonForRecommendation: z.string(),
   qualifiedSupervisorsName: z.string(),
   qualifiedSupervisorsSignature: z.string(),
-  qualifiedSupervisorsSignatureDate: z.string(),
+  qualifiedSupervisorsSignatureDate: z.date(),
 
   observations: z.array(
     z.object({
