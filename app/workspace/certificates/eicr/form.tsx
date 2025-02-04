@@ -25,7 +25,7 @@ export function ElectricalInstallationConditionReport() {
     defaultValues: DefaultValues,
   })
 
-  const { fields, append, remove } = useFieldArray({ control: form.control, name: 'observations' })
+  const { fields: observationsFields, append: appendObservation, remove: removeObservation } = useFieldArray({ control: form.control, name: 'observations' })
 
   return (
     <Form {...form}>
@@ -880,7 +880,7 @@ export function ElectricalInstallationConditionReport() {
               <FormLabel className="col-span-2">Location</FormLabel>
             </div>
 
-            {fields.map((field, index) => (
+            {observationsFields.map((field, index) => (
               <div key={field.id} className="grid grid-cols-9 items-end gap-2">
                 <FormField control={form.control} name={`observations.${index}.observationItemNumber`} render={({ field }) => (
                   <FormItem>
@@ -914,11 +914,11 @@ export function ElectricalInstallationConditionReport() {
                     <FormMessage />
                   </FormItem>
                 )} />
-                <Button type="button" onClick={() => remove(index)} className="ml-2">Delete</Button>
+                <Button type="button" onClick={() => removeObservation(index)} className="ml-2">Delete</Button>
               </div>
             ))}
 
-            <Button type="button" onClick={() => append({
+            <Button type="button" onClick={() => appendObservation({
               observationItemNumber: '',
               observationDetails: '',
               observationCode: '',
