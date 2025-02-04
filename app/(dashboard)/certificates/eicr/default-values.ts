@@ -254,5 +254,5 @@ export const DefaultValues: z.infer<typeof schema> = {
 
   item_10_0: "na" as const,
 
-  db: [],
+  dbs: [],
 };

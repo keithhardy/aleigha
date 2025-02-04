@@ -16,7 +16,6 @@ import { inspectionItems } from './components/inspection-items'
 import { RadioGroupComponent } from './components/radio-group'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { observations } from './components/observations'
 
 export function ElectricalInstallationConditionReport() {
   const form = useForm<z.infer<typeof schema>>({
@@ -24,7 +23,15 @@ export function ElectricalInstallationConditionReport() {
     defaultValues: DefaultValues,
   })
 
-  const { fields: observationsFields, append: appendObservation, remove: removeObservation } = useFieldArray({ control: form.control, name: 'observations' })
+  const observations = useFieldArray({
+    control: form.control,
+    name: 'observations'
+  })
+
+  const dbs = useFieldArray({
+    control: form.control,
+    name: 'dbs'
+  })
 
   return (
     <Form {...form}>
@@ -879,7 +886,7 @@ export function ElectricalInstallationConditionReport() {
               <FormLabel className="col-span-2">Location</FormLabel>
             </div>
 
-            {observationsFields.map((field, index) => (
+            {observations.fields.map((field, index) => (
               <div key={field.id} className="grid grid-cols-9 items-end gap-2">
                 <FormField control={form.control} name={`observations.${index}.observationItemNumber`} render={({ field }) => (
                   <FormItem>
@@ -913,11 +920,11 @@ export function ElectricalInstallationConditionReport() {
                     <FormMessage />
                   </FormItem>
                 )} />
-                <Button type="button" onClick={() => removeObservation(index)} className="ml-2">Delete</Button>
+                <Button type="button" onClick={() => observations.remove(index)} className="ml-2">Delete</Button>
               </div>
             ))}
 
-            <Button type="button" onClick={() => appendObservation({
+            <Button type="button" onClick={() => observations.append({
               observationItemNumber: '',
               observationDetails: '',
               observationCode: '',
@@ -957,16 +964,6 @@ export function ElectricalInstallationConditionReport() {
             <CardTitle>Distribution Boards</CardTitle>
           </CardHeader>
           <CardContent className='space-y-2'>
-            {/* Add useFieldArray to append DB and Circuits  */}
-            <FormField control={form.control} name="db" render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  {/* <Input type="hidden" {...field} /> */}
-                  <p>TODO: DB and Circuits</p>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )} />
           </CardContent>
         </Card>
 

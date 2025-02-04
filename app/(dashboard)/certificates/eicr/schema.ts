@@ -253,7 +253,7 @@ export const schema = z.object({
 
   item_10_0: z.enum(["ok", "c1", "c2", "c3", "na", "lim", "fi", "r"] as const),
 
-  db: z.array(
+  dbs: z.array(
     z.object({
       dbDesignation: z.string(),
       dbLocation: z.string(),
