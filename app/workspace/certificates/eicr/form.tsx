@@ -17,7 +17,6 @@ import { RadioGroupComponent } from './components/radio-group'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { observations } from './components/observations'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 export function ElectricalInstallationConditionReport() {
   const form = useForm<z.infer<typeof schema>>({
