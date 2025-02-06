@@ -14,9 +14,9 @@ export default function Dbs({ control }: { control: Control<any> }) {
     <>
       <div className="grid grid-cols-9 gap-2">
         <FormLabel>Designation</FormLabel>
-        <FormLabel className="col-span-4">Location</FormLabel>
+        <FormLabel className="col-span-3">Location</FormLabel>
         <FormLabel>Zdb</FormLabel>
-        <FormLabel className="col-span-2">Ipf</FormLabel>
+        <FormLabel>Ipf</FormLabel>
       </div>
 
       {dbs.fields.map((field, index) => (

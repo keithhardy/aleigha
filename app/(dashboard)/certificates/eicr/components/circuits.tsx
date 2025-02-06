@@ -13,7 +13,7 @@ export default function Circuits({ index, control }: { index: number, control: C
     <div className="col-span-9 p-4 space-y-2">
       <div className="grid grid-cols-9 gap-2">
         <FormLabel>Number</FormLabel>
-        <FormLabel className="col-span-7">Description</FormLabel>
+        <FormLabel className="col-span-5">Description</FormLabel>
       </div>
 
       {circuits.fields.map((circuit, circuitIndex) => (
