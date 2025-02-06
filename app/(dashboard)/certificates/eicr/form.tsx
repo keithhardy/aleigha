@@ -36,24 +36,6 @@ export function ElectricalInstallationConditionReport() {
       <form onSubmit={form.handleSubmit((data: Schema) => console.log(data))} className='space-y-4'>
         <Card>
           <CardHeader>
-            <CardTitle>Distribution Boards</CardTitle>
-          </CardHeader>
-          <CardContent className='space-y-2'>
-            <Dbs control={form.control} />
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Observations</CardTitle>
-          </CardHeader>
-          <CardContent className='space-y-2'>
-            <Observations control={form.control} />
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
             <CardTitle>Contractor</CardTitle>
           </CardHeader>
           <CardContent className='space-y-2'>
@@ -893,6 +875,15 @@ export function ElectricalInstallationConditionReport() {
 
         <Card>
           <CardHeader>
+            <CardTitle>Observations</CardTitle>
+          </CardHeader>
+          <CardContent className='space-y-2'>
+            <Observations control={form.control} />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
             <CardTitle>Schedule of Inspections</CardTitle>
           </CardHeader>
           <CardContent className='space-y-2'>
@@ -912,6 +903,15 @@ export function ElectricalInstallationConditionReport() {
                 )}
               />
             ))}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Distribution Boards</CardTitle>
+          </CardHeader>
+          <CardContent className='space-y-2'>
+            <Dbs control={form.control} />
           </CardContent>
         </Card>
 
