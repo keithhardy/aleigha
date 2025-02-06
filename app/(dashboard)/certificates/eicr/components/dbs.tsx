@@ -30,7 +30,7 @@ export default function Dbs({ control }: { control: Control<any> }) {
             </FormItem>
           )} />
           <FormField control={control} name={`dbs.${index}.dbLocation`} render={({ field }) => (
-            <FormItem className="col-span-4">
+            <FormItem className="col-span-3">
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -46,7 +46,7 @@ export default function Dbs({ control }: { control: Control<any> }) {
             </FormItem>
           )} />
           <FormField control={control} name={`dbs.${index}.dbIpf`} render={({ field }) => (
-            <FormItem className="col-span-2">
+            <FormItem>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -54,6 +54,8 @@ export default function Dbs({ control }: { control: Control<any> }) {
             </FormItem>
           )} />
           <Button type="button" onClick={() => dbs.remove(index)} className="ml-2">Delete</Button>
+          <Button type="button" onClick={() => dbs.move(index, index - 1)}>Move Up</Button>
+          <Button type="button" onClick={() => dbs.move(index, index + 1)}>Move Down</Button>
 
           <Circuits control={control} index={index} />
         </div>

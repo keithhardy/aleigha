@@ -34,7 +34,7 @@ export default function Circuits({ index, control }: { index: number, control: C
             control={control}
             name={`dbs.${index}.dbCircuits.${circuitIndex}.circuitDescription`}
             render={({ field }) => (
-              <FormItem className="col-span-7">
+              <FormItem className="col-span-5">
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -42,12 +42,9 @@ export default function Circuits({ index, control }: { index: number, control: C
               </FormItem>
             )}
           />
-          <Button
-            type="button"
-            onClick={() => circuits.remove(circuitIndex)}
-          >
-            Delete
-          </Button>
+          <Button type="button" onClick={() => circuits.remove(circuitIndex)}>Delete</Button>
+          <Button type="button" onClick={() => circuits.move(circuitIndex, circuitIndex - 1)}>Move Up</Button>
+          <Button type="button" onClick={() => circuits.move(circuitIndex, circuitIndex + 1)}>Move Down</Button>
         </div>
       ))}
 
