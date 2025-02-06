@@ -1,7 +1,6 @@
 'use client'
 
-import { useFieldArray, useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { useForm } from 'react-hook-form'
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
@@ -16,24 +15,36 @@ import { inspectionItems } from './components/inspection-items'
 import { RadioGroupComponent } from './components/radio-group'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import Circuits from './components/circuits'
 import Dbs from './components/dbs'
 import Observations from './components/observations'
+import EICRDocument from './components/template'
+import { pdf } from '@react-pdf/renderer'
 
 export function ElectricalInstallationConditionReport() {
-  const form = useForm<z.infer<typeof schema>>({
+  const form = useForm<Schema>({
     resolver: zodResolver(schema),
     defaultValues: DefaultValues,
   })
 
-  const observations = useFieldArray({
-    control: form.control,
-    name: 'observations'
-  })
+  const handleEICRDownload = async (data: Schema) => {
+    const blob = await pdf(<EICRDocument data={data} />).toBlob();
+
+    const link = Object.assign(document.createElement('a'), {
+      href: URL.createObjectURL(blob),
+      download: `${data.propertyAddress}-${Date.now()}`
+    });
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
+  };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: Schema) => console.log(data))} className='space-y-4'>
+      <form onSubmit={form.handleSubmit(handleEICRDownload)} className='space-y-4'>
+        <Button type='submit'>Submit</Button>
+
         <Card>
           <CardHeader>
             <CardTitle>Contractor</CardTitle>
@@ -891,7 +902,7 @@ export function ElectricalInstallationConditionReport() {
               <FormField
                 key={item.id}
                 control={form.control}
-                name={item.id as keyof z.infer<typeof schema>}
+                name={item.id as keyof Schema}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{item.item + ' - ' + item.label}</FormLabel>
