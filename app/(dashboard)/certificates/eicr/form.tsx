@@ -15,7 +15,10 @@ import { SignatureInput } from './components/signature-input'
 import { inspectionItems } from './components/inspection-items'
 import { RadioGroupComponent } from './components/radio-group'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import Circuits from './components/circuits'
+import Dbs from './components/dbs'
+import Observations from './components/observations'
 
 export function ElectricalInstallationConditionReport() {
   const form = useForm<z.infer<typeof schema>>({
@@ -28,18 +31,6 @@ export function ElectricalInstallationConditionReport() {
     name: 'observations'
   })
 
-  const dbs = useFieldArray({
-    control: form.control,
-    name: 'dbs'
-  })
-
-  const circuits = dbs.fields.map((_, index) =>
-    useFieldArray({
-      control: form.control,
-      name: `dbs.${index}.dbCircuits`,
-    })
-  );
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit((data: Schema) => console.log(data))} className='space-y-4'>
@@ -48,184 +39,7 @@ export function ElectricalInstallationConditionReport() {
             <CardTitle>Distribution Boards</CardTitle>
           </CardHeader>
           <CardContent className='space-y-2'>
-            <div className="grid grid-cols-9 gap-2">
-              <FormLabel>Designation</FormLabel>
-              <FormLabel className="col-span-4">Location</FormLabel>
-              <FormLabel>Zdb</FormLabel>
-              <FormLabel className="col-span-2">Ipf</FormLabel>
-            </div>
-
-            {dbs.fields.map((field, index) => (
-              <div key={field.id} className="grid grid-cols-9 items-end gap-2">
-                <FormField control={form.control} name={`dbs.${index}.dbDesignation`} render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-                <FormField control={form.control} name={`dbs.${index}.dbLocation`} render={({ field }) => (
-                  <FormItem className="col-span-4">
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-                <FormField control={form.control} name={`dbs.${index}.dbZdb`} render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-                <FormField control={form.control} name={`dbs.${index}.dbIpf`} render={({ field }) => (
-                  <FormItem className="col-span-2">
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-                <Button type="button" onClick={() => dbs.remove(index)} className="ml-2">Delete</Button>
-
-                <div className='col-span-9 p-4 space-y-2'>
-                  <div className="grid grid-cols-9 gap-2">
-                    <FormLabel>Number</FormLabel>
-                    <FormLabel className="col-span-7">Description</FormLabel>
-                  </div>
-
-                  {circuits[index].fields.map((circuit, circuitIndex) => (
-                    <div key={circuit.id} className="grid grid-cols-9 items-end gap-2">
-                      <FormField control={form.control} name={`dbs.${index}.dbCircuits.${circuitIndex}.circuitNumber`} render={({ field }) => (
-                        <FormItem>
-                          <FormControl>
-                            <Input {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )} />
-                      <FormField control={form.control} name={`dbs.${index}.dbCircuits.${circuitIndex}.circuitDescription`} render={({ field }) => (
-                        <FormItem className="col-span-7">
-                          <FormControl>
-                            <Input {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )} />
-                      <Button type="button" onClick={() => circuits[index].remove(circuitIndex)}>Delete</Button>
-                    </div>
-                  ))}
-
-                  <Button type="button" onClick={() => circuits[index].append({
-                    circuitNumber: '',
-                    circuitDescription: '',
-                    circuitTypeOfWiring: '',
-                    circuitReferenceMethod: '',
-                    circuitNumberOfPoints: '',
-                    circuitConductorLiveCSA: '',
-                    circuitConductorCPCCSA: '',
-                    circuitMaxDisconnectionTime: '',
-                    circuitOCPDBSNumber: '',
-                    circuitOCPDType: '',
-                    circuitOCPDRating: '',
-                    circuitOCPDShortCircuitCapacity: '',
-                    circuitOCPDMaxPermittedZs: '',
-                    circuitRCDBSNumber: '',
-                    circuitRCDType: '',
-                    circuitRCDRating: '',
-                    circuitRCDOperatingCurrent: '',
-                    circuitContinuityr1: '',
-                    circuitContinuityrn: '',
-                    circuitContinuityr2: '',
-                    circuitContinuityR1R2: '',
-                    circuitContinuityR2: '',
-                    circuitInsulationResistanceLiveLive: '',
-                    circuitInsulationResistanceLiveEarth: '',
-                    circuitInsulationResistanceTestVoltage: '',
-                    circuitPolarity: true,
-                    circuitMaximumZs: '',
-                    circuitRCDOperatingTime: '',
-                    circuitRCDOTestButton: true,
-                    circuitAFDDOTestButton: true,
-                    circuitComments: '',
-                    circuitsEquipmentVunerableToDamage: '',
-                  })}>
-                    Add Circuit
-                  </Button>
-                </div>
-              </div>
-            ))}
-
-            <Button type="button" onClick={() => dbs.append({
-              dbDesignation: '',
-              dbLocation: '',
-              dbZdb: '',
-              dbIpf: '',
-              dbConfirmationOfSupplyPolarity: true,
-              dbPhaseSequenceConfirmed: true,
-              dbSPDType: '',
-              dbSPDStatusIndicator: true,
-              dbSupplyFrom: '',
-              dbOCPDBSnumber: '',
-              dbOCPDType: '',
-              dbOCPDNominalVoltage: '',
-              dbOCPDRating: '',
-              dbOCPDNumberOfPhases: '',
-              dbRCDBSNumber: '',
-              dbRCDType: '',
-              dbRCDOperatingCurrent: '',
-              dbRCDNumberOfPoles: '',
-              dbRCDOperatingTime: '',
-              testedByName: '',
-              testedByPosition: '',
-              testedBySignature: '',
-              testedBySignatureDate: '',
-              testInstrumentMultiFunctionSerialNumber: '',
-              testInstrumentContinuitySerialNumber: '',
-              testInstrumentInsulationResistanceSerialNumber: '',
-              testInstrumentEarthFaultLoopImpedanceSerialNumber: '',
-              testInstrumentEarthElectrodeSerialNumber: '',
-              testInstrumentRCDSerialNumber: '',
-              dbCircuits: [{
-                circuitNumber: '',
-                circuitDescription: '',
-                circuitTypeOfWiring: '',
-                circuitReferenceMethod: '',
-                circuitNumberOfPoints: '',
-                circuitConductorLiveCSA: '',
-                circuitConductorCPCCSA: '',
-                circuitMaxDisconnectionTime: '',
-                circuitOCPDBSNumber: '',
-                circuitOCPDType: '',
-                circuitOCPDRating: '',
-                circuitOCPDShortCircuitCapacity: '',
-                circuitOCPDMaxPermittedZs: '',
-                circuitRCDBSNumber: '',
-                circuitRCDType: '',
-                circuitRCDRating: '',
-                circuitRCDOperatingCurrent: '',
-                circuitContinuityr1: '',
-                circuitContinuityrn: '',
-                circuitContinuityr2: '',
-                circuitContinuityR1R2: '',
-                circuitContinuityR2: '',
-                circuitInsulationResistanceLiveLive: '',
-                circuitInsulationResistanceLiveEarth: '',
-                circuitInsulationResistanceTestVoltage: '',
-                circuitPolarity: true,
-                circuitMaximumZs: '',
-                circuitRCDOperatingTime: '',
-                circuitRCDOTestButton: true,
-                circuitAFDDOTestButton: true,
-                circuitComments: '',
-                circuitsEquipmentVunerableToDamage: '',
-              }]
-            })}>
-              Add
-            </Button>
+            <Dbs control={form.control} />
           </CardContent>
         </Card>
 
@@ -234,59 +48,7 @@ export function ElectricalInstallationConditionReport() {
             <CardTitle>Observations</CardTitle>
           </CardHeader>
           <CardContent className='space-y-2'>
-            <div className="grid grid-cols-9 gap-2">
-              <FormLabel>Item Number</FormLabel>
-              <FormLabel className="col-span-4">Details</FormLabel>
-              <FormLabel>Code</FormLabel>
-              <FormLabel className="col-span-2">Location</FormLabel>
-            </div>
-
-            {observations.fields.map((field, index) => (
-              <div key={field.id} className="grid grid-cols-9 items-end gap-2">
-                <FormField control={form.control} name={`observations.${index}.observationItemNumber`} render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-                <FormField control={form.control} name={`observations.${index}.observationDetails`} render={({ field }) => (
-                  <FormItem className="col-span-4">
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-                <FormField control={form.control} name={`observations.${index}.observationCode`} render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-                <FormField control={form.control} name={`observations.${index}.observationLocation`} render={({ field }) => (
-                  <FormItem className="col-span-2">
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-                <Button type="button" onClick={() => observations.remove(index)} className="ml-2">Delete</Button>
-              </div>
-            ))}
-
-            <Button type="button" onClick={() => observations.append({
-              observationItemNumber: '',
-              observationDetails: '',
-              observationCode: '',
-              observationLocation: '',
-            })}>
-              Add
-            </Button>
+            <Observations control={form.control} />
           </CardContent>
         </Card>
 
