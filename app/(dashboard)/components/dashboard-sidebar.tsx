@@ -21,7 +21,6 @@ const dashboard = [
     title: "Dashboard",
     url: "/",
     icon: LayoutPanelLeft,
-    isActive: true
   },
   {
     title: "Logs",
@@ -47,11 +46,6 @@ const dashboard = [
     title: "Users",
     url: "/users",
     icon: Users,
-  },
-  {
-    title: "Settings",
-    url: "/settings",
-    icon: Settings2,
   },
 ]
 
@@ -97,7 +91,19 @@ export async function DashboardSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter />
+
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild tooltip='Settings'>
+              <Link href='/settings'>
+                <Settings2 />
+                <span>Settings</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )

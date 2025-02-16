@@ -6,7 +6,6 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { getCurrentUser } from "@/lib/auth";
 
-import { AddMenu } from "./components/add-menu";
 import { DashboardBreadcrumb } from "./components/breadcrumb";
 import { DashboardSidebar } from "./components/dashboard-sidebar";
 import { MessageMenu } from "./components/message-menu";
@@ -35,8 +34,6 @@ export default async function DashboardLayout({
             <DashboardBreadcrumb />
           </div>
           <div className="flex items-center gap-2 px-4">
-            <AddMenu />
-            <Separator orientation="vertical" className="h-4" />
             <NotificationsMenu />
             <Separator orientation="vertical" className="h-4" />
             <MessageMenu />

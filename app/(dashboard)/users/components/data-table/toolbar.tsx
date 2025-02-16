@@ -1,6 +1,6 @@
 'use client';
 
-import { Cross2Icon } from '@radix-ui/react-icons';
+import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 
 import { Button } from '@/components/ui/button';
@@ -36,7 +36,14 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
           </Button>
         )}
       </div>
-      <ViewOptions table={table} />
+
+      <div className="flex items-center space-x-2">
+        <Button size="sm">
+          Create
+          <PlusCircledIcon />
+        </Button>
+        <ViewOptions table={table} />
+      </div>
     </div>
   );
 }
