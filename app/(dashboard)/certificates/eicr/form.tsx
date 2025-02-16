@@ -1,24 +1,25 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { pdf } from '@react-pdf/renderer'
 import { useForm } from 'react-hook-form'
 
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { zodResolver } from '@hookform/resolvers/zod'
-
-import { DefaultValues } from './default-values'
-import { Schema, schema } from './schema'
-import { Textarea } from '@/components/ui/textarea'
-import { Switch } from '@/components/ui/switch'
-import { SignatureInput } from './components/signature-input'
-import { inspectionItems } from './components/inspection-items'
-import { RadioGroupComponent } from './components/radio-group'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Switch } from '@/components/ui/switch'
+import { Textarea } from '@/components/ui/textarea'
+
 import Dbs from './components/dbs'
+import { inspectionItems } from './components/inspection-items'
 import Observations from './components/observations'
+import { RadioGroupComponent } from './components/radio-group'
+import { SignatureInput } from './components/signature-input'
 import EICRDocument from './components/template'
-import { pdf } from '@react-pdf/renderer'
+import { DefaultValues } from './default-values'
+import { Schema, schema } from './schema'
+
 
 export function ElectricalInstallationConditionReport() {
   const form = useForm<Schema>({

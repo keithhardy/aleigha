@@ -1,5 +1,7 @@
 import { LayoutPanelLeft, Users, Settings2, Logs } from "lucide-react"
+import Link from "next/link"
 
+import Logo from "@/components/logo"
 import {
   Sidebar,
   SidebarContent,
@@ -13,8 +15,6 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
-import Link from "next/link"
-import Logo from "@/components/logo"
 
 const dashboard = [
   {

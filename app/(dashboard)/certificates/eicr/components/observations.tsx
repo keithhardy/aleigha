@@ -1,7 +1,8 @@
+import { Control, useFieldArray } from "react-hook-form";
+
 import { Button } from "@/components/ui/button";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Control, useFieldArray } from "react-hook-form";
 
 export default function Observations({ control }: { control: Control<any> }) {
   const observations = useFieldArray({

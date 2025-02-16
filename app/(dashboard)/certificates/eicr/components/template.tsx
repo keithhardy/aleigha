@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Document,
   Page,
@@ -6,6 +5,8 @@ import {
   View,
   StyleSheet,
 } from '@react-pdf/renderer';
+import React from 'react';
+
 import { Schema } from '../schema';
 
 const styles = StyleSheet.create({

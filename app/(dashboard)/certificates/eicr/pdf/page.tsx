@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { pdf } from '@react-pdf/renderer';
+import { useState, useEffect } from 'react';
+
 import EICRDocument from '../components/template';
 import { DefaultValues } from '../default-values';
 
