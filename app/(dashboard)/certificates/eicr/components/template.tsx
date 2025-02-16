@@ -13,25 +13,6 @@ const styles = StyleSheet.create({
   page: {
     fontSize: 12,
   },
-  pageHeader: {
-    fontSize: 16,
-    fontFamily: 'Helvetica',
-    fontWeight: 'bold',
-    padding: '16pt'
-  },
-  flexRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    flexGrow: 1
-  },
-  flexColumn: {
-    padding: '16pt',
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    flexGrow: 1,
-  }
 });
 
 export default function EICRDocument({ data }: { data: Schema }) {
@@ -40,11 +21,11 @@ export default function EICRDocument({ data }: { data: Schema }) {
       <Page orientation='landscape' style={styles.page}>
         <View style={{ height: '100%', display: 'flex' }}>
           <View>
-            <Text style={styles.pageHeader}>Electrical Installation Condition Report</Text>
+            <Text>Electrical Installation Condition Report</Text>
           </View>
 
-          <View style={styles.flexRow}>
-            <View style={[styles.flexColumn, { backgroundColor: 'grey' }]}>
+          <View>
+            <View>
               <View>
                 <Text>Contractor Details</Text>
                 <Text>Trading Name: {data.contractorTradingName}</Text>
@@ -74,7 +55,7 @@ export default function EICRDocument({ data }: { data: Schema }) {
               </View>
             </View>
 
-            <View style={[styles.flexColumn, { backgroundColor: 'grey' }]}>
+            <View>
               <View>
                 <Text>Purpose</Text>
                 <Text>purpose: {data.purpose}</Text>

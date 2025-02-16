@@ -6,9 +6,10 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { getCurrentUser } from "@/lib/auth";
 
+import { AddMenu } from "./components/add-menu";
 import { DashboardBreadcrumb } from "./components/breadcrumb";
 import { DashboardSidebar } from "./components/dashboard-sidebar";
-import { AddMenu } from "./components/add-menu";
+import { MessageMenu } from "./components/message-menu";
 import { NotificationsMenu } from "./components/notifications-menu";
 
 
@@ -37,6 +38,8 @@ export default async function DashboardLayout({
             <AddMenu />
             <Separator orientation="vertical" className="h-4" />
             <NotificationsMenu />
+            <Separator orientation="vertical" className="h-4" />
+            <MessageMenu />
             <Separator orientation="vertical" className="h-4" />
             <ThemeToggle />
           </div>

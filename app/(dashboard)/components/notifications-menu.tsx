@@ -1,6 +1,7 @@
+import { Bell } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Bell } from "lucide-react";
 
 export function NotificationsMenu() {
   return (
@@ -13,10 +14,7 @@ export function NotificationsMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
-          Keith created a EICR
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          Matt sent you a message
+          TODO
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

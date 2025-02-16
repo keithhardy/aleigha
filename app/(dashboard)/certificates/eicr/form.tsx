@@ -24,7 +24,7 @@ import { Schema, schema } from './schema'
 export function ElectricalInstallationConditionReport() {
   const form = useForm<Schema>({
     resolver: zodResolver(schema),
-    defaultValues: DefaultValues,
+    defaultValues: DefaultValues
   })
 
   const handleEICRDownload = async (data: Schema) => {
@@ -44,8 +44,6 @@ export function ElectricalInstallationConditionReport() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleEICRDownload)} className='space-y-4'>
-        <Button type='submit'>Submit</Button>
-
         <Card>
           <CardHeader>
             <CardTitle>Contractor</CardTitle>

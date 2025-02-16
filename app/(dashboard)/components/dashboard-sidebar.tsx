@@ -1,4 +1,4 @@
-import { LayoutPanelLeft, Users, Settings2, Logs } from "lucide-react"
+import { LayoutPanelLeft, Users, Settings2, Logs, Building2, House, Folder } from "lucide-react"
 import Link from "next/link"
 
 import Logo from "@/components/logo"
@@ -24,14 +24,29 @@ const dashboard = [
     isActive: true
   },
   {
-    title: "Users",
-    url: "/users",
-    icon: Users,
-  },
-  {
     title: "Logs",
     url: "/logs",
     icon: Logs,
+  },
+  {
+    title: "Certificates",
+    url: "/certificates",
+    icon: Folder,
+  },
+  {
+    title: "Clients",
+    url: "/clients",
+    icon: Building2,
+  },
+  {
+    title: "Properties",
+    url: "/properties",
+    icon: House,
+  },
+  {
+    title: "Users",
+    url: "/users",
+    icon: Users,
   },
   {
     title: "Settings",
@@ -55,7 +70,7 @@ export async function DashboardSidebar() {
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
-                  AB Building & Electrical
+                  Reiyen
                 </span>
                 <span className="truncate text-xs">Enterprise</span>
               </div>
