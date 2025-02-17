@@ -1,7 +1,9 @@
+import { notFound } from 'next/navigation';
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
+
 import { DeleteUserForm } from './form';
-import { notFound } from 'next/navigation';
 
 export default async function DeleteUserPage({ params }: { params: Promise<{ id: string }> }) {
 

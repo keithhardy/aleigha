@@ -1,7 +1,7 @@
-import Link from 'next/link';
 
 import { User } from '@prisma/client';
 import { MoreHorizontal } from 'lucide-react';
+import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import {

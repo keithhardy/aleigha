@@ -14,80 +14,25 @@ datasource db {
   directUrl = env("DIRECT_DATABASE_URL")
 }
 
-model User {
-  id        String       @id @default(cuid())
-  auth0Id   String       @unique
-  name      String
-  email     String       @unique
-  position  UserPosition
-  phone     String?
-  signature String?
-  picture   String?
-  logs      Log[]
-  groups    Group[]
-  messages  Message[]
+model Address {
+  id            String    @id @default(cuid())
+  streetAddress String?
+  city          String?
+  county        String?
+  postTown      String?
+  postCode      String?
+  country       String?   @default("United Kingdom")
+  settings      Settings?
 }
 
-enum UserPosition {
-  ADMINISTRATOR
-  MANAGER
-  SUPERVISOR
-  PLANNER
-  OPERATIVE
-  CLIENT
-}
-
-model Log {
-  id        String    @id @default(cuid())
-  userId    String
-  user      User      @relation(fields: [userId], references: [id])
-  model     LogModel
-  action    LogAction
-  status    LogStatus
-  message   String
-  error     String?
-  createdAt DateTime  @default(now())
-}
-
-enum LogModel {
-  USER
-  PERMISSION
-  QUALIFICATION
-  EQUIPMENT
-  CONTRACTOR
-  CLIENT
-  PROPERTY
-  CERTIFICATE
-  JOB
-  GROUP
-  MESSAGE
-}
-
-enum LogAction {
-  CREATE
-  READ
-  UPDATE
-  DELETE
-}
-
-enum LogStatus {
-  SUCCESS
-  FAILED
-}
-
-model Group {
-  id       String    @id @default(cuid())
-  name     String
-  users    User[]
-  messages Message[]
-}
-
-model Message {
-  id        String   @id @default(cuid())
-  content   String
-  sender    User     @relation(fields: [senderId], references: [id])
-  senderId  String
-  group     Group    @relation(fields: [groupId], references: [id])
-  groupId   String
-  createdAt DateTime @default(now())
+model Settings {
+  id                  String   @id @default(cuid())
+  name                String
+  email               String   @unique
+  phone               String?
+  picture             String?
+  governingBody       String?
+  governingBodyNumber String?
+  address             Address? @relation(fields: [addressId], references: [id])
+  addressId           String?  @unique
 }

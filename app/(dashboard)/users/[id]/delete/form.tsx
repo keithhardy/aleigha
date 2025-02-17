@@ -1,11 +1,11 @@
 'use client';
 
+import { User } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { User } from '@prisma/client';
 
 export function DeleteUserForm({ user }: { user: User }) {
   const form = useForm<User>({
