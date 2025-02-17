@@ -1,4 +1,3 @@
-
 import { User } from '@prisma/client';
 import { MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
@@ -27,9 +26,6 @@ export function RowActions({ user }: { user: User }) {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href={`/users/${user.id}/general`}>Update</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild disabled>
-          <Link href={`/users/${user.id}/block`}>Block</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href={`/users/${user.id}/delete`}>Delete</Link>

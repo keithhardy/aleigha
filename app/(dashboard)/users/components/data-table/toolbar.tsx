@@ -2,6 +2,7 @@
 
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
+import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -38,10 +39,11 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
       </div>
 
       <div className="flex items-center space-x-2">
-        <Button size="sm">
-          Create
-          <PlusCircledIcon />
-        </Button>
+        <Link href="/users/create">
+          <Button size="sm">
+            Create <PlusCircledIcon />
+          </Button>
+        </Link>
         <ViewOptions table={table} />
       </div>
     </div>

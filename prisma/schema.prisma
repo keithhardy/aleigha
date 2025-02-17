@@ -36,3 +36,12 @@ model Settings {
   address             Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
   addressId           String?  @unique
 }
+
+model User {
+  id        String  @id @default(cuid())
+  auth0Id   String  @unique
+  name      String
+  email     String  @unique
+  phone     String?
+  signature String?
+}

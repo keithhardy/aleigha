@@ -1,24 +1,25 @@
-'use server';
+"use server";
 
-import { revalidatePath } from 'next/cache';
+import { User } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
-import { auth0, User, waitForOperationInLogs } from '@/lib/auth0';
-import { deleteFile } from '@/lib/vercel-blob';
+import { auth0Management } from "@/lib/auth0-management";
+import { prisma } from "@/lib/prisma";
 
 export async function deleteUser(user: User): Promise<void> {
   try {
-    await auth0.users.delete({
-      id: user.user_id,
+    await auth0Management.users.delete({
+      id: user.auth0Id,
     });
-    if (user.picture && !user.picture.includes('auth0.com')) {
-      await deleteFile(user.picture);
-    }
-    await waitForOperationInLogs({
-      userId: user.user_id,
-      operationType: 'Delete a User',
+
+    await prisma.user.delete({
+      where: {
+        id: user.id,
+      },
     });
-    revalidatePath('/users');
+
+    revalidatePath("/users");
   } catch {
-    throw new Error('Failed to delete user.');
+    throw new Error("Failed to delete user.");
   }
 }
