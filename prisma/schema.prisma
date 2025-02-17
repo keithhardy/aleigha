@@ -16,12 +16,12 @@ datasource db {
 
 model Address {
   id            String    @id @default(cuid())
-  streetAddress String?
+  streetAddress String
   city          String?
   county        String?
-  postTown      String?
-  postCode      String?
-  country       String?   @default("United Kingdom")
+  postTown      String
+  postCode      String
+  country       String    @default("United Kingdom")
   settings      Settings?
 }
 
