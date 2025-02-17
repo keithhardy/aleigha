@@ -33,14 +33,14 @@ const dashboard = [
     icon: Folder,
   },
   {
-    title: "Clients",
-    url: "/clients",
-    icon: Building2,
-  },
-  {
     title: "Properties",
     url: "/properties",
     icon: House,
+  },
+  {
+    title: "Clients",
+    url: "/clients",
+    icon: Building2,
   },
   {
     title: "Users",
