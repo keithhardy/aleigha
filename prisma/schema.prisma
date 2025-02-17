@@ -16,23 +16,23 @@ datasource db {
 
 model Address {
   id            String    @id @default(cuid())
-  streetAddress String
+  streetAddress String?
   city          String?
   county        String?
-  postTown      String
-  postCode      String
-  country       String    @default("United Kingdom")
+  postTown      String?
+  postCode      String?
+  country       String?   @default("United Kingdom")
   settings      Settings?
 }
 
 model Settings {
   id                  String   @id @default(cuid())
-  name                String
-  email               String   @unique
+  name                String?
+  email               String?  @unique
   phone               String?
   picture             String?
   governingBody       String?
   governingBodyNumber String?
-  address             Address? @relation(fields: [addressId], references: [id])
+  address             Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
   addressId           String?  @unique
 }
