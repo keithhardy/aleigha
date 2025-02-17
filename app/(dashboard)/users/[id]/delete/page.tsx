@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 
 import { Header, HeaderDescription, HeaderGroup, Heading } from '@/components/page-header';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
 import { DeleteUserForm } from './form';
