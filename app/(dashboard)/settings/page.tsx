@@ -1,5 +1,12 @@
+import { prisma } from "@/lib/prisma";
 import { SettingsForm } from "./form";
 
 export default async function Settings() {
-  return <SettingsForm />;
+  const settings = await prisma.settings.findFirst({
+    include: {
+      address: true,
+    },
+  });
+
+  return <SettingsForm settings={settings} />;
 };

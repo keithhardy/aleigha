@@ -6,35 +6,40 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
-import { schema } from './schema';
+import { Schema } from './schema';
+import { Address, Settings } from '@prisma/client';
 
-export function SettingsForm() {
+export function SettingsForm({
+  settings,
+}: {
+  settings: Settings & { address: Address | null } | null;
+}) {
   const [imagePreview, setImagePreview] = useState('');
 
   const form = useForm({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(Schema),
     defaultValues: {
-      id: "",
-      name: "",
-      email: "",
-      phone: "",
-      logoUrl: "",
-      governingBody: "",
-      governingBodyNumber: "",
+      id: settings?.id,
+      name: settings?.name,
+      email: settings?.email || '',
+      phone: settings?.phone || '',
+      picture: settings?.picture || '',
+      governingBody: settings?.governingBody || '',
+      governingBodyNumber: settings?.governingBodyNumber || '',
       address: {
-        id: "",
-        streetAddress: "",
-        city: "",
-        county: undefined,
-        postTown: "",
-        postcode: "",
-        country: ""
+        id: settings?.address?.id,
+        streetAddress: settings?.address?.streetAddress || '',
+        city: settings?.address?.city || '',
+        county: settings?.address?.county || '',
+        postTown: settings?.address?.postTown || '',
+        postCode: settings?.address?.postCode || '',
+        country: settings?.address?.country || '',
       },
-    }
+    },
   });
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +49,7 @@ export function SettingsForm() {
       reader.onloadend = () => {
         const base64String = reader.result as string;
         setImagePreview(base64String);
-        form.setValue('logoUrl', base64String);
+        form.setValue('picture', base64String);
       };
       reader.readAsDataURL(file);
     }
@@ -100,7 +105,7 @@ export function SettingsForm() {
               />
               <FormField
                 control={form.control}
-                name='logoUrl'
+                name='picture'
                 render={() => (
                   <FormItem>
                     <FormLabel>Company Logo</FormLabel>
@@ -196,7 +201,7 @@ export function SettingsForm() {
               />
               <FormField
                 control={form.control}
-                name='address.postcode'
+                name='address.postCode'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Postcode</FormLabel>

@@ -17,8 +17,8 @@ export default async function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = await getCurrentUser();
-  if (!user) redirect('/auth/login')
+  // const user = await getCurrentUser();
+  // if (!user) redirect('/auth/login')
 
   const cookieStore = await cookies()
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true"
