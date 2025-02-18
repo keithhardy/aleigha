@@ -4,7 +4,6 @@ export const schema = z.object({
   contractorTradingName: z.string(),
   contractorAddress: z.string(),
   contractorPhone: z.string(),
-  contractorEmail: z.string(),
   contractorGoverningBody: z.string(),
   contractorGoverningBodyNumber: z.string(),
 
@@ -18,7 +17,6 @@ export const schema = z.object({
   propertyOccupier: z.string(),
   propertyAddress: z.string(),
   propertyPostcode: z.string(),
-  propertyTelephone: z.string(),
 
   purpose: z.string(),
   startDate: z.date(),

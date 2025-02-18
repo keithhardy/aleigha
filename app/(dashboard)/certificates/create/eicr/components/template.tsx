@@ -31,7 +31,6 @@ export default function EICRDocument({ data }: { data: Schema }) {
                 <Text>Trading Name: {data.contractorTradingName}</Text>
                 <Text>Address: {data.contractorAddress}</Text>
                 <Text>Phone: {data.contractorPhone}</Text>
-                <Text>Email: {data.contractorEmail}</Text>
                 <Text>Governing Body: {data.contractorGoverningBody}</Text>
                 <Text>Governing Body Number: {data.contractorGoverningBodyNumber}</Text>
               </View>
@@ -51,7 +50,6 @@ export default function EICRDocument({ data }: { data: Schema }) {
                 <Text>Occupier: {data.propertyOccupier}</Text>
                 <Text>Address: {data.propertyAddress}</Text>
                 <Text>Postcode: {data.propertyPostcode}</Text>
-                <Text>Telephone: {data.propertyTelephone}</Text>
               </View>
             </View>
 

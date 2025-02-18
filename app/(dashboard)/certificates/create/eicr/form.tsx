@@ -108,15 +108,6 @@ export function ElectricalInstallationConditionReport({
                 <FormMessage />
               </FormItem>
             )} />
-            <FormField control={form.control} name="contractorEmail" render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input {...field} disabled />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )} />
             <FormField control={form.control} name="contractorGoverningBody" render={({ field }) => (
               <FormItem>
                 <FormLabel>Governing Body</FormLabel>
@@ -268,15 +259,6 @@ export function ElectricalInstallationConditionReport({
             <FormField control={form.control} name="propertyPostcode" render={({ field }) => (
               <FormItem>
                 <FormLabel>Postcode</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )} />
-            <FormField control={form.control} name="propertyTelephone" render={({ field }) => (
-              <FormItem>
-                <FormLabel>Telephone</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>

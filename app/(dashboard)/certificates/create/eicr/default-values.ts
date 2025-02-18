@@ -6,7 +6,6 @@ export const DefaultValues: z.infer<typeof schema> = {
   contractorTradingName: "",
   contractorAddress: "",
   contractorPhone: "",
-  contractorEmail: "",
   contractorGoverningBody: "",
   contractorGoverningBodyNumber: "",
 
@@ -20,7 +19,6 @@ export const DefaultValues: z.infer<typeof schema> = {
   propertyOccupier: "",
   propertyAddress: "",
   propertyPostcode: "",
-  propertyTelephone: "",
 
   purpose: "",
   startDate: new Date(),
