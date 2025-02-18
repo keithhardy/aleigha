@@ -1,10 +1,10 @@
 import { cookies } from "next/headers";
-// import { redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-// import { getCurrentUser } from "@/lib/auth";
+import { getCurrentUser } from "@/lib/auth";
 
 import { DashboardBreadcrumb } from "./components/breadcrumb";
 import { DashboardSidebar } from "./components/dashboard-sidebar";
@@ -17,8 +17,8 @@ export default async function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const user = await getCurrentUser();
-  // if (!user) redirect('/auth/login')
+  const user = await getCurrentUser();
+  if (!user) redirect('/auth/login')
 
   const cookieStore = await cookies()
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true"

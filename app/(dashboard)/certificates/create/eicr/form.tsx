@@ -19,12 +19,29 @@ import { SignatureInput } from './components/signature-input'
 import EICRDocument from './components/template'
 import { DefaultValues } from './default-values'
 import { Schema, schema } from './schema'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Address, Client, Property, Settings } from '@prisma/client'
 
 
-export function ElectricalInstallationConditionReport() {
+export function ElectricalInstallationConditionReport({
+  contractor,
+  clients,
+  properties
+}: {
+  contractor: Settings & { address: Address },
+  clients: (Client & { address: Address })[],
+  properties: (Property & { address: Address })[]
+}) {
   const form = useForm<Schema>({
     resolver: zodResolver(schema),
-    defaultValues: DefaultValues
+    defaultValues: {
+      ...DefaultValues,
+      contractorTradingName: contractor.name || "",
+      contractorAddress: contractor.address?.streetAddress || "",
+      contractorPhone: contractor.phone || "",
+      contractorGoverningBody: contractor.governingBody || "",
+      contractorGoverningBodyNumber: contractor.governingBodyNumber || "",
+    },
   })
 
   const handleEICRDownload = async (data: Schema) => {
@@ -41,6 +58,21 @@ export function ElectricalInstallationConditionReport() {
     URL.revokeObjectURL(link.href);
   };
 
+  const onClientSelect = (selectedClient: Client & { address: Address }) => {
+    form.setValue('clientReferenceNumber', selectedClient.id);
+    form.setValue('clientTradingName', selectedClient.name);
+    form.setValue('clientAddress', selectedClient.address.streetAddress || "");
+    form.setValue('clientPostcode', selectedClient.address.postCode || "");
+    form.setValue('clientTelephone', selectedClient.phone || "");
+  };
+
+  const onPropertySelect = (selectedClient: Property & { address: Address }) => {
+    form.setValue('propertyReferenceNumber', selectedClient.uprn);
+    form.setValue('propertyOccupier', selectedClient.occupier);
+    form.setValue('propertyAddress', selectedClient.address.streetAddress || "");
+    form.setValue('propertyPostcode', selectedClient.address.postCode || "");
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleEICRDownload)} className='space-y-4'>
@@ -53,7 +85,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Trading Name</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -62,7 +94,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Address</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -71,7 +103,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Telephone</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -80,7 +112,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -89,7 +121,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Governing Body</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -98,7 +130,7 @@ export function ElectricalInstallationConditionReport() {
               <FormItem>
                 <FormLabel>Governing Body Number</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -111,6 +143,27 @@ export function ElectricalInstallationConditionReport() {
             <CardTitle>Client</CardTitle>
           </CardHeader>
           <CardContent className='space-y-2'>
+            <Select
+              onValueChange={(e) => {
+                const selectedClient = clients.find(
+                  (client) => client.id === e
+                );
+                if (selectedClient) {
+                  onClientSelect(selectedClient);
+                }
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select a client" />
+              </SelectTrigger>
+              <SelectContent>
+                {clients.map((client) => (
+                  <SelectItem key={client.id} value={client.id}>
+                    {client.name}
+                  </SelectItem >
+                ))}
+              </SelectContent>
+            </Select>
             <FormField control={form.control} name="clientReferenceNumber" render={({ field }) => (
               <FormItem>
                 <FormLabel>Client Reference Number</FormLabel>
@@ -164,6 +217,27 @@ export function ElectricalInstallationConditionReport() {
             <CardTitle>Property</CardTitle>
           </CardHeader>
           <CardContent className='space-y-2'>
+            <Select
+              onValueChange={(e) => {
+                const selectedProperty = properties.find(
+                  (property) => property.id === e
+                );
+                if (selectedProperty) {
+                  onPropertySelect(selectedProperty);
+                }
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select a property" />
+              </SelectTrigger>
+              <SelectContent>
+                {properties.map((property) => (
+                  <SelectItem key={property.id} value={property.id}>
+                    {property.address.streetAddress}
+                  </SelectItem >
+                ))}
+              </SelectContent>
+            </Select>
             <FormField control={form.control} name="propertyReferenceNumber" render={({ field }) => (
               <FormItem>
                 <FormLabel>Property Reference Number</FormLabel>
@@ -212,7 +286,7 @@ export function ElectricalInstallationConditionReport() {
           </CardContent>
         </Card>
 
-        <Card>
+        {/* <Card>
           <CardHeader>
             <CardTitle>Purpose</CardTitle>
           </CardHeader>
@@ -923,9 +997,11 @@ export function ElectricalInstallationConditionReport() {
           <CardContent className='space-y-2'>
             <Dbs control={form.control} />
           </CardContent>
-        </Card>
+        </Card> */}
 
-        <Button type='submit'>Submit</Button>
+        <Button type="submit" disabled={form.formState.isSubmitting} variant="outline">
+          {form.formState.isSubmitting ? 'Saving' : 'Save'}
+        </Button>
       </form>
     </Form >
   )

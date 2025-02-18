@@ -360,11 +360,11 @@ export default function EICRDocument({ data }: { data: Schema }) {
 
       {data.dbs.map((db, dbIndex) => (
         <>
-          <Page orientation='landscape' style={styles.page}>
+          <Page orientation='landscape' style={styles.page} key={dbIndex}>
             <View>
               <Text>{db.dbDesignation}</Text>
 
-              <View key={dbIndex}>
+              <View>
                 <Text>DB Designation: {db.dbDesignation}</Text>
                 <Text>DB Location: {db.dbLocation}</Text>
                 <Text>DB Zdb: {db.dbZdb}</Text>

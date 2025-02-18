@@ -4,7 +4,7 @@ import { pdf } from '@react-pdf/renderer';
 import { useState, useEffect } from 'react';
 
 import EICRDocument from '../components/template';
-import { DefaultValues } from '../default-values';
+import { DefaultValues } from '../_default-values';
 
 export default function PDFPage() {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
