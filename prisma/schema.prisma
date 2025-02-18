@@ -23,6 +23,7 @@ model Address {
   postCode      String?
   country       String?   @default("United Kingdom")
   settings      Settings?
+  Client        Client?
 }
 
 model Settings {
@@ -44,4 +45,14 @@ model User {
   email     String  @unique
   phone     String?
   signature String?
+}
+
+model Client {
+  id              String   @id @default(cuid())
+  name            String
+  phone           String?
+  picture         String?
+  appointedPerson String?
+  address         Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  addressId       String?  @unique
 }
