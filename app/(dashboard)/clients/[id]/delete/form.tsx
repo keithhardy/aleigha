@@ -30,7 +30,6 @@ export function ClientDeleteForm({ client }: { client: Client }) {
     defaultValues: {
       id: client.id,
       name: '',
-      logoUrl: client.logoUrl,
     },
   });
 
@@ -72,15 +71,13 @@ export function ClientDeleteForm({ client }: { client: Client }) {
             )}
           />
 
-          <div className="flex justify-end">
-            <Button
-              type="submit"
-              disabled={form.watch('name') !== client.name || form.formState.isSubmitting}
-              variant="outline"
-            >
-              {form.formState.isSubmitting ? 'Deleting' : 'Delete'}
-            </Button>
-          </div>
+          <Button
+            type="submit"
+            disabled={form.watch('name') !== client.name || form.formState.isSubmitting}
+            variant="destructive"
+          >
+            {form.formState.isSubmitting ? 'Deleting' : 'Delete'}
+          </Button>
         </div>
       </form>
     </Form>
