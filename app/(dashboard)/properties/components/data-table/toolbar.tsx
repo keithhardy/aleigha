@@ -1,6 +1,6 @@
 'use client';
 
-import { Cross2Icon } from '@radix-ui/react-icons';
+import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 
 import { Button } from '@/components/ui/button';
@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 
 import { FacetedFilter } from './faceted-filter';
 import { ViewOptions } from './view-options';
+import Link from 'next/link';
 
 interface ToolbarProps<TData> {
   table: Table<TData>;
@@ -49,7 +50,15 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
           </Button>
         )}
       </div>
-      <ViewOptions table={table} />
+
+      <div className="flex items-center space-x-2">
+        <Link href="/properties/create">
+          <Button size="sm">
+            Create <PlusCircledIcon />
+          </Button>
+        </Link>
+        <ViewOptions table={table} />
+      </div>
     </div>
   );
 }

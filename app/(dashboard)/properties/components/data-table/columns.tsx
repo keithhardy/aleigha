@@ -25,7 +25,7 @@ export const columns: ColumnDef<
       header: ({ column }) => <ColumnHeader column={column} title="Address" />,
     },
     {
-      accessorKey: 'address.postcode',
+      accessorKey: 'address.postCode',
       header: ({ column }) => <ColumnHeader column={column} title="Postcode" />,
     },
     {
