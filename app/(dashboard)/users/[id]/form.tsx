@@ -28,10 +28,10 @@ export default function UpdateUserForm({ user }: { user: User }) {
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      id: user.id || '',
-      auth0Id: user.auth0Id || '',
-      name: user.name || '',
-      email: user.email || '',
+      id: user.id,
+      auth0Id: user.auth0Id,
+      name: user.name,
+      email: user.email,
       phone: user.phone || '',
       signature: user.signature || ''
     },
