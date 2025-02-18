@@ -22,6 +22,24 @@ import { Schema, schema } from './schema'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Address, Client, Property, Settings } from '@prisma/client'
 
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { useState } from 'react'
+import { Check, ChevronsUpDown } from 'lucide-react'
+import { cn } from '@/lib/utils'
+
+
 
 export function ElectricalInstallationConditionReport({
   contractor,
@@ -72,6 +90,9 @@ export function ElectricalInstallationConditionReport({
     form.setValue('propertyAddress', selectedClient.address.streetAddress || "");
     form.setValue('propertyPostcode', selectedClient.address.postCode || "");
   };
+
+  const [clientOpen, setClientOpen] = useState(false);
+  const [propertyOpen, setPropertyOpen] = useState(false);
 
   return (
     <Form {...form}>
@@ -134,27 +155,49 @@ export function ElectricalInstallationConditionReport({
             <CardTitle>Client</CardTitle>
           </CardHeader>
           <CardContent className='space-y-2'>
-            <Select
-              onValueChange={(e) => {
-                const selectedClient = clients.find(
-                  (client) => client.id === e
-                );
-                if (selectedClient) {
-                  onClientSelect(selectedClient);
-                }
-              }}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select a client" />
-              </SelectTrigger>
-              <SelectContent>
-                {clients.map((client) => (
-                  <SelectItem key={client.id} value={client.id}>
-                    {client.name}
-                  </SelectItem >
-                ))}
-              </SelectContent>
-            </Select>
+            <Popover open={clientOpen} onOpenChange={setClientOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={clientOpen ? 'true' : 'false'}
+                  className="w-[500px] justify-between"
+                >
+                  {form.getValues("clientTradingName")
+                    ? clients.find((client) => client.name === form.getValues("clientTradingName"))?.name
+                    : "Select a client..."}
+                  <ChevronsUpDown className="opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[500px] p-0">
+                <Command>
+                  <CommandInput placeholder="Search client..." className="h-9" />
+                  <CommandList>
+                    <CommandEmpty>No client found.</CommandEmpty>
+                    <CommandGroup>
+                      {clients.map((client) => (
+                        <CommandItem
+                          key={client.id}
+                          value={client.id}
+                          onSelect={(currentValue) => {
+                            onClientSelect(clients.find(client => client.id === currentValue)!);
+                            setClientOpen(false);
+                          }}
+                        >
+                          {client.name}
+                          <Check
+                            className={cn(
+                              "ml-auto",
+                              form.getValues("clientTradingName") === client.name ? "opacity-100" : "opacity-0"
+                            )}
+                          />
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
             <FormField control={form.control} name="clientReferenceNumber" render={({ field }) => (
               <FormItem>
                 <FormLabel>Client Reference Number</FormLabel>
@@ -208,27 +251,49 @@ export function ElectricalInstallationConditionReport({
             <CardTitle>Property</CardTitle>
           </CardHeader>
           <CardContent className='space-y-2'>
-            <Select
-              onValueChange={(e) => {
-                const selectedProperty = properties.find(
-                  (property) => property.id === e
-                );
-                if (selectedProperty) {
-                  onPropertySelect(selectedProperty);
-                }
-              }}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select a property" />
-              </SelectTrigger>
-              <SelectContent>
-                {properties.map((property) => (
-                  <SelectItem key={property.id} value={property.id}>
-                    {property.address.streetAddress}
-                  </SelectItem >
-                ))}
-              </SelectContent>
-            </Select>
+            <Popover open={propertyOpen} onOpenChange={setPropertyOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={propertyOpen ? 'true' : 'false'}
+                  className="w-[500px] justify-between"
+                >
+                  {form.getValues("propertyAddress")
+                    ? properties.find((property) => property.address.streetAddress === form.getValues("propertyAddress"))?.address.streetAddress
+                    : "Select a property..."}
+                  <ChevronsUpDown className="opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[500px] p-0">
+                <Command>
+                  <CommandInput placeholder="Search property..." className="h-9" />
+                  <CommandList>
+                    <CommandEmpty>No property found.</CommandEmpty>
+                    <CommandGroup>
+                      {properties.map((property) => (
+                        <CommandItem
+                          key={property.id}
+                          value={property.id}
+                          onSelect={(currentValue) => {
+                            onPropertySelect(properties.find(property => property.id === currentValue)!);
+                            setPropertyOpen(false);
+                          }}
+                        >
+                          {property.address.streetAddress}
+                          <Check
+                            className={cn(
+                              "ml-auto",
+                              form.getValues("propertyAddress") === property.address.streetAddress ? "opacity-100" : "opacity-0"
+                            )}
+                          />
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
             <FormField control={form.control} name="propertyReferenceNumber" render={({ field }) => (
               <FormItem>
                 <FormLabel>Property Reference Number</FormLabel>
