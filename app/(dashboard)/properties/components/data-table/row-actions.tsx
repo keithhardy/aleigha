@@ -1,5 +1,5 @@
 
-import { Client } from '@prisma/client';
+import { Property } from '@prisma/client';
 import { MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 
@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-export function RowActions({ client }: { client: Client }) {
+export function RowActions({ property }: { property: Property }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -24,10 +24,10 @@ export function RowActions({ client }: { client: Client }) {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
-          <Link href={`/clients/${client.id}/update`}>Update</Link>
+          <Link href={`/properties/${property.id}/update`}>Update</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={`/clients/${client.id}/delete`}>Delete</Link>
+          <Link href={`/properties/${property.id}/delete`}>Delete</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { User } from '@prisma/client';
 import { redirect } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -19,7 +20,6 @@ import { useToast } from '@/hooks/use-toast';
 
 import { updateUserAction } from './action';
 import { Schema } from './schema';
-import { User } from '@prisma/client';
 import { SignatureField } from '../components/signature-field';
 
 export default function UpdateUserForm({ user }: { user: User }) {

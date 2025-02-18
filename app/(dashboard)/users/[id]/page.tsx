@@ -1,8 +1,9 @@
+import { notFound } from "next/navigation";
+
 import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
+import { prisma } from "@/lib/prisma";
 
 import UpdateUserForm from "./form";
-import { prisma } from "@/lib/prisma";
-import { notFound } from "next/navigation";
 
 export default async function User({ params }: { params: Promise<{ id: string }> }) {
   const user = await prisma.user.findFirst({

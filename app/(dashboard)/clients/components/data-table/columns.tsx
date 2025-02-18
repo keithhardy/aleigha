@@ -1,9 +1,10 @@
 'use client';
 
-import { ColumnHeader } from '@/app/(dashboard)/clients/components/data-table/column-header';
-import { RowActions } from '@/app/(dashboard)/clients/components/data-table/row-actions';
 import { Address, Client } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
+
+import { ColumnHeader } from '@/app/(dashboard)/clients/components/data-table/column-header';
+import { RowActions } from '@/app/(dashboard)/clients/components/data-table/row-actions';
 
 export const columns: ColumnDef<
   Client & {

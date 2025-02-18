@@ -24,6 +24,7 @@ model Address {
   country       String?   @default("United Kingdom")
   settings      Settings?
   Client        Client?
+  Property      Property?
 }
 
 model Settings {
@@ -55,4 +56,12 @@ model Client {
   appointedPerson String?
   address         Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
   addressId       String?  @unique
+}
+
+model Property {
+  id        String   @id @default(cuid())
+  uprn      String
+  occupier  String
+  address   Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  addressId String?  @unique
 }

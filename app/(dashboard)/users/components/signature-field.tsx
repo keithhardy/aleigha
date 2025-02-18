@@ -1,14 +1,13 @@
 'use client';
 
-import { useRef, useState } from 'react';
-
+import { Eraser, Signature } from 'lucide-react';
 import Image from 'next/image';
-
+import { useRef, useState } from 'react';
 import { ControllerRenderProps } from 'react-hook-form';
 import SignatureCanvas from 'react-signature-canvas';
 
 import { Button } from '@/components/ui/button';
-import { Eraser, Signature } from 'lucide-react';
+
 
 export function SignatureField({ value, onChange }: ControllerRenderProps) {
   const signaturePad = useRef<SignatureCanvas>(null);
