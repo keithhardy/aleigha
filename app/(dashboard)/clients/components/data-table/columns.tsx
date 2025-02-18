@@ -11,26 +11,26 @@ export const columns: ColumnDef<
     address: Address | null;
   }
 >[] = [
-  {
-    accessorKey: 'name',
-    header: ({ column }) => <ColumnHeader column={column} title="Name" />,
-  },
-  {
-    accessorKey: 'email',
-    header: ({ column }) => <ColumnHeader column={column} title="Email" />,
-  },
-  {
-    accessorKey: 'phone',
-    header: ({ column }) => <ColumnHeader column={column} title="Phone" />,
-  },
-  {
-    id: 'actions',
-    cell: ({ row }) => {
-      return (
-        <div className="text-right">
-          <RowActions client={row.original} />
-        </div>
-      );
+    {
+      accessorKey: 'name',
+      header: ({ column }) => <ColumnHeader column={column} title="Name" />,
     },
-  },
-];
+    {
+      accessorKey: 'appointedPerson',
+      header: ({ column }) => <ColumnHeader column={column} title="Appointed Person" />,
+    },
+    {
+      accessorKey: 'phone',
+      header: ({ column }) => <ColumnHeader column={column} title="Phone" />,
+    },
+    {
+      id: 'actions',
+      cell: ({ row }) => {
+        return (
+          <div className="text-right">
+            <RowActions client={row.original} />
+          </div>
+        );
+      },
+    },
+  ];
