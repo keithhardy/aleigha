@@ -202,7 +202,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Client Reference Number</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -211,7 +211,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Trading Name</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -220,7 +220,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Address</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -229,7 +229,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Postcode</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -238,7 +238,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Telephone</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -298,7 +298,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Property Reference Number</FormLabel>
                 <FormControl>
-                  <Input  {...field} />
+                  <Input  {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -307,7 +307,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Occupier</FormLabel>
                 <FormControl>
-                  <Input  {...field} />
+                  <Input  {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -316,7 +316,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Address</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -325,7 +325,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Postcode</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -342,7 +342,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Purpose for which this report is required</FormLabel>
                 <FormControl>
-                  <Textarea className="min-h-[100px]" {...field} />
+                  <Textarea className="min-h-[100px]" {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -420,7 +420,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Description of Premises</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -429,7 +429,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Estimated Age of Installation</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -447,7 +447,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Estimated Age of Alterations</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -464,7 +464,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>General Condition</FormLabel>
                 <FormControl>
-                  <Textarea className="min-h-[160px]" {...field} />
+                  <Textarea className="min-h-[160px]" {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -473,7 +473,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Overall Assessment</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -490,7 +490,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Regulation Accordance</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -517,7 +517,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Agreed With</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -556,7 +556,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Reason for Recommendation</FormLabel>
                 <FormControl>
-                  <Textarea className="min-h-[100px]" {...field} />
+                  <Textarea className="min-h-[100px]" {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -565,7 +565,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Inspector&apos;s Name</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -588,7 +588,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Qualified Supervisor&apos;s Name</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -619,7 +619,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>System Type and Earthing Arrangements</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -628,7 +628,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Supply Protective Device BS Number</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -637,7 +637,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Supply Protective Device Type</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -646,7 +646,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Rated Current of Supply Protective Device</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -655,7 +655,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Number and Type of Live Conductors</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -673,7 +673,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Other Sources of Supply</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -682,7 +682,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Nominal Voltage Between Lines (U)</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -691,7 +691,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Nominal Line Voltage to Earth (U0)</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -700,7 +700,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Nominal Frequency (f)</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -709,7 +709,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Prospective Fault Current (Ipf)</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -718,7 +718,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>External Earth Fault Loop Impedance (Ze)</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -735,7 +735,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Maximum Demand</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -762,7 +762,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Earth Electrode Type</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -771,7 +771,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Earth Electrode Location</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -780,7 +780,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Electrode Resistance to Earth</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -789,7 +789,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Earthing Conductor Material</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -798,7 +798,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Earthing Conductor CSA</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -816,7 +816,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Main Protective Bonding Conductor Material</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -825,7 +825,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Main Protective Bonding Conductor CSA</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -843,7 +843,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Water Installation Pipes</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -852,7 +852,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Gas Installation Pipes</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -861,7 +861,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Structural Steel</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -870,7 +870,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Oil Installation Pipes</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -879,7 +879,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Lightning Protection</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -888,7 +888,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Other</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -897,7 +897,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Main Switch Photo</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -906,7 +906,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Main Switch Location</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -915,7 +915,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Main Switch BS Number</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -924,7 +924,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Main Switch Type</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -933,7 +933,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Main Switch Rating / Setting</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -942,7 +942,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Main Switch Number of Poles</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -951,7 +951,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Main Switch Current Rating</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -960,7 +960,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Main Switch Voltage Rating</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -969,7 +969,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Main Switch RCD Operating Current</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -978,7 +978,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Main Switch RCD Type</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -987,7 +987,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Main Switch RCD Rated Time Delay</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -996,7 +996,7 @@ export function ElectricalInstallationConditionReport({
               <FormItem>
                 <FormLabel>Main Switch RCD Measured Operating Time</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} disabled />
                 </FormControl>
                 <FormMessage />
               </FormItem>
