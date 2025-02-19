@@ -5,11 +5,12 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { prisma } from "@/lib/prisma";
-import { schema } from "./schema";
+import { Schema } from "./schema";
+import { ServerActionResponse } from "@/lib/types";
 
 export async function createEicr(
-  eicr: z.infer<typeof schema>
-): Promise<ElectricalInstallationConditionReport> {
+  eicr: z.infer<typeof Schema>
+): Promise<ServerActionResponse<ElectricalInstallationConditionReport>> {
   try {
     const createdEICR =
       await prisma.electricalInstallationConditionReport.create({
@@ -20,9 +21,16 @@ export async function createEicr(
         },
       });
 
-    revalidatePath("/certificates");
-    return createdEICR;
-  } catch {
-    throw new Error("EICR creation failed");
+    return {
+      status: "success",
+      heading: "EICR Created Successfully",
+      message: "The new EICR has been created.",
+    };
+  } catch (error) {
+    return {
+      status: "error",
+      heading: "EICR Creation Failed",
+      message: "There was an issue creating the EICR. Please try again.",
+    };
   }
 }

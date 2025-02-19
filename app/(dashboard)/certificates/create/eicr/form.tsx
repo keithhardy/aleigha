@@ -12,9 +12,11 @@ import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/components/
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
 import { cn } from '@/lib/utils'
 
-import { DefaultValues } from './default-values'
-import { Schema, schema } from './schema'
+import { Schema } from './schema'
 import { createEicr } from './action'
+import { z } from 'zod'
+import { useToast } from '@/hooks/use-toast'
+import { redirect } from 'next/navigation'
 
 export function ElectricalInstallationConditionReport({
   currentUser,
@@ -27,11 +29,14 @@ export function ElectricalInstallationConditionReport({
   clients: Client[],
   properties: (Property & { address: Address })[]
 }) {
-  const form = useForm<Schema>({
-    resolver: zodResolver(schema),
+  const { toast } = useToast();
+
+  const form = useForm<z.infer<typeof Schema>>({
+    resolver: zodResolver(Schema),
     defaultValues: {
-      ...DefaultValues,
-      userId: currentUser.id
+      userId: currentUser.id,
+      clientId: "",
+      propertyId: "",
     },
   })
 
@@ -39,9 +44,23 @@ export function ElectricalInstallationConditionReport({
   const [clientOpen, setClientOpen] = useState(false);
   const [propertyOpen, setPropertyOpen] = useState(false);
 
+  const onSubmit = async (data: z.infer<typeof Schema>) => {
+    const response = await createEicr(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === 'success' ? 'default' : 'destructive',
+    });
+
+    if (response.status === 'success') {
+      redirect("/certificates");
+    }
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(createEicr)} className='space-y-4'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
         <FormField
           control={form.control}
           name="userId"

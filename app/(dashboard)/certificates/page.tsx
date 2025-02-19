@@ -2,6 +2,7 @@
 import { columns } from '@/app/(dashboard)/certificates/components/data-table/columns';
 import { DataTable } from '@/app/(dashboard)/certificates/components/data-table/data-table';
 import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
+import { prisma } from '@/lib/prisma';
 
 export default async function Certificates() {
   const certificates = [
@@ -16,7 +17,7 @@ export default async function Certificates() {
       }
     },
     {
-      "type": "EICR",
+      "type": "Electrical Installation Condition Report",
       "date": "08/07/2022",
       "property": {
         "address": {
@@ -106,6 +107,31 @@ export default async function Certificates() {
       }
     }
   ]
+
+  const eicrs = prisma.electricalInstallationConditionReport.findMany({
+    include: {
+      user: {
+        select: {
+          name: true
+        }
+      },
+      client: {
+        select: {
+          name: true
+        },
+      },
+      property: {
+        include: {
+          address: {
+            select: {
+              streetAddress: true,
+              postCode: true
+            }
+          }
+        }
+      }
+    }
+  })
 
   return (
     <>

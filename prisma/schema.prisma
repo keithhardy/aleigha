@@ -70,11 +70,15 @@ model Property {
 }
 
 model ElectricalInstallationConditionReport {
-  id         String   @id @default(cuid())
-  user       User     @relation(fields: [userId], references: [id])
-  userId     String
-  client     Client   @relation(fields: [clientId], references: [id])
-  clientId   String
-  property   Property @relation(fields: [propertyId], references: [id])
-  propertyId String
+  id                String    @id @default(cuid())
+  type              String?   @default("Electrical Installation Condition Report")
+  certificateNumber String?
+  startDate         DateTime?
+  endDate           DateTime?
+  user              User      @relation(fields: [userId], references: [id])
+  userId            String
+  client            Client    @relation(fields: [clientId], references: [id])
+  clientId          String
+  property          Property  @relation(fields: [propertyId], references: [id])
+  propertyId        String
 }
