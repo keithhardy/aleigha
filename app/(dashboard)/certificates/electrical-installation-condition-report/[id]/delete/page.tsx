@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 
 import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 import { prisma } from '@/lib/prisma';
+
 import { ElectricalInstallationConditionReportDeleteForm } from './form';
 
 export default async function ElectricalInstallationConditionReportDeletePage({ params }: { params: Promise<{ id: string }> }) {

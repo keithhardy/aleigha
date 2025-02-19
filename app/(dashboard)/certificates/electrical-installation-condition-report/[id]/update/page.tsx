@@ -1,11 +1,22 @@
+import { notFound } from "next/navigation";
+
 import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
-import { getCurrentUser } from "@/lib/auth";
 
-import { ElectricalInstallationConditionReport } from './form'
+import { ElectricalInstallationConditionReportForm } from './form'
 
-export default async function DetailsOfTheContractorClientAndInstallation() {
-  const user = await getCurrentUser();
+export default async function DetailsOfTheContractorClientAndInstallation({ params }: { params: Promise<{ id: string }> }) {
+  const electricalInstallationConditionReport = await prisma.electricalInstallationConditionReport.findFirst({
+    where: {
+      id: (await params).id
+    },
+  })
+
+  if (!electricalInstallationConditionReport) {
+    notFound();
+  }
+
   const clients = await prisma.client.findMany()
+
   const properties = await prisma.property.findMany({
     include: {
       address: true
@@ -16,14 +27,14 @@ export default async function DetailsOfTheContractorClientAndInstallation() {
     <>
       <Header>
         <HeaderGroup>
-          <Heading>Create Electrical Installation Condition Report</Heading>
+          <Heading>Update Electrical Installation Condition Report</Heading>
           <HeaderDescription>
-            Fill in the details below to create a new Electrical Installation Condition Report (EICR).
+            Fill in the details below to update a new Electrical Installation Condition Report (EICR).
           </HeaderDescription>
         </HeaderGroup>
       </Header>
 
-      <ElectricalInstallationConditionReport currentUser={user!} clients={clients} properties={properties} />
+      <ElectricalInstallationConditionReportForm electricalInstallationConditionReport={electricalInstallationConditionReport!} clients={clients} properties={properties} />
     </>
   )
 }

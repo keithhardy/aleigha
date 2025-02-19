@@ -18,8 +18,9 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { Schema } from './schema';
+
 import { deleteElectricalInstallationConditionReport } from './action';
+import { Schema } from './schema';
 
 export function ElectricalInstallationConditionReportDeleteForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
   const router = useRouter();

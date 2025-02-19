@@ -1,7 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Address, Client, Property, User } from '@prisma/client'
+import { Address, Client, ElectricalInstallationConditionReport, Property, User } from '@prisma/client'
 import { Check, ChevronsUpDown } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import { useState } from 'react'
@@ -15,15 +15,15 @@ import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popove
 import { useToast } from '@/hooks/use-toast'
 import { cn } from '@/lib/utils'
 
-import { createElectricalInstallationConditionReport } from './action'
+import { updateElectricalInstallationConditionReport } from './action'
 import { Schema } from './schema'
 
-export function ElectricalInstallationConditionReport({
-  currentUser,
+export function ElectricalInstallationConditionReportForm({
+  electricalInstallationConditionReport,
   clients,
   properties
 }: {
-  currentUser: User,
+  electricalInstallationConditionReport: ElectricalInstallationConditionReport,
   clients: Client[],
   properties: (Property & { address: Address })[]
 }) {
@@ -32,9 +32,9 @@ export function ElectricalInstallationConditionReport({
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      creatorId: currentUser.id,
-      clientId: "",
-      propertyId: "",
+      id: electricalInstallationConditionReport.id,
+      clientId: electricalInstallationConditionReport.clientId,
+      propertyId: electricalInstallationConditionReport.propertyId,
     },
   })
 
@@ -42,7 +42,7 @@ export function ElectricalInstallationConditionReport({
   const [propertyOpen, setPropertyOpen] = useState(false);
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
-    const response = await createElectricalInstallationConditionReport(data);
+    const response = await updateElectricalInstallationConditionReport(data);
 
     toast({
       title: response.heading,
