@@ -40,13 +40,16 @@ model Settings {
 }
 
 model User {
-  id                                    String                                  @id @default(cuid())
-  auth0Id                               String                                  @unique
-  name                                  String
-  email                                 String                                  @unique
-  phone                                 String?
-  signature                             String?
-  ElectricalInstallationConditionReport ElectricalInstallationConditionReport[]
+  id                                               String                                  @id @default(cuid())
+  auth0Id                                          String                                  @unique
+  name                                             String
+  email                                            String                                  @unique
+  phone                                            String?
+  signature                                        String?
+  electricalInstallationConditionReportAsCreator   ElectricalInstallationConditionReport[] @relation("Creator")
+  electricalInstallationConditionReportAsInspector ElectricalInstallationConditionReport[] @relation("Inspector")
+  electricalInstallationConditionReportAsTester    ElectricalInstallationConditionReport[] @relation("Tester")
+  electricalInstallationConditionReportAsReviewer  ElectricalInstallationConditionReport[] @relation("Reviewer")
 }
 
 model Client {
@@ -57,7 +60,7 @@ model Client {
   appointedPerson                       String?
   address                               Address?                                @relation(fields: [addressId], references: [id], onDelete: Cascade)
   addressId                             String?                                 @unique
-  ElectricalInstallationConditionReport ElectricalInstallationConditionReport[]
+  electricalInstallationConditionReport ElectricalInstallationConditionReport[]
 }
 
 model Property {
@@ -66,19 +69,33 @@ model Property {
   occupier                              String
   address                               Address?                                @relation(fields: [addressId], references: [id], onDelete: Cascade)
   addressId                             String?                                 @unique
-  ElectricalInstallationConditionReport ElectricalInstallationConditionReport[]
+  electricalInstallationConditionReport ElectricalInstallationConditionReport[]
+}
+
+enum EICRStatus {
+  Draft
+  Submitted
+  Rejected
+  Completed
 }
 
 model ElectricalInstallationConditionReport {
-  id                String    @id @default(cuid())
-  type              String?   @default("Electrical Installation Condition Report")
-  certificateNumber String?
-  startDate         DateTime?
-  endDate           DateTime?
-  user              User      @relation(fields: [userId], references: [id])
-  userId            String
-  client            Client    @relation(fields: [clientId], references: [id])
-  clientId          String
-  property          Property  @relation(fields: [propertyId], references: [id])
-  propertyId        String
+  id          String      @id @default(cuid())
+  type        String?     @default("Electrical Installation Condition Report")
+  serial      String?
+  startDate   DateTime?   @default(now())
+  endDate     DateTime?   @default(now())
+  status      EICRStatus? @default(Draft)
+  creator     User        @relation("Creator", fields: [creatorId], references: [id])
+  creatorId   String
+  inspector   User?       @relation("Inspector", fields: [inspectorId], references: [id])
+  inspectorId String?
+  tester      User?       @relation("Tester", fields: [testerId], references: [id])
+  testerId    String?
+  reviewer    User?       @relation("Reviewer", fields: [reviewerId], references: [id])
+  reviewerId  String?
+  client      Client      @relation(fields: [clientId], references: [id])
+  clientId    String
+  property    Property    @relation(fields: [propertyId], references: [id])
+  propertyId  String
 }
