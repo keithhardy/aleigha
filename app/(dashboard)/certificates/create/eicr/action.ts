@@ -22,8 +22,7 @@ export async function createEicr(
 
     revalidatePath("/certificates");
     return createdEICR;
-  } catch (e) {
-    console.log(e);
+  } catch {
     throw new Error("EICR creation failed");
   }
 }
