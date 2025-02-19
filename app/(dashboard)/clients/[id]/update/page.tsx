@@ -1,8 +1,8 @@
-import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 
 import { notFound } from 'next/navigation';
 
 import { ClientUpdateForm } from '@/app/(dashboard)/clients/[id]/update/form';
+import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 import { prisma } from '@/lib/prisma';
 
 export default async function ClientUpdate({ params }: { params: Promise<{ id: string }> }) {

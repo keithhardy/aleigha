@@ -40,28 +40,41 @@ model Settings {
 }
 
 model User {
-  id        String  @id @default(cuid())
-  auth0Id   String  @unique
-  name      String
-  email     String  @unique
-  phone     String?
-  signature String?
+  id                                    String                                  @id @default(cuid())
+  auth0Id                               String                                  @unique
+  name                                  String
+  email                                 String                                  @unique
+  phone                                 String?
+  signature                             String?
+  ElectricalInstallationConditionReport ElectricalInstallationConditionReport[]
 }
 
 model Client {
-  id              String   @id @default(cuid())
-  name            String
-  phone           String?
-  picture         String?
-  appointedPerson String?
-  address         Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
-  addressId       String?  @unique
+  id                                    String                                  @id @default(cuid())
+  name                                  String
+  phone                                 String?
+  picture                               String?
+  appointedPerson                       String?
+  address                               Address?                                @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  addressId                             String?                                 @unique
+  ElectricalInstallationConditionReport ElectricalInstallationConditionReport[]
 }
 
 model Property {
-  id        String   @id @default(cuid())
-  uprn      String
-  occupier  String
-  address   Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
-  addressId String?  @unique
+  id                                    String                                  @id @default(cuid())
+  uprn                                  String
+  occupier                              String
+  address                               Address?                                @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  addressId                             String?                                 @unique
+  ElectricalInstallationConditionReport ElectricalInstallationConditionReport[]
+}
+
+model ElectricalInstallationConditionReport {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  client     Client   @relation(fields: [clientId], references: [id])
+  clientId   String
+  property   Property @relation(fields: [propertyId], references: [id])
+  propertyId String
 }

@@ -1,17 +1,16 @@
 'use client';
 
-import { useState } from 'react';
 
-import Image from 'next/image';
 
-import { updateClient } from '@/app/(dashboard)/clients/[id]/update/action';
-import { Schema } from '@/app/(dashboard)/clients/[id]/update/schema';
-import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Address, Client } from '@prisma/client';
+import Image from 'next/image';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { updateClient } from '@/app/(dashboard)/clients/[id]/update/action';
+import { Schema } from '@/app/(dashboard)/clients/[id]/update/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -22,6 +21,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
 
 export function ClientUpdateForm({ client }: { client: Client & { address: Address | null } }) {
   const { toast } = useToast();

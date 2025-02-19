@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation';
 
+import { ClientDeleteForm } from '@/app/(dashboard)/clients/[id]/delete/form';
 import { Header, HeaderDescription, HeaderGroup, Heading } from '@/components/page-header';
 import { prisma } from '@/lib/prisma';
 
-import { ClientDeleteForm } from '@/app/(dashboard)/clients/[id]/delete/form';
 
 export default async function ClientDelete({ params }: { params: Promise<{ id: string }> }) {
   const client = await prisma.client.findUnique({

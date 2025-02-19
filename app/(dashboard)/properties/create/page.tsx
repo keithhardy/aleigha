@@ -1,6 +1,6 @@
+import { PropertyCreateForm } from '@/app/(dashboard)/properties/create/form';
 import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 
-import { PropertyCreateForm } from '@/app/(dashboard)/properties/create/form';
 
 export default async function PropertyCreatePage() {
   return (

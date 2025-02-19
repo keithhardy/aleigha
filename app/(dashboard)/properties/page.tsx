@@ -1,8 +1,8 @@
+import { columns } from '@/app/(dashboard)/properties/components/data-table/columns';
+import { DataTable } from '@/app/(dashboard)/properties/components/data-table/data-table';
 import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 import { prisma } from '@/lib/prisma';
 
-import { columns } from '@/app/(dashboard)/properties/components/data-table/columns';
-import { DataTable } from '@/app/(dashboard)/properties/components/data-table/data-table';
 
 export default async function Properties() {
   const properties = await prisma.property.findMany({

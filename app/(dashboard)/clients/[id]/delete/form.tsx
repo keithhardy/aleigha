@@ -1,15 +1,14 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 
-import { deleteClient } from '@/app/(dashboard)/clients/[id]/delete/action';
-import { Schema } from '@/app/(dashboard)/clients/[id]/delete/schema';
-import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Client } from '@prisma/client';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { deleteClient } from '@/app/(dashboard)/clients/[id]/delete/action';
+import { Schema } from '@/app/(dashboard)/clients/[id]/delete/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -20,6 +19,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
 
 export function ClientDeleteForm({ client }: { client: Client }) {
   const router = useRouter();

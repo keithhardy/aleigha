@@ -1,14 +1,13 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 
-import { createProperty } from '@/app/(dashboard)/properties/create/action';
-import { Schema } from '@/app/(dashboard)/properties/create/schema';
-import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { createProperty } from '@/app/(dashboard)/properties/create/action';
+import { Schema } from '@/app/(dashboard)/properties/create/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -19,6 +18,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
 
 export function PropertyCreateForm() {
   const router = useRouter();

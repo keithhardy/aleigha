@@ -2,12 +2,12 @@
 
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
+import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 import { ViewOptions } from './view-options';
-import Link from 'next/link';
 
 interface ToolbarProps<TData> {
   table: Table<TData>;

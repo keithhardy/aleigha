@@ -1,13 +1,12 @@
 'use client';
 
-import { updateProperty } from '@/app/(dashboard)/properties/[id]/update/action';
-import { Schema } from '@/app/(dashboard)/properties/[id]/update/schema';
-import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Address, Client, Property } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { updateProperty } from '@/app/(dashboard)/properties/[id]/update/action';
+import { Schema } from '@/app/(dashboard)/properties/[id]/update/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -18,6 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
 
 export function PropertyUpdateForm({
   property,

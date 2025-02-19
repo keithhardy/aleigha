@@ -1,7 +1,7 @@
-import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 import { notFound } from 'next/navigation';
 
 import { PropertyDeleteForm } from '@/app/(dashboard)/properties/[id]/delete/form';
+import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 import { prisma } from '@/lib/prisma';
 
 export async function generateStaticParams() {
