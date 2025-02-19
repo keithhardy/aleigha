@@ -1,7 +1,7 @@
 'use client';
 
 
-import { Cross2Icon } from '@radix-ui/react-icons';
+import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 import { addDays } from 'date-fns';
 import { useRef, useState } from 'react';
@@ -12,6 +12,9 @@ import { Input } from '@/components/ui/input';
 
 import { FacetedFilter } from './faceted-filter';
 import { ViewOptions } from './view-options';
+import Link from 'next/link';
+
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
 
 interface ToolbarProps<TData> {
   table: Table<TData>;
@@ -47,7 +50,42 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
         )}
       </div>
 
-      <ViewOptions table={table} />
+      <div className="flex items-center space-x-2">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button size="sm">
+              Create <PlusCircledIcon />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align='end'>
+            <DropdownMenuItem asChild>
+              <Link href="/certificates/electrical-installation-condition-report/create" className='cursor-pointer'>Electrical Installation Condition Report</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild disabled>
+              <Link href="#" className='cursor-pointer'>Electrical Installation Certificate</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild disabled>
+              <Link href="#" className='cursor-pointer'>Electrical Minor Works</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild disabled>
+              <Link href="#" className='cursor-pointer'>Fire Detection Installation Certificate</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild disabled>
+              <Link href="#" className='cursor-pointer'>Domestic Ventilation Installation Certificate</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild disabled>
+              <Link href="#" className='cursor-pointer'>Emergency Lighting Installation Condition Report</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild disabled>
+              <Link href="#" className='cursor-pointer'>Emergency Lighting Installation Certificate</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild disabled>
+              <Link href="#" className='cursor-pointer'>Electrical Danger Notification</Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <ViewOptions table={table} />
+      </div>
     </div>
   );
 }

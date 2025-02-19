@@ -4,7 +4,7 @@ import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/pa
 import { prisma } from '@/lib/prisma';
 
 export default async function Certificates() {
-  const eicrs = await prisma.electricalInstallationConditionReport.findMany({
+  const electricalInstallationConditionReports = await prisma.electricalInstallationConditionReport.findMany({
     include: {
       creator: {
         select: {
@@ -30,7 +30,7 @@ export default async function Certificates() {
     }
   })
 
-  const certificates = [...eicrs]
+  const certificates = [...electricalInstallationConditionReports]
 
   return (
     <>

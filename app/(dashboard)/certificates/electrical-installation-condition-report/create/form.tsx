@@ -15,7 +15,7 @@ import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popove
 import { useToast } from '@/hooks/use-toast'
 import { cn } from '@/lib/utils'
 
-import { createEicr } from './action'
+import { createElectricalInstallationConditionReport } from './action'
 import { Schema } from './schema'
 
 export function ElectricalInstallationConditionReport({
@@ -42,7 +42,7 @@ export function ElectricalInstallationConditionReport({
   const [propertyOpen, setPropertyOpen] = useState(false);
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
-    const response = await createEicr(data);
+    const response = await createElectricalInstallationConditionReport(data);
 
     toast({
       title: response.heading,

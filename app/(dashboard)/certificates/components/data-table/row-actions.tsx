@@ -23,7 +23,10 @@ export function RowActions({ certificate }: { certificate: any }) {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
-          <Link href={`/certificates/${certificate.id}/delete`}>Delete</Link>
+          <Link href={`/certificates/${encodeURIComponent(certificate.type.trim().toLowerCase().replace(/\s+/g, '-'))}/${certificate.id}/update`}>Update</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={`/certificates/${encodeURIComponent(certificate.type.trim().toLowerCase().replace(/\s+/g, '-'))}/${certificate.id}/delete`}>Delete</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
