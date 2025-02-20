@@ -1,3 +1,4 @@
+import { pdf } from '@react-pdf/renderer';
 import { MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 
@@ -10,7 +11,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { pdf } from '@react-pdf/renderer';
+
 import ElectricalInstallationConditionReportTemplate from '../templates/electrical-installation-condition-report-template';
 
 export function RowActions({ certificate }: { certificate: any }) {
