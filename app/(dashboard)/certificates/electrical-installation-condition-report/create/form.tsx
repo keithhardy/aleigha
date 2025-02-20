@@ -18,7 +18,7 @@ import { cn } from '@/lib/utils'
 import { createElectricalInstallationConditionReport } from './action'
 import { Schema } from './schema'
 
-export function ElectricalInstallationConditionReport({
+export function ElectricalInstallationConditionReportForm({
   currentUser,
   clients,
   properties

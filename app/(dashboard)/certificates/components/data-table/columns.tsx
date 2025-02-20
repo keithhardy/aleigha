@@ -33,7 +33,19 @@ export const columns: ColumnDef<any>[] = [
   },
   {
     accessorKey: 'startDate',
-    header: ({ column }) => <ColumnHeader column={column} title="Date" />,
+    header: ({ column }) => <ColumnHeader column={column} title="Start Date" />,
+    cell: ({ getValue }) => {
+      const date = getValue() as string | undefined;
+
+      if (date) {
+        return format(new Date(date), 'dd/MM/yy');
+      }
+      return 'N/A';
+    },
+  },
+  {
+    accessorKey: 'endDate',
+    header: ({ column }) => <ColumnHeader column={column} title="End Date" />,
     cell: ({ getValue }) => {
       const date = getValue() as string | undefined;
 

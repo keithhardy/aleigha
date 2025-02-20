@@ -2,15 +2,16 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Address, Client, ElectricalInstallationConditionReport, Property, User } from '@prisma/client'
-import { Check, ChevronsUpDown } from 'lucide-react'
-import { redirect } from 'next/navigation'
+import { format } from 'date-fns'
+import { CalendarIcon, Check, ChevronsUpDown } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
+import { Calendar } from '@/components/ui/calendar'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "@/components/ui/command"
-import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
 import { useToast } from '@/hooks/use-toast'
 import { cn } from '@/lib/utils'
@@ -35,6 +36,8 @@ export function ElectricalInstallationConditionReportForm({
       id: electricalInstallationConditionReport.id,
       clientId: electricalInstallationConditionReport.clientId,
       propertyId: electricalInstallationConditionReport.propertyId,
+      startDate: electricalInstallationConditionReport.startDate || new Date(),
+      endDate: electricalInstallationConditionReport.endDate || new Date(),
     },
   })
 
@@ -49,10 +52,6 @@ export function ElectricalInstallationConditionReportForm({
       description: response.message,
       variant: response.status === 'success' ? 'default' : 'destructive',
     });
-
-    if (response.status === 'success') {
-      redirect("/certificates");
-    }
   };
 
   return (
@@ -66,12 +65,12 @@ export function ElectricalInstallationConditionReportForm({
               <FormLabel>Client</FormLabel>
               <Popover open={clientOpen} onOpenChange={setClientOpen}>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" role="combobox" aria-expanded={clientOpen ? 'true' : 'false'} className="w-[300px] justify-between" >
+                  <Button variant="outline" role="combobox" aria-expanded={clientOpen ? 'true' : 'false'} className="w-[300px] pl-3 text-left font-normal justify-between" >
                     {field.value ? clients.find((client) => client.id === field.value)?.name : "Select client..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[300px] p-0">
+                <PopoverContent className="w-auto p-0" align="start">
                   <Command>
                     <CommandInput placeholder="Search client..." className="h-9" />
                     <CommandList>
@@ -100,12 +99,12 @@ export function ElectricalInstallationConditionReportForm({
               <FormLabel>Property</FormLabel>
               <Popover open={propertyOpen} onOpenChange={setPropertyOpen}>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" role="combobox" aria-expanded={propertyOpen ? 'true' : 'false'} className="w-[300px] justify-between" >
+                  <Button variant="outline" role="combobox" aria-expanded={propertyOpen ? 'true' : 'false'} className="w-[300px] pl-3 text-left font-normal justify-between" >
                     {field.value ? properties.find((property) => property.id === field.value)?.address.streetAddress : "Select a property..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[300px] p-0">
+                <PopoverContent className="w-auto p-0" align="start">
                   <Command>
                     <CommandInput placeholder="Search property..." className="h-9" />
                     <CommandList>
@@ -120,6 +119,88 @@ export function ElectricalInstallationConditionReportForm({
                       </CommandGroup>
                     </CommandList>
                   </Command>
+                </PopoverContent>
+              </Popover>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="startDate"
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>Start Date</FormLabel>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-[300px] pl-3 text-left font-normal",
+                        !field.value && "text-muted-foreground"
+                      )}
+                    >
+                      {field.value ? (
+                        format(field.value, "PPP")
+                      ) : (
+                        <span>Pick a date</span>
+                      )}
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={field.value}
+                    onSelect={field.onChange}
+                    disabled={(date) =>
+                      date > new Date() || date < new Date("1900-01-01")
+                    }
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="endDate"
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>End Date</FormLabel>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-[300px] pl-3 text-left font-normal",
+                        !field.value && "text-muted-foreground"
+                      )}
+                    >
+                      {field.value ? (
+                        format(field.value, "PPP")
+                      ) : (
+                        <span>Pick a date</span>
+                      )}
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={field.value}
+                    onSelect={field.onChange}
+                    disabled={(date) =>
+                      date > new Date() || date < new Date("1900-01-01")
+                    }
+                    initialFocus
+                  />
                 </PopoverContent>
               </Popover>
               <FormMessage />

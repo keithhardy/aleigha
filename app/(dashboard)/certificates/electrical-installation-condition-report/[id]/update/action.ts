@@ -19,6 +19,8 @@ export async function updateElectricalInstallationConditionReport(
       data: {
         clientId: electricalInstallationConditionReport.clientId,
         propertyId: electricalInstallationConditionReport.propertyId,
+        startDate: electricalInstallationConditionReport.startDate,
+        endDate: electricalInstallationConditionReport.endDate,
       },
     });
 

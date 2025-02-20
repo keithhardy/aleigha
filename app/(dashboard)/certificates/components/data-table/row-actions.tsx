@@ -10,8 +10,30 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { pdf } from '@react-pdf/renderer';
+import ElectricalInstallationConditionReportTemplate from '../templates/electrical-installation-condition-report-template';
 
 export function RowActions({ certificate }: { certificate: any }) {
+  const handlePDFDownload = async (certificate: any) => {
+    let blob;
+
+    if (certificate.type === 'Electrical Installation Condition Report') {
+      blob = await pdf(<ElectricalInstallationConditionReportTemplate data={certificate} />).toBlob();
+    }
+
+    if (blob) {
+      const link = Object.assign(document.createElement('a'), {
+        href: URL.createObjectURL(blob),
+        download: `${certificate.propertyAddress}-${Date.now()}`
+      });
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+    }
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -23,10 +45,13 @@ export function RowActions({ certificate }: { certificate: any }) {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
-          <Link href={`/certificates/${encodeURIComponent(certificate.type.trim().toLowerCase().replace(/\s+/g, '-'))}/${certificate.id}/update`}>Update</Link>
+          <Link href={`/certificates/${encodeURIComponent(certificate.type.trim().toLowerCase().replace(/\s+/g, '-'))}/${certificate.id}/update`} className='cursor-pointer'>Update</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={`/certificates/${encodeURIComponent(certificate.type.trim().toLowerCase().replace(/\s+/g, '-'))}/${certificate.id}/delete`}>Delete</Link>
+          <Link href={`/certificates/${encodeURIComponent(certificate.type.trim().toLowerCase().replace(/\s+/g, '-'))}/${certificate.id}/delete`} className='cursor-pointer'>Delete</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handlePDFDownload(certificate)} className='cursor-pointer'>
+          Download PDF
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

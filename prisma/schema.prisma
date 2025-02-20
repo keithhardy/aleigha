@@ -25,6 +25,8 @@ model Address {
   settings      Settings?
   Client        Client?
   Property      Property?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model Settings {
@@ -50,6 +52,8 @@ model User {
   electricalInstallationConditionReportAsInspector ElectricalInstallationConditionReport[] @relation("Inspector")
   electricalInstallationConditionReportAsTester    ElectricalInstallationConditionReport[] @relation("Tester")
   electricalInstallationConditionReportAsReviewer  ElectricalInstallationConditionReport[] @relation("Reviewer")
+  createdAt                                        DateTime                                @default(now())
+  updatedAt                                        DateTime                                @updatedAt
 }
 
 model Client {
@@ -61,6 +65,8 @@ model Client {
   address                               Address?                                @relation(fields: [addressId], references: [id], onDelete: Cascade)
   addressId                             String?                                 @unique
   electricalInstallationConditionReport ElectricalInstallationConditionReport[]
+  createdAt                             DateTime                                @default(now())
+  updatedAt                             DateTime                                @updatedAt
 }
 
 model Property {
@@ -70,6 +76,8 @@ model Property {
   address                               Address?                                @relation(fields: [addressId], references: [id], onDelete: Cascade)
   addressId                             String?                                 @unique
   electricalInstallationConditionReport ElectricalInstallationConditionReport[]
+  createdAt                             DateTime                                @default(now())
+  updatedAt                             DateTime                                @updatedAt
 }
 
 enum EICRStatus {
@@ -98,4 +106,6 @@ model ElectricalInstallationConditionReport {
   clientId    String
   property    Property    @relation(fields: [propertyId], references: [id])
   propertyId  String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
