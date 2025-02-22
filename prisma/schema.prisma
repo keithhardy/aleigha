@@ -41,6 +41,14 @@ model Settings {
   addressId           String?  @unique
 }
 
+enum UserRole {
+  Admin
+  Manager
+  Planner
+  Operative
+  Client
+}
+
 model User {
   id                                               String                                  @id @default(cuid())
   auth0Id                                          String                                  @unique
@@ -48,6 +56,8 @@ model User {
   email                                            String                                  @unique
   phone                                            String?
   signature                                        String?
+  role                                             UserRole
+  Client                                           Client[]
   electricalInstallationConditionReportAsCreator   ElectricalInstallationConditionReport[] @relation("Creator")
   electricalInstallationConditionReportAsInspector ElectricalInstallationConditionReport[] @relation("Inspector")
   electricalInstallationConditionReportAsTester    ElectricalInstallationConditionReport[] @relation("Tester")
@@ -64,6 +74,8 @@ model Client {
   appointedPerson                       String?
   address                               Address?                                @relation(fields: [addressId], references: [id], onDelete: Cascade)
   addressId                             String?                                 @unique
+  user                                  User[]
+  Property                              Property[]
   electricalInstallationConditionReport ElectricalInstallationConditionReport[]
   createdAt                             DateTime                                @default(now())
   updatedAt                             DateTime                                @updatedAt
@@ -75,9 +87,11 @@ model Property {
   occupier                              String
   address                               Address?                                @relation(fields: [addressId], references: [id], onDelete: Cascade)
   addressId                             String?                                 @unique
+  client                                Client                                  @relation(fields: [clientId], references: [id])
   electricalInstallationConditionReport ElectricalInstallationConditionReport[]
   createdAt                             DateTime                                @default(now())
   updatedAt                             DateTime                                @updatedAt
+  clientId                              String
 }
 
 enum EICRStatus {

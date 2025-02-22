@@ -10,6 +10,9 @@ import { DashboardBreadcrumb } from "./components/breadcrumb";
 import { DashboardSidebar } from "./components/dashboard-sidebar";
 import { MessageMenu } from "./components/message-menu";
 import { NotificationsMenu } from "./components/notifications-menu";
+import { LogOut } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 
 export default async function DashboardLayout({
@@ -39,6 +42,12 @@ export default async function DashboardLayout({
             <MessageMenu />
             <Separator orientation="vertical" className="h-4" />
             <ThemeToggle />
+            <Separator orientation="vertical" className="h-4" />
+            <Link href="/auth/logout">
+              <Button variant="ghost" size="icon" className="h-7 w-7">
+                <LogOut />
+              </Button>
+            </Link>
           </div>
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 pt-0">

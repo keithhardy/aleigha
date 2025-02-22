@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { checkEmailExists } from "../actions";
+import { UserRole } from "@prisma/client";
 
 export const Schema = z.object({
   id: z.string(),
@@ -17,4 +18,5 @@ export const Schema = z.object({
     message: "Invalid phone number format",
   }),
   signature: z.string().url(),
+  role: z.enum(Object.values(UserRole) as [UserRole, ...UserRole[]]),
 });

@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { checkEmailExists } from "../actions";
+import { UserRole } from "@prisma/client";
 
 export const Schema = z.object({
   name: z
@@ -31,4 +32,5 @@ export const Schema = z.object({
       message: "Password must contain at least one special character",
     }),
   signature: z.string().url().optional(),
+  role: z.enum(Object.values(UserRole) as [UserRole, ...UserRole[]]),
 });
