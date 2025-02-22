@@ -1,7 +1,10 @@
+import { LogOut } from "lucide-react";
 import { cookies } from "next/headers";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { getCurrentUser } from "@/lib/auth";
@@ -10,9 +13,7 @@ import { DashboardBreadcrumb } from "./components/breadcrumb";
 import { DashboardSidebar } from "./components/dashboard-sidebar";
 import { MessageMenu } from "./components/message-menu";
 import { NotificationsMenu } from "./components/notifications-menu";
-import { LogOut } from "lucide-react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+
 
 
 export default async function DashboardLayout({

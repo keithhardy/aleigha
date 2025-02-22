@@ -1,7 +1,7 @@
+import { UserRole } from "@prisma/client";
 import { z } from "zod";
 
 import { checkEmailExists } from "../actions";
-import { UserRole } from "@prisma/client";
 
 export const Schema = z.object({
   id: z.string(),

@@ -1,11 +1,12 @@
 "use server";
 
 import { User } from "@prisma/client";
+import { z } from "zod";
 
 import { auth0Management } from "@/lib/auth0-management";
 import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
-import { z } from "zod";
+
 import { Schema } from "./schema";
 
 export async function updateUserAction(

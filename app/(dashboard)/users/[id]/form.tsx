@@ -2,11 +2,14 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { User, UserRole } from '@prisma/client';
+import { Check, ChevronsUpDown } from 'lucide-react';
 import { redirect } from 'next/navigation';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "@/components/ui/command"
 import {
   Form,
   FormControl,
@@ -16,16 +19,13 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "@/components/ui/command"
+import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils'
 
 import { updateUserAction } from './action';
 import { Schema } from './schema';
 import { SignatureField } from '../components/signature-field';
-import { Check, ChevronsUpDown } from 'lucide-react';
-import { useState } from 'react';
 
 export default function UpdateUserForm({ user }: { user: User }) {
   const { toast } = useToast();
