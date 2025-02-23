@@ -16,6 +16,10 @@ export const columns: ColumnDef<
       header: ({ column }) => <ColumnHeader column={column} title="UPRN" />,
     },
     {
+      accessorKey: 'client.name',
+      header: ({ column }) => <ColumnHeader column={column} title="Client" />,
+    },
+    {
       accessorKey: 'occupier',
       header: ({ column }) => <ColumnHeader column={column} title="Occupier" />,
       filterFn: (row, id, value) => value.includes(row.getValue(id)),

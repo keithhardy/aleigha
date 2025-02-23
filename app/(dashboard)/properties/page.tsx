@@ -8,6 +8,7 @@ export default async function Properties() {
   const properties = await prisma.property.findMany({
     include: {
       address: true,
+      client: true
     },
   });
 
