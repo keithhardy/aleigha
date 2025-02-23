@@ -13,6 +13,16 @@ export async function updateUserAction(
   user: z.infer<typeof Schema>
 ): Promise<ServerActionResponse<User>> {
   try {
+    const formattedClientsToConnect = user.clientsToConnect.map((client) => ({
+      id: client.clientId,
+    }));
+
+    const formattedClientsToDisconnect = user.clientsToDisconnect.map(
+      (client) => ({
+        id: client.clientId,
+      })
+    );
+
     const auth0User = await auth0Management.users.update(
       {
         id: user.auth0Id,
@@ -32,6 +42,10 @@ export async function updateUserAction(
         phone: user.phone,
         signature: user.signature,
         role: user.role,
+        clients: {
+          connect: formattedClientsToConnect,
+          disconnect: formattedClientsToDisconnect,
+        },
       },
     });
 

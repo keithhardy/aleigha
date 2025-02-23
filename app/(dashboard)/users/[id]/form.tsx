@@ -1,11 +1,11 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { User, UserRole } from '@prisma/client';
-import { Check, ChevronsUpDown } from 'lucide-react';
+import { Client, User, UserRole } from '@prisma/client';
+import { Check, ChevronsUpDown, X } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
@@ -27,7 +27,7 @@ import { updateUserAction } from './action';
 import { Schema } from './schema';
 import { SignatureField } from '../components/signature-field';
 
-export default function UpdateUserForm({ user }: { user: User }) {
+export default function UpdateUserForm({ user, clients }: { user: User & { clients: Client[] }, clients: Client[] }) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof Schema>>({
@@ -39,8 +39,20 @@ export default function UpdateUserForm({ user }: { user: User }) {
       email: user.email,
       phone: user.phone || '',
       signature: user.signature || '',
-      role: user.role || '' as UserRole
+      role: user.role || '' as UserRole,
+      clientsToConnect: [],
+      clientsToDisconnect: [],
     },
+  });
+
+  const { append: appendToConnect, remove: removeFromConnect, fields: clientsToConnect } = useFieldArray({
+    control: form.control,
+    name: "clientsToConnect",
+  });
+
+  const { append: appendToDisconnect, remove: removeFromDisconnect, fields: clientsToDisconnect } = useFieldArray({
+    control: form.control,
+    name: "clientsToDisconnect",
   });
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
@@ -57,7 +69,8 @@ export default function UpdateUserForm({ user }: { user: User }) {
     }
   };
 
-  const [userRoleOpen, setClientOpen] = useState(false);
+  const [userRoleOpen, setRoleOpen] = useState(false);
+  const [userClientOpen, setClientOpen] = useState(false);
 
   const UserRoles = Object.entries(UserRole).map(([key, value]) => ({
     id: value,
@@ -86,7 +99,7 @@ export default function UpdateUserForm({ user }: { user: User }) {
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Client</FormLabel>
-              <Popover open={userRoleOpen} onOpenChange={setClientOpen}>
+              <Popover open={userRoleOpen} onOpenChange={setRoleOpen}>
                 <PopoverTrigger asChild>
                   <Button variant="outline" role="combobox" aria-expanded={userRoleOpen ? 'true' : 'false'} className="w-[300px] justify-between" >
                     {field.value ? UserRoles.find((userRole) => userRole.id === field.value)?.name : "Select Role..."}
@@ -100,7 +113,7 @@ export default function UpdateUserForm({ user }: { user: User }) {
                       <CommandEmpty>No userRole found.</CommandEmpty>
                       <CommandGroup>
                         {UserRoles.map((userRole) => (
-                          <CommandItem key={userRole.id} value={userRole.id} onSelect={(currentValue) => { form.setValue("role", currentValue as UserRole); setClientOpen(false); }} >
+                          <CommandItem key={userRole.id} value={userRole.id} onSelect={(currentValue) => { form.setValue("role", currentValue as UserRole); setRoleOpen(false); }} >
                             {userRole.name}
                             <Check className={cn("ml-auto", userRole.id === field.value ? "opacity-100" : "opacity-0")} />
                           </CommandItem>
@@ -114,6 +127,67 @@ export default function UpdateUserForm({ user }: { user: User }) {
             </FormItem>
           )}
         />
+        <FormItem className="flex flex-col">
+          <FormLabel>Clients</FormLabel>
+          <Popover open={userClientOpen} onOpenChange={setClientOpen}>
+            <PopoverTrigger asChild>
+              <Button variant="outline" className="w-[300px] justify-between">
+                {clientsToConnect.length === 0 && clientsToDisconnect.length === 0
+                  ? user.clients.length === 0
+                    ? "Select Clients..."
+                    : `${user.clients.length} clients selected`
+                  : `${clientsToConnect.length} added, ${clientsToDisconnect.length} removed`}
+                <ChevronsUpDown className="opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[300px] p-0">
+              <Command>
+                <CommandInput placeholder="Search client..." className="h-9" />
+                <CommandList>
+                  <CommandEmpty>No client found.</CommandEmpty>
+                  <CommandGroup>
+                    {clients.map((client) => {
+                      const isInDisconnect = clientsToDisconnect.some((c) => c.clientId === client.id);
+                      const isInConnect = clientsToConnect.some((c) => c.clientId === client.id);
+                      const filteredCurrentClients = user.clients.filter((c) => c !== null);
+                      const isInCurrentClients = filteredCurrentClients.some((c) => c.id === client.id);
+
+                      return (
+                        <CommandItem
+                          key={client.id}
+                          onSelect={() => {
+                            if (isInCurrentClients) {
+                              if (isInDisconnect) {
+                                removeFromDisconnect(clientsToDisconnect.findIndex((field) => field.clientId === client.id));
+                              } else {
+                                appendToDisconnect({ clientId: client.id, name: client.name });
+                              }
+                            } else {
+                              if (isInConnect) {
+                                removeFromConnect(clientsToConnect.findIndex((c) => c.clientId === client.id));
+                              } else {
+                                appendToConnect({ clientId: client.id, name: client.name });
+                              }
+                            }
+                          }}
+                        >
+                          {client.name}
+                          {(isInCurrentClients && !isInDisconnect) || isInConnect ? (
+                            <Check className="ml-auto" />
+                          ) : null}
+                          {isInCurrentClients && isInDisconnect ? (
+                            <X className="ml-auto" />
+                          ) : null}
+                        </CommandItem>
+                      );
+                    })}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        </FormItem>
+
         <FormField
           control={form.control}
           name="email"

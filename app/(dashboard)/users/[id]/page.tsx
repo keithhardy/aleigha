@@ -10,7 +10,11 @@ export default async function User({ params }: { params: Promise<{ id: string }>
     where: {
       id: decodeURIComponent((await params).id),
     },
+    include: {
+      clients: true
+    }
   });
+  const clients = await prisma.client.findMany()
 
   if (!user) {
     notFound();
@@ -27,7 +31,7 @@ export default async function User({ params }: { params: Promise<{ id: string }>
         </HeaderGroup>
       </Header>
 
-      <UpdateUserForm user={user} />
+      <UpdateUserForm user={user} clients={clients} />
     </>
   );
 };
