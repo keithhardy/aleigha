@@ -21,12 +21,10 @@ import { Schema } from './schema'
 
 export function ElectricalInstallationConditionReportForm({
   electricalInstallationConditionReport,
-  clients,
-  properties
+  clients
 }: {
   electricalInstallationConditionReport: ElectricalInstallationConditionReport,
-  clients: Client[],
-  properties: (Property & { address: Address })[]
+  clients: (Client & { property: (Property & { address: Address })[] })[],
 }) {
   const { toast } = useToast();
 
@@ -77,7 +75,7 @@ export function ElectricalInstallationConditionReportForm({
                       <CommandEmpty>No client found.</CommandEmpty>
                       <CommandGroup>
                         {clients.map((client) => (
-                          <CommandItem key={client.id} value={client.id} onSelect={(currentValue) => { form.setValue("clientId", currentValue); setClientOpen(false); }} >
+                          <CommandItem key={client.id} value={client.id} onSelect={(currentValue) => { form.setValue("clientId", currentValue); form.setValue("propertyId", ""); setClientOpen(false); }} >
                             {client.name}
                             <Check className={cn("ml-auto", client.id === field.value ? "opacity-100" : "opacity-0")} />
                           </CommandItem>
@@ -99,23 +97,33 @@ export function ElectricalInstallationConditionReportForm({
               <FormLabel>Property</FormLabel>
               <Popover open={propertyOpen} onOpenChange={setPropertyOpen}>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" role="combobox" aria-expanded={propertyOpen ? 'true' : 'false'} className="w-[300px] pl-3 text-left font-normal justify-between" >
-                    {field.value ? properties.find((property) => property.id === field.value)?.address.streetAddress : "Select a property..."}
+                  <Button variant="outline" role="combobox" aria-expanded={propertyOpen ? 'true' : 'false'} className="w-[300px] pl-3 text-left font-normal justify-between">
+                    {field.value
+                      ? clients
+                        .find((client) => client.id === form.getValues("clientId"))
+                        ?.property.find((property) => property.id === field.value)?.address.streetAddress
+                      : "Select a property..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
+                <PopoverContent className="w-[300px] p-0">
                   <Command>
                     <CommandInput placeholder="Search property..." className="h-9" />
                     <CommandList>
                       <CommandEmpty>No property found.</CommandEmpty>
                       <CommandGroup>
-                        {properties.map((property) => (
-                          <CommandItem key={property.id} value={property.id} onSelect={(currentValue) => { form.setValue("propertyId", currentValue); setPropertyOpen(false); }} >
-                            {property.address.streetAddress}
-                            <Check className={cn("ml-auto", field.value === property.address.streetAddress ? "opacity-100" : "opacity-0")} />
-                          </CommandItem>
-                        ))}
+                        {clients
+                          .find((client) => client.id === form.getValues("clientId")) // Find the client based on clientId
+                          ?.property.map((property) => (
+                            <CommandItem
+                              key={property.id}
+                              value={property.id}
+                              onSelect={(currentValue) => { form.setValue("propertyId", currentValue); setPropertyOpen(false); }}
+                            >
+                              {property.address.streetAddress}
+                              <Check className={cn("ml-auto", field.value === property.id ? "opacity-100" : "opacity-0")} />
+                            </CommandItem>
+                          ))}
                       </CommandGroup>
                     </CommandList>
                   </Command>

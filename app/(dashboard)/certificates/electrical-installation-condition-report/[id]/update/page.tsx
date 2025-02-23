@@ -15,11 +15,13 @@ export default async function DetailsOfTheContractorClientAndInstallation({ para
     notFound();
   }
 
-  const clients = await prisma.client.findMany()
-
-  const properties = await prisma.property.findMany({
+  const clients = await prisma.client.findMany({
     include: {
-      address: true
+      property: {
+        include: {
+          address: true
+        }
+      }
     }
   })
 
@@ -34,7 +36,7 @@ export default async function DetailsOfTheContractorClientAndInstallation({ para
         </HeaderGroup>
       </Header>
 
-      <ElectricalInstallationConditionReportForm electricalInstallationConditionReport={electricalInstallationConditionReport!} clients={clients} properties={properties} />
+      <ElectricalInstallationConditionReportForm electricalInstallationConditionReport={electricalInstallationConditionReport!} clients={clients} />
     </>
   )
 }

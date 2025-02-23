@@ -2,13 +2,17 @@ import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/pa
 import { getCurrentUser } from "@/lib/auth";
 
 import { ElectricalInstallationConditionReportForm } from './form'
+import { includes } from "lodash";
 
 export default async function ElectricalInstallationConditionReport() {
   const user = await getCurrentUser();
-  const clients = await prisma.client.findMany()
-  const properties = await prisma.property.findMany({
+  const clients = await prisma.client.findMany({
     include: {
-      address: true
+      property: {
+        include: {
+          address: true
+        }
+      }
     }
   })
 
@@ -23,7 +27,7 @@ export default async function ElectricalInstallationConditionReport() {
         </HeaderGroup>
       </Header>
 
-      <ElectricalInstallationConditionReportForm currentUser={user!} clients={clients} properties={properties} />
+      <ElectricalInstallationConditionReportForm currentUser={user!} clients={clients} />
     </>
   )
 }
