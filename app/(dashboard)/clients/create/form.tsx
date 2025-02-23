@@ -32,6 +32,7 @@ export function ClientCreateForm() {
     resolver: zodResolver(Schema),
     defaultValues: {
       name: '',
+      email: '',
       phone: '',
       picture: '',
       appointedPerson: '',
@@ -88,6 +89,19 @@ export function ClientCreateForm() {
                 <FormLabel>Name</FormLabel>
                 <FormControl>
                   <Input {...field} autoComplete="new-name" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input type="email" {...field} autoComplete="email" />
                 </FormControl>
                 <FormMessage />
               </FormItem>

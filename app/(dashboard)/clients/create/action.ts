@@ -22,6 +22,7 @@ export async function createClient(
       data: {
         name: client.name,
         phone: client.phone || "",
+        email: client.email || "",
         picture: client.picture || "",
         appointedPerson: client.appointedPerson || "",
         address: {

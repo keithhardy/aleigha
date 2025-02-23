@@ -29,6 +29,7 @@ export async function updateClient(client: z.infer<typeof Schema>): Promise<Clie
       data: {
         name: client.name,
         phone: client.phone,
+        email: client.email,
         picture: client.picture,
         appointedPerson: client.appointedPerson,
         address: {

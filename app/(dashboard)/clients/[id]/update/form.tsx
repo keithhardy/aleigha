@@ -32,6 +32,7 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
     defaultValues: {
       id: client.id,
       name: client.name,
+      email: client.email || '',
       phone: client.phone || '',
       picture: client.picture || '',
       appointedPerson: client.appointedPerson || '',
@@ -88,6 +89,19 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
                 <FormLabel>Name</FormLabel>
                 <FormControl>
                   <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input type="tel" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

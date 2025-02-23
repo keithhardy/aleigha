@@ -20,6 +20,10 @@ export const columns: ColumnDef<
       header: ({ column }) => <ColumnHeader column={column} title="Appointed Person" />,
     },
     {
+      accessorKey: 'email',
+      header: ({ column }) => <ColumnHeader column={column} title="Email" />,
+    },
+    {
       accessorKey: 'phone',
       header: ({ column }) => <ColumnHeader column={column} title="Phone" />,
     },
