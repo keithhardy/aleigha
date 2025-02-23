@@ -17,6 +17,7 @@ export async function updateProperty(
       data: {
         uprn: property.uprn,
         occupier: property.occupier,
+        client: { connect: { id: property.client } },
         address: {
           update: {
             streetAddress: property.address?.streetAddress,

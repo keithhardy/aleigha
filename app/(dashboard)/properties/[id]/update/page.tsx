@@ -9,7 +9,7 @@ export default async function PropertyUpdatePage({ params }: { params: Promise<{
       id: (await params).id,
     },
     include: {
-      address: true,
+      address: true
     },
   });
 
@@ -21,7 +21,7 @@ export default async function PropertyUpdatePage({ params }: { params: Promise<{
 
   return (
     <>
-      <PropertyUpdateForm property={property} />
+      <PropertyUpdateForm property={property} clients={clients} />
     </>
   );
 }

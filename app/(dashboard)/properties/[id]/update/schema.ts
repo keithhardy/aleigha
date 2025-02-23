@@ -4,6 +4,7 @@ export const Schema = z.object({
   id: z.string(),
   uprn: z.string().optional(),
   occupier: z.string().optional(),
+  client: z.string(),
   address: z.object({
     streetAddress: z.string().optional(),
     city: z.string().optional(),
