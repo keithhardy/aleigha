@@ -23,7 +23,7 @@ model Address {
   postCode      String?
   country       String?   @default("United Kingdom")
   settings      Settings?
-  Client        Client?
+  client        Client?
   Property      Property?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -57,7 +57,7 @@ model User {
   phone                                            String?
   signature                                        String?
   role                                             UserRole
-  Client                                           Client[]
+  clients                                          Client[]
   electricalInstallationConditionReportAsCreator   ElectricalInstallationConditionReport[] @relation("Creator")
   electricalInstallationConditionReportAsInspector ElectricalInstallationConditionReport[] @relation("Inspector")
   electricalInstallationConditionReportAsTester    ElectricalInstallationConditionReport[] @relation("Tester")
@@ -74,8 +74,8 @@ model Client {
   appointedPerson                       String?
   address                               Address?                                @relation(fields: [addressId], references: [id], onDelete: Cascade)
   addressId                             String?                                 @unique
-  user                                  User[]
-  Property                              Property[]
+  users                                 User[]
+  property                              Property[]
   electricalInstallationConditionReport ElectricalInstallationConditionReport[]
   createdAt                             DateTime                                @default(now())
   updatedAt                             DateTime                                @updatedAt

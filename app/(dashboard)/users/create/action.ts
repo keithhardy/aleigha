@@ -1,7 +1,6 @@
 "use server";
 
 import { User } from "@prisma/client";
-import { omit } from "lodash";
 import { z } from "zod";
 
 import { auth0Management } from "@/lib/auth0-management";
@@ -14,6 +13,10 @@ export async function createUserAction(
   data: z.infer<typeof Schema>
 ): Promise<ServerActionResponse<User>> {
   try {
+    const formattedClients = data.clients.map((client) => ({
+      id: client.clientId,
+    }));
+
     const auth0User = await auth0Management.users.create({
       connection: "Username-Password-Authentication",
       name: data.name,
@@ -22,7 +25,16 @@ export async function createUserAction(
     });
 
     const prismaUser = await prisma.user.create({
-      data: { ...omit(data, "password"), auth0Id: auth0User.data.user_id },
+      data: {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        role: data.role,
+        auth0Id: auth0User.data.user_id,
+        clients: {
+          connect: formattedClients,
+        },
+      },
     });
 
     return {

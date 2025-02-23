@@ -1,8 +1,11 @@
 import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
+import { prisma } from "@/lib/prisma";
 
 import CreateUserForm from "./form";
 
-export default function User() {
+export default async function User() {
+  const clients = await prisma.client.findMany()
+
   return (
     <>
       <Header>
@@ -14,7 +17,7 @@ export default function User() {
         </HeaderGroup>
       </Header>
 
-      <CreateUserForm />
+      <CreateUserForm clients={clients} />
     </>
   );
 };

@@ -33,4 +33,10 @@ export const Schema = z.object({
     }),
   signature: z.string().url().optional(),
   role: z.enum(Object.values(UserRole) as [UserRole, ...UserRole[]]),
+  clients: z.array(
+    z.object({
+      name: z.string(),
+      clientId: z.string(),
+    })
+  ),
 });

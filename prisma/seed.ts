@@ -32,6 +32,7 @@ async function main() {
           email: faker.internet.email(),
           phone: generateUKPhoneNumber(),
           signature: faker.image.url(),
+          role: "Admin",
         },
       })
     )
@@ -70,6 +71,11 @@ async function main() {
         data: {
           uprn: generateRandomUPRN(),
           occupier: getRandomOccupier(),
+          client: {
+            connect: {
+              id: "cm7guhvwc000t5r0v2e8l6gz2",
+            },
+          },
           address: {
             create: {
               streetAddress: faker.location.streetAddress(),
