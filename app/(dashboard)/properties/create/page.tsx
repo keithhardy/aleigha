@@ -3,6 +3,8 @@ import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/pa
 
 
 export default async function PropertyCreatePage() {
+  const clients = await prisma.client.findMany()
+
   return (
     <>
       <Header>
@@ -14,7 +16,7 @@ export default async function PropertyCreatePage() {
         </HeaderGroup>
       </Header>
 
-      <PropertyCreateForm />
+      <PropertyCreateForm clients={clients} />
     </>
   );
 }

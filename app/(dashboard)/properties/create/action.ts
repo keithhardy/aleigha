@@ -15,6 +15,7 @@ export async function createProperty(
       data: {
         uprn: property.uprn,
         occupier: property.occupier,
+        client: { connect: { id: property.client } },
         address: {
           create: {
             streetAddress: property.address.streetAddress,
