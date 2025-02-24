@@ -12,9 +12,7 @@ export default async function Users() {
       <Header>
         <HeaderGroup>
           <Heading>View Users</Heading>
-          <HeaderDescription>
-            Manage your users. View a table of users and access links to create, update, or delete user records.
-          </HeaderDescription>
+          <HeaderDescription>Manage your users. View a table of users and access links to create, update, or delete user records.</HeaderDescription>
         </HeaderGroup>
       </Header>
 

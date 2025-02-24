@@ -78,7 +78,7 @@ export function ElectricalInstallationConditionReportForm({
                         {clients.map((client) => (
                           <CommandItem key={client.id} value={client.id} onSelect={(currentValue) => { form.setValue("clientId", currentValue); form.setValue("propertyId", ""); setClientOpen(false); }} >
                             {client.name}
-                            <Check className={cn("ml-auto", client.id === field.value ? "opacity-100" : "opacity-0")} />
+                            {client.id === field.value ? (<Check className="ml-auto" />) : null}
                           </CommandItem>
                         ))}
                       </CommandGroup>
@@ -122,7 +122,7 @@ export function ElectricalInstallationConditionReportForm({
                               onSelect={(currentValue) => { form.setValue("propertyId", currentValue); setPropertyOpen(false); }}
                             >
                               {property.address.streetAddress}
-                              <Check className={cn("ml-auto", field.value === property.id ? "opacity-100" : "opacity-0")} />
+                              {field.value === property.id ? (<Check className="ml-auto" />) : null}
                             </CommandItem>
                           ))}
                       </CommandGroup>

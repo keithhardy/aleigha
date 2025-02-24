@@ -10,14 +10,7 @@ import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "@/components/ui/command"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
 import { useToast } from '@/hooks/use-toast';
@@ -27,7 +20,15 @@ import { createUserAction } from './action';
 import { Schema } from './schema';
 
 export default function CreateUserForm({ clients }: { clients: Client[] }) {
+  const [userRoleOpen, setRoleOpen] = useState(false);
+  const [userClientOpen, setClientOpen] = useState(false);
+
   const { toast } = useToast();
+
+  const UserRoles = Object.entries(UserRole).map(([key, value]) => ({
+    id: value,
+    name: key
+  }));
 
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
@@ -60,14 +61,6 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
     }
   };
 
-  const [userRoleOpen, setRoleOpen] = useState(false);
-  const [userClientOpen, setClientOpen] = useState(false);
-
-  const UserRoles = Object.entries(UserRole).map(([key, value]) => ({
-    id: value,
-    name: key
-  }));
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
@@ -93,20 +86,20 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
               <Popover open={userRoleOpen} onOpenChange={setRoleOpen}>
                 <PopoverTrigger asChild>
                   <Button variant="outline" role="combobox" aria-expanded={userRoleOpen ? 'true' : 'false'} className="w-[300px] justify-between" >
-                    {field.value ? UserRoles.find((userRole) => userRole.id === field.value)?.name : "Select Role..."}
+                    {field.value ? UserRoles.find((userRole) => userRole.id === field.value)?.name : "Select role..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-[300px] p-0">
                   <Command>
-                    <CommandInput placeholder="Search userRole..." className="h-9" />
+                    <CommandInput placeholder="Search roles..." className="h-9" />
                     <CommandList>
-                      <CommandEmpty>No userRole found.</CommandEmpty>
+                      <CommandEmpty>No role found.</CommandEmpty>
                       <CommandGroup>
                         {UserRoles.map((userRole) => (
                           <CommandItem key={userRole.id} value={userRole.id} onSelect={(currentValue) => { form.setValue("role", currentValue as UserRole); setRoleOpen(false); }} >
                             {userRole.name}
-                            <Check className={cn("ml-auto", userRole.id === field.value ? "opacity-100" : "opacity-0")} />
+                            {userRole.id === field.value ? (<Check className="ml-auto" />) : null}
                           </CommandItem>
                         ))}
                       </CommandGroup>
@@ -154,7 +147,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                           }}
                         >
                           {client.name}
-                          <Check className={cn("ml-auto", isSelected ? "opacity-100" : "opacity-0")} />
+                          {isSelected ? (<Check className="ml-auto" />) : null}
                         </CommandItem>
                       );
                     })}

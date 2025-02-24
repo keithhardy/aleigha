@@ -2,12 +2,15 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Address, Client, Property } from '@prisma/client';
+import { Check, ChevronsUpDown } from 'lucide-react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { updateProperty } from '@/app/(dashboard)/properties/[id]/update/action';
 import { Schema } from '@/app/(dashboard)/properties/[id]/update/schema';
 import { Button } from '@/components/ui/button';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "@/components/ui/command"
 import {
   Form,
   FormControl,
@@ -17,12 +20,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
+import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils'
-import { useState } from 'react';
-import { Check, ChevronsUpDown } from 'lucide-react';
 
 export function PropertyUpdateForm({
   property,
@@ -95,7 +95,7 @@ export function PropertyUpdateForm({
                           {clients.map((client) => (
                             <CommandItem key={client.id} value={client.id} onSelect={(currentValue) => { form.setValue("client", currentValue); setClientOpen(false); }} >
                               {client.name}
-                              <Check className={cn("ml-auto", client.id === field.value ? "opacity-100" : "opacity-0")} />
+                              {client.id === field.value ? (<Check className="ml-auto" />) : null}
                             </CommandItem>
                           ))}
                         </CommandGroup>

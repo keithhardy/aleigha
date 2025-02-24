@@ -9,27 +9,25 @@ import { ServerActionResponse } from "@/lib/types";
 
 import { Schema } from "./schema";
 
-export async function createUserAction(
-  data: z.infer<typeof Schema>
-): Promise<ServerActionResponse<User>> {
+export async function createUserAction(user: z.infer<typeof Schema>): Promise<ServerActionResponse<User>> {
   try {
-    const formattedClients = data.clients.map((client) => ({
+    const formattedClients = user.clients.map((client) => ({
       id: client.clientId,
     }));
 
     const auth0User = await auth0Management.users.create({
       connection: "Username-Password-Authentication",
-      name: data.name,
-      email: data.email,
-      password: data.password,
+      name: user.name,
+      email: user.email,
+      password: user.password,
     });
 
     const prismaUser = await prisma.user.create({
       data: {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        role: data.role,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
         auth0Id: auth0User.data.user_id,
         clients: {
           connect: formattedClients,

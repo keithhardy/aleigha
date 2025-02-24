@@ -1,8 +1,9 @@
+import { includes } from "lodash";
+
 import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 import { getCurrentUser } from "@/lib/auth";
 
 import { ElectricalInstallationConditionReportForm } from './form'
-import { includes } from "lodash";
 
 export default async function ElectricalInstallationConditionReport() {
   const user = await getCurrentUser();

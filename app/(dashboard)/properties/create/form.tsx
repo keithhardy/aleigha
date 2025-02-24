@@ -2,13 +2,17 @@
 
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Client } from '@prisma/client';
+import { Check, ChevronsUpDown } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { createProperty } from '@/app/(dashboard)/properties/create/action';
 import { Schema } from '@/app/(dashboard)/properties/create/schema';
 import { Button } from '@/components/ui/button';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "@/components/ui/command"
 import {
   Form,
   FormControl,
@@ -18,13 +22,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
+import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils'
-import { useState } from 'react';
-import { Check, ChevronsUpDown } from 'lucide-react';
-import { Client } from '@prisma/client';
 
 export function PropertyCreateForm({ clients }: { clients: Client[] }) {
   const router = useRouter();

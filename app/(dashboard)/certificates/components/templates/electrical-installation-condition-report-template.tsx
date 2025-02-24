@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ElectricalInstallationConditionReportTemplate({ data }: { data: ElectricalInstallationConditionReport }) {
+export default function ElectricalInstallationConditionReportTemplate({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
   return (
     <Document>
       <Page orientation='landscape' style={styles.page}>
@@ -28,11 +28,11 @@ export default function ElectricalInstallationConditionReportTemplate({ data }: 
             <View>
               <View>
                 <Text>Contractor Details</Text>
-                <Text>Trading Name: {data.type}</Text>
-                <Text>Address: {data.serial}</Text>
-                <Text>Phone: {data.startDate?.toLocaleString()}</Text>
-                <Text>Governing Body: {data.endDate?.toLocaleString()}</Text>
-                <Text>Governing Body Number: {data.status}</Text>
+                <Text>Trading Name: {electricalInstallationConditionReport.type}</Text>
+                <Text>Address: {electricalInstallationConditionReport.serial}</Text>
+                <Text>Phone: {electricalInstallationConditionReport.startDate?.toLocaleString()}</Text>
+                <Text>Governing Body: {electricalInstallationConditionReport.endDate?.toLocaleString()}</Text>
+                <Text>Governing Body Number: {electricalInstallationConditionReport.status}</Text>
               </View>
             </View>
           </View>
