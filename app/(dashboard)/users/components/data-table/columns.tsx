@@ -12,16 +12,17 @@ export const columns: ColumnDef<User>[] = [
     header: ({ column }) => <ColumnHeader column={column} title="Name" />,
   },
   {
-    accessorKey: 'role',
-    header: ({ column }) => <ColumnHeader column={column} title="Role" />,
-  },
-  {
     accessorKey: 'email',
     header: ({ column }) => <ColumnHeader column={column} title="Email" />,
   },
   {
     accessorKey: 'phone',
     header: ({ column }) => <ColumnHeader column={column} title="Phone" />,
+  },
+  {
+    accessorKey: 'role',
+    header: ({ column }) => <ColumnHeader column={column} title="Role" />,
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
     id: 'actions',

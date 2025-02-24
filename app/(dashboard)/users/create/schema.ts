@@ -32,11 +32,15 @@ export const Schema = z.object({
       message: "Password must contain at least one special character",
     }),
   signature: z.string().url().optional(),
-  role: z.enum(Object.values(UserRole) as [UserRole, ...UserRole[]]),
-  clients: z.array(
-    z.object({
-      name: z.string(),
-      clientId: z.string(),
-    })
-  ),
+  role: z.enum(Object.values(UserRole) as [UserRole, ...UserRole[]], {
+    message: "Please select a role for the user",
+  }),
+  clients: z
+    .array(
+      z.object({
+        name: z.string(),
+        clientId: z.string(),
+      })
+    )
+    .min(1, "Please select at least one client"),
 });

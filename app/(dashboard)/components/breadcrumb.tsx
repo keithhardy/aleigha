@@ -1,16 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 import { Fragment } from "react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+const nonLinkableSegments = new Set([
+  "electrical-installation-condition-report",
+  "update",
+]);
+
+const formatLabel = (str: string) => {
+  return str
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+};
 
 export function DashboardBreadcrumb() {
   const pathname = usePathname();
-  const pathParts = pathname.split('/').filter(part => part !== '');
-
-  const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+  const pathParts = pathname.split("/").filter((part) => part !== "");
 
   return (
     <Breadcrumb>
@@ -27,22 +42,27 @@ export function DashboardBreadcrumb() {
 
         {pathParts.length > 0 && <BreadcrumbSeparator />}
 
-        {pathParts.map((part, index) => (
-          <Fragment key={index}>
-            <BreadcrumbItem>
-              {index === pathParts.length - 1 ? (
-                <BreadcrumbPage>{capitalize(part)}</BreadcrumbPage>
-              ) : (
-                <BreadcrumbLink asChild>
-                  <Link href={'/' + pathParts.slice(0, index + 1).join('/')}>
-                    {capitalize(part)}
-                  </Link>
-                </BreadcrumbLink>
-              )}
-            </BreadcrumbItem>
-            {index < pathParts.length - 1 && <BreadcrumbSeparator />}
-          </Fragment>
-        ))}
+        {pathParts.map((part, index) => {
+          const href = "/" + pathParts.slice(0, index + 1).join("/");
+          const label = formatLabel(part);
+          const isLast = index === pathParts.length - 1;
+          const isNonLinkable = nonLinkableSegments.has(part);
+
+          return (
+            <Fragment key={href}>
+              <BreadcrumbItem>
+                {isLast || isNonLinkable ? (
+                  <BreadcrumbPage className={isNonLinkable && !isLast ? "text-muted-foreground" : ""}>{label}</BreadcrumbPage>
+                ) : (
+                  <BreadcrumbLink asChild>
+                    <Link href={href}>{label}</Link>
+                  </BreadcrumbLink>
+                )}
+              </BreadcrumbItem>
+              {!isLast && <BreadcrumbSeparator />}
+            </Fragment>
+          );
+        })}
       </BreadcrumbList>
     </Breadcrumb>
   );

@@ -11,9 +11,6 @@ export default async function UserCreatePage() {
       <Card className="border-none shadow-none">
         <CardHeader>
           <CardTitle>Create User</CardTitle>
-          <CardDescription>
-            Please complete all fields with accurate information.
-          </CardDescription>
         </CardHeader>
         <CardContent>
           <CreateUserForm clients={clients} />

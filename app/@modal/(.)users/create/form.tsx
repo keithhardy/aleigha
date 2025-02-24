@@ -84,83 +84,91 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
           name="role"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Role</FormLabel>
-              <Popover open={userRoleOpen} onOpenChange={setRoleOpen}>
-                <PopoverTrigger asChild>
-                  <Button variant="outline" role="combobox" aria-expanded={userRoleOpen ? 'true' : 'false'} className="w-[300px] justify-between" >
-                    {field.value ? UserRoles.find((userRole) => userRole.id === field.value)?.name : "Select role..."}
-                    <ChevronsUpDown className="opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-[300px] p-0">
-                  <Command>
-                    <CommandInput placeholder="Search roles..." className="h-9" />
-                    <CommandList>
-                      <CommandEmpty>No role found.</CommandEmpty>
-                      <CommandGroup>
-                        {UserRoles.map((userRole) => (
-                          <CommandItem key={userRole.id} value={userRole.id} onSelect={(currentValue) => { form.setValue("role", currentValue as UserRole); setRoleOpen(false); }} >
-                            {userRole.name}
-                            {userRole.id === field.value ? (<Check className="ml-auto" />) : null}
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
+              <FormLabel className='mb-1.5'>Role</FormLabel>
+              <FormControl>
+                <Popover open={userRoleOpen} onOpenChange={setRoleOpen}>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" role="combobox" aria-expanded={userRoleOpen ? 'true' : 'false'} className="w-[414px] justify-between" >
+                      {field.value ? UserRoles.find((userRole) => userRole.id === field.value)?.name : "Select role..."}
+                      <ChevronsUpDown className="opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[414px] p-0">
+                    <Command>
+                      <CommandInput placeholder="Search roles..." className="h-9" />
+                      <CommandList>
+                        <CommandEmpty>No role found.</CommandEmpty>
+                        <CommandGroup>
+                          {UserRoles.map((userRole) => (
+                            <CommandItem key={userRole.id} value={userRole.id} onSelect={(currentValue) => { form.setValue("role", currentValue as UserRole); setRoleOpen(false); }} >
+                              {userRole.name}
+                              {userRole.id === field.value ? (<Check className="ml-auto" />) : null}
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="clients"
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>Clients</FormLabel>
+              <FormControl>
+                <Popover open={userClientOpen} onOpenChange={setClientOpen}>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="max-w-[768px] justify-between">
+                      {field.value.length === 0
+                        ? "Select Clients..."
+                        : field.value.length === 1
+                          ? field.value[0].name
+                          : `${field.value.length} clients selected`}
+                      <ChevronsUpDown className="opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="p-0">
+                    <Command>
+                      <CommandInput placeholder="Search client..." className="h-9" />
+                      <CommandList>
+                        <CommandEmpty>No client found.</CommandEmpty>
+                        <CommandGroup>
+                          {clients.map((client) => {
+                            const isSelected = field.value.some((field) => field.clientId === client.id);
 
-        <FormItem className="flex flex-col">
-          <FormLabel>Clients</FormLabel>
-          <Popover open={userClientOpen} onOpenChange={setClientOpen}>
-            <PopoverTrigger asChild>
-              <Button variant="outline" className="w-[300px] justify-between">
-                {fields.length === 0
-                  ? "Select Clients..."
-                  : fields.length === 1
-                    ? fields[0].name
-                    : `${fields.length} clients selected`}
-                <ChevronsUpDown className="opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-[300px] p-0">
-              <Command>
-                <CommandInput placeholder="Search client..." className="h-9" />
-                <CommandList>
-                  <CommandEmpty>No client found.</CommandEmpty>
-                  <CommandGroup>
-                    {clients.map((client) => {
-                      const isSelected = fields.some((field) => field.clientId === client.id);
-
-                      return (
-                        <CommandItem
-                          key={client.id}
-                          onSelect={() => {
-                            if (isSelected) {
-                              const index = fields.findIndex((field) => field.clientId === client.id);
-                              remove(index);
-                            } else {
-                              append({ clientId: client.id, name: client.name });
-                            }
-                          }}
-                        >
-                          {client.name}
-                          {isSelected ? (<Check className="ml-auto" />) : null}
-                        </CommandItem>
-                      );
-                    })}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
-
-          <FormMessage />
-        </FormItem>
+                            return (
+                              <CommandItem
+                                key={client.id}
+                                onSelect={() => {
+                                  if (isSelected) {
+                                    const index = field.value.findIndex((field) => field.clientId === client.id);
+                                    remove(index);
+                                  } else {
+                                    append({ clientId: client.id, name: client.name });
+                                  }
+                                }}
+                              >
+                                {client.name}
+                                {isSelected ? (<Check className="ml-auto" />) : null}
+                              </CommandItem>
+                            );
+                          })}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="email"
@@ -201,7 +209,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
           )}
         />
         <Button type="submit" disabled={form.formState.isSubmitting} variant="outline">
-          {form.formState.isSubmitting ? 'Saving' : 'Save'}
+          {form.formState.isSubmitting ? 'Creating' : 'Create'}
         </Button>
       </form>
     </Form>

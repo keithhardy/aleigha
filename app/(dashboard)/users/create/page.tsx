@@ -8,16 +8,18 @@ export default async function User() {
 
   return (
     <>
-      <Header>
-        <HeaderGroup>
-          <Heading>Create User</Heading>
-          <HeaderDescription>
-            Fill out the form below to add a new user. Ensure all required information is provided before saving.
-          </HeaderDescription>
-        </HeaderGroup>
-      </Header>
+      <div className="container mx-auto max-w-screen-md">
+        <Header>
+          <HeaderGroup>
+            <Heading>Create User</Heading>
+            <HeaderDescription>
+              Complete the form below to add a new user. Make sure all required fields are filled before saving.
+            </HeaderDescription>
+          </HeaderGroup>
+        </Header>
 
-      <CreateUserForm clients={clients} />
+        <CreateUserForm clients={clients} />
+      </div>
     </>
   );
 };
