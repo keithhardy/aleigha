@@ -16,8 +16,10 @@ export const columns: ColumnDef<any>[] = [
     header: ({ column }) => <ColumnHeader column={column} title="Type" />,
   },
   {
-    accessorKey: "client.name",
+    accessorFn: (row) => row.client?.name,
+    id: "client",
     header: ({ column }) => <ColumnHeader column={column} title="Client" />,
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
     accessorKey: "property.uprn",
@@ -44,6 +46,30 @@ export const columns: ColumnDef<any>[] = [
       }
       return "N/A";
     },
+    filterFn: (row, id, value) => {
+      const rowDate = new Date(row.getValue(id));
+
+      const startDate = value?.from ? new Date(value.from) : null;
+      const endDate = value?.to ? new Date(value.to) : null;
+
+      if (!rowDate || isNaN(rowDate.getTime())) {
+        return false;
+      }
+
+      if (startDate && endDate) {
+        return rowDate >= startDate && rowDate <= endDate;
+      }
+
+      if (startDate) {
+        return rowDate >= startDate;
+      }
+
+      if (endDate) {
+        return rowDate <= endDate;
+      }
+
+      return true;
+    },
   },
   {
     accessorKey: "endDate",
@@ -58,12 +84,15 @@ export const columns: ColumnDef<any>[] = [
     },
   },
   {
-    accessorKey: "creator.name",
+    accessorFn: (row) => row.creator?.name,
+    id: "creator",
     header: ({ column }) => <ColumnHeader column={column} title="Operative" />,
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
     accessorKey: "status",
     header: ({ column }) => <ColumnHeader column={column} title="Status" />,
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
     id: "actions",

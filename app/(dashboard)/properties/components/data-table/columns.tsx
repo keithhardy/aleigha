@@ -1,6 +1,6 @@
 "use client";
 
-import { Address, Property } from "@prisma/client";
+import { Address, Client, Property } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 
 import { ColumnHeader } from "@/app/(dashboard)/properties/components/data-table/column-header";
@@ -9,6 +9,7 @@ import { RowActions } from "@/app/(dashboard)/properties/components/data-table/r
 export const columns: ColumnDef<
   Property & {
     address: Address | null;
+    client: Client | null;
   }
 >[] = [
   {
@@ -16,8 +17,10 @@ export const columns: ColumnDef<
     header: ({ column }) => <ColumnHeader column={column} title="UPRN" />,
   },
   {
-    accessorKey: "client.name",
+    accessorFn: (row) => row.client?.name,
+    id: "client",
     header: ({ column }) => <ColumnHeader column={column} title="Client" />,
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
     accessorKey: "occupier",

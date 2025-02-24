@@ -27,6 +27,16 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
       )
     : [];
 
+  const clientColumn = table.getColumn("client");
+  const clientOptions = clientColumn
+    ? Array.from(clientColumn.getFacetedUniqueValues().entries()).map(
+        ([value]) => ({
+          label: String(value),
+          value: String(value),
+        }),
+      )
+    : [];
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
@@ -36,6 +46,14 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
           onChange={(event) => table.setGlobalFilter(event.target.value)}
           className="h-8 w-[150px] border-dashed lg:w-[250px]"
         />
+
+        {clientColumn && (
+          <FacetedFilter
+            column={clientColumn}
+            title="Client"
+            options={clientOptions}
+          />
+        )}
 
         {occupierColumn && (
           <FacetedFilter
