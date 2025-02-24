@@ -9,6 +9,11 @@ import {
 import { prisma } from "@/lib/prisma";
 
 import { DeleteUserForm } from "./form";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Reiyen – Delete User",
+};
 
 export default async function DeleteUserPage({
   params,

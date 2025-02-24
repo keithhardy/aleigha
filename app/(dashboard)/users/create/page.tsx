@@ -7,6 +7,11 @@ import {
 import { prisma } from "@/lib/prisma";
 
 import CreateUserForm from "./form";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Reiyen – Create User",
+};
 
 export default async function User() {
   const clients = await prisma.client.findMany();

@@ -9,6 +9,11 @@ import {
 import { prisma } from "@/lib/prisma";
 
 import UpdateUserForm from "./form";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Reiyen – User",
+};
 
 export default async function User({
   params,
@@ -31,17 +36,19 @@ export default async function User({
 
   return (
     <>
-      <Header>
-        <HeaderGroup>
-          <Heading>User</Heading>
-          <HeaderDescription>
-            View and edit the user's details. Update any information as needed
-            and save your changes.
-          </HeaderDescription>
-        </HeaderGroup>
-      </Header>
+      <div className="container mx-auto max-w-screen-md">
+        <Header>
+          <HeaderGroup>
+            <Heading>User</Heading>
+            <HeaderDescription>
+              View and edit the user's details. Update any information as needed
+              and save your changes.
+            </HeaderDescription>
+          </HeaderGroup>
+        </Header>
 
-      <UpdateUserForm user={user} clients={clients} />
+        <UpdateUserForm user={user} clients={clients} />
+      </div>
     </>
   );
 }

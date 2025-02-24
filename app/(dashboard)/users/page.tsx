@@ -8,6 +8,11 @@ import { prisma } from "@/lib/prisma";
 
 import { columns } from "./components/data-table/columns";
 import { DataTable } from "./components/data-table/data-table";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Reiyen – Users",
+};
 
 export default async function Users() {
   const users = await prisma.user.findMany();

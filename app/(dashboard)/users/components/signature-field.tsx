@@ -40,14 +40,15 @@ export function SignatureField({ value, onChange }: ControllerRenderProps) {
     <>
       {isEditingSignature ? (
         <>
-          <SignatureCanvas
-            ref={signaturePad}
-            onEnd={handleEndSignature}
-            canvasProps={{
-              className:
-                "signature-canvas border rounded-md w-full h-56 bg-white",
-            }}
-          />
+          <div style={{ position: "relative", width: "100%", paddingBottom: "33.33%" }}>
+            <SignatureCanvas
+              ref={signaturePad}
+              onEnd={handleEndSignature}
+              canvasProps={{
+                className: "signature-canvas border rounded-md absolute top-0 left-0 w-full h-full bg-white",
+              }}
+            />
+          </div>
           <Button type="button" onClick={handleClearSignature}>
             Clear
             <Eraser />
@@ -55,13 +56,15 @@ export function SignatureField({ value, onChange }: ControllerRenderProps) {
         </>
       ) : (
         <>
-          <Image
-            src={signatureValue}
-            alt="Saved signature"
-            width={1000}
-            height={1000}
-            className="h-56 w-full rounded-md border bg-white"
-          />
+          <div style={{ position: "relative", width: "100%", paddingBottom: "33.33%" }}>
+            <Image
+              src={signatureValue}
+              alt="Saved signature"
+              layout="fill"
+              objectFit="contain"
+              className="rounded-md border bg-white"
+            />
+          </div>
           <Button type="button" onClick={handleEditSignature}>
             Edit
             <Signature />

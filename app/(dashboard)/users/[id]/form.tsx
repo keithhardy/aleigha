@@ -130,17 +130,17 @@ export default function UpdateUserForm({
                     variant="outline"
                     role="combobox"
                     aria-expanded={userRoleOpen ? "true" : "false"}
-                    className="w-[300px] justify-between"
+                    className="max-w-[768px] justify-between"
                   >
                     {field.value
                       ? UserRoles.find(
-                          (userRole) => userRole.id === field.value,
-                        )?.name
+                        (userRole) => userRole.id === field.value,
+                      )?.name
                       : "Select Role..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[300px] p-0">
+                <PopoverContent className="p-0">
                   <Command>
                     <CommandInput
                       placeholder="Search userRole..."
@@ -182,9 +182,9 @@ export default function UpdateUserForm({
           <FormLabel>Clients</FormLabel>
           <Popover open={userClientOpen} onOpenChange={setClientOpen}>
             <PopoverTrigger asChild>
-              <Button variant="outline" className="w-[300px] justify-between">
+              <Button variant="outline" className="max-w-[768px] justify-between">
                 {clientsToConnect.length === 0 &&
-                clientsToDisconnect.length === 0
+                  clientsToDisconnect.length === 0
                   ? user.clients.length === 0
                     ? "Select Clients..."
                     : `${user.clients.length} clients selected`
@@ -192,7 +192,7 @@ export default function UpdateUserForm({
                 <ChevronsUpDown className="opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[300px] p-0">
+            <PopoverContent className="p-0">
               <Command>
                 <CommandInput placeholder="Search client..." className="h-9" />
                 <CommandList>
@@ -247,7 +247,7 @@ export default function UpdateUserForm({
                         >
                           {client.name}
                           {(isInCurrentClients && !isInDisconnect) ||
-                          isInConnect ? (
+                            isInConnect ? (
                             <Check className="ml-auto" />
                           ) : null}
                           {isInCurrentClients && isInDisconnect ? (
