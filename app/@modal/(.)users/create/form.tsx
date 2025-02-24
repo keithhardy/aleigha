@@ -3,11 +3,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Client, UserRole } from '@prisma/client';
 import { Check, ChevronsUpDown } from 'lucide-react';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { createUserAction } from '@/app/(dashboard)/users/create/action';
+import { Schema } from '@/app/(dashboard)/users/create/schema';
 import { Button } from '@/components/ui/button';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "@/components/ui/command"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from '@/components/ui/form';
@@ -15,12 +17,13 @@ import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
 import { useToast } from '@/hooks/use-toast';
 
-import { createUserAction } from './action';
-import { Schema } from './schema';
+
 
 export default function CreateUserForm({ clients }: { clients: Client[] }) {
   const [userRoleOpen, setRoleOpen] = useState(false);
   const [userClientOpen, setClientOpen] = useState(false);
+
+  const router = useRouter();
 
   const { toast } = useToast();
 
@@ -56,7 +59,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
     });
 
     if (response.status === 'success') {
-      redirect("/users");
+      router.back();
     }
   };
 
