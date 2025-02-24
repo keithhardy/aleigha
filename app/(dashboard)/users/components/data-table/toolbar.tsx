@@ -7,8 +7,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import { ViewOptions } from "./view-options";
 import { FacetedFilter } from "./faceted-filter";
+import { ViewOptions } from "./view-options";
 
 interface ToolbarProps<TData> {
   table: Table<TData>;

@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { Modal } from "@/app/@modal/components/modal";
@@ -9,7 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Reiyen – Delete User",

@@ -40,12 +40,19 @@ export function SignatureField({ value, onChange }: ControllerRenderProps) {
     <>
       {isEditingSignature ? (
         <>
-          <div style={{ position: "relative", width: "100%", paddingBottom: "33.33%" }}>
+          <div
+            style={{
+              position: "relative",
+              width: "100%",
+              paddingBottom: "33.33%",
+            }}
+          >
             <SignatureCanvas
               ref={signaturePad}
               onEnd={handleEndSignature}
               canvasProps={{
-                className: "signature-canvas border rounded-md absolute top-0 left-0 w-full h-full bg-white",
+                className:
+                  "signature-canvas border rounded-md absolute top-0 left-0 w-full h-full bg-white",
               }}
             />
           </div>
@@ -56,7 +63,13 @@ export function SignatureField({ value, onChange }: ControllerRenderProps) {
         </>
       ) : (
         <>
-          <div style={{ position: "relative", width: "100%", paddingBottom: "33.33%" }}>
+          <div
+            style={{
+              position: "relative",
+              width: "100%",
+              paddingBottom: "33.33%",
+            }}
+          >
             <Image
               src={signatureValue}
               alt="Saved signature"

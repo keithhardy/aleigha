@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import {
   Header,
   HeaderDescription,
@@ -8,7 +10,6 @@ import { prisma } from "@/lib/prisma";
 
 import { columns } from "./components/data-table/columns";
 import { DataTable } from "./components/data-table/data-table";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Reiyen – Users",

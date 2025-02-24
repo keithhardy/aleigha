@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import {
   Header,
   HeaderDescription,
@@ -7,7 +9,6 @@ import {
 import { prisma } from "@/lib/prisma";
 
 import CreateUserForm from "./form";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Reiyen – Create User",
