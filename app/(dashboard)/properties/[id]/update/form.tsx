@@ -33,7 +33,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
 
 export function PropertyUpdateForm({
   property,
@@ -100,7 +99,7 @@ export function PropertyUpdateForm({
                     >
                       {field.value
                         ? clients.find((client) => client.id === field.value)
-                            ?.name
+                          ?.name
                         : "Select Client..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>

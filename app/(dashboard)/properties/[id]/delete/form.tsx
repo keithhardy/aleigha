@@ -35,7 +35,9 @@ export function PropertyDeleteForm({ property }: { property: Property }) {
   const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await deleteProperty(data);
+
       router.push("/properties");
+
       toast({
         title: "Property Deleted",
         description: "Property was successfully removed.",

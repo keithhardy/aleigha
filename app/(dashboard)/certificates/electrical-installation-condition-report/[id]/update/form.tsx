@@ -6,7 +6,6 @@ import {
   Client,
   ElectricalInstallationConditionReport,
   Property,
-  User,
 } from "@prisma/client";
 import { format } from "date-fns";
 import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
@@ -27,7 +26,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -96,7 +94,7 @@ export function ElectricalInstallationConditionReportForm({
                   >
                     {field.value
                       ? clients.find((client) => client.id === field.value)
-                          ?.name
+                        ?.name
                       : "Select client..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
@@ -151,13 +149,13 @@ export function ElectricalInstallationConditionReportForm({
                   >
                     {field.value
                       ? clients
-                          .find(
-                            (client) =>
-                              client.id === form.getValues("clientId"),
-                          )
-                          ?.property.find(
-                            (property) => property.id === field.value,
-                          )?.address.streetAddress
+                        .find(
+                          (client) =>
+                            client.id === form.getValues("clientId"),
+                        )
+                        ?.property.find(
+                          (property) => property.id === field.value,
+                        )?.address.streetAddress
                       : "Select a property..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>

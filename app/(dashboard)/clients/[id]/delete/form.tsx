@@ -35,7 +35,9 @@ export function ClientDeleteForm({ client }: { client: Client }) {
   const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await deleteClient(data);
+
       router.push("/clients");
+
       toast({
         title: "User Deleted",
         description: `${data.name} was successfully removed.`,

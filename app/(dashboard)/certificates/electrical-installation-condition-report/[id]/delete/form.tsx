@@ -40,7 +40,9 @@ export function ElectricalInstallationConditionReportDeleteForm({
   const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await deleteElectricalInstallationConditionReport(data);
+
       router.push("/certificates");
+
       toast({
         title: "Electrical Installation Condition Report Deleted",
         description:
@@ -84,7 +86,7 @@ export function ElectricalInstallationConditionReportDeleteForm({
             type="submit"
             disabled={
               form.watch("serial") !==
-                electricalInstallationConditionReport.serial ||
+              electricalInstallationConditionReport.serial ||
               form.formState.isSubmitting
             }
             variant="destructive"

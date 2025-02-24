@@ -10,7 +10,7 @@ import { ServerActionResponse } from "@/lib/types";
 import { Schema } from "./schema";
 
 export async function updateUserAction(
-  user: z.infer<typeof Schema>,
+  user: z.infer<typeof Schema>
 ): Promise<ServerActionResponse<User>> {
   try {
     const formattedClientsToConnect = user.clientsToConnect.map((client) => ({
@@ -20,20 +20,20 @@ export async function updateUserAction(
     const formattedClientsToDisconnect = user.clientsToDisconnect.map(
       (client) => ({
         id: client.clientId,
-      }),
+      })
     );
 
-    const auth0User = await auth0Management.users.update(
+    await auth0Management.users.update(
       {
         id: user.auth0Id,
       },
       {
         name: user.name,
         email: user.email,
-      },
+      }
     );
 
-    const prismaUser = await prisma.user.update({
+    await prisma.user.update({
       where: {
         id: user.id,
       },
@@ -51,7 +51,7 @@ export async function updateUserAction(
 
     return {
       status: "success",
-      heading: "User Update Successfully",
+      heading: "User Updated Successfully",
       message: "The user has been updated.",
     };
   } catch (error) {

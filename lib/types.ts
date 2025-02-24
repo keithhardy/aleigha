@@ -1,5 +1,5 @@
 export type ServerActionResponse<T> = {
-  status: 'success' | 'error';
+  status: "success" | "error";
   heading: string;
   message: string;
   payload?: T;
