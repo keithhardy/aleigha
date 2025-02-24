@@ -1,15 +1,22 @@
-'use client';
+"use client";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Client, User, UserRole } from '@prisma/client';
-import { Check, ChevronsUpDown, X } from 'lucide-react';
-import { redirect } from 'next/navigation';
-import { useState } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Client, User, UserRole } from "@prisma/client";
+import { Check, ChevronsUpDown, X } from "lucide-react";
+import { redirect } from "next/navigation";
+import { useState } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { Button } from '@/components/ui/button';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "@/components/ui/command"
+import { Button } from "@/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import {
   Form,
   FormControl,
@@ -17,17 +24,27 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
-import { useToast } from '@/hooks/use-toast';
-import { cn } from '@/lib/utils'
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
-import { updateUserAction } from './action';
-import { Schema } from './schema';
-import { SignatureField } from '../components/signature-field';
+import { updateUserAction } from "./action";
+import { Schema } from "./schema";
+import { SignatureField } from "../components/signature-field";
 
-export default function UpdateUserForm({ user, clients }: { user: User & { clients: Client[] }, clients: Client[] }) {
+export default function UpdateUserForm({
+  user,
+  clients,
+}: {
+  user: User & { clients: Client[] };
+  clients: Client[];
+}) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof Schema>>({
@@ -37,20 +54,28 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
       auth0Id: user.auth0Id,
       name: user.name,
       email: user.email,
-      phone: user.phone || '',
-      signature: user.signature || '',
-      role: user.role || '' as UserRole,
+      phone: user.phone || "",
+      signature: user.signature || "",
+      role: user.role || ("" as UserRole),
       clientsToConnect: [],
       clientsToDisconnect: [],
     },
   });
 
-  const { append: appendToConnect, remove: removeFromConnect, fields: clientsToConnect } = useFieldArray({
+  const {
+    append: appendToConnect,
+    remove: removeFromConnect,
+    fields: clientsToConnect,
+  } = useFieldArray({
     control: form.control,
     name: "clientsToConnect",
   });
 
-  const { append: appendToDisconnect, remove: removeFromDisconnect, fields: clientsToDisconnect } = useFieldArray({
+  const {
+    append: appendToDisconnect,
+    remove: removeFromDisconnect,
+    fields: clientsToDisconnect,
+  } = useFieldArray({
     control: form.control,
     name: "clientsToDisconnect",
   });
@@ -61,10 +86,10 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
     toast({
       title: response.heading,
       description: response.message,
-      variant: response.status === 'success' ? 'default' : 'destructive',
+      variant: response.status === "success" ? "default" : "destructive",
     });
 
-    if (response.status === 'success') {
+    if (response.status === "success") {
       redirect("/users");
     }
   };
@@ -74,12 +99,12 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
 
   const UserRoles = Object.entries(UserRole).map(([key, value]) => ({
     id: value,
-    name: key
+    name: key,
   }));
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="name"
@@ -101,21 +126,47 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
               <FormLabel>Client</FormLabel>
               <Popover open={userRoleOpen} onOpenChange={setRoleOpen}>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" role="combobox" aria-expanded={userRoleOpen ? 'true' : 'false'} className="w-[300px] justify-between" >
-                    {field.value ? UserRoles.find((userRole) => userRole.id === field.value)?.name : "Select Role..."}
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={userRoleOpen ? "true" : "false"}
+                    className="w-[300px] justify-between"
+                  >
+                    {field.value
+                      ? UserRoles.find(
+                          (userRole) => userRole.id === field.value,
+                        )?.name
+                      : "Select Role..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-[300px] p-0">
                   <Command>
-                    <CommandInput placeholder="Search userRole..." className="h-9" />
+                    <CommandInput
+                      placeholder="Search userRole..."
+                      className="h-9"
+                    />
                     <CommandList>
                       <CommandEmpty>No userRole found.</CommandEmpty>
                       <CommandGroup>
                         {UserRoles.map((userRole) => (
-                          <CommandItem key={userRole.id} value={userRole.id} onSelect={(currentValue) => { form.setValue("role", currentValue as UserRole); setRoleOpen(false); }} >
+                          <CommandItem
+                            key={userRole.id}
+                            value={userRole.id}
+                            onSelect={(currentValue) => {
+                              form.setValue("role", currentValue as UserRole);
+                              setRoleOpen(false);
+                            }}
+                          >
                             {userRole.name}
-                            <Check className={cn("ml-auto", userRole.id === field.value ? "opacity-100" : "opacity-0")} />
+                            <Check
+                              className={cn(
+                                "ml-auto",
+                                userRole.id === field.value
+                                  ? "opacity-100"
+                                  : "opacity-0",
+                              )}
+                            />
                           </CommandItem>
                         ))}
                       </CommandGroup>
@@ -132,7 +183,8 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
           <Popover open={userClientOpen} onOpenChange={setClientOpen}>
             <PopoverTrigger asChild>
               <Button variant="outline" className="w-[300px] justify-between">
-                {clientsToConnect.length === 0 && clientsToDisconnect.length === 0
+                {clientsToConnect.length === 0 &&
+                clientsToDisconnect.length === 0
                   ? user.clients.length === 0
                     ? "Select Clients..."
                     : `${user.clients.length} clients selected`
@@ -147,10 +199,18 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
                   <CommandEmpty>No client found.</CommandEmpty>
                   <CommandGroup>
                     {clients.map((client) => {
-                      const isInDisconnect = clientsToDisconnect.some((c) => c.clientId === client.id);
-                      const isInConnect = clientsToConnect.some((c) => c.clientId === client.id);
-                      const filteredCurrentClients = user.clients.filter((c) => c !== null);
-                      const isInCurrentClients = filteredCurrentClients.some((c) => c.id === client.id);
+                      const isInDisconnect = clientsToDisconnect.some(
+                        (c) => c.clientId === client.id,
+                      );
+                      const isInConnect = clientsToConnect.some(
+                        (c) => c.clientId === client.id,
+                      );
+                      const filteredCurrentClients = user.clients.filter(
+                        (c) => c !== null,
+                      );
+                      const isInCurrentClients = filteredCurrentClients.some(
+                        (c) => c.id === client.id,
+                      );
 
                       return (
                         <CommandItem
@@ -158,21 +218,36 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
                           onSelect={() => {
                             if (isInCurrentClients) {
                               if (isInDisconnect) {
-                                removeFromDisconnect(clientsToDisconnect.findIndex((field) => field.clientId === client.id));
+                                removeFromDisconnect(
+                                  clientsToDisconnect.findIndex(
+                                    (field) => field.clientId === client.id,
+                                  ),
+                                );
                               } else {
-                                appendToDisconnect({ clientId: client.id, name: client.name });
+                                appendToDisconnect({
+                                  clientId: client.id,
+                                  name: client.name,
+                                });
                               }
                             } else {
                               if (isInConnect) {
-                                removeFromConnect(clientsToConnect.findIndex((c) => c.clientId === client.id));
+                                removeFromConnect(
+                                  clientsToConnect.findIndex(
+                                    (c) => c.clientId === client.id,
+                                  ),
+                                );
                               } else {
-                                appendToConnect({ clientId: client.id, name: client.name });
+                                appendToConnect({
+                                  clientId: client.id,
+                                  name: client.name,
+                                });
                               }
                             }
                           }}
                         >
                           {client.name}
-                          {(isInCurrentClients && !isInDisconnect) || isInConnect ? (
+                          {(isInCurrentClients && !isInDisconnect) ||
+                          isInConnect ? (
                             <Check className="ml-auto" />
                           ) : null}
                           {isInCurrentClients && isInDisconnect ? (
@@ -228,8 +303,12 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
           )}
         />
 
-        <Button type="submit" disabled={form.formState.isSubmitting} variant="outline">
-          {form.formState.isSubmitting ? 'Saving' : 'Save'}
+        <Button
+          type="submit"
+          disabled={form.formState.isSubmitting}
+          variant="outline"
+        >
+          {form.formState.isSubmitting ? "Saving" : "Save"}
         </Button>
       </form>
     </Form>

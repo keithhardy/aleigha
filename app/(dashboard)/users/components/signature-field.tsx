@@ -1,13 +1,12 @@
-'use client';
+"use client";
 
-import { Eraser, Signature } from 'lucide-react';
-import Image from 'next/image';
-import { useRef, useState } from 'react';
-import { ControllerRenderProps } from 'react-hook-form';
-import SignatureCanvas from 'react-signature-canvas';
+import { Eraser, Signature } from "lucide-react";
+import Image from "next/image";
+import { useRef, useState } from "react";
+import { ControllerRenderProps } from "react-hook-form";
+import SignatureCanvas from "react-signature-canvas";
 
-import { Button } from '@/components/ui/button';
-
+import { Button } from "@/components/ui/button";
 
 export function SignatureField({ value, onChange }: ControllerRenderProps) {
   const signaturePad = useRef<SignatureCanvas>(null);
@@ -18,23 +17,23 @@ export function SignatureField({ value, onChange }: ControllerRenderProps) {
 
   const handleClearSignature = () => {
     signaturePad.current?.clear();
-    onChange('');
+    onChange("");
   };
 
   const handleEndSignature = () => {
     if (signaturePad.current) {
       if (!signaturePad.current.isEmpty()) {
-        const signatureData = signaturePad.current.toDataURL('image/png');
+        const signatureData = signaturePad.current.toDataURL("image/png");
         onChange(signatureData);
       } else {
-        onChange('');
+        onChange("");
       }
     }
   };
 
   const handleEditSignature = () => {
     setIsEditingSignature(true);
-    onChange('');
+    onChange("");
   };
 
   return (
@@ -45,7 +44,8 @@ export function SignatureField({ value, onChange }: ControllerRenderProps) {
             ref={signaturePad}
             onEnd={handleEndSignature}
             canvasProps={{
-              className: 'signature-canvas border rounded-md w-full h-56 bg-white',
+              className:
+                "signature-canvas border rounded-md w-full h-56 bg-white",
             }}
           />
           <Button type="button" onClick={handleClearSignature}>

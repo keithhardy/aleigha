@@ -1,7 +1,15 @@
-import { LayoutPanelLeft, Users, Settings2, Logs, Building2, House, Folder } from "lucide-react"
-import Link from "next/link"
+import {
+  LayoutPanelLeft,
+  Users,
+  Settings2,
+  Logs,
+  Building2,
+  House,
+  Folder,
+} from "lucide-react";
+import Link from "next/link";
 
-import Logo from "@/components/logo"
+import Logo from "@/components/logo";
 import {
   Sidebar,
   SidebarContent,
@@ -14,7 +22,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 const dashboard = [
   {
@@ -47,7 +55,7 @@ const dashboard = [
     url: "/users",
     icon: Users,
   },
-]
+];
 
 export async function DashboardSidebar() {
   return (
@@ -63,9 +71,7 @@ export async function DashboardSidebar() {
                 <Logo className="size-4" />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">
-                  Reiyen
-                </span>
+                <span className="truncate font-semibold">Reiyen</span>
                 <span className="truncate text-xs">Enterprise</span>
               </div>
             </SidebarMenuButton>
@@ -95,8 +101,8 @@ export async function DashboardSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild tooltip='Settings'>
-              <Link href='/settings'>
+            <SidebarMenuButton asChild tooltip="Settings">
+              <Link href="/settings">
                 <Settings2 />
                 <span>Settings</span>
               </Link>
@@ -106,5 +112,5 @@ export async function DashboardSidebar() {
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

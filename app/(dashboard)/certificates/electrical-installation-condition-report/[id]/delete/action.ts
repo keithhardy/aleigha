@@ -8,7 +8,7 @@ import { prisma } from "@/lib/prisma";
 import { Schema } from "./schema";
 
 export async function deleteElectricalInstallationConditionReport(
-  electricalInstallationConditionReport: z.infer<typeof Schema>
+  electricalInstallationConditionReport: z.infer<typeof Schema>,
 ): Promise<void> {
   try {
     await prisma.electricalInstallationConditionReport.delete({

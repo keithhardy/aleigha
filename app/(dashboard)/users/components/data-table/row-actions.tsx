@@ -1,8 +1,8 @@
-import { User } from '@prisma/client';
-import { MoreHorizontal } from 'lucide-react';
-import Link from 'next/link';
+import { User } from "@prisma/client";
+import { MoreHorizontal } from "lucide-react";
+import Link from "next/link";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,7 +10,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
 export function RowActions({ user }: { user: User }) {
   return (

@@ -1,16 +1,23 @@
-'use client';
+"use client";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Address, Client, Property } from '@prisma/client';
-import { Check, ChevronsUpDown } from 'lucide-react';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Address, Client, Property } from "@prisma/client";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { updateProperty } from '@/app/(dashboard)/properties/[id]/update/action';
-import { Schema } from '@/app/(dashboard)/properties/[id]/update/schema';
-import { Button } from '@/components/ui/button';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "@/components/ui/command"
+import { updateProperty } from "@/app/(dashboard)/properties/[id]/update/action";
+import { Schema } from "@/app/(dashboard)/properties/[id]/update/schema";
+import { Button } from "@/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import {
   Form,
   FormControl,
@@ -18,18 +25,22 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
-import { useToast } from '@/hooks/use-toast';
-import { cn } from '@/lib/utils'
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 export function PropertyUpdateForm({
   property,
-  clients
+  clients,
 }: {
-  property: Property & { address: Address | null },
-  clients: Client[]
+  property: Property & { address: Address | null };
+  clients: Client[];
 }) {
   const { toast } = useToast();
 
@@ -41,12 +52,12 @@ export function PropertyUpdateForm({
       occupier: property.occupier,
       client: property.clientId,
       address: {
-        city: property.address?.city || '',
-        county: property.address?.county || '',
-        postTown: property.address?.postTown || '',
-        postCode: property.address?.postCode || '',
-        streetAddress: property.address?.streetAddress || '',
-        country: property.address?.country || '',
+        city: property.address?.city || "",
+        county: property.address?.county || "",
+        postTown: property.address?.postTown || "",
+        postCode: property.address?.postCode || "",
+        streetAddress: property.address?.streetAddress || "",
+        country: property.address?.country || "",
       },
     },
   });
@@ -55,14 +66,14 @@ export function PropertyUpdateForm({
     try {
       await updateProperty(data);
       toast({
-        title: 'Client Updated',
-        description: 'Property was successfully updated.',
+        title: "Client Updated",
+        description: "Property was successfully updated.",
       });
     } catch {
       toast({
-        title: 'Error',
-        description: 'Failed to update the Client. Please try again.',
-        variant: 'destructive',
+        title: "Error",
+        description: "Failed to update the Client. Please try again.",
+        variant: "destructive",
       });
     }
   };
@@ -81,21 +92,41 @@ export function PropertyUpdateForm({
                 <FormLabel>Client</FormLabel>
                 <Popover open={clientOpen} onOpenChange={setClientOpen}>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" role="combobox" aria-expanded={clientOpen ? 'true' : 'false'} className="w-[300px] justify-between" >
-                      {field.value ? clients.find((client) => client.id === field.value)?.name : "Select Client..."}
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={clientOpen ? "true" : "false"}
+                      className="w-[300px] justify-between"
+                    >
+                      {field.value
+                        ? clients.find((client) => client.id === field.value)
+                            ?.name
+                        : "Select Client..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-[300px] p-0">
                     <Command>
-                      <CommandInput placeholder="Search client..." className="h-9" />
+                      <CommandInput
+                        placeholder="Search client..."
+                        className="h-9"
+                      />
                       <CommandList>
                         <CommandEmpty>No client found.</CommandEmpty>
                         <CommandGroup>
                           {clients.map((client) => (
-                            <CommandItem key={client.id} value={client.id} onSelect={(currentValue) => { form.setValue("client", currentValue); setClientOpen(false); }} >
+                            <CommandItem
+                              key={client.id}
+                              value={client.id}
+                              onSelect={(currentValue) => {
+                                form.setValue("client", currentValue);
+                                setClientOpen(false);
+                              }}
+                            >
                               {client.name}
-                              {client.id === field.value ? (<Check className="ml-auto" />) : null}
+                              {client.id === field.value ? (
+                                <Check className="ml-auto" />
+                              ) : null}
                             </CommandItem>
                           ))}
                         </CommandGroup>
@@ -166,7 +197,7 @@ export function PropertyUpdateForm({
               <FormItem>
                 <FormLabel>County</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value ?? ''} />
+                  <Input {...field} value={field.value ?? ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -212,8 +243,12 @@ export function PropertyUpdateForm({
             )}
           />
 
-          <Button type="submit" disabled={form.formState.isSubmitting} variant="outline">
-            {form.formState.isSubmitting ? 'Saving' : 'Save'}
+          <Button
+            type="submit"
+            disabled={form.formState.isSubmitting}
+            variant="outline"
+          >
+            {form.formState.isSubmitting ? "Saving" : "Save"}
           </Button>
         </div>
       </form>

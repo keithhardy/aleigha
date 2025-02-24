@@ -1,9 +1,14 @@
 import { includes } from "lodash";
 
-import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
+import {
+  Header,
+  HeaderDescription,
+  HeaderGroup,
+  Heading,
+} from "@/components/page-header";
 import { getCurrentUser } from "@/lib/auth";
 
-import { ElectricalInstallationConditionReportForm } from './form'
+import { ElectricalInstallationConditionReportForm } from "./form";
 
 export default async function ElectricalInstallationConditionReport() {
   const user = await getCurrentUser();
@@ -11,11 +16,11 @@ export default async function ElectricalInstallationConditionReport() {
     include: {
       property: {
         include: {
-          address: true
-        }
-      }
-    }
-  })
+          address: true,
+        },
+      },
+    },
+  });
 
   return (
     <>
@@ -23,12 +28,16 @@ export default async function ElectricalInstallationConditionReport() {
         <HeaderGroup>
           <Heading>Create Electrical Installation Condition Report</Heading>
           <HeaderDescription>
-            Fill in the details below to create a new Electrical Installation Condition Report (EICR).
+            Fill in the details below to create a new Electrical Installation
+            Condition Report (EICR).
           </HeaderDescription>
         </HeaderGroup>
       </Header>
 
-      <ElectricalInstallationConditionReportForm currentUser={user!} clients={clients} />
+      <ElectricalInstallationConditionReportForm
+        currentUser={user!}
+        clients={clients}
+      />
     </>
-  )
+  );
 }

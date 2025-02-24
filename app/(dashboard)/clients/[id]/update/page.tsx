@@ -1,11 +1,19 @@
+import { notFound } from "next/navigation";
 
-import { notFound } from 'next/navigation';
+import { ClientUpdateForm } from "@/app/(dashboard)/clients/[id]/update/form";
+import {
+  Header,
+  HeaderDescription,
+  HeaderGroup,
+  Heading,
+} from "@/components/page-header";
+import { prisma } from "@/lib/prisma";
 
-import { ClientUpdateForm } from '@/app/(dashboard)/clients/[id]/update/form';
-import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
-import { prisma } from '@/lib/prisma';
-
-export default async function ClientUpdate({ params }: { params: Promise<{ id: string }> }) {
+export default async function ClientUpdate({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const client = await prisma.client.findUnique({
     where: {
       id: (await params).id,
@@ -25,7 +33,8 @@ export default async function ClientUpdate({ params }: { params: Promise<{ id: s
         <HeaderGroup>
           <Heading>Update Client</Heading>
           <HeaderDescription>
-            View and edit the client's details. Update any information as needed and save your changes.
+            View and edit the client's details. Update any information as needed
+            and save your changes.
           </HeaderDescription>
         </HeaderGroup>
       </Header>

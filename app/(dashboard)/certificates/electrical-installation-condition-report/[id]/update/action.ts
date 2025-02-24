@@ -9,7 +9,7 @@ import { ServerActionResponse } from "@/lib/types";
 import { Schema } from "./schema";
 
 export async function updateElectricalInstallationConditionReport(
-  electricalInstallationConditionReport: z.infer<typeof Schema>
+  electricalInstallationConditionReport: z.infer<typeof Schema>,
 ): Promise<ServerActionResponse<ElectricalInstallationConditionReport>> {
   try {
     await prisma.electricalInstallationConditionReport.update({

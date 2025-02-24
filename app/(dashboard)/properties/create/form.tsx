@@ -1,18 +1,24 @@
-'use client';
+"use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Client } from "@prisma/client";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Client } from '@prisma/client';
-import { Check, ChevronsUpDown } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-import { createProperty } from '@/app/(dashboard)/properties/create/action';
-import { Schema } from '@/app/(dashboard)/properties/create/schema';
-import { Button } from '@/components/ui/button';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, } from "@/components/ui/command"
+import { createProperty } from "@/app/(dashboard)/properties/create/action";
+import { Schema } from "@/app/(dashboard)/properties/create/schema";
+import { Button } from "@/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import {
   Form,
   FormControl,
@@ -20,11 +26,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Popover, PopoverContent, PopoverTrigger, } from "@/components/ui/popover"
-import { useToast } from '@/hooks/use-toast';
-import { cn } from '@/lib/utils'
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 export function PropertyCreateForm({ clients }: { clients: Client[] }) {
   const router = useRouter();
@@ -34,16 +44,16 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
   const form = useForm({
     resolver: zodResolver(Schema),
     defaultValues: {
-      uprn: '',
-      occupier: '',
-      client: '',
+      uprn: "",
+      occupier: "",
+      client: "",
       address: {
-        streetAddress: '',
-        city: '',
-        county: '',
-        postTown: '',
-        postCode: '',
-        country: '',
+        streetAddress: "",
+        city: "",
+        county: "",
+        postTown: "",
+        postCode: "",
+        country: "",
       },
     },
   });
@@ -51,16 +61,16 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
   const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await createProperty(data);
-      router.push('/properties');
+      router.push("/properties");
       toast({
-        title: 'Client Created',
-        description: 'Property was successfully created.',
+        title: "Client Created",
+        description: "Property was successfully created.",
       });
     } catch {
       toast({
-        title: 'Error',
-        description: 'Failed to create the Client. Please try again.',
-        variant: 'destructive',
+        title: "Error",
+        description: "Failed to create the Client. Please try again.",
+        variant: "destructive",
       });
     }
   };
@@ -79,21 +89,46 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
                 <FormLabel>Client</FormLabel>
                 <Popover open={clientOpen} onOpenChange={setClientOpen}>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" role="combobox" aria-expanded={clientOpen ? 'true' : 'false'} className="w-[300px] justify-between" >
-                      {field.value ? clients.find((client) => client.id === field.value)?.name : "Select Client..."}
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={clientOpen ? "true" : "false"}
+                      className="w-[300px] justify-between"
+                    >
+                      {field.value
+                        ? clients.find((client) => client.id === field.value)
+                            ?.name
+                        : "Select Client..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-[300px] p-0">
                     <Command>
-                      <CommandInput placeholder="Search client..." className="h-9" />
+                      <CommandInput
+                        placeholder="Search client..."
+                        className="h-9"
+                      />
                       <CommandList>
                         <CommandEmpty>No client found.</CommandEmpty>
                         <CommandGroup>
                           {clients.map((client) => (
-                            <CommandItem key={client.id} value={client.id} onSelect={(currentValue) => { form.setValue("client", currentValue); setClientOpen(false); }} >
+                            <CommandItem
+                              key={client.id}
+                              value={client.id}
+                              onSelect={(currentValue) => {
+                                form.setValue("client", currentValue);
+                                setClientOpen(false);
+                              }}
+                            >
                               {client.name}
-                              <Check className={cn("ml-auto", client.id === field.value ? "opacity-100" : "opacity-0")} />
+                              <Check
+                                className={cn(
+                                  "ml-auto",
+                                  client.id === field.value
+                                    ? "opacity-100"
+                                    : "opacity-0",
+                                )}
+                              />
                             </CommandItem>
                           ))}
                         </CommandGroup>
@@ -164,7 +199,7 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
               <FormItem>
                 <FormLabel>County</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value ?? ''} />
+                  <Input {...field} value={field.value ?? ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -210,8 +245,12 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
             )}
           />
 
-          <Button type="submit" disabled={form.formState.isSubmitting} variant="outline">
-            {form.formState.isSubmitting ? 'Saving' : 'Save'}
+          <Button
+            type="submit"
+            disabled={form.formState.isSubmitting}
+            variant="outline"
+          >
+            {form.formState.isSubmitting ? "Saving" : "Save"}
           </Button>
         </div>
       </form>

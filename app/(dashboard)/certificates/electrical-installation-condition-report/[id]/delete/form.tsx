@@ -1,13 +1,12 @@
-'use client';
+"use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ElectricalInstallationConditionReport } from '@prisma/client';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -15,14 +14,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 
-import { deleteElectricalInstallationConditionReport } from './action';
-import { Schema } from './schema';
+import { deleteElectricalInstallationConditionReport } from "./action";
+import { Schema } from "./schema";
 
-export function ElectricalInstallationConditionReportDeleteForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+export function ElectricalInstallationConditionReportDeleteForm({
+  electricalInstallationConditionReport,
+}: {
+  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
+}) {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -30,23 +33,25 @@ export function ElectricalInstallationConditionReportDeleteForm({ electricalInst
     resolver: zodResolver(Schema),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
-      serial: '',
+      serial: "",
     },
   });
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await deleteElectricalInstallationConditionReport(data);
-      router.push('/certificates');
+      router.push("/certificates");
       toast({
-        title: 'Electrical Installation Condition Report Deleted',
-        description: 'Electrical Installation Condition Report was successfully removed.',
+        title: "Electrical Installation Condition Report Deleted",
+        description:
+          "Electrical Installation Condition Report was successfully removed.",
       });
     } catch {
       toast({
-        title: 'Error',
-        description: 'Failed to delete the Electrical Installation Condition Report. Please try again.',
-        variant: 'destructive',
+        title: "Error",
+        description:
+          "Failed to delete the Electrical Installation Condition Report. Please try again.",
+        variant: "destructive",
       });
     }
   };
@@ -61,8 +66,11 @@ export function ElectricalInstallationConditionReportDeleteForm({ electricalInst
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-muted-foreground">
-                  Enter <span className="text-foreground">{electricalInstallationConditionReport.serial}</span> and press delete to
-                  remove.
+                  Enter{" "}
+                  <span className="text-foreground">
+                    {electricalInstallationConditionReport.serial}
+                  </span>{" "}
+                  and press delete to remove.
                 </FormLabel>
                 <FormControl>
                   <Input {...field} />
@@ -74,10 +82,14 @@ export function ElectricalInstallationConditionReportDeleteForm({ electricalInst
 
           <Button
             type="submit"
-            disabled={form.watch('serial') !== electricalInstallationConditionReport.serial || form.formState.isSubmitting}
+            disabled={
+              form.watch("serial") !==
+                electricalInstallationConditionReport.serial ||
+              form.formState.isSubmitting
+            }
             variant="destructive"
           >
-            {form.formState.isSubmitting ? 'Deleting' : 'Delete'}
+            {form.formState.isSubmitting ? "Deleting" : "Delete"}
           </Button>
         </div>
       </form>

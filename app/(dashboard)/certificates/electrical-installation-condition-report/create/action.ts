@@ -12,7 +12,7 @@ import { Schema } from "./schema";
 const MAX_RETRIES = 5;
 
 export async function createElectricalInstallationConditionReport(
-  electricalInstallationConditionReport: z.infer<typeof Schema>
+  electricalInstallationConditionReport: z.infer<typeof Schema>,
 ): Promise<ServerActionResponse<ElectricalInstallationConditionReport>> {
   let retries = 0;
 

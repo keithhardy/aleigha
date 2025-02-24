@@ -1,10 +1,10 @@
-import { Modal } from '@/app/@modal/components/modal';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Modal } from "@/app/@modal/components/modal";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-import CreateUserForm from './form';
+import CreateUserForm from "./form";
 
 export default async function UserCreatePage() {
-  const clients = await prisma.client.findMany()
+  const clients = await prisma.client.findMany();
 
   return (
     <Modal>

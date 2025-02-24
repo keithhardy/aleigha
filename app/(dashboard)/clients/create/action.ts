@@ -9,7 +9,7 @@ import { prisma } from "@/lib/prisma";
 import { uploadFile } from "@/lib/vercel-blob";
 
 export async function createClient(
-  client: z.infer<typeof Schema>
+  client: z.infer<typeof Schema>,
 ): Promise<Client> {
   try {
     try {

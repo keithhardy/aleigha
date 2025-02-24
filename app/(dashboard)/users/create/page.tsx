@@ -1,10 +1,15 @@
-import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
+import {
+  Header,
+  HeaderDescription,
+  HeaderGroup,
+  Heading,
+} from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
 import CreateUserForm from "./form";
 
 export default async function User() {
-  const clients = await prisma.client.findMany()
+  const clients = await prisma.client.findMany();
 
   return (
     <>
@@ -13,7 +18,8 @@ export default async function User() {
           <HeaderGroup>
             <Heading>Create User</Heading>
             <HeaderDescription>
-              Complete the form below to add a new user. Make sure all required fields are filled before saving.
+              Complete the form below to add a new user. Make sure all required
+              fields are filled before saving.
             </HeaderDescription>
           </HeaderGroup>
         </Header>
@@ -22,4 +28,4 @@ export default async function User() {
       </div>
     </>
   );
-};
+}

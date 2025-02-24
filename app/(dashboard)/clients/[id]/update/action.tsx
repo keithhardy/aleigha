@@ -1,14 +1,16 @@
-'use server';
+"use server";
 
-import { Client } from '@prisma/client';
-import { revalidatePath } from 'next/cache';
-import { z } from 'zod';
+import { Client } from "@prisma/client";
+import { revalidatePath } from "next/cache";
+import { z } from "zod";
 
-import { Schema } from '@/app/(dashboard)/clients/[id]/update/schema';
-import { prisma } from '@/lib/prisma';
-import { updateFile } from '@/lib/vercel-blob';
+import { Schema } from "@/app/(dashboard)/clients/[id]/update/schema";
+import { prisma } from "@/lib/prisma";
+import { updateFile } from "@/lib/vercel-blob";
 
-export async function updateClient(client: z.infer<typeof Schema>): Promise<Client> {
+export async function updateClient(
+  client: z.infer<typeof Schema>,
+): Promise<Client> {
   try {
     const clientResponse = await prisma.client.findUnique({
       where: {
@@ -17,9 +19,13 @@ export async function updateClient(client: z.infer<typeof Schema>): Promise<Clie
     });
 
     try {
-      client.picture = await updateFile(client.picture, clientResponse?.picture || undefined, 'certifictate');
+      client.picture = await updateFile(
+        client.picture,
+        clientResponse?.picture || undefined,
+        "certifictate",
+      );
     } catch {
-      throw new Error('Client update failed: Error updating logo.');
+      throw new Error("Client update failed: Error updating logo.");
     }
 
     const updatedClient = await prisma.client.update({
@@ -46,9 +52,9 @@ export async function updateClient(client: z.infer<typeof Schema>): Promise<Clie
       },
     });
 
-    revalidatePath('/clients');
+    revalidatePath("/clients");
     return updatedClient;
   } catch {
-    throw new Error('Client update failed');
+    throw new Error("Client update failed");
   }
 }

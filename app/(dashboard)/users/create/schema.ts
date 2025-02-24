@@ -40,7 +40,7 @@ export const Schema = z.object({
       z.object({
         name: z.string(),
         clientId: z.string(),
-      })
+      }),
     )
     .min(1, "Please select at least one client"),
 });

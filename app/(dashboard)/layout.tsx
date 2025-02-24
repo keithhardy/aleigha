@@ -6,7 +6,11 @@ import { redirect } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
 import { getCurrentUser } from "@/lib/auth";
 
 import { DashboardBreadcrumb } from "./components/breadcrumb";
@@ -14,18 +18,15 @@ import { DashboardSidebar } from "./components/dashboard-sidebar";
 import { MessageMenu } from "./components/message-menu";
 import { NotificationsMenu } from "./components/notifications-menu";
 
-
-
 export default async function DashboardLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   const user = await getCurrentUser();
-  if (!user) redirect('/auth/login')
 
-  const cookieStore = await cookies()
-  const defaultOpen = cookieStore.get("sidebar:state")?.value === "true"
+  if (!user) redirect("/auth/login");
+
+  const cookieStore = await cookies();
+  const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
@@ -51,9 +52,7 @@ export default async function DashboardLayout({
             </Link>
           </div>
         </header>
-        <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          {children}
-        </main>
+        <main className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );

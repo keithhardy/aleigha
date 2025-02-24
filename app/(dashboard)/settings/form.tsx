@@ -1,45 +1,52 @@
-'use client';
+"use client";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Address, Settings } from '@prisma/client';
-import Image from 'next/image';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Address, Settings } from "@prisma/client";
+import Image from "next/image";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 
-import { updateSettings } from './action';
-import { Schema } from './schema';
+import { updateSettings } from "./action";
+import { Schema } from "./schema";
 
 export function SettingsForm({
   settings,
 }: {
-  settings: Settings & { address: Address | null } | null;
+  settings: (Settings & { address: Address | null }) | null;
 }) {
-  const [imagePreview, setImagePreview] = useState(settings?.picture || '');
+  const [imagePreview, setImagePreview] = useState(settings?.picture || "");
 
   const form = useForm({
     resolver: zodResolver(Schema),
     defaultValues: {
-      id: settings?.id || '',
-      name: settings?.name || '',
-      email: settings?.email || '',
-      phone: settings?.phone || '',
-      picture: settings?.picture || '',
-      governingBody: settings?.governingBody || '',
-      governingBodyNumber: settings?.governingBodyNumber || '',
+      id: settings?.id || "",
+      name: settings?.name || "",
+      email: settings?.email || "",
+      phone: settings?.phone || "",
+      picture: settings?.picture || "",
+      governingBody: settings?.governingBody || "",
+      governingBodyNumber: settings?.governingBodyNumber || "",
       address: {
-        id: settings?.address?.id || '',
-        streetAddress: settings?.address?.streetAddress || '',
-        city: settings?.address?.city || '',
-        county: settings?.address?.county || '',
-        postTown: settings?.address?.postTown || '',
-        postCode: settings?.address?.postCode || '',
-        country: settings?.address?.country || '',
+        id: settings?.address?.id || "",
+        streetAddress: settings?.address?.streetAddress || "",
+        city: settings?.address?.city || "",
+        county: settings?.address?.county || "",
+        postTown: settings?.address?.postTown || "",
+        postCode: settings?.address?.postCode || "",
+        country: settings?.address?.country || "",
       },
     },
   });
@@ -51,36 +58,36 @@ export function SettingsForm({
       reader.onloadend = () => {
         const base64String = reader.result as string;
         setImagePreview(base64String);
-        form.setValue('picture', base64String);
+        form.setValue("picture", base64String);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await updateSettings(data);
       toast({
-        title: 'Settings Updated',
+        title: "Settings Updated",
         description: `Settings was successfully updated.`,
       });
     } catch {
       toast({
-        title: 'Error',
-        description: 'Failed to update the settings. Please try again.',
-        variant: 'destructive',
+        title: "Error",
+        description: "Failed to update the settings. Please try again.",
+        variant: "destructive",
       });
     }
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
-          name='name'
+          name="name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Trading Name</FormLabel>
@@ -93,7 +100,7 @@ export function SettingsForm({
         />
         <FormField
           control={form.control}
-          name='email'
+          name="email"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
@@ -106,7 +113,7 @@ export function SettingsForm({
         />
         <FormField
           control={form.control}
-          name='phone'
+          name="phone"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Phone</FormLabel>
@@ -119,17 +126,27 @@ export function SettingsForm({
         />
         <FormField
           control={form.control}
-          name='picture'
+          name="picture"
           render={() => (
             <FormItem>
               <FormLabel>Logo</FormLabel>
               {imagePreview && (
-                <div className='mt-2'>
-                  <Image src={imagePreview} alt='Logo Preview' width={200} height={200} className='rounded border' />
+                <div className="mt-2">
+                  <Image
+                    src={imagePreview}
+                    alt="Logo Preview"
+                    width={200}
+                    height={200}
+                    className="rounded border"
+                  />
                 </div>
               )}
               <FormControl>
-                <Input type='file' accept='image/*' onChange={handleFileChange} />
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -137,7 +154,7 @@ export function SettingsForm({
         />
         <FormField
           control={form.control}
-          name='governingBody'
+          name="governingBody"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Governing Body</FormLabel>
@@ -150,7 +167,7 @@ export function SettingsForm({
         />
         <FormField
           control={form.control}
-          name='governingBodyNumber'
+          name="governingBodyNumber"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Governing Body Number</FormLabel>
@@ -163,7 +180,7 @@ export function SettingsForm({
         />
         <FormField
           control={form.control}
-          name='address.streetAddress'
+          name="address.streetAddress"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Street Address</FormLabel>
@@ -176,7 +193,7 @@ export function SettingsForm({
         />
         <FormField
           control={form.control}
-          name='address.city'
+          name="address.city"
           render={({ field }) => (
             <FormItem>
               <FormLabel>City</FormLabel>
@@ -189,12 +206,12 @@ export function SettingsForm({
         />
         <FormField
           control={form.control}
-          name='address.county'
+          name="address.county"
           render={({ field }) => (
             <FormItem>
               <FormLabel>County</FormLabel>
               <FormControl>
-                <Input {...field} value={field.value ?? ''} />
+                <Input {...field} value={field.value ?? ""} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -202,7 +219,7 @@ export function SettingsForm({
         />
         <FormField
           control={form.control}
-          name='address.postTown'
+          name="address.postTown"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Post Town</FormLabel>
@@ -215,7 +232,7 @@ export function SettingsForm({
         />
         <FormField
           control={form.control}
-          name='address.postCode'
+          name="address.postCode"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Postcode</FormLabel>
@@ -228,7 +245,7 @@ export function SettingsForm({
         />
         <FormField
           control={form.control}
-          name='address.country'
+          name="address.country"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Country</FormLabel>
@@ -240,8 +257,12 @@ export function SettingsForm({
           )}
         />
 
-        <Button type="submit" disabled={form.formState.isSubmitting} variant="outline">
-          {form.formState.isSubmitting ? 'Saving' : 'Save'}
+        <Button
+          type="submit"
+          disabled={form.formState.isSubmitting}
+          variant="outline"
+        >
+          {form.formState.isSubmitting ? "Saving" : "Save"}
         </Button>
       </form>
     </Form>

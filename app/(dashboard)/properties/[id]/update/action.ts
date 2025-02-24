@@ -7,7 +7,7 @@ import { Schema } from "@/app/(dashboard)/properties/[id]/update/schema";
 import { prisma } from "@/lib/prisma";
 
 export async function updateProperty(
-  property: z.infer<typeof Schema>
+  property: z.infer<typeof Schema>,
 ): Promise<void> {
   try {
     await prisma.property.update({

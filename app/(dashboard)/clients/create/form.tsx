@@ -1,17 +1,15 @@
-'use client';
+"use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-
-import { zodResolver } from '@hookform/resolvers/zod';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-import { createClient } from '@/app/(dashboard)/clients/create/action';
-import { Schema } from '@/app/(dashboard)/clients/create/schema';
-import { Button } from '@/components/ui/button';
+import { createClient } from "@/app/(dashboard)/clients/create/action";
+import { Schema } from "@/app/(dashboard)/clients/create/schema";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -19,30 +17,30 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 
 export function ClientCreateForm() {
   const router = useRouter();
   const { toast } = useToast();
-  const [imagePreview, setImagePreview] = useState('');
+  const [imagePreview, setImagePreview] = useState("");
 
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      name: '',
-      email: '',
-      phone: '',
-      picture: '',
-      appointedPerson: '',
+      name: "",
+      email: "",
+      phone: "",
+      picture: "",
+      appointedPerson: "",
       address: {
-        streetAddress: '',
-        city: '',
-        county: '',
-        postTown: '',
-        postCode: '',
-        country: '',
+        streetAddress: "",
+        city: "",
+        county: "",
+        postTown: "",
+        postCode: "",
+        country: "",
       },
     },
   });
@@ -54,7 +52,7 @@ export function ClientCreateForm() {
       reader.onloadend = () => {
         const base64String = reader.result as string;
         setImagePreview(base64String);
-        form.setValue('picture', base64String);
+        form.setValue("picture", base64String);
       };
       reader.readAsDataURL(file);
     }
@@ -63,16 +61,16 @@ export function ClientCreateForm() {
   const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       const client = await createClient(data);
-      router.push('/clients');
+      router.push("/clients");
       toast({
-        title: 'Client Created',
+        title: "Client Created",
         description: `Client ${client.name} was successfully created.`,
       });
     } catch {
       toast({
-        title: 'Error',
-        description: 'Failed to create the Client. Please try again.',
-        variant: 'destructive',
+        title: "Error",
+        description: "Failed to create the Client. Please try again.",
+        variant: "destructive",
       });
     }
   };
@@ -127,7 +125,11 @@ export function ClientCreateForm() {
               <FormItem>
                 <FormLabel>Appointed Person</FormLabel>
                 <FormControl>
-                  <Input type="tel" {...field} autoComplete="appointed-person" />
+                  <Input
+                    type="tel"
+                    {...field}
+                    autoComplete="appointed-person"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -240,8 +242,12 @@ export function ClientCreateForm() {
             )}
           />
 
-          <Button type="submit" disabled={form.formState.isSubmitting} variant="outline">
-            {form.formState.isSubmitting ? 'Saving' : 'Save'}
+          <Button
+            type="submit"
+            disabled={form.formState.isSubmitting}
+            variant="outline"
+          >
+            {form.formState.isSubmitting ? "Saving" : "Save"}
           </Button>
         </div>
       </form>

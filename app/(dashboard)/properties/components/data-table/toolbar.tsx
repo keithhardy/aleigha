@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
-import { Table } from '@tanstack/react-table';
-import Link from 'next/link';
+import { Cross2Icon, PlusCircledIcon } from "@radix-ui/react-icons";
+import { Table } from "@tanstack/react-table";
+import Link from "next/link";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
-import { FacetedFilter } from './faceted-filter';
-import { ViewOptions } from './view-options';
+import { FacetedFilter } from "./faceted-filter";
+import { ViewOptions } from "./view-options";
 
 interface ToolbarProps<TData> {
   table: Table<TData>;
@@ -17,12 +17,14 @@ interface ToolbarProps<TData> {
 export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
-  const occupierColumn = table.getColumn('occupier');
+  const occupierColumn = table.getColumn("occupier");
   const occupierOptions = occupierColumn
-    ? Array.from(occupierColumn.getFacetedUniqueValues().entries()).map(([value]) => ({
-      label: String(value),
-      value: String(value),
-    }))
+    ? Array.from(occupierColumn.getFacetedUniqueValues().entries()).map(
+        ([value]) => ({
+          label: String(value),
+          value: String(value),
+        }),
+      )
     : [];
 
   return (
@@ -30,13 +32,17 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="Search..."
-          value={(table.getState().globalFilter as string) ?? ''}
+          value={(table.getState().globalFilter as string) ?? ""}
           onChange={(event) => table.setGlobalFilter(event.target.value)}
           className="h-8 w-[150px] border-dashed lg:w-[250px]"
         />
 
         {occupierColumn && (
-          <FacetedFilter column={occupierColumn} title="Occupier" options={occupierOptions} />
+          <FacetedFilter
+            column={occupierColumn}
+            title="Occupier"
+            options={occupierOptions}
+          />
         )}
 
         {isFiltered && (

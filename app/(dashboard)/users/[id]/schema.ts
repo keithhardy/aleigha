@@ -23,12 +23,12 @@ export const Schema = z.object({
     z.object({
       name: z.string(),
       clientId: z.string(),
-    })
+    }),
   ),
   clientsToDisconnect: z.array(
     z.object({
       name: z.string(),
       clientId: z.string(),
-    })
+    }),
   ),
 });

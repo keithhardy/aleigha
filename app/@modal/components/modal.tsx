@@ -1,16 +1,11 @@
-'use client';
+"use client";
 
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { useRouter } from 'next/navigation';
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { useRouter } from "next/navigation";
 
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
-
-export function Modal({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export function Modal({ children }: Readonly<{ children: React.ReactNode }>) {
   const router = useRouter();
 
   function onDismiss() {

@@ -1,15 +1,14 @@
-'use client';
+"use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Client } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Client } from '@prisma/client';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-import { deleteClient } from '@/app/(dashboard)/clients/[id]/delete/action';
-import { Schema } from '@/app/(dashboard)/clients/[id]/delete/schema';
-import { Button } from '@/components/ui/button';
+import { deleteClient } from "@/app/(dashboard)/clients/[id]/delete/action";
+import { Schema } from "@/app/(dashboard)/clients/[id]/delete/schema";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -17,9 +16,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 
 export function ClientDeleteForm({ client }: { client: Client }) {
   const router = useRouter();
@@ -29,23 +28,23 @@ export function ClientDeleteForm({ client }: { client: Client }) {
     resolver: zodResolver(Schema),
     defaultValues: {
       id: client.id,
-      name: '',
+      name: "",
     },
   });
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await deleteClient(data);
-      router.push('/clients');
+      router.push("/clients");
       toast({
-        title: 'User Deleted',
+        title: "User Deleted",
         description: `${data.name} was successfully removed.`,
       });
     } catch {
       toast({
-        title: 'Error',
-        description: 'Failed to delete the user. Please try again.',
-        variant: 'destructive',
+        title: "Error",
+        description: "Failed to delete the user. Please try again.",
+        variant: "destructive",
       });
     }
   };
@@ -60,8 +59,8 @@ export function ClientDeleteForm({ client }: { client: Client }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-muted-foreground">
-                  Enter <span className="text-foreground">{client.name}</span> and press delete to
-                  remove.
+                  Enter <span className="text-foreground">{client.name}</span>{" "}
+                  and press delete to remove.
                 </FormLabel>
                 <FormControl>
                   <Input {...field} />
@@ -73,10 +72,12 @@ export function ClientDeleteForm({ client }: { client: Client }) {
 
           <Button
             type="submit"
-            disabled={form.watch('name') !== client.name || form.formState.isSubmitting}
+            disabled={
+              form.watch("name") !== client.name || form.formState.isSubmitting
+            }
             variant="destructive"
           >
-            {form.formState.isSubmitting ? 'Deleting' : 'Delete'}
+            {form.formState.isSubmitting ? "Deleting" : "Delete"}
           </Button>
         </div>
       </form>

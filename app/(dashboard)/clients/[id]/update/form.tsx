@@ -1,17 +1,15 @@
-'use client';
+"use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Address, Client } from "@prisma/client";
+import Image from "next/image";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Address, Client } from '@prisma/client';
-import Image from 'next/image';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-import { updateClient } from '@/app/(dashboard)/clients/[id]/update/action';
-import { Schema } from '@/app/(dashboard)/clients/[id]/update/schema';
-import { Button } from '@/components/ui/button';
+import { updateClient } from "@/app/(dashboard)/clients/[id]/update/action";
+import { Schema } from "@/app/(dashboard)/clients/[id]/update/schema";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -19,31 +17,35 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 
-export function ClientUpdateForm({ client }: { client: Client & { address: Address | null } }) {
+export function ClientUpdateForm({
+  client,
+}: {
+  client: Client & { address: Address | null };
+}) {
   const { toast } = useToast();
-  const [imagePreview, setImagePreview] = useState(client.picture || '');
+  const [imagePreview, setImagePreview] = useState(client.picture || "");
 
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
       id: client.id,
       name: client.name,
-      email: client.email || '',
-      phone: client.phone || '',
-      picture: client.picture || '',
-      appointedPerson: client.appointedPerson || '',
+      email: client.email || "",
+      phone: client.phone || "",
+      picture: client.picture || "",
+      appointedPerson: client.appointedPerson || "",
       address: {
-        city: client.address?.city || '',
-        county: client.address?.county || '',
-        postTown: client.address?.postTown || '',
-        postCode: client.address?.postCode || '',
-        streetAddress: client.address?.streetAddress || '',
+        city: client.address?.city || "",
+        county: client.address?.county || "",
+        postTown: client.address?.postTown || "",
+        postCode: client.address?.postCode || "",
+        streetAddress: client.address?.streetAddress || "",
         id: client.address?.id,
-        country: client.address?.country || '',
+        country: client.address?.country || "",
       },
     },
   });
@@ -55,7 +57,7 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
       reader.onloadend = () => {
         const base64String = reader.result as string;
         setImagePreview(base64String);
-        form.setValue('picture', base64String);
+        form.setValue("picture", base64String);
       };
       reader.readAsDataURL(file);
     }
@@ -65,14 +67,14 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
     try {
       const client = await updateClient(data);
       toast({
-        title: 'Client Updated',
+        title: "Client Updated",
         description: `Client ${client.name} was successfully updated.`,
       });
     } catch {
       toast({
-        title: 'Error',
-        description: 'Failed to update the Client. Please try again.',
-        variant: 'destructive',
+        title: "Error",
+        description: "Failed to update the Client. Please try again.",
+        variant: "destructive",
       });
     }
   };
@@ -127,7 +129,11 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
               <FormItem>
                 <FormLabel>Appointed Person</FormLabel>
                 <FormControl>
-                  <Input type="tel" {...field} autoComplete="appointed-person" />
+                  <Input
+                    type="tel"
+                    {...field}
+                    autoComplete="appointed-person"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -194,7 +200,7 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
               <FormItem>
                 <FormLabel>County</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value ?? ''} />
+                  <Input {...field} value={field.value ?? ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -240,8 +246,12 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
             )}
           />
 
-          <Button type="submit" disabled={form.formState.isSubmitting} variant="outline">
-            {form.formState.isSubmitting ? 'Saving' : 'Save'}
+          <Button
+            type="submit"
+            disabled={form.formState.isSubmitting}
+            variant="outline"
+          >
+            {form.formState.isSubmitting ? "Saving" : "Save"}
           </Button>
         </div>
       </form>

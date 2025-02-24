@@ -8,7 +8,7 @@ import { Schema } from "@/app/(dashboard)/properties/create/schema";
 import { prisma } from "@/lib/prisma";
 
 export async function createProperty(
-  property: z.infer<typeof Schema>
+  property: z.infer<typeof Schema>,
 ): Promise<Property> {
   try {
     const createdProperty = await prisma.property.create({

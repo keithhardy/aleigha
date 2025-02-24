@@ -1,15 +1,25 @@
 import { notFound } from "next/navigation";
 
-import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
+import {
+  Header,
+  HeaderDescription,
+  HeaderGroup,
+  Heading,
+} from "@/components/page-header";
 
-import { ElectricalInstallationConditionReportForm } from './form'
+import { ElectricalInstallationConditionReportForm } from "./form";
 
-export default async function DetailsOfTheContractorClientAndInstallation({ params }: { params: Promise<{ id: string }> }) {
-  const electricalInstallationConditionReport = await prisma.electricalInstallationConditionReport.findFirst({
-    where: {
-      id: (await params).id
-    },
-  })
+export default async function DetailsOfTheContractorClientAndInstallation({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const electricalInstallationConditionReport =
+    await prisma.electricalInstallationConditionReport.findFirst({
+      where: {
+        id: (await params).id,
+      },
+    });
 
   if (!electricalInstallationConditionReport) {
     notFound();
@@ -19,11 +29,11 @@ export default async function DetailsOfTheContractorClientAndInstallation({ para
     include: {
       property: {
         include: {
-          address: true
-        }
-      }
-    }
-  })
+          address: true,
+        },
+      },
+    },
+  });
 
   return (
     <>
@@ -31,12 +41,18 @@ export default async function DetailsOfTheContractorClientAndInstallation({ para
         <HeaderGroup>
           <Heading>Update Electrical Installation Condition Report</Heading>
           <HeaderDescription>
-            Fill in the details below to update a new Electrical Installation Condition Report (EICR).
+            Fill in the details below to update a new Electrical Installation
+            Condition Report (EICR).
           </HeaderDescription>
         </HeaderGroup>
       </Header>
 
-      <ElectricalInstallationConditionReportForm electricalInstallationConditionReport={electricalInstallationConditionReport!} clients={clients} />
+      <ElectricalInstallationConditionReportForm
+        electricalInstallationConditionReport={
+          electricalInstallationConditionReport!
+        }
+        clients={clients}
+      />
     </>
-  )
+  );
 }

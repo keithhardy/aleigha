@@ -1,12 +1,14 @@
-'use server';
+"use server";
 
-import { revalidatePath } from 'next/cache';
-import { z } from 'zod';
+import { revalidatePath } from "next/cache";
+import { z } from "zod";
 
-import { Schema } from '@/app/(dashboard)/properties/[id]/delete/schema';
-import { prisma } from '@/lib/prisma';
+import { Schema } from "@/app/(dashboard)/properties/[id]/delete/schema";
+import { prisma } from "@/lib/prisma";
 
-export async function deleteProperty(property: z.infer<typeof Schema>): Promise<void> {
+export async function deleteProperty(
+  property: z.infer<typeof Schema>,
+): Promise<void> {
   try {
     await prisma.property.delete({
       where: {
@@ -14,8 +16,8 @@ export async function deleteProperty(property: z.infer<typeof Schema>): Promise<
       },
     });
 
-    revalidatePath('/properties');
+    revalidatePath("/properties");
   } catch {
-    throw new Error('Property deletion failed');
+    throw new Error("Property deletion failed");
   }
 }

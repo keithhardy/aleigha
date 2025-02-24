@@ -18,9 +18,7 @@ const nonLinkableSegments = new Set([
 ]);
 
 const formatLabel = (str: string) => {
-  return str
-    .replace(/-/g, " ")
-    .replace(/\b\w/g, (char) => char.toUpperCase());
+  return str.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 };
 
 export function DashboardBreadcrumb() {
@@ -52,7 +50,13 @@ export function DashboardBreadcrumb() {
             <Fragment key={href}>
               <BreadcrumbItem>
                 {isLast || isNonLinkable ? (
-                  <BreadcrumbPage className={isNonLinkable && !isLast ? "text-muted-foreground" : ""}>{label}</BreadcrumbPage>
+                  <BreadcrumbPage
+                    className={
+                      isNonLinkable && !isLast ? "text-muted-foreground" : ""
+                    }
+                  >
+                    {label}
+                  </BreadcrumbPage>
                 ) : (
                   <BreadcrumbLink asChild>
                     <Link href={href}>{label}</Link>

@@ -1,4 +1,11 @@
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { prisma } from "@/lib/prisma";
 
 export default async function Users() {
@@ -17,7 +24,9 @@ export default async function Users() {
         <TableBody>
           {logs.map((log) => (
             <TableRow key={log.id}>
-              <TableCell className="h-12">{log.createdAt.toLocaleString()}</TableCell>
+              <TableCell className="h-12">
+                {log.createdAt.toLocaleString()}
+              </TableCell>
               <TableCell>{log.userId}</TableCell>
               <TableCell>{log.message}</TableCell>
             </TableRow>
@@ -26,4 +35,4 @@ export default async function Users() {
       </Table>
     </div>
   );
-};
+}

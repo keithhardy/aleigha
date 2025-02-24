@@ -1,70 +1,72 @@
-'use client';
+"use client";
 
-import { ColumnDef } from '@tanstack/react-table';
-import { format } from 'date-fns';
+import { ColumnDef } from "@tanstack/react-table";
+import { format } from "date-fns";
 
-import { ColumnHeader } from './column-header';
-import { RowActions } from './row-actions';
+import { ColumnHeader } from "./column-header";
+import { RowActions } from "./row-actions";
 
 export const columns: ColumnDef<any>[] = [
   {
-    accessorKey: 'serial',
+    accessorKey: "serial",
     header: ({ column }) => <ColumnHeader column={column} title="Serial" />,
   },
   {
-    accessorKey: 'type',
+    accessorKey: "type",
     header: ({ column }) => <ColumnHeader column={column} title="Type" />,
   },
   {
-    accessorKey: 'client.name',
+    accessorKey: "client.name",
     header: ({ column }) => <ColumnHeader column={column} title="Client" />,
   },
   {
-    accessorKey: 'property.uprn',
-    header: ({ column }) => <ColumnHeader column={column} title="Property Reference" />,
+    accessorKey: "property.uprn",
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Property Reference" />
+    ),
   },
   {
-    accessorKey: 'property.address.streetAddress',
+    accessorKey: "property.address.streetAddress",
     header: ({ column }) => <ColumnHeader column={column} title="Address" />,
   },
   {
-    accessorKey: 'property.address.postCode',
+    accessorKey: "property.address.postCode",
     header: ({ column }) => <ColumnHeader column={column} title="Postcode" />,
   },
   {
-    accessorKey: 'startDate',
+    accessorKey: "startDate",
     header: ({ column }) => <ColumnHeader column={column} title="Start Date" />,
     cell: ({ getValue }) => {
       const date = getValue() as string | undefined;
 
       if (date) {
-        return format(new Date(date), 'dd/MM/yy');
+        return format(new Date(date), "dd/MM/yy");
       }
-      return 'N/A';
+      return "N/A";
     },
   },
   {
-    accessorKey: 'endDate',
+    accessorKey: "endDate",
     header: ({ column }) => <ColumnHeader column={column} title="End Date" />,
     cell: ({ getValue }) => {
       const date = getValue() as string | undefined;
 
       if (date) {
-        return format(new Date(date), 'dd/MM/yy');
+        return format(new Date(date), "dd/MM/yy");
       }
-      return 'N/A';
+      return "N/A";
     },
   },
   {
-    accessorKey: 'creator.name',
+    accessorKey: "creator.name",
     header: ({ column }) => <ColumnHeader column={column} title="Operative" />,
   },
   {
-    accessorKey: 'status',
+    accessorKey: "status",
     header: ({ column }) => <ColumnHeader column={column} title="Status" />,
   },
   {
-    id: 'actions',
+    id: "actions",
     cell: ({ row }) => {
       return (
         <div className="text-right">

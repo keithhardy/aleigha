@@ -1,20 +1,29 @@
 import { notFound } from "next/navigation";
 
-import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
+import {
+  Header,
+  HeaderDescription,
+  HeaderGroup,
+  Heading,
+} from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
 import UpdateUserForm from "./form";
 
-export default async function User({ params }: { params: Promise<{ id: string }> }) {
+export default async function User({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const user = await prisma.user.findFirst({
     where: {
       id: decodeURIComponent((await params).id),
     },
     include: {
-      clients: true
-    }
+      clients: true,
+    },
   });
-  const clients = await prisma.client.findMany()
+  const clients = await prisma.client.findMany();
 
   if (!user) {
     notFound();
@@ -26,7 +35,8 @@ export default async function User({ params }: { params: Promise<{ id: string }>
         <HeaderGroup>
           <Heading>User</Heading>
           <HeaderDescription>
-            View and edit the user's details. Update any information as needed and save your changes.
+            View and edit the user's details. Update any information as needed
+            and save your changes.
           </HeaderDescription>
         </HeaderGroup>
       </Header>
@@ -34,4 +44,4 @@ export default async function User({ params }: { params: Promise<{ id: string }>
       <UpdateUserForm user={user} clients={clients} />
     </>
   );
-};
+}
