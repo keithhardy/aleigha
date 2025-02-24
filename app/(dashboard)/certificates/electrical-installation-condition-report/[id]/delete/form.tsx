@@ -86,7 +86,7 @@ export function ElectricalInstallationConditionReportDeleteForm({
             type="submit"
             disabled={
               form.watch("serial") !==
-              electricalInstallationConditionReport.serial ||
+                electricalInstallationConditionReport.serial ||
               form.formState.isSubmitting
             }
             variant="destructive"

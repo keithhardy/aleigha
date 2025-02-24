@@ -10,7 +10,7 @@ import { ServerActionResponse } from "@/lib/types";
 import { Schema } from "./schema";
 
 export async function updateUserAction(
-  user: z.infer<typeof Schema>
+  user: z.infer<typeof Schema>,
 ): Promise<ServerActionResponse<User>> {
   try {
     const formattedClientsToConnect = user.clientsToConnect.map((client) => ({
@@ -20,7 +20,7 @@ export async function updateUserAction(
     const formattedClientsToDisconnect = user.clientsToDisconnect.map(
       (client) => ({
         id: client.clientId,
-      })
+      }),
     );
 
     await auth0Management.users.update(
@@ -30,7 +30,7 @@ export async function updateUserAction(
       {
         name: user.name,
         email: user.email,
-      }
+      },
     );
 
     await prisma.user.update({
