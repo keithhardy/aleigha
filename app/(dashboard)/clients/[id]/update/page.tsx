@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { ClientUpdateForm } from "@/app/(dashboard)/clients/[id]/update/form";
+import { UpdateClientForm } from "@/app/(dashboard)/clients/[id]/update/form";
 import {
   Header,
   HeaderDescription,
@@ -9,7 +9,7 @@ import {
 } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
-export default async function ClientUpdate({
+export default async function UpdateClient({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -39,7 +39,7 @@ export default async function ClientUpdate({
         </HeaderGroup>
       </Header>
 
-      <ClientUpdateForm client={client} />
+      <UpdateClientForm client={client} />
     </>
   );
 }

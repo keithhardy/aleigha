@@ -32,9 +32,9 @@ import {
 import { useToast } from "@/hooks/use-toast";
 
 import { createElectricalInstallationConditionReport } from "./action";
-import { Schema } from "./schema";
+import { CreateElectricalInstallationConditionReportSchema } from "./schema";
 
-export function ElectricalInstallationConditionReportForm({
+export function CreateElectricalInstallationConditionReportForm({
   currentUser,
   clients,
 }: {
@@ -46,8 +46,8 @@ export function ElectricalInstallationConditionReportForm({
   const [clientOpen, setClientOpen] = useState(false);
   const [propertyOpen, setPropertyOpen] = useState(false);
 
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+  const form = useForm<z.infer<typeof CreateElectricalInstallationConditionReportSchema>>({
+    resolver: zodResolver(CreateElectricalInstallationConditionReportSchema),
     defaultValues: {
       creatorId: currentUser.id,
       clientId: "",
@@ -55,7 +55,7 @@ export function ElectricalInstallationConditionReportForm({
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof Schema>) => {
+  const onSubmit = async (data: z.infer<typeof CreateElectricalInstallationConditionReportSchema>) => {
     const response = await createElectricalInstallationConditionReport(data);
 
     toast({
@@ -88,7 +88,7 @@ export function ElectricalInstallationConditionReportForm({
                   >
                     {field.value
                       ? clients.find((client) => client.id === field.value)
-                          ?.name
+                        ?.name
                       : "Select client..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
@@ -143,13 +143,13 @@ export function ElectricalInstallationConditionReportForm({
                   >
                     {field.value
                       ? clients
-                          .find(
-                            (client) =>
-                              client.id === form.getValues("clientId"),
-                          )
-                          ?.property.find(
-                            (property) => property.id === field.value,
-                          )?.address.streetAddress
+                        .find(
+                          (client) =>
+                            client.id === form.getValues("clientId"),
+                        )
+                        ?.property.find(
+                          (property) => property.id === field.value,
+                        )?.address.streetAddress
                       : "Select a property..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>

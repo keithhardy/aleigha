@@ -7,12 +7,14 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
 
-import { Schema } from "./schema";
+import { CreateElectricalInstallationConditionReportSchema } from "./schema";
 
 const MAX_RETRIES = 5;
 
 export async function createElectricalInstallationConditionReport(
-  electricalInstallationConditionReport: z.infer<typeof Schema>,
+  electricalInstallationConditionReport: z.infer<
+    typeof CreateElectricalInstallationConditionReportSchema
+  >
 ): Promise<ServerActionResponse<ElectricalInstallationConditionReport>> {
   let retries = 0;
 

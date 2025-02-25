@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 
-import { PropertyUpdateForm } from "@/app/(dashboard)/properties/[id]/update/form";
+import { UpdatePropertyForm } from "@/app/(dashboard)/properties/[id]/update/form";
 import { prisma } from "@/lib/prisma";
 
-export default async function PropertyUpdatePage({
+export default async function UpdateProperty({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -25,7 +25,7 @@ export default async function PropertyUpdatePage({
 
   return (
     <>
-      <PropertyUpdateForm property={property} clients={clients} />
+      <UpdatePropertyForm property={property} clients={clients} />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const Schema = z.object({
+export const CreateClientSchema = z.object({
   name: z.string(),
   email: z.string().optional(),
   phone: z.string().optional(),

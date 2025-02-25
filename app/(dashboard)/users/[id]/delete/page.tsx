@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "Reiyen – Delete User",
 };
 
-export default async function DeleteUserPage({
+export default async function DeleteUser({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -33,7 +33,7 @@ export default async function DeleteUserPage({
   const userCount = await prisma.user.count();
 
   return (
-    <>
+    <div className="container mx-auto max-w-screen-md">
       <Header>
         <HeaderGroup>
           <Heading>Delete User</Heading>
@@ -52,6 +52,6 @@ export default async function DeleteUserPage({
       </Header>
 
       {userCount > 1 && <DeleteUserForm user={user} />}
-    </>
+    </div>
   );
 }

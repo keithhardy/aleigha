@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const Schema = z.object({
+export const CreatePropertySchema = z.object({
   uprn: z.string(),
   occupier: z.string(),
   client: z.string(),

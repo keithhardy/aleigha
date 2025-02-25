@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { ClientDeleteForm } from "@/app/(dashboard)/clients/[id]/delete/form";
+import { DeleteClientForm } from "@/app/(dashboard)/clients/[id]/delete/form";
 import {
   Header,
   HeaderDescription,
@@ -9,7 +9,7 @@ import {
 } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
-export default async function ClientDelete({
+export default async function DeleteClient({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -39,7 +39,7 @@ export default async function ClientDelete({
         </HeaderGroup>
       </Header>
 
-      <ClientDeleteForm client={client!} />
+      <DeleteClientForm client={client!} />
     </>
   );
 }

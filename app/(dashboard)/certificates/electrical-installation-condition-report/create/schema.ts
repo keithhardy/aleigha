@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const Schema = z.object({
+export const CreateElectricalInstallationConditionReportSchema = z.object({
   creatorId: z.string(),
   clientId: z.string(),
   propertyId: z.string(),

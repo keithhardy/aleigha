@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { updateProperty } from "@/app/(dashboard)/properties/[id]/update/action";
-import { Schema } from "@/app/(dashboard)/properties/[id]/update/schema";
+import { UpdatePropertySchema } from "@/app/(dashboard)/properties/[id]/update/schema";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -35,7 +35,7 @@ import {
 } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 
-export function PropertyUpdateForm({
+export function UpdatePropertyForm({
   property,
   clients,
 }: {
@@ -48,8 +48,8 @@ export function PropertyUpdateForm({
 
   const [clientOpen, setClientOpen] = useState(false);
 
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+  const form = useForm<z.infer<typeof UpdatePropertySchema>>({
+    resolver: zodResolver(UpdatePropertySchema),
     defaultValues: {
       id: property.id,
       uprn: property.uprn,
@@ -66,7 +66,7 @@ export function PropertyUpdateForm({
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof Schema>) => {
+  const onSubmit = async (data: z.infer<typeof UpdatePropertySchema>) => {
     const response = await updateProperty(data);
 
     toast({
@@ -100,7 +100,7 @@ export function PropertyUpdateForm({
                     >
                       {field.value
                         ? clients.find((client) => client.id === field.value)
-                            ?.name
+                          ?.name
                         : "Select Client..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>

@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { deleteClient } from "@/app/(dashboard)/clients/[id]/delete/action";
-import { Schema } from "@/app/(dashboard)/clients/[id]/delete/schema";
+import { DeleteClientSchema } from "@/app/(dashboard)/clients/[id]/delete/schema";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -20,12 +20,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
-export function ClientDeleteForm({ client }: { client: Client }) {
+export function DeleteClientForm({ client }: { client: Client }) {
   const router = useRouter();
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+  const form = useForm<z.infer<typeof DeleteClientSchema>>({
+    resolver: zodResolver(DeleteClientSchema),
     defaultValues: {
       id: client.id,
       name: "",
@@ -33,7 +33,7 @@ export function ClientDeleteForm({ client }: { client: Client }) {
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof Schema>) => {
+  const onSubmit = async (data: z.infer<typeof DeleteClientSchema>) => {
     const response = await deleteClient(data);
 
     toast({

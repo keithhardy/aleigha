@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { createProperty } from "@/app/(dashboard)/properties/create/action";
-import { Schema } from "@/app/(dashboard)/properties/create/schema";
+import { CreatePropertySchema } from "@/app/(dashboard)/properties/create/schema";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -36,7 +36,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
-export function PropertyCreateForm({ clients }: { clients: Client[] }) {
+export function CreatePropertyForm({ clients }: { clients: Client[] }) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -44,7 +44,7 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
   const [clientOpen, setClientOpen] = useState(false);
 
   const form = useForm({
-    resolver: zodResolver(Schema),
+    resolver: zodResolver(CreatePropertySchema),
     defaultValues: {
       uprn: "",
       occupier: "",
@@ -60,7 +60,7 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof Schema>) => {
+  const onSubmit = async (data: z.infer<typeof CreatePropertySchema>) => {
     const response = await createProperty(data);
 
     toast({
@@ -94,7 +94,7 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
                     >
                       {field.value
                         ? clients.find((client) => client.id === field.value)
-                            ?.name
+                          ?.name
                         : "Select Client..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>

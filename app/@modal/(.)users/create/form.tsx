@@ -9,7 +9,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { createUserAction } from "@/app/(dashboard)/users/create/action";
-import { Schema } from "@/app/(dashboard)/users/create/schema";
+import { CreateUserSchema } from "@/app/(dashboard)/users/create/schema";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -48,8 +48,8 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
     name: key,
   }));
 
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+  const form = useForm<z.infer<typeof CreateUserSchema>>({
+    resolver: zodResolver(CreateUserSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -58,6 +58,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
       role: "" as UserRole,
       clients: [],
     },
+    mode: "onChange",
   });
 
   const { append, remove } = useFieldArray({
@@ -65,7 +66,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
     name: "clients",
   });
 
-  const onSubmit = async (data: z.infer<typeof Schema>) => {
+  const onSubmit = async (data: z.infer<typeof CreateUserSchema>) => {
     const response = await createUserAction(data);
 
     toast({
@@ -112,8 +113,8 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                     >
                       {field.value
                         ? UserRoles.find(
-                            (userRole) => userRole.id === field.value,
-                          )?.name
+                          (userRole) => userRole.id === field.value,
+                        )?.name
                         : "Select role..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>

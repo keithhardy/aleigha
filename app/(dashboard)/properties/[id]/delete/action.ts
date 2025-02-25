@@ -2,12 +2,12 @@
 
 import { z } from "zod";
 
-import { Schema } from "@/app/(dashboard)/properties/[id]/delete/schema";
+import { DeletePropertySchema } from "@/app/(dashboard)/properties/[id]/delete/schema";
 import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
 
 export async function deleteProperty(
-  property: z.infer<typeof Schema>,
+  property: z.infer<typeof DeletePropertySchema>
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.property.delete({

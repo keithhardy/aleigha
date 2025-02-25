@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const Schema = z.object({
+export const DeleteElectricalInstallationConditionReportSchema = z.object({
   id: z.string().optional(),
   serial: z.string().optional(),
 });

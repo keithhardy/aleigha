@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { deleteProperty } from "@/app/(dashboard)/properties/[id]/delete/action";
-import { Schema } from "@/app/(dashboard)/properties/[id]/delete/schema";
+import { DeletePropertySchema } from "@/app/(dashboard)/properties/[id]/delete/schema";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -20,19 +20,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
-export function PropertyDeleteForm({ property }: { property: Property }) {
+export function DeletePropertyForm({ property }: { property: Property }) {
   const router = useRouter();
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+  const form = useForm<z.infer<typeof DeletePropertySchema>>({
+    resolver: zodResolver(DeletePropertySchema),
     defaultValues: {
       id: property.id,
       uprn: "",
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof Schema>) => {
+  const onSubmit = async (data: z.infer<typeof DeletePropertySchema>) => {
     const response = await deleteProperty(data);
 
     toast({

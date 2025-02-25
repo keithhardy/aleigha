@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "Reiyen – User",
 };
 
-export default async function User({
+export default async function UpdateUser({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -35,20 +35,18 @@ export default async function User({
   }
 
   return (
-    <>
-      <div className="container mx-auto max-w-screen-md">
-        <Header>
-          <HeaderGroup>
-            <Heading>User</Heading>
-            <HeaderDescription>
-              View and edit the user&apos;s details. Update any information as
-              needed and save your changes.
-            </HeaderDescription>
-          </HeaderGroup>
-        </Header>
+    <div className="container mx-auto max-w-screen-md">
+      <Header>
+        <HeaderGroup>
+          <Heading>User</Heading>
+          <HeaderDescription>
+            View and edit the user&apos;s details. Update any information as
+            needed and save your changes.
+          </HeaderDescription>
+        </HeaderGroup>
+      </Header>
 
-        <UpdateUserForm user={user} clients={clients} />
-      </div>
-    </>
+      <UpdateUserForm user={user} clients={clients} />
+    </div>
   );
 }

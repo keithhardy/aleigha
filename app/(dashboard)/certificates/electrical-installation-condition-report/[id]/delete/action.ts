@@ -5,10 +5,12 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
 
-import { Schema } from "./schema";
+import { DeleteElectricalInstallationConditionReportSchema } from "./schema";
 
 export async function deleteElectricalInstallationConditionReport(
-  electricalInstallationConditionReport: z.infer<typeof Schema>,
+  electricalInstallationConditionReport: z.infer<
+    typeof DeleteElectricalInstallationConditionReportSchema
+  >
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.delete({

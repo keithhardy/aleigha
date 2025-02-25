@@ -3,13 +3,13 @@
 import { Client } from "@prisma/client";
 import { z } from "zod";
 
-import { Schema } from "@/app/(dashboard)/clients/[id]/update/schema";
+import { UpdateClientSchema } from "@/app/(dashboard)/clients/[id]/update/schema";
 import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
 import { updateFile } from "@/lib/vercel-blob";
 
 export async function updateClient(
-  client: z.infer<typeof Schema>,
+  client: z.infer<typeof UpdateClientSchema>,
 ): Promise<ServerActionResponse<Client>> {
   try {
     const clientResponse = await prisma.client.findUnique({

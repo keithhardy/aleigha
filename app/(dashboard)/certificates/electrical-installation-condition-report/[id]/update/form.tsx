@@ -40,9 +40,9 @@ import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
 import { updateElectricalInstallationConditionReport } from "./action";
-import { Schema } from "./schema";
+import { UpdateElectricalInstallationConditionReportSchema } from "./schema";
 
-export function ElectricalInstallationConditionReportForm({
+export function UpdateElectricalInstallationConditionReportForm({
   electricalInstallationConditionReport,
   clients,
 }: {
@@ -54,8 +54,8 @@ export function ElectricalInstallationConditionReportForm({
   const [clientOpen, setClientOpen] = useState(false);
   const [propertyOpen, setPropertyOpen] = useState(false);
 
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+  const form = useForm<z.infer<typeof UpdateElectricalInstallationConditionReportSchema>>({
+    resolver: zodResolver(UpdateElectricalInstallationConditionReportSchema),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
       clientId: electricalInstallationConditionReport.clientId,
@@ -65,7 +65,7 @@ export function ElectricalInstallationConditionReportForm({
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof Schema>) => {
+  const onSubmit = async (data: z.infer<typeof UpdateElectricalInstallationConditionReportSchema>) => {
     const response = await updateElectricalInstallationConditionReport(data);
 
     toast({
@@ -94,7 +94,7 @@ export function ElectricalInstallationConditionReportForm({
                   >
                     {field.value
                       ? clients.find((client) => client.id === field.value)
-                          ?.name
+                        ?.name
                       : "Select client..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
@@ -149,13 +149,13 @@ export function ElectricalInstallationConditionReportForm({
                   >
                     {field.value
                       ? clients
-                          .find(
-                            (client) =>
-                              client.id === form.getValues("clientId"),
-                          )
-                          ?.property.find(
-                            (property) => property.id === field.value,
-                          )?.address.streetAddress
+                        .find(
+                          (client) =>
+                            client.id === form.getValues("clientId"),
+                        )
+                        ?.property.find(
+                          (property) => property.id === field.value,
+                        )?.address.streetAddress
                       : "Select a property..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>

@@ -7,22 +7,22 @@ import { auth0Management } from "@/lib/auth0-management";
 import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
 
-import { Schema } from "./schema";
+import { UpdateUserSchema } from "./schema";
 
-export async function updateUserAction(
-  user: z.infer<typeof Schema>,
+export async function updateUser(
+  user: z.infer<typeof UpdateUserSchema>
 ): Promise<ServerActionResponse<User>> {
-  try {
-    const formattedClientsToConnect = user.clientsToConnect.map((client) => ({
+  const formattedClientsToConnect = user.clientsToConnect.map((client) => ({
+    id: client.clientId,
+  }));
+
+  const formattedClientsToDisconnect = user.clientsToDisconnect.map(
+    (client) => ({
       id: client.clientId,
-    }));
+    })
+  );
 
-    const formattedClientsToDisconnect = user.clientsToDisconnect.map(
-      (client) => ({
-        id: client.clientId,
-      }),
-    );
-
+  try {
     await auth0Management.users.update(
       {
         id: user.auth0Id,
@@ -30,7 +30,7 @@ export async function updateUserAction(
       {
         name: user.name,
         email: user.email,
-      },
+      }
     );
 
     await prisma.user.update({
@@ -38,6 +38,7 @@ export async function updateUserAction(
         id: user.id,
       },
       data: {
+        name: user.name,
         email: user.email,
         phone: user.phone,
         signature: user.signature,

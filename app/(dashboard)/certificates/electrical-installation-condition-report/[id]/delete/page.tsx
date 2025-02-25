@@ -8,9 +8,9 @@ import {
 } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
-import { ElectricalInstallationConditionReportDeleteForm } from "./form";
+import { DeleteElectricalInstallationConditionReportForm } from "./form";
 
-export default async function ElectricalInstallationConditionReportDeletePage({
+export default async function DeleteElectricalInstallationConditionReport({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -62,7 +62,7 @@ export default async function ElectricalInstallationConditionReportDeletePage({
         </HeaderGroup>
       </Header>
 
-      <ElectricalInstallationConditionReportDeleteForm
+      <DeleteElectricalInstallationConditionReportForm
         electricalInstallationConditionReport={
           electricalInstallationConditionReport!
         }

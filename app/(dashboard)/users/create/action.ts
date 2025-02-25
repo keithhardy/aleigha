@@ -7,10 +7,10 @@ import { auth0Management } from "@/lib/auth0-management";
 import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
 
-import { Schema } from "./schema";
+import { CreateUserSchema } from "./schema";
 
 export async function createUserAction(
-  user: z.infer<typeof Schema>,
+  user: z.infer<typeof CreateUserSchema>
 ): Promise<ServerActionResponse<User>> {
   try {
     const formattedClients = user.clients.map((client) => ({

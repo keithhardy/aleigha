@@ -25,7 +25,7 @@ export function RowActions({ user }: { user: User }) {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href={`/users/${user.id}`}>Update</Link>
+          <Link href={`/users/${user.id}/update`}>Update</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href={`/users/${user.id}/delete`}>Delete</Link>

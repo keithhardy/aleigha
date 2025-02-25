@@ -19,9 +19,9 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 import { deleteElectricalInstallationConditionReport } from "./action";
-import { Schema } from "./schema";
+import { DeleteElectricalInstallationConditionReportSchema } from "./schema";
 
-export function ElectricalInstallationConditionReportDeleteForm({
+export function DeleteElectricalInstallationConditionReportForm({
   electricalInstallationConditionReport,
 }: {
   electricalInstallationConditionReport: ElectricalInstallationConditionReport;
@@ -29,15 +29,15 @@ export function ElectricalInstallationConditionReportDeleteForm({
   const router = useRouter();
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+  const form = useForm<z.infer<typeof DeleteElectricalInstallationConditionReportSchema>>({
+    resolver: zodResolver(DeleteElectricalInstallationConditionReportSchema),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
       serial: "",
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof Schema>) => {
+  const onSubmit = async (data: z.infer<typeof DeleteElectricalInstallationConditionReportSchema>) => {
     const response = await deleteElectricalInstallationConditionReport(data);
 
     toast({
@@ -79,7 +79,7 @@ export function ElectricalInstallationConditionReportDeleteForm({
             type="submit"
             disabled={
               form.watch("serial") !==
-                electricalInstallationConditionReport.serial ||
+              electricalInstallationConditionReport.serial ||
               form.formState.isSubmitting
             }
             variant="destructive"

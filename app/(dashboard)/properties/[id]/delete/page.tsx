@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { PropertyDeleteForm } from "@/app/(dashboard)/properties/[id]/delete/form";
+import { DeletePropertyForm } from "@/app/(dashboard)/properties/[id]/delete/form";
 import {
   Header,
   HeaderDescription,
@@ -19,7 +19,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function PropertyDeletePage({
+export default async function DeleteProperty({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -49,7 +49,7 @@ export default async function PropertyDeletePage({
         </HeaderGroup>
       </Header>
 
-      <PropertyDeleteForm property={property!} />
+      <DeletePropertyForm property={property!} />
     </>
   );
 }

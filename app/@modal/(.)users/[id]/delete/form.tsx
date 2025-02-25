@@ -8,9 +8,8 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-
-import { deleteUser } from "./action";
-import { DeleteUserSchema } from "./schema";
+import { Schema } from "@/app/(dashboard)/users/[id]/delete/schema";
+import { deleteUser } from "@/app/(dashboard)/users/[id]/delete/action";
 
 export function DeleteUserForm({ user }: { user: User }) {
   const router = useRouter();
@@ -21,7 +20,7 @@ export function DeleteUserForm({ user }: { user: User }) {
     defaultValues: user
   });
 
-  const onSubmit = async (data: z.infer<typeof DeleteUserSchema>) => {
+  const onSubmit = async (data: z.infer<typeof Schema>) => {
     const response = await deleteUser(data);
 
     toast({
@@ -31,7 +30,7 @@ export function DeleteUserForm({ user }: { user: User }) {
     });
 
     if (response.status === "success") {
-      router.push("/users");
+      router.back();
     }
   };
 

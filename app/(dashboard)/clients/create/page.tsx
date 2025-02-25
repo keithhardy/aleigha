@@ -1,4 +1,4 @@
-import { ClientCreateForm } from "@/app/(dashboard)/clients/create/form";
+import { CreateClientForm } from "@/app/(dashboard)/clients/create/form";
 import {
   Header,
   HeaderDescription,
@@ -6,7 +6,7 @@ import {
   Heading,
 } from "@/components/page-header";
 
-export default function CreateClientPage() {
+export default function CreateClient() {
   return (
     <>
       <Header>
@@ -19,7 +19,7 @@ export default function CreateClientPage() {
         </HeaderGroup>
       </Header>
 
-      <ClientCreateForm />
+      <CreateClientForm />
     </>
   );
 }

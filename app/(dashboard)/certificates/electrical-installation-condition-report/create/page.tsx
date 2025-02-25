@@ -6,9 +6,9 @@ import {
 } from "@/components/page-header";
 import { getCurrentUser } from "@/lib/auth";
 
-import { ElectricalInstallationConditionReportForm } from "./form";
+import { CreateElectricalInstallationConditionReportForm } from "./form";
 
-export default async function ElectricalInstallationConditionReport() {
+export default async function CreateElectricalInstallationConditionReport() {
   const user = await getCurrentUser();
   const clients = await prisma.client.findMany({
     include: {
@@ -32,7 +32,7 @@ export default async function ElectricalInstallationConditionReport() {
         </HeaderGroup>
       </Header>
 
-      <ElectricalInstallationConditionReportForm
+      <CreateElectricalInstallationConditionReportForm
         currentUser={user!}
         clients={clients}
       />

@@ -1,4 +1,4 @@
-import { PropertyCreateForm } from "@/app/(dashboard)/properties/create/form";
+import { CreatePropertyForm } from "@/app/(dashboard)/properties/create/form";
 import {
   Header,
   HeaderDescription,
@@ -6,7 +6,7 @@ import {
   Heading,
 } from "@/components/page-header";
 
-export default async function PropertyCreatePage() {
+export default async function CreateProperty() {
   const clients = await prisma.client.findMany();
 
   return (
@@ -21,7 +21,7 @@ export default async function PropertyCreatePage() {
         </HeaderGroup>
       </Header>
 
-      <PropertyCreateForm clients={clients} />
+      <CreatePropertyForm clients={clients} />
     </>
   );
 }

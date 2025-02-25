@@ -34,9 +34,9 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
-import { updateUserAction } from "./action";
-import { Schema } from "./schema";
-import { SignatureField } from "../components/signature-field";
+import { updateUser } from "./action";
+import { UpdateUserSchema } from "./schema";
+import { SignatureField } from "../../components/signature-field";
 
 export default function UpdateUserForm({
   user,
@@ -55,8 +55,8 @@ export default function UpdateUserForm({
     name: key,
   }));
 
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+  const form = useForm<z.infer<typeof UpdateUserSchema>>({
+    resolver: zodResolver(UpdateUserSchema),
     defaultValues: {
       id: user.id,
       auth0Id: user.auth0Id,
@@ -88,8 +88,8 @@ export default function UpdateUserForm({
     name: "clientsToDisconnect",
   });
 
-  const onSubmit = async (data: z.infer<typeof Schema>) => {
-    const response = await updateUserAction(data);
+  const onSubmit = async (data: z.infer<typeof UpdateUserSchema>) => {
+    const response = await updateUser(data);
 
     toast({
       title: response.heading,
@@ -134,8 +134,8 @@ export default function UpdateUserForm({
                   >
                     {field.value
                       ? UserRoles.find(
-                          (userRole) => userRole.id === field.value,
-                        )?.name
+                        (userRole) => userRole.id === field.value,
+                      )?.name
                       : "Select Role..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
@@ -187,7 +187,7 @@ export default function UpdateUserForm({
                 className="max-w-[768px] justify-between"
               >
                 {clientsToConnect.length === 0 &&
-                clientsToDisconnect.length === 0
+                  clientsToDisconnect.length === 0
                   ? user.clients.length === 0
                     ? "Select Clients..."
                     : `${user.clients.length} clients selected`
@@ -250,7 +250,7 @@ export default function UpdateUserForm({
                         >
                           {client.name}
                           {(isInCurrentClients && !isInDisconnect) ||
-                          isInConnect ? (
+                            isInConnect ? (
                             <Check className="ml-auto" />
                           ) : null}
                           {isInCurrentClients && isInDisconnect ? (
@@ -265,7 +265,6 @@ export default function UpdateUserForm({
             </PopoverContent>
           </Popover>
         </FormItem>
-
         <FormField
           control={form.control}
           name="email"
@@ -305,7 +304,6 @@ export default function UpdateUserForm({
             </FormItem>
           )}
         />
-
         <Button
           type="submit"
           disabled={form.formState.isSubmitting}

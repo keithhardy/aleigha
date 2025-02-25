@@ -2,13 +2,13 @@
 
 import { z } from "zod";
 
-import { Schema } from "@/app/(dashboard)/clients/[id]/delete/schema";
+import { DeleteClientSchema } from "@/app/(dashboard)/clients/[id]/delete/schema";
 import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
 import { deleteFile } from "@/lib/vercel-blob";
 
 export async function deleteClient(
-  client: z.infer<typeof Schema>,
+  client: z.infer<typeof DeleteClientSchema>,
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.client.delete({

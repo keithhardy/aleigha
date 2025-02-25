@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { createClient } from "@/app/(dashboard)/clients/create/action";
-import { Schema } from "@/app/(dashboard)/clients/create/schema";
+import { CreateClientSchema } from "@/app/(dashboard)/clients/create/schema";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -21,7 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
-export function ClientCreateForm() {
+export function CreateClientForm() {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -41,8 +41,8 @@ export function ClientCreateForm() {
     }
   };
 
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+  const form = useForm<z.infer<typeof CreateClientSchema>>({
+    resolver: zodResolver(CreateClientSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -60,7 +60,7 @@ export function ClientCreateForm() {
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof Schema>) => {
+  const onSubmit = async (data: z.infer<typeof CreateClientSchema>) => {
     const response = await createClient(data);
 
     toast({

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const Schema = z.object({
+export const UpdatePropertySchema = z.object({
   id: z.string(),
   uprn: z.string().optional(),
   occupier: z.string().optional(),

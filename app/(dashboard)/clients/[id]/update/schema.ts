@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const Schema = z.object({
+export const UpdateClientSchema = z.object({
   id: z.string(),
   name: z.string(),
   email: z.string().optional(),

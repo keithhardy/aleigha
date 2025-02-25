@@ -16,20 +16,18 @@ export default async function Settings() {
   });
 
   return (
-    <>
-      <div className="container mx-auto max-w-screen-md">
-        <Header>
-          <HeaderGroup>
-            <Heading>Settings</Heading>
-            <HeaderDescription>
-              These are the settings that will be displayed on all your
-              certificates.
-            </HeaderDescription>
-          </HeaderGroup>
-        </Header>
+    <div className="container mx-auto max-w-screen-md">
+      <Header>
+        <HeaderGroup>
+          <Heading>Settings</Heading>
+          <HeaderDescription>
+            These are the settings that will be displayed on all your
+            certificates.
+          </HeaderDescription>
+        </HeaderGroup>
+      </Header>
 
-        <UpdateSettingsForm settings={settings} />
-      </div>
-    </>
+      <UpdateSettingsForm settings={settings} />
+    </div>
   );
 }

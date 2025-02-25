@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { updateClient } from "@/app/(dashboard)/clients/[id]/update/action";
-import { Schema } from "@/app/(dashboard)/clients/[id]/update/schema";
+import { UpdateClientSchema } from "@/app/(dashboard)/clients/[id]/update/schema";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -22,7 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
-export function ClientUpdateForm({
+export function UpdateClientForm({
   client,
 }: {
   client: Client & { address: Address | null };
@@ -46,8 +46,8 @@ export function ClientUpdateForm({
     }
   };
 
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+  const form = useForm<z.infer<typeof UpdateClientSchema>>({
+    resolver: zodResolver(UpdateClientSchema),
     defaultValues: {
       id: client.id,
       name: client.name,
@@ -67,7 +67,7 @@ export function ClientUpdateForm({
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof Schema>) => {
+  const onSubmit = async (data: z.infer<typeof UpdateClientSchema>) => {
     const response = await updateClient(data);
 
     toast({

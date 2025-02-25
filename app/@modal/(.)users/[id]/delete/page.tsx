@@ -10,12 +10,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
+import { DeleteUserForm } from "./form";
 
 export const metadata: Metadata = {
   title: "Reiyen – Delete User",
 };
 
-export default async function UserDeletePage({
+export default async function DeleteUser({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -41,7 +42,9 @@ export default async function UserDeletePage({
             permanent and the user will not be recoverable.
           </CardDescription>
         </CardHeader>
-        <CardContent></CardContent>
+        <CardContent>
+          <DeleteUserForm user={user} />
+        </CardContent>
       </Card>
     </Modal>
   );

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Reiyen – Create User",
 };
 
-export default async function UserCreatePage() {
+export default async function CreateUser() {
   const clients = await prisma.client.findMany();
 
   return (

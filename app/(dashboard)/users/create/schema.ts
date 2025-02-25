@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { checkEmailExists } from "../actions";
 
-export const Schema = z.object({
+export const CreateUserSchema = z.object({
   name: z
     .string()
     .regex(/^[a-zA-Z' -]+$/, {
@@ -40,7 +40,7 @@ export const Schema = z.object({
       z.object({
         name: z.string(),
         clientId: z.string(),
-      }),
+      })
     )
     .min(1, "Please select at least one client"),
 });

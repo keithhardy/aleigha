@@ -2,12 +2,12 @@
 
 import { z } from "zod";
 
-import { Schema } from "@/app/(dashboard)/properties/[id]/update/schema";
+import { UpdatePropertySchema } from "@/app/(dashboard)/properties/[id]/update/schema";
 import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
 
 export async function updateProperty(
-  property: z.infer<typeof Schema>,
+  property: z.infer<typeof UpdatePropertySchema>
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.property.update({

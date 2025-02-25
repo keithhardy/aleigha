@@ -6,10 +6,12 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
 
-import { Schema } from "./schema";
+import { UpdateElectricalInstallationConditionReportSchema } from "./schema";
 
 export async function updateElectricalInstallationConditionReport(
-  electricalInstallationConditionReport: z.infer<typeof Schema>,
+  electricalInstallationConditionReport: z.infer<
+    typeof UpdateElectricalInstallationConditionReportSchema
+  >
 ): Promise<ServerActionResponse<ElectricalInstallationConditionReport>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
