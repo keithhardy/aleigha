@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Client, UserRole } from "@prisma/client";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -39,10 +39,10 @@ import { Schema } from "./schema";
 export default function CreateUserForm({ clients }: { clients: Client[] }) {
   const router = useRouter();
 
+  const { toast } = useToast();
+
   const [userRoleOpen, setRoleOpen] = useState(false);
   const [userClientOpen, setClientOpen] = useState(false);
-
-  const { toast } = useToast();
 
   const UserRoles = Object.entries(UserRole).map(([key, value]) => ({
     id: value,
@@ -112,8 +112,8 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                   >
                     {field.value
                       ? UserRoles.find(
-                          (userRole) => userRole.id === field.value,
-                        )?.name
+                        (userRole) => userRole.id === field.value,
+                      )?.name
                       : "Select role..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>

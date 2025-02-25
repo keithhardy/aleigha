@@ -36,12 +36,12 @@ import {
 import { useToast } from "@/hooks/use-toast";
 
 export default function CreateUserForm({ clients }: { clients: Client[] }) {
-  const [userRoleOpen, setRoleOpen] = useState(false);
-  const [userClientOpen, setClientOpen] = useState(false);
-
   const router = useRouter();
 
   const { toast } = useToast();
+
+  const [userRoleOpen, setRoleOpen] = useState(false);
+  const [userClientOpen, setClientOpen] = useState(false);
 
   const UserRoles = Object.entries(UserRole).map(([key, value]) => ({
     id: value,
@@ -60,7 +60,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
     },
   });
 
-  const { append, remove, fields } = useFieldArray({
+  const { append, remove } = useFieldArray({
     control: form.control,
     name: "clients",
   });
@@ -112,8 +112,8 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                     >
                       {field.value
                         ? UserRoles.find(
-                            (userRole) => userRole.id === field.value,
-                          )?.name
+                          (userRole) => userRole.id === field.value,
+                        )?.name
                         : "Select role..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>

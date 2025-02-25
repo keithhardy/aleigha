@@ -21,8 +21,7 @@ export async function deleteProperty(
       heading: "Property Deleted Successfully",
       message: "The property has been deleted.",
     };
-  } catch (error) {
-    console.log(error);
+  } catch {
     return {
       status: "error",
       heading: "Property Delete Failed",

@@ -34,8 +34,7 @@ export async function createProperty(
       heading: "Property Created Successfully",
       message: "The new property has been created.",
     };
-  } catch (error) {
-    console.log(error);
+  } catch {
     return {
       status: "error",
       heading: "Property Creation Failed",

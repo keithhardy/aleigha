@@ -47,8 +47,7 @@ export async function createClient(
       heading: "Client Created Successfully",
       message: "The new client has been created.",
     };
-  } catch (error) {
-    console.log(error);
+  } catch {
     return {
       status: "error",
       heading: "Client Creation Failed",

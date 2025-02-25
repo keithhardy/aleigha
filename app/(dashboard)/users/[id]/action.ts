@@ -54,7 +54,7 @@ export async function updateUserAction(
       heading: "User Updated Successfully",
       message: "The user has been updated.",
     };
-  } catch (error) {
+  } catch {
     return {
       status: "error",
       heading: "User Update Failed",

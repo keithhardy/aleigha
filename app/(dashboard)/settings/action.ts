@@ -1,17 +1,17 @@
 "use server";
 
 import { Address, Settings } from "@prisma/client";
-import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { prisma } from "@/lib/prisma";
+import { ServerActionResponse } from "@/lib/types";
 import { updateFile } from "@/lib/vercel-blob";
 
 import { Schema } from "./schema";
 
 export async function updateSettings(
   settings: z.infer<typeof Schema>,
-): Promise<Settings & { address: Address | null }> {
+): Promise<ServerActionResponse<Settings & { address: Address | null }>> {
   const settingsResponse = await prisma.settings.findFirst();
 
   try {
@@ -20,12 +20,12 @@ export async function updateSettings(
       settingsResponse?.picture ?? undefined,
       "logo",
     );
-  } catch (error) {
+  } catch {
     throw new Error("Settings update failed");
   }
 
   try {
-    const updatedSettings = await prisma.settings.upsert({
+    await prisma.settings.upsert({
       where: {
         id: settings.id,
       },
@@ -70,9 +70,16 @@ export async function updateSettings(
       },
     });
 
-    revalidatePath("/settings");
-    return updatedSettings;
-  } catch (error) {
-    throw new Error("Settings update failed");
+    return {
+      status: "success",
+      heading: "Settings Updated Successfully",
+      message: "The settings have been updated.",
+    };
+  } catch {
+    return {
+      status: "error",
+      heading: "Settings Update Failed",
+      message: "There was an issue updating the settings. Please try again.",
+    };
   }
 }

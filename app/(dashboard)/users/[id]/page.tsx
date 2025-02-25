@@ -41,8 +41,8 @@ export default async function User({
           <HeaderGroup>
             <Heading>User</Heading>
             <HeaderDescription>
-              View and edit the user's details. Update any information as needed
-              and save your changes.
+              View and edit the user&apos;s details. Update any information as
+              needed and save your changes.
             </HeaderDescription>
           </HeaderGroup>
         </Header>

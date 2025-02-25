@@ -51,6 +51,9 @@ export function ElectricalInstallationConditionReportForm({
 }) {
   const { toast } = useToast();
 
+  const [clientOpen, setClientOpen] = useState(false);
+  const [propertyOpen, setPropertyOpen] = useState(false);
+
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
@@ -61,9 +64,6 @@ export function ElectricalInstallationConditionReportForm({
       endDate: electricalInstallationConditionReport.endDate || new Date(),
     },
   });
-
-  const [clientOpen, setClientOpen] = useState(false);
-  const [propertyOpen, setPropertyOpen] = useState(false);
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
     const response = await updateElectricalInstallationConditionReport(data);
@@ -94,7 +94,7 @@ export function ElectricalInstallationConditionReportForm({
                   >
                     {field.value
                       ? clients.find((client) => client.id === field.value)
-                          ?.name
+                        ?.name
                       : "Select client..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
@@ -149,13 +149,13 @@ export function ElectricalInstallationConditionReportForm({
                   >
                     {field.value
                       ? clients
-                          .find(
-                            (client) =>
-                              client.id === form.getValues("clientId"),
-                          )
-                          ?.property.find(
-                            (property) => property.id === field.value,
-                          )?.address.streetAddress
+                        .find(
+                          (client) =>
+                            client.id === form.getValues("clientId"),
+                        )
+                        ?.property.find(
+                          (property) => property.id === field.value,
+                        )?.address.streetAddress
                       : "Select a property..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>

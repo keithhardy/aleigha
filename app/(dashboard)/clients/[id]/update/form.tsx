@@ -28,8 +28,23 @@ export function ClientUpdateForm({
   client: Client & { address: Address | null };
 }) {
   const router = useRouter();
+
   const { toast } = useToast();
+
   const [imagePreview, setImagePreview] = useState(client.picture || "");
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setImagePreview(base64String);
+        form.setValue("picture", base64String);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
@@ -51,19 +66,6 @@ export function ClientUpdateForm({
       },
     },
   });
-
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setImagePreview(base64String);
-        form.setValue("picture", base64String);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
     const response = await updateClient(data);

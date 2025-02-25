@@ -47,6 +47,14 @@ export default function UpdateUserForm({
 }) {
   const { toast } = useToast();
 
+  const [userRoleOpen, setRoleOpen] = useState(false);
+  const [userClientOpen, setClientOpen] = useState(false);
+
+  const UserRoles = Object.entries(UserRole).map(([key, value]) => ({
+    id: value,
+    name: key,
+  }));
+
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
@@ -94,14 +102,6 @@ export default function UpdateUserForm({
     }
   };
 
-  const [userRoleOpen, setRoleOpen] = useState(false);
-  const [userClientOpen, setClientOpen] = useState(false);
-
-  const UserRoles = Object.entries(UserRole).map(([key, value]) => ({
-    id: value,
-    name: key,
-  }));
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -134,8 +134,8 @@ export default function UpdateUserForm({
                   >
                     {field.value
                       ? UserRoles.find(
-                          (userRole) => userRole.id === field.value,
-                        )?.name
+                        (userRole) => userRole.id === field.value,
+                      )?.name
                       : "Select Role..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
@@ -187,7 +187,7 @@ export default function UpdateUserForm({
                 className="max-w-[768px] justify-between"
               >
                 {clientsToConnect.length === 0 &&
-                clientsToDisconnect.length === 0
+                  clientsToDisconnect.length === 0
                   ? user.clients.length === 0
                     ? "Select Clients..."
                     : `${user.clients.length} clients selected`
@@ -250,7 +250,7 @@ export default function UpdateUserForm({
                         >
                           {client.name}
                           {(isInCurrentClients && !isInDisconnect) ||
-                          isInConnect ? (
+                            isInConnect ? (
                             <Check className="ml-auto" />
                           ) : null}
                           {isInCurrentClients && isInDisconnect ? (

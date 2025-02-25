@@ -8,7 +8,7 @@ import { ServerActionResponse } from "@/lib/types";
 import { Schema } from "./schema";
 
 export async function deleteElectricalInstallationConditionReport(
-  electricalInstallationConditionReport: z.infer<typeof Schema>
+  electricalInstallationConditionReport: z.infer<typeof Schema>,
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.delete({
@@ -22,8 +22,7 @@ export async function deleteElectricalInstallationConditionReport(
       heading: "Certificate Deleted Successfully",
       message: "The certificate has been deleted.",
     };
-  } catch (error) {
-    console.log(error);
+  } catch {
     return {
       status: "error",
       heading: "Certificate Deletion Failed",

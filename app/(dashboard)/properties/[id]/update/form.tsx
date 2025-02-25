@@ -43,7 +43,10 @@ export function PropertyUpdateForm({
   clients: Client[];
 }) {
   const router = useRouter();
+
   const { toast } = useToast();
+
+  const [clientOpen, setClientOpen] = useState(false);
 
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
@@ -77,8 +80,6 @@ export function PropertyUpdateForm({
     }
   };
 
-  const [clientOpen, setClientOpen] = useState(false);
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -99,7 +100,7 @@ export function PropertyUpdateForm({
                     >
                       {field.value
                         ? clients.find((client) => client.id === field.value)
-                            ?.name
+                          ?.name
                         : "Select Client..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>

@@ -33,8 +33,8 @@ export default async function ClientUpdate({
         <HeaderGroup>
           <Heading>Update Client</Heading>
           <HeaderDescription>
-            View and edit the client's details. Update any information as needed
-            and save your changes.
+            View and edit the client&apos;s details. Update any information as
+            needed and save your changes.
           </HeaderDescription>
         </HeaderGroup>
       </Header>

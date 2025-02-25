@@ -57,8 +57,7 @@ export async function updateClient(
       heading: "Client Updated Successfully",
       message: "The clint has been updated.",
     };
-  } catch (error) {
-    console.log(error);
+  } catch {
     return {
       status: "error",
       heading: "Client Update Failed",

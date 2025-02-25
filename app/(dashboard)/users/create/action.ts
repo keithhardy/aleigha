@@ -42,8 +42,7 @@ export async function createUserAction(
       heading: "User Created Successfully",
       message: "The new user has been created.",
     };
-  } catch (error) {
-    console.log(error);
+  } catch {
     return {
       status: "error",
       heading: "User Creation Failed",

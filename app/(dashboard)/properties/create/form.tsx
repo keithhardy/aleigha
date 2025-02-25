@@ -41,6 +41,8 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
 
   const { toast } = useToast();
 
+  const [clientOpen, setClientOpen] = useState(false);
+
   const form = useForm({
     resolver: zodResolver(Schema),
     defaultValues: {
@@ -72,8 +74,6 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
     }
   };
 
-  const [clientOpen, setClientOpen] = useState(false);
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -94,7 +94,7 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
                     >
                       {field.value
                         ? clients.find((client) => client.id === field.value)
-                            ?.name
+                          ?.name
                         : "Select Client..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>

@@ -1,6 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { auth0Management } from "@/lib/auth0-management";
@@ -10,7 +9,7 @@ import { ServerActionResponse } from "@/lib/types";
 import { Schema } from "./schema";
 
 export async function deleteUser(
-  user: z.infer<typeof Schema>,
+  user: z.infer<typeof Schema>
 ): Promise<ServerActionResponse<void>> {
   try {
     await auth0Management.users.delete({
@@ -28,7 +27,7 @@ export async function deleteUser(
       heading: "User Deleted Successfully",
       message: "The user has been deleted.",
     };
-  } catch (error) {
+  } catch {
     return {
       status: "error",
       heading: "User Delete Failed",

@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Address, Settings } from "@prisma/client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -27,7 +28,24 @@ export function SettingsForm({
 }: {
   settings: (Settings & { address: Address | null }) | null;
 }) {
+  const router = useRouter();
+
+  const { toast } = useToast();
+
   const [imagePreview, setImagePreview] = useState(settings?.picture || "");
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setImagePreview(base64String);
+        form.setValue("picture", base64String);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const form = useForm({
     resolver: zodResolver(Schema),
@@ -51,34 +69,17 @@ export function SettingsForm({
     },
   });
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setImagePreview(base64String);
-        form.setValue("picture", base64String);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const { toast } = useToast();
-
   const onSubmit = async (data: z.infer<typeof Schema>) => {
-    try {
-      await updateSettings(data);
-      toast({
-        title: "Settings Updated",
-        description: `Settings was successfully updated.`,
-      });
-    } catch {
-      toast({
-        title: "Error",
-        description: "Failed to update the settings. Please try again.",
-        variant: "destructive",
-      });
+    const response = await updateSettings(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+
+    if (response.status === "success") {
+      router.push("/properties");
     }
   };
 
