@@ -1,14 +1,14 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { Schema } from "@/app/(dashboard)/properties/[id]/update/schema";
 import { prisma } from "@/lib/prisma";
+import { ServerActionResponse } from "@/lib/types";
 
 export async function updateProperty(
   property: z.infer<typeof Schema>,
-): Promise<void> {
+): Promise<ServerActionResponse<void>> {
   try {
     await prisma.property.update({
       where: {
@@ -31,8 +31,17 @@ export async function updateProperty(
       },
     });
 
-    revalidatePath("/properties");
-  } catch {
-    throw new Error("Property update failed");
+    return {
+      status: "success",
+      heading: "Property Updated Successfully",
+      message: "The new property has been updated.",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      heading: "Property Update Failed",
+      message: "There was an issue updating the property. Please try again.",
+    };
   }
 }

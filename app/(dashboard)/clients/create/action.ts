@@ -1,24 +1,28 @@
 "use server";
 
 import { Client } from "@prisma/client";
-import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { Schema } from "@/app/(dashboard)/clients/create/schema";
 import { prisma } from "@/lib/prisma";
+import { ServerActionResponse } from "@/lib/types";
 import { uploadFile } from "@/lib/vercel-blob";
 
 export async function createClient(
   client: z.infer<typeof Schema>,
-): Promise<Client> {
+): Promise<ServerActionResponse<Client>> {
   try {
     try {
-      client.picture = await uploadFile(client.picture, "logo");
+      client.picture = await uploadFile(client.picture, "client-logo");
     } catch {
-      throw new Error("Client creation failed");
+      return {
+        status: "error",
+        heading: "Client Creation Failed",
+        message: "There was an issue creating the client. Please try again.",
+      };
     }
 
-    const createdClient = await prisma.client.create({
+    await prisma.client.create({
       data: {
         name: client.name,
         phone: client.phone || "",
@@ -38,9 +42,17 @@ export async function createClient(
       },
     });
 
-    revalidatePath("/clients");
-    return createdClient;
-  } catch {
-    throw new Error("Client creation failed");
+    return {
+      status: "success",
+      heading: "Client Created Successfully",
+      message: "The new client has been created.",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      heading: "Client Creation Failed",
+      message: "There was an issue creating the client. Please try again.",
+    };
   }
 }

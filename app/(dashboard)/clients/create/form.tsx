@@ -59,19 +59,16 @@ export function ClientCreateForm() {
   };
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
-    try {
-      const client = await createClient(data);
+    const response = await createClient(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+
+    if (response.status === "success") {
       router.push("/clients");
-      toast({
-        title: "Client Created",
-        description: `Client ${client.name} was successfully created.`,
-      });
-    } catch {
-      toast({
-        title: "Error",
-        description: "Failed to create the Client. Please try again.",
-        variant: "destructive",
-      });
     }
   };
 

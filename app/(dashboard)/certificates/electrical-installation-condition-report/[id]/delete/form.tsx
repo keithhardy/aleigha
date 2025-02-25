@@ -38,23 +38,16 @@ export function ElectricalInstallationConditionReportDeleteForm({
   });
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
-    try {
-      await deleteElectricalInstallationConditionReport(data);
+    const response = await deleteElectricalInstallationConditionReport(data);
 
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+
+    if (response.status === "success") {
       router.push("/certificates");
-
-      toast({
-        title: "Electrical Installation Condition Report Deleted",
-        description:
-          "Electrical Installation Condition Report was successfully removed.",
-      });
-    } catch {
-      toast({
-        title: "Error",
-        description:
-          "Failed to delete the Electrical Installation Condition Report. Please try again.",
-        variant: "destructive",
-      });
     }
   };
 

@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Address, Client, Property } from "@prisma/client";
 import { Check, ChevronsUpDown } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -41,6 +42,7 @@ export function PropertyUpdateForm({
   property: Property & { address: Address | null };
   clients: Client[];
 }) {
+  const router = useRouter();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof Schema>>({
@@ -62,18 +64,16 @@ export function PropertyUpdateForm({
   });
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
-    try {
-      await updateProperty(data);
-      toast({
-        title: "Client Updated",
-        description: "Property was successfully updated.",
-      });
-    } catch {
-      toast({
-        title: "Error",
-        description: "Failed to update the Client. Please try again.",
-        variant: "destructive",
-      });
+    const response = await updateProperty(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+
+    if (response.status === "success") {
+      router.push("/properties");
     }
   };
 

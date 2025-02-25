@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Address, Client } from "@prisma/client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -26,6 +27,7 @@ export function ClientUpdateForm({
 }: {
   client: Client & { address: Address | null };
 }) {
+  const router = useRouter();
   const { toast } = useToast();
   const [imagePreview, setImagePreview] = useState(client.picture || "");
 
@@ -64,18 +66,16 @@ export function ClientUpdateForm({
   };
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
-    try {
-      const client = await updateClient(data);
-      toast({
-        title: "Client Updated",
-        description: `Client ${client.name} was successfully updated.`,
-      });
-    } catch {
-      toast({
-        title: "Error",
-        description: "Failed to update the Client. Please try again.",
-        variant: "destructive",
-      });
+    const response = await updateClient(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+
+    if (response.status === "success") {
+      router.push("/clients");
     }
   };
 

@@ -29,25 +29,21 @@ export function ClientDeleteForm({ client }: { client: Client }) {
     defaultValues: {
       id: client.id,
       name: "",
+      picture: client.picture || "",
     },
   });
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
-    try {
-      await deleteClient(data);
+    const response = await deleteClient(data);
 
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+
+    if (response.status === "success") {
       router.push("/clients");
-
-      toast({
-        title: "User Deleted",
-        description: `${data.name} was successfully removed.`,
-      });
-    } catch {
-      toast({
-        title: "Error",
-        description: "Failed to delete the user. Please try again.",
-        variant: "destructive",
-      });
     }
   };
 

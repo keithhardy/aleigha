@@ -1,16 +1,16 @@
 "use server";
 
 import { Client } from "@prisma/client";
-import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { Schema } from "@/app/(dashboard)/clients/[id]/update/schema";
 import { prisma } from "@/lib/prisma";
+import { ServerActionResponse } from "@/lib/types";
 import { updateFile } from "@/lib/vercel-blob";
 
 export async function updateClient(
   client: z.infer<typeof Schema>,
-): Promise<Client> {
+): Promise<ServerActionResponse<Client>> {
   try {
     const clientResponse = await prisma.client.findUnique({
       where: {
@@ -28,7 +28,7 @@ export async function updateClient(
       throw new Error("Client update failed: Error updating logo.");
     }
 
-    const updatedClient = await prisma.client.update({
+    await prisma.client.update({
       where: {
         id: client.id,
       },
@@ -52,9 +52,17 @@ export async function updateClient(
       },
     });
 
-    revalidatePath("/clients");
-    return updatedClient;
-  } catch {
-    throw new Error("Client update failed");
+    return {
+      status: "success",
+      heading: "Client Updated Successfully",
+      message: "The new user has been updated.",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      heading: "Client Update Failed",
+      message: "There was an issue updating the client. Please try again.",
+    };
   }
 }

@@ -1,15 +1,15 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { Schema } from "@/app/(dashboard)/clients/[id]/delete/schema";
 import { prisma } from "@/lib/prisma";
+import { ServerActionResponse } from "@/lib/types";
 import { deleteFile } from "@/lib/vercel-blob";
 
 export async function deleteClient(
   client: z.infer<typeof Schema>,
-): Promise<void> {
+): Promise<ServerActionResponse<void>> {
   try {
     await prisma.client.delete({
       where: {
@@ -17,12 +17,21 @@ export async function deleteClient(
       },
     });
 
-    if (client.logoUrl) {
-      await deleteFile(client.logoUrl);
+    if (client.picture) {
+      await deleteFile(client.picture);
     }
 
-    revalidatePath("/clients");
-  } catch {
-    throw new Error("Client deletion failed");
+    return {
+      status: "success",
+      heading: "Client Deleted Successfully",
+      message: "The user has been deleted.",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      heading: "Client Deletion Failed",
+      message: "There was an issue deleting the client. Please try again.",
+    };
   }
 }
