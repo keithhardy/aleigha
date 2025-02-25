@@ -6,7 +6,7 @@ import {
 } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
-import { SettingsForm } from "./form";
+import { UpdateSettingsForm } from "./form";
 
 export default async function Settings() {
   const settings = await prisma.settings.findFirst({
@@ -17,17 +17,19 @@ export default async function Settings() {
 
   return (
     <>
-      <Header>
-        <HeaderGroup>
-          <Heading>Settings</Heading>
-          <HeaderDescription>
-            These are the settings that will be displayed on all your
-            certificates.
-          </HeaderDescription>
-        </HeaderGroup>
-      </Header>
+      <div className="container mx-auto max-w-screen-md">
+        <Header>
+          <HeaderGroup>
+            <Heading>Settings</Heading>
+            <HeaderDescription>
+              These are the settings that will be displayed on all your
+              certificates.
+            </HeaderDescription>
+          </HeaderGroup>
+        </Header>
 
-      <SettingsForm settings={settings} />
+        <UpdateSettingsForm settings={settings} />
+      </div>
     </>
   );
 }

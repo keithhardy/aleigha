@@ -21,9 +21,9 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateSettings } from "./action";
-import { Schema } from "./schema";
+import { UpdateSettingsSchema } from "./schema";
 
-export function SettingsForm({
+export function UpdateSettingsForm({
   settings,
 }: {
   settings: (Settings & { address: Address | null }) | null;
@@ -60,7 +60,7 @@ export function SettingsForm({
   };
 
   const form = useForm({
-    resolver: zodResolver(Schema),
+    resolver: zodResolver(UpdateSettingsSchema),
     defaultValues: {
       id: settings?.id,
       name: settings?.name || "",
@@ -79,10 +79,10 @@ export function SettingsForm({
         country: settings?.address?.country || "",
       },
     },
-    mode: 'onChange',
+    mode: "onChange",
   });
 
-  const onSubmit = async (data: z.infer<typeof Schema>) => {
+  const onSubmit = async (data: z.infer<typeof UpdateSettingsSchema>) => {
     const response = await updateSettings(data);
 
     toast({
@@ -155,17 +155,19 @@ export function SettingsForm({
                   />
                 </div>
               )}
-              <FormControl>
-                <Input
-                  type="file"
-                  accept="image/*"
-                  ref={fileInputRef}
-                  onChange={handleFileChange}
-                />
-              </FormControl>
-              <Button variant="outline" type="button" onClick={handleClear}>
-                Clear
-              </Button>
+              <div className="flex items-center gap-2">
+                <FormControl>
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                  />
+                </FormControl>
+                <Button variant="outline" type="button" onClick={handleClear}>
+                  Clear
+                </Button>
+              </div>
               <FormMessage />
             </FormItem>
           )}
