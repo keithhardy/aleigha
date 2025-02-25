@@ -9,22 +9,22 @@ import { ServerActionResponse } from "@/lib/types";
 import { uploadFile } from "@/lib/vercel-blob";
 
 export async function createClient(
-  client: z.infer<typeof CreateClientSchema>,
+  client: z.infer<typeof CreateClientSchema>
 ): Promise<ServerActionResponse<Client>> {
-  try {
-    if (client.picture) {
-      try {
-        client.picture =
-          (await uploadFile(client.picture, "client-picture")) || "";
-      } catch {
-        return {
-          status: "error",
-          heading: "Client Creation Failed",
-          message: "There was an issue creating the client. Please try again.",
-        };
-      }
+  if (client.picture) {
+    try {
+      client.picture =
+        (await uploadFile(client.picture, "client-picture")) || "";
+    } catch {
+      return {
+        status: "error",
+        heading: "Client Creation Failed",
+        message: "There was an issue creating the client. Please try again.",
+      };
     }
+  }
 
+  try {
     await prisma.client.create({
       data: {
         name: client.name,

@@ -40,7 +40,7 @@ export function DeleteUserForm({ user }: { user: User }) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Button type="submit" variant="destructive" size="sm">
+        <Button type="submit" variant="destructive">
           {form.formState.isSubmitting ? "Deleting" : "Delete"}
         </Button>
       </form>

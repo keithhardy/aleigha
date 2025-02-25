@@ -11,8 +11,7 @@ export const UpdateClientSchema = z.object({
       "Phone number can only contain digits, spaces, +, (), and -"
     ),
   picture: z
-    .string()
-    .optional()
+    .preprocess((val) => (val === "" ? undefined : val), z.string().optional())
     .refine((value) => {
       if (value && typeof value === "string") {
         const [metadata, base64String] = value.split(",");
@@ -27,10 +26,17 @@ export const UpdateClientSchema = z.object({
     .min(2, "Appointed person must be at least 2 characters long"),
   address: z.object({
     id: z.string().cuid(),
-    streetAddress: z
-      .string()
-      .min(3, "Street address must be at least 3 characters"),
-    city: z.string().min(2, "City must be at least 2 characters"),
+    streetAddress: z.preprocess(
+      (val) => (val === "" ? undefined : val),
+      z
+        .string()
+        .min(3, "Street address must be at least 3 characters")
+        .optional()
+    ),
+    city: z.preprocess(
+      (val) => (val === "" ? undefined : val),
+      z.string().min(2, "City must be at least 2 characters").optional()
+    ),
     county: z.preprocess(
       (val) => (val === "" ? undefined : val),
       z.string().optional()
@@ -39,9 +45,16 @@ export const UpdateClientSchema = z.object({
       (val) => (val === "" ? undefined : val),
       z.string().optional()
     ),
-    postCode: z
-      .string()
-      .regex(/^[A-Z0-9\s]{5,10}$/i, "Invalid postcode format"),
-    country: z.string().min(2, "Country must be at least 2 characters"),
+    postCode: z.preprocess(
+      (val) => (val === "" ? undefined : val),
+      z
+        .string()
+        .regex(/^[A-Z0-9\s]{5,10}$/i, "Invalid postcode format")
+        .optional()
+    ),
+    country: z.preprocess(
+      (val) => (val === "" ? undefined : val),
+      z.string().min(2, "Country must be at least 2 characters").optional()
+    ),
   }),
 });

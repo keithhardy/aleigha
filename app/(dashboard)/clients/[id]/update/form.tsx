@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Address, Client } from "@prisma/client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -31,7 +31,9 @@ export function UpdateClientForm({
 
   const { toast } = useToast();
 
-  const [imagePreview, setImagePreview] = useState(client.picture || "");
+  const [imagePreview, setImagePreview] = useState(client.picture);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -41,9 +43,19 @@ export function UpdateClientForm({
         const base64String = reader.result as string;
         setImagePreview(base64String);
         form.setValue("picture", base64String);
+        form.trigger("picture");
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleClear = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+    setImagePreview(client?.picture || "");
+    form.setValue("picture", "");
+    form.trigger("picture");
   };
 
   const form = useForm<z.infer<typeof UpdateClientSchema>>({
@@ -51,17 +63,17 @@ export function UpdateClientForm({
     defaultValues: {
       id: client.id,
       name: client.name,
-      email: client.email || "",
-      phone: client.phone || "",
-      picture: client.picture || "",
-      appointedPerson: client.appointedPerson || "",
+      email: client.email,
+      phone: client.phone,
+      picture: "",
+      appointedPerson: client.appointedPerson,
       address: {
+        id: client.address?.id,
         city: client.address?.city || "",
         county: client.address?.county || "",
         postTown: client.address?.postTown || "",
         postCode: client.address?.postCode || "",
         streetAddress: client.address?.streetAddress || "",
-        id: client.address?.id,
         country: client.address?.country || "",
       },
     },
@@ -146,15 +158,7 @@ export function UpdateClientForm({
             name="picture"
             render={() => (
               <FormItem>
-                <FormLabel>Company Logo</FormLabel>
-                <FormControl>
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                  />
-                </FormControl>
-                <FormMessage />
+                <FormLabel>Logo</FormLabel>
                 {imagePreview && (
                   <div className="mt-2">
                     <Image
@@ -166,6 +170,20 @@ export function UpdateClientForm({
                     />
                   </div>
                 )}
+                <div className="flex items-center gap-2">
+                  <FormControl>
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      ref={fileInputRef}
+                      onChange={handleFileChange}
+                    />
+                  </FormControl>
+                  <Button variant="outline" type="button" onClick={handleClear}>
+                    Clear
+                  </Button>
+                </div>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -247,7 +265,6 @@ export function UpdateClientForm({
               </FormItem>
             )}
           />
-
           <Button
             type="submit"
             disabled={form.formState.isSubmitting}
