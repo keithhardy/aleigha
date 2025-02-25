@@ -22,10 +22,14 @@ export async function updateClient(
       client.picture = await updateFile(
         client.picture,
         clientResponse?.picture || undefined,
-        "certifictate",
+        "client-picture",
       );
     } catch {
-      throw new Error("Client update failed: Error updating logo.");
+      return {
+        status: "error",
+        heading: "Client Update Failed",
+        message: "There was an issue updating the client. Please try again.",
+      };
     }
 
     await prisma.client.update({

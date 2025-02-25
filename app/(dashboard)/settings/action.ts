@@ -10,24 +10,30 @@ import { updateFile } from "@/lib/vercel-blob";
 import { Schema } from "./schema";
 
 export async function updateSettings(
-  settings: z.infer<typeof Schema>,
+  settings: z.infer<typeof Schema>
 ): Promise<ServerActionResponse<Settings & { address: Address | null }>> {
   const settingsResponse = await prisma.settings.findFirst();
 
-  try {
-    settings.picture = await updateFile(
-      settings.picture,
-      settingsResponse?.picture ?? undefined,
-      "logo",
-    );
-  } catch {
-    throw new Error("Settings update failed");
+  if (settings.picture) {
+    try {
+      settings.picture = await updateFile(
+        settings.picture,
+        settingsResponse?.picture ?? undefined,
+        "contractor-picture"
+      );
+    } catch {
+      return {
+        status: "error",
+        heading: "Settings Update Failed",
+        message: "There was an issue updating the settings. Please try again.",
+      };
+    }
   }
 
   try {
     await prisma.settings.upsert({
       where: {
-        id: settings.id,
+        id: settings.id || "undefined",
       },
       update: {
         name: settings.name,
@@ -64,9 +70,6 @@ export async function updateSettings(
             country: settings.address.country,
           },
         },
-      },
-      include: {
-        address: true,
       },
     });
 

@@ -1,18 +1,21 @@
-import { del, put } from '@vercel/blob';
+import { del, put } from "@vercel/blob";
 
-async function saveFile(fileData: string | Buffer, fileName: string): Promise<string> {
+async function saveFile(
+  fileData: string | Buffer,
+  fileName: string
+): Promise<string> {
   try {
     const binaryData =
-      typeof fileData === 'string'
-        ? Buffer.from(fileData.replace(/^data:.+;base64,/, ''), 'base64')
+      typeof fileData === "string"
+        ? Buffer.from(fileData.replace(/^data:.+;base64,/, ""), "base64")
         : fileData;
 
     const blob = await put(fileName, binaryData, {
-      access: 'public',
+      access: "public",
     });
     return blob.url;
   } catch {
-    throw new Error('File upload failed');
+    throw new Error("File save failed");
   }
 }
 
@@ -21,15 +24,15 @@ export async function deleteFile(fileUrl: string): Promise<void> {
     const blobName = new URL(fileUrl).pathname.slice(1);
     await del(blobName);
   } catch {
-    throw new Error('File deletion failed');
+    throw new Error("File deletion failed");
   }
 }
 
 export async function uploadFile(
   newFile?: string,
-  filePrefix: string = 'uploaded-file'
+  filePrefix: string = "uploaded-file"
 ): Promise<string | undefined> {
-  if (newFile === '') {
+  if (newFile === "") {
     return undefined;
   }
 
@@ -38,7 +41,8 @@ export async function uploadFile(
   }
 
   try {
-    const fileExtension = newFile.match(/data:(.*?);base64/)?.[1]?.split('/')[1] || 'unknown';
+    const fileExtension =
+      newFile.match(/data:(.*?);base64/)?.[1]?.split("/")[1] || "unknown";
 
     const fileName = `${filePrefix}-${Date.now()}.${fileExtension}`;
 
@@ -46,17 +50,17 @@ export async function uploadFile(
 
     return uploadedFileUrl;
   } catch {
-    throw new Error('Failed to upload the new file.');
+    throw new Error("File upload failed.");
   }
 }
 
 export async function updateFile(
   newFile?: string,
   currentFile?: string,
-  filePrefix: string = 'uploaded-file'
+  filePrefix: string = "uploaded-file"
 ): Promise<string | undefined> {
-  if (newFile === '') {
-    if (currentFile && currentFile.includes('vercel-storage.com')) {
+  if (newFile === "") {
+    if (currentFile && currentFile.includes("vercel-storage.com")) {
       await deleteFile(currentFile);
     }
     return undefined;
@@ -71,18 +75,19 @@ export async function updateFile(
   }
 
   try {
-    const fileExtension = newFile.match(/data:(.*?);base64/)?.[1]?.split('/')[1] || 'unknown';
+    const fileExtension =
+      newFile.match(/data:(.*?);base64/)?.[1]?.split("/")[1] || "unknown";
 
     const fileName = `${filePrefix}-${Date.now()}.${fileExtension}`;
 
     const uploadedFileUrl = await saveFile(newFile, fileName);
 
-    if (currentFile && currentFile.includes('vercel-storage.com')) {
+    if (currentFile && currentFile.includes("vercel-storage.com")) {
       await deleteFile(currentFile);
     }
 
     return uploadedFileUrl;
   } catch {
-    throw new Error('Failed to upload the new file.');
+    throw new Error("File update failed.");
   }
 }
