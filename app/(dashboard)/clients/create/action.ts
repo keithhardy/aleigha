@@ -9,7 +9,7 @@ import { ServerActionResponse } from "@/lib/types";
 import { uploadFile } from "@/lib/vercel-blob";
 
 export async function createClient(
-  client: z.infer<typeof Schema>
+  client: z.infer<typeof Schema>,
 ): Promise<ServerActionResponse<Client>> {
   try {
     try {

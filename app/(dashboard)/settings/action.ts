@@ -10,7 +10,7 @@ import { updateFile } from "@/lib/vercel-blob";
 import { Schema } from "./schema";
 
 export async function updateSettings(
-  settings: z.infer<typeof Schema>
+  settings: z.infer<typeof Schema>,
 ): Promise<ServerActionResponse<Settings & { address: Address | null }>> {
   const settingsResponse = await prisma.settings.findFirst();
 
@@ -19,7 +19,7 @@ export async function updateSettings(
       settings.picture = await updateFile(
         settings.picture,
         settingsResponse?.picture ?? undefined,
-        "contractor-picture"
+        "contractor-picture",
       );
     } catch {
       return {
@@ -39,7 +39,8 @@ export async function updateSettings(
         name: settings.name,
         email: settings.email,
         phone: settings.phone,
-        picture: settings.picture,
+        ...(settings.picture &&
+          settings.picture !== "" && { picture: settings.picture }),
         governingBody: settings.governingBody,
         governingBodyNumber: settings.governingBodyNumber,
         address: {
@@ -57,7 +58,8 @@ export async function updateSettings(
         name: settings.name,
         email: settings.email,
         phone: settings.phone,
-        picture: settings.picture,
+        ...(settings.picture &&
+          settings.picture !== "" && { picture: settings.picture }),
         governingBody: settings.governingBody,
         governingBodyNumber: settings.governingBodyNumber,
         address: {

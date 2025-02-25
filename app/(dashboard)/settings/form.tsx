@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Address, Settings } from "@prisma/client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -34,6 +34,8 @@ export function SettingsForm({
 
   const [imagePreview, setImagePreview] = useState(settings?.picture || "");
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -42,9 +44,19 @@ export function SettingsForm({
         const base64String = reader.result as string;
         setImagePreview(base64String);
         form.setValue("picture", base64String);
+        form.trigger("picture");
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleClear = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+    setImagePreview(settings?.picture || "");
+    form.setValue("picture", "");
+    form.trigger("picture");
   };
 
   const form = useForm({
@@ -54,7 +66,7 @@ export function SettingsForm({
       name: settings?.name || "",
       email: settings?.email || "",
       phone: settings?.phone || "",
-      picture: settings?.picture || "",
+      picture: "",
       governingBody: settings?.governingBody || "",
       governingBodyNumber: settings?.governingBodyNumber || "",
       address: {
@@ -79,7 +91,7 @@ export function SettingsForm({
     });
 
     if (response.status === "success") {
-      router.push("/properties");
+      router.push("/settings");
     }
   };
 
@@ -146,9 +158,13 @@ export function SettingsForm({
                 <Input
                   type="file"
                   accept="image/*"
+                  ref={fileInputRef}
                   onChange={handleFileChange}
                 />
               </FormControl>
+              <Button variant="outline" type="button" onClick={handleClear}>
+                Clear
+              </Button>
               <FormMessage />
             </FormItem>
           )}
@@ -257,7 +273,6 @@ export function SettingsForm({
             </FormItem>
           )}
         />
-
         <Button
           type="submit"
           disabled={form.formState.isSubmitting}
