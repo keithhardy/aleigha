@@ -12,7 +12,7 @@ import { Schema } from "./schema";
 const MAX_RETRIES = 5;
 
 export async function createElectricalInstallationConditionReport(
-  electricalInstallationConditionReport: z.infer<typeof Schema>,
+  electricalInstallationConditionReport: z.infer<typeof Schema>
 ): Promise<ServerActionResponse<ElectricalInstallationConditionReport>> {
   let retries = 0;
 
@@ -29,10 +29,8 @@ export async function createElectricalInstallationConditionReport(
 
       return {
         status: "success",
-        heading:
-          "Electrical Installation Condition Report Created Successfully",
-        message:
-          "The new Electrical Installation Condition Report has been created.",
+        heading: "Certificate Created Successfully",
+        message: "The new certificate has been created.",
       };
     } catch (error: any) {
       if (error.code === "P2002" && error.meta?.target?.includes("serial")) {
@@ -40,9 +38,9 @@ export async function createElectricalInstallationConditionReport(
       } else {
         return {
           status: "error",
-          heading: "Electrical Installation Condition Report Creation Failed",
+          heading: "Certificate Creation Failed",
           message:
-            "There was an issue creating the Electrical Installation Condition Report. Please try again.",
+            "There was an issue creating the certificate. Please try again.",
         };
       }
     }
@@ -50,8 +48,7 @@ export async function createElectricalInstallationConditionReport(
 
   return {
     status: "error",
-    heading: "Electrical Installation Condition Report Creation Failed",
-    message:
-      "There was an issue creating the Electrical Installation Condition Report. Please try again.",
+    heading: "Certificate Creation Failed",
+    message: "There was an issue creating the certificate. Please try again.",
   };
 }

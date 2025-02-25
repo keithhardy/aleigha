@@ -55,7 +55,7 @@ export async function updateClient(
     return {
       status: "success",
       heading: "Client Updated Successfully",
-      message: "The new user has been updated.",
+      message: "The clint has been updated.",
     };
   } catch (error) {
     console.log(error);

@@ -24,7 +24,7 @@ export async function deleteClient(
     return {
       status: "success",
       heading: "Client Deleted Successfully",
-      message: "The user has been deleted.",
+      message: "The client has been deleted.",
     };
   } catch (error) {
     console.log(error);

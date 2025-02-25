@@ -9,7 +9,7 @@ import { ServerActionResponse } from "@/lib/types";
 import { Schema } from "./schema";
 
 export async function updateElectricalInstallationConditionReport(
-  electricalInstallationConditionReport: z.infer<typeof Schema>,
+  electricalInstallationConditionReport: z.infer<typeof Schema>
 ): Promise<ServerActionResponse<ElectricalInstallationConditionReport>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
@@ -26,16 +26,14 @@ export async function updateElectricalInstallationConditionReport(
 
     return {
       status: "success",
-      heading: "Electrical Installation Condition Report Updated Successfully",
-      message:
-        "The new Electrical Installation Condition Report has been updated.",
+      heading: "Certificate Updated Successfully",
+      message: "The certificate has been updated.",
     };
   } catch {
     return {
       status: "error",
-      heading: "Electrical Installation Condition Report Update Failed",
-      message:
-        "There was an issue updating the Electrical Installation Condition Report. Please try again.",
+      heading: "Certificate Update Failed",
+      message: "There was an issue updating the certificate. Please try again.",
     };
   }
 }
