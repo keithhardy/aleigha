@@ -62,7 +62,7 @@ export function SettingsForm({
   const form = useForm({
     resolver: zodResolver(Schema),
     defaultValues: {
-      id: settings?.id || "",
+      id: settings?.id,
       name: settings?.name || "",
       email: settings?.email || "",
       phone: settings?.phone || "",
@@ -79,6 +79,7 @@ export function SettingsForm({
         country: settings?.address?.country || "",
       },
     },
+    mode: 'onChange',
   });
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
