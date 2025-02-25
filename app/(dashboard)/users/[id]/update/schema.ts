@@ -17,12 +17,9 @@ export const UpdateUserSchema = z.object({
   // .refine(async (email) => !(await checkEmailExists(email)), {
   //   message: "Email is already in use",
   // }),
-  phone: z
-    .string()
-    .regex(/^(?:\+44|0)(?:\d{9}|\d{10}|\d{11}|\d{12})$/, {
-      message: "Invalid phone number format",
-    })
-    .optional(),
+  phone: z.string().regex(/^(?:\+44|0)(?:\d{9}|\d{10}|\d{11}|\d{12})$/, {
+    message: "Invalid phone number format",
+  }),
   signature: z.string().url().optional(),
   role: z.enum(Object.values(UserRole) as [UserRole, ...UserRole[]], {
     message: "Please select a role for the user",
@@ -31,12 +28,12 @@ export const UpdateUserSchema = z.object({
     z.object({
       name: z.string(),
       clientId: z.string(),
-    })
+    }),
   ),
   clientsToDisconnect: z.array(
     z.object({
       name: z.string(),
       clientId: z.string(),
-    })
+    }),
   ),
 });

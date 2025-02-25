@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
+
 import { DeleteUserForm } from "./form";
 
 export const metadata: Metadata = {

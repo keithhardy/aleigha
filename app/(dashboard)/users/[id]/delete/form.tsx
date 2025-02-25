@@ -1,5 +1,6 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -18,7 +19,8 @@ export function DeleteUserForm({ user }: { user: User }) {
   const { toast } = useToast();
 
   const form = useForm<User>({
-    defaultValues: user
+    resolver: zodResolver(DeleteUserSchema),
+    defaultValues: user,
   });
 
   const onSubmit = async (data: z.infer<typeof DeleteUserSchema>) => {
@@ -38,11 +40,7 @@ export function DeleteUserForm({ user }: { user: User }) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Button
-          type="submit"
-          variant="destructive"
-          size="sm"
-        >
+        <Button type="submit" variant="destructive" size="sm">
           {form.formState.isSubmitting ? "Deleting" : "Delete"}
         </Button>
       </form>

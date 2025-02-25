@@ -54,7 +54,7 @@ model User {
   auth0Id                                          String                                  @unique
   name                                             String
   email                                            String                                  @unique
-  phone                                            String?
+  phone                                            String
   signature                                        String?
   role                                             UserRole
   clients                                          Client[]
@@ -69,12 +69,12 @@ model User {
 model Client {
   id                                    String                                  @id @default(cuid())
   name                                  String
-  email                                 String?                                 @unique
-  phone                                 String?
+  email                                 String                                  @unique
+  phone                                 String
   picture                               String?
-  appointedPerson                       String?
-  address                               Address?                                @relation(fields: [addressId], references: [id], onDelete: Cascade)
-  addressId                             String?                                 @unique
+  appointedPerson                       String
+  address                               Address                                 @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  addressId                             String                                  @unique
   users                                 User[]
   property                              Property[]
   electricalInstallationConditionReport ElectricalInstallationConditionReport[]
@@ -86,8 +86,8 @@ model Property {
   id                                    String                                  @id @default(cuid())
   uprn                                  String
   occupier                              String
-  address                               Address?                                @relation(fields: [addressId], references: [id], onDelete: Cascade)
-  addressId                             String?                                 @unique
+  address                               Address                                 @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  addressId                             String                                  @unique
   client                                Client                                  @relation(fields: [clientId], references: [id])
   electricalInstallationConditionReport ElectricalInstallationConditionReport[]
   createdAt                             DateTime                                @default(now())
@@ -105,7 +105,7 @@ enum EICRStatus {
 model ElectricalInstallationConditionReport {
   id          String      @id @default(cuid())
   type        String?     @default("Electrical Installation Condition Report")
-  serial      String?
+  serial      String
   startDate   DateTime?   @default(now())
   endDate     DateTime?   @default(now())
   status      EICRStatus? @default(Draft)

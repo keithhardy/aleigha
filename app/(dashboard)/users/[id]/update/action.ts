@@ -10,7 +10,7 @@ import { ServerActionResponse } from "@/lib/types";
 import { UpdateUserSchema } from "./schema";
 
 export async function updateUser(
-  user: z.infer<typeof UpdateUserSchema>
+  user: z.infer<typeof UpdateUserSchema>,
 ): Promise<ServerActionResponse<User>> {
   const formattedClientsToConnect = user.clientsToConnect.map((client) => ({
     id: client.clientId,
@@ -19,7 +19,7 @@ export async function updateUser(
   const formattedClientsToDisconnect = user.clientsToDisconnect.map(
     (client) => ({
       id: client.clientId,
-    })
+    }),
   );
 
   try {
@@ -30,7 +30,7 @@ export async function updateUser(
       {
         name: user.name,
         email: user.email,
-      }
+      },
     );
 
     await prisma.user.update({

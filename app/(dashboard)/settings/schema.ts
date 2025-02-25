@@ -2,15 +2,15 @@ import { z } from "zod";
 export const UpdateSettingsSchema = z.object({
   id: z.preprocess(
     (val) => (val === "" ? undefined : val),
-    z.string().cuid().optional()
+    z.string().cuid().optional(),
   ),
   name: z.preprocess(
     (val) => (val === "" ? undefined : val),
-    z.string().optional()
+    z.string().optional(),
   ),
   email: z.preprocess(
     (val) => (val === "" ? undefined : val),
-    z.string().email("Invalid email format").optional()
+    z.string().email("Invalid email format").optional(),
   ),
   phone: z.preprocess(
     (val) => (val === "" ? undefined : val),
@@ -18,9 +18,9 @@ export const UpdateSettingsSchema = z.object({
       .string()
       .regex(
         /^[\d\s+()-]+$/,
-        "Phone number can only contain digits, spaces, +, (), and -"
+        "Phone number can only contain digits, spaces, +, (), and -",
       )
-      .optional()
+      .optional(),
   ),
   picture: z
     .preprocess((val) => (val === "" ? undefined : val), z.string().optional())
@@ -38,14 +38,14 @@ export const UpdateSettingsSchema = z.object({
     z
       .string()
       .min(2, "Governing body must be at least 2 characters long")
-      .optional()
+      .optional(),
   ),
   governingBodyNumber: z.preprocess(
     (val) => (val === "" ? undefined : val),
     z
       .string()
       .regex(/^[a-zA-Z0-9]+$/, "Governing body number must be alphanumeric")
-      .optional()
+      .optional(),
   ),
   address: z.object({
     streetAddress: z.preprocess(
@@ -53,30 +53,30 @@ export const UpdateSettingsSchema = z.object({
       z
         .string()
         .min(3, "Street address must be at least 3 characters")
-        .optional()
+        .optional(),
     ),
     city: z.preprocess(
       (val) => (val === "" ? undefined : val),
-      z.string().min(2, "City must be at least 2 characters").optional()
+      z.string().min(2, "City must be at least 2 characters").optional(),
     ),
     county: z.preprocess(
       (val) => (val === "" ? undefined : val),
-      z.string().optional()
+      z.string().optional(),
     ),
     postTown: z.preprocess(
       (val) => (val === "" ? undefined : val),
-      z.string().optional()
+      z.string().optional(),
     ),
     postCode: z.preprocess(
       (val) => (val === "" ? undefined : val),
       z
         .string()
         .regex(/^[A-Z0-9\s]{5,10}$/i, "Invalid postcode format")
-        .optional()
+        .optional(),
     ),
     country: z.preprocess(
       (val) => (val === "" ? undefined : val),
-      z.string().min(2, "Country must be at least 2 characters").optional()
+      z.string().min(2, "Country must be at least 2 characters").optional(),
     ),
   }),
 });

@@ -7,7 +7,7 @@ import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
 
 export async function updateProperty(
-  property: z.infer<typeof UpdatePropertySchema>
+  property: z.infer<typeof UpdatePropertySchema>,
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.property.update({

@@ -29,7 +29,9 @@ export function DeleteElectricalInstallationConditionReportForm({
   const router = useRouter();
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof DeleteElectricalInstallationConditionReportSchema>>({
+  const form = useForm<
+    z.infer<typeof DeleteElectricalInstallationConditionReportSchema>
+  >({
     resolver: zodResolver(DeleteElectricalInstallationConditionReportSchema),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
@@ -37,7 +39,9 @@ export function DeleteElectricalInstallationConditionReportForm({
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof DeleteElectricalInstallationConditionReportSchema>) => {
+  const onSubmit = async (
+    data: z.infer<typeof DeleteElectricalInstallationConditionReportSchema>,
+  ) => {
     const response = await deleteElectricalInstallationConditionReport(data);
 
     toast({
@@ -79,7 +83,7 @@ export function DeleteElectricalInstallationConditionReportForm({
             type="submit"
             disabled={
               form.watch("serial") !==
-              electricalInstallationConditionReport.serial ||
+                electricalInstallationConditionReport.serial ||
               form.formState.isSubmitting
             }
             variant="destructive"

@@ -6,31 +6,21 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { deleteClient } from "@/app/(dashboard)/clients/[id]/delete/action";
-import { DeleteClientSchema } from "@/app/(dashboard)/clients/[id]/delete/schema";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
+
+import { deleteClient } from "./action";
+import { DeleteClientSchema } from "./schema";
 
 export function DeleteClientForm({ client }: { client: Client }) {
   const router = useRouter();
+
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof DeleteClientSchema>>({
     resolver: zodResolver(DeleteClientSchema),
-    defaultValues: {
-      id: client.id,
-      name: "",
-      picture: client.picture || "",
-    },
+    defaultValues: client,
   });
 
   const onSubmit = async (data: z.infer<typeof DeleteClientSchema>) => {
@@ -50,34 +40,9 @@ export function DeleteClientForm({ client }: { client: Client }) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="space-y-4 pb-4">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-muted-foreground">
-                  Enter <span className="text-foreground">{client.name}</span>{" "}
-                  and press delete to remove.
-                </FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <Button
-            type="submit"
-            disabled={
-              form.watch("name") !== client.name || form.formState.isSubmitting
-            }
-            variant="destructive"
-          >
-            {form.formState.isSubmitting ? "Deleting" : "Delete"}
-          </Button>
-        </div>
+        <Button type="submit" variant="destructive" size="sm">
+          {form.formState.isSubmitting ? "Deleting" : "Delete"}
+        </Button>
       </form>
     </Form>
   );

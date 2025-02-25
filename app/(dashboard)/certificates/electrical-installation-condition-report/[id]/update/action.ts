@@ -11,7 +11,7 @@ import { UpdateElectricalInstallationConditionReportSchema } from "./schema";
 export async function updateElectricalInstallationConditionReport(
   electricalInstallationConditionReport: z.infer<
     typeof UpdateElectricalInstallationConditionReportSchema
-  >
+  >,
 ): Promise<ServerActionResponse<ElectricalInstallationConditionReport>> {
   try {
     await prisma.electricalInstallationConditionReport.update({

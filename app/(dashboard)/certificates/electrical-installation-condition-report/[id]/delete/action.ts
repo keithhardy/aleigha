@@ -10,7 +10,7 @@ import { DeleteElectricalInstallationConditionReportSchema } from "./schema";
 export async function deleteElectricalInstallationConditionReport(
   electricalInstallationConditionReport: z.infer<
     typeof DeleteElectricalInstallationConditionReportSchema
-  >
+  >,
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.delete({

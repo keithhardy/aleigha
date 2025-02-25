@@ -7,7 +7,7 @@ import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
 
 export async function deleteProperty(
-  property: z.infer<typeof DeletePropertySchema>
+  property: z.infer<typeof DeletePropertySchema>,
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.property.delete({

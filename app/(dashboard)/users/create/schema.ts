@@ -17,12 +17,9 @@ export const CreateUserSchema = z.object({
     .refine(async (email) => !(await checkEmailExists(email)), {
       message: "Email is already in use",
     }),
-  phone: z
-    .string()
-    .regex(/^(?:\+44|0)(?:\d{9}|\d{10}|\d{11}|\d{12})$/, {
-      message: "Invalid phone number format",
-    })
-    .optional(),
+  phone: z.string().regex(/^(?:\+44|0)(?:\d{9}|\d{10}|\d{11}|\d{12})$/, {
+    message: "Invalid phone number format",
+  }),
   password: z
     .string()
     .min(8, { message: "Password must be at least 8 characters long" })
@@ -31,7 +28,6 @@ export const CreateUserSchema = z.object({
     .regex(/[!@#$%^&*(),.?":{}|<>]/, {
       message: "Password must contain at least one special character",
     }),
-  signature: z.string().url().optional(),
   role: z.enum(Object.values(UserRole) as [UserRole, ...UserRole[]], {
     message: "Please select a role for the user",
   }),
@@ -40,7 +36,7 @@ export const CreateUserSchema = z.object({
       z.object({
         name: z.string(),
         clientId: z.string(),
-      })
+      }),
     )
     .min(1, "Please select at least one client"),
 });

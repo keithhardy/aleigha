@@ -1,15 +1,16 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { deleteUser } from "@/app/(dashboard)/users/[id]/delete/action";
+import { DeleteUserSchema } from "@/app/(dashboard)/users/[id]/delete/schema";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { Schema } from "@/app/(dashboard)/users/[id]/delete/schema";
-import { deleteUser } from "@/app/(dashboard)/users/[id]/delete/action";
 
 export function DeleteUserForm({ user }: { user: User }) {
   const router = useRouter();
@@ -17,10 +18,11 @@ export function DeleteUserForm({ user }: { user: User }) {
   const { toast } = useToast();
 
   const form = useForm<User>({
-    defaultValues: user
+    resolver: zodResolver(DeleteUserSchema),
+    defaultValues: user,
   });
 
-  const onSubmit = async (data: z.infer<typeof Schema>) => {
+  const onSubmit = async (data: z.infer<typeof DeleteUserSchema>) => {
     const response = await deleteUser(data);
 
     toast({
@@ -30,18 +32,14 @@ export function DeleteUserForm({ user }: { user: User }) {
     });
 
     if (response.status === "success") {
-      router.back();
+      router.push("/users");
     }
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Button
-          type="submit"
-          variant="destructive"
-          size="sm"
-        >
+        <Button type="submit" variant="destructive" size="sm">
           {form.formState.isSubmitting ? "Deleting" : "Delete"}
         </Button>
       </form>

@@ -9,7 +9,7 @@ import { ServerActionResponse } from "@/lib/types";
 import { DeleteUserSchema } from "./schema";
 
 export async function deleteUser(
-  user: z.infer<typeof DeleteUserSchema>
+  user: z.infer<typeof DeleteUserSchema>,
 ): Promise<ServerActionResponse<void>> {
   try {
     await auth0Management.users.delete({
