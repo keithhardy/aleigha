@@ -21,7 +21,7 @@ export default async function CreateElectricalInstallationConditionReport() {
   });
 
   return (
-    <>
+    <div className="container mx-auto max-w-screen-md">
       <Header>
         <HeaderGroup>
           <Heading>Create Electrical Installation Condition Report</Heading>
@@ -36,6 +36,6 @@ export default async function CreateElectricalInstallationConditionReport() {
         currentUser={user!}
         clients={clients}
       />
-    </>
+    </div>
   );
 }

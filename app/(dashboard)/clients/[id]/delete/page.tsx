@@ -28,7 +28,7 @@ export default async function DeleteClient({
   }
 
   return (
-    <>
+    <div className="container mx-auto max-w-screen-md">
       <Header>
         <HeaderGroup>
           <Heading>Delete Client</Heading>
@@ -40,6 +40,6 @@ export default async function DeleteClient({
       </Header>
 
       <DeleteClientForm client={client!} />
-    </>
+    </div>
   );
 }

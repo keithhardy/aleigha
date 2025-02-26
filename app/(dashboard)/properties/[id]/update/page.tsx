@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 
 import { UpdatePropertyForm } from "@/app/(dashboard)/properties/[id]/update/form";
 import { prisma } from "@/lib/prisma";
+import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 
 export default async function UpdateProperty({
   params,
@@ -24,8 +25,18 @@ export default async function UpdateProperty({
   const clients = await prisma.client.findMany();
 
   return (
-    <>
+    <div className="container mx-auto max-w-screen-md">
+      <Header>
+        <HeaderGroup>
+          <Heading>Update Property</Heading>
+          <HeaderDescription>
+            Edit the details of the selected property below. Make sure to review the
+            information carefully before saving any changes.
+          </HeaderDescription>
+        </HeaderGroup>
+      </Header>
+
       <UpdatePropertyForm property={property} clients={clients} />
-    </>
+    </div>
   );
 }

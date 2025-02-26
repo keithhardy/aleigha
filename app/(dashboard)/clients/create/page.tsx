@@ -8,7 +8,7 @@ import {
 
 export default function CreateClient() {
   return (
-    <>
+    <div className="container mx-auto max-w-screen-md">
       <Header>
         <HeaderGroup>
           <Heading>Create Client</Heading>
@@ -20,6 +20,6 @@ export default function CreateClient() {
       </Header>
 
       <CreateClientForm />
-    </>
+    </div>
   );
 }

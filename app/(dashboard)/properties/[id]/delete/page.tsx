@@ -38,7 +38,7 @@ export default async function DeleteProperty({
   }
 
   return (
-    <>
+    <div className="container mx-auto max-w-screen-md">
       <Header>
         <HeaderGroup>
           <Heading>Delete Property</Heading>
@@ -50,6 +50,6 @@ export default async function DeleteProperty({
       </Header>
 
       <DeletePropertyForm property={property!} />
-    </>
+    </div>
   );
 }

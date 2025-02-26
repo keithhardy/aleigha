@@ -28,7 +28,7 @@ export default async function UpdateClient({
   }
 
   return (
-    <>
+    <div className="container mx-auto max-w-screen-md">
       <Header>
         <HeaderGroup>
           <Heading>Update Client</Heading>
@@ -40,6 +40,6 @@ export default async function UpdateClient({
       </Header>
 
       <UpdateClientForm client={client} />
-    </>
+    </div>
   );
 }

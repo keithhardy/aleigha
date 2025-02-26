@@ -36,7 +36,7 @@ export default async function UpdateElectricalInstallationConditionReport({
   });
 
   return (
-    <>
+    <div className="container mx-auto max-w-screen-md">
       <Header>
         <HeaderGroup>
           <Heading>Update Electrical Installation Condition Report</Heading>
@@ -53,6 +53,6 @@ export default async function UpdateElectricalInstallationConditionReport({
         }
         clients={clients}
       />
-    </>
+    </div>
   );
 }

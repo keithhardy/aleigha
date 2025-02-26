@@ -50,7 +50,7 @@ export default async function DeleteElectricalInstallationConditionReport({
   }
 
   return (
-    <>
+    <div className="container mx-auto max-w-screen-md">
       <Header>
         <HeaderGroup>
           <Heading>Delete Electrical Installation Condition Report</Heading>
@@ -67,6 +67,6 @@ export default async function DeleteElectricalInstallationConditionReport({
           electricalInstallationConditionReport!
         }
       />
-    </>
+    </div>
   );
 }
