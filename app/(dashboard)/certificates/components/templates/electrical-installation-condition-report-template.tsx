@@ -35,7 +35,11 @@ export default function ElectricalInstallationConditionReportTemplate({
                   Trading Name: {electricalInstallationConditionReport.type}
                 </Text>
                 <Text>
-                  Address: {electricalInstallationConditionReport.property.address.streetAddress}
+                  Address:{" "}
+                  {
+                    electricalInstallationConditionReport.property.address
+                      .streetAddress
+                  }
                 </Text>
                 <Text>
                   Phone:{" "}
