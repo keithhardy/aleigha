@@ -100,7 +100,7 @@ export function UpdatePropertyForm({
                     >
                       {field.value
                         ? clients.find((client) => client.id === field.value)
-                            ?.name
+                          ?.name
                         : "Select Client..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
@@ -242,7 +242,6 @@ export function UpdatePropertyForm({
               </FormItem>
             )}
           />
-
           <Button
             type="submit"
             disabled={form.formState.isSubmitting}

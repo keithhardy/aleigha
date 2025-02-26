@@ -66,7 +66,6 @@ export function DeletePropertyForm({ property }: { property: Property }) {
               </FormItem>
             )}
           />
-
           <Button
             type="submit"
             disabled={

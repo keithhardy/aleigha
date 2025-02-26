@@ -78,12 +78,11 @@ export function DeleteElectricalInstallationConditionReportForm({
               </FormItem>
             )}
           />
-
           <Button
             type="submit"
             disabled={
               form.watch("serial") !==
-                electricalInstallationConditionReport.serial ||
+              electricalInstallationConditionReport.serial ||
               form.formState.isSubmitting
             }
             variant="destructive"
