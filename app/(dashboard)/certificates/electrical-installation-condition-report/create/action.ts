@@ -22,6 +22,7 @@ export async function createElectricalInstallationConditionReport(
     try {
       await prisma.electricalInstallationConditionReport.create({
         data: {
+          type: "Electrical Installation Condition Report",
           serial: `EICR${customAlphabet("0123456789", 9)()}`,
           creatorId: electricalInstallationConditionReport.creatorId,
           clientId: electricalInstallationConditionReport.clientId,

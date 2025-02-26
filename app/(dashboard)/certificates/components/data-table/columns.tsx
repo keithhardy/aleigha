@@ -99,7 +99,7 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       return (
         <div className="text-right">
-          <RowActions certificate={row.original} />
+          <RowActions electricalInstallationConditionReport={row.original} />
         </div>
       );
     },

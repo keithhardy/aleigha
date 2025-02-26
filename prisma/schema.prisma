@@ -104,7 +104,7 @@ enum EICRStatus {
 
 model ElectricalInstallationConditionReport {
   id          String      @id @default(cuid())
-  type        String?     @default("Electrical Installation Condition Report")
+  type        String
   serial      String
   startDate   DateTime?   @default(now())
   endDate     DateTime?   @default(now())

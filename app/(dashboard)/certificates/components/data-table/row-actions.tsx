@@ -1,3 +1,8 @@
+import {
+  Address,
+  ElectricalInstallationConditionReport,
+  Property,
+} from "@prisma/client";
 import { pdf } from "@react-pdf/renderer";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
@@ -13,20 +18,37 @@ import {
 
 import ElectricalInstallationConditionReportTemplate from "../templates/electrical-installation-condition-report-template";
 
-export function RowActions({ certificate }: { certificate: any }) {
-  const handlePDFDownload = async (certificate: any) => {
+export function RowActions({
+  electricalInstallationConditionReport,
+}: {
+  electricalInstallationConditionReport: ElectricalInstallationConditionReport & {
+    property: Property & { address: Address };
+  };
+}) {
+  const handlePDFDownload = async (
+    electricalInstallationConditionReport: ElectricalInstallationConditionReport & {
+      property: Property & { address: Address };
+    },
+  ) => {
     let blob;
 
-    if (certificate.type === "Electrical Installation Condition Report") {
+    if (
+      electricalInstallationConditionReport.type ===
+      "Electrical Installation Condition Report"
+    ) {
       blob = await pdf(
-        <ElectricalInstallationConditionReportTemplate data={certificate} />,
+        <ElectricalInstallationConditionReportTemplate
+          electricalInstallationConditionReport={
+            electricalInstallationConditionReport
+          }
+        />,
       ).toBlob();
     }
 
     if (blob) {
       const link = Object.assign(document.createElement("a"), {
         href: URL.createObjectURL(blob),
-        download: `${certificate.propertyAddress}-${Date.now()}`,
+        download: `${electricalInstallationConditionReport.serial}_${encodeURIComponent(electricalInstallationConditionReport.property.address.streetAddress!.trim().toUpperCase().replace(/\s+/g, "_"))}`,
       });
 
       document.body.appendChild(link);
@@ -48,7 +70,7 @@ export function RowActions({ certificate }: { certificate: any }) {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
           <Link
-            href={`/certificates/${encodeURIComponent(certificate.type.trim().toLowerCase().replace(/\s+/g, "-"))}/${certificate.id}/update`}
+            href={`/certificates/${encodeURIComponent(electricalInstallationConditionReport.type.trim().toLowerCase().replace(/\s+/g, "-"))}/${electricalInstallationConditionReport.id}/update`}
             className="cursor-pointer"
           >
             Update
@@ -56,14 +78,16 @@ export function RowActions({ certificate }: { certificate: any }) {
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link
-            href={`/certificates/${encodeURIComponent(certificate.type.trim().toLowerCase().replace(/\s+/g, "-"))}/${certificate.id}/delete`}
+            href={`/certificates/${encodeURIComponent(electricalInstallationConditionReport.type.trim().toLowerCase().replace(/\s+/g, "-"))}/${electricalInstallationConditionReport.id}/delete`}
             className="cursor-pointer"
           >
             Delete
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => handlePDFDownload(certificate)}
+          onClick={() =>
+            handlePDFDownload(electricalInstallationConditionReport)
+          }
           className="cursor-pointer"
         >
           Download PDF
