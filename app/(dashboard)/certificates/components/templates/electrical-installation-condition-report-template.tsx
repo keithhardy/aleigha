@@ -1,4 +1,8 @@
-import { ElectricalInstallationConditionReport } from "@prisma/client";
+import {
+  Address,
+  ElectricalInstallationConditionReport,
+  Property,
+} from "@prisma/client";
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 import React from "react";
 
@@ -11,7 +15,9 @@ const styles = StyleSheet.create({
 export default function ElectricalInstallationConditionReportTemplate({
   electricalInstallationConditionReport,
 }: {
-  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
+  electricalInstallationConditionReport: ElectricalInstallationConditionReport & {
+    property: Property & { address: Address };
+  };
 }) {
   return (
     <Document>
@@ -29,7 +35,7 @@ export default function ElectricalInstallationConditionReportTemplate({
                   Trading Name: {electricalInstallationConditionReport.type}
                 </Text>
                 <Text>
-                  Address: {electricalInstallationConditionReport.serial}
+                  Address: {electricalInstallationConditionReport.property.address.streetAddress}
                 </Text>
                 <Text>
                   Phone:{" "}
