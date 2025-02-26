@@ -113,8 +113,8 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                     >
                       {field.value
                         ? UserRoles.find(
-                            (userRole) => userRole.id === field.value,
-                          )?.name
+                          (userRole) => userRole.id === field.value,
+                        )?.name
                         : "Select role..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
@@ -164,7 +164,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
-                      className="max-w-[768px] justify-between"
+                      className="max-w-[1024px] justify-between"
                     >
                       {field.value.length === 0
                         ? "Select Clients..."

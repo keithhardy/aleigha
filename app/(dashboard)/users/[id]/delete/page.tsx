@@ -33,7 +33,7 @@ export default async function DeleteUser({
   const userCount = await prisma.user.count();
 
   return (
-    <div className="container mx-auto max-w-screen-md">
+    <div className="container mx-auto max-w-screen-lg">
       <Header>
         <HeaderGroup>
           <Heading>Delete User</Heading>

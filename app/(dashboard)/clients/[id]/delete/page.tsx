@@ -28,7 +28,7 @@ export default async function DeleteClient({
   }
 
   return (
-    <div className="container mx-auto max-w-screen-md">
+    <div className="container mx-auto max-w-screen-lg">
       <Header>
         <HeaderGroup>
           <Heading>Delete Client</Heading>

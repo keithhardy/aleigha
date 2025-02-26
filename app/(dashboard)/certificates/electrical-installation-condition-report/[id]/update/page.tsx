@@ -36,7 +36,7 @@ export default async function UpdateElectricalInstallationConditionReport({
   });
 
   return (
-    <div className="container mx-auto max-w-screen-md">
+    <div className="container mx-auto max-w-screen-lg">
       <Header>
         <HeaderGroup>
           <Heading>Update Electrical Installation Condition Report</Heading>

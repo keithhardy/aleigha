@@ -130,12 +130,12 @@ export default function UpdateUserForm({
                     variant="outline"
                     role="combobox"
                     aria-expanded={userRoleOpen ? "true" : "false"}
-                    className="max-w-[768px] justify-between"
+                    className="max-w-[1024px] justify-between"
                   >
                     {field.value
                       ? UserRoles.find(
-                          (userRole) => userRole.id === field.value,
-                        )?.name
+                        (userRole) => userRole.id === field.value,
+                      )?.name
                       : "Select Role..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
@@ -184,10 +184,10 @@ export default function UpdateUserForm({
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="max-w-[768px] justify-between"
+                className="max-w-[1024px] justify-between"
               >
                 {clientsToConnect.length === 0 &&
-                clientsToDisconnect.length === 0
+                  clientsToDisconnect.length === 0
                   ? user.clients.length === 0
                     ? "Select Clients..."
                     : `${user.clients.length} clients selected`
@@ -250,7 +250,7 @@ export default function UpdateUserForm({
                         >
                           {client.name}
                           {(isInCurrentClients && !isInDisconnect) ||
-                          isInConnect ? (
+                            isInConnect ? (
                             <Check className="ml-auto" />
                           ) : null}
                           {isInCurrentClients && isInDisconnect ? (

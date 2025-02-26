@@ -26,7 +26,7 @@ export default async function CreateElectricalInstallationConditionReport() {
   });
 
   return (
-    <div className="container mx-auto max-w-screen-md">
+    <div className="container mx-auto max-w-screen-lg">
       <Header>
         <HeaderGroup>
           <Heading>Create Electrical Installation Condition Report</Heading>

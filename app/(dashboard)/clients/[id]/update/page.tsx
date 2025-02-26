@@ -28,7 +28,7 @@ export default async function UpdateClient({
   }
 
   return (
-    <div className="container mx-auto max-w-screen-md">
+    <div className="container mx-auto max-w-screen-lg">
       <Header>
         <HeaderGroup>
           <Heading>Update Client</Heading>

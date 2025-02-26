@@ -10,7 +10,7 @@ export default async function CreateProperty() {
   const clients = await prisma.client.findMany();
 
   return (
-    <div className="container mx-auto max-w-screen-md">
+    <div className="container mx-auto max-w-screen-lg">
       <Header>
         <HeaderGroup>
           <Heading>Create Property</Heading>

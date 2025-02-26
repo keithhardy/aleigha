@@ -16,7 +16,7 @@ export default async function Settings() {
   });
 
   return (
-    <div className="container mx-auto max-w-screen-md">
+    <div className="container mx-auto max-w-screen-lg">
       <Header>
         <HeaderGroup>
           <Heading>Settings</Heading>

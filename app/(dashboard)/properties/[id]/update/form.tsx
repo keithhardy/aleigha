@@ -96,11 +96,11 @@ export function UpdatePropertyForm({
                       variant="outline"
                       role="combobox"
                       aria-expanded={clientOpen ? "true" : "false"}
-                      className="max-w-[768px] justify-between"
+                      className="max-w-[1024px] justify-between"
                     >
                       {field.value
                         ? clients.find((client) => client.id === field.value)
-                            ?.name
+                          ?.name
                         : "Select Client..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>

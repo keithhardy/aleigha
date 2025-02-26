@@ -38,7 +38,7 @@ export default async function DeleteProperty({
   }
 
   return (
-    <div className="container mx-auto max-w-screen-md">
+    <div className="container mx-auto max-w-screen-lg">
       <Header>
         <HeaderGroup>
           <Heading>Delete Property</Heading>
