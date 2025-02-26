@@ -49,7 +49,7 @@ export default async function UpdateElectricalInstallationConditionReport({
 
       <UpdateElectricalInstallationConditionReportForm
         electricalInstallationConditionReport={
-          electricalInstallationConditionReport!
+          electricalInstallationConditionReport
         }
         clients={clients}
       />

@@ -10,7 +10,7 @@ import { updateFile } from "@/lib/vercel-blob";
 import { UpdateSettingsSchema } from "./schema";
 
 export async function updateSettings(
-  settings: z.infer<typeof UpdateSettingsSchema>
+  settings: z.infer<typeof UpdateSettingsSchema>,
 ): Promise<ServerActionResponse<Settings>> {
   const settingsResponse = await prisma.settings.findFirst();
 
@@ -19,7 +19,7 @@ export async function updateSettings(
       settings.picture = await updateFile(
         settings.picture,
         settingsResponse?.picture ?? undefined,
-        "contractor-picture"
+        "contractor-picture",
       );
     } catch {
       return {

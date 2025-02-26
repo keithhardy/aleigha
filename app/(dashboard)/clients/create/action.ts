@@ -9,7 +9,7 @@ import { ServerActionResponse } from "@/lib/types";
 import { uploadFile } from "@/lib/vercel-blob";
 
 export async function createClient(
-  client: z.infer<typeof CreateClientSchema>
+  client: z.infer<typeof CreateClientSchema>,
 ): Promise<ServerActionResponse<Client>> {
   if (client.picture) {
     try {

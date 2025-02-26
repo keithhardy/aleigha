@@ -90,7 +90,7 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
                       variant="outline"
                       role="combobox"
                       aria-expanded={clientOpen ? "true" : "false"}
-                      className="w-[300px] justify-between"
+                      className="max-w-[768px] justify-between"
                     >
                       {field.value
                         ? clients.find((client) => client.id === field.value)
@@ -99,7 +99,7 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[300px] p-0">
+                  <PopoverContent className="p-0">
                     <Command>
                       <CommandInput
                         placeholder="Search client..."

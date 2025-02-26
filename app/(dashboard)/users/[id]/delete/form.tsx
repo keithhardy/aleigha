@@ -18,7 +18,7 @@ export function DeleteUserForm({ user }: { user: User }) {
 
   const { toast } = useToast();
 
-  const form = useForm<User>({
+  const form = useForm<z.infer<typeof DeleteUserSchema>>({
     resolver: zodResolver(DeleteUserSchema),
     defaultValues: user,
   });

@@ -20,12 +20,12 @@ export async function updateProperty(
         client: { connect: { id: property.client } },
         address: {
           update: {
-            streetAddress: property.address?.streetAddress,
-            city: property.address?.city,
-            county: property.address?.county,
-            postTown: property.address?.postTown,
-            postCode: property.address?.postCode,
-            country: property.address?.country,
+            streetAddress: property.address.streetAddress,
+            city: property.address.city,
+            county: property.address.county,
+            postTown: property.address.postTown,
+            postCode: property.address.postCode,
+            country: property.address.country,
           },
         },
       },

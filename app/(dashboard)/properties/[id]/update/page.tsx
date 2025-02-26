@@ -1,8 +1,13 @@
 import { notFound } from "next/navigation";
 
 import { UpdatePropertyForm } from "@/app/(dashboard)/properties/[id]/update/form";
+import {
+  Header,
+  HeaderDescription,
+  HeaderGroup,
+  Heading,
+} from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
-import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 
 export default async function UpdateProperty({
   params,
@@ -30,8 +35,8 @@ export default async function UpdateProperty({
         <HeaderGroup>
           <Heading>Update Property</Heading>
           <HeaderDescription>
-            Edit the details of the selected property below. Make sure to review the
-            information carefully before saving any changes.
+            Edit the details of the selected property below. Make sure to review
+            the information carefully before saving any changes.
           </HeaderDescription>
         </HeaderGroup>
       </Header>

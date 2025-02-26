@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 import {
   Header,
   HeaderDescription,
@@ -9,7 +11,10 @@ import { getCurrentUser } from "@/lib/auth";
 import { CreateElectricalInstallationConditionReportForm } from "./form";
 
 export default async function CreateElectricalInstallationConditionReport() {
-  const user = await getCurrentUser();
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) redirect("/auth/login");
+
   const clients = await prisma.client.findMany({
     include: {
       property: {
@@ -33,7 +38,7 @@ export default async function CreateElectricalInstallationConditionReport() {
       </Header>
 
       <CreateElectricalInstallationConditionReportForm
-        currentUser={user!}
+        currentUser={currentUser}
         clients={clients}
       />
     </div>

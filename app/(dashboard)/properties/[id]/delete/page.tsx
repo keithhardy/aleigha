@@ -43,13 +43,13 @@ export default async function DeleteProperty({
         <HeaderGroup>
           <Heading>Delete Property</Heading>
           <HeaderDescription>
-            Are you sure you want to delete {property.address?.streetAddress}?
+            Are you sure you want to delete {property.address.streetAddress}?
             This action cannot be undone.
           </HeaderDescription>
         </HeaderGroup>
       </Header>
 
-      <DeletePropertyForm property={property!} />
+      <DeletePropertyForm property={property} />
     </div>
   );
 }

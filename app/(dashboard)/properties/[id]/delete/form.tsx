@@ -6,30 +6,21 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { deleteProperty } from "@/app/(dashboard)/properties/[id]/delete/action";
-import { DeletePropertySchema } from "@/app/(dashboard)/properties/[id]/delete/schema";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
+
+import { deleteProperty } from "./action";
+import { DeletePropertySchema } from "./schema";
 
 export function DeletePropertyForm({ property }: { property: Property }) {
   const router = useRouter();
+
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof DeletePropertySchema>>({
     resolver: zodResolver(DeletePropertySchema),
-    defaultValues: {
-      id: property.id,
-      uprn: "",
-    },
+    defaultValues: property,
   });
 
   const onSubmit = async (data: z.infer<typeof DeletePropertySchema>) => {
@@ -49,34 +40,9 @@ export function DeletePropertyForm({ property }: { property: Property }) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="space-y-4 pb-4">
-          <FormField
-            control={form.control}
-            name="uprn"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-muted-foreground">
-                  Enter <span className="text-foreground">{property.uprn}</span>{" "}
-                  and press delete to remove.
-                </FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button
-            type="submit"
-            disabled={
-              form.watch("uprn") !== property.uprn ||
-              form.formState.isSubmitting
-            }
-            variant="destructive"
-          >
-            {form.formState.isSubmitting ? "Deleting" : "Delete"}
-          </Button>
-        </div>
+        <Button type="submit" variant="destructive">
+          {form.formState.isSubmitting ? "Deleting" : "Delete"}
+        </Button>
       </form>
     </Form>
   );

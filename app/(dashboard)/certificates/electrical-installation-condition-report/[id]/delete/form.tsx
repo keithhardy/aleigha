@@ -7,15 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
 import { deleteElectricalInstallationConditionReport } from "./action";
@@ -27,16 +19,14 @@ export function DeleteElectricalInstallationConditionReportForm({
   electricalInstallationConditionReport: ElectricalInstallationConditionReport;
 }) {
   const router = useRouter();
+
   const { toast } = useToast();
 
   const form = useForm<
     z.infer<typeof DeleteElectricalInstallationConditionReportSchema>
   >({
     resolver: zodResolver(DeleteElectricalInstallationConditionReportSchema),
-    defaultValues: {
-      id: electricalInstallationConditionReport.id,
-      serial: "",
-    },
+    defaultValues: electricalInstallationConditionReport,
   });
 
   const onSubmit = async (
@@ -58,38 +48,9 @@ export function DeleteElectricalInstallationConditionReportForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="space-y-4 pb-4">
-          <FormField
-            control={form.control}
-            name="serial"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-muted-foreground">
-                  Enter{" "}
-                  <span className="text-foreground">
-                    {electricalInstallationConditionReport.serial}
-                  </span>{" "}
-                  and press delete to remove.
-                </FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button
-            type="submit"
-            disabled={
-              form.watch("serial") !==
-              electricalInstallationConditionReport.serial ||
-              form.formState.isSubmitting
-            }
-            variant="destructive"
-          >
-            {form.formState.isSubmitting ? "Deleting" : "Delete"}
-          </Button>
-        </div>
+        <Button type="submit" variant="destructive">
+          {form.formState.isSubmitting ? "Deleting" : "Delete"}
+        </Button>
       </form>
     </Form>
   );

@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 
 function Header({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <header className={cn('grid grid-cols-2 space-y-6 py-4', className)} {...props} />
+  return <header className={cn('py-4', className)} {...props} />
 }
 
 function Heading({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
@@ -13,7 +13,7 @@ function HeaderDescription({ className, ...props }: React.HTMLAttributes<HTMLPar
 }
 
 function HeaderGroup({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
-  return <div className={cn('col-span-2 space-y-4 lg:col-span-1', className)} {...props} />;
+  return <div className={cn('space-y-4', className)} {...props} />;
 }
 
 export { Header, HeaderDescription, HeaderGroup, Heading };

@@ -4,7 +4,7 @@ import { z } from "zod";
 // import { checkEmailExists } from "../actions";
 
 export const UpdateUserSchema = z.object({
-  id: z.string(),
+  id: z.string().cuid(),
   auth0Id: z.string(),
   name: z
     .string()

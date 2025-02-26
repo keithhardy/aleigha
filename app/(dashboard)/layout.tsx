@@ -21,9 +21,9 @@ import { NotificationsMenu } from "./components/notifications-menu";
 export default async function DashboardLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const user = await getCurrentUser();
+  const currentUser = await getCurrentUser();
 
-  if (!user) redirect("/auth/login");
+  if (!currentUser) redirect("/auth/login");
 
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";

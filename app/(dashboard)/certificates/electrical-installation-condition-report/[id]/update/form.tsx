@@ -94,7 +94,7 @@ export function UpdateElectricalInstallationConditionReportForm({
                     variant="outline"
                     role="combobox"
                     aria-expanded={clientOpen ? "true" : "false"}
-                    className="w-[300px] pl-3 text-left font-normal justify-between"
+                    className="max-w-[768px] pl-3 text-left font-normal justify-between"
                   >
                     {field.value
                       ? clients.find((client) => client.id === field.value)
@@ -103,7 +103,7 @@ export function UpdateElectricalInstallationConditionReportForm({
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
+                <PopoverContent className="p-0">
                   <Command>
                     <CommandInput
                       placeholder="Search client..."
@@ -149,7 +149,7 @@ export function UpdateElectricalInstallationConditionReportForm({
                     variant="outline"
                     role="combobox"
                     aria-expanded={propertyOpen ? "true" : "false"}
-                    className="w-[300px] pl-3 text-left font-normal justify-between"
+                    className="max-w-[768px] pl-3 text-left font-normal justify-between"
                   >
                     {field.value
                       ? clients
@@ -164,7 +164,7 @@ export function UpdateElectricalInstallationConditionReportForm({
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[300px] p-0">
+                <PopoverContent className="p-0">
                   <Command>
                     <CommandInput
                       placeholder="Search property..."
@@ -214,7 +214,7 @@ export function UpdateElectricalInstallationConditionReportForm({
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "w-[300px] pl-3 text-left font-normal",
+                        "max-w-[768px] pl-3 text-left font-normal",
                         !field.value && "text-muted-foreground",
                       )}
                     >
@@ -227,7 +227,7 @@ export function UpdateElectricalInstallationConditionReportForm({
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
+                <PopoverContent className="p-0">
                   <Calendar
                     mode="single"
                     selected={field.value}
@@ -255,7 +255,7 @@ export function UpdateElectricalInstallationConditionReportForm({
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "w-[300px] pl-3 text-left font-normal",
+                        "max-w-[768px] pl-3 text-left font-normal",
                         !field.value && "text-muted-foreground",
                       )}
                     >
@@ -268,7 +268,7 @@ export function UpdateElectricalInstallationConditionReportForm({
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
+                <PopoverContent className="p-0">
                   <Calendar
                     mode="single"
                     selected={field.value}
