@@ -3,49 +3,34 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-function generateRandomUPRN() {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  return Array.from({ length: 10 }, () =>
-    chars.charAt(Math.floor(Math.random() * chars.length))
-  ).join("");
-}
-
-function getRandomOccupier() {
-  return Math.random() < 0.5 ? "Void" : "Tenanted";
-}
-
-function generateUKPhoneNumber(type = "mobile") {
-  if (type === "mobile") {
-    return `07${faker.string.numeric(9)}`;
-  } else {
-    return `01${faker.string.numeric(9)}`;
-  }
-}
-
 async function main() {
-  const users = await Promise.all(
-    Array.from({ length: 10 }).map(() =>
-      prisma.user.create({
-        data: {
-          auth0Id: `auth0|${generateRandomUPRN()}`,
-          name: faker.person.fullName(),
-          email: faker.internet.email(),
-          phone: generateUKPhoneNumber(),
-          signature: faker.image.url(),
-          role: "Admin",
+  const settings = await prisma.settings.create({
+    data: {
+      name: "AB Building and Electrical LTD",
+      email: "info@abelec.org",
+      phone: "08452657544",
+      picture: faker.image.avatar(),
+      governingBody: "NIC EIC",
+      governingBodyNumber: "172783",
+      address: {
+        create: {
+          streetAddress: "3 Page Lane",
+          city: "Widnes",
+          county: "Cheshire",
+          postTown: "Widnes",
+          postCode: "WA8 0AE",
         },
-      })
-    )
-  );
-
-  console.log("10 Users created.");
+      },
+    },
+  });
 
   const clients = await Promise.all(
     Array.from({ length: 10 }).map(() =>
       prisma.client.create({
         data: {
           name: faker.company.name(),
-          phone: generateUKPhoneNumber("landline"),
+          email: faker.internet.email(),
+          phone: `01${faker.string.numeric(9)}`,
           picture: faker.image.avatar(),
           appointedPerson: faker.person.fullName(),
           address: {
@@ -63,17 +48,15 @@ async function main() {
     )
   );
 
-  console.log("10 Clients created.");
-
   const properties = await Promise.all(
-    Array.from({ length: 50 }).map(() =>
+    Array.from({ length: 250 }).map(() =>
       prisma.property.create({
         data: {
-          uprn: generateRandomUPRN(),
-          occupier: getRandomOccupier(),
+          uprn: faker.string.alphanumeric({ length: 10, case: "upper" }),
+          occupier: faker.helpers.arrayElement(["Void", "Occupied"]),
           client: {
             connect: {
-              id: "cm7guhvwc000t5r0v2e8l6gz2",
+              id: faker.helpers.arrayElement(clients).id,
             },
           },
           address: {
@@ -91,7 +74,75 @@ async function main() {
     )
   );
 
-  console.log("50 Properties created.");
+  const keith = await prisma.user.create({
+    data: {
+      auth0Id: "auth0|670c2ae65c7290eef380b6d3",
+      name: "Keith Jamie Hardy",
+      email: "keithjnrhardy@gmail.com",
+      phone: "07860562492",
+      role: "Admin",
+      clients: {
+        connect: faker.helpers
+          .arrayElements(clients, 3)
+          .map((client: { id: any }) => ({ id: client.id })),
+      },
+    },
+  });
+
+  const users = await Promise.all(
+    Array.from({ length: 50 }).map(() =>
+      prisma.user.create({
+        data: {
+          auth0Id: `auth0|${faker.string.alphanumeric({
+            length: 10,
+            case: "lower",
+          })}`,
+          name: faker.person.fullName(),
+          email: faker.internet.email(),
+          phone: `07${faker.string.numeric(9)}`,
+          role: faker.helpers.arrayElement([
+            "Admin",
+            "Manager",
+            "Planner",
+            "Operative",
+            "Client",
+          ]),
+          clients: {
+            connect: faker.helpers
+              .arrayElements(clients, 3)
+              .map((client: { id: any }) => ({ id: client.id })),
+          },
+        },
+      })
+    )
+  );
+
+  const electricalInstallationConditionReports = await Promise.all(
+    Array.from({ length: 50 }).map(() => {
+      const property = faker.helpers.arrayElement(properties);
+
+      return prisma.electricalInstallationConditionReport.create({
+        data: {
+          serial: `EICR${faker.string.numeric(9)}`,
+          status: faker.helpers.arrayElement([
+            "Draft",
+            "Submitted",
+            "Rejected",
+            "Completed",
+          ]),
+          creator: {
+            connect: { id: faker.helpers.arrayElement(users).id },
+          },
+          client: {
+            connect: { id: property.clientId },
+          },
+          property: {
+            connect: { id: property.id },
+          },
+        },
+      });
+    })
+  );
 }
 
 main()

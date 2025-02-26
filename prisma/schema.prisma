@@ -88,7 +88,7 @@ model Property {
   occupier                              String
   address                               Address                                 @relation(fields: [addressId], references: [id], onDelete: Cascade)
   addressId                             String                                  @unique
-  client                                Client                                  @relation(fields: [clientId], references: [id])
+  client                                Client                                  @relation(fields: [clientId], references: [id], onDelete: Cascade)
   electricalInstallationConditionReport ElectricalInstallationConditionReport[]
   createdAt                             DateTime                                @default(now())
   updatedAt                             DateTime                                @updatedAt
@@ -109,17 +109,17 @@ model ElectricalInstallationConditionReport {
   startDate   DateTime?   @default(now())
   endDate     DateTime?   @default(now())
   status      EICRStatus? @default(Draft)
-  creator     User        @relation("Creator", fields: [creatorId], references: [id])
+  creator     User        @relation("Creator", fields: [creatorId], references: [id], onDelete: Cascade)
   creatorId   String
-  inspector   User?       @relation("Inspector", fields: [inspectorId], references: [id])
+  inspector   User?       @relation("Inspector", fields: [inspectorId], references: [id], onDelete: Cascade)
   inspectorId String?
-  tester      User?       @relation("Tester", fields: [testerId], references: [id])
+  tester      User?       @relation("Tester", fields: [testerId], references: [id], onDelete: Cascade)
   testerId    String?
-  reviewer    User?       @relation("Reviewer", fields: [reviewerId], references: [id])
+  reviewer    User?       @relation("Reviewer", fields: [reviewerId], references: [id], onDelete: Cascade)
   reviewerId  String?
-  client      Client      @relation(fields: [clientId], references: [id])
+  client      Client      @relation(fields: [clientId], references: [id], onDelete: Cascade)
   clientId    String
-  property    Property    @relation(fields: [propertyId], references: [id])
+  property    Property    @relation(fields: [propertyId], references: [id], onDelete: Cascade)
   propertyId  String
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
