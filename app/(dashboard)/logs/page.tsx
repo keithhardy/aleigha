@@ -11,7 +11,7 @@
 export default async function Users() {
   // const logs = await prisma.log.findMany();
 
-  return
+  return;
   // (
   // <div className="rounded-md border">
   //   <Table>

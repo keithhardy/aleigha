@@ -94,7 +94,7 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
                     >
                       {field.value
                         ? clients.find((client) => client.id === field.value)
-                          ?.name
+                            ?.name
                         : "Select Client..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
