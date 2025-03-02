@@ -109,7 +109,11 @@ export function UpdateGoverningBodyForm({
             <p className="text-sm text-muted-foreground">
               This is governing body that your company is registered with.
             </p>
-            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+            <Button
+              variant="outline"
+              type="submit"
+              disabled={!form.formState.isDirty || form.formState.isSubmitting}
+            >
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

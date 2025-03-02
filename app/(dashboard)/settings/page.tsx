@@ -1,12 +1,12 @@
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
-import { UpdateNameForm } from "./name/form";
-import { UpdateEmailForm } from "./email/form";
-import { UpdatePhoneForm } from "./phone/form";
-import { UpdatePictureForm } from "./logo/form";
-import { UpdateGoverningBodyForm } from "./governing-body/form";
 import { UpdateAddressForm } from "./address/form";
+import { UpdateEmailForm } from "./email/form";
+import { UpdateGoverningBodyForm } from "./governing-body/form";
+import { UpdatePictureForm } from "./logo/form";
+import { UpdateNameForm } from "./name/form";
+import { UpdatePhoneForm } from "./phone/form";
 
 export default async function Settings() {
   const settings = await prisma.settings.findFirst({

@@ -8,7 +8,7 @@ import { ServerActionResponse } from "@/lib/types";
 import { UpdateEmailSchema } from "./schema";
 
 export async function updateEmail(
-  settings: z.infer<typeof UpdateEmailSchema>
+  settings: z.infer<typeof UpdateEmailSchema>,
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.settings.upsert({

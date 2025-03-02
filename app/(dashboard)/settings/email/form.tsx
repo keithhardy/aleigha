@@ -92,7 +92,11 @@ export function UpdateEmailForm({
             <p className="text-sm text-muted-foreground">
               Must be a valid email address.
             </p>
-            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+            <Button
+              variant="outline"
+              type="submit"
+              disabled={!form.formState.isDirty || form.formState.isSubmitting}
+            >
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

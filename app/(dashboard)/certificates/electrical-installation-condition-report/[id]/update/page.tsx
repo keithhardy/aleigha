@@ -7,7 +7,7 @@ import {
   Heading,
 } from "@/components/page-header";
 
-import { UpdateElectricalInstallationConditionReportForm } from "./form";
+import { UpdateContractorClientPropertyForm } from "./contractor-client-property/form";
 
 export default async function UpdateElectricalInstallationConditionReport({
   params,
@@ -47,7 +47,7 @@ export default async function UpdateElectricalInstallationConditionReport({
         </HeaderGroup>
       </Header>
 
-      <UpdateElectricalInstallationConditionReportForm
+      <UpdateContractorClientPropertyForm
         electricalInstallationConditionReport={
           electricalInstallationConditionReport
         }

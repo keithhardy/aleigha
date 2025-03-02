@@ -92,7 +92,11 @@ export function UpdateNameForm({
             <p className="text-sm text-muted-foreground">
               Name can only contain letters, spaces, hyphens, or apostrophes.
             </p>
-            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+            <Button
+              variant="outline"
+              type="submit"
+              disabled={!form.formState.isDirty || form.formState.isSubmitting}
+            >
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

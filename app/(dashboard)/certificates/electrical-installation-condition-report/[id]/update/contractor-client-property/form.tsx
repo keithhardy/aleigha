@@ -7,14 +7,12 @@ import {
   ElectricalInstallationConditionReport,
   Property,
 } from "@prisma/client";
-import { format } from "date-fns";
-import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import {
   Command,
   CommandEmpty,
@@ -25,7 +23,6 @@ import {
 } from "@/components/ui/command";
 import {
   Form,
-  FormControl,
   FormField,
   FormItem,
   FormLabel,
@@ -37,12 +34,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
 
-import { updateElectricalInstallationConditionReport } from "./action";
-import { UpdateElectricalInstallationConditionReportSchema } from "./schema";
+import { updateContractorClientPropertyReport } from "./action";
+import { UpdateContractorClientPropertySchema } from "./schema";
 
-export function UpdateElectricalInstallationConditionReportForm({
+export function UpdateContractorClientPropertyForm({
   electricalInstallationConditionReport,
   clients,
 }: {
@@ -54,23 +50,19 @@ export function UpdateElectricalInstallationConditionReportForm({
   const [clientOpen, setClientOpen] = useState(false);
   const [propertyOpen, setPropertyOpen] = useState(false);
 
-  const form = useForm<
-    z.infer<typeof UpdateElectricalInstallationConditionReportSchema>
-  >({
-    resolver: zodResolver(UpdateElectricalInstallationConditionReportSchema),
+  const form = useForm<z.infer<typeof UpdateContractorClientPropertySchema>>({
+    resolver: zodResolver(UpdateContractorClientPropertySchema),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
       clientId: electricalInstallationConditionReport.clientId,
       propertyId: electricalInstallationConditionReport.propertyId,
-      startDate: electricalInstallationConditionReport.startDate || new Date(),
-      endDate: electricalInstallationConditionReport.endDate || new Date(),
     },
   });
 
   const onSubmit = async (
-    data: z.infer<typeof UpdateElectricalInstallationConditionReportSchema>,
+    data: z.infer<typeof UpdateContractorClientPropertySchema>,
   ) => {
-    const response = await updateElectricalInstallationConditionReport(data);
+    const response = await updateContractorClientPropertyReport(data);
 
     toast({
       title: response.heading,
@@ -202,94 +194,12 @@ export function UpdateElectricalInstallationConditionReportForm({
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="startDate"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Start Date</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "max-w-[1024px] pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground",
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="p-0">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="endDate"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>End Date</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "max-w-[1024px] pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground",
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="p-0">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <Button
+          variant="outline"
           type="submit"
           disabled={form.formState.isSubmitting}
-          variant="outline"
         >
-          {form.formState.isSubmitting ? "Saving" : "Save"}
+          {form.formState.isSubmitting ? "Saving..." : "Save"}
         </Button>
       </form>
     </Form>

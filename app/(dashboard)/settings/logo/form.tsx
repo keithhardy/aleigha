@@ -141,7 +141,11 @@ export function UpdatePictureForm({
             <p className="text-sm text-muted-foreground">
               Logo must be less than 1 MB.
             </p>
-            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+            <Button
+              variant="outline"
+              type="submit"
+              disabled={!form.formState.isDirty || form.formState.isSubmitting}
+            >
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

@@ -1,0 +1,38 @@
+"use server";
+
+import { z } from "zod";
+
+import { prisma } from "@/lib/prisma";
+import { ServerActionResponse } from "@/lib/types";
+
+import { UpdateContractorClientPropertySchema } from "./schema";
+
+export async function updateContractorClientPropertyReport(
+  electricalInstallationConditionReport: z.infer<
+    typeof UpdateContractorClientPropertySchema
+  >,
+): Promise<ServerActionResponse<void>> {
+  try {
+    await prisma.electricalInstallationConditionReport.update({
+      where: {
+        id: electricalInstallationConditionReport.id,
+      },
+      data: {
+        clientId: electricalInstallationConditionReport.clientId,
+        propertyId: electricalInstallationConditionReport.propertyId,
+      },
+    });
+
+    return {
+      status: "success",
+      heading: "Update Successful",
+      message: "Certificate updated successfully.",
+    };
+  } catch {
+    return {
+      status: "error",
+      heading: "Update Failed",
+      message: "Couldn’t update certificate. Please try again.",
+    };
+  }
+}
