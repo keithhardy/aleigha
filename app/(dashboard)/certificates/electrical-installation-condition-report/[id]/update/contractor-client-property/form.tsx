@@ -122,7 +122,6 @@ export function UpdateContractorClientPropertyForm({
                         </Command>
                       </PopoverContent>
                     </Popover>
-
                     {selectedClient && (
                       <>
                         <Input type="text" value={selectedClient.address.streetAddress || ""} readOnly disabled className="lg:max-w-[50%]" />
@@ -190,7 +189,6 @@ export function UpdateContractorClientPropertyForm({
                         </Command>
                       </PopoverContent>
                     </Popover>
-
                     {selectedProperty && (
                       <>
                         <Input type="text" value={selectedProperty.address.city || ""} readOnly disabled className="lg:max-w-[50%]" />
@@ -200,7 +198,6 @@ export function UpdateContractorClientPropertyForm({
                         <Input type="text" value={selectedProperty.address.country || ""} readOnly disabled className="lg:max-w-[50%]" />
                       </>
                     )}
-
                     <FormMessage />
                   </FormItem>
                 );
