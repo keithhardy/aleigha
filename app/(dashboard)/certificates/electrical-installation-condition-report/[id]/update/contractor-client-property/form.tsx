@@ -12,7 +12,15 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
+import {
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+  Card,
+} from "@/components/ui/card";
 import {
   Command,
   CommandEmpty,
@@ -74,126 +82,167 @@ export function UpdateContractorClientPropertyForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="clientId"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Client</FormLabel>
-              <Popover open={clientOpen} onOpenChange={setClientOpen}>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    role="combobox"
-                    aria-expanded={clientOpen ? "true" : "false"}
-                    className="max-w-[1024px] pl-3 text-left font-normal justify-between"
-                  >
-                    {field.value
-                      ? clients.find((client) => client.id === field.value)
-                          ?.name
-                      : "Select client..."}
-                    <ChevronsUpDown className="opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="p-0">
-                  <Command>
-                    <CommandInput
-                      placeholder="Search client..."
-                      className="h-9"
-                    />
-                    <CommandList>
-                      <CommandEmpty>No client found.</CommandEmpty>
-                      <CommandGroup>
-                        {clients.map((client) => (
-                          <CommandItem
-                            key={client.id}
-                            value={client.id}
-                            onSelect={(currentValue) => {
-                              form.setValue("clientId", currentValue);
-                              form.setValue("propertyId", "");
-                              setClientOpen(false);
-                            }}
-                          >
-                            {client.name}
-                            {client.id === field.value ? (
-                              <Check className="ml-auto" />
-                            ) : null}
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="propertyId"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Property</FormLabel>
-              <Popover open={propertyOpen} onOpenChange={setPropertyOpen}>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    role="combobox"
-                    aria-expanded={propertyOpen ? "true" : "false"}
-                    className="max-w-[1024px] pl-3 text-left font-normal justify-between"
-                  >
-                    {field.value
-                      ? clients
-                          .find(
-                            (client) =>
-                              client.id === form.getValues("clientId"),
-                          )
-                          ?.property.find(
-                            (property) => property.id === field.value,
-                          )?.address.streetAddress
-                      : "Select a property..."}
-                    <ChevronsUpDown className="opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="p-0">
-                  <Command>
-                    <CommandInput
-                      placeholder="Search property..."
-                      className="h-9"
-                    />
-                    <CommandList>
-                      <CommandEmpty>No property found.</CommandEmpty>
-                      <CommandGroup>
-                        {clients
-                          .find(
-                            (client) =>
-                              client.id === form.getValues("clientId"),
-                          )
-                          ?.property.map((property) => (
+        <Header>
+          <HeaderGroup>
+            <Heading>Contractor, Client and Property</Heading>
+          </HeaderGroup>
+        </Header>
+
+        <Card className="shadow-none rounded-md">
+          <CardHeader>
+            <CardTitle>Client</CardTitle>
+            <CardDescription className="text-primary">
+              Select the client.
+            </CardDescription>
+          </CardHeader>
+          <FormField
+            control={form.control}
+            name="clientId"
+            render={({ field }) => (
+              <FormItem>
+                <Popover open={clientOpen} onOpenChange={setClientOpen}>
+                  <div className="p-6 pt-0">
+                    <PopoverTrigger asChild className="w-full">
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={clientOpen ? "true" : "false"}
+                        className="flex justify-between items-center lg:max-w-[50%]"
+                      >
+                        <span>
+                          {field.value
+                            ? clients.find(
+                                (client) => client.id === field.value,
+                              )?.name
+                            : "Select client..."}
+                        </span>
+                        <ChevronsUpDown className="opacity-50 ml-2" />
+                      </Button>
+                    </PopoverTrigger>
+                  </div>
+                  <PopoverContent className="p-0" align="start">
+                    <Command>
+                      <CommandInput
+                        placeholder="Search client..."
+                        className="h-9"
+                      />
+                      <CommandList>
+                        <CommandEmpty>No client found.</CommandEmpty>
+                        <CommandGroup>
+                          {clients.map((client) => (
                             <CommandItem
-                              key={property.id}
-                              value={property.id}
+                              key={client.id}
+                              value={client.id}
                               onSelect={(currentValue) => {
-                                form.setValue("propertyId", currentValue);
-                                setPropertyOpen(false);
+                                form.setValue("clientId", currentValue);
+                                form.setValue("propertyId", "");
+                                setClientOpen(false);
                               }}
                             >
-                              {property.address.streetAddress}
-                              {field.value === property.id ? (
+                              {client.name}
+                              {client.id === field.value ? (
                                 <Check className="ml-auto" />
                               ) : null}
                             </CommandItem>
                           ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
+            <p className="text-sm text-muted-foreground">
+              This is the person or company requesting the report.
+            </p>
+          </CardFooter>
+        </Card>
+
+        <Card className="shadow-none rounded-md">
+          <CardHeader>
+            <CardTitle>Property</CardTitle>
+            <CardDescription className="text-primary">
+              Select the property.
+            </CardDescription>
+          </CardHeader>
+          <FormField
+            control={form.control}
+            name="propertyId"
+            render={({ field }) => (
+              <FormItem>
+                <div className="p-6 pt-0">
+                  <Popover open={propertyOpen} onOpenChange={setPropertyOpen}>
+                    <PopoverTrigger asChild className="w-full">
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={propertyOpen ? "true" : "false"}
+                        className="flex justify-between items-center lg:max-w-[50%]"
+                      >
+                        <span>
+                          {field.value
+                            ? clients
+                                .find(
+                                  (client) =>
+                                    client.id === form.getValues("clientId"),
+                                )
+                                ?.property.find(
+                                  (property) => property.id === field.value,
+                                )?.address.streetAddress
+                            : "Select a property..."}
+                        </span>
+                        <ChevronsUpDown className="opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="p-0" align="start">
+                      <Command>
+                        <CommandInput
+                          placeholder="Search property..."
+                          className="h-9"
+                        />
+                        <CommandList>
+                          <CommandEmpty>No property found.</CommandEmpty>
+                          <CommandGroup>
+                            {clients
+                              .find(
+                                (client) =>
+                                  client.id === form.getValues("clientId"),
+                              )
+                              ?.property.map((property) => (
+                                <CommandItem
+                                  key={property.id}
+                                  value={property.id}
+                                  onSelect={(currentValue) => {
+                                    form.setValue("propertyId", currentValue);
+                                    setPropertyOpen(false);
+                                  }}
+                                >
+                                  {property.address.streetAddress}
+                                  {field.value === property.id ? (
+                                    <Check className="ml-auto" />
+                                  ) : null}
+                                </CommandItem>
+                              ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
+            <p className="text-sm text-muted-foreground">
+              Properties populate when a client is selected.
+            </p>
+          </CardFooter>
+        </Card>
+
         <Button
           variant="outline"
           type="submit"

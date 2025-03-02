@@ -37,16 +37,6 @@ export default async function UpdateElectricalInstallationConditionReport({
 
   return (
     <div className="container mx-auto max-w-screen-lg">
-      <Header>
-        <HeaderGroup>
-          <Heading>Update Electrical Installation Condition Report</Heading>
-          <HeaderDescription>
-            Fill in the details below to update a new Electrical Installation
-            Condition Report (EICR).
-          </HeaderDescription>
-        </HeaderGroup>
-      </Header>
-
       <UpdateContractorClientPropertyForm
         electricalInstallationConditionReport={
           electricalInstallationConditionReport
