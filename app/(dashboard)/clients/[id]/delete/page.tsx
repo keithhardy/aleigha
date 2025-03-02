@@ -1,19 +1,10 @@
 import { notFound } from "next/navigation";
 
 import { DeleteClientForm } from "@/app/(dashboard)/clients/[id]/delete/form";
-import {
-  Header,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
+import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
-export default async function DeleteClient({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function DeleteClient({ params }: { params: Promise<{ id: string }> }) {
   const client = await prisma.client.findUnique({
     where: {
       id: (await params).id,
@@ -32,10 +23,7 @@ export default async function DeleteClient({
       <Header>
         <HeaderGroup>
           <Heading>Delete Client</Heading>
-          <HeaderDescription>
-            You are about to delete {client.name}. This action is permanent and
-            cannot be undone.
-          </HeaderDescription>
+          <HeaderDescription>You are about to delete {client.name}. This action is permanent and cannot be undone.</HeaderDescription>
         </HeaderGroup>
       </Header>
 

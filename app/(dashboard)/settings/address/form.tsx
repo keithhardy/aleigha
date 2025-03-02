@@ -7,32 +7,15 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateAddress } from "./action";
 import { UpdateAddressSchema } from "./schema";
 
-export function UpdateAddressForm({
-  settings,
-}: {
-  settings: (Settings & { address: Address | null }) | null;
-}) {
+export function UpdateAddressForm({ settings }: { settings: (Settings & { address: Address | null }) | null }) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -74,9 +57,7 @@ export function UpdateAddressForm({
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Business Address</CardTitle>
-            <CardDescription className="text-primary">
-              Enter the full address details of your business.
-            </CardDescription>
+            <CardDescription className="text-primary">Enter the full address details of your business.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField
@@ -85,11 +66,7 @@ export function UpdateAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Street Address"
-                      className="lg:max-w-[50%]"
-                    />
+                    <Input {...field} placeholder="Street Address" className="lg:max-w-[50%]" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -101,11 +78,7 @@ export function UpdateAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="City"
-                      className="lg:max-w-[50%]"
-                    />
+                    <Input {...field} placeholder="City" className="lg:max-w-[50%]" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -117,12 +90,7 @@ export function UpdateAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      {...field}
-                      value={field.value ?? ""}
-                      placeholder="County"
-                      className="lg:max-w-[50%]"
-                    />
+                    <Input {...field} value={field.value ?? ""} placeholder="County" className="lg:max-w-[50%]" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -134,11 +102,7 @@ export function UpdateAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Post Town"
-                      className="lg:max-w-[50%]"
-                    />
+                    <Input {...field} placeholder="Post Town" className="lg:max-w-[50%]" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -150,11 +114,7 @@ export function UpdateAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Postcode"
-                      className="lg:max-w-[50%]"
-                    />
+                    <Input {...field} placeholder="Postcode" className="lg:max-w-[50%]" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -166,11 +126,7 @@ export function UpdateAddressForm({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Country"
-                      className="lg:max-w-[50%]"
-                    />
+                    <Input {...field} placeholder="Country" className="lg:max-w-[50%]" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -178,14 +134,8 @@ export function UpdateAddressForm({
             />
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">
-              Your business address.
-            </p>
-            <Button
-              variant="outline"
-              type="submit"
-              disabled={!form.formState.isDirty || form.formState.isSubmitting}
-            >
+            <p className="text-sm text-muted-foreground">Your business address.</p>
+            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

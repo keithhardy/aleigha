@@ -13,25 +13,17 @@ import { useToast } from "@/hooks/use-toast";
 import { deleteElectricalInstallationConditionReport } from "./action";
 import { DeleteElectricalInstallationConditionReportSchema } from "./schema";
 
-export function DeleteElectricalInstallationConditionReportForm({
-  electricalInstallationConditionReport,
-}: {
-  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
-}) {
+export function DeleteElectricalInstallationConditionReportForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
   const router = useRouter();
 
   const { toast } = useToast();
 
-  const form = useForm<
-    z.infer<typeof DeleteElectricalInstallationConditionReportSchema>
-  >({
+  const form = useForm<z.infer<typeof DeleteElectricalInstallationConditionReportSchema>>({
     resolver: zodResolver(DeleteElectricalInstallationConditionReportSchema),
     defaultValues: electricalInstallationConditionReport,
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof DeleteElectricalInstallationConditionReportSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof DeleteElectricalInstallationConditionReportSchema>) => {
     const response = await deleteElectricalInstallationConditionReport(data);
 
     toast({

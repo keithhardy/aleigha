@@ -11,22 +11,11 @@ import { z } from "zod";
 import { updateClient } from "@/app/(dashboard)/clients/[id]/update/action";
 import { UpdateClientSchema } from "@/app/(dashboard)/clients/[id]/update/schema";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
-export function UpdateClientForm({
-  client,
-}: {
-  client: Client & { address: Address | null };
-}) {
+export function UpdateClientForm({ client }: { client: Client & { address: Address | null } }) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -143,11 +132,7 @@ export function UpdateClientForm({
               <FormItem>
                 <FormLabel>Appointed Person</FormLabel>
                 <FormControl>
-                  <Input
-                    type="tel"
-                    {...field}
-                    autoComplete="appointed-person"
-                  />
+                  <Input type="tel" {...field} autoComplete="appointed-person" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -161,23 +146,12 @@ export function UpdateClientForm({
                 <FormLabel>Logo</FormLabel>
                 {imagePreview && (
                   <div className="mt-2">
-                    <Image
-                      src={imagePreview}
-                      alt="Logo Preview"
-                      width={200}
-                      height={200}
-                      className="rounded border"
-                    />
+                    <Image src={imagePreview} alt="Logo Preview" width={200} height={200} className="rounded border" />
                   </div>
                 )}
                 <div className="flex items-center gap-2">
                   <FormControl>
-                    <Input
-                      type="file"
-                      accept="image/*"
-                      ref={fileInputRef}
-                      onChange={handleFileChange}
-                    />
+                    <Input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileChange} />
                   </FormControl>
                   <Button variant="outline" type="button" onClick={handleClear}>
                     Clear
@@ -265,11 +239,7 @@ export function UpdateClientForm({
               </FormItem>
             )}
           />
-          <Button
-            type="submit"
-            disabled={form.formState.isSubmitting}
-            variant="outline"
-          >
+          <Button type="submit" disabled={form.formState.isSubmitting} variant="outline">
             {form.formState.isSubmitting ? "Saving" : "Save"}
           </Button>
         </div>

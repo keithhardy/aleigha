@@ -7,32 +7,15 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 import { updatePhone } from "./action";
 import { UpdatePhoneSchema } from "./schema";
 
-export function UpdatePhoneForm({
-  settings,
-}: {
-  settings: (Settings & { address: Address | null }) | null;
-}) {
+export function UpdatePhoneForm({ settings }: { settings: (Settings & { address: Address | null }) | null }) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -66,9 +49,7 @@ export function UpdatePhoneForm({
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Phone Number</CardTitle>
-            <CardDescription className="text-primary">
-              Provide the company phone number for contact purposes.
-            </CardDescription>
+            <CardDescription className="text-primary">Provide the company phone number for contact purposes.</CardDescription>
           </CardHeader>
           <CardContent>
             <FormField
@@ -77,11 +58,7 @@ export function UpdatePhoneForm({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Phone"
-                      className="lg:max-w-[50%]"
-                    />
+                    <Input {...field} placeholder="Phone" className="lg:max-w-[50%]" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -89,14 +66,8 @@ export function UpdatePhoneForm({
             />
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">
-              Must be a valid uk phone number.
-            </p>
-            <Button
-              variant="outline"
-              type="submit"
-              disabled={!form.formState.isDirty || form.formState.isSubmitting}
-            >
+            <p className="text-sm text-muted-foreground">Must be a valid uk phone number.</p>
+            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

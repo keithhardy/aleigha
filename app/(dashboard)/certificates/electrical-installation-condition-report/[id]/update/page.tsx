@@ -1,25 +1,15 @@
 import { notFound } from "next/navigation";
 
-import {
-  Header,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
+import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 
 import { UpdateContractorClientPropertyForm } from "./contractor-client-property/form";
 
-export default async function UpdateElectricalInstallationConditionReport({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const electricalInstallationConditionReport =
-    await prisma.electricalInstallationConditionReport.findFirst({
-      where: {
-        id: (await params).id,
-      },
-    });
+export default async function UpdateElectricalInstallationConditionReport({ params }: { params: Promise<{ id: string }> }) {
+  const electricalInstallationConditionReport = await prisma.electricalInstallationConditionReport.findFirst({
+    where: {
+      id: (await params).id,
+    },
+  });
 
   if (!electricalInstallationConditionReport) {
     notFound();
@@ -37,12 +27,7 @@ export default async function UpdateElectricalInstallationConditionReport({
 
   return (
     <div className="container mx-auto max-w-screen-lg">
-      <UpdateContractorClientPropertyForm
-        electricalInstallationConditionReport={
-          electricalInstallationConditionReport
-        }
-        clients={clients}
-      />
+      <UpdateContractorClientPropertyForm electricalInstallationConditionReport={electricalInstallationConditionReport} clients={clients} />
     </div>
   );
 }

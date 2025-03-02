@@ -1,12 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Address,
-  Client,
-  ElectricalInstallationConditionReport,
-  Property,
-} from "@prisma/client";
+import { Address, Client, ElectricalInstallationConditionReport, Property } from "@prisma/client";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,45 +9,16 @@ import { z } from "zod";
 
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
-import {
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardFooter,
-  Card,
-} from "@/components/ui/card";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { CardHeader, CardTitle, CardDescription, CardFooter, Card } from "@/components/ui/card";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateContractorClientPropertyReport } from "./action";
 import { UpdateContractorClientPropertySchema } from "./schema";
 
-export function UpdateContractorClientPropertyForm({
-  electricalInstallationConditionReport,
-  clients,
-}: {
-  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
-  clients: (Client & { property: (Property & { address: Address })[] })[];
-}) {
+export function UpdateContractorClientPropertyForm({ electricalInstallationConditionReport, clients }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport; clients: (Client & { property: (Property & { address: Address })[] })[] }) {
   const { toast } = useToast();
 
   const [clientOpen, setClientOpen] = useState(false);
@@ -67,9 +33,7 @@ export function UpdateContractorClientPropertyForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateContractorClientPropertySchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateContractorClientPropertySchema>) => {
     const response = await updateContractorClientPropertyReport(data);
 
     toast({
@@ -91,9 +55,7 @@ export function UpdateContractorClientPropertyForm({
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Client</CardTitle>
-            <CardDescription className="text-primary">
-              Select the client.
-            </CardDescription>
+            <CardDescription className="text-primary">Select the client.</CardDescription>
           </CardHeader>
           <FormField
             control={form.control}
@@ -103,29 +65,15 @@ export function UpdateContractorClientPropertyForm({
                 <Popover open={clientOpen} onOpenChange={setClientOpen}>
                   <div className="p-6 pt-0">
                     <PopoverTrigger asChild className="w-full">
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        aria-expanded={clientOpen ? "true" : "false"}
-                        className="flex justify-between items-center lg:max-w-[50%]"
-                      >
-                        <span>
-                          {field.value
-                            ? clients.find(
-                                (client) => client.id === field.value,
-                              )?.name
-                            : "Select client..."}
-                        </span>
+                      <Button variant="outline" role="combobox" aria-expanded={clientOpen ? "true" : "false"} className="flex justify-between items-center lg:max-w-[50%]">
+                        <span>{field.value ? clients.find((client) => client.id === field.value)?.name : "Select client..."}</span>
                         <ChevronsUpDown className="opacity-50 ml-2" />
                       </Button>
                     </PopoverTrigger>
                   </div>
                   <PopoverContent className="p-0" align="start">
                     <Command>
-                      <CommandInput
-                        placeholder="Search client..."
-                        className="h-9"
-                      />
+                      <CommandInput placeholder="Search client..." className="h-9" />
                       <CommandList>
                         <CommandEmpty>No client found.</CommandEmpty>
                         <CommandGroup>
@@ -140,9 +88,7 @@ export function UpdateContractorClientPropertyForm({
                               }}
                             >
                               {client.name}
-                              {client.id === field.value ? (
-                                <Check className="ml-auto" />
-                              ) : null}
+                              {client.id === field.value ? <Check className="ml-auto" /> : null}
                             </CommandItem>
                           ))}
                         </CommandGroup>
@@ -155,18 +101,14 @@ export function UpdateContractorClientPropertyForm({
             )}
           />
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">
-              This is the person or company requesting the report.
-            </p>
+            <p className="text-sm text-muted-foreground">This is the person or company requesting the report.</p>
           </CardFooter>
         </Card>
 
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Property</CardTitle>
-            <CardDescription className="text-primary">
-              Select the property.
-            </CardDescription>
+            <CardDescription className="text-primary">Select the property.</CardDescription>
           </CardHeader>
           <FormField
             control={form.control}
@@ -176,41 +118,19 @@ export function UpdateContractorClientPropertyForm({
                 <div className="p-6 pt-0">
                   <Popover open={propertyOpen} onOpenChange={setPropertyOpen}>
                     <PopoverTrigger asChild className="w-full">
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        aria-expanded={propertyOpen ? "true" : "false"}
-                        className="flex justify-between items-center lg:max-w-[50%]"
-                      >
-                        <span>
-                          {field.value
-                            ? clients
-                                .find(
-                                  (client) =>
-                                    client.id === form.getValues("clientId"),
-                                )
-                                ?.property.find(
-                                  (property) => property.id === field.value,
-                                )?.address.streetAddress
-                            : "Select a property..."}
-                        </span>
+                      <Button variant="outline" role="combobox" aria-expanded={propertyOpen ? "true" : "false"} className="flex justify-between items-center lg:max-w-[50%]">
+                        <span>{field.value ? clients.find((client) => client.id === form.getValues("clientId"))?.property.find((property) => property.id === field.value)?.address.streetAddress : "Select a property..."}</span>
                         <ChevronsUpDown className="opacity-50" />
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="p-0" align="start">
                       <Command>
-                        <CommandInput
-                          placeholder="Search property..."
-                          className="h-9"
-                        />
+                        <CommandInput placeholder="Search property..." className="h-9" />
                         <CommandList>
                           <CommandEmpty>No property found.</CommandEmpty>
                           <CommandGroup>
                             {clients
-                              .find(
-                                (client) =>
-                                  client.id === form.getValues("clientId"),
-                              )
+                              .find((client) => client.id === form.getValues("clientId"))
                               ?.property.map((property) => (
                                 <CommandItem
                                   key={property.id}
@@ -221,9 +141,7 @@ export function UpdateContractorClientPropertyForm({
                                   }}
                                 >
                                   {property.address.streetAddress}
-                                  {field.value === property.id ? (
-                                    <Check className="ml-auto" />
-                                  ) : null}
+                                  {field.value === property.id ? <Check className="ml-auto" /> : null}
                                 </CommandItem>
                               ))}
                           </CommandGroup>
@@ -237,17 +155,11 @@ export function UpdateContractorClientPropertyForm({
             )}
           />
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">
-              Properties populate when a client is selected.
-            </p>
+            <p className="text-sm text-muted-foreground">Properties populate when a client is selected.</p>
           </CardFooter>
         </Card>
 
-        <Button
-          variant="outline"
-          type="submit"
-          disabled={form.formState.isSubmitting}
-        >
+        <Button variant="outline" type="submit" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting ? "Saving..." : "Save"}
         </Button>
       </form>
