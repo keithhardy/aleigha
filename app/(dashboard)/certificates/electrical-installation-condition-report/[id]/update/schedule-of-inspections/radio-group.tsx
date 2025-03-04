@@ -1,0 +1,71 @@
+// components/RadioGroupComponent.tsx
+
+import { FormControl, FormItem, FormLabel } from "@/components/ui/form";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+
+interface RadioGroupComponentProps {
+  onChange: (value: string) => void;
+  defaultValue: string;
+}
+
+export const RadioGroupComponent = ({ onChange, defaultValue }: RadioGroupComponentProps) => {
+  return (
+    <RadioGroup onValueChange={onChange} defaultValue={defaultValue} className="grid grid-cols-4 space-y-1">
+      <FormItem className="flex items-center space-x-3 space-y-0">
+        <FormControl>
+          <RadioGroupItem value="ok" />
+        </FormControl>
+        <FormLabel className="font-normal">OK</FormLabel>
+      </FormItem>
+
+      <FormItem className="flex items-center space-x-3 space-y-0">
+        <FormControl>
+          <RadioGroupItem value="c1" />
+        </FormControl>
+        <FormLabel className="font-normal">C1</FormLabel>
+      </FormItem>
+
+      <FormItem className="flex items-center space-x-3 space-y-0">
+        <FormControl>
+          <RadioGroupItem value="c2" />
+        </FormControl>
+        <FormLabel className="font-normal">C2</FormLabel>
+      </FormItem>
+
+      <FormItem className="flex items-center space-x-3 space-y-0">
+        <FormControl>
+          <RadioGroupItem value="c3" />
+        </FormControl>
+        <FormLabel className="font-normal">C3</FormLabel>
+      </FormItem>
+
+      <FormItem className="flex items-center space-x-3 space-y-0">
+        <FormControl>
+          <RadioGroupItem value="na" />
+        </FormControl>
+        <FormLabel className="font-normal">N/A</FormLabel>
+      </FormItem>
+
+      <FormItem className="flex items-center space-x-3 space-y-0">
+        <FormControl>
+          <RadioGroupItem value="lim" />
+        </FormControl>
+        <FormLabel className="font-normal">LIM</FormLabel>
+      </FormItem>
+
+      <FormItem className="flex items-center space-x-3 space-y-0">
+        <FormControl>
+          <RadioGroupItem value="fi" />
+        </FormControl>
+        <FormLabel className="font-normal">FI</FormLabel>
+      </FormItem>
+
+      <FormItem className="flex items-center space-x-3 space-y-0">
+        <FormControl>
+          <RadioGroupItem value="r" />
+        </FormControl>
+        <FormLabel className="font-normal">R</FormLabel>
+      </FormItem>
+    </RadioGroup>
+  );
+};

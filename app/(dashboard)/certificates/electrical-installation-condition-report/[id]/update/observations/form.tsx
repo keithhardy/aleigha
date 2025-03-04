@@ -54,7 +54,7 @@ export function ObservationsForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
-        <Card>
+        <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Observations</CardTitle>
             <CardDescription className="text-primary">Observations.</CardDescription>
