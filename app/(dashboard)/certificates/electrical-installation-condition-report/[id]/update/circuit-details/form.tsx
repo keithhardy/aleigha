@@ -1,17 +1,17 @@
-'use client'
+"use client";
 
-import { useFieldArray, useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useFieldArray, useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Separator } from '@/components/ui/separator'
-import { Switch } from '@/components/ui/switch'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
 
-import { Schema } from './schema'
+import { Schema } from "./schema";
 
 export function ScheduleOfCircuitDetailsForm() {
   const form = useForm<z.infer<typeof Schema>>({
@@ -19,9 +19,9 @@ export function ScheduleOfCircuitDetailsForm() {
     defaultValues: {
       db: [],
     },
-  })
+  });
 
-  const { fields: dbFields, append: appendDb, remove: removeDb } = useFieldArray({ control: form.control, name: 'db' })
+  const { fields: dbFields, append: appendDb, remove: removeDb } = useFieldArray({ control: form.control, name: "db" });
 
   return (
     <Form {...form}>
@@ -404,34 +404,34 @@ export function ScheduleOfCircuitDetailsForm() {
             type="button"
             onClick={() =>
               appendDb({
-                dbDesignation: '',
-                dbLocation: '',
-                dbZdb: '',
-                dbIpf: '',
+                dbDesignation: "",
+                dbLocation: "",
+                dbZdb: "",
+                dbIpf: "",
                 dbConfirmationOfSupplyPolarity: false,
                 dbPhaseSequenceConfirmed: false,
-                dbSPDType: '',
+                dbSPDType: "",
                 dbSPDStatusIndicator: false,
-                dbSupplyFrom: '',
-                dbOCPDBSnumber: '',
-                dbOCPDType: '',
-                dbOCPDNominalVoltage: '',
-                dbOCPDRating: '',
-                dbOCPDNumberOfPhases: '',
-                dbRCDBSNumber: '',
-                dbRCDType: '',
-                dbRCDOperatingCurrent: '',
-                dbRCDNumberOfPoles: '',
-                dbRCDOperatingTime: '',
-                testedByName: '',
-                testedByPosition: '',
-                testedBySignatureDate: '',
-                testInstrumentMultiFunctionSerialNumber: '',
-                testInstrumentContinuitySerialNumber: '',
-                testInstrumentInsulationResistanceSerialNumber: '',
-                testInstrumentEarthFaultLoopImpedanceSerialNumber: '',
-                testInstrumentEarthElectrodeSerialNumber: '',
-                testInstrumentRCDSerialNumber: '',
+                dbSupplyFrom: "",
+                dbOCPDBSnumber: "",
+                dbOCPDType: "",
+                dbOCPDNominalVoltage: "",
+                dbOCPDRating: "",
+                dbOCPDNumberOfPhases: "",
+                dbRCDBSNumber: "",
+                dbRCDType: "",
+                dbRCDOperatingCurrent: "",
+                dbRCDNumberOfPoles: "",
+                dbRCDOperatingTime: "",
+                testedByName: "",
+                testedByPosition: "",
+                testedBySignatureDate: "",
+                testInstrumentMultiFunctionSerialNumber: "",
+                testInstrumentContinuitySerialNumber: "",
+                testInstrumentInsulationResistanceSerialNumber: "",
+                testInstrumentEarthFaultLoopImpedanceSerialNumber: "",
+                testInstrumentEarthElectrodeSerialNumber: "",
+                testInstrumentRCDSerialNumber: "",
                 dbCircuits: [],
               })
             }
@@ -441,7 +441,7 @@ export function ScheduleOfCircuitDetailsForm() {
         </div>
       </form>
     </Form>
-  )
+  );
 }
 
 function CircuitsForm({ dbIndex }: { dbIndex: number }) {
@@ -450,9 +450,9 @@ function CircuitsForm({ dbIndex }: { dbIndex: number }) {
     defaultValues: {
       db: [],
     },
-  })
+  });
 
-  const { fields: circuitFields, append: appendCircuit, remove: removeCircuit } = useFieldArray({ control: form.control, name: `db.${dbIndex}.dbCircuits` })
+  const { fields: circuitFields, append: appendCircuit, remove: removeCircuit } = useFieldArray({ control: form.control, name: `db.${dbIndex}.dbCircuits` });
 
   return (
     <div>
@@ -882,43 +882,43 @@ function CircuitsForm({ dbIndex }: { dbIndex: number }) {
         type="button"
         onClick={() =>
           appendCircuit({
-            circuitNumber: '',
-            circuitDescription: '',
-            circuitTypeOfWiring: '',
-            circuitReferenceMethod: '',
-            circuitNumberOfPoints: '',
-            circuitConductorLiveCSA: '',
-            circuitConductorCPCCSA: '',
-            circuitMaxDisconnectionTime: '',
-            circuitOCPDBSNumber: '',
-            circuitOCPDType: '',
-            circuitOCPDRating: '',
-            circuitOCPDShortCircuitCapacity: '',
-            circuitOCPDMaxPermittedZs: '',
-            circuitRCDBSNumber: '',
-            circuitRCDType: '',
-            circuitRCDRating: '',
-            circuitRCDOperatingCurrent: '',
-            circuitContinuityr1: '',
-            circuitContinuityrn: '',
-            circuitContinuityr2: '',
-            circuitContinuityR1R2: '',
-            circuitContinuityR2: '',
-            circuitInsulationResistanceLiveLive: '',
-            circuitInsulationResistanceLiveEarth: '',
-            circuitInsulationResistanceTestVoltage: '',
+            circuitNumber: "",
+            circuitDescription: "",
+            circuitTypeOfWiring: "",
+            circuitReferenceMethod: "",
+            circuitNumberOfPoints: "",
+            circuitConductorLiveCSA: "",
+            circuitConductorCPCCSA: "",
+            circuitMaxDisconnectionTime: "",
+            circuitOCPDBSNumber: "",
+            circuitOCPDType: "",
+            circuitOCPDRating: "",
+            circuitOCPDShortCircuitCapacity: "",
+            circuitOCPDMaxPermittedZs: "",
+            circuitRCDBSNumber: "",
+            circuitRCDType: "",
+            circuitRCDRating: "",
+            circuitRCDOperatingCurrent: "",
+            circuitContinuityr1: "",
+            circuitContinuityrn: "",
+            circuitContinuityr2: "",
+            circuitContinuityR1R2: "",
+            circuitContinuityR2: "",
+            circuitInsulationResistanceLiveLive: "",
+            circuitInsulationResistanceLiveEarth: "",
+            circuitInsulationResistanceTestVoltage: "",
             circuitPolarity: false,
-            circuitMaximumZs: '',
-            circuitRCDOperatingTime: '',
+            circuitMaximumZs: "",
+            circuitRCDOperatingTime: "",
             circuitRCDOTestButton: false,
             circuitAFDDOTestButton: false,
-            circuitComments: '',
-            circuitsEquipmentVunerableToDamage: '',
+            circuitComments: "",
+            circuitsEquipmentVunerableToDamage: "",
           })
         }
       >
         Add New Circuit
       </Button>
     </div>
-  )
+  );
 }

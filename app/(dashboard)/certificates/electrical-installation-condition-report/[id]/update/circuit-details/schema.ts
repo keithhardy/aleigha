@@ -65,8 +65,8 @@ export const Schema = z.object({
           circuitAFDDOTestButton: z.boolean(),
           circuitComments: z.string(),
           circuitsEquipmentVunerableToDamage: z.string(),
-        })
+        }),
       ),
-    })
+    }),
   ),
 });

@@ -1,5 +1,6 @@
-import { Header, HeaderGroup, Heading } from '@/components/page-header';
-import { ScheduleOfCircuitDetailsForm } from './form'
+import { Header, HeaderGroup, Heading } from "@/components/page-header";
+
+import { ScheduleOfCircuitDetailsForm } from "./form";
 
 export default function ScheduleOfCircuitDetails() {
   return (
