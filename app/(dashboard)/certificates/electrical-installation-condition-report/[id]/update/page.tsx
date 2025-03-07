@@ -69,7 +69,7 @@ export default async function UpdateElectricalInstallationConditionReport({ para
         <TabsList className="w-full grid grid-cols-5">
           <TabsTrigger value="page1">Page 1</TabsTrigger>
           <TabsTrigger value="page2">Page 2</TabsTrigger>
-          {/* <TabsTrigger value="page3">Page 3</TabsTrigger> */}
+          <TabsTrigger value="page3">Page 3</TabsTrigger>
           {/* <TabsTrigger value="page4">Page 4</TabsTrigger> */}
           {/* <TabsTrigger value="page5">Page 5</TabsTrigger> */}
         </TabsList>
@@ -84,8 +84,8 @@ export default async function UpdateElectricalInstallationConditionReport({ para
           <ObservationsForm />
         </TabsContent>
         <TabsContent value="page3" className="space-y-4">
-          {/* <SupplyCharacteristicsAndEarthingArrangementsForm /> */}
-          {/* <ParticularsOfInstallationsReferredToInThisReportForm /> */}
+          <SupplyCharacteristicsAndEarthingArrangementsForm />
+          <ParticularsOfInstallationsReferredToInThisReportForm />
         </TabsContent>
         <TabsContent value="page4" className="space-y-4">
           {/* <ScheduleOfItemsInspectedSection1Form /> */}

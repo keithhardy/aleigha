@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -37,6 +37,7 @@ export function SupplyCharacteristicsAndEarthingArrangementsForm() {
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Supply Characteristics and Earthing Arrangements</CardTitle>
+            <CardDescription className="text-primary">Please fill out the details regarding the supply characteristics and earthing arrangements for the electrical installation.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField
@@ -46,7 +47,7 @@ export function SupplyCharacteristicsAndEarthingArrangementsForm() {
                 <FormItem>
                   <FormLabel>System Type and Earthing Arrangements</FormLabel>
                   <FormControl>
-                    <Input placeholder="TN-C-S" {...field} />
+                    <Input placeholder="e.g., TN-C-S" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -59,7 +60,7 @@ export function SupplyCharacteristicsAndEarthingArrangementsForm() {
                 <FormItem>
                   <FormLabel>Supply Protective Device BS Number</FormLabel>
                   <FormControl>
-                    <Input placeholder="BS 1361" {...field} />
+                    <Input placeholder="e.g., BS 1361" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -72,7 +73,7 @@ export function SupplyCharacteristicsAndEarthingArrangementsForm() {
                 <FormItem>
                   <FormLabel>Supply Protective Device Type</FormLabel>
                   <FormControl>
-                    <Input placeholder="IIb" {...field} />
+                    <Input placeholder="e.g., IIb" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -85,7 +86,7 @@ export function SupplyCharacteristicsAndEarthingArrangementsForm() {
                 <FormItem>
                   <FormLabel>Rated Current of Supply Protective Device</FormLabel>
                   <FormControl>
-                    <Input placeholder="80 A" {...field} />
+                    <Input placeholder="e.g., 80 A" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -98,7 +99,7 @@ export function SupplyCharacteristicsAndEarthingArrangementsForm() {
                 <FormItem>
                   <FormLabel>Number and Type of Live Conductors</FormLabel>
                   <FormControl>
-                    <Input placeholder="2 Wire Single Phase AC" {...field} />
+                    <Input placeholder="e.g., 2 Wire Single Phase AC" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -124,7 +125,7 @@ export function SupplyCharacteristicsAndEarthingArrangementsForm() {
                 <FormItem>
                   <FormLabel>Other Sources of Supply</FormLabel>
                   <FormControl>
-                    <Input placeholder="Photovoltaic System" {...field} />
+                    <Input placeholder="e.g., Photovoltaic System" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -137,7 +138,7 @@ export function SupplyCharacteristicsAndEarthingArrangementsForm() {
                 <FormItem>
                   <FormLabel>Nominal Voltage Between Lines (U)</FormLabel>
                   <FormControl>
-                    <Input placeholder="N/A" {...field} />
+                    <Input placeholder="e.g., N/A" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -150,7 +151,7 @@ export function SupplyCharacteristicsAndEarthingArrangementsForm() {
                 <FormItem>
                   <FormLabel>Nominal Line Voltage to Earth (U0)</FormLabel>
                   <FormControl>
-                    <Input placeholder="230 V" {...field} />
+                    <Input placeholder="e.g., 230 V" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -163,7 +164,7 @@ export function SupplyCharacteristicsAndEarthingArrangementsForm() {
                 <FormItem>
                   <FormLabel>Nominal Frequency (f)</FormLabel>
                   <FormControl>
-                    <Input placeholder="50 Hz" {...field} />
+                    <Input placeholder="e.g., 50 Hz" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -176,7 +177,7 @@ export function SupplyCharacteristicsAndEarthingArrangementsForm() {
                 <FormItem>
                   <FormLabel>Prospective Fault Current (Ipf)</FormLabel>
                   <FormControl>
-                    <Input placeholder="2.0 KA" {...field} />
+                    <Input placeholder="e.g., 2.0 KA" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -189,7 +190,7 @@ export function SupplyCharacteristicsAndEarthingArrangementsForm() {
                 <FormItem>
                   <FormLabel>External Earth Fault Loop Impedance (Ze)</FormLabel>
                   <FormControl>
-                    <Input placeholder="0.35 Ω" {...field} />
+                    <Input placeholder="e.g., 0.35 Ω" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -197,7 +198,7 @@ export function SupplyCharacteristicsAndEarthingArrangementsForm() {
             />
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Condition.</p>
+            <p className="text-sm text-muted-foreground">Ensure all details are accurate before submission.</p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>

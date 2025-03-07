@@ -58,8 +58,8 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
       <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Particulars of Installations Referred to in this Report</CardTitle>
-            <CardDescription className="text-primary">Particulars of Installations Referred to in this Report.</CardDescription>
+            <CardTitle>Installation Details for the Report</CardTitle>
+            <CardDescription className="text-primary">Detailed installation information for this report.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField
@@ -67,9 +67,9 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
               name="maximumDemand"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Maximum Demand</FormLabel>
+                  <FormLabel>Maximum Electrical Demand</FormLabel>
                   <FormControl>
-                    <Input placeholder="100 A" {...field} />
+                    <Input placeholder="Enter Maximum Demand (e.g., 100 A)" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -81,7 +81,7 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
               render={({ field }) => (
                 <FormItem>
                   <div>
-                    <FormLabel>Distributor&apos;s Facility</FormLabel>
+                    <FormLabel>Distributor's Facility</FormLabel>
                   </div>
                   <Switch checked={field.value} onCheckedChange={field.onChange} />
                   <FormMessage />
@@ -94,7 +94,7 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
               render={({ field }) => (
                 <FormItem>
                   <div>
-                    <FormLabel>Installation Earth Electrode(s)</FormLabel>
+                    <FormLabel>Earth Electrodes Installed?</FormLabel>
                   </div>
                   <Switch checked={field.value} onCheckedChange={field.onChange} />
                   <FormMessage />
@@ -106,9 +106,9 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
               name="earthElectrodeType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Earth Electrode Type</FormLabel>
+                  <FormLabel>Type of Earth Electrode</FormLabel>
                   <FormControl>
-                    <Input placeholder="Rod" {...field} disabled={!form.watch("installationEarthElectrodes")} />
+                    <Input placeholder="e.g., Copper Rod" {...field} disabled={!form.watch("installationEarthElectrodes")} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -121,7 +121,7 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
                 <FormItem>
                   <FormLabel>Earth Electrode Location</FormLabel>
                   <FormControl>
-                    <Input placeholder="Front Garden" {...field} disabled={!form.watch("installationEarthElectrodes")} />
+                    <Input placeholder="e.g., Front Garden" {...field} disabled={!form.watch("installationEarthElectrodes")} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -132,9 +132,9 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
               name="electrodeResistanceToEarth"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Electrode Resistance to Earth</FormLabel>
+                  <FormLabel>Resistance of Electrode to Earth</FormLabel>
                   <FormControl>
-                    <Input placeholder="10.0 Ω" {...field} disabled={!form.watch("installationEarthElectrodes")} />
+                    <Input placeholder="e.g., 10.0 Ω" {...field} disabled={!form.watch("installationEarthElectrodes")} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -145,9 +145,9 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
               name="earthingConductorMaterial"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Earthing Conductor Material</FormLabel>
+                  <FormLabel>Material of Earthing Conductor</FormLabel>
                   <FormControl>
-                    <Input placeholder="Copper" {...field} />
+                    <Input placeholder="e.g., Copper" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -158,9 +158,9 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
               name="earthingConductorCSA"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Earthing Conductor CSA</FormLabel>
+                  <FormLabel>CSA of Earthing Conductor</FormLabel>
                   <FormControl>
-                    <Input placeholder="16 mm²" {...field} />
+                    <Input placeholder="e.g., 16 mm²" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -186,7 +186,7 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
                 <FormItem>
                   <FormLabel>Main Protective Bonding Conductor Material</FormLabel>
                   <FormControl>
-                    <Input placeholder="Copper" {...field} />
+                    <Input placeholder="e.g., Copper" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -199,7 +199,7 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
                 <FormItem>
                   <FormLabel>Main Protective Bonding Conductor CSA</FormLabel>
                   <FormControl>
-                    <Input placeholder="10 mm²" {...field} />
+                    <Input placeholder="e.g., 10 mm²" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -225,7 +225,7 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
                 <FormItem>
                   <FormLabel>Water Installation Pipes</FormLabel>
                   <FormControl>
-                    <Input placeholder="0.02 Ω" {...field} />
+                    <Input placeholder="e.g., 0.02 Ω" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -238,7 +238,7 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
                 <FormItem>
                   <FormLabel>Gas Installation Pipes</FormLabel>
                   <FormControl>
-                    <Input placeholder="0.01 Ω" {...field} />
+                    <Input placeholder="e.g., 0.01 Ω" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -288,7 +288,7 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
               name="other"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Other</FormLabel>
+                  <FormLabel>Other Installation Details</FormLabel>
                   <FormControl>
                     <Input placeholder="N/A" {...field} />
                   </FormControl>
@@ -301,7 +301,7 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
               name="mainSwitchImage"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Main Switch Photo</FormLabel>
+                  <FormLabel>Upload Main Switch Photo</FormLabel>
                   <FormControl>
                     <Input
                       type="file"
@@ -336,7 +336,7 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
                 <FormItem>
                   <FormLabel>Main Switch Location</FormLabel>
                   <FormControl>
-                    <Input placeholder="Electric Cupboard" {...field} />
+                    <Input placeholder="e.g., Electric Cupboard" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -347,9 +347,9 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
               name="mainSwitchBSNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Main Switch BS Number</FormLabel>
+                  <FormLabel>BS Number of Main Switch</FormLabel>
                   <FormControl>
-                    <Input placeholder="BS 60898" {...field} />
+                    <Input placeholder="e.g., BS 60898" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -360,9 +360,9 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
               name="mainSwitchType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Main Switch Type</FormLabel>
+                  <FormLabel>Type of Main Switch</FormLabel>
                   <FormControl>
-                    <Input placeholder="B" {...field} />
+                    <Input placeholder="e.g., Type B" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -375,7 +375,7 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
                 <FormItem>
                   <FormLabel>Main Switch Rating / Setting</FormLabel>
                   <FormControl>
-                    <Input placeholder="100 A" {...field} />
+                    <Input placeholder="e.g., 100 A" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -386,9 +386,9 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
               name="mainSwitchPoles"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Main Switch Number of Poles</FormLabel>
+                  <FormLabel>Number of Poles in Main Switch</FormLabel>
                   <FormControl>
-                    <Input placeholder="2" {...field} />
+                    <Input placeholder="e.g., 2" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -401,72 +401,7 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
                 <FormItem>
                   <FormLabel>Main Switch Current Rating</FormLabel>
                   <FormControl>
-                    <Input placeholder="100 A" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="mainSwitchVoltageRating"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Main Switch Voltage Rating</FormLabel>
-                  <FormControl>
-                    <Input placeholder="230 V" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="mainSwitchRCDOperatingCurrent"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Main Switch RCD Operating Current</FormLabel>
-                  <FormControl>
-                    <Input placeholder="30 mA" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="mainSwitchRCDType"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Main Switch RCD Type</FormLabel>
-                  <FormControl>
-                    <Input placeholder="A" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="mainSwitchRCDRatedTimeDelay"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Main Switch RCD Rated Time Delay</FormLabel>
-                  <FormControl>
-                    <Input placeholder="120 mS" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="mainSwitchRCDMeasuredOperatingTime"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Main Switch RCD Measured Operating Time</FormLabel>
-                  <FormControl>
-                    <Input placeholder="92 mS" {...field} />
+                    <Input placeholder="e.g., 32 A" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -474,7 +409,7 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
             />
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Condition.</p>
+            <p className="text-sm text-muted-foreground">Ensure all details are accurate before submission.</p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
