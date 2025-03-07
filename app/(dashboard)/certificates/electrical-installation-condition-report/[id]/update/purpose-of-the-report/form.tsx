@@ -31,8 +31,8 @@ export function PurposeOfTheReportForm() {
       <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Purpose of the Report</CardTitle>
-            <CardDescription className="text-primary">Purpose.</CardDescription>
+            <CardTitle>Purpose of the EICR</CardTitle>
+            <CardDescription className="text-primary">Specify the purpose of the report, including inspection details.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
             <FormField
@@ -40,8 +40,9 @@ export function PurposeOfTheReportForm() {
               name="purpose"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel>Purpose of the Report</FormLabel>
                   <FormControl>
-                    <Textarea {...field} className="lg:max-w-[50%] min-h-[100px]" placeholder="Purpose of the report" />
+                    <Textarea {...field} className="lg:max-w-[50%] min-h-[100px]" placeholder="Describe the purpose of the inspection, e.g., condition assessment, fault detection, etc." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -52,7 +53,7 @@ export function PurposeOfTheReportForm() {
               name="startDate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Start Date</FormLabel>
+                  <FormLabel>Start Date of Inspection</FormLabel>
                   <FormControl>
                     <Input type="date" {...field} className="lg:max-w-[50%]" />
                   </FormControl>
@@ -65,7 +66,7 @@ export function PurposeOfTheReportForm() {
               name="endDate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>End Date</FormLabel>
+                  <FormLabel>End Date of Inspection</FormLabel>
                   <FormControl>
                     <Input type="date" {...field} className="lg:max-w-[50%]" />
                   </FormControl>
@@ -79,7 +80,7 @@ export function PurposeOfTheReportForm() {
               render={({ field }) => (
                 <FormItem>
                   <div>
-                    <FormLabel>Records Available</FormLabel>
+                    <FormLabel>Are Inspection Records Available?</FormLabel>
                   </div>
                   <FormControl>
                     <Switch checked={field.value} onCheckedChange={field.onChange} className="lg:max-w-[50%]" />
@@ -94,7 +95,7 @@ export function PurposeOfTheReportForm() {
               render={({ field }) => (
                 <FormItem>
                   <div>
-                    <FormLabel>Previous Report Available</FormLabel>
+                    <FormLabel>Is Previous Report Available?</FormLabel>
                   </div>
                   <FormControl>
                     <Switch checked={field.value} onCheckedChange={field.onChange} className="lg:max-w-[50%]" />
@@ -108,9 +109,9 @@ export function PurposeOfTheReportForm() {
               name="previousReportDate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Previous Report Date</FormLabel>
+                  <FormLabel>Date of Previous Report</FormLabel>
                   <FormControl>
-                    <Input type="date" placeholder="Previous report date" {...field} className="lg:max-w-[50%]" disabled={!form.watch("previousReportAvailable")} />
+                    <Input type="date" {...field} className="lg:max-w-[50%]" disabled={!form.watch("previousReportAvailable")} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -118,7 +119,7 @@ export function PurposeOfTheReportForm() {
             />
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Purpose.</p>
+            <p className="text-sm text-muted-foreground">Details about the inspection purpose and relevant dates.</p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>

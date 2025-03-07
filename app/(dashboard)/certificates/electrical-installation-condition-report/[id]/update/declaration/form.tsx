@@ -31,7 +31,7 @@ export function DeclarationForm() {
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Declaration</CardTitle>
-            <CardDescription className="text-primary">Declaration.</CardDescription>
+            <CardDescription className="text-primary">Provide the necessary details for the retest, including the inspector and qualified supervisor's information.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField
@@ -41,7 +41,7 @@ export function DeclarationForm() {
                 <FormItem>
                   <FormLabel>Retest Date</FormLabel>
                   <FormControl>
-                    <Input type="date" placeholder="Retest date" {...field} className="lg:max-w-[50%]" />
+                    <Input {...field} type="date" className="lg:max-w-[50%]" placeholder="Select the retest date for the installation." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -52,8 +52,9 @@ export function DeclarationForm() {
               name="reasonForRecommendation"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel>Reason for Recommendation</FormLabel>
                   <FormControl>
-                    <Textarea {...field} className="lg:max-w-[50%] min-h-[100px]" placeholder="Reason for Recommendation" />
+                    <Textarea {...field} className="lg:max-w-[50%] min-h-[100px]" placeholder="Provide the reason for recommending the retest." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -64,9 +65,9 @@ export function DeclarationForm() {
               name="inspectorsName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Inspector&apos;s Name</FormLabel>
+                  <FormLabel>Inspector's Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="John Doe" {...field} className="lg:max-w-[50%]" />
+                    <Input {...field} className="lg:max-w-[50%]" placeholder="Enter the name of the inspector performing the test." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -77,9 +78,9 @@ export function DeclarationForm() {
               name="inspectorsSignatureDate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Inspector&apos;s Signature Date</FormLabel>
+                  <FormLabel>Inspector's Signature Date</FormLabel>
                   <FormControl>
-                    <Input type="date" {...field} className="lg:max-w-[50%]" />
+                    <Input {...field} type="date" className="lg:max-w-[50%]" placeholder="Select the date the inspector signed." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -90,9 +91,9 @@ export function DeclarationForm() {
               name="qualifiedSupervisorsName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Qualified Supervisor&apos;s Name</FormLabel>
+                  <FormLabel>Qualified Supervisor's Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Jane Smith" {...field} className="lg:max-w-[50%]" />
+                    <Input {...field} className="lg:max-w-[50%]" placeholder="Enter the name of the qualified supervisor." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -103,9 +104,9 @@ export function DeclarationForm() {
               name="qualifiedSupervisorsSignatureDate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Qualified Supervisor&apos;s Signature Date</FormLabel>
+                  <FormLabel>Qualified Supervisor's Signature Date</FormLabel>
                   <FormControl>
-                    <Input type="date" placeholder="Date of signature" {...field} className="lg:max-w-[50%]" />
+                    <Input {...field} type="date" className="lg:max-w-[50%]" placeholder="Select the date the qualified supervisor signed." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -113,7 +114,7 @@ export function DeclarationForm() {
             />
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Declaration.</p>
+            <p className="text-sm text-muted-foreground">Provide the details of the retest recommendation and signatories.</p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>

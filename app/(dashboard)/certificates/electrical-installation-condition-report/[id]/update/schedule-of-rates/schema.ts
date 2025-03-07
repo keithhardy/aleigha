@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from "zod";
 
 export const Schema = z.object({
   scheduleOfRates: z.array(
@@ -6,6 +6,6 @@ export const Schema = z.object({
       id: z.number(),
       name: z.string(),
       quantity: z.number(),
-    })
+    }),
   ),
-})
+});

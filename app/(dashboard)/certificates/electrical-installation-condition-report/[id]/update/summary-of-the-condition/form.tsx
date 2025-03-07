@@ -31,7 +31,7 @@ export function SummaryOfTheConditionOfTheInstallationForm() {
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Summary of the Condition of the Installation</CardTitle>
-            <CardDescription className="text-primary">Summary.</CardDescription>
+            <CardDescription className="text-primary">Provide an overview of the electrical installation's condition, including age, alterations, and overall assessment.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField
@@ -39,8 +39,9 @@ export function SummaryOfTheConditionOfTheInstallationForm() {
               name="generalCondition"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel>General Condition</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="General condition of the installation (in terms of electrical safety)" {...field} className="lg:max-w-[50%] min-h-[100px]" />
+                    <Textarea {...field} className="lg:max-w-[50%] min-h-[100px]" placeholder="Describe the general condition of the installation, focusing on electrical safety and overall reliability." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -53,7 +54,7 @@ export function SummaryOfTheConditionOfTheInstallationForm() {
                 <FormItem>
                   <FormLabel>Estimated Age of Installation</FormLabel>
                   <FormControl>
-                    <Input placeholder="10" type="number" {...field} className="lg:max-w-[50%]" />
+                    <Input {...field} type="number" className="lg:max-w-[50%]" placeholder="Enter the estimated age of the installation in years." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -64,15 +65,14 @@ export function SummaryOfTheConditionOfTheInstallationForm() {
               name="evidenceOfAlterations"
               render={({ field }) => (
                 <FormItem>
-                  <div>
-                    <FormLabel>Evidence of Alterations</FormLabel>
-                  </div>
-                  <Switch checked={field.value} onCheckedChange={field.onChange} className="lg:max-w-[50%]" />
+                  <FormLabel className="block">Evidence of Alterations</FormLabel>
+                  <FormControl>
+                    <Switch checked={field.value} onCheckedChange={field.onChange} className="lg:max-w-[50%]" />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="estimatedAgeOfAlterations"
@@ -80,7 +80,7 @@ export function SummaryOfTheConditionOfTheInstallationForm() {
                 <FormItem>
                   <FormLabel>Estimated Age of Alterations</FormLabel>
                   <FormControl>
-                    <Input placeholder="2" {...field} disabled={!form.watch("evidenceOfAlterations")} className="lg:max-w-[50%]" />
+                    <Input {...field} className="lg:max-w-[50%]" type="number" placeholder="Enter the estimated age of alterations if applicable." disabled={!form.watch("evidenceOfAlterations")} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -91,20 +91,20 @@ export function SummaryOfTheConditionOfTheInstallationForm() {
               name="overallAssessmentOfTheInstallation"
               render={({ field }) => (
                 <FormItem>
-                  <div>
-                    <FormLabel>Overall Assessment</FormLabel>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Switch checked={field.value} onCheckedChange={field.onChange} />
-                    <span className="text-sm font-medium">{field.value ? "Satisfactory" : "Unsatisfactory"}</span>
-                  </div>
+                  <FormLabel>Overall Assessment</FormLabel>
+                  <FormControl>
+                    <div className="flex items-center space-x-2">
+                      <Switch checked={field.value} onCheckedChange={field.onChange} />
+                      <span className="text-sm font-medium">{field.value ? "Satisfactory" : "Unsatisfactory"}</span>
+                    </div>
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Condition.</p>
+            <p className="text-sm text-muted-foreground">Provide details about the condition of the installation and any alterations made.</p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>

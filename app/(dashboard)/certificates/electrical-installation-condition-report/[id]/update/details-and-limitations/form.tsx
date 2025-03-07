@@ -30,7 +30,7 @@ export function DetailsAndLimitationsOfTheInspectionAndTestingForm() {
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Details and Limitations of the Inspection and Testing</CardTitle>
-            <CardDescription className="text-primary">Details and Limitations of the Inspection and Testing.</CardDescription>
+            <CardDescription className="text-primary">Provide details regarding the inspection, any regulatory compliance, limitations of the testing, and the scope of the report.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField
@@ -38,8 +38,9 @@ export function DetailsAndLimitationsOfTheInspectionAndTestingForm() {
               name="regulationAccordance"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel>Regulation Compliance</FormLabel>
                   <FormControl>
-                    <Input {...field} className="lg:max-w-[50%]" placeholder="Regulation Accordance" />
+                    <Input {...field} className="lg:max-w-[50%]" placeholder="Specify the regulations the inspection follows, e.g., BS 7671." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -50,8 +51,9 @@ export function DetailsAndLimitationsOfTheInspectionAndTestingForm() {
               name="electricalInstalationCoveredByThisReport"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel>Electrical Installation Covered by This Report</FormLabel>
                   <FormControl>
-                    <Textarea {...field} className="lg:max-w-[50%] min-h-[100px]" placeholder="Electrical Installation Covered" />
+                    <Textarea {...field} className="lg:max-w-[50%] min-h-[100px]" placeholder="Describe the electrical installation covered by this report, including components such as wiring, panels, etc." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -62,8 +64,9 @@ export function DetailsAndLimitationsOfTheInspectionAndTestingForm() {
               name="agreedLimitations"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel>Agreed Limitations</FormLabel>
                   <FormControl>
-                    <Textarea {...field} className="lg:max-w-[50%] min-h-[100px]" placeholder="Agreed Limitations" />
+                    <Textarea {...field} className="lg:max-w-[50%] min-h-[100px]" placeholder="Specify any agreed limitations for the inspection and testing process, such as restricted access or scope." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -74,8 +77,9 @@ export function DetailsAndLimitationsOfTheInspectionAndTestingForm() {
               name="agreedLimitationsWith"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel>Agreed With</FormLabel>
                   <FormControl>
-                    <Input {...field} className="lg:max-w-[50%]" placeholder="Agreed With" />
+                    <Input {...field} className="lg:max-w-[50%]" placeholder="Who the limitations were agreed with (e.g., property owner, client)." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -86,8 +90,9 @@ export function DetailsAndLimitationsOfTheInspectionAndTestingForm() {
               name="operationalLimitations"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel>Operational Limitations</FormLabel>
                   <FormControl>
-                    <Textarea {...field} className="lg:max-w-[50%] min-h-[100px]" placeholder="Operational Limitations" />
+                    <Textarea {...field} className="lg:max-w-[50%] min-h-[100px]" placeholder="Describe any operational limitations during testing, such as time constraints, system shutdowns, or other factors." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -95,7 +100,7 @@ export function DetailsAndLimitationsOfTheInspectionAndTestingForm() {
             />
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Details.</p>
+            <p className="text-sm text-muted-foreground">Provide detailed information regarding the inspection process and limitations.</p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>

@@ -1,5 +1,6 @@
-import { Header, HeaderGroup, Heading } from '@/components/page-header';
-import { ScheduleOfRatesForm } from './form'
+import { Header, HeaderGroup, Heading } from "@/components/page-header";
+
+import { ScheduleOfRatesForm } from "./form";
 
 export default function ScheduleOfRates() {
   return (

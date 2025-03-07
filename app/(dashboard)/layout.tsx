@@ -17,7 +17,7 @@ import { DashboardSidebar } from "./components/dashboard-sidebar";
 export default async function DashboardLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const currentUser = await getCurrentUser();
 
-  if (!currentUser) redirect("/auth/login");
+  // if (!currentUser) redirect("/auth/login");
 
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
@@ -32,7 +32,7 @@ export default async function DashboardLayout({ children }: Readonly<{ children:
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <DashboardBreadcrumb />
+            {/* <DashboardBreadcrumb /> */}
           </div>
           <div className="flex items-center gap-2 px-4">
             {/* <NotificationsMenu />

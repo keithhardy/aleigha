@@ -10,7 +10,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { CardHeader, CardTitle, CardDescription, CardFooter, Card, CardContent } from "@/components/ui/card";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
@@ -59,28 +59,46 @@ export function UpdateContractorClientPropertyForm({
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Contractor</CardTitle>
-            <CardDescription className="text-primary">Contractor.</CardDescription>
+            <CardTitle>Contractor Details</CardTitle>
+            <CardDescription className="text-primary">Fill in the contractor details for the EICR report.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            <Input type="text" value={settings.name || ""} readOnly disabled className="lg:max-w-[50%]" />
-            <Input type="text" value={settings.address.streetAddress || ""} readOnly disabled className="lg:max-w-[50%]" />
-            <Input type="text" value={settings.address.city || ""} readOnly disabled className="lg:max-w-[50%]" />
-            <Input type="text" value={settings.address.county || ""} readOnly disabled className="lg:max-w-[50%]" />
-            <Input type="text" value={settings.address.postTown || ""} readOnly disabled className="lg:max-w-[50%]" />
-            <Input type="text" value={settings.address.postCode || ""} readOnly disabled className="lg:max-w-[50%]" />
-            <Input type="text" value={settings.address.country || ""} readOnly disabled className="lg:max-w-[50%]" />
+            <FormItem>
+              <FormLabel>Street</FormLabel>
+              <Input type="text" value={settings?.address?.streetAddress ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+            </FormItem>
+
+            <FormItem>
+              <FormLabel>City</FormLabel>
+              <Input type="text" value={settings?.address?.city ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+            </FormItem>
+            <FormItem>
+              <FormLabel>County</FormLabel>
+              <Input type="text" value={settings?.address?.county ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+            </FormItem>
+            <FormItem>
+              <FormLabel>Post Town</FormLabel>
+              <Input type="text" value={settings?.address?.postTown ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+            </FormItem>
+            <FormItem>
+              <FormLabel>Post Code</FormLabel>
+              <Input type="text" value={settings?.address?.postCode ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+            </FormItem>
+            <FormItem>
+              <FormLabel>Country</FormLabel>
+              <Input type="text" value={settings?.address?.country ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+            </FormItem>
             <FormMessage />
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">This is the contractor completing the report.</p>
+            <p className="text-sm text-muted-foreground">These details belong to the contractor completing the report.</p>
           </CardFooter>
         </Card>
 
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Client</CardTitle>
-            <CardDescription className="text-primary">Select the client.</CardDescription>
+            <CardTitle>Client Details</CardTitle>
+            <CardDescription className="text-primary">Select the client for this EICR report.</CardDescription>
           </CardHeader>
           <CardContent>
             <FormField
@@ -90,6 +108,7 @@ export function UpdateContractorClientPropertyForm({
                 const selectedClient = clients.find((client) => client.id === field.value);
                 return (
                   <FormItem>
+                    <FormLabel>Name</FormLabel>
                     <Popover open={clientOpen} onOpenChange={setClientOpen}>
                       <PopoverTrigger asChild className="w-full">
                         <Button variant="outline" role="combobox" aria-expanded={clientOpen ? "true" : "false"} className="flex justify-between items-center lg:max-w-[50%]">
@@ -97,7 +116,7 @@ export function UpdateContractorClientPropertyForm({
                           <ChevronsUpDown className="opacity-50 ml-2" />
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent className="p-0" align="start">
+                      <PopoverContent className="p-0 min-w-[375px]">
                         <Command>
                           <CommandInput placeholder="Search client..." className="h-9" />
                           <CommandList>
@@ -122,16 +141,32 @@ export function UpdateContractorClientPropertyForm({
                         </Command>
                       </PopoverContent>
                     </Popover>
-                    {selectedClient && (
-                      <>
-                        <Input type="text" value={selectedClient.address.streetAddress || ""} readOnly disabled className="lg:max-w-[50%]" />
-                        <Input type="text" value={selectedClient.address.city || ""} readOnly disabled className="lg:max-w-[50%]" />
-                        <Input type="text" value={selectedClient.address.county || ""} readOnly disabled className="lg:max-w-[50%]" />
-                        <Input type="text" value={selectedClient.address.postTown || ""} readOnly disabled className="lg:max-w-[50%]" />
-                        <Input type="text" value={selectedClient.address.postCode || ""} readOnly disabled className="lg:max-w-[50%]" />
-                        <Input type="text" value={selectedClient.address.country || ""} readOnly disabled className="lg:max-w-[50%]" />
-                      </>
-                    )}
+
+                    <FormItem>
+                      <FormLabel>Street</FormLabel>
+                      <Input type="text" value={selectedClient?.address?.streetAddress ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+                    </FormItem>
+
+                    <FormItem>
+                      <FormLabel>City</FormLabel>
+                      <Input type="text" value={selectedClient?.address?.city ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+                    </FormItem>
+                    <FormItem>
+                      <FormLabel>County</FormLabel>
+                      <Input type="text" value={selectedClient?.address?.county ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+                    </FormItem>
+                    <FormItem>
+                      <FormLabel>Post Town</FormLabel>
+                      <Input type="text" value={selectedClient?.address?.postTown ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+                    </FormItem>
+                    <FormItem>
+                      <FormLabel>Post Code</FormLabel>
+                      <Input type="text" value={selectedClient?.address?.postCode ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+                    </FormItem>
+                    <FormItem>
+                      <FormLabel>Country</FormLabel>
+                      <Input type="text" value={selectedClient?.address?.country ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+                    </FormItem>
                     <FormMessage />
                   </FormItem>
                 );
@@ -139,14 +174,14 @@ export function UpdateContractorClientPropertyForm({
             />
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">This is the person or company requesting the report.</p>
+            <p className="text-sm text-muted-foreground">The client requesting the report, used for identification.</p>
           </CardFooter>
         </Card>
 
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Property</CardTitle>
-            <CardDescription className="text-primary">Select the property.</CardDescription>
+            <CardTitle>Property Details</CardTitle>
+            <CardDescription className="text-primary">Select the property associated with the EICR report.</CardDescription>
           </CardHeader>
           <CardContent>
             <FormField
@@ -159,13 +194,14 @@ export function UpdateContractorClientPropertyForm({
                 return (
                   <FormItem>
                     <Popover open={propertyOpen} onOpenChange={setPropertyOpen}>
+                      <FormLabel>Street</FormLabel>
                       <PopoverTrigger asChild className="w-full">
                         <Button variant="outline" role="combobox" aria-expanded={propertyOpen ? "true" : "false"} className="flex justify-between items-center lg:max-w-[50%]">
                           <span>{field.value ? selectedProperty?.address.streetAddress || "Select a property..." : "Select a property..."}</span>
                           <ChevronsUpDown className="opacity-50" />
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent className="p-0" align="start">
+                      <PopoverContent className="p-0 min-w-[375px]">
                         <Command>
                           <CommandInput placeholder="Search property..." className="h-9" />
                           <CommandList>
@@ -189,15 +225,27 @@ export function UpdateContractorClientPropertyForm({
                         </Command>
                       </PopoverContent>
                     </Popover>
-                    {selectedProperty && (
-                      <>
-                        <Input type="text" value={selectedProperty.address.city || ""} readOnly disabled className="lg:max-w-[50%]" />
-                        <Input type="text" value={selectedProperty.address.county || ""} readOnly disabled className="lg:max-w-[50%]" />
-                        <Input type="text" value={selectedProperty.address.postTown || ""} readOnly disabled className="lg:max-w-[50%]" />
-                        <Input type="text" value={selectedProperty.address.postCode || ""} readOnly disabled className="lg:max-w-[50%]" />
-                        <Input type="text" value={selectedProperty.address.country || ""} readOnly disabled className="lg:max-w-[50%]" />
-                      </>
-                    )}
+
+                    <FormItem>
+                      <FormLabel>City</FormLabel>
+                      <Input type="text" value={selectedProperty?.address?.city ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+                    </FormItem>
+                    <FormItem>
+                      <FormLabel>County</FormLabel>
+                      <Input type="text" value={selectedProperty?.address?.county ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+                    </FormItem>
+                    <FormItem>
+                      <FormLabel>Post Town</FormLabel>
+                      <Input type="text" value={selectedProperty?.address?.postTown ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+                    </FormItem>
+                    <FormItem>
+                      <FormLabel>Post Code</FormLabel>
+                      <Input type="text" value={selectedProperty?.address?.postCode ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+                    </FormItem>
+                    <FormItem>
+                      <FormLabel>Country</FormLabel>
+                      <Input type="text" value={selectedProperty?.address?.country ?? ""} readOnly disabled className="lg:max-w-[50%]" />
+                    </FormItem>
                     <FormMessage />
                   </FormItem>
                 );

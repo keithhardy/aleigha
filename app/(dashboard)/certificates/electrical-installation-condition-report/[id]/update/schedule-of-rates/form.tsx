@@ -1,18 +1,18 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Form } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-import { Schema } from './schema'
-import { scheduleOfRates } from './rates'
-import { Button } from '@/components/ui/button'
+import { scheduleOfRates } from "./rates";
+import { Schema } from "./schema";
 
 export function ScheduleOfRatesForm() {
   const form = useForm<z.infer<typeof Schema>>({
@@ -20,35 +20,31 @@ export function ScheduleOfRatesForm() {
     defaultValues: {
       scheduleOfRates: [],
     },
-  })
+  });
 
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const selectedRates = (form.watch('scheduleOfRates') as z.infer<typeof Schema>['scheduleOfRates'][number][]) || []
+  const selectedRates = (form.watch("scheduleOfRates") as z.infer<typeof Schema>["scheduleOfRates"][number][]) || [];
 
   const handleQuantityChange = (id: number, name: string, quantity: string) => {
     const parsedQuantity = Number(quantity);
 
     if (parsedQuantity > 0) {
-      const updatedRates = selectedRates.some((rate) => rate.id === id)
-        ? selectedRates.map((rate) =>
-          rate.id === id ? { id, name, quantity: parsedQuantity } : rate
-        )
-        : [...selectedRates, { id, name, quantity: parsedQuantity }];
+      const updatedRates = selectedRates.some((rate) => rate.id === id) ? selectedRates.map((rate) => (rate.id === id ? { id, name, quantity: parsedQuantity } : rate)) : [...selectedRates, { id, name, quantity: parsedQuantity }];
 
-      form.setValue('scheduleOfRates', updatedRates, { shouldDirty: true });
+      form.setValue("scheduleOfRates", updatedRates, { shouldDirty: true });
     } else {
       const updatedRates = selectedRates.filter((rate) => rate.id !== id);
-      form.setValue('scheduleOfRates', updatedRates, { shouldDirty: true });
+      form.setValue("scheduleOfRates", updatedRates, { shouldDirty: true });
 
       const inputElement = document.getElementById(`rate-input-${id}`) as HTMLInputElement;
       if (inputElement) {
-        inputElement.value = '';
+        inputElement.value = "";
       }
     }
   };
 
-  const filteredRates = scheduleOfRates.filter((rate) => rate.name.toLowerCase().includes(searchQuery.toLowerCase()))
+  const filteredRates = scheduleOfRates.filter((rate) => rate.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
     <Form {...form}>
@@ -86,5 +82,5 @@ export function ScheduleOfRatesForm() {
         </Card>
       </form>
     </Form>
-  )
+  );
 }
