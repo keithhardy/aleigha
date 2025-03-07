@@ -71,7 +71,7 @@ export default async function UpdateElectricalInstallationConditionReport({ para
           <TabsTrigger value="page2">Page 2</TabsTrigger>
           <TabsTrigger value="page3">Page 3</TabsTrigger>
           <TabsTrigger value="page4">Page 4</TabsTrigger>
-          {/* <TabsTrigger value="page5">Page 5</TabsTrigger> */}
+          <TabsTrigger value="page5">Page 5</TabsTrigger>
         </TabsList>
         <TabsContent value="page1" className="space-y-4">
           <UpdateContractorClientPropertyForm electricalInstallationConditionReport={electricalInstallationConditionReport} clients={clients} settings={settings} />
@@ -100,7 +100,7 @@ export default async function UpdateElectricalInstallationConditionReport({ para
           <ScheduleOfItemsInspectedSection10Form />
         </TabsContent>
         <TabsContent value="page5" className="space-y-4">
-          {/* <ScheduleOfCircuitDetailsForm /> */}
+          <ScheduleOfCircuitDetailsForm />
         </TabsContent>
       </Tabs>
     </div>
