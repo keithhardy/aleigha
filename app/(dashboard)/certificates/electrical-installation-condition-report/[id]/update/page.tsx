@@ -22,6 +22,7 @@ import { ScheduleOfItemsInspectedSection8Form } from "./schedule-of-inspections/
 import { ScheduleOfItemsInspectedSection9Form } from "./schedule-of-inspections/section-9/form";
 import { SummaryOfTheConditionOfTheInstallationForm } from "./summary-of-the-condition/form";
 import { SupplyCharacteristicsAndEarthingArrangementsForm } from "./supply-characteristics/form";
+import { ScheduleOfRatesForm } from "./schedule-of-rates/form";
 
 export default async function UpdateElectricalInstallationConditionReport({ params }: { params: Promise<{ id: string }> }) {
   const electricalInstallationConditionReport = await prisma.electricalInstallationConditionReport.findFirst({
@@ -66,12 +67,13 @@ export default async function UpdateElectricalInstallationConditionReport({ para
   return (
     <div className="container mx-auto max-w-screen-lg">
       <Tabs defaultValue="page1">
-        <TabsList className="w-full grid grid-cols-5">
+        <TabsList className="w-full grid grid-cols-6">
           <TabsTrigger value="page1">Page 1</TabsTrigger>
           <TabsTrigger value="page2">Page 2</TabsTrigger>
           <TabsTrigger value="page3">Page 3</TabsTrigger>
           <TabsTrigger value="page4">Page 4</TabsTrigger>
           <TabsTrigger value="page5">Page 5</TabsTrigger>
+          <TabsTrigger value="page6">Page 6</TabsTrigger>
         </TabsList>
         <TabsContent value="page1" className="space-y-4">
           <UpdateContractorClientPropertyForm electricalInstallationConditionReport={electricalInstallationConditionReport} clients={clients} settings={settings} />
@@ -101,6 +103,9 @@ export default async function UpdateElectricalInstallationConditionReport({ para
         </TabsContent>
         <TabsContent value="page5" className="space-y-4">
           <ScheduleOfCircuitDetailsForm />
+        </TabsContent>
+        <TabsContent value="page6" className="space-y-4">
+          <ScheduleOfRatesForm />
         </TabsContent>
       </Tabs>
     </div>
