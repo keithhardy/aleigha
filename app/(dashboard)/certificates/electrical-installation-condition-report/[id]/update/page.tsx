@@ -70,7 +70,7 @@ export default async function UpdateElectricalInstallationConditionReport({ para
           <TabsTrigger value="page1">Page 1</TabsTrigger>
           <TabsTrigger value="page2">Page 2</TabsTrigger>
           <TabsTrigger value="page3">Page 3</TabsTrigger>
-          {/* <TabsTrigger value="page4">Page 4</TabsTrigger> */}
+          <TabsTrigger value="page4">Page 4</TabsTrigger>
           {/* <TabsTrigger value="page5">Page 5</TabsTrigger> */}
         </TabsList>
         <TabsContent value="page1" className="space-y-4">
@@ -88,16 +88,16 @@ export default async function UpdateElectricalInstallationConditionReport({ para
           <ParticularsOfInstallationsReferredToInThisReportForm />
         </TabsContent>
         <TabsContent value="page4" className="space-y-4">
-          {/* <ScheduleOfItemsInspectedSection1Form /> */}
-          {/* <ScheduleOfItemsInspectedSection2Form /> */}
-          {/* <ScheduleOfItemsInspectedSection3Form /> */}
-          {/* <ScheduleOfItemsInspectedSection4Form /> */}
-          {/* <ScheduleOfItemsInspectedSection5Form /> */}
-          {/* <ScheduleOfItemsInspectedSection6Form /> */}
-          {/* <ScheduleOfItemsInspectedSection7Form /> */}
-          {/* <ScheduleOfItemsInspectedSection8Form /> */}
-          {/* <ScheduleOfItemsInspectedSection9Form /> */}
-          {/* <ScheduleOfItemsInspectedSection10Form /> */}
+          <ScheduleOfItemsInspectedSection1Form />
+          <ScheduleOfItemsInspectedSection2Form />
+          <ScheduleOfItemsInspectedSection3Form />
+          <ScheduleOfItemsInspectedSection4Form />
+          <ScheduleOfItemsInspectedSection5Form />
+          <ScheduleOfItemsInspectedSection6Form />
+          <ScheduleOfItemsInspectedSection7Form />
+          <ScheduleOfItemsInspectedSection8Form />
+          <ScheduleOfItemsInspectedSection9Form />
+          <ScheduleOfItemsInspectedSection10Form />
         </TabsContent>
         <TabsContent value="page5" className="space-y-4">
           {/* <ScheduleOfCircuitDetailsForm /> */}

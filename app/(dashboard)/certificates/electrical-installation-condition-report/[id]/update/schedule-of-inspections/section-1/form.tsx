@@ -32,8 +32,11 @@ export function ScheduleOfItemsInspectedSection1Form() {
       <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Schedule of Items Inspected - Section 1</CardTitle>
-            <CardDescription className="text-primary">Observations.</CardDescription>
+            <CardTitle>Visual Inspection of Intake Equipment</CardTitle>
+            <CardDescription className="text-primary">
+              This section covers all outcomes related to the inspection of intake equipment. Any findings other than those
+              regarding access to live parts should not influence the overall evaluation.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -55,7 +58,9 @@ export function ScheduleOfItemsInspectedSection1Form() {
             ))}
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Condition.</p>
+            <p className="text-sm text-muted-foreground">
+              Ensure all inspection items are correctly addressed and noted.
+            </p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>

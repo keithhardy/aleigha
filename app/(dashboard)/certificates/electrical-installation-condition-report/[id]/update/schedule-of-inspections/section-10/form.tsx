@@ -25,8 +25,10 @@ export function ScheduleOfItemsInspectedSection10Form() {
       <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Schedule of Items Inspected - Section 10</CardTitle>
-            <CardDescription className="text-primary">Observations.</CardDescription>
+            <CardTitle>Prosumer’s Low Voltage Installation</CardTitle>
+            <CardDescription className="text-primary">
+              Observations regarding the condition of the prosumer's low voltage installation.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -48,7 +50,9 @@ export function ScheduleOfItemsInspectedSection10Form() {
             ))}
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Condition.</p>
+            <p className="text-sm text-muted-foreground">
+              Ensure the prosumer’s low voltage installation is inspected for condition.
+            </p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
@@ -56,5 +60,6 @@ export function ScheduleOfItemsInspectedSection10Form() {
         </Card>
       </form>
     </Form>
+
   );
 }

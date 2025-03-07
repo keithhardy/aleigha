@@ -26,8 +26,10 @@ export function ScheduleOfItemsInspectedSection2Form() {
       <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Schedule of Items Inspected - Section 2</CardTitle>
-            <CardDescription className="text-primary">Observations.</CardDescription>
+            <CardTitle>Presence of adequate arrangements for parallel or switched alternative sources</CardTitle>
+            <CardDescription className="text-primary">
+              This section evaluates the presence of suitable arrangements for parallel or switched alternative power sources, such as microgenerators.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -48,8 +50,10 @@ export function ScheduleOfItemsInspectedSection2Form() {
               />
             ))}
           </CardContent>
-          <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Condition.</p>
+          <CardFooter className="flex justify-between bg-muted py-2 border-t rounded-b-md space-x-4">
+            <p className="text-sm text-muted-foreground">
+              Ensure all items related to microgenerators are inspected.
+            </p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
@@ -57,5 +61,6 @@ export function ScheduleOfItemsInspectedSection2Form() {
         </Card>
       </form>
     </Form>
+
   );
 }
