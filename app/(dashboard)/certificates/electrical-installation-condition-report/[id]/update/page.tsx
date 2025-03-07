@@ -68,10 +68,10 @@ export default async function UpdateElectricalInstallationConditionReport({ para
       <Tabs defaultValue="page1">
         <TabsList className="w-full grid grid-cols-5">
           <TabsTrigger value="page1">Page 1</TabsTrigger>
-          {/* <TabsTrigger value="page2">Page 2</TabsTrigger>
-          <TabsTrigger value="page3">Page 3</TabsTrigger>
-          <TabsTrigger value="page4">Page 4</TabsTrigger>
-          <TabsTrigger value="page5">Page 5</TabsTrigger> */}
+          <TabsTrigger value="page2">Page 2</TabsTrigger>
+          {/* <TabsTrigger value="page3">Page 3</TabsTrigger> */}
+          {/* <TabsTrigger value="page4">Page 4</TabsTrigger> */}
+          {/* <TabsTrigger value="page5">Page 5</TabsTrigger> */}
         </TabsList>
         <TabsContent value="page1" className="space-y-4">
           <UpdateContractorClientPropertyForm electricalInstallationConditionReport={electricalInstallationConditionReport} clients={clients} settings={settings} />
@@ -80,28 +80,28 @@ export default async function UpdateElectricalInstallationConditionReport({ para
           <SummaryOfTheConditionOfTheInstallationForm />
           <DeclarationForm />
         </TabsContent>
-        {/* <TabsContent value="page2" className="space-y-4">
+        <TabsContent value="page2" className="space-y-4">
           <ObservationsForm />
         </TabsContent>
         <TabsContent value="page3" className="space-y-4">
-          <SupplyCharacteristicsAndEarthingArrangementsForm />
-          <ParticularsOfInstallationsReferredToInThisReportForm />
+          {/* <SupplyCharacteristicsAndEarthingArrangementsForm /> */}
+          {/* <ParticularsOfInstallationsReferredToInThisReportForm /> */}
         </TabsContent>
         <TabsContent value="page4" className="space-y-4">
-          <ScheduleOfItemsInspectedSection1Form />
-          <ScheduleOfItemsInspectedSection2Form />
-          <ScheduleOfItemsInspectedSection3Form />
-          <ScheduleOfItemsInspectedSection4Form />
-          <ScheduleOfItemsInspectedSection5Form />
-          <ScheduleOfItemsInspectedSection6Form />
-          <ScheduleOfItemsInspectedSection7Form />
-          <ScheduleOfItemsInspectedSection8Form />
-          <ScheduleOfItemsInspectedSection9Form />
-          <ScheduleOfItemsInspectedSection10Form />
+          {/* <ScheduleOfItemsInspectedSection1Form /> */}
+          {/* <ScheduleOfItemsInspectedSection2Form /> */}
+          {/* <ScheduleOfItemsInspectedSection3Form /> */}
+          {/* <ScheduleOfItemsInspectedSection4Form /> */}
+          {/* <ScheduleOfItemsInspectedSection5Form /> */}
+          {/* <ScheduleOfItemsInspectedSection6Form /> */}
+          {/* <ScheduleOfItemsInspectedSection7Form /> */}
+          {/* <ScheduleOfItemsInspectedSection8Form /> */}
+          {/* <ScheduleOfItemsInspectedSection9Form /> */}
+          {/* <ScheduleOfItemsInspectedSection10Form /> */}
         </TabsContent>
         <TabsContent value="page5" className="space-y-4">
-          <ScheduleOfCircuitDetailsForm />
-        </TabsContent> */}
+          {/* <ScheduleOfCircuitDetailsForm /> */}
+        </TabsContent>
       </Tabs>
     </div>
   );

@@ -1,15 +1,17 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Check, ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import { observations } from "./observations";
 import { Schema } from "./schema";
@@ -21,6 +23,8 @@ export function ObservationsForm() {
       observations: [],
     },
   });
+
+  const [selectedObservationOpen, setSelectedObservationOpen] = useState(false);
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -57,33 +61,52 @@ export function ObservationsForm() {
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Observations</CardTitle>
-            <CardDescription className="text-primary">Observations.</CardDescription>
+            <CardDescription className="text-primary">Select predefined observations or add custom details about the condition of the installation.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormItem>
               <FormLabel>Select Predefined Observation</FormLabel>
-              <Select
-                value={selectedObservation}
-                onValueChange={(value) => {
-                  setSelectedObservation(value);
-                  handleobservationselect(value);
-                }}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select an observation" />
-                </SelectTrigger>
-                <SelectContent>
-                  {observations.map((observation) => (
-                    <SelectItem key={observation.id} value={observation.id.toString()}>
-                      {`${observation.itemNumber}: ${observation.description}`}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Popover open={selectedObservationOpen} onOpenChange={setSelectedObservationOpen}>
+                <div className="flex space-y-4 lg:space-x-4 lg:space-y-0 flex-col lg:flex-row">
+                  <PopoverTrigger asChild className="w-full">
+                    <Button variant="outline" role="combobox" aria-expanded={selectedObservationOpen ? "true" : "false"} className="flex justify-between items-center">
+                      <span>{selectedObservation ? `${selectedObservation}: ${observations.find((obs) => obs.id.toString() === selectedObservation)?.description}` : "Select an observation"}</span>
+                      <ChevronsUpDown className="opacity-50 ml-2" />
+                    </Button>
+                  </PopoverTrigger>
+                  <Button type="button" onClick={addObservation}>
+                    Add Observation
+                  </Button>
+                </div>
+                <PopoverContent className="p-0 min-w-[375px]">
+                  <Command>
+                    <CommandInput placeholder="Search observation..." className="h-9" />
+                    <CommandList>
+                      <CommandEmpty>No observation found.</CommandEmpty>
+                      <CommandGroup>
+                        {observations.map((observation) => (
+                          <CommandItem
+                            key={observation.id}
+                            value={observation.id.toString()}
+                            onSelect={(currentValue) => {
+                              setSelectedObservation(currentValue);
+                              handleobservationselect(currentValue);
+                              setSelectedObservationOpen(false);
+                            }}
+                          >
+                            {`${observation.itemNumber}: ${observation.description}`}
+                            {observation.id.toString() === selectedObservation ? <Check className="ml-auto" /> : null}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
             </FormItem>
             <div className="grid grid-cols-9 gap-2">
-              <FormLabel>Item</FormLabel>
-              <FormLabel className="col-span-4">Details</FormLabel>
+              <FormLabel>Item Number</FormLabel>
+              <FormLabel className="col-span-4">Description</FormLabel>
               <FormLabel>Code</FormLabel>
               <FormLabel className="col-span-2">Location</FormLabel>
             </div>
@@ -142,12 +165,9 @@ export function ObservationsForm() {
                 </Button>
               </div>
             ))}
-            <Button type="button" onClick={addObservation}>
-              Add
-            </Button>
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Condition.</p>
+            <p className="text-sm text-muted-foreground">Review the details of the observations and add any missing information.</p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
