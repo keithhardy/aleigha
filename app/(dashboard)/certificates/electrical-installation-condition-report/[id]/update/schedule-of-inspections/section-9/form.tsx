@@ -34,9 +34,7 @@ export function ScheduleOfItemsInspectedSection9Form() {
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Special Locations and Installations</CardTitle>
-            <CardDescription className="text-primary">
-              This section evaluates the condition and safety of special locations and installations.
-            </CardDescription>
+            <CardDescription className="text-primary">This section evaluates the condition and safety of special locations and installations.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -58,9 +56,7 @@ export function ScheduleOfItemsInspectedSection9Form() {
             ))}
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">
-              Ensure the condition and safety of special locations and installations is checked.
-            </p>
+            <p className="text-sm text-muted-foreground">Ensure the condition and safety of special locations and installations is checked.</p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
@@ -68,6 +64,5 @@ export function ScheduleOfItemsInspectedSection9Form() {
         </Card>
       </form>
     </Form>
-
   );
 }

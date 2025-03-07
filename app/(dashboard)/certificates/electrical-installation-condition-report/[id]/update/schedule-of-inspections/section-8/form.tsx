@@ -34,9 +34,7 @@ export function ScheduleOfItemsInspectedSection8Form() {
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Current-Using Equipment (Permanently Connected)</CardTitle>
-            <CardDescription className="text-primary">
-              This section evaluates the condition and safety of current-using equipment that is permanently connected.
-            </CardDescription>
+            <CardDescription className="text-primary">This section evaluates the condition and safety of current-using equipment that is permanently connected.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -58,9 +56,7 @@ export function ScheduleOfItemsInspectedSection8Form() {
             ))}
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">
-              Ensure the condition and safety of permanently connected equipment is checked.
-            </p>
+            <p className="text-sm text-muted-foreground">Ensure the condition and safety of permanently connected equipment is checked.</p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>

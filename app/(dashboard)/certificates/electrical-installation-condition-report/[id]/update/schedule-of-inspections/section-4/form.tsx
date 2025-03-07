@@ -50,9 +50,7 @@ export function ScheduleOfItemsInspectedSection4Form() {
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Distribution Equipment (Consumer Units & Distribution Boards)</CardTitle>
-            <CardDescription className="text-primary">
-              This section covers the condition of distribution equipment, including consumer units, circuit breakers, and distribution boards.
-            </CardDescription>
+            <CardDescription className="text-primary">This section covers the condition of distribution equipment, including consumer units, circuit breakers, and distribution boards.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -74,9 +72,7 @@ export function ScheduleOfItemsInspectedSection4Form() {
             ))}
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">
-              Ensure all distribution equipment and consumer units are properly inspected.
-            </p>
+            <p className="text-sm text-muted-foreground">Ensure all distribution equipment and consumer units are properly inspected.</p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
