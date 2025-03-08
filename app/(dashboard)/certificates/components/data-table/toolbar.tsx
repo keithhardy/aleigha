@@ -112,7 +112,7 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem asChild>
-              <Link href="/certificates/electrical-installation-condition-report/create" className="cursor-pointer">
+              <Link href="/certificates/eicr/create" className="cursor-pointer">
                 Electrical Installation Condition Report
               </Link>
             </DropdownMenuItem>

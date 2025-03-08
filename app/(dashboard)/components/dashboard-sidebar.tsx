@@ -1,8 +1,12 @@
-import { LayoutPanelLeft, Users, Settings2, Logs, Building2, House, Folder } from "lucide-react";
+"use client";
+
+import { LayoutPanelLeft, Users, Settings2, Logs, Building2, House, Folder, LinkIcon, ChevronRight, TableOfContents } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import Logo from "@/components/logo";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarRail } from "@/components/ui/sidebar";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarRail, useSidebar } from "@/components/ui/sidebar";
 
 const dashboard = [
   {
@@ -37,7 +41,101 @@ const dashboard = [
   },
 ];
 
-export async function DashboardSidebar() {
+export function DashboardSidebar() {
+  const { setOpen, open } = useSidebar();
+
+  const pathname = usePathname();
+
+  const isEICRUpdate = pathname.startsWith("/certificates/eicr/") && pathname.includes("/update");
+
+  const match = pathname.match(/\/certificates\/eicr\/([^/]+)\/update/);
+  const certificateId = match ? match[1] : null;
+
+  const updateEICR = certificateId
+    ? [
+      {
+        title: "Contractor, Client and Property",
+        url: `/certificates/eicr/${certificateId}/update`,
+      },
+      {
+        title: "Purpose of the Report",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Details & Limitations",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Summary",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Declaration",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Observations",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Characteristics & Earthing",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Particulars of Installation",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Intake Equipment",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Alternative sources",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Methods of Protection",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Distribution Equipment",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Distribution Circuits",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Final Circuits",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Isolation and Switching",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Current-Using Equipment",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Special Locations",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Prosumer's Low Voltage Installation",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Schedule of Circuit Details",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+      {
+        title: "Schedule of Rates",
+        url: `/certificates/eicr/${certificateId}/update/purpose`,
+      },
+    ]
+    : [];
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -55,14 +153,15 @@ export async function DashboardSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+
+      <SidebarContent className=" scrollbar-hidden">
         <SidebarGroup>
           <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {dashboard.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild tooltip={item.title}>
+                  <SidebarMenuButton asChild tooltip={item.title} isActive={pathname == item.url}>
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
@@ -73,6 +172,47 @@ export async function DashboardSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {isEICRUpdate && (
+          <SidebarGroup>
+            <SidebarGroupLabel>Form</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <Collapsible defaultOpen className="group/collapsible">
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton
+                      onClick={(event) => {
+                        if (!open) {
+                          event.preventDefault();
+                        }
+                        setOpen(true);
+                      }}
+                      tooltip="Sections"
+                    >
+                      <TableOfContents />
+                      <span>Sections</span>
+                      <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+
+                  <CollapsibleContent>
+                    <SidebarMenuSub>
+                      {updateEICR.map((item) => (
+                        <SidebarMenuSubItem key={item.title}>
+                          <SidebarMenuSubButton asChild isActive={pathname == item.url}>
+                            <Link href={item.url}>
+                              <span>{item.title}</span>
+                            </Link>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </Collapsible>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
       </SidebarContent>
 
       <SidebarFooter>

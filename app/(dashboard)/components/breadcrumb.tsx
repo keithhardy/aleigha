@@ -6,7 +6,7 @@ import { Fragment } from "react";
 
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
-const nonLinkableSegments = new Set(["electrical-installation-condition-report", "update"]);
+const nonLinkableSegments = new Set(["eicr", "update"]);
 
 const formatLabel = (str: string) => {
   return str.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());

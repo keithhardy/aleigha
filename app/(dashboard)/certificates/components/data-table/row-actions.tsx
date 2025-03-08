@@ -39,6 +39,14 @@ export function RowActions({
     }
   };
 
+  const generateSlug = (type: string) => {
+    return type
+      .trim()
+      .split(/\s+/) // Split by spaces
+      .map((word) => word[0].toLowerCase()) // Take the first letter of each word
+      .join(""); // Join letters together
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -50,12 +58,12 @@ export function RowActions({
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
-          <Link href={`/certificates/${encodeURIComponent(electricalInstallationConditionReport.type.trim().toLowerCase().replace(/\s+/g, "-"))}/${electricalInstallationConditionReport.id}/update`} className="cursor-pointer">
+          <Link href={`/certificates/${generateSlug(electricalInstallationConditionReport.type)}/${electricalInstallationConditionReport.id}/update`} className="cursor-pointer">
             Update
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={`/certificates/${encodeURIComponent(electricalInstallationConditionReport.type.trim().toLowerCase().replace(/\s+/g, "-"))}/${electricalInstallationConditionReport.id}/delete`} className="cursor-pointer">
+          <Link href={`/certificates/${generateSlug(electricalInstallationConditionReport.type)}/${electricalInstallationConditionReport.id}/delete`} className="cursor-pointer">
             Delete
           </Link>
         </DropdownMenuItem>
