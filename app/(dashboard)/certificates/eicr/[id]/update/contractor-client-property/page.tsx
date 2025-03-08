@@ -1,7 +1,5 @@
 import { notFound } from "next/navigation";
 
-import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { UpdateContractorClientPropertyForm } from "./form";
 
 export default async function UpdateElectricalInstallationConditionReport({ params }: { params: Promise<{ id: string }> }) {
@@ -45,14 +43,7 @@ export default async function UpdateElectricalInstallationConditionReport({ para
   });
 
   return (
-    <div className="container mx-auto max-w-screen-lg">
-      <Header>
-        <HeaderGroup>
-          <Heading>Contractor Client Property</Heading>
-        </HeaderGroup>
-      </Header>
+    <UpdateContractorClientPropertyForm electricalInstallationConditionReport={electricalInstallationConditionReport} clients={clients} settings={settings} />
+  )
 
-      <UpdateContractorClientPropertyForm electricalInstallationConditionReport={electricalInstallationConditionReport} clients={clients} settings={settings} />
-    </div>
-  );
 }
