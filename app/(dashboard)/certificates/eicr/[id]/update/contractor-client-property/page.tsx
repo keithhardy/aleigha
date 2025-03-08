@@ -42,8 +42,5 @@ export default async function UpdateElectricalInstallationConditionReport({ para
     },
   });
 
-  return (
-    <UpdateContractorClientPropertyForm electricalInstallationConditionReport={electricalInstallationConditionReport} clients={clients} settings={settings} />
-  )
-
+  return <UpdateContractorClientPropertyForm electricalInstallationConditionReport={electricalInstallationConditionReport} clients={clients} settings={settings} />;
 }
