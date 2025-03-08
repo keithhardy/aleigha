@@ -11,8 +11,8 @@ import { getCurrentUser } from "@/lib/auth";
 
 // import { DashboardBreadcrumb } from "./components/breadcrumb";
 import { DashboardSidebar } from "./components/dashboard-sidebar";
-// import { MessageMenu } from "./components/message-menu";
-// import { NotificationsMenu } from "./components/notifications-menu";
+import { MessageMenu } from "./components/message-menu";
+import { NotificationsMenu } from "./components/notifications-menu";
 
 export default async function DashboardLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const currentUser = await getCurrentUser();
@@ -35,10 +35,10 @@ export default async function DashboardLayout({ children }: Readonly<{ children:
             {/* <DashboardBreadcrumb /> */}
           </div>
           <div className="flex items-center gap-2 px-4">
-            {/* <NotificationsMenu />
+            <NotificationsMenu />
             <Separator orientation="vertical" className="h-4" />
             <MessageMenu />
-            <Separator orientation="vertical" className="h-4" /> */}
+            <Separator orientation="vertical" className="h-4" />
             <ThemeToggle />
             <Separator orientation="vertical" className="h-4" />
             <a href="/auth/logout">
