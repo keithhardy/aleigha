@@ -31,7 +31,7 @@ export function SummaryOfTheConditionOfTheInstallationForm() {
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Summary of the Condition of the Installation</CardTitle>
-            <CardDescription className="text-primary">Provide an overview of the electrical installation's condition, including age, alterations, and overall assessment.</CardDescription>
+            <CardDescription className="text-primary">Provide an overview of the electrical installation&apos;s condition, including age, alterations, and overall assessment.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField

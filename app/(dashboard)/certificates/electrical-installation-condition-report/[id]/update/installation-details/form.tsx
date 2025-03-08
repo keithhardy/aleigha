@@ -81,7 +81,7 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
               render={({ field }) => (
                 <FormItem>
                   <div>
-                    <FormLabel>Distributor's Facility</FormLabel>
+                    <FormLabel>Distributor&apos;s Facility</FormLabel>
                   </div>
                   <Switch checked={field.value} onCheckedChange={field.onChange} />
                   <FormMessage />

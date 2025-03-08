@@ -25,7 +25,7 @@ export function ScheduleOfItemsInspectedSection10Form() {
       <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Prosumer’s Low Voltage Installation</CardTitle>
+            <CardTitle>Prosumer&apos;s Low Voltage Installation</CardTitle>
             <CardDescription className="text-primary">Observations regarding the condition of the prosumer's low voltage installation.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">

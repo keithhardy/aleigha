@@ -31,7 +31,7 @@ export function DeclarationForm() {
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Declaration</CardTitle>
-            <CardDescription className="text-primary">Provide the necessary details for the retest, including the inspector and qualified supervisor's information.</CardDescription>
+            <CardDescription className="text-primary">Provide the necessary details for the retest, including the inspector and qualified supervisor&apos;s information.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField
@@ -65,7 +65,7 @@ export function DeclarationForm() {
               name="inspectorsName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Inspector's Name</FormLabel>
+                  <FormLabel>Inspector&apos;s Name</FormLabel>
                   <FormControl>
                     <Input {...field} className="lg:max-w-[50%]" placeholder="Enter the name of the inspector performing the test." />
                   </FormControl>
@@ -78,7 +78,7 @@ export function DeclarationForm() {
               name="inspectorsSignatureDate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Inspector's Signature Date</FormLabel>
+                  <FormLabel>Inspector&apos;s Signature Date</FormLabel>
                   <FormControl>
                     <Input {...field} type="date" className="lg:max-w-[50%]" placeholder="Select the date the inspector signed." />
                   </FormControl>
@@ -91,7 +91,7 @@ export function DeclarationForm() {
               name="qualifiedSupervisorsName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Qualified Supervisor's Name</FormLabel>
+                  <FormLabel>Qualified Supervisor&apos;s Name</FormLabel>
                   <FormControl>
                     <Input {...field} className="lg:max-w-[50%]" placeholder="Enter the name of the qualified supervisor." />
                   </FormControl>
@@ -104,7 +104,7 @@ export function DeclarationForm() {
               name="qualifiedSupervisorsSignatureDate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Qualified Supervisor's Signature Date</FormLabel>
+                  <FormLabel>Qualified Supervisor&apos;s Signature Date</FormLabel>
                   <FormControl>
                     <Input {...field} type="date" className="lg:max-w-[50%]" placeholder="Select the date the qualified supervisor signed." />
                   </FormControl>

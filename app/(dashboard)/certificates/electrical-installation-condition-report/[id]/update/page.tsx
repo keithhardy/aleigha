@@ -20,9 +20,9 @@ import { ScheduleOfItemsInspectedSection6Form } from "./schedule-of-inspections/
 import { ScheduleOfItemsInspectedSection7Form } from "./schedule-of-inspections/section-7/form";
 import { ScheduleOfItemsInspectedSection8Form } from "./schedule-of-inspections/section-8/form";
 import { ScheduleOfItemsInspectedSection9Form } from "./schedule-of-inspections/section-9/form";
+import { ScheduleOfRatesForm } from "./schedule-of-rates/form";
 import { SummaryOfTheConditionOfTheInstallationForm } from "./summary-of-the-condition/form";
 import { SupplyCharacteristicsAndEarthingArrangementsForm } from "./supply-characteristics/form";
-import { ScheduleOfRatesForm } from "./schedule-of-rates/form";
 
 export default async function UpdateElectricalInstallationConditionReport({ params }: { params: Promise<{ id: string }> }) {
   const electricalInstallationConditionReport = await prisma.electricalInstallationConditionReport.findFirst({

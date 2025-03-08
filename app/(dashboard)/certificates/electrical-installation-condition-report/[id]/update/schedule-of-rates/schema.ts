@@ -5,7 +5,7 @@ export const Schema = z.object({
     z.object({
       id: z.number(),
       name: z.string(),
-      quantity: z.number(),
+      description: z.string(),
     }),
   ),
 });

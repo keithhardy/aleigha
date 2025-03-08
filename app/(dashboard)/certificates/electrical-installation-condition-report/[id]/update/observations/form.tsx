@@ -104,12 +104,14 @@ export function ObservationsForm() {
                 </PopoverContent>
               </Popover>
             </FormItem>
-            <div className="grid grid-cols-9 gap-2">
-              <FormLabel>Item Number</FormLabel>
-              <FormLabel className="col-span-4">Description</FormLabel>
-              <FormLabel>Code</FormLabel>
-              <FormLabel className="col-span-2">Location</FormLabel>
-            </div>
+            {fields.length > 0 && (
+              <div className="grid grid-cols-9 gap-2">
+                <FormLabel>Item Number</FormLabel>
+                <FormLabel className="col-span-4">Description</FormLabel>
+                <FormLabel>Code</FormLabel>
+                <FormLabel className="col-span-2">Location</FormLabel>
+              </div>
+            )}
             {fields.map((field, index) => (
               <div key={field.id} className="grid grid-cols-9 items-end gap-2">
                 <FormField
