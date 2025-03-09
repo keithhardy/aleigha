@@ -60,7 +60,6 @@ model User {
   clients                                          Client[]
   electricalInstallationConditionReportAsCreator   ElectricalInstallationConditionReport[] @relation("Creator")
   electricalInstallationConditionReportAsInspector ElectricalInstallationConditionReport[] @relation("Inspector")
-  electricalInstallationConditionReportAsTester    ElectricalInstallationConditionReport[] @relation("Tester")
   electricalInstallationConditionReportAsReviewer  ElectricalInstallationConditionReport[] @relation("Reviewer")
   createdAt                                        DateTime                                @default(now())
   updatedAt                                        DateTime                                @updatedAt
@@ -103,24 +102,244 @@ enum EICRStatus {
 }
 
 model ElectricalInstallationConditionReport {
-  id          String      @id @default(cuid())
-  type        String
-  serial      String
-  startDate   DateTime?   @default(now())
-  endDate     DateTime?   @default(now())
-  status      EICRStatus? @default(Draft)
-  creator     User        @relation("Creator", fields: [creatorId], references: [id], onDelete: Cascade)
-  creatorId   String
-  inspector   User?       @relation("Inspector", fields: [inspectorId], references: [id], onDelete: Cascade)
-  inspectorId String?
-  tester      User?       @relation("Tester", fields: [testerId], references: [id], onDelete: Cascade)
-  testerId    String?
-  reviewer    User?       @relation("Reviewer", fields: [reviewerId], references: [id], onDelete: Cascade)
-  reviewerId  String?
-  client      Client      @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  clientId    String
-  property    Property    @relation(fields: [propertyId], references: [id], onDelete: Cascade)
-  propertyId  String
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id                                     String      @id @default(cuid())
+  type                                   String      @default("Electrical Installation Condition Report")
+  serial                                 String
+  status                                 EICRStatus? @default(Draft)
+  creator                                User        @relation("Creator", fields: [creatorId], references: [id], onDelete: Cascade)
+  creatorId                              String
+  createdAt                              DateTime    @default(now())
+  updatedAt                              DateTime    @updatedAt
+  // Details of the contractor, client and installation
+  client                                 Client      @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  clientId                               String
+  property                               Property    @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId                             String
+  // Purpose of the Report
+  purpose                                String?
+  startDate                              DateTime?   @default(now())
+  endDate                                DateTime?   @default(now())
+  recordsAvailable                       Boolean?
+  previousReportAvailable                Boolean?
+  previousReportDate                     String?
+  // Summary of the condition of the installation
+  generalCondition                       String?
+  estimatedAgeOfElectricalInstallation   String?
+  evidenceOfAlterations                  Boolean?
+  estimatedAgeOfAlterations              String?
+  overallAssessmentOfTheInstallation     Boolean?
+  // Declaration
+  recommendedRetestDate                  String?
+  reasonForRecommendation                String?
+  inspector                              User?       @relation("Inspector", fields: [inspectorId], references: [id], onDelete: Cascade)
+  inspectorId                            String?
+  reviewer                               User?       @relation("Reviewer", fields: [reviewerId], references: [id], onDelete: Cascade)
+  reviewerId                             String?
+  // Observation
+  observations                           Json?
+  // Details and limitations of the inspection and testing
+  regulationAccordanceAsAmendedTo        String?
+  detailsOfTheElectricalInstallation     String?
+  extentOfSampling                       String?
+  agreedLimitations                      String?
+  agreedLimitationsWith                  String?
+  operationalLimitations                 String?
+  // Supply characteristics and earthing arrangements
+  systemTypeAndEarthingArrangements      String?
+  supplyProtectiveDeviceBSNumber         String?
+  supplyProtectiveDeviceType             String?
+  supplyProtectiveDeviceRatedCurrent     String?
+  numberAndTypeOfLiveConductors          String?
+  confirmationOfSupplyPolarity           Boolean?
+  otherSourcesOfSupply                   String?
+  nominalVoltageBetweenLines             String?
+  nominalLineVoltageToEarth              String?
+  nominalFrequency                       String?
+  prospectiveFaultCurrent                String?
+  externalEarthFaultLoopImpedance        String?
+  // Particulars of installation reffered to in this Report
+  maximumDemand                          String?
+  distributorsFacility                   Boolean?
+  installationEarthElectrodes            Boolean?
+  earthElectrodeType                     String?
+  earthElectrodeLocation                 String?
+  electrodeResistanceToEarth             String?
+  earthingConductorMaterial              String?
+  earthingConductorCSA                   String?
+  earthingConductorVerified              Boolean?
+  mainProtectiveBondingConductorMaterial String?
+  mainProtectiveBondingConductorCSA      String?
+  mainProtectiveBondingConductorVerified Boolean?
+  waterInstallationPipes                 String?
+  gasInstallationPipes                   String?
+  structuralSteel                        String?
+  oilInstallationPipes                   String?
+  lightningProtection                    String?
+  other                                  Json?
+  mainSwitchLocation                     String?
+  mainSwitchBSNumber                     String?
+  mainSwitchType                         String?
+  mainSwitchRating                       String?
+  mainSwitchPoles                        String?
+  mainSwitchCurrentRating                String?
+  mainSwitchVoltageRating                String?
+  mainSwitchRCDOperatingCurrent          String?
+  mainSwitchRCDType                      String?
+  mainSwitchRCDRatedTimeDelay            String?
+  mainSwitchRCDMeasuredOperatingTime     String?
+  // Schedule of items inspected
+  // 1.0 Intake equipment (visual inspection only)
+  item_1_1A                              String?
+  item_1_1B                              String?
+  item_1_1C                              String?
+  item_1_1D                              String?
+  item_1_1E                              String?
+  item_1_1F                              String?
+  item_1_2                               String?
+  item_1_3                               String?
+  // 2.0 Presence of adequate arrangements for parallel or switched alternative sources
+  item_2_1                               String?
+  item_2_2                               String?
+  // 3.0 Methods of Protection
+  item_3_1A                              String?
+  item_3_1B                              String?
+  item_3_1C                              String?
+  item_3_1D                              String?
+  item_3_1E                              String?
+  item_3_1F                              String?
+  item_3_1G                              String?
+  item_3_1H                              String?
+  item_3_1I                              String?
+  item_3_2                               String?
+  item_3_3A                              String?
+  item_3_3B                              String?
+  item_3_3C                              String?
+  item_3_3D                              String?
+  item_3_3E                              String?
+  item_3_3F                              String?
+  // 4.0 Distribution equipment, including consumer units and distribution boards
+  item_4_1                               String?
+  item_4_2                               String?
+  item_4_3                               String?
+  item_4_4                               String?
+  item_4_5                               String?
+  item_4_6                               String?
+  item_4_7                               String?
+  item_4_8                               String?
+  item_4_9                               String?
+  item_4_10                              String?
+  item_4_11                              String?
+  item_4_12                              String?
+  item_4_13                              String?
+  item_4_14                              String?
+  item_4_15                              String?
+  item_4_16                              String?
+  item_4_17                              String?
+  item_4_18                              String?
+  item_4_19                              String?
+  item_4_20                              String?
+  item_4_21                              String?
+  item_4_22                              String?
+  item_4_23                              String?
+  item_4_24                              String?
+  item_4_25                              String?
+  // 5.0 Distribution circuits
+  item_5_1                               String?
+  item_5_2                               String?
+  item_5_3                               String?
+  item_5_4                               String?
+  item_5_5                               String?
+  item_5_6                               String?
+  item_5_7                               String?
+  item_5_8                               String?
+  item_5_9                               String?
+  item_5_10                              String?
+  item_5_11                              String?
+  item_5_12                              String?
+  item_5_13                              String?
+  item_5_14A                             String?
+  item_5_14B                             String?
+  item_5_15                              String?
+  item_5_16                              String?
+  item_5_17                              String?
+  item_5_18                              String?
+  item_5_19                              String?
+  item_5_20                              String?
+  item_5_21                              String?
+  item_5_22                              String?
+  item_5_23                              String?
+  item_5_24                              String?
+  // 6.0 Final circuits
+  item_6_1                               String?
+  item_6_2                               String?
+  item_6_3                               String?
+  item_6_4                               String?
+  item_6_5                               String?
+  item_6_6                               String?
+  item_6_7                               String?
+  item_6_8                               String?
+  item_6_9                               String?
+  item_6_10                              String?
+  item_6_11                              String?
+  item_6_12A                             String?
+  item_6_12B                             String?
+  item_6_13A                             String?
+  item_6_13B                             String?
+  item_6_13C                             String?
+  item_6_13D                             String?
+  item_6_13E                             String?
+  item_6_14                              String?
+  item_6_15                              String?
+  item_6_16                              String?
+  item_6_17A                             String?
+  item_6_17B                             String?
+  item_6_17C                             String?
+  item_6_17D                             String?
+  item_6_18                              String?
+  item_6_19                              String?
+  item_6_20                              String?
+  // 7.0 Isolation and switching
+  item_7_1A                              String?
+  item_7_1B                              String?
+  item_7_1C                              String?
+  item_7_1D                              String?
+  item_7_1E                              String?
+  item_7_1F                              String?
+  item_7_2A                              String?
+  item_7_2B                              String?
+  item_7_2C                              String?
+  item_7_2D                              String?
+  item_7_3A                              String?
+  item_7_3B                              String?
+  item_7_3C                              String?
+  item_7_3D                              String?
+  item_7_4A                              String?
+  item_7_4B                              String?
+  // 8.0 Current-using equipment (permanently connected)
+  item_8_1                               String?
+  item_8_2                               String?
+  item_8_3                               String?
+  item_8_4                               String?
+  item_8_5                               String?
+  item_8_6                               String?
+  item_8_7A                              String?
+  item_8_7B                              String?
+  item_8_7C                              String?
+  item_8_7D                              String?
+  // Special locations and installations
+  item_9_1A                              String?
+  item_9_1B                              String?
+  item_9_1C                              String?
+  item_9_1D                              String?
+  item_9_1E                              String?
+  item_9_1F                              String?
+  item_9_1G                              String?
+  item_9_1H                              String?
+  item_9_2                               Json?
+  // Prosumer’s low voltage installation 
+  item_10_0                              String?
+  // Schedule of circuit details and test results
+  db                                     Json?
+  // Schedule of rates
+  rates                                  Json?
 }
