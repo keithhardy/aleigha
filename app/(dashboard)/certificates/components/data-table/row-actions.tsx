@@ -58,7 +58,7 @@ export function RowActions({
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
-          <Link href={`/certificates/${generateSlug(electricalInstallationConditionReport.type)}/${electricalInstallationConditionReport.id}/update/contractor-client-installation`} className="cursor-pointer">
+          <Link href={`/certificates/${generateSlug(electricalInstallationConditionReport.type)}/${electricalInstallationConditionReport.id}/update/details-of-the-contractor-client-installation`} className="cursor-pointer">
             Update
           </Link>
         </DropdownMenuItem>
