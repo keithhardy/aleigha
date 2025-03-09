@@ -14,11 +14,11 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import { observations } from "./observations";
-import { Schema } from "./schema";
+import { UpdateObservationsSchema } from "./schema";
 
-export function ObservationsForm() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function UpdateObservationsForm() {
+  const form = useForm<z.infer<typeof UpdateObservationsSchema>>({
+    resolver: zodResolver(UpdateObservationsSchema),
     defaultValues: {
       observations: [],
     },
@@ -57,7 +57,7 @@ export function ObservationsForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateObservationsSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Observations</CardTitle>
