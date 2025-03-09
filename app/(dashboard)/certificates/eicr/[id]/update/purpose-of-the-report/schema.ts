@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-export const Schema = z.object({
+export const UpdatePurposeOfTheReportSchema = z.object({
   purpose: z.string(),
-  startDate: z.string(),
-  endDate: z.string(),
+  startDate: z.date(),
+  endDate: z.date(),
   recordsAvailable: z.boolean(),
   previousReportAvailable: z.boolean(),
-  previousReportDate: z.string(),
+  previousReportDate: z.date(),
 });

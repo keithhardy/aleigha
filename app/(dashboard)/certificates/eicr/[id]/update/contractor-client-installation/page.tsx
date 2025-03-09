@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 
-import { UpdateContractorClientPropertyForm } from "./form";
+import { UpdateContractorClientAndInstallationForm } from "./form";
 
-export default async function UpdateElectricalInstallationConditionReport({ params }: { params: Promise<{ id: string }> }) {
+export default async function UpdateContractorClientAndInstallation({ params }: { params: Promise<{ id: string }> }) {
   const electricalInstallationConditionReport = await prisma.electricalInstallationConditionReport.findFirst({
     where: {
       id: (await params).id,
@@ -42,5 +42,5 @@ export default async function UpdateElectricalInstallationConditionReport({ para
     },
   });
 
-  return <UpdateContractorClientPropertyForm electricalInstallationConditionReport={electricalInstallationConditionReport} clients={clients} settings={settings} />;
+  return <UpdateContractorClientAndInstallationForm electricalInstallationConditionReport={electricalInstallationConditionReport} clients={clients} settings={settings} />;
 }

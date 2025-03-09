@@ -15,10 +15,10 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 
-import { updateContractorClientPropertyReport } from "./action";
-import { UpdateContractorClientPropertySchema } from "./schema";
+import { updateContractorClientAndInstallation } from "./action";
+import { UpdateContractorClientAndInstallationSchema } from "./schema";
 
-export function UpdateContractorClientPropertyForm({
+export function UpdateContractorClientAndInstallationForm({
   electricalInstallationConditionReport,
   clients,
   settings,
@@ -35,8 +35,8 @@ export function UpdateContractorClientPropertyForm({
   const [clientOpen, setClientOpen] = useState(false);
   const [propertyOpen, setPropertyOpen] = useState(false);
 
-  const form = useForm<z.infer<typeof UpdateContractorClientPropertySchema>>({
-    resolver: zodResolver(UpdateContractorClientPropertySchema),
+  const form = useForm<z.infer<typeof UpdateContractorClientAndInstallationSchema>>({
+    resolver: zodResolver(UpdateContractorClientAndInstallationSchema),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
       clientId: electricalInstallationConditionReport.clientId,
@@ -44,8 +44,8 @@ export function UpdateContractorClientPropertyForm({
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof UpdateContractorClientPropertySchema>) => {
-    const response = await updateContractorClientPropertyReport(data);
+  const onSubmit = async (data: z.infer<typeof UpdateContractorClientAndInstallationSchema>) => {
+    const response = await updateContractorClientAndInstallation(data);
 
     toast({
       title: response.heading,

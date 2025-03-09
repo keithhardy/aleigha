@@ -121,7 +121,7 @@ model ElectricalInstallationConditionReport {
   endDate                                DateTime?   @default(now())
   recordsAvailable                       Boolean?
   previousReportAvailable                Boolean?
-  previousReportDate                     String?
+  previousReportDate                     DateTime?
   // Summary of the condition of the installation
   generalCondition                       String?
   estimatedAgeOfElectricalInstallation   String?
