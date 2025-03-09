@@ -17,6 +17,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({ ele
   const form = useForm<z.infer<typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema>>({
     resolver: zodResolver(UpdateParticularsOfInstallationsReferredToInThisReportSchema),
     defaultValues: {
+      id: electricalInstallationConditionReport.id,
       maximumDemand: electricalInstallationConditionReport.maximumDemand || "",
       distributorsFacility: electricalInstallationConditionReport.distributorsFacility || true,
       installationEarthElectrodes: electricalInstallationConditionReport.installationEarthElectrodes || false,

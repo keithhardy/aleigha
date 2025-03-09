@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const UpdateParticularsOfInstallationsReferredToInThisReportSchema = z.object({
+  id: z.string().cuid(),
   maximumDemand: z.string(),
   distributorsFacility: z.boolean(),
   installationEarthElectrodes: z.boolean(),
