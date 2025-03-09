@@ -26,6 +26,7 @@ export function UpdateDeclarationForm({ electricalInstallationConditionReport, u
   const form = useForm<z.infer<typeof UpdateDeclarationSchema>>({
     resolver: zodResolver(UpdateDeclarationSchema),
     defaultValues: {
+      id: electricalInstallationConditionReport.id,
       recommendedRetestDate: electricalInstallationConditionReport.recommendedRetestDate || undefined,
       reasonForRecommendation: electricalInstallationConditionReport.reasonForRecommendation || "",
       inspectorId: electricalInstallationConditionReport.inspectorId || "",

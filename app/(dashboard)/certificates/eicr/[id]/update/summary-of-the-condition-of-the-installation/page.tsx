@@ -8,6 +8,7 @@ export default async function UpdateSummaryOfTheConditionOfTheInstallation({ par
       id: (await params).id,
     },
     select: {
+      id: true,
       generalCondition: true,
       estimatedAgeOfElectricalInstallation: true,
       evidenceOfAlterations: true,

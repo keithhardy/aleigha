@@ -7,14 +7,15 @@ export default async function UpdateContractorClientAndInstallation({ params }: 
     where: {
       id: (await params).id,
     },
-    include: {
+    select: {
+      id: true,
       client: {
-        include: {
+        select: {
           address: true,
         },
       },
       property: {
-        include: {
+        select: {
           address: true,
         },
       },

@@ -8,6 +8,7 @@ export default async function UpdateDeclaration({ params }: { params: Promise<{ 
       id: (await params).id,
     },
     select: {
+      id: true,
       recommendedRetestDate: true,
       reasonForRecommendation: true,
       inspectorId: true,

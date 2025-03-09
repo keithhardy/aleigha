@@ -8,6 +8,7 @@ export default async function UpdatePurposeOfTheReport({ params }: { params: Pro
       id: (await params).id,
     },
     select: {
+      id: true,
       purpose: true,
       startDate: true,
       endDate: true,

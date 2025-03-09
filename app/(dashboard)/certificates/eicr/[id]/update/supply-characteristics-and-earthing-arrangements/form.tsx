@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -10,30 +11,30 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 
-import { Schema } from "./schema";
+import { UpdateSupplyCharacteristicsAndEarthingArrangementsSchema } from "./schema";
 
-export function SupplyCharacteristicsAndEarthingArrangementsForm() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const form = useForm<z.infer<typeof UpdateSupplyCharacteristicsAndEarthingArrangementsSchema>>({
+    resolver: zodResolver(UpdateSupplyCharacteristicsAndEarthingArrangementsSchema),
     defaultValues: {
-      systemTypeAndEarthingArrangemets: "",
-      supplyProtectiveDeviceBSNumber: "",
-      supplyProtectiveDeviceType: "",
-      supplyProtectiveDeviceRatedCurrent: "",
-      numberAndTypeOfLiveConductors: "",
-      confirmationOfSupplyPolarity: true,
-      otherSourcesOfSupply: "",
-      nominalVoltageBetweenLines: "",
-      nominalLineVoltageToEarth: "",
-      nominalFrequency: "",
-      prospectiveFaultCurrent: "",
-      externalEarthFaultLoopImpedance: "",
+      systemTypeAndEarthingArrangements: electricalInstallationConditionReport.systemTypeAndEarthingArrangements || "",
+      supplyProtectiveDeviceBSNumber: electricalInstallationConditionReport.supplyProtectiveDeviceBSNumber || "",
+      supplyProtectiveDeviceType: electricalInstallationConditionReport.supplyProtectiveDeviceType || "",
+      supplyProtectiveDeviceRatedCurrent: electricalInstallationConditionReport.supplyProtectiveDeviceRatedCurrent || "",
+      numberAndTypeOfLiveConductors: electricalInstallationConditionReport.numberAndTypeOfLiveConductors || "",
+      confirmationOfSupplyPolarity: electricalInstallationConditionReport.confirmationOfSupplyPolarity || true,
+      otherSourcesOfSupply: electricalInstallationConditionReport.otherSourcesOfSupply || "",
+      nominalVoltageBetweenLines: electricalInstallationConditionReport.nominalVoltageBetweenLines || "",
+      nominalLineVoltageToEarth: electricalInstallationConditionReport.nominalLineVoltageToEarth || "",
+      nominalFrequency: electricalInstallationConditionReport.nominalFrequency || "",
+      prospectiveFaultCurrent: electricalInstallationConditionReport.prospectiveFaultCurrent || "",
+      externalEarthFaultLoopImpedance: electricalInstallationConditionReport.externalEarthFaultLoopImpedance || "",
     },
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateSupplyCharacteristicsAndEarthingArrangementsSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Supply characteristics and earthing arrangements</CardTitle>
@@ -42,7 +43,7 @@ export function SupplyCharacteristicsAndEarthingArrangementsForm() {
           <CardContent className="space-y-4">
             <FormField
               control={form.control}
-              name="systemTypeAndEarthingArrangemets"
+              name="systemTypeAndEarthingArrangements"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>System Type and Earthing Arrangements</FormLabel>

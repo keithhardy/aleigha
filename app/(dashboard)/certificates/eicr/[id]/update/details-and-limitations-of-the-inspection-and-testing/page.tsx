@@ -8,6 +8,7 @@ export default async function UpdateDetailsAndLimitationsOfTheInspectionAndTesti
       id: (await params).id,
     },
     select: {
+      id: true,
       regulationAccordanceAsAmendedTo: true,
       detailsOfTheElectricalInstallation: true,
       extentOfSampling: true,

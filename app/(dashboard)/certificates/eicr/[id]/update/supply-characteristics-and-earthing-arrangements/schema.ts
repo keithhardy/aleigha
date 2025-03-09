@@ -1,7 +1,8 @@
 import { z } from "zod";
 
-export const Schema = z.object({
-  systemTypeAndEarthingArrangemets: z.string(),
+export const UpdateSupplyCharacteristicsAndEarthingArrangementsSchema = z.object({
+  id: z.string().cuid(),
+  systemTypeAndEarthingArrangements: z.string(),
   supplyProtectiveDeviceBSNumber: z.string(),
   supplyProtectiveDeviceType: z.string(),
   supplyProtectiveDeviceRatedCurrent: z.string(),
