@@ -13,7 +13,7 @@ export default async function UpdatePurposeOfTheReport({ params }: { params: Pro
       endDate: true,
       recordsAvailable: true,
       previousReportAvailable: true,
-      previousReportDate: true
+      previousReportDate: true,
     },
   });
 

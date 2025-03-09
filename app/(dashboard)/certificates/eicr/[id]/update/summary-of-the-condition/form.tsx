@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -11,23 +12,23 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 
-import { Schema } from "./schema";
+import { UpdateSummaryOfTheConditionOfTheInstallationSchema } from "./schema";
 
-export function SummaryOfTheConditionOfTheInstallationForm() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function UpdateSummaryOfTheConditionOfTheInstallationForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const form = useForm<z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>>({
+    resolver: zodResolver(UpdateSummaryOfTheConditionOfTheInstallationSchema),
     defaultValues: {
-      generalCondition: "",
-      estimatedAgeOfElectricalInstallation: "",
-      evidenceOfAlterations: false,
-      estimatedAgeOfAlterations: "",
-      overallAssessmentOfTheInstallation: true,
+      generalCondition: electricalInstallationConditionReport.generalCondition || "",
+      estimatedAgeOfElectricalInstallation: electricalInstallationConditionReport.estimatedAgeOfElectricalInstallation || "",
+      evidenceOfAlterations: electricalInstallationConditionReport.evidenceOfAlterations || false,
+      estimatedAgeOfAlterations: electricalInstallationConditionReport.estimatedAgeOfAlterations || "",
+      overallAssessmentOfTheInstallation: electricalInstallationConditionReport.overallAssessmentOfTheInstallation || true,
     },
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Summary of the Condition of the Installation</CardTitle>

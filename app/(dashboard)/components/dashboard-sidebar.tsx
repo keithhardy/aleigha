@@ -53,87 +53,87 @@ export function DashboardSidebar() {
 
   const updateEICR = certificateId
     ? [
-      {
-        title: "Contractor, Client and Installation",
-        url: `/certificates/eicr/${certificateId}/update/contractor-client-installation`,
-      },
-      {
-        title: "Purpose of the Report",
-        url: `/certificates/eicr/${certificateId}/update/purpose-of-the-report`,
-      },
-      {
-        title: "Details & Limitations",
-        url: `/certificates/eicr/${certificateId}/update/details-and-limitations`,
-      },
-      {
-        title: "Summary",
-        url: `/certificates/eicr/${certificateId}/update/summary-of-the-condition`,
-      },
-      {
-        title: "Declaration",
-        url: `/certificates/eicr/${certificateId}/update/declaration`,
-      },
-      {
-        title: "Observations",
-        url: `/certificates/eicr/${certificateId}/update/observations`,
-      },
-      {
-        title: "Characteristics & Earthing",
-        url: `/certificates/eicr/${certificateId}/update/supply-characteristics`,
-      },
-      {
-        title: "Particulars of Installation",
-        url: `/certificates/eicr/${certificateId}/update/installation-details`,
-      },
-      {
-        title: "Intake Equipment",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-1`,
-      },
-      {
-        title: "Alternative sources",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-2`,
-      },
-      {
-        title: "Methods of Protection",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-3`,
-      },
-      {
-        title: "Distribution Equipment",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-4`,
-      },
-      {
-        title: "Distribution Circuits",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-5`,
-      },
-      {
-        title: "Final Circuits",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-6`,
-      },
-      {
-        title: "Isolation and Switching",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-7`,
-      },
-      {
-        title: "Current-Using Equipment",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-8`,
-      },
-      {
-        title: "Special Locations",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-9`,
-      },
-      {
-        title: "Prosumer's Low Voltage Installation",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-10`,
-      },
-      {
-        title: "Schedule of Circuit Details",
-        url: `/certificates/eicr/${certificateId}/update/circuit-details`,
-      },
-      {
-        title: "Schedule of Rates",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-rates`,
-      },
-    ]
+        {
+          title: "Details of the contractor, client and installation",
+          url: `/certificates/eicr/${certificateId}/update/contractor-client-installation`,
+        },
+        {
+          title: "Purpose of the report",
+          url: `/certificates/eicr/${certificateId}/update/purpose-of-the-report`,
+        },
+        {
+          title: "Summary of the condition of the installation",
+          url: `/certificates/eicr/${certificateId}/update/summary-of-the-condition`,
+        },
+        {
+          title: "Details & Limitations",
+          url: `/certificates/eicr/${certificateId}/update/details-and-limitations`,
+        },
+        {
+          title: "Declaration",
+          url: `/certificates/eicr/${certificateId}/update/declaration`,
+        },
+        {
+          title: "Observations",
+          url: `/certificates/eicr/${certificateId}/update/observations`,
+        },
+        {
+          title: "Characteristics & Earthing",
+          url: `/certificates/eicr/${certificateId}/update/supply-characteristics`,
+        },
+        {
+          title: "Particulars of Installation",
+          url: `/certificates/eicr/${certificateId}/update/installation-details`,
+        },
+        {
+          title: "Intake Equipment",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-1`,
+        },
+        {
+          title: "Alternative sources",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-2`,
+        },
+        {
+          title: "Methods of Protection",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-3`,
+        },
+        {
+          title: "Distribution Equipment",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-4`,
+        },
+        {
+          title: "Distribution Circuits",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-5`,
+        },
+        {
+          title: "Final Circuits",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-6`,
+        },
+        {
+          title: "Isolation and Switching",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-7`,
+        },
+        {
+          title: "Current-Using Equipment",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-8`,
+        },
+        {
+          title: "Special Locations",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-9`,
+        },
+        {
+          title: "Prosumer's Low Voltage Installation",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/section-10`,
+        },
+        {
+          title: "Schedule of Circuit Details",
+          url: `/certificates/eicr/${certificateId}/update/circuit-details`,
+        },
+        {
+          title: "Schedule of Rates",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-rates`,
+        },
+      ]
     : [];
 
   return (

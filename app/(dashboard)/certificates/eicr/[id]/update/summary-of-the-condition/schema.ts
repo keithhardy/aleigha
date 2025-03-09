@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const Schema = z.object({
+export const UpdateSummaryOfTheConditionOfTheInstallationSchema = z.object({
   generalCondition: z.string(),
   estimatedAgeOfElectricalInstallation: z.string(),
   evidenceOfAlterations: z.boolean(),

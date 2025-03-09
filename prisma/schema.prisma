@@ -115,7 +115,7 @@ model ElectricalInstallationConditionReport {
   clientId                               String
   property                               Property    @relation(fields: [propertyId], references: [id], onDelete: Cascade)
   propertyId                             String
-  // Purpose of the Report
+  // Purpose of the report
   purpose                                String?
   startDate                              DateTime?   @default(now())
   endDate                                DateTime?   @default(now())
