@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const Schema = z.object({
+export const UpdateParticularsOfInstallationsReferredToInThisReportSchema = z.object({
   maximumDemand: z.string(),
   distributorsFacility: z.boolean(),
   installationEarthElectrodes: z.boolean(),
@@ -19,7 +19,6 @@ export const Schema = z.object({
   oilInstallationPipes: z.string(),
   lightningProtection: z.string(),
   other: z.string(),
-  mainSwitchImage: z.string(),
   mainSwitchLocation: z.string(),
   mainSwitchBSNumber: z.string(),
   mainSwitchType: z.string(),

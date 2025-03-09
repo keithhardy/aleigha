@@ -1,8 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
-import { useState } from "react";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -12,50 +11,47 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 
-import { Schema } from "./schema";
+import { UpdateParticularsOfInstallationsReferredToInThisReportSchema } from "./schema";
 
-export function ParticularsOfInstallationsReferredToInThisReportForm() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function UpdateParticularsOfInstallationsReferredToInThisReportForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const form = useForm<z.infer<typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema>>({
+    resolver: zodResolver(UpdateParticularsOfInstallationsReferredToInThisReportSchema),
     defaultValues: {
-      maximumDemand: "",
-      distributorsFacility: true,
-      installationEarthElectrodes: false,
-      earthElectrodeType: "",
-      earthElectrodeLocation: "",
-      electrodeResistanceToEarth: "",
-      earthingConductorMaterial: "",
-      earthingConductorCSA: "",
-      earthingConductorVerified: false,
-      mainProtectiveBondingConductorMaterial: "",
-      mainProtectiveBondingConductorCSA: "",
-      mainProtectiveBondingConductorVerified: false,
-      waterInstallationPipes: "",
-      gasInstallationPipes: "",
-      structuralSteel: "",
-      oilInstallationPipes: "",
-      lightningProtection: "",
-      other: "",
-      mainSwitchImage: "",
-      mainSwitchLocation: "",
-      mainSwitchBSNumber: "",
-      mainSwitchType: "",
-      mainSwitchRating: "",
-      mainSwitchPoles: "",
-      mainSwitchCurrentRating: "",
-      mainSwitchVoltageRating: "",
-      mainSwitchRCDOperatingCurrent: "",
-      mainSwitchRCDType: "",
-      mainSwitchRCDRatedTimeDelay: "",
-      mainSwitchRCDMeasuredOperatingTime: "",
+      maximumDemand: electricalInstallationConditionReport.maximumDemand || "",
+      distributorsFacility: electricalInstallationConditionReport.distributorsFacility || true,
+      installationEarthElectrodes: electricalInstallationConditionReport.installationEarthElectrodes || false,
+      earthElectrodeType: electricalInstallationConditionReport.earthElectrodeType || "",
+      earthElectrodeLocation: electricalInstallationConditionReport.earthElectrodeLocation || "",
+      electrodeResistanceToEarth: electricalInstallationConditionReport.electrodeResistanceToEarth || "",
+      earthingConductorMaterial: electricalInstallationConditionReport.earthingConductorMaterial || "",
+      earthingConductorCSA: electricalInstallationConditionReport.earthingConductorCSA || "",
+      earthingConductorVerified: electricalInstallationConditionReport.earthingConductorVerified || false,
+      mainProtectiveBondingConductorMaterial: electricalInstallationConditionReport.mainProtectiveBondingConductorMaterial || "",
+      mainProtectiveBondingConductorCSA: electricalInstallationConditionReport.mainProtectiveBondingConductorCSA || "",
+      mainProtectiveBondingConductorVerified: electricalInstallationConditionReport.mainProtectiveBondingConductorVerified || false,
+      waterInstallationPipes: electricalInstallationConditionReport.waterInstallationPipes || "",
+      gasInstallationPipes: electricalInstallationConditionReport.gasInstallationPipes || "",
+      structuralSteel: electricalInstallationConditionReport.structuralSteel || "",
+      oilInstallationPipes: electricalInstallationConditionReport.oilInstallationPipes || "",
+      lightningProtection: electricalInstallationConditionReport.lightningProtection || "",
+      other: electricalInstallationConditionReport.other || JSON.parse(""),
+      mainSwitchLocation: electricalInstallationConditionReport.mainSwitchLocation || "",
+      mainSwitchBSNumber: electricalInstallationConditionReport.mainSwitchBSNumber || "",
+      mainSwitchType: electricalInstallationConditionReport.mainSwitchType || "",
+      mainSwitchRating: electricalInstallationConditionReport.mainSwitchRating || "",
+      mainSwitchPoles: electricalInstallationConditionReport.mainSwitchPoles || "",
+      mainSwitchCurrentRating: electricalInstallationConditionReport.mainSwitchCurrentRating || "",
+      mainSwitchVoltageRating: electricalInstallationConditionReport.mainSwitchVoltageRating || "",
+      mainSwitchRCDOperatingCurrent: electricalInstallationConditionReport.mainSwitchRCDOperatingCurrent || "",
+      mainSwitchRCDType: electricalInstallationConditionReport.mainSwitchRCDType || "",
+      mainSwitchRCDRatedTimeDelay: electricalInstallationConditionReport.mainSwitchRCDRatedTimeDelay || "",
+      mainSwitchRCDMeasuredOperatingTime: electricalInstallationConditionReport.mainSwitchRCDMeasuredOperatingTime || "",
     },
   });
 
-  const [preview, setPreview] = useState<string | null>(null);
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Particulars of Installation</CardTitle>
@@ -292,39 +288,6 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
                   <FormControl>
                     <Input placeholder="N/A" {...field} />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="mainSwitchImage"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Upload Main Switch Photo</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        const files = e.target.files;
-                        const file = files?.[0];
-                        if (file) {
-                          const previewUrl = URL.createObjectURL(file);
-                          setPreview(previewUrl);
-                          field.onChange(files);
-                        } else {
-                          setPreview(null);
-                          field.onChange(null);
-                        }
-                      }}
-                    />
-                  </FormControl>
-                  {preview && (
-                    <div>
-                      <Image src={preview} alt="Preview" width={300} height={0} />
-                    </div>
-                  )}
                   <FormMessage />
                 </FormItem>
               )}
