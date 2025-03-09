@@ -35,7 +35,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({ ele
       structuralSteel: electricalInstallationConditionReport.structuralSteel || "",
       oilInstallationPipes: electricalInstallationConditionReport.oilInstallationPipes || "",
       lightningProtection: electricalInstallationConditionReport.lightningProtection || "",
-      other: electricalInstallationConditionReport.other || JSON.parse(""),
+      other: String(electricalInstallationConditionReport.other || ""),
       mainSwitchLocation: electricalInstallationConditionReport.mainSwitchLocation || "",
       mainSwitchBSNumber: electricalInstallationConditionReport.mainSwitchBSNumber || "",
       mainSwitchType: electricalInstallationConditionReport.mainSwitchType || "",
