@@ -29,7 +29,7 @@ export function DetailsAndLimitationsOfTheInspectionAndTestingForm() {
       <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Details and Limitations of the Inspection and Testing</CardTitle>
+            <CardTitle>Details and limitations of the inspection and testing</CardTitle>
             <CardDescription className="text-primary">Provide details regarding the inspection, any regulatory compliance, limitations of the testing, and the scope of the report.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">

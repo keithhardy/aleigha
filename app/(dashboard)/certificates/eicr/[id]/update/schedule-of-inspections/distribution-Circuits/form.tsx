@@ -12,26 +12,35 @@ import { RadioGroupComponent } from "../radio-group";
 import { inspectionItems } from "./inspection-items";
 import { Schema } from "./schema";
 
-export function ScheduleOfItemsInspectedSection3Form() {
+export function ScheduleOfItemsInspectedSection5Form() {
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      item_3_1A: "na" as const,
-      item_3_1B: "na" as const,
-      item_3_1C: "na" as const,
-      item_3_1D: "na" as const,
-      item_3_1E: "na" as const,
-      item_3_1F: "na" as const,
-      item_3_1G: "na" as const,
-      item_3_1H: "na" as const,
-      item_3_1I: "na" as const,
-      item_3_2: "na" as const,
-      item_3_3A: "na" as const,
-      item_3_3B: "na" as const,
-      item_3_3C: "na" as const,
-      item_3_3D: "na" as const,
-      item_3_3E: "na" as const,
-      item_3_3F: "na" as const,
+      item_5_1: "na" as const,
+      item_5_2: "na" as const,
+      item_5_3: "na" as const,
+      item_5_4: "na" as const,
+      item_5_5: "na" as const,
+      item_5_6: "na" as const,
+      item_5_7: "na" as const,
+      item_5_8: "na" as const,
+      item_5_9: "na" as const,
+      item_5_10: "na" as const,
+      item_5_11: "na" as const,
+      item_5_12: "na" as const,
+      item_5_13: "na" as const,
+      item_5_14A: "na" as const,
+      item_5_14B: "na" as const,
+      item_5_15: "na" as const,
+      item_5_16: "na" as const,
+      item_5_17: "na" as const,
+      item_5_18: "na" as const,
+      item_5_19: "na" as const,
+      item_5_20: "na" as const,
+      item_5_21: "na" as const,
+      item_5_22: "na" as const,
+      item_5_23: "na" as const,
+      item_5_24: "na" as const,
     },
   });
 
@@ -40,8 +49,8 @@ export function ScheduleOfItemsInspectedSection3Form() {
       <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Methods of Protection</CardTitle>
-            <CardDescription className="text-primary">This section assesses the condition and adequacy of earthing, bonding, insulation, and safety provisions, including main earthing, protective bonding, and equipotential bonding.</CardDescription>
+            <CardTitle>Distribution circuits</CardTitle>
+            <CardDescription className="text-primary">This section covers the condition and adequacy of the distribution circuits in the system.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -63,7 +72,7 @@ export function ScheduleOfItemsInspectedSection3Form() {
             ))}
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Ensure all earthing and bonding arrangements are inspected.</p>
+            <p className="text-sm text-muted-foreground">Ensure all distribution circuits are properly inspected.</p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>

@@ -180,7 +180,7 @@ export function UpdateContractorClientAndInstallationForm({
 
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Property Details</CardTitle>
+            <CardTitle>Installation Details</CardTitle>
             <CardDescription className="text-primary">Select the property associated with the EICR report.</CardDescription>
           </CardHeader>
           <CardContent>

@@ -36,7 +36,7 @@ export function UpdatePurposeOfTheReportForm({ electricalInstallationConditionRe
       <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdatePurposeOfTheReportSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Purpose of the EICR</CardTitle>
+            <CardTitle>Purpose of the report</CardTitle>
             <CardDescription className="text-primary">Specify the purpose of the report, including inspection details.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">

@@ -42,7 +42,7 @@ export function ScheduleOfRatesForm() {
       <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Schedule of Rates</CardTitle>
+            <CardTitle>Schedule of rates</CardTitle>
             <CardDescription>Select predefined rates and input quantities.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">

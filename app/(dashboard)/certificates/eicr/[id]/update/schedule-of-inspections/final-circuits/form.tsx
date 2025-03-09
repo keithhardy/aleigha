@@ -12,19 +12,38 @@ import { RadioGroupComponent } from "../radio-group";
 import { inspectionItems } from "./inspection-items";
 import { Schema } from "./schema";
 
-export function ScheduleOfItemsInspectedSection9Form() {
+export function ScheduleOfItemsInspectedSection6Form() {
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      item_9_1A: "na" as const,
-      item_9_1B: "na" as const,
-      item_9_1C: "na" as const,
-      item_9_1D: "na" as const,
-      item_9_1E: "na" as const,
-      item_9_1F: "na" as const,
-      item_9_1G: "na" as const,
-      item_9_1H: "na" as const,
-      item_9_2: "na" as const,
+      item_6_1: "na" as const,
+      item_6_2: "na" as const,
+      item_6_3: "na" as const,
+      item_6_4: "na" as const,
+      item_6_5: "na" as const,
+      item_6_6: "na" as const,
+      item_6_7: "na" as const,
+      item_6_8: "na" as const,
+      item_6_9: "na" as const,
+      item_6_10: "na" as const,
+      item_6_11: "na" as const,
+      item_6_12A: "na" as const,
+      item_6_12B: "na" as const,
+      item_6_13A: "na" as const,
+      item_6_13B: "na" as const,
+      item_6_13C: "na" as const,
+      item_6_13D: "na" as const,
+      item_6_13E: "na" as const,
+      item_6_14: "na" as const,
+      item_6_15: "na" as const,
+      item_6_16: "na" as const,
+      item_6_17A: "na" as const,
+      item_6_17B: "na" as const,
+      item_6_17C: "na" as const,
+      item_6_17D: "na" as const,
+      item_6_18: "na" as const,
+      item_6_19: "na" as const,
+      item_6_20: "na" as const,
     },
   });
 
@@ -33,8 +52,8 @@ export function ScheduleOfItemsInspectedSection9Form() {
       <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Special Locations and Installations</CardTitle>
-            <CardDescription className="text-primary">This section evaluates the condition and safety of special locations and installations.</CardDescription>
+            <CardTitle>Final circuits</CardTitle>
+            <CardDescription className="text-primary">This section covers the condition and performance of the final circuits.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -56,7 +75,7 @@ export function ScheduleOfItemsInspectedSection9Form() {
             ))}
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Ensure the condition and safety of special locations and installations is checked.</p>
+            <p className="text-sm text-muted-foreground">Ensure all final circuits are thoroughly inspected.</p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>

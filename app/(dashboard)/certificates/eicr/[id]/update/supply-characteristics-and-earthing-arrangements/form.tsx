@@ -36,7 +36,7 @@ export function SupplyCharacteristicsAndEarthingArrangementsForm() {
       <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Supply Characteristics and Earthing Arrangements</CardTitle>
+            <CardTitle>Supply characteristics and earthing arrangements</CardTitle>
             <CardDescription className="text-primary">Please fill out the details regarding the supply characteristics and earthing arrangements for the electrical installation.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">

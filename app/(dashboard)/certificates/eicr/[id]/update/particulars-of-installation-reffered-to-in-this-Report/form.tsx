@@ -58,8 +58,10 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
       <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Installation Details for the Report</CardTitle>
-            <CardDescription className="text-primary">Detailed installation information for this report.</CardDescription>
+            <CardTitle>Particulars of Installation</CardTitle>
+            <CardDescription className="text-primary">
+              Key details of the electrical installation for this report.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField

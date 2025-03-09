@@ -12,29 +12,36 @@ import { RadioGroupComponent } from "../radio-group";
 import { inspectionItems } from "./inspection-items";
 import { Schema } from "./schema";
 
-export function ScheduleOfItemsInspectedSection8Form() {
+export function ScheduleOfItemsInspectedSection3Form() {
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      item_8_1: "na" as const,
-      item_8_2: "na" as const,
-      item_8_3: "na" as const,
-      item_8_4: "na" as const,
-      item_8_5: "na" as const,
-      item_8_6: "na" as const,
-      item_8_7A: "na" as const,
-      item_8_7B: "na" as const,
-      item_8_7C: "na" as const,
-      item_8_7D: "na" as const,
+      item_3_1A: "na" as const,
+      item_3_1B: "na" as const,
+      item_3_1C: "na" as const,
+      item_3_1D: "na" as const,
+      item_3_1E: "na" as const,
+      item_3_1F: "na" as const,
+      item_3_1G: "na" as const,
+      item_3_1H: "na" as const,
+      item_3_1I: "na" as const,
+      item_3_2: "na" as const,
+      item_3_3A: "na" as const,
+      item_3_3B: "na" as const,
+      item_3_3C: "na" as const,
+      item_3_3D: "na" as const,
+      item_3_3E: "na" as const,
+      item_3_3F: "na" as const,
     },
   });
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Current-Using Equipment (Permanently Connected)</CardTitle>
-            <CardDescription className="text-primary">This section evaluates the condition and safety of current-using equipment that is permanently connected.</CardDescription>
+            <CardTitle>Methods of protection</CardTitle>
+            <CardDescription className="text-primary">This section assesses the condition and adequacy of earthing, bonding, insulation, and safety provisions, including main earthing, protective bonding, and equipotential bonding.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -56,7 +63,7 @@ export function ScheduleOfItemsInspectedSection8Form() {
             ))}
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Ensure the condition and safety of permanently connected equipment is checked.</p>
+            <p className="text-sm text-muted-foreground">Ensure all earthing and bonding arrangements are inspected.</p>
             <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>

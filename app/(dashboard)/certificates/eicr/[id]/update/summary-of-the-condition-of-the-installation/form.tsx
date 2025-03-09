@@ -31,7 +31,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({ electricalIns
       <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Summary of the Condition of the Installation</CardTitle>
+            <CardTitle>Summary of the condition of the installation</CardTitle>
             <CardDescription className="text-primary">Provide an overview of the electrical installation&apos;s condition, including age, alterations, and overall assessment.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
