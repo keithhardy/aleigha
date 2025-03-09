@@ -53,87 +53,87 @@ export function DashboardSidebar() {
 
   const updateEICR = certificateId
     ? [
-      {
-        title: "Details of the contractor, client and installation",
-        url: `/certificates/eicr/${certificateId}/update/details-of-the-contractor-client-installation`,
-      },
-      {
-        title: "Purpose of the report",
-        url: `/certificates/eicr/${certificateId}/update/purpose-of-the-report`,
-      },
-      {
-        title: "Summary of the condition of the installation",
-        url: `/certificates/eicr/${certificateId}/update/summary-of-the-condition-of-the-installation`,
-      },
-      {
-        title: "Declaration",
-        url: `/certificates/eicr/${certificateId}/update/declaration`,
-      },
-      {
-        title: "Observations",
-        url: `/certificates/eicr/${certificateId}/update/observations`,
-      },
-      {
-        title: "Details and limitations of the inspection and testing",
-        url: `/certificates/eicr/${certificateId}/update/details-and-limitations-of-the-inspection-and-testing`,
-      },
-      {
-        title: "Supply characteristics and earthing arrangements",
-        url: `/certificates/eicr/${certificateId}/update/supply-characteristics-and-earthing-arrangements`,
-      },
-      {
-        title: "Particulars of installation reffered to in this Report",
-        url: `/certificates/eicr/${certificateId}/update/particulars-of-installation-reffered-to-in-this-Report`,
-      },
-      {
-        title: "Intake equipment (visual inspection only)",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/intake-equipment`,
-      },
-      {
-        title: "Presence of adequate arrangements for parallel or switched alternative sources",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/presence-of-adequate-arrangements-for-parallel-or-switched-alternative-sources`,
-      },
-      {
-        title: "Methods of protection",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/methods-of-Protection`,
-      },
-      {
-        title: "Distribution equipment, including consumer units and distribution boards",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/distribution-equipment`,
-      },
-      {
-        title: "Distribution circuits",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/distribution-Circuits`,
-      },
-      {
-        title: "Final circuits",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/final-circuits`,
-      },
-      {
-        title: "Isolation and switching",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/isolation-and-switching`,
-      },
-      {
-        title: "Current-using equipment (permanently connected)",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/current-using-equipment`,
-      },
-      {
-        title: "Special locations and installations",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/special-locations-and-installations`,
-      },
-      {
-        title: "Prosumer’s low voltage installation",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/prosumers-low-voltage-installation`,
-      },
-      {
-        title: "Schedule of circuit details and test results",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-circuit-details-and-test-results`,
-      },
-      {
-        title: "Schedule of rates",
-        url: `/certificates/eicr/${certificateId}/update/schedule-of-rates`,
-      },
-    ]
+        {
+          title: "Details of the contractor, client and installation",
+          url: `/certificates/eicr/${certificateId}/update/details-of-the-contractor-client-installation`,
+        },
+        {
+          title: "Purpose of the report",
+          url: `/certificates/eicr/${certificateId}/update/purpose-of-the-report`,
+        },
+        {
+          title: "Summary of the condition of the installation",
+          url: `/certificates/eicr/${certificateId}/update/summary-of-the-condition-of-the-installation`,
+        },
+        {
+          title: "Declaration",
+          url: `/certificates/eicr/${certificateId}/update/declaration`,
+        },
+        {
+          title: "Observations",
+          url: `/certificates/eicr/${certificateId}/update/observations`,
+        },
+        {
+          title: "Details and limitations of the inspection and testing",
+          url: `/certificates/eicr/${certificateId}/update/details-and-limitations-of-the-inspection-and-testing`,
+        },
+        {
+          title: "Supply characteristics and earthing arrangements",
+          url: `/certificates/eicr/${certificateId}/update/supply-characteristics-and-earthing-arrangements`,
+        },
+        {
+          title: "Particulars of installation reffered to in this Report",
+          url: `/certificates/eicr/${certificateId}/update/particulars-of-installation-reffered-to-in-this-Report`,
+        },
+        {
+          title: "Intake equipment (visual inspection only)",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/intake-equipment`,
+        },
+        {
+          title: "Presence of adequate arrangements for parallel or switched alternative sources",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/presence-of-adequate-arrangements-for-parallel-or-switched-alternative-sources`,
+        },
+        {
+          title: "Methods of protection",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/methods-of-Protection`,
+        },
+        {
+          title: "Distribution equipment, including consumer units and distribution boards",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/distribution-equipment`,
+        },
+        {
+          title: "Distribution circuits",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/distribution-Circuits`,
+        },
+        {
+          title: "Final circuits",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/final-circuits`,
+        },
+        {
+          title: "Isolation and switching",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/isolation-and-switching`,
+        },
+        {
+          title: "Current-using equipment (permanently connected)",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/current-using-equipment`,
+        },
+        {
+          title: "Special locations and installations",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/special-locations-and-installations`,
+        },
+        {
+          title: "Prosumer’s low voltage installation",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/prosumers-low-voltage-installation`,
+        },
+        {
+          title: "Schedule of circuit details and test results",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-circuit-details-and-test-results`,
+        },
+        {
+          title: "Schedule of rates",
+          url: `/certificates/eicr/${certificateId}/update/schedule-of-rates`,
+        },
+      ]
     : [];
 
   return (

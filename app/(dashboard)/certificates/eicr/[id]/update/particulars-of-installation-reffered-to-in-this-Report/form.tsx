@@ -59,9 +59,7 @@ export function ParticularsOfInstallationsReferredToInThisReportForm() {
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Particulars of Installation</CardTitle>
-            <CardDescription className="text-primary">
-              Key details of the electrical installation for this report.
-            </CardDescription>
+            <CardDescription className="text-primary">Key details of the electrical installation for this report.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField

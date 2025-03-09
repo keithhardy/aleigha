@@ -129,12 +129,14 @@ model ElectricalInstallationConditionReport {
   estimatedAgeOfAlterations              String?
   overallAssessmentOfTheInstallation     Boolean?
   // Declaration
-  recommendedRetestDate                  String?
+  recommendedRetestDate                  DateTime?
   reasonForRecommendation                String?
   inspector                              User?       @relation("Inspector", fields: [inspectorId], references: [id], onDelete: Cascade)
   inspectorId                            String?
+  inspectionDate                         DateTime?
   reviewer                               User?       @relation("Reviewer", fields: [reviewerId], references: [id], onDelete: Cascade)
   reviewerId                             String?
+  reviewDate                             DateTime?
   // Observation
   observations                           Json?
   // Details and limitations of the inspection and testing

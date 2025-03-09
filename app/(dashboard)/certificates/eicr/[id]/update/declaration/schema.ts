@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-export const Schema = z.object({
-  inspectorsName: z.string(),
-  inspectorsSignatureDate: z.string(),
-  retestDate: z.string(),
+export const UpdateDeclarationSchema = z.object({
+  recommendedRetestDate: z.date(),
   reasonForRecommendation: z.string(),
-  qualifiedSupervisorsName: z.string(),
-  qualifiedSupervisorsSignatureDate: z.string(),
+  inspectorId: z.string().optional(),
+  inspectionDate: z.date().optional(),
+  reviewerId: z.string().optional(),
+  reviewDate: z.date().optional(),
 });
