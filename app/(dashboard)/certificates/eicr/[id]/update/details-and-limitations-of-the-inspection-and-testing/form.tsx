@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -10,23 +11,24 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-import { Schema } from "./schema";
+import { UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema } from "./schema";
 
-export function DetailsAndLimitationsOfTheInspectionAndTestingForm() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const form = useForm<z.infer<typeof UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema>>({
+    resolver: zodResolver(UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema),
     defaultValues: {
-      regulationAccordance: "",
-      electricalInstalationCoveredByThisReport: "",
-      agreedLimitations: "",
-      agreedLimitationsWith: "",
-      operationalLimitations: "",
+      regulationAccordanceAsAmendedTo: electricalInstallationConditionReport.regulationAccordanceAsAmendedTo || "",
+      detailsOfTheElectricalInstallation: electricalInstallationConditionReport.detailsOfTheElectricalInstallation || "",
+      extentOfSampling: electricalInstallationConditionReport.extentOfSampling || "",
+      agreedLimitations: electricalInstallationConditionReport.agreedLimitations || "",
+      agreedLimitationsWith: electricalInstallationConditionReport.agreedLimitationsWith || "",
+      operationalLimitations: electricalInstallationConditionReport.operationalLimitations || "",
     },
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Details and limitations of the inspection and testing</CardTitle>
@@ -35,7 +37,7 @@ export function DetailsAndLimitationsOfTheInspectionAndTestingForm() {
           <CardContent className="space-y-4">
             <FormField
               control={form.control}
-              name="regulationAccordance"
+              name="regulationAccordanceAsAmendedTo"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Regulation Compliance</FormLabel>
@@ -48,7 +50,20 @@ export function DetailsAndLimitationsOfTheInspectionAndTestingForm() {
             />
             <FormField
               control={form.control}
-              name="electricalInstalationCoveredByThisReport"
+              name="extentOfSampling"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Extent of Sampling</FormLabel>
+                  <FormControl>
+                    <Textarea {...field} className="lg:max-w-[50%] min-h-[100px]" placeholder="Enter a detailed description of the electrical installation covered by this report, including components such as wiring, panels, and other relevant systems." />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="detailsOfTheElectricalInstallation"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Electrical Installation Covered by This Report</FormLabel>

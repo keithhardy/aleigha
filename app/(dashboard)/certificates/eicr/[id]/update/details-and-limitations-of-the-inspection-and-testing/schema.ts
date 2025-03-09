@@ -1,8 +1,9 @@
 import { z } from "zod";
 
-export const Schema = z.object({
-  regulationAccordance: z.string(),
-  electricalInstalationCoveredByThisReport: z.string(),
+export const UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema = z.object({
+  regulationAccordanceAsAmendedTo: z.string(),
+  detailsOfTheElectricalInstallation: z.string(),
+  extentOfSampling: z.string(),
   agreedLimitations: z.string(),
   agreedLimitationsWith: z.string(),
   operationalLimitations: z.string(),

@@ -1,5 +1,25 @@
-import { DetailsAndLimitationsOfTheInspectionAndTestingForm } from "./form";
+import { notFound } from "next/navigation";
 
-export default function DetailsAndLimitationsOfTheInspectionAndTesting() {
-  return <DetailsAndLimitationsOfTheInspectionAndTestingForm />;
+import { UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm } from "./form";
+
+export default async function UpdateDetailsAndLimitationsOfTheInspectionAndTesting({ params }: { params: Promise<{ id: string }> }) {
+  const electricalInstallationConditionReport = await prisma.electricalInstallationConditionReport.findFirst({
+    where: {
+      id: (await params).id,
+    },
+    select: {
+      regulationAccordanceAsAmendedTo: true,
+      detailsOfTheElectricalInstallation: true,
+      extentOfSampling: true,
+      agreedLimitations: true,
+      agreedLimitationsWith: true,
+      operationalLimitations: true,
+    },
+  });
+
+  if (!electricalInstallationConditionReport) {
+    notFound();
+  }
+
+  return <UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm electricalInstallationConditionReport={electricalInstallationConditionReport} />;
 }
