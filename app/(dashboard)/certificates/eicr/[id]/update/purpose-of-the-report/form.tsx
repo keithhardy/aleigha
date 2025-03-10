@@ -14,26 +14,41 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
+import { updatePurposeOfTheReport } from "./action";
 import { UpdatePurposeOfTheReportSchema } from "./schema";
 
 export function UpdatePurposeOfTheReportForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof UpdatePurposeOfTheReportSchema>>({
     resolver: zodResolver(UpdatePurposeOfTheReportSchema),
     defaultValues: {
+      id: electricalInstallationConditionReport.id,
       purpose: electricalInstallationConditionReport.purpose || "",
       startDate: electricalInstallationConditionReport.startDate || undefined,
       endDate: electricalInstallationConditionReport.endDate || undefined,
-      recordsAvailable: electricalInstallationConditionReport.recordsAvailable || false,
-      previousReportAvailable: electricalInstallationConditionReport.previousReportAvailable || false,
+      recordsAvailable: electricalInstallationConditionReport.recordsAvailable ?? false,
+      previousReportAvailable: electricalInstallationConditionReport.previousReportAvailable ?? false,
       previousReportDate: electricalInstallationConditionReport.previousReportDate || undefined,
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof UpdatePurposeOfTheReportSchema>) => {
+    const response = await updatePurposeOfTheReport(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdatePurposeOfTheReportSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Purpose of the report</CardTitle>
