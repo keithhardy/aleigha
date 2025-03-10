@@ -113,6 +113,12 @@ export const inspectionItems = [
       "Single-pole switching or protective devices in line conductors only (132.14.1; 530.3.3)",
   },
   {
+    id: "item_5_21",
+    item: "5.21",
+    label:
+      "Adequacy of connections, including cpcs, within accessories and to fixed and stationary equipment - identify / record numbers and locations of items inspected (526) ",
+  },
+  {
     id: "item_5_22",
     item: "5.22",
     label:

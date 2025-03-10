@@ -328,7 +328,7 @@ model ElectricalInstallationConditionReport {
   item_8_7B                              String?
   item_8_7C                              String?
   item_8_7D                              String?
-  // Special locations and installations
+  // 9.0 Special locations and installations
   item_9_1A                              String?
   item_9_1B                              String?
   item_9_1C                              String?
@@ -338,7 +338,7 @@ model ElectricalInstallationConditionReport {
   item_9_1G                              String?
   item_9_1H                              String?
   item_9_2                               String?
-  // Prosumer’s low voltage installation 
+  // 10.0 Prosumer’s low voltage installation 
   item_10_0                              String?
   // Schedule of circuit details and test results
   db                                     Json?
