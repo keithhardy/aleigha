@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -10,19 +11,19 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 
 import { RadioGroupComponent } from "../radio-group";
 import { inspectionItems } from "./inspection-items";
-import { Schema } from "./schema";
+import { UpdateProsumersLowVoltageInstallationSchema } from "./schema";
 
-export function ScheduleOfItemsInspectedSection10Form() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function UpdateProsumersLowVoltageInstallationForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const form = useForm<z.infer<typeof UpdateProsumersLowVoltageInstallationSchema>>({
+    resolver: zodResolver(UpdateProsumersLowVoltageInstallationSchema),
     defaultValues: {
-      item_10_0: "na" as const,
+      item_10_0: electricalInstallationConditionReport.item_10_0 || "na",
     },
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateProsumersLowVoltageInstallationSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Prosumer&apos;s low voltage installation</CardTitle>
