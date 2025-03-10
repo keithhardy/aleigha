@@ -8,15 +8,20 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useToast } from "@/hooks/use-toast";
 
 import { RadioGroupComponent } from "../radio-group";
+import { updateContractorClientAndInstallation } from "./action";
 import { inspectionItems } from "./inspection-items";
 import { UpdateDistributionEquipmentSchema } from "./schema";
 
 export function UpdateDistributionEquipmentForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof UpdateDistributionEquipmentSchema>>({
     resolver: zodResolver(UpdateDistributionEquipmentSchema),
     defaultValues: {
+      id: electricalInstallationConditionReport.id,
       item_4_1: electricalInstallationConditionReport.item_4_1 || "na",
       item_4_2: electricalInstallationConditionReport.item_4_2 || "na",
       item_4_3: electricalInstallationConditionReport.item_4_3 || "na",
@@ -45,9 +50,19 @@ export function UpdateDistributionEquipmentForm({ electricalInstallationConditio
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof UpdateDistributionEquipmentSchema>) => {
+    const response = await updateContractorClientAndInstallation(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateDistributionEquipmentSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Distribution equipment, including consumer units and distribution boards</CardTitle>
@@ -64,7 +79,7 @@ export function UpdateDistributionEquipmentForm({ electricalInstallationConditio
                   <FormItem>
                     <FormLabel>{item.item + " - " + item.label}</FormLabel>
                     <FormControl>
-                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value} />
+                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value || "na"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
