@@ -8,15 +8,20 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useToast } from "@/hooks/use-toast";
 
 import { RadioGroupComponent } from "../radio-group";
+import { updateContractorClientAndInstallation } from "./action";
 import { inspectionItems } from "./inspection-items";
 import { UpdateSpecialLocationsAndInstallationsSchema } from "./schema";
 
 export function UpdateSpecialLocationsAndInstallationsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof UpdateSpecialLocationsAndInstallationsSchema>>({
     resolver: zodResolver(UpdateSpecialLocationsAndInstallationsSchema),
     defaultValues: {
+      id: electricalInstallationConditionReport.id,
       item_9_1A: electricalInstallationConditionReport.item_9_1A || "na",
       item_9_1B: electricalInstallationConditionReport.item_9_1B || "na",
       item_9_1C: electricalInstallationConditionReport.item_9_1C || "na",
@@ -29,9 +34,19 @@ export function UpdateSpecialLocationsAndInstallationsForm({ electricalInstallat
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof UpdateSpecialLocationsAndInstallationsSchema>) => {
+    const response = await updateContractorClientAndInstallation(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateSpecialLocationsAndInstallationsSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Special locations and installations</CardTitle>
@@ -48,7 +63,7 @@ export function UpdateSpecialLocationsAndInstallationsForm({ electricalInstallat
                   <FormItem>
                     <FormLabel>{item.item + " - " + item.label}</FormLabel>
                     <FormControl>
-                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value} />
+                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value || "na"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

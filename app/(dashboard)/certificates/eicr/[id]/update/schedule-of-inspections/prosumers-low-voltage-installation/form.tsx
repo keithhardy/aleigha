@@ -8,12 +8,12 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useToast } from "@/hooks/use-toast";
 
 import { RadioGroupComponent } from "../radio-group";
+import { updateContractorClientAndInstallation } from "./action";
 import { inspectionItems } from "./inspection-items";
 import { UpdateProsumersLowVoltageInstallationSchema } from "./schema";
-import { updateContractorClientAndInstallation } from "./action";
-import { useToast } from "@/hooks/use-toast";
 
 export function UpdateProsumersLowVoltageInstallationForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
   const { toast } = useToast();
