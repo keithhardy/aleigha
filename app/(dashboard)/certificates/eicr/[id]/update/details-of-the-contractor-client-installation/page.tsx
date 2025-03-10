@@ -46,7 +46,5 @@ export default async function UpdateContractorClientAndInstallation({ params }: 
     },
   });
 
-  console.log(electricalInstallationConditionReport)
-
   return <UpdateContractorClientAndInstallationForm electricalInstallationConditionReport={electricalInstallationConditionReport} clients={clients} settings={settings} />;
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -10,26 +11,26 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 
 import { RadioGroupComponent } from "../radio-group";
 import { inspectionItems } from "./inspection-items";
-import { Schema } from "./schema";
+import { UpdateIntakeEquipmentSchema } from "./schema";
 
-export function ScheduleOfItemsInspectedSection1Form() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function UpdateIntakeEquipmentForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const form = useForm<z.infer<typeof UpdateIntakeEquipmentSchema>>({
+    resolver: zodResolver(UpdateIntakeEquipmentSchema),
     defaultValues: {
-      item_1_1A: "na" as const,
-      item_1_1B: "na" as const,
-      item_1_1C: "na" as const,
-      item_1_1D: "na" as const,
-      item_1_1E: "na" as const,
-      item_1_1F: "na" as const,
-      item_1_2: "na" as const,
-      item_1_3: "na" as const,
+      item_1_1A: electricalInstallationConditionReport.item_1_1A || "na",
+      item_1_1B: electricalInstallationConditionReport.item_1_1B || "na",
+      item_1_1C: electricalInstallationConditionReport.item_1_1C || "na",
+      item_1_1D: electricalInstallationConditionReport.item_1_1D || "na",
+      item_1_1E: electricalInstallationConditionReport.item_1_1E || "na",
+      item_1_1F: electricalInstallationConditionReport.item_1_1F || "na",
+      item_1_2: electricalInstallationConditionReport.item_1_2 || "na",
+      item_1_3: electricalInstallationConditionReport.item_1_3 || "na",
     },
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateIntakeEquipmentSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Intake equipment (visual inspection only)</CardTitle>
