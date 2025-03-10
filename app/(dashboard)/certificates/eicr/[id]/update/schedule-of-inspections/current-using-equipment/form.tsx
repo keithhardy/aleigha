@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -10,27 +11,27 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 
 import { RadioGroupComponent } from "../radio-group";
 import { inspectionItems } from "./inspection-items";
-import { Schema } from "./schema";
+import { UpdateCurrentUsingEquipmentSchema } from "./schema";
 
-export function ScheduleOfItemsInspectedSection8Form() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function UpdateCurrentUsingEquipmentForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const form = useForm<z.infer<typeof UpdateCurrentUsingEquipmentSchema>>({
+    resolver: zodResolver(UpdateCurrentUsingEquipmentSchema),
     defaultValues: {
-      item_8_1: "na" as const,
-      item_8_2: "na" as const,
-      item_8_3: "na" as const,
-      item_8_4: "na" as const,
-      item_8_5: "na" as const,
-      item_8_6: "na" as const,
-      item_8_7A: "na" as const,
-      item_8_7B: "na" as const,
-      item_8_7C: "na" as const,
-      item_8_7D: "na" as const,
+      item_8_1: electricalInstallationConditionReport.item_8_1 || "na",
+      item_8_2: electricalInstallationConditionReport.item_8_2 || "na",
+      item_8_3: electricalInstallationConditionReport.item_8_3 || "na",
+      item_8_4: electricalInstallationConditionReport.item_8_4 || "na",
+      item_8_5: electricalInstallationConditionReport.item_8_5 || "na",
+      item_8_6: electricalInstallationConditionReport.item_8_6 || "na",
+      item_8_7A: electricalInstallationConditionReport.item_8_7A || "na",
+      item_8_7B: electricalInstallationConditionReport.item_8_7B || "na",
+      item_8_7C: electricalInstallationConditionReport.item_8_7C || "na",
+      item_8_7D: electricalInstallationConditionReport.item_8_7D || "na",
     },
   });
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateCurrentUsingEquipmentSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Current-using equipment (permanently connected)</CardTitle>
