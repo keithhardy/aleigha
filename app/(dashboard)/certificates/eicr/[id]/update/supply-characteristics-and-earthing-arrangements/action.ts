@@ -3,6 +3,7 @@
 import { z } from "zod";
 
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { ServerActionResponse } from "@/lib/types";
 
 import { UpdateSupplyCharacteristicsAndEarthingArrangementsSchema } from "./schema";
@@ -10,7 +11,7 @@ import { UpdateSupplyCharacteristicsAndEarthingArrangementsSchema } from "./sche
 export async function updateSupplyCharacteristicsAndEarthingArrangements(
   electricalInstallationConditionReport: z.infer<
     typeof UpdateSupplyCharacteristicsAndEarthingArrangementsSchema
-  >,
+  >
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
@@ -44,6 +45,8 @@ export async function updateSupplyCharacteristicsAndEarthingArrangements(
           electricalInstallationConditionReport.externalEarthFaultLoopImpedance,
       },
     });
+
+    revalidatePath("/certificates");
 
     return {
       status: "success",

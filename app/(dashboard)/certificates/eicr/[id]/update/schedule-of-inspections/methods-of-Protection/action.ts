@@ -3,6 +3,7 @@
 import { z } from "zod";
 
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { ServerActionResponse } from "@/lib/types";
 
 import { UpdateMethodsOfProtectionSchema } from "./schema";
@@ -10,7 +11,7 @@ import { UpdateMethodsOfProtectionSchema } from "./schema";
 export async function updateMethodsOfProtection(
   electricalInstallationConditionReport: z.infer<
     typeof UpdateMethodsOfProtectionSchema
-  >,
+  >
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
@@ -36,6 +37,8 @@ export async function updateMethodsOfProtection(
         item_3_3F: electricalInstallationConditionReport.item_3_3F,
       },
     });
+
+    revalidatePath("/certificates");
 
     return {
       status: "success",

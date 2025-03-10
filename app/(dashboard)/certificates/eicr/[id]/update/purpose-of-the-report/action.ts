@@ -3,6 +3,7 @@
 import { z } from "zod";
 
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { ServerActionResponse } from "@/lib/types";
 
 import { UpdatePurposeOfTheReportSchema } from "./schema";
@@ -10,7 +11,7 @@ import { UpdatePurposeOfTheReportSchema } from "./schema";
 export async function updatePurposeOfTheReport(
   electricalInstallationConditionReport: z.infer<
     typeof UpdatePurposeOfTheReportSchema
-  >,
+  >
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
@@ -29,6 +30,8 @@ export async function updatePurposeOfTheReport(
           electricalInstallationConditionReport.previousReportDate,
       },
     });
+
+    revalidatePath("/certificates");
 
     return {
       status: "success",
