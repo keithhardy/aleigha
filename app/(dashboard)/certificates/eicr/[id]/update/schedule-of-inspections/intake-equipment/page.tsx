@@ -8,6 +8,7 @@ export default async function UpdateIntakeEquipment({ params }: { params: Promis
       id: (await params).id,
     },
     select: {
+      id: true,
       item_1_1A: true,
       item_1_1B: true,
       item_1_1C: true,
