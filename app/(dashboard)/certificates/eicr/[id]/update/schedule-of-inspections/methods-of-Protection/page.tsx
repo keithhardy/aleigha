@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
-import { MethodsOfProtectionForm } from "./form";
 
-export default async function ScheduleOfItemsInspected({ params }: { params: Promise<{ id: string }> }) {
+import { UpdateMethodsOfProtectionForm } from "./form";
+
+export default async function UpdateScheduleOfItemsInspected({ params }: { params: Promise<{ id: string }> }) {
   const electricalInstallationConditionReport = await prisma.electricalInstallationConditionReport.findFirst({
     where: {
       id: (await params).id,
@@ -31,5 +32,5 @@ export default async function ScheduleOfItemsInspected({ params }: { params: Pro
     notFound();
   }
 
-  return <MethodsOfProtectionForm electricalInstallationConditionReport={electricalInstallationConditionReport} />;
+  return <UpdateMethodsOfProtectionForm electricalInstallationConditionReport={electricalInstallationConditionReport} />;
 }

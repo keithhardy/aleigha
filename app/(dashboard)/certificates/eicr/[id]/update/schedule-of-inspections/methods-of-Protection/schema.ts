@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const MethodsOfProtectionSchema = z.object({
+export const UpdateMethodsOfProtectionSchema = z.object({
   item_3_1A: z.string(),
   item_3_1B: z.string(),
   item_3_1C: z.string(),

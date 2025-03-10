@@ -202,7 +202,7 @@ model ElectricalInstallationConditionReport {
   // 2.0 Presence of adequate arrangements for parallel or switched alternative sources
   item_2_1                               String?
   item_2_2                               String?
-  // 3.0 Methods of Protection
+  // 3.0 Methods of protection
   item_3_1A                              String?
   item_3_1B                              String?
   item_3_1C                              String?
