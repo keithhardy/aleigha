@@ -7,7 +7,11 @@ import { ServerActionResponse } from "@/lib/types";
 
 import { UpdateDistributionCircuitsSchema } from "./schema";
 
-export async function updateDistributionCircuits(electricalInstallationConditionReport: z.infer<typeof UpdateDistributionCircuitsSchema>): Promise<ServerActionResponse<void>> {
+export async function updateDistributionCircuits(
+  electricalInstallationConditionReport: z.infer<
+    typeof UpdateDistributionCircuitsSchema
+  >,
+): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
       where: {

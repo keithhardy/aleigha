@@ -1,4 +1,8 @@
-import { Address, ElectricalInstallationConditionReport, Property } from "@prisma/client";
+import {
+  Address,
+  ElectricalInstallationConditionReport,
+  Property,
+} from "@prisma/client";
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 import React from "react";
 
@@ -27,11 +31,28 @@ export default function ElectricalInstallationConditionReportTemplate({
             <View>
               <View>
                 <Text>Contractor Details</Text>
-                <Text>Trading Name: {electricalInstallationConditionReport.type}</Text>
-                <Text>Address: {electricalInstallationConditionReport.property.address.streetAddress}</Text>
-                <Text>Phone: {electricalInstallationConditionReport.startDate?.toLocaleString()}</Text>
-                <Text>Governing Body: {electricalInstallationConditionReport.endDate?.toLocaleString()}</Text>
-                <Text>Governing Body Number: {electricalInstallationConditionReport.status}</Text>
+                <Text>
+                  Trading Name: {electricalInstallationConditionReport.type}
+                </Text>
+                <Text>
+                  Address:{" "}
+                  {
+                    electricalInstallationConditionReport.property.address
+                      .streetAddress
+                  }
+                </Text>
+                <Text>
+                  Phone:{" "}
+                  {electricalInstallationConditionReport.startDate?.toLocaleString()}
+                </Text>
+                <Text>
+                  Governing Body:{" "}
+                  {electricalInstallationConditionReport.endDate?.toLocaleString()}
+                </Text>
+                <Text>
+                  Governing Body Number:{" "}
+                  {electricalInstallationConditionReport.status}
+                </Text>
               </View>
             </View>
           </View>

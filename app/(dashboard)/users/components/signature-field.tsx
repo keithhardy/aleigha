@@ -51,7 +51,8 @@ export function SignatureField({ value, onChange }: ControllerRenderProps) {
               ref={signaturePad}
               onEnd={handleEndSignature}
               canvasProps={{
-                className: "signature-canvas border rounded-md absolute top-0 left-0 w-full h-full bg-white",
+                className:
+                  "signature-canvas border rounded-md absolute top-0 left-0 w-full h-full bg-white",
               }}
             />
           </div>
@@ -69,7 +70,13 @@ export function SignatureField({ value, onChange }: ControllerRenderProps) {
               paddingBottom: "33.33%",
             }}
           >
-            <Image src={signatureValue} alt="Saved signature" layout="fill" objectFit="contain" className="rounded-md border bg-white" />
+            <Image
+              src={signatureValue}
+              alt="Saved signature"
+              layout="fill"
+              objectFit="contain"
+              className="rounded-md border bg-white"
+            />
           </div>
           <Button type="button" onClick={handleEditSignature}>
             Edit

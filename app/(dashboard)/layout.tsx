@@ -6,7 +6,11 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
 import { getCurrentUser } from "@/lib/auth";
 
 // import { DashboardBreadcrumb } from "./components/breadcrumb";
@@ -14,7 +18,9 @@ import { DashboardSidebar } from "./components/dashboard-sidebar";
 import { MessageMenu } from "./components/message-menu";
 import { NotificationsMenu } from "./components/notifications-menu";
 
-export default async function DashboardLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function DashboardLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   const currentUser = await getCurrentUser();
 
   // if (!currentUser) redirect("/auth/login");
@@ -55,15 +61,24 @@ export default async function DashboardLayout({ children }: Readonly<{ children:
           </div>
           <div className="flex justify-between p-4">
             <p>
-              <Link href="/terms-of-service" className=" text-muted-foreground hover:text-foreground transition-colors">
+              <Link
+                href="/terms-of-service"
+                className=" text-muted-foreground hover:text-foreground transition-colors"
+              >
                 Terms of Service
               </Link>{" "}
               |{" "}
-              <Link href="privacy-policy" className=" text-muted-foreground hover:text-foreground transition-colors">
+              <Link
+                href="privacy-policy"
+                className=" text-muted-foreground hover:text-foreground transition-colors"
+              >
                 Privacy Policy
               </Link>{" "}
               |{" "}
-              <Link href="cookie-policy" className=" text-muted-foreground hover:text-foreground transition-colors">
+              <Link
+                href="cookie-policy"
+                className=" text-muted-foreground hover:text-foreground transition-colors"
+              >
                 Cookie Policy
               </Link>
             </p>

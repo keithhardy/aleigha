@@ -7,7 +7,11 @@ import { ServerActionResponse } from "@/lib/types";
 
 import { UpdatePresenceOfAdequateArrangementsSchema } from "./schema";
 
-export async function updatePresenceOfAdequateArrangements(electricalInstallationConditionReport: z.infer<typeof UpdatePresenceOfAdequateArrangementsSchema>): Promise<ServerActionResponse<void>> {
+export async function updatePresenceOfAdequateArrangements(
+  electricalInstallationConditionReport: z.infer<
+    typeof UpdatePresenceOfAdequateArrangementsSchema
+  >,
+): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
       where: {

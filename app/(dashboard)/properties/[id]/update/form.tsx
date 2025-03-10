@@ -11,13 +11,37 @@ import { z } from "zod";
 import { updateProperty } from "@/app/(dashboard)/properties/[id]/update/action";
 import { UpdatePropertySchema } from "@/app/(dashboard)/properties/[id]/update/schema";
 import { Button } from "@/components/ui/button";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 
-export function UpdatePropertyForm({ property, clients }: { property: Property & { address: Address | null }; clients: Client[] }) {
+export function UpdatePropertyForm({
+  property,
+  clients,
+}: {
+  property: Property & { address: Address | null };
+  clients: Client[];
+}) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -68,14 +92,25 @@ export function UpdatePropertyForm({ property, clients }: { property: Property &
                 <FormLabel>Client</FormLabel>
                 <Popover open={clientOpen} onOpenChange={setClientOpen}>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" role="combobox" aria-expanded={clientOpen ? "true" : "false"} className="max-w-[1024px] justify-between">
-                      {field.value ? clients.find((client) => client.id === field.value)?.name : "Select Client..."}
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={clientOpen ? "true" : "false"}
+                      className="max-w-[1024px] justify-between"
+                    >
+                      {field.value
+                        ? clients.find((client) => client.id === field.value)
+                            ?.name
+                        : "Select Client..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="p-0">
                     <Command>
-                      <CommandInput placeholder="Search client..." className="h-9" />
+                      <CommandInput
+                        placeholder="Search client..."
+                        className="h-9"
+                      />
                       <CommandList>
                         <CommandEmpty>No client found.</CommandEmpty>
                         <CommandGroup>
@@ -89,7 +124,9 @@ export function UpdatePropertyForm({ property, clients }: { property: Property &
                               }}
                             >
                               {client.name}
-                              {client.id === field.value ? <Check className="ml-auto" /> : null}
+                              {client.id === field.value ? (
+                                <Check className="ml-auto" />
+                              ) : null}
                             </CommandItem>
                           ))}
                         </CommandGroup>
@@ -205,7 +242,11 @@ export function UpdatePropertyForm({ property, clients }: { property: Property &
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={form.formState.isSubmitting} variant="outline">
+          <Button
+            type="submit"
+            disabled={form.formState.isSubmitting}
+            variant="outline"
+          >
             {form.formState.isSubmitting ? "Saving" : "Save"}
           </Button>
         </div>

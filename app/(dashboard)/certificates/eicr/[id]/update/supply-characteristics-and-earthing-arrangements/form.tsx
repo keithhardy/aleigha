@@ -6,8 +6,22 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
@@ -15,30 +29,61 @@ import { useToast } from "@/hooks/use-toast";
 import { updateSupplyCharacteristicsAndEarthingArrangements } from "./action";
 import { UpdateSupplyCharacteristicsAndEarthingArrangementsSchema } from "./schema";
 
-export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
+  electricalInstallationConditionReport,
+}: {
+  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
+}) {
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof UpdateSupplyCharacteristicsAndEarthingArrangementsSchema>>({
-    resolver: zodResolver(UpdateSupplyCharacteristicsAndEarthingArrangementsSchema),
+  const form = useForm<
+    z.infer<typeof UpdateSupplyCharacteristicsAndEarthingArrangementsSchema>
+  >({
+    resolver: zodResolver(
+      UpdateSupplyCharacteristicsAndEarthingArrangementsSchema,
+    ),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
-      systemTypeAndEarthingArrangements: electricalInstallationConditionReport.systemTypeAndEarthingArrangements || "",
-      supplyProtectiveDeviceBSNumber: electricalInstallationConditionReport.supplyProtectiveDeviceBSNumber || "",
-      supplyProtectiveDeviceType: electricalInstallationConditionReport.supplyProtectiveDeviceType || "",
-      supplyProtectiveDeviceRatedCurrent: electricalInstallationConditionReport.supplyProtectiveDeviceRatedCurrent || "",
-      numberAndTypeOfLiveConductors: electricalInstallationConditionReport.numberAndTypeOfLiveConductors || "",
-      confirmationOfSupplyPolarity: electricalInstallationConditionReport.confirmationOfSupplyPolarity ?? true,
-      otherSourcesOfSupply: electricalInstallationConditionReport.otherSourcesOfSupply || "",
-      nominalVoltageBetweenLines: electricalInstallationConditionReport.nominalVoltageBetweenLines || "",
-      nominalLineVoltageToEarth: electricalInstallationConditionReport.nominalLineVoltageToEarth || "",
-      nominalFrequency: electricalInstallationConditionReport.nominalFrequency || "",
-      prospectiveFaultCurrent: electricalInstallationConditionReport.prospectiveFaultCurrent || "",
-      externalEarthFaultLoopImpedance: electricalInstallationConditionReport.externalEarthFaultLoopImpedance || "",
+      systemTypeAndEarthingArrangements:
+        electricalInstallationConditionReport.systemTypeAndEarthingArrangements ||
+        "",
+      supplyProtectiveDeviceBSNumber:
+        electricalInstallationConditionReport.supplyProtectiveDeviceBSNumber ||
+        "",
+      supplyProtectiveDeviceType:
+        electricalInstallationConditionReport.supplyProtectiveDeviceType || "",
+      supplyProtectiveDeviceRatedCurrent:
+        electricalInstallationConditionReport.supplyProtectiveDeviceRatedCurrent ||
+        "",
+      numberAndTypeOfLiveConductors:
+        electricalInstallationConditionReport.numberAndTypeOfLiveConductors ||
+        "",
+      confirmationOfSupplyPolarity:
+        electricalInstallationConditionReport.confirmationOfSupplyPolarity ??
+        true,
+      otherSourcesOfSupply:
+        electricalInstallationConditionReport.otherSourcesOfSupply || "",
+      nominalVoltageBetweenLines:
+        electricalInstallationConditionReport.nominalVoltageBetweenLines || "",
+      nominalLineVoltageToEarth:
+        electricalInstallationConditionReport.nominalLineVoltageToEarth || "",
+      nominalFrequency:
+        electricalInstallationConditionReport.nominalFrequency || "",
+      prospectiveFaultCurrent:
+        electricalInstallationConditionReport.prospectiveFaultCurrent || "",
+      externalEarthFaultLoopImpedance:
+        electricalInstallationConditionReport.externalEarthFaultLoopImpedance ||
+        "",
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof UpdateSupplyCharacteristicsAndEarthingArrangementsSchema>) => {
-    const response = await updateSupplyCharacteristicsAndEarthingArrangements(data);
+  const onSubmit = async (
+    data: z.infer<
+      typeof UpdateSupplyCharacteristicsAndEarthingArrangementsSchema
+    >,
+  ) => {
+    const response =
+      await updateSupplyCharacteristicsAndEarthingArrangements(data);
 
     toast({
       title: response.heading,
@@ -52,8 +97,13 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({ electri
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Supply characteristics and earthing arrangements</CardTitle>
-            <CardDescription className="text-primary">Please fill out the details regarding the supply characteristics and earthing arrangements for the electrical installation.</CardDescription>
+            <CardTitle>
+              Supply characteristics and earthing arrangements
+            </CardTitle>
+            <CardDescription className="text-primary">
+              Please fill out the details regarding the supply characteristics
+              and earthing arrangements for the electrical installation.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField
@@ -100,7 +150,9 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({ electri
               name="supplyProtectiveDeviceRatedCurrent"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Rated Current of Supply Protective Device</FormLabel>
+                  <FormLabel>
+                    Rated Current of Supply Protective Device
+                  </FormLabel>
                   <FormControl>
                     <Input placeholder="e.g., 80 A" {...field} />
                   </FormControl>
@@ -115,7 +167,10 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({ electri
                 <FormItem>
                   <FormLabel>Number and Type of Live Conductors</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., 2 Wire Single Phase AC" {...field} />
+                    <Input
+                      placeholder="e.g., 2 Wire Single Phase AC"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -129,7 +184,10 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({ electri
                   <div>
                     <FormLabel>Confirmation of Supply Polarity</FormLabel>
                   </div>
-                  <Switch checked={field.value} onCheckedChange={field.onChange} />
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
                   <FormMessage />
                 </FormItem>
               )}
@@ -204,7 +262,9 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({ electri
               name="externalEarthFaultLoopImpedance"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>External Earth Fault Loop Impedance (Ze)</FormLabel>
+                  <FormLabel>
+                    External Earth Fault Loop Impedance (Ze)
+                  </FormLabel>
                   <FormControl>
                     <Input placeholder="e.g., 0.35 Ω" {...field} />
                   </FormControl>
@@ -214,8 +274,14 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({ electri
             />
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Ensure all details are accurate before submission.</p>
-            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+            <p className="text-sm text-muted-foreground">
+              Ensure all details are accurate before submission.
+            </p>
+            <Button
+              variant="outline"
+              type="submit"
+              disabled={!form.formState.isDirty || form.formState.isSubmitting}
+            >
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

@@ -8,18 +8,47 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateScheduleOfRates } from "./action";
 import { scheduleOfRates } from "./rates";
 import { UpdateScheduleOfRatesSchema } from "./schema";
 
-export function UpdateScheduleOfRatesForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+export function UpdateScheduleOfRatesForm({
+  electricalInstallationConditionReport,
+}: {
+  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
+}) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof UpdateScheduleOfRatesSchema>>({
@@ -29,7 +58,9 @@ export function UpdateScheduleOfRatesForm({ electricalInstallationConditionRepor
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof UpdateScheduleOfRatesSchema>) => {
+  const onSubmit = async (
+    data: z.infer<typeof UpdateScheduleOfRatesSchema>,
+  ) => {
     const response = await updateScheduleOfRates(data);
 
     toast({
@@ -42,12 +73,22 @@ export function UpdateScheduleOfRatesForm({ electricalInstallationConditionRepor
   const [selectedRateOpen, setSelectedRateOpen] = useState(false);
   const [selectedRate, setSelectedRate] = useState<string>("");
 
-  const selectedRates = (form.watch("rates") as z.infer<typeof UpdateScheduleOfRatesSchema>["rates"][number][]) || [];
+  const selectedRates =
+    (form.watch("rates") as z.infer<
+      typeof UpdateScheduleOfRatesSchema
+    >["rates"][number][]) || [];
 
   const handleRateSelect = (value: string) => {
     const rate = scheduleOfRates.find((r) => r.id === parseInt(value));
     if (rate) {
-      form.setValue("rates", [...selectedRates, { id: rate.id, name: rate.name, description: rate.description }], { shouldDirty: true });
+      form.setValue(
+        "rates",
+        [
+          ...selectedRates,
+          { id: rate.id, name: rate.name, description: rate.description },
+        ],
+        { shouldDirty: true },
+      );
       setSelectedRate("");
     }
   };
@@ -58,21 +99,38 @@ export function UpdateScheduleOfRatesForm({ electricalInstallationConditionRepor
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Schedule of rates</CardTitle>
-            <CardDescription>Select predefined rates and input quantities.</CardDescription>
+            <CardDescription>
+              Select predefined rates and input quantities.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormItem>
               <FormLabel>Select Rate</FormLabel>
-              <Popover open={selectedRateOpen} onOpenChange={setSelectedRateOpen}>
+              <Popover
+                open={selectedRateOpen}
+                onOpenChange={setSelectedRateOpen}
+              >
                 <PopoverTrigger asChild className="w-full">
-                  <Button variant="outline" role="combobox" aria-expanded={selectedRateOpen} className="flex justify-between items-center">
-                    <span>{selectedRate ? `${selectedRate}: ${scheduleOfRates.find((r) => r.id.toString() === selectedRate)?.name}` : "Select a rate"}</span>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={selectedRateOpen}
+                    className="flex justify-between items-center"
+                  >
+                    <span>
+                      {selectedRate
+                        ? `${selectedRate}: ${scheduleOfRates.find((r) => r.id.toString() === selectedRate)?.name}`
+                        : "Select a rate"}
+                    </span>
                     <ChevronsUpDown className="opacity-50 ml-2" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="p-0 min-w-[375px]">
                   <Command>
-                    <CommandInput placeholder="Search rates..." className="h-9" />
+                    <CommandInput
+                      placeholder="Search rates..."
+                      className="h-9"
+                    />
                     <CommandList>
                       <CommandEmpty>No rate found.</CommandEmpty>
                       <CommandGroup>
@@ -87,7 +145,9 @@ export function UpdateScheduleOfRatesForm({ electricalInstallationConditionRepor
                             }}
                           >
                             {rate.name}
-                            {rate.id.toString() === selectedRate ? <Check className="ml-auto" /> : null}
+                            {rate.id.toString() === selectedRate ? (
+                              <Check className="ml-auto" />
+                            ) : null}
                           </CommandItem>
                         ))}
                       </CommandGroup>
@@ -133,8 +193,14 @@ export function UpdateScheduleOfRatesForm({ electricalInstallationConditionRepor
             ))}
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Review the selected rates and update descriptions as needed.</p>
-            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+            <p className="text-sm text-muted-foreground">
+              Review the selected rates and update descriptions as needed.
+            </p>
+            <Button
+              variant="outline"
+              type="submit"
+              disabled={!form.formState.isDirty || form.formState.isSubmitting}
+            >
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

@@ -7,15 +7,21 @@ import { ServerActionResponse } from "@/lib/types";
 
 import { UpdateDeclarationSchema } from "./schema";
 
-export async function updateDeclaration(electricalInstallationConditionReport: z.infer<typeof UpdateDeclarationSchema>): Promise<ServerActionResponse<void>> {
+export async function updateDeclaration(
+  electricalInstallationConditionReport: z.infer<
+    typeof UpdateDeclarationSchema
+  >,
+): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
       where: {
         id: electricalInstallationConditionReport.id,
       },
       data: {
-        recommendedRetestDate: electricalInstallationConditionReport.recommendedRetestDate,
-        reasonForRecommendation: electricalInstallationConditionReport.reasonForRecommendation,
+        recommendedRetestDate:
+          electricalInstallationConditionReport.recommendedRetestDate,
+        reasonForRecommendation:
+          electricalInstallationConditionReport.reasonForRecommendation,
         inspectorId: electricalInstallationConditionReport.inspectorId,
         inspectionDate: electricalInstallationConditionReport.inspectionDate,
         reviewerId: electricalInstallationConditionReport.reviewerId,

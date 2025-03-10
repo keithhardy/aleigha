@@ -1,10 +1,19 @@
 import { notFound } from "next/navigation";
 
 import { UpdatePropertyForm } from "@/app/(dashboard)/properties/[id]/update/form";
-import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
+import {
+  Header,
+  HeaderDescription,
+  HeaderGroup,
+  Heading,
+} from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
-export default async function UpdateProperty({ params }: { params: Promise<{ id: string }> }) {
+export default async function UpdateProperty({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const property = await prisma.property.findUnique({
     where: {
       id: (await params).id,
@@ -25,7 +34,10 @@ export default async function UpdateProperty({ params }: { params: Promise<{ id:
       <Header>
         <HeaderGroup>
           <Heading>Update Property</Heading>
-          <HeaderDescription>Edit the details of the selected property below. Make sure to review the information carefully before saving any changes.</HeaderDescription>
+          <HeaderDescription>
+            Edit the details of the selected property below. Make sure to review
+            the information carefully before saving any changes.
+          </HeaderDescription>
         </HeaderGroup>
       </Header>
 

@@ -6,8 +6,21 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
@@ -15,17 +28,25 @@ import { useToast } from "@/hooks/use-toast";
 import { updateScheduleOfCircuitDetailsAndTestResults } from "./action";
 import { UpdateScheduleOfCircuitDetailsAndTestResultsSchema } from "./schema";
 
-export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
+  electricalInstallationConditionReport,
+}: {
+  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
+}) {
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>>({
+  const form = useForm<
+    z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>
+  >({
     resolver: zodResolver(UpdateScheduleOfCircuitDetailsAndTestResultsSchema),
     defaultValues: {
       db: (electricalInstallationConditionReport.db as Array<any>) || [],
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>) => {
+  const onSubmit = async (
+    data: z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>,
+  ) => {
     const response = await updateScheduleOfCircuitDetailsAndTestResults(data);
 
     toast({
@@ -35,7 +56,11 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalIns
     });
   };
 
-  const { fields: dbFields, append: appendDb, remove: removeDb } = useFieldArray({ control: form.control, name: "db" });
+  const {
+    fields: dbFields,
+    append: appendDb,
+    remove: removeDb,
+  } = useFieldArray({ control: form.control, name: "db" });
 
   return (
     <Form {...form}>
@@ -46,7 +71,12 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalIns
               <CardHeader>
                 <CardTitle>
                   Distribution Board {dbIndex + 1}
-                  <Button type="button" onClick={() => removeDb(dbIndex)} variant="destructive" className="ml-4">
+                  <Button
+                    type="button"
+                    onClick={() => removeDb(dbIndex)}
+                    variant="destructive"
+                    className="ml-4"
+                  >
                     Remove DB
                   </Button>
                 </CardTitle>
@@ -112,7 +142,10 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalIns
                       <div>
                         <FormLabel>Supply Polarity Confirmation</FormLabel>
                       </div>
-                      <Switch checked={field.value} onCheckedChange={field.onChange} />
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -125,7 +158,10 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalIns
                       <div>
                         <FormLabel>Phase Sequence Confirmation</FormLabel>
                       </div>
-                      <Switch checked={field.value} onCheckedChange={field.onChange} />
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -151,7 +187,10 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalIns
                       <div>
                         <FormLabel>SPD Status Indicator</FormLabel>
                       </div>
-                      <Switch checked={field.value} onCheckedChange={field.onChange} />
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -356,7 +395,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalIns
                   name={`db.${dbIndex}.testInstrumentInsulationResistanceSerialNumber`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Insulation Resistance Tester Serial Number</FormLabel>
+                      <FormLabel>
+                        Insulation Resistance Tester Serial Number
+                      </FormLabel>
                       <FormControl>
                         <Input placeholder="N/A" {...field} />
                       </FormControl>
@@ -369,7 +410,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalIns
                   name={`db.${dbIndex}.testInstrumentEarthFaultLoopImpedanceSerialNumber`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Earth Fault Loop Impedance Tester Serial Number</FormLabel>
+                      <FormLabel>
+                        Earth Fault Loop Impedance Tester Serial Number
+                      </FormLabel>
                       <FormControl>
                         <Input placeholder="N/A" {...field} />
                       </FormControl>
@@ -382,7 +425,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalIns
                   name={`db.${dbIndex}.testInstrumentEarthElectrodeSerialNumber`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Earth Electrode Tester Serial Number</FormLabel>
+                      <FormLabel>
+                        Earth Electrode Tester Serial Number
+                      </FormLabel>
                       <FormControl>
                         <Input placeholder="N/A" {...field} />
                       </FormControl>
@@ -407,8 +452,17 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalIns
                 <CircuitsForm dbIndex={dbIndex} />
               </CardContent>
               <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-                <p className="text-sm text-muted-foreground">Ensure the prosumer’s low voltage installation is inspected for condition.</p>
-                <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+                <p className="text-sm text-muted-foreground">
+                  Ensure the prosumer’s low voltage installation is inspected
+                  for condition.
+                </p>
+                <Button
+                  variant="outline"
+                  type="submit"
+                  disabled={
+                    !form.formState.isDirty || form.formState.isSubmitting
+                  }
+                >
                   {form.formState.isSubmitting ? "Saving..." : "Save"}
                 </Button>
               </CardFooter>
@@ -460,14 +514,23 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalIns
 }
 
 function CircuitsForm({ dbIndex }: { dbIndex: number }) {
-  const form = useForm<z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>>({
+  const form = useForm<
+    z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>
+  >({
     resolver: zodResolver(UpdateScheduleOfCircuitDetailsAndTestResultsSchema),
     defaultValues: {
       db: [],
     },
   });
 
-  const { fields: circuitFields, append: appendCircuit, remove: removeCircuit } = useFieldArray({ control: form.control, name: `db.${dbIndex}.dbCircuits` });
+  const {
+    fields: circuitFields,
+    append: appendCircuit,
+    remove: removeCircuit,
+  } = useFieldArray({
+    control: form.control,
+    name: `db.${dbIndex}.dbCircuits`,
+  });
 
   return (
     <div>
@@ -477,7 +540,12 @@ function CircuitsForm({ dbIndex }: { dbIndex: number }) {
             <CardHeader>
               <CardTitle>
                 Circuit {circuitIndex + 1}
-                <Button type="button" onClick={() => removeCircuit(circuitIndex)} variant="destructive" className="ml-4">
+                <Button
+                  type="button"
+                  onClick={() => removeCircuit(circuitIndex)}
+                  variant="destructive"
+                  className="ml-4"
+                >
                   Remove Circuit
                 </Button>
               </CardTitle>
@@ -761,7 +829,9 @@ function CircuitsForm({ dbIndex }: { dbIndex: number }) {
                 name={`db.${dbIndex}.dbCircuits.${circuitIndex}.circuitInsulationResistanceLiveLive`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Circuit Insulation Resistance (Live/Live)</FormLabel>
+                    <FormLabel>
+                      Circuit Insulation Resistance (Live/Live)
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="999" {...field} />
                     </FormControl>
@@ -774,7 +844,9 @@ function CircuitsForm({ dbIndex }: { dbIndex: number }) {
                 name={`db.${dbIndex}.dbCircuits.${circuitIndex}.circuitInsulationResistanceLiveEarth`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Circuit Insulation Resistance (Live/Earth)</FormLabel>
+                    <FormLabel>
+                      Circuit Insulation Resistance (Live/Earth)
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="999" {...field} />
                     </FormControl>
@@ -803,7 +875,10 @@ function CircuitsForm({ dbIndex }: { dbIndex: number }) {
                     <div>
                       <FormLabel>Circuit Polarity</FormLabel>
                     </div>
-                    <Switch checked={field.value} onCheckedChange={field.onChange} />
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                     <FormMessage />
                   </FormItem>
                 )}
@@ -813,7 +888,9 @@ function CircuitsForm({ dbIndex }: { dbIndex: number }) {
                 name={`db.${dbIndex}.dbCircuits.${circuitIndex}.circuitMaximumZs`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Measured Earth Fault Loop Impedance (Zs)</FormLabel>
+                    <FormLabel>
+                      Measured Earth Fault Loop Impedance (Zs)
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="0.52" {...field} />
                     </FormControl>
@@ -842,7 +919,10 @@ function CircuitsForm({ dbIndex }: { dbIndex: number }) {
                     <div>
                       <FormLabel>RCD Test Button</FormLabel>
                     </div>
-                    <Switch checked={field.value} onCheckedChange={field.onChange} />
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                     <FormMessage />
                   </FormItem>
                 )}
@@ -855,7 +935,10 @@ function CircuitsForm({ dbIndex }: { dbIndex: number }) {
                     <div>
                       <FormLabel>AFDD Test Button</FormLabel>
                     </div>
-                    <Switch checked={field.value} onCheckedChange={field.onChange} />
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                     <FormMessage />
                   </FormItem>
                 )}
@@ -865,7 +948,9 @@ function CircuitsForm({ dbIndex }: { dbIndex: number }) {
                 name={`db.${dbIndex}.dbCircuits.${circuitIndex}.circuitComments`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Circuit Comments and Additional Information</FormLabel>
+                    <FormLabel>
+                      Circuit Comments and Additional Information
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="N/A" {...field} />
                     </FormControl>

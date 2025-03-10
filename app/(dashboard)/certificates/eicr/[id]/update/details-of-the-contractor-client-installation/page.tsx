@@ -2,28 +2,33 @@ import { notFound } from "next/navigation";
 
 import { UpdateContractorClientAndInstallationForm } from "./form";
 
-export default async function UpdateContractorClientAndInstallation({ params }: { params: Promise<{ id: string }> }) {
-  const electricalInstallationConditionReport = await prisma.electricalInstallationConditionReport.findFirst({
-    where: {
-      id: (await params).id,
-    },
-    select: {
-      id: true,
-      clientId: true,
-      propertyId: true,
-      client: {
-        select: {
-          id: true,
-          address: true,
+export default async function UpdateContractorClientAndInstallation({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const electricalInstallationConditionReport =
+    await prisma.electricalInstallationConditionReport.findFirst({
+      where: {
+        id: (await params).id,
+      },
+      select: {
+        id: true,
+        clientId: true,
+        propertyId: true,
+        client: {
+          select: {
+            id: true,
+            address: true,
+          },
+        },
+        property: {
+          select: {
+            address: true,
+          },
         },
       },
-      property: {
-        select: {
-          address: true,
-        },
-      },
-    },
-  });
+    });
 
   if (!electricalInstallationConditionReport) {
     notFound();
@@ -46,5 +51,13 @@ export default async function UpdateContractorClientAndInstallation({ params }: 
     },
   });
 
-  return <UpdateContractorClientAndInstallationForm electricalInstallationConditionReport={electricalInstallationConditionReport} clients={clients} settings={settings} />;
+  return (
+    <UpdateContractorClientAndInstallationForm
+      electricalInstallationConditionReport={
+        electricalInstallationConditionReport
+      }
+      clients={clients}
+      settings={settings}
+    />
+  );
 }

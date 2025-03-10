@@ -7,15 +7,32 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateEmail } from "./action";
 import { UpdateEmailSchema } from "./schema";
 
-export function UpdateEmailForm({ settings }: { settings: (Settings & { address: Address | null }) | null }) {
+export function UpdateEmailForm({
+  settings,
+}: {
+  settings: (Settings & { address: Address | null }) | null;
+}) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -49,7 +66,9 @@ export function UpdateEmailForm({ settings }: { settings: (Settings & { address:
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Email</CardTitle>
-            <CardDescription className="text-primary">Provide the company email address for official communication.</CardDescription>
+            <CardDescription className="text-primary">
+              Provide the company email address for official communication.
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <FormField
@@ -58,7 +77,11 @@ export function UpdateEmailForm({ settings }: { settings: (Settings & { address:
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input {...field} placeholder="Email" className="lg:max-w-[50%]" />
+                    <Input
+                      {...field}
+                      placeholder="Email"
+                      className="lg:max-w-[50%]"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -66,8 +89,14 @@ export function UpdateEmailForm({ settings }: { settings: (Settings & { address:
             />
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">Must be a valid email address.</p>
-            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+            <p className="text-sm text-muted-foreground">
+              Must be a valid email address.
+            </p>
+            <Button
+              variant="outline"
+              type="submit"
+              disabled={!form.formState.isDirty || form.formState.isSubmitting}
+            >
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>
