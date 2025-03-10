@@ -8,15 +8,20 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useToast } from "@/hooks/use-toast";
 
 import { RadioGroupComponent } from "../radio-group";
+import { updateFinalCircuits } from "./action";
 import { inspectionItems } from "./inspection-items";
 import { UpdateFinalCircuitsSchema } from "./schema";
 
 export function UpdateFinalCircuitsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof UpdateFinalCircuitsSchema>>({
     resolver: zodResolver(UpdateFinalCircuitsSchema),
     defaultValues: {
+      id: electricalInstallationConditionReport.id,
       item_6_1: electricalInstallationConditionReport.item_6_1 || "na",
       item_6_2: electricalInstallationConditionReport.item_6_2 || "na",
       item_6_3: electricalInstallationConditionReport.item_6_3 || "na",
@@ -48,9 +53,19 @@ export function UpdateFinalCircuitsForm({ electricalInstallationConditionReport 
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof UpdateFinalCircuitsSchema>) => {
+    const response = await updateFinalCircuits(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateFinalCircuitsSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Final circuits</CardTitle>
@@ -67,7 +82,7 @@ export function UpdateFinalCircuitsForm({ electricalInstallationConditionReport 
                   <FormItem>
                     <FormLabel>{item.item + " - " + item.label}</FormLabel>
                     <FormControl>
-                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value} />
+                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value || "na"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
