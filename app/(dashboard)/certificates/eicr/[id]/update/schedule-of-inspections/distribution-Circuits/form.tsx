@@ -8,15 +8,20 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useToast } from "@/hooks/use-toast";
 
 import { RadioGroupComponent } from "../radio-group";
+import { updateDistributionCircuits } from "./action";
 import { inspectionItems } from "./inspection-items";
 import { UpdateDistributionCircuitsSchema } from "./schema";
 
 export function UpdateDistributionCircuitsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof UpdateDistributionCircuitsSchema>>({
     resolver: zodResolver(UpdateDistributionCircuitsSchema),
     defaultValues: {
+      id: electricalInstallationConditionReport.id,
       item_5_1: electricalInstallationConditionReport.item_5_1 || "na",
       item_5_2: electricalInstallationConditionReport.item_5_2 || "na",
       item_5_3: electricalInstallationConditionReport.item_5_3 || "na",
@@ -45,9 +50,19 @@ export function UpdateDistributionCircuitsForm({ electricalInstallationCondition
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof UpdateDistributionCircuitsSchema>) => {
+    const response = await updateDistributionCircuits(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateDistributionCircuitsSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Distribution circuits</CardTitle>
@@ -64,7 +79,7 @@ export function UpdateDistributionCircuitsForm({ electricalInstallationCondition
                   <FormItem>
                     <FormLabel>{item.item + " - " + item.label}</FormLabel>
                     <FormControl>
-                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value} />
+                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value || "na"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
