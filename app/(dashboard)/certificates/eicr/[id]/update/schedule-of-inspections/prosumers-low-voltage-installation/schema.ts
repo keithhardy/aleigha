@@ -1,5 +1,6 @@
 import { z } from "zod";
 
 export const UpdateProsumersLowVoltageInstallationSchema = z.object({
-  item_10_0: z.string(),
+  id: z.string().cuid(),
+  item_10_0: z.string().optional(),
 });

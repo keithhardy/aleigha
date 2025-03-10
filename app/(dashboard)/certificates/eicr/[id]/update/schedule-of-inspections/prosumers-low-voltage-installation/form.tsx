@@ -12,18 +12,33 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { RadioGroupComponent } from "../radio-group";
 import { inspectionItems } from "./inspection-items";
 import { UpdateProsumersLowVoltageInstallationSchema } from "./schema";
+import { updateContractorClientAndInstallation } from "./action";
+import { useToast } from "@/hooks/use-toast";
 
 export function UpdateProsumersLowVoltageInstallationForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof UpdateProsumersLowVoltageInstallationSchema>>({
     resolver: zodResolver(UpdateProsumersLowVoltageInstallationSchema),
     defaultValues: {
+      id: electricalInstallationConditionReport.id,
       item_10_0: electricalInstallationConditionReport.item_10_0 || "na",
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof UpdateProsumersLowVoltageInstallationSchema>) => {
+    const response = await updateContractorClientAndInstallation(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateProsumersLowVoltageInstallationSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Prosumer&apos;s low voltage installation</CardTitle>
@@ -40,7 +55,7 @@ export function UpdateProsumersLowVoltageInstallationForm({ electricalInstallati
                   <FormItem>
                     <FormLabel>{item.item + " - " + item.label}</FormLabel>
                     <FormControl>
-                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value} />
+                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value || "na"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
