@@ -16,14 +16,28 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 
 import { scheduleOfRates } from "./rates";
 import { UpdateScheduleOfRatesSchema } from "./schema";
+import { useToast } from "@/hooks/use-toast";
+import { updateScheduleOfRates } from "./action";
 
 export function UpdateScheduleOfRatesForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof UpdateScheduleOfRatesSchema>>({
     resolver: zodResolver(UpdateScheduleOfRatesSchema),
     defaultValues: {
       rates: (electricalInstallationConditionReport.rates as Array<any>) || [],
     },
   });
+
+  const onSubmit = async (data: z.infer<typeof UpdateScheduleOfRatesSchema>) => {
+    const response = await updateScheduleOfRates(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
 
   const [selectedRateOpen, setSelectedRateOpen] = useState(false);
   const [selectedRate, setSelectedRate] = useState<string>("");
@@ -40,7 +54,7 @@ export function UpdateScheduleOfRatesForm({ electricalInstallationConditionRepor
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateScheduleOfRatesSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Schedule of rates</CardTitle>
