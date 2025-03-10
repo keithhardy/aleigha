@@ -8,15 +8,20 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useToast } from "@/hooks/use-toast";
 
 import { RadioGroupComponent } from "../radio-group";
+import { updateIsolationAndSwitching } from "./action";
 import { inspectionItems } from "./inspection-items";
 import { UpdateIsolationAndSwitchingSchema } from "./schema";
 
 export function UpdateIsolationAndSwitchingForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof UpdateIsolationAndSwitchingSchema>>({
     resolver: zodResolver(UpdateIsolationAndSwitchingSchema),
     defaultValues: {
+      id: electricalInstallationConditionReport.id,
       item_7_1A: electricalInstallationConditionReport.item_7_1A || "na",
       item_7_1B: electricalInstallationConditionReport.item_7_1B || "na",
       item_7_1C: electricalInstallationConditionReport.item_7_1C || "na",
@@ -36,9 +41,19 @@ export function UpdateIsolationAndSwitchingForm({ electricalInstallationConditio
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof UpdateIsolationAndSwitchingSchema>) => {
+    const response = await updateIsolationAndSwitching(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateIsolationAndSwitchingSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Isolation and switching</CardTitle>
@@ -55,7 +70,7 @@ export function UpdateIsolationAndSwitchingForm({ electricalInstallationConditio
                   <FormItem>
                     <FormLabel>{item.item + " - " + item.label}</FormLabel>
                     <FormControl>
-                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value} />
+                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value || "na"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
