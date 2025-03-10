@@ -15,11 +15,15 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
+import { updateDeclaration } from "./action";
 import { UpdateDeclarationSchema } from "./schema";
 
 export function UpdateDeclarationForm({ electricalInstallationConditionReport, users }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport; users: User[] }) {
+  const { toast } = useToast();
+
   const [inspectorOpen, setInspectorOpen] = useState(false);
   const [reviewerOpen, setReviewerOpen] = useState(false);
 
@@ -36,9 +40,19 @@ export function UpdateDeclarationForm({ electricalInstallationConditionReport, u
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof UpdateDeclarationSchema>) => {
+    const response = await updateDeclaration(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateDeclarationSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Declaration</CardTitle>
