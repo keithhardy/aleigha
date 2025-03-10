@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -10,27 +11,27 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 
 import { RadioGroupComponent } from "../radio-group";
 import { inspectionItems } from "./inspection-items";
-import { Schema } from "./schema";
+import { UpdateSpecialLocationsAndInstallationsSchema } from "./schema";
 
-export function ScheduleOfItemsInspectedSection9Form() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function UpdateSpecialLocationsAndInstallationsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const form = useForm<z.infer<typeof UpdateSpecialLocationsAndInstallationsSchema>>({
+    resolver: zodResolver(UpdateSpecialLocationsAndInstallationsSchema),
     defaultValues: {
-      item_9_1A: "na" as const,
-      item_9_1B: "na" as const,
-      item_9_1C: "na" as const,
-      item_9_1D: "na" as const,
-      item_9_1E: "na" as const,
-      item_9_1F: "na" as const,
-      item_9_1G: "na" as const,
-      item_9_1H: "na" as const,
-      item_9_2: "na" as const,
+      item_9_1A: electricalInstallationConditionReport.item_9_1A || "na",
+      item_9_1B: electricalInstallationConditionReport.item_9_1B || "na",
+      item_9_1C: electricalInstallationConditionReport.item_9_1C || "na",
+      item_9_1D: electricalInstallationConditionReport.item_9_1D || "na",
+      item_9_1E: electricalInstallationConditionReport.item_9_1E || "na",
+      item_9_1F: electricalInstallationConditionReport.item_9_1F || "na",
+      item_9_1G: electricalInstallationConditionReport.item_9_1G || "na",
+      item_9_1H: electricalInstallationConditionReport.item_9_1H || "na",
+      item_9_2: electricalInstallationConditionReport.item_9_2 || "na",
     },
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateSpecialLocationsAndInstallationsSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Special locations and installations</CardTitle>

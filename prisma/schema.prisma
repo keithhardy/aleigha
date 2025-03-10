@@ -337,7 +337,7 @@ model ElectricalInstallationConditionReport {
   item_9_1F                              String?
   item_9_1G                              String?
   item_9_1H                              String?
-  item_9_2                               Json?
+  item_9_2                               String?
   // Prosumer’s low voltage installation 
   item_10_0                              String?
   // Schedule of circuit details and test results
