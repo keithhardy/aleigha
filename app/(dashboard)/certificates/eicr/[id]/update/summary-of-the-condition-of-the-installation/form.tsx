@@ -11,24 +11,39 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 
+import { updateSummaryOfTheConditionOfTheInstallation } from "./action";
 import { UpdateSummaryOfTheConditionOfTheInstallationSchema } from "./schema";
 
 export function UpdateSummaryOfTheConditionOfTheInstallationForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>>({
     resolver: zodResolver(UpdateSummaryOfTheConditionOfTheInstallationSchema),
     defaultValues: {
+      id: electricalInstallationConditionReport.id,
       generalCondition: electricalInstallationConditionReport.generalCondition || "",
       estimatedAgeOfElectricalInstallation: electricalInstallationConditionReport.estimatedAgeOfElectricalInstallation || "",
-      evidenceOfAlterations: electricalInstallationConditionReport.evidenceOfAlterations || false,
+      evidenceOfAlterations: electricalInstallationConditionReport.evidenceOfAlterations ?? false,
       estimatedAgeOfAlterations: electricalInstallationConditionReport.estimatedAgeOfAlterations || "",
-      overallAssessmentOfTheInstallation: electricalInstallationConditionReport.overallAssessmentOfTheInstallation || true,
+      overallAssessmentOfTheInstallation: electricalInstallationConditionReport.overallAssessmentOfTheInstallation ?? true,
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>) => {
+    const response = await updateSummaryOfTheConditionOfTheInstallation(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Summary of the condition of the installation</CardTitle>

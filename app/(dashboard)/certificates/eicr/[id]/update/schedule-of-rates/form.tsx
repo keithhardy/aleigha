@@ -13,11 +13,11 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useToast } from "@/hooks/use-toast";
 
+import { updateScheduleOfRates } from "./action";
 import { scheduleOfRates } from "./rates";
 import { UpdateScheduleOfRatesSchema } from "./schema";
-import { useToast } from "@/hooks/use-toast";
-import { updateScheduleOfRates } from "./action";
 
 export function UpdateScheduleOfRatesForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
   const { toast } = useToast();
