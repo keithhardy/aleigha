@@ -10,13 +10,18 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 
+import { updateDetailsAndLimitationsOfTheInspectionAndTesting } from "./action";
 import { UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema } from "./schema";
 
 export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema>>({
     resolver: zodResolver(UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema),
     defaultValues: {
+      id: electricalInstallationConditionReport.id,
       regulationAccordanceAsAmendedTo: electricalInstallationConditionReport.regulationAccordanceAsAmendedTo || "",
       detailsOfTheElectricalInstallation: electricalInstallationConditionReport.detailsOfTheElectricalInstallation || "",
       extentOfSampling: electricalInstallationConditionReport.extentOfSampling || "",
@@ -26,9 +31,19 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({ elect
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema>) => {
+    const response = await updateDetailsAndLimitationsOfTheInspectionAndTesting(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Details and limitations of the inspection and testing</CardTitle>
