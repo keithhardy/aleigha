@@ -10,26 +10,30 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { useToast } from "@/hooks/use-toast";
 
+import { updateParticularsOfInstallationsReferredToInThisReport } from "./action";
 import { UpdateParticularsOfInstallationsReferredToInThisReportSchema } from "./schema";
 
 export function UpdateParticularsOfInstallationsReferredToInThisReportForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema>>({
     resolver: zodResolver(UpdateParticularsOfInstallationsReferredToInThisReportSchema),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
       maximumDemand: electricalInstallationConditionReport.maximumDemand || "",
-      distributorsFacility: electricalInstallationConditionReport.distributorsFacility || true,
-      installationEarthElectrodes: electricalInstallationConditionReport.installationEarthElectrodes || false,
+      distributorsFacility: electricalInstallationConditionReport.distributorsFacility ?? true,
+      installationEarthElectrodes: electricalInstallationConditionReport.installationEarthElectrodes ?? false,
       earthElectrodeType: electricalInstallationConditionReport.earthElectrodeType || "",
       earthElectrodeLocation: electricalInstallationConditionReport.earthElectrodeLocation || "",
       electrodeResistanceToEarth: electricalInstallationConditionReport.electrodeResistanceToEarth || "",
       earthingConductorMaterial: electricalInstallationConditionReport.earthingConductorMaterial || "",
       earthingConductorCSA: electricalInstallationConditionReport.earthingConductorCSA || "",
-      earthingConductorVerified: electricalInstallationConditionReport.earthingConductorVerified || false,
+      earthingConductorVerified: electricalInstallationConditionReport.earthingConductorVerified ?? false,
       mainProtectiveBondingConductorMaterial: electricalInstallationConditionReport.mainProtectiveBondingConductorMaterial || "",
       mainProtectiveBondingConductorCSA: electricalInstallationConditionReport.mainProtectiveBondingConductorCSA || "",
-      mainProtectiveBondingConductorVerified: electricalInstallationConditionReport.mainProtectiveBondingConductorVerified || false,
+      mainProtectiveBondingConductorVerified: electricalInstallationConditionReport.mainProtectiveBondingConductorVerified ?? false,
       waterInstallationPipes: electricalInstallationConditionReport.waterInstallationPipes || "",
       gasInstallationPipes: electricalInstallationConditionReport.gasInstallationPipes || "",
       structuralSteel: electricalInstallationConditionReport.structuralSteel || "",
@@ -50,9 +54,19 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({ ele
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema>) => {
+    const response = await updateParticularsOfInstallationsReferredToInThisReport(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Particulars of Installation</CardTitle>
