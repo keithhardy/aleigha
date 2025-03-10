@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-export const Schema = z.object({
-  scheduleOfRates: z.array(
+export const UpdateScheduleOfRatesSchema = z.object({
+  rates: z.array(
     z.object({
       id: z.number(),
       name: z.string(),

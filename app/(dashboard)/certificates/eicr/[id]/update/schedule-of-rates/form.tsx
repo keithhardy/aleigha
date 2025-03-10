@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,32 +15,32 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import { scheduleOfRates } from "./rates";
-import { Schema } from "./schema";
+import { UpdateScheduleOfRatesSchema } from "./schema";
 
-export function ScheduleOfRatesForm() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function UpdateScheduleOfRatesForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const form = useForm<z.infer<typeof UpdateScheduleOfRatesSchema>>({
+    resolver: zodResolver(UpdateScheduleOfRatesSchema),
     defaultValues: {
-      scheduleOfRates: [],
+      rates: (electricalInstallationConditionReport.rates as Array<any>) || [],
     },
   });
 
   const [selectedRateOpen, setSelectedRateOpen] = useState(false);
   const [selectedRate, setSelectedRate] = useState<string>("");
 
-  const selectedRates = (form.watch("scheduleOfRates") as z.infer<typeof Schema>["scheduleOfRates"][number][]) || [];
+  const selectedRates = (form.watch("rates") as z.infer<typeof UpdateScheduleOfRatesSchema>["rates"][number][]) || [];
 
   const handleRateSelect = (value: string) => {
     const rate = scheduleOfRates.find((r) => r.id === parseInt(value));
     if (rate) {
-      form.setValue("scheduleOfRates", [...selectedRates, { id: rate.id, name: rate.name, description: rate.description }], { shouldDirty: true });
+      form.setValue("rates", [...selectedRates, { id: rate.id, name: rate.name, description: rate.description }], { shouldDirty: true });
       setSelectedRate("");
     }
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateScheduleOfRatesSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Schedule of rates</CardTitle>
@@ -92,7 +93,7 @@ export function ScheduleOfRatesForm() {
                 <span className="col-span-4">{rate.name}</span>
                 <FormField
                   control={form.control}
-                  name={`scheduleOfRates.${index}.description`}
+                  name={`rates.${index}.description`}
                   render={({ field }) => (
                     <FormItem className="col-span-4">
                       <FormControl>
@@ -106,7 +107,7 @@ export function ScheduleOfRatesForm() {
                   type="button"
                   onClick={() =>
                     form.setValue(
-                      "scheduleOfRates",
+                      "rates",
                       selectedRates.filter((_, i) => i !== index),
                       { shouldDirty: true },
                     )
