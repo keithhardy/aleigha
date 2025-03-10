@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -12,17 +13,31 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useToast } from "@/hooks/use-toast";
 
+import { updateObservations } from "./action";
 import { observations } from "./observations";
 import { UpdateObservationsSchema } from "./schema";
 
-export function UpdateObservationsForm() {
+export function UpdateObservationsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof UpdateObservationsSchema>>({
     resolver: zodResolver(UpdateObservationsSchema),
     defaultValues: {
-      observations: [],
+      observations: (electricalInstallationConditionReport.observations as Array<any>) || [],
     },
   });
+
+  const onSubmit = async (data: z.infer<typeof UpdateObservationsSchema>) => {
+    const response = await updateObservations(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
 
   const [selectedObservationOpen, setSelectedObservationOpen] = useState(false);
 
@@ -57,7 +72,7 @@ export function UpdateObservationsForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateObservationsSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Observations</CardTitle>
