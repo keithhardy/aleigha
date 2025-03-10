@@ -9,8 +9,11 @@ export default async function UpdateContractorClientAndInstallation({ params }: 
     },
     select: {
       id: true,
+      clientId: true,
+      propertyId: true,
       client: {
         select: {
+          id: true,
           address: true,
         },
       },
@@ -42,6 +45,8 @@ export default async function UpdateContractorClientAndInstallation({ params }: 
       address: true,
     },
   });
+
+  console.log(electricalInstallationConditionReport)
 
   return <UpdateContractorClientAndInstallationForm electricalInstallationConditionReport={electricalInstallationConditionReport} clients={clients} settings={settings} />;
 }
