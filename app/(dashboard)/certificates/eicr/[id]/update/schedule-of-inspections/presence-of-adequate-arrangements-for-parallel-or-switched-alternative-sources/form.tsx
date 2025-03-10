@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -10,20 +11,20 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 
 import { RadioGroupComponent } from "../radio-group";
 import { inspectionItems } from "./inspection-items";
-import { Schema } from "./schema";
+import { UpdatePresenceOfAdequateArrangementsSchema } from "./schema";
 
-export function ScheduleOfItemsInspectedSection2Form() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function UpdatePresenceOfAdequateArrangementsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const form = useForm<z.infer<typeof UpdatePresenceOfAdequateArrangementsSchema>>({
+    resolver: zodResolver(UpdatePresenceOfAdequateArrangementsSchema),
     defaultValues: {
-      item_2_1: "na" as const,
-      item_2_2: "na" as const,
+      item_2_1: electricalInstallationConditionReport.item_2_1 || "na",
+      item_2_2: electricalInstallationConditionReport.item_2_2 || "na",
     },
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdatePresenceOfAdequateArrangementsSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Presence of adequate arrangements for parallel or switched alternative sources</CardTitle>
