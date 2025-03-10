@@ -8,15 +8,20 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useToast } from "@/hooks/use-toast";
 
 import { RadioGroupComponent } from "../radio-group";
+import { updateMethodsOfProtection } from "./action";
 import { inspectionItems } from "./inspection-items";
 import { UpdateMethodsOfProtectionSchema } from "./schema";
 
 export function UpdateMethodsOfProtectionForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof UpdateMethodsOfProtectionSchema>>({
     resolver: zodResolver(UpdateMethodsOfProtectionSchema),
     defaultValues: {
+      id: electricalInstallationConditionReport.id,
       item_3_1A: electricalInstallationConditionReport.item_3_1A || "na",
       item_3_1B: electricalInstallationConditionReport.item_3_1B || "na",
       item_3_1C: electricalInstallationConditionReport.item_3_1C || "na",
@@ -36,9 +41,19 @@ export function UpdateMethodsOfProtectionForm({ electricalInstallationConditionR
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof UpdateMethodsOfProtectionSchema>) => {
+    const response = await updateMethodsOfProtection(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateMethodsOfProtectionSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Methods of protection</CardTitle>
@@ -55,7 +70,7 @@ export function UpdateMethodsOfProtectionForm({ electricalInstallationConditionR
                   <FormItem>
                     <FormLabel>{item.item + " - " + item.label}</FormLabel>
                     <FormControl>
-                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value} />
+                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value || "na"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
