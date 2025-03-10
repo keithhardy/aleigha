@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -11,7 +12,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { RadioGroupComponent } from "../radio-group";
 import { inspectionItems } from "./inspection-items";
 import { UpdateDistributionCircuitsSchema } from "./schema";
-import { ElectricalInstallationConditionReport } from "@prisma/client";
 
 export function UpdateDistributionCircuitsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
   const form = useForm<z.infer<typeof UpdateDistributionCircuitsSchema>>({

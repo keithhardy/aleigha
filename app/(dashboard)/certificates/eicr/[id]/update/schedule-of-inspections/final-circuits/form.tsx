@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -10,46 +11,46 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 
 import { RadioGroupComponent } from "../radio-group";
 import { inspectionItems } from "./inspection-items";
-import { Schema } from "./schema";
+import { UpdateFinalCircuitsSchema } from "./schema";
 
-export function ScheduleOfItemsInspectedSection6Form() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function UpdateFinalCircuitsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const form = useForm<z.infer<typeof UpdateFinalCircuitsSchema>>({
+    resolver: zodResolver(UpdateFinalCircuitsSchema),
     defaultValues: {
-      item_6_1: "na" as const,
-      item_6_2: "na" as const,
-      item_6_3: "na" as const,
-      item_6_4: "na" as const,
-      item_6_5: "na" as const,
-      item_6_6: "na" as const,
-      item_6_7: "na" as const,
-      item_6_8: "na" as const,
-      item_6_9: "na" as const,
-      item_6_10: "na" as const,
-      item_6_11: "na" as const,
-      item_6_12A: "na" as const,
-      item_6_12B: "na" as const,
-      item_6_13A: "na" as const,
-      item_6_13B: "na" as const,
-      item_6_13C: "na" as const,
-      item_6_13D: "na" as const,
-      item_6_13E: "na" as const,
-      item_6_14: "na" as const,
-      item_6_15: "na" as const,
-      item_6_16: "na" as const,
-      item_6_17A: "na" as const,
-      item_6_17B: "na" as const,
-      item_6_17C: "na" as const,
-      item_6_17D: "na" as const,
-      item_6_18: "na" as const,
-      item_6_19: "na" as const,
-      item_6_20: "na" as const,
+      item_6_1: electricalInstallationConditionReport.item_6_1 || "na",
+      item_6_2: electricalInstallationConditionReport.item_6_2 || "na",
+      item_6_3: electricalInstallationConditionReport.item_6_3 || "na",
+      item_6_4: electricalInstallationConditionReport.item_6_4 || "na",
+      item_6_5: electricalInstallationConditionReport.item_6_5 || "na",
+      item_6_6: electricalInstallationConditionReport.item_6_6 || "na",
+      item_6_7: electricalInstallationConditionReport.item_6_7 || "na",
+      item_6_8: electricalInstallationConditionReport.item_6_8 || "na",
+      item_6_9: electricalInstallationConditionReport.item_6_9 || "na",
+      item_6_10: electricalInstallationConditionReport.item_6_10 || "na",
+      item_6_11: electricalInstallationConditionReport.item_6_11 || "na",
+      item_6_12A: electricalInstallationConditionReport.item_6_12A || "na",
+      item_6_12B: electricalInstallationConditionReport.item_6_12B || "na",
+      item_6_13A: electricalInstallationConditionReport.item_6_13A || "na",
+      item_6_13B: electricalInstallationConditionReport.item_6_13B || "na",
+      item_6_13C: electricalInstallationConditionReport.item_6_13C || "na",
+      item_6_13D: electricalInstallationConditionReport.item_6_13D || "na",
+      item_6_13E: electricalInstallationConditionReport.item_6_13E || "na",
+      item_6_14: electricalInstallationConditionReport.item_6_14 || "na",
+      item_6_15: electricalInstallationConditionReport.item_6_15 || "na",
+      item_6_16: electricalInstallationConditionReport.item_6_16 || "na",
+      item_6_17A: electricalInstallationConditionReport.item_6_17A || "na",
+      item_6_17B: electricalInstallationConditionReport.item_6_17B || "na",
+      item_6_17C: electricalInstallationConditionReport.item_6_17C || "na",
+      item_6_17D: electricalInstallationConditionReport.item_6_17D || "na",
+      item_6_18: electricalInstallationConditionReport.item_6_18 || "na",
+      item_6_19: electricalInstallationConditionReport.item_6_19 || "na",
+      item_6_20: electricalInstallationConditionReport.item_6_20 || "na",
     },
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateFinalCircuitsSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Final circuits</CardTitle>
