@@ -10,43 +10,44 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 
 import { RadioGroupComponent } from "../radio-group";
 import { inspectionItems } from "./inspection-items";
-import { Schema } from "./schema";
+import { UpdateDistributionCircuitsSchema } from "./schema";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 
-export function ScheduleOfItemsInspectedSection5Form() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function UpdateDistributionCircuitsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const form = useForm<z.infer<typeof UpdateDistributionCircuitsSchema>>({
+    resolver: zodResolver(UpdateDistributionCircuitsSchema),
     defaultValues: {
-      item_5_1: "na" as const,
-      item_5_2: "na" as const,
-      item_5_3: "na" as const,
-      item_5_4: "na" as const,
-      item_5_5: "na" as const,
-      item_5_6: "na" as const,
-      item_5_7: "na" as const,
-      item_5_8: "na" as const,
-      item_5_9: "na" as const,
-      item_5_10: "na" as const,
-      item_5_11: "na" as const,
-      item_5_12: "na" as const,
-      item_5_13: "na" as const,
-      item_5_14A: "na" as const,
-      item_5_14B: "na" as const,
-      item_5_15: "na" as const,
-      item_5_16: "na" as const,
-      item_5_17: "na" as const,
-      item_5_18: "na" as const,
-      item_5_19: "na" as const,
-      item_5_20: "na" as const,
-      item_5_21: "na" as const,
-      item_5_22: "na" as const,
-      item_5_23: "na" as const,
-      item_5_24: "na" as const,
+      item_5_1: electricalInstallationConditionReport.item_5_1 || "na",
+      item_5_2: electricalInstallationConditionReport.item_5_2 || "na",
+      item_5_3: electricalInstallationConditionReport.item_5_3 || "na",
+      item_5_4: electricalInstallationConditionReport.item_5_4 || "na",
+      item_5_5: electricalInstallationConditionReport.item_5_5 || "na",
+      item_5_6: electricalInstallationConditionReport.item_5_6 || "na",
+      item_5_7: electricalInstallationConditionReport.item_5_7 || "na",
+      item_5_8: electricalInstallationConditionReport.item_5_8 || "na",
+      item_5_9: electricalInstallationConditionReport.item_5_9 || "na",
+      item_5_10: electricalInstallationConditionReport.item_5_10 || "na",
+      item_5_11: electricalInstallationConditionReport.item_5_11 || "na",
+      item_5_12: electricalInstallationConditionReport.item_5_12 || "na",
+      item_5_13: electricalInstallationConditionReport.item_5_13 || "na",
+      item_5_14A: electricalInstallationConditionReport.item_5_14A || "na",
+      item_5_14B: electricalInstallationConditionReport.item_5_14B || "na",
+      item_5_15: electricalInstallationConditionReport.item_5_15 || "na",
+      item_5_16: electricalInstallationConditionReport.item_5_16 || "na",
+      item_5_17: electricalInstallationConditionReport.item_5_17 || "na",
+      item_5_18: electricalInstallationConditionReport.item_5_18 || "na",
+      item_5_19: electricalInstallationConditionReport.item_5_19 || "na",
+      item_5_20: electricalInstallationConditionReport.item_5_20 || "na",
+      item_5_21: electricalInstallationConditionReport.item_5_21 || "na",
+      item_5_22: electricalInstallationConditionReport.item_5_22 || "na",
+      item_5_23: electricalInstallationConditionReport.item_5_23 || "na",
+      item_5_24: electricalInstallationConditionReport.item_5_24 || "na",
     },
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateDistributionCircuitsSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Distribution circuits</CardTitle>
