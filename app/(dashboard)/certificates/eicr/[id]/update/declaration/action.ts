@@ -1,15 +1,17 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { prisma } from "@/lib/prisma";
-import { revalidatePath } from "next/cache";
 import { ServerActionResponse } from "@/lib/types";
 
 import { UpdateDeclarationSchema } from "./schema";
 
 export async function updateDeclaration(
-  electricalInstallationConditionReport: z.infer<typeof UpdateDeclarationSchema>
+  electricalInstallationConditionReport: z.infer<
+    typeof UpdateDeclarationSchema
+  >,
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({

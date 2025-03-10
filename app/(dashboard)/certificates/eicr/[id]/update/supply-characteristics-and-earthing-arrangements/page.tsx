@@ -1,4 +1,7 @@
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { notFound } from "next/navigation";
+
+import { prisma } from "@/lib/prisma";
 
 import { UpdateSupplyCharacteristicsAndEarthingArrangementsForm } from "./form";
 
@@ -36,7 +39,7 @@ export default async function UpdateSupplyCharacteristicsAndEarthingArrangements
   return (
     <UpdateSupplyCharacteristicsAndEarthingArrangementsForm
       electricalInstallationConditionReport={
-        electricalInstallationConditionReport
+        electricalInstallationConditionReport as ElectricalInstallationConditionReport
       }
     />
   );

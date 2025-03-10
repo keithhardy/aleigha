@@ -1,4 +1,7 @@
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { notFound } from "next/navigation";
+
+import { prisma } from "@/lib/prisma";
 
 import { UpdateDeclarationForm } from "./form";
 
@@ -17,14 +20,8 @@ export default async function UpdateDeclaration({
         recommendedRetestDate: true,
         reasonForRecommendation: true,
         inspectorId: true,
-        inspector: {
-          include: true,
-        },
         inspectionDate: true,
         reviewerId: true,
-        reviewer: {
-          include: true,
-        },
         reviewDate: true,
       },
     });
@@ -38,7 +35,7 @@ export default async function UpdateDeclaration({
   return (
     <UpdateDeclarationForm
       electricalInstallationConditionReport={
-        electricalInstallationConditionReport
+        electricalInstallationConditionReport as ElectricalInstallationConditionReport
       }
       users={users}
     />

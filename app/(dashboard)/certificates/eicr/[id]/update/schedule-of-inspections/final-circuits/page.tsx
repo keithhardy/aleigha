@@ -1,4 +1,7 @@
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { notFound } from "next/navigation";
+
+import { prisma } from "@/lib/prisma";
 
 import { UpdateFinalCircuitsForm } from "./form";
 
@@ -52,7 +55,7 @@ export default async function UpdateFinalCircuits({
   return (
     <UpdateFinalCircuitsForm
       electricalInstallationConditionReport={
-        electricalInstallationConditionReport
+        electricalInstallationConditionReport as ElectricalInstallationConditionReport
       }
     />
   );

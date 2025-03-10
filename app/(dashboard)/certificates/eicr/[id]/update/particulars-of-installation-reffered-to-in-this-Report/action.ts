@@ -1,9 +1,9 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { prisma } from "@/lib/prisma";
-import { revalidatePath } from "next/cache";
 import { ServerActionResponse } from "@/lib/types";
 
 import { UpdateParticularsOfInstallationsReferredToInThisReportSchema } from "./schema";
@@ -11,7 +11,7 @@ import { UpdateParticularsOfInstallationsReferredToInThisReportSchema } from "./
 export async function updateParticularsOfInstallationsReferredToInThisReport(
   electricalInstallationConditionReport: z.infer<
     typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema
-  >
+  >,
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({

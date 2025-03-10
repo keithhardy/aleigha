@@ -1,4 +1,7 @@
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { notFound } from "next/navigation";
+
+import { prisma } from "@/lib/prisma";
 
 import { UpdatePresenceOfAdequateArrangementsForm } from "./form";
 
@@ -26,7 +29,7 @@ export default async function UpdatePresenceOfAdequateArrangements({
   return (
     <UpdatePresenceOfAdequateArrangementsForm
       electricalInstallationConditionReport={
-        electricalInstallationConditionReport
+        electricalInstallationConditionReport as ElectricalInstallationConditionReport
       }
     />
   );

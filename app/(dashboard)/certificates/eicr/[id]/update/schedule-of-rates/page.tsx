@@ -1,4 +1,7 @@
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { notFound } from "next/navigation";
+
+import { prisma } from "@/lib/prisma";
 
 import { UpdateScheduleOfRatesForm } from "./form";
 
@@ -25,7 +28,7 @@ export default async function UpdateScheduleOfRates({
   return (
     <UpdateScheduleOfRatesForm
       electricalInstallationConditionReport={
-        electricalInstallationConditionReport
+        electricalInstallationConditionReport as ElectricalInstallationConditionReport
       }
     />
   );

@@ -1,4 +1,7 @@
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { notFound } from "next/navigation";
+
+import { prisma } from "@/lib/prisma";
 
 import { UpdateScheduleOfCircuitDetailsAndTestResultsForm } from "./form";
 
@@ -25,7 +28,7 @@ export default async function UpdateScheduleOfCircuitDetailsAndTestResults({
   return (
     <UpdateScheduleOfCircuitDetailsAndTestResultsForm
       electricalInstallationConditionReport={
-        electricalInstallationConditionReport
+        electricalInstallationConditionReport as ElectricalInstallationConditionReport
       }
     />
   );

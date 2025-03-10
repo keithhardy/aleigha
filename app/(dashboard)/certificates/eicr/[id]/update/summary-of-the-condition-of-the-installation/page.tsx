@@ -1,4 +1,7 @@
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { notFound } from "next/navigation";
+
+import { prisma } from "@/lib/prisma";
 
 import { UpdateSummaryOfTheConditionOfTheInstallationForm } from "./form";
 
@@ -28,7 +31,7 @@ export default async function UpdateSummaryOfTheConditionOfTheInstallation({
   return (
     <UpdateSummaryOfTheConditionOfTheInstallationForm
       electricalInstallationConditionReport={
-        electricalInstallationConditionReport
+        electricalInstallationConditionReport as ElectricalInstallationConditionReport
       }
     />
   );
