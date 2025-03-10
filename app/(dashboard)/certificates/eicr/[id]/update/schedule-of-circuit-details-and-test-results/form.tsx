@@ -10,10 +10,14 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { useToast } from "@/hooks/use-toast";
 
+import { updateScheduleOfCircuitDetailsAndTestResults } from "./action";
 import { UpdateScheduleOfCircuitDetailsAndTestResultsSchema } from "./schema";
 
 export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>>({
     resolver: zodResolver(UpdateScheduleOfCircuitDetailsAndTestResultsSchema),
     defaultValues: {
@@ -21,11 +25,21 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalIns
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>) => {
+    const response = await updateScheduleOfCircuitDetailsAndTestResults(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
+
   const { fields: dbFields, append: appendDb, remove: removeDb } = useFieldArray({ control: form.control, name: "db" });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="space-y-4">
           {dbFields.map((dbItem, dbIndex) => (
             <Card key={dbItem.id} className="shadow-none rounded-md">

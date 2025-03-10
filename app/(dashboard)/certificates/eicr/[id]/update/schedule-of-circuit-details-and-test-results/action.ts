@@ -5,17 +5,16 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
 
-import { UpdateContractorClientAndInstallationSchema } from "./schema";
+import { UpdateScheduleOfCircuitDetailsAndTestResultsSchema } from "./schema";
 
-export async function updateContractorClientAndInstallation(electricalInstallationConditionReport: z.infer<typeof UpdateContractorClientAndInstallationSchema>): Promise<ServerActionResponse<void>> {
+export async function updateScheduleOfCircuitDetailsAndTestResults(electricalInstallationConditionReport: z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
       where: {
         id: electricalInstallationConditionReport.id,
       },
       data: {
-        clientId: electricalInstallationConditionReport.clientId,
-        propertyId: electricalInstallationConditionReport.propertyId,
+        db: electricalInstallationConditionReport.db,
       },
     });
 
