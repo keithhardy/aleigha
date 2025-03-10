@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -10,34 +11,34 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 
 import { RadioGroupComponent } from "../radio-group";
 import { inspectionItems } from "./inspection-items";
-import { Schema } from "./schema";
+import { UpdateIsolationAndSwitchingSchema } from "./schema";
 
-export function ScheduleOfItemsInspectedSection7Form() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function UpdateIsolationAndSwitchingForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const form = useForm<z.infer<typeof UpdateIsolationAndSwitchingSchema>>({
+    resolver: zodResolver(UpdateIsolationAndSwitchingSchema),
     defaultValues: {
-      item_7_1A: "na" as const,
-      item_7_1B: "na" as const,
-      item_7_1C: "na" as const,
-      item_7_1D: "na" as const,
-      item_7_1E: "na" as const,
-      item_7_1F: "na" as const,
-      item_7_2A: "na" as const,
-      item_7_2B: "na" as const,
-      item_7_2C: "na" as const,
-      item_7_2D: "na" as const,
-      item_7_3A: "na" as const,
-      item_7_3B: "na" as const,
-      item_7_3C: "na" as const,
-      item_7_3D: "na" as const,
-      item_7_4A: "na" as const,
-      item_7_4B: "na" as const,
+      item_7_1A: electricalInstallationConditionReport.item_7_1A || "na",
+      item_7_1B: electricalInstallationConditionReport.item_7_1B || "na",
+      item_7_1C: electricalInstallationConditionReport.item_7_1C || "na",
+      item_7_1D: electricalInstallationConditionReport.item_7_1D || "na",
+      item_7_1E: electricalInstallationConditionReport.item_7_1E || "na",
+      item_7_1F: electricalInstallationConditionReport.item_7_1F || "na",
+      item_7_2A: electricalInstallationConditionReport.item_7_2A || "na",
+      item_7_2B: electricalInstallationConditionReport.item_7_2B || "na",
+      item_7_2C: electricalInstallationConditionReport.item_7_2C || "na",
+      item_7_2D: electricalInstallationConditionReport.item_7_2D || "na",
+      item_7_3A: electricalInstallationConditionReport.item_7_3A || "na",
+      item_7_3B: electricalInstallationConditionReport.item_7_3B || "na",
+      item_7_3C: electricalInstallationConditionReport.item_7_3C || "na",
+      item_7_3D: electricalInstallationConditionReport.item_7_3D || "na",
+      item_7_4A: electricalInstallationConditionReport.item_7_4A || "na",
+      item_7_4B: electricalInstallationConditionReport.item_7_4B || "na",
     },
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateIsolationAndSwitchingSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Isolation and switching</CardTitle>
