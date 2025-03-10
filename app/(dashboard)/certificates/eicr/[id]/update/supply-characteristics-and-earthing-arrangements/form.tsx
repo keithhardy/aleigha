@@ -10,19 +10,24 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { useToast } from "@/hooks/use-toast";
 
+import { updateSupplyCharacteristicsAndEarthingArrangements } from "./action";
 import { UpdateSupplyCharacteristicsAndEarthingArrangementsSchema } from "./schema";
 
 export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof UpdateSupplyCharacteristicsAndEarthingArrangementsSchema>>({
     resolver: zodResolver(UpdateSupplyCharacteristicsAndEarthingArrangementsSchema),
     defaultValues: {
+      id: electricalInstallationConditionReport.id,
       systemTypeAndEarthingArrangements: electricalInstallationConditionReport.systemTypeAndEarthingArrangements || "",
       supplyProtectiveDeviceBSNumber: electricalInstallationConditionReport.supplyProtectiveDeviceBSNumber || "",
       supplyProtectiveDeviceType: electricalInstallationConditionReport.supplyProtectiveDeviceType || "",
       supplyProtectiveDeviceRatedCurrent: electricalInstallationConditionReport.supplyProtectiveDeviceRatedCurrent || "",
       numberAndTypeOfLiveConductors: electricalInstallationConditionReport.numberAndTypeOfLiveConductors || "",
-      confirmationOfSupplyPolarity: electricalInstallationConditionReport.confirmationOfSupplyPolarity || true,
+      confirmationOfSupplyPolarity: electricalInstallationConditionReport.confirmationOfSupplyPolarity ?? true,
       otherSourcesOfSupply: electricalInstallationConditionReport.otherSourcesOfSupply || "",
       nominalVoltageBetweenLines: electricalInstallationConditionReport.nominalVoltageBetweenLines || "",
       nominalLineVoltageToEarth: electricalInstallationConditionReport.nominalLineVoltageToEarth || "",
@@ -32,9 +37,19 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({ electri
     },
   });
 
+  const onSubmit = async (data: z.infer<typeof UpdateSupplyCharacteristicsAndEarthingArrangementsSchema>) => {
+    const response = await updateSupplyCharacteristicsAndEarthingArrangements(data);
+
+    toast({
+      title: response.heading,
+      description: response.message,
+      variant: response.status === "success" ? "default" : "destructive",
+    });
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateSupplyCharacteristicsAndEarthingArrangementsSchema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Supply characteristics and earthing arrangements</CardTitle>

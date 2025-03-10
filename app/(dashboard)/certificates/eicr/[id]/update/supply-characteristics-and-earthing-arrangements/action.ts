@@ -5,17 +5,27 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
 
-import { UpdateContractorClientAndInstallationSchema } from "./schema";
+import { UpdateSupplyCharacteristicsAndEarthingArrangementsSchema } from "./schema";
 
-export async function updateContractorClientAndInstallation(electricalInstallationConditionReport: z.infer<typeof UpdateContractorClientAndInstallationSchema>): Promise<ServerActionResponse<void>> {
+export async function updateSupplyCharacteristicsAndEarthingArrangements(electricalInstallationConditionReport: z.infer<typeof UpdateSupplyCharacteristicsAndEarthingArrangementsSchema>): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
       where: {
         id: electricalInstallationConditionReport.id,
       },
       data: {
-        clientId: electricalInstallationConditionReport.clientId,
-        propertyId: electricalInstallationConditionReport.propertyId,
+        systemTypeAndEarthingArrangements: electricalInstallationConditionReport.systemTypeAndEarthingArrangements,
+        supplyProtectiveDeviceBSNumber: electricalInstallationConditionReport.supplyProtectiveDeviceBSNumber,
+        supplyProtectiveDeviceType: electricalInstallationConditionReport.supplyProtectiveDeviceType,
+        supplyProtectiveDeviceRatedCurrent: electricalInstallationConditionReport.supplyProtectiveDeviceRatedCurrent,
+        numberAndTypeOfLiveConductors: electricalInstallationConditionReport.numberAndTypeOfLiveConductors,
+        confirmationOfSupplyPolarity: electricalInstallationConditionReport.confirmationOfSupplyPolarity,
+        otherSourcesOfSupply: electricalInstallationConditionReport.otherSourcesOfSupply,
+        nominalVoltageBetweenLines: electricalInstallationConditionReport.nominalVoltageBetweenLines,
+        nominalLineVoltageToEarth: electricalInstallationConditionReport.nominalLineVoltageToEarth,
+        nominalFrequency: electricalInstallationConditionReport.nominalFrequency,
+        prospectiveFaultCurrent: electricalInstallationConditionReport.prospectiveFaultCurrent,
+        externalEarthFaultLoopImpedance: electricalInstallationConditionReport.externalEarthFaultLoopImpedance,
       },
     });
 
