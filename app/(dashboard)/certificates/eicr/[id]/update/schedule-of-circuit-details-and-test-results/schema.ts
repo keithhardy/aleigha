@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const Schema = z.object({
+export const UpdateScheduleOfCircuitDetailsAndTestResultsSchema = z.object({
   db: z.array(
     z.object({
       dbDesignation: z.string(),

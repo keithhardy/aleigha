@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -10,13 +11,13 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 
-import { Schema } from "./schema";
+import { UpdateScheduleOfCircuitDetailsAndTestResultsSchema } from "./schema";
 
-export function ScheduleOfCircuitDetailsForm() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const form = useForm<z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>>({
+    resolver: zodResolver(UpdateScheduleOfCircuitDetailsAndTestResultsSchema),
     defaultValues: {
-      db: [],
+      db: (electricalInstallationConditionReport.db as Array<any>) || [],
     },
   });
 
@@ -24,7 +25,7 @@ export function ScheduleOfCircuitDetailsForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>) => console.log(data))}>
         <div className="space-y-4">
           {dbFields.map((dbItem, dbIndex) => (
             <Card key={dbItem.id} className="shadow-none rounded-md">
@@ -445,8 +446,8 @@ export function ScheduleOfCircuitDetailsForm() {
 }
 
 function CircuitsForm({ dbIndex }: { dbIndex: number }) {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+  const form = useForm<z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>>({
+    resolver: zodResolver(UpdateScheduleOfCircuitDetailsAndTestResultsSchema),
     defaultValues: {
       db: [],
     },
