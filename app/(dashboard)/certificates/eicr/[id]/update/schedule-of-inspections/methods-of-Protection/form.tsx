@@ -10,34 +10,35 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 
 import { RadioGroupComponent } from "../radio-group";
 import { inspectionItems } from "./inspection-items";
-import { Schema } from "./schema";
+import { MethodsOfProtectionSchema } from "./schema";
+import { ElectricalInstallationConditionReport } from "@prisma/client";
 
-export function ScheduleOfItemsInspectedSection3Form() {
-  const form = useForm<z.infer<typeof Schema>>({
-    resolver: zodResolver(Schema),
+export function MethodsOfProtectionForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+  const form = useForm<z.infer<typeof MethodsOfProtectionSchema>>({
+    resolver: zodResolver(MethodsOfProtectionSchema),
     defaultValues: {
-      item_3_1A: "na" as const,
-      item_3_1B: "na" as const,
-      item_3_1C: "na" as const,
-      item_3_1D: "na" as const,
-      item_3_1E: "na" as const,
-      item_3_1F: "na" as const,
-      item_3_1G: "na" as const,
-      item_3_1H: "na" as const,
-      item_3_1I: "na" as const,
-      item_3_2: "na" as const,
-      item_3_3A: "na" as const,
-      item_3_3B: "na" as const,
-      item_3_3C: "na" as const,
-      item_3_3D: "na" as const,
-      item_3_3E: "na" as const,
-      item_3_3F: "na" as const,
+      item_3_1A: electricalInstallationConditionReport.item_3_1A || "",
+      item_3_1B: electricalInstallationConditionReport.item_3_1B || "",
+      item_3_1C: electricalInstallationConditionReport.item_3_1C || "",
+      item_3_1D: electricalInstallationConditionReport.item_3_1D || "",
+      item_3_1E: electricalInstallationConditionReport.item_3_1E || "",
+      item_3_1F: electricalInstallationConditionReport.item_3_1F || "",
+      item_3_1G: electricalInstallationConditionReport.item_3_1G || "",
+      item_3_1H: electricalInstallationConditionReport.item_3_1H || "",
+      item_3_1I: electricalInstallationConditionReport.item_3_1I || "",
+      item_3_2: electricalInstallationConditionReport.item_3_2 || "",
+      item_3_3A: electricalInstallationConditionReport.item_3_3A || "",
+      item_3_3B: electricalInstallationConditionReport.item_3_3B || "",
+      item_3_3C: electricalInstallationConditionReport.item_3_3C || "",
+      item_3_3D: electricalInstallationConditionReport.item_3_3D || "",
+      item_3_3E: electricalInstallationConditionReport.item_3_3E || "",
+      item_3_3F: electricalInstallationConditionReport.item_3_3F || "",
     },
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data: z.infer<typeof Schema>) => console.log(data))}>
+      <form onSubmit={form.handleSubmit((data: z.infer<typeof MethodsOfProtectionSchema>) => console.log(data))}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Methods of protection</CardTitle>

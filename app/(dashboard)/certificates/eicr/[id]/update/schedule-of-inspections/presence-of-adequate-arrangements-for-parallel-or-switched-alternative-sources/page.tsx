@@ -9,12 +9,8 @@ export default async function UpdatePresenceOfAdequateArrangements({ params }: {
     },
     select: {
       id: true,
-      purpose: true,
-      startDate: true,
-      endDate: true,
-      recordsAvailable: true,
-      previousReportAvailable: true,
-      previousReportDate: true,
+      item_2_1: true,
+      item_2_2: true,
     },
   });
 
