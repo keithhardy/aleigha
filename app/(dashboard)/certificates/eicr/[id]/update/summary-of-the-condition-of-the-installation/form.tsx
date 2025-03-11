@@ -76,7 +76,10 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="container mx-auto max-w-screen-md"
+      >
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Summary of the condition of the installation</CardTitle>
@@ -95,7 +98,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                   <FormControl>
                     <Textarea
                       {...field}
-                      className="lg:max-w-[50%] min-h-[100px]"
+                      className="min-h-[100px]"
                       placeholder="Describe the general condition of the installation, focusing on electrical safety and overall reliability."
                     />
                   </FormControl>
@@ -113,8 +116,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                     <Input
                       {...field}
                       type="number"
-                      className="lg:max-w-[50%]"
-                      placeholder="Enter the estimated age of the installation in years."
+                      placeholder="Estimated age of the installation."
                     />
                   </FormControl>
                   <FormMessage />
@@ -126,14 +128,13 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
               name="evidenceOfAlterations"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="block">
-                    Evidence of Alterations
-                  </FormLabel>
+                  <div>
+                    <FormLabel>Evidence of Alterations</FormLabel>
+                  </div>
                   <FormControl>
                     <Switch
                       checked={field.value}
                       onCheckedChange={field.onChange}
-                      className="lg:max-w-[50%]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -149,9 +150,8 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                   <FormControl>
                     <Input
                       {...field}
-                      className="lg:max-w-[50%]"
                       type="number"
-                      placeholder="Enter the estimated age of alterations if applicable."
+                      placeholder="Estimated age of alterations."
                       disabled={!form.watch("evidenceOfAlterations")}
                     />
                   </FormControl>
@@ -164,7 +164,9 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
               name="overallAssessmentOfTheInstallation"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Overall Assessment</FormLabel>
+                  <div>
+                    <FormLabel>Overall Assessment</FormLabel>
+                  </div>
                   <FormControl>
                     <div className="flex items-center space-x-2">
                       <Switch

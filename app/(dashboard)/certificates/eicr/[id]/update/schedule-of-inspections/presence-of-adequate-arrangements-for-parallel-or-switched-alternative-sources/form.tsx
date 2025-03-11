@@ -65,7 +65,10 @@ export function UpdatePresenceOfAdequateArrangementsForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="container mx-auto max-w-screen-md"
+      >
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>

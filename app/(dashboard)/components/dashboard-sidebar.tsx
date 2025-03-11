@@ -8,7 +8,6 @@ import {
   Building2,
   House,
   Folder,
-  LinkIcon,
   ChevronRight,
   TableOfContents,
 } from "lucide-react";
@@ -73,7 +72,7 @@ const dashboard = [
 ];
 
 export function DashboardSidebar() {
-  const { setOpen, open } = useSidebar();
+  const { setOpen, open, setOpenMobile } = useSidebar();
 
   const pathname = usePathname();
 
@@ -202,6 +201,7 @@ export function DashboardSidebar() {
                     asChild
                     tooltip={item.title}
                     isActive={pathname == item.url}
+                    onClick={() => setOpenMobile(false)}
                   >
                     <Link href={item.url}>
                       <item.icon />
@@ -243,6 +243,7 @@ export function DashboardSidebar() {
                           <SidebarMenuSubButton
                             asChild
                             isActive={pathname == item.url}
+                            onClick={() => setOpenMobile(false)}
                           >
                             <Link href={item.url}>
                               <span>{item.title}</span>
@@ -262,7 +263,11 @@ export function DashboardSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild tooltip="Settings">
+            <SidebarMenuButton
+              asChild
+              tooltip="Settings"
+              onClick={() => setOpenMobile(false)}
+            >
               <Link href="/settings">
                 <Settings2 />
                 <span>Settings</span>

@@ -105,12 +105,18 @@ export function UpdateContractorClientAndInstallationForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="container mx-auto max-w-screen-md"
+      >
         <Card className="shadow-none rounded-md">
           <CardHeader>
-            <CardTitle>Details of the contractor, client and installation</CardTitle>
+            <CardTitle>
+              Details of the contractor, client and installation
+            </CardTitle>
             <CardDescription className="text-primary">
-              View the contractor and select the client and installation for this EICR report.
+              View the contractor and select the client and installation for
+              this EICR report.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -290,7 +296,7 @@ export function UpdateContractorClientAndInstallationForm({
                           <span>
                             {field.value
                               ? selectedProperty?.address.streetAddress ||
-                              "Select a property..."
+                                "Select a property..."
                               : "Select a property..."}
                           </span>
                           <ChevronsUpDown className="opacity-50" />

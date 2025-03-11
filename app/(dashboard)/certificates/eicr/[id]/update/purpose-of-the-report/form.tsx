@@ -79,7 +79,10 @@ export function UpdatePurposeOfTheReportForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="container mx-auto max-w-screen-md"
+      >
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Purpose of the report</CardTitle>
@@ -87,7 +90,7 @@ export function UpdatePurposeOfTheReportForm({
               Specify the purpose of the report, including inspection details.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-2">
+          <CardContent className="space-y-4">
             <FormField
               control={form.control}
               name="purpose"
@@ -97,7 +100,7 @@ export function UpdatePurposeOfTheReportForm({
                   <FormControl>
                     <Textarea
                       {...field}
-                      className="lg:max-w-[50%] min-h-[100px]"
+                      className="min-h-[100px]"
                       placeholder="Describe the purpose of the inspection, e.g., condition assessment, fault detection, etc."
                     />
                   </FormControl>
@@ -110,14 +113,16 @@ export function UpdatePurposeOfTheReportForm({
               name="startDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Start Date of Inspection</FormLabel>
+                  <div>
+                    <FormLabel>Start Date of Inspection</FormLabel>
+                  </div>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "lg:max-w-[50%] pl-3 text-left font-normal",
+                            "pl-3 text-left font-normal",
                             !field.value && "text-muted-foreground",
                           )}
                         >
@@ -151,14 +156,16 @@ export function UpdatePurposeOfTheReportForm({
               name="endDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>End Date of Inspection</FormLabel>
+                  <div>
+                    <FormLabel>End Date of Inspection</FormLabel>
+                  </div>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "lg:max-w-[50%] pl-3 text-left font-normal",
+                            "pl-3 text-left font-normal",
                             !field.value && "text-muted-foreground",
                           )}
                         >
@@ -199,7 +206,6 @@ export function UpdatePurposeOfTheReportForm({
                     <Switch
                       checked={field.value}
                       onCheckedChange={field.onChange}
-                      className="lg:max-w-[50%]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -218,7 +224,6 @@ export function UpdatePurposeOfTheReportForm({
                     <Switch
                       checked={field.value}
                       onCheckedChange={field.onChange}
-                      className="lg:max-w-[50%]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -230,14 +235,16 @@ export function UpdatePurposeOfTheReportForm({
               name="previousReportDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Date of Previous Report</FormLabel>
+                  <div>
+                    <FormLabel>Date of Previous Report</FormLabel>
+                  </div>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "lg:max-w-[50%] pl-3 text-left font-normal",
+                            "pl-3 text-left font-normal",
                             !field.value && "text-muted-foreground",
                           )}
                           disabled={!form.watch("previousReportAvailable")}
