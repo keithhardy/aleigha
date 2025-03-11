@@ -109,7 +109,9 @@ export function UpdateDeclarationForm({
               name="recommendedRetestDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Retest Date</FormLabel>
+                  <div>
+                    <FormLabel>Retest Date</FormLabel>
+                  </div>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
@@ -176,7 +178,9 @@ export function UpdateDeclarationForm({
                 );
                 return (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <div>
+                      <FormLabel>Name</FormLabel>
+                    </div>
                     <Popover
                       open={inspectorOpen}
                       onOpenChange={setInspectorOpen}
@@ -242,7 +246,9 @@ export function UpdateDeclarationForm({
               name="inspectionDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Inspector&apos;s Signature Date</FormLabel>
+                  <div>
+                    <FormLabel>Inspector&apos;s Signature Date</FormLabel>
+                  </div>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
@@ -287,7 +293,9 @@ export function UpdateDeclarationForm({
                 );
                 return (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <div>
+                      <FormLabel>Name</FormLabel>
+                    </div>
                     <Popover open={reviewerOpen} onOpenChange={setReviewerOpen}>
                       <PopoverTrigger asChild className="w-full">
                         <Button
@@ -348,9 +356,11 @@ export function UpdateDeclarationForm({
               name="reviewDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>
-                    Qualified Supervisor&apos;s Signature Date
-                  </FormLabel>
+                  <div>
+                    <FormLabel>
+                      Qualified Supervisor&apos;s Signature Date
+                    </FormLabel>
+                  </div>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>

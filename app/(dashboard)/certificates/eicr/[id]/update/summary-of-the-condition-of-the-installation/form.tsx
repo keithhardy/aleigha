@@ -115,8 +115,13 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                   <FormControl>
                     <Input
                       {...field}
-                      type="number"
+                      type="string"
                       placeholder="Estimated age of the installation."
+                      onChange={(e) => {
+                        const value = Math.max(0, Math.floor(Number(e.target.value) || 0)).toString();
+                        field.onChange(value);
+                      }}
+                      value={field.value ?? ""}
                     />
                   </FormControl>
                   <FormMessage />
@@ -134,31 +139,42 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                   <FormControl>
                     <Switch
                       checked={field.value}
-                      onCheckedChange={field.onChange}
+                      onCheckedChange={(checked) => {
+                        field.onChange(checked);
+                        if (!checked) {
+                          form.setValue("estimatedAgeOfAlterations", "");
+                        }
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="estimatedAgeOfAlterations"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Estimated Age of Alterations</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="number"
-                      placeholder="Estimated age of alterations."
-                      disabled={!form.watch("evidenceOfAlterations")}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {form.watch("evidenceOfAlterations") &&
+              <FormField
+                control={form.control}
+                name="estimatedAgeOfAlterations"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Estimated Age of Alterations</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        type="string"
+                        placeholder="Estimated age of the alterations."
+                        onChange={(e) => {
+                          const value = Math.max(0, Math.floor(Number(e.target.value) || 0)).toString();
+                          field.onChange(value);
+                        }}
+                        value={field.value ?? ""}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            }
             <FormField
               control={form.control}
               name="overallAssessmentOfTheInstallation"
