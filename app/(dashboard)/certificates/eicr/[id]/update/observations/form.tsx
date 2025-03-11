@@ -166,7 +166,7 @@ export function UpdateObservationsForm({
                           >
                             {`${observation.itemNumber}: ${observation.description}`}
                             {observation.id.toString() ===
-                              selectedObservation ? (
+                            selectedObservation ? (
                               <Check className="ml-auto" />
                             ) : null}
                           </CommandItem>

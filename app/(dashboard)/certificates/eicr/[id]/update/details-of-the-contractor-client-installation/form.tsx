@@ -348,7 +348,7 @@ export function UpdateContractorClientAndInstallationForm({
                           <span>
                             {field.value
                               ? selectedProperty?.address.streetAddress ||
-                              "Select a property..."
+                                "Select a property..."
                               : "Select a property..."}
                           </span>
                           <ChevronsUpDown className="opacity-50" />
