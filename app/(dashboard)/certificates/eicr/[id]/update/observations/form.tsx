@@ -166,7 +166,7 @@ export function UpdateObservationsForm({
                           >
                             {`${observation.itemNumber}: ${observation.description}`}
                             {observation.id.toString() ===
-                            selectedObservation ? (
+                              selectedObservation ? (
                               <Check className="ml-auto" />
                             ) : null}
                           </CommandItem>
@@ -241,7 +241,6 @@ export function UpdateObservationsForm({
                 <Button
                   type="button"
                   onClick={() => remove(index)}
-                  className="ml-2"
                 >
                   Delete
                 </Button>
