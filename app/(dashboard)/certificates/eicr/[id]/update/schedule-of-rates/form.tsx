@@ -171,13 +171,13 @@ export function UpdateScheduleOfRatesForm({
             </FormItem>
             {fields.length > 0 && (
               <div className="grid grid-cols-9 gap-2">
-                <FormLabel className="col-span-4">Rate Name</FormLabel>
+                <FormLabel className="col-span-4">Name</FormLabel>
                 <FormLabel className="col-span-4">Description</FormLabel>
               </div>
             )}
             {fields.map((rate, index) => (
-              <div key={index} className="grid grid-cols-9 items-end gap-2">
-                <span className="col-span-4">{rate.name}</span>
+              <div key={index} className="grid grid-cols-9 items-center gap-2">
+                <span className="col-span-4 text-sm">{rate.name}</span>
                 <FormField
                   control={form.control}
                   name={`rates.${index}.description`}
