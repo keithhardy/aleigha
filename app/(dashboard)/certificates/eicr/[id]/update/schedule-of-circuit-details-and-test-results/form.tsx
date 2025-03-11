@@ -76,7 +76,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Schedule of circuit details and test results</CardTitle>

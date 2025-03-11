@@ -109,7 +109,7 @@ export function UpdateObservationsForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Observations</CardTitle>
@@ -166,7 +166,7 @@ export function UpdateObservationsForm({
                           >
                             {`${observation.itemNumber}: ${observation.description}`}
                             {observation.id.toString() ===
-                            selectedObservation ? (
+                              selectedObservation ? (
                               <Check className="ml-auto" />
                             ) : null}
                           </CommandItem>
