@@ -109,7 +109,6 @@ export function UpdateObservationsForm({
 
   return (
     <Form {...form}>
-      {JSON.stringify(form.formState.isDirty)}
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
