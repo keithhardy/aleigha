@@ -55,11 +55,11 @@ export default async function DashboardLayout({
           </div>
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</main>
-        <footer className="flex justify-between text-sm">
-          <div className="flex justify-between p-4">
+        <footer className="flex flex-col lg:flex-row items-center justify-between text-sm mb-4">
+          <div className="flex justify-between py-2 px-4">
             <p>© {currentYear} Reiyen Group | All Rights Reserved.</p>
           </div>
-          <div className="flex justify-between p-4">
+          <div className="flex justify-between py-2 px-4">
             <p>
               <Link
                 href="/terms-of-service"

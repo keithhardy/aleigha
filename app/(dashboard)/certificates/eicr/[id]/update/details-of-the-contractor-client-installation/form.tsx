@@ -95,350 +95,284 @@ export function UpdateContractorClientAndInstallationForm({
     });
   };
 
+  const selectedClient = clients.find(
+    (client) => client.id === form.getValues("clientId"),
+  );
+
+  const selectedProperty = selectedClient?.property.find(
+    (property) => property.id === form.getValues("propertyId"),
+  );
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Contractor Details</CardTitle>
             <CardDescription className="text-primary">
-              Fill in the contractor details for the EICR report.
+              Contractor details for this EICR report.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            <FormItem>
-              <FormLabel>Street</FormLabel>
-              <Input
-                type="text"
-                value={settings?.address?.streetAddress ?? ""}
-                readOnly
-                disabled
-                className="lg:max-w-[50%]"
-              />
-            </FormItem>
-
-            <FormItem>
-              <FormLabel>City</FormLabel>
-              <Input
-                type="text"
-                value={settings?.address?.city ?? ""}
-                readOnly
-                disabled
-                className="lg:max-w-[50%]"
-              />
-            </FormItem>
-            <FormItem>
-              <FormLabel>County</FormLabel>
-              <Input
-                type="text"
-                value={settings?.address?.county ?? ""}
-                readOnly
-                disabled
-                className="lg:max-w-[50%]"
-              />
-            </FormItem>
-            <FormItem>
-              <FormLabel>Post Town</FormLabel>
-              <Input
-                type="text"
-                value={settings?.address?.postTown ?? ""}
-                readOnly
-                disabled
-                className="lg:max-w-[50%]"
-              />
-            </FormItem>
-            <FormItem>
-              <FormLabel>Post Code</FormLabel>
+            <Input
+              type="text"
+              value={settings?.name ?? ""}
+              readOnly
+              disabled
+              placeholder="Street address"
+            />
+            <Input
+              type="text"
+              value={settings?.address?.streetAddress ?? ""}
+              readOnly
+              disabled
+              placeholder="Street address"
+            />
+            <Input
+              type="text"
+              value={settings?.address?.city ?? ""}
+              readOnly
+              disabled
+              placeholder="City"
+            />
+            <Input
+              type="text"
+              value={settings?.address?.county ?? ""}
+              readOnly
+              disabled
+              placeholder="County"
+            />
+            <Input
+              type="text"
+              value={settings?.address?.postTown ?? ""}
+              readOnly
+              disabled
+              placeholder="Post town"
+            />
+            <div className="space-x-2 flex">
               <Input
                 type="text"
                 value={settings?.address?.postCode ?? ""}
                 readOnly
                 disabled
-                className="lg:max-w-[50%]"
+                placeholder="Post code"
               />
-            </FormItem>
-            <FormItem>
-              <FormLabel>Country</FormLabel>
               <Input
                 type="text"
                 value={settings?.address?.country ?? ""}
                 readOnly
                 disabled
-                className="lg:max-w-[50%]"
+                placeholder="Country"
               />
-            </FormItem>
+            </div>
             <FormMessage />
           </CardContent>
-          <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">
-              These details belong to the contractor completing the report.
-            </p>
-          </CardFooter>
-        </Card>
-
-        <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Client Details</CardTitle>
             <CardDescription className="text-primary">
               Select the client for this EICR report.
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-2">
             <FormField
               control={form.control}
               name="clientId"
-              render={({ field }) => {
-                const selectedClient = clients.find(
-                  (client) => client.id === field.value,
-                );
-                return (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <Popover open={clientOpen} onOpenChange={setClientOpen}>
-                      <PopoverTrigger asChild className="w-full">
-                        <Button
-                          variant="outline"
-                          role="combobox"
-                          aria-expanded={clientOpen ? "true" : "false"}
-                          className="flex justify-between items-center lg:max-w-[50%]"
-                        >
-                          <span>
-                            {selectedClient
-                              ? selectedClient.name
-                              : "Select client..."}
-                          </span>
-                          <ChevronsUpDown className="opacity-50 ml-2" />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="p-0 min-w-[375px]">
-                        <Command>
-                          <CommandInput
-                            placeholder="Search client..."
-                            className="h-9"
-                          />
-                          <CommandList>
-                            <CommandEmpty>No client found.</CommandEmpty>
-                            <CommandGroup>
-                              {clients.map((client) => (
-                                <CommandItem
-                                  key={client.id}
-                                  value={client.id}
-                                  onSelect={(currentValue) => {
-                                    form.setValue("clientId", currentValue);
-                                    form.setValue("propertyId", "");
-                                    setClientOpen(false);
-                                  }}
-                                >
-                                  {client.name}
-                                  {client.id === field.value ? (
-                                    <Check className="ml-auto" />
-                                  ) : null}
-                                </CommandItem>
-                              ))}
-                            </CommandGroup>
-                          </CommandList>
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
-
-                    <FormItem>
-                      <FormLabel>Street</FormLabel>
-                      <Input
-                        type="text"
-                        value={selectedClient?.address?.streetAddress ?? ""}
-                        readOnly
-                        disabled
-                        className="lg:max-w-[50%]"
-                      />
-                    </FormItem>
-
-                    <FormItem>
-                      <FormLabel>City</FormLabel>
-                      <Input
-                        type="text"
-                        value={selectedClient?.address?.city ?? ""}
-                        readOnly
-                        disabled
-                        className="lg:max-w-[50%]"
-                      />
-                    </FormItem>
-                    <FormItem>
-                      <FormLabel>County</FormLabel>
-                      <Input
-                        type="text"
-                        value={selectedClient?.address?.county ?? ""}
-                        readOnly
-                        disabled
-                        className="lg:max-w-[50%]"
-                      />
-                    </FormItem>
-                    <FormItem>
-                      <FormLabel>Post Town</FormLabel>
-                      <Input
-                        type="text"
-                        value={selectedClient?.address?.postTown ?? ""}
-                        readOnly
-                        disabled
-                        className="lg:max-w-[50%]"
-                      />
-                    </FormItem>
-                    <FormItem>
-                      <FormLabel>Post Code</FormLabel>
-                      <Input
-                        type="text"
-                        value={selectedClient?.address?.postCode ?? ""}
-                        readOnly
-                        disabled
-                        className="lg:max-w-[50%]"
-                      />
-                    </FormItem>
-                    <FormItem>
-                      <FormLabel>Country</FormLabel>
-                      <Input
-                        type="text"
-                        value={selectedClient?.address?.country ?? ""}
-                        readOnly
-                        disabled
-                        className="lg:max-w-[50%]"
-                      />
-                    </FormItem>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
+              render={({ field }) => (
+                <FormItem>
+                  <Popover open={clientOpen} onOpenChange={setClientOpen}>
+                    <PopoverTrigger asChild className="w-full">
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={clientOpen ? "true" : "false"}
+                        className="flex justify-between items-center"
+                      >
+                        <span>
+                          {selectedClient
+                            ? selectedClient.name
+                            : "Select client..."}
+                        </span>
+                        <ChevronsUpDown className="opacity-50 ml-2" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="p-0 min-w-[375px]">
+                      <Command>
+                        <CommandInput
+                          placeholder="Search client..."
+                          className="h-9"
+                        />
+                        <CommandList>
+                          <CommandEmpty>No client found.</CommandEmpty>
+                          <CommandGroup>
+                            {clients.map((client) => (
+                              <CommandItem
+                                key={client.id}
+                                value={client.id}
+                                onSelect={(currentValue) => {
+                                  form.setValue("clientId", currentValue);
+                                  form.setValue("propertyId", "");
+                                  setClientOpen(false);
+                                }}
+                              >
+                                {client.name}
+                                {client.id === field.value ? (
+                                  <Check className="ml-auto" />
+                                ) : null}
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
+            <Input
+              type="text"
+              value={selectedClient?.address?.streetAddress ?? ""}
+              readOnly
+              disabled
+              placeholder="Street address"
+            />
+            <Input
+              type="text"
+              value={selectedClient?.address?.city ?? ""}
+              readOnly
+              disabled
+              placeholder="City"
+            />
+            <Input
+              type="text"
+              value={selectedClient?.address?.county ?? ""}
+              readOnly
+              disabled
+              placeholder="County"
+            />
+            <Input
+              type="text"
+              value={selectedClient?.address?.postTown ?? ""}
+              readOnly
+              disabled
+              placeholder="Post town"
+            />
+            <div className="space-x-2 flex">
+              <Input
+                type="text"
+                value={selectedClient?.address?.postCode ?? ""}
+                readOnly
+                disabled
+                placeholder="Post code"
+              />
+              <Input
+                type="text"
+                value={selectedClient?.address?.country ?? ""}
+                readOnly
+                disabled
+                placeholder="Country"
+              />
+            </div>
           </CardContent>
-          <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
-            <p className="text-sm text-muted-foreground">
-              The client requesting the report, used for identification.
-            </p>
-          </CardFooter>
-        </Card>
-
-        <Card className="shadow-none rounded-md">
           <CardHeader>
             <CardTitle>Installation Details</CardTitle>
             <CardDescription className="text-primary">
-              Select the property associated with the EICR report.
+              Select the property for this EICR report.
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-2">
             <FormField
               control={form.control}
               name="propertyId"
-              render={({ field }) => {
-                const selectedClient = clients.find(
-                  (client) => client.id === form.getValues("clientId"),
-                );
-                const selectedProperty = selectedClient?.property.find(
-                  (property) => property.id === field.value,
-                );
-
-                return (
-                  <FormItem>
-                    <Popover open={propertyOpen} onOpenChange={setPropertyOpen}>
-                      <FormLabel>Street</FormLabel>
-                      <PopoverTrigger asChild className="w-full">
-                        <Button
-                          variant="outline"
-                          role="combobox"
-                          aria-expanded={propertyOpen ? "true" : "false"}
-                          className="flex justify-between items-center lg:max-w-[50%]"
-                        >
-                          <span>
-                            {field.value
-                              ? selectedProperty?.address.streetAddress ||
-                                "Select a property..."
-                              : "Select a property..."}
-                          </span>
-                          <ChevronsUpDown className="opacity-50" />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="p-0 min-w-[375px]">
-                        <Command>
-                          <CommandInput
-                            placeholder="Search property..."
-                            className="h-9"
-                          />
-                          <CommandList>
-                            <CommandEmpty>No property found.</CommandEmpty>
-                            <CommandGroup>
-                              {selectedClient?.property.map((property) => (
-                                <CommandItem
-                                  key={property.id}
-                                  value={property.id}
-                                  onSelect={(currentValue) => {
-                                    form.setValue("propertyId", currentValue);
-                                    setPropertyOpen(false);
-                                  }}
-                                >
-                                  {property.address.streetAddress}
-                                  {field.value === property.id ? (
-                                    <Check className="ml-auto" />
-                                  ) : null}
-                                </CommandItem>
-                              ))}
-                            </CommandGroup>
-                          </CommandList>
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
-
-                    <FormItem>
-                      <FormLabel>City</FormLabel>
-                      <Input
-                        type="text"
-                        value={selectedProperty?.address?.city ?? ""}
-                        readOnly
-                        disabled
-                        className="lg:max-w-[50%]"
-                      />
-                    </FormItem>
-                    <FormItem>
-                      <FormLabel>County</FormLabel>
-                      <Input
-                        type="text"
-                        value={selectedProperty?.address?.county ?? ""}
-                        readOnly
-                        disabled
-                        className="lg:max-w-[50%]"
-                      />
-                    </FormItem>
-                    <FormItem>
-                      <FormLabel>Post Town</FormLabel>
-                      <Input
-                        type="text"
-                        value={selectedProperty?.address?.postTown ?? ""}
-                        readOnly
-                        disabled
-                        className="lg:max-w-[50%]"
-                      />
-                    </FormItem>
-                    <FormItem>
-                      <FormLabel>Post Code</FormLabel>
-                      <Input
-                        type="text"
-                        value={selectedProperty?.address?.postCode ?? ""}
-                        readOnly
-                        disabled
-                        className="lg:max-w-[50%]"
-                      />
-                    </FormItem>
-                    <FormItem>
-                      <FormLabel>Country</FormLabel>
-                      <Input
-                        type="text"
-                        value={selectedProperty?.address?.country ?? ""}
-                        readOnly
-                        disabled
-                        className="lg:max-w-[50%]"
-                      />
-                    </FormItem>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
+              render={({ field }) => (
+                <FormItem>
+                  <Popover open={propertyOpen} onOpenChange={setPropertyOpen}>
+                    <PopoverTrigger asChild className="w-full">
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={propertyOpen ? "true" : "false"}
+                        className="flex justify-between items-center"
+                      >
+                        <span>
+                          {field.value
+                            ? selectedProperty?.address.streetAddress ||
+                            "Select a property..."
+                            : "Select a property..."}
+                        </span>
+                        <ChevronsUpDown className="opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="p-0 min-w-[375px]">
+                      <Command>
+                        <CommandInput
+                          placeholder="Search property..."
+                          className="h-9"
+                        />
+                        <CommandList>
+                          <CommandEmpty>No property found.</CommandEmpty>
+                          <CommandGroup>
+                            {selectedClient?.property.map((property) => (
+                              <CommandItem
+                                key={property.id}
+                                value={property.id}
+                                onSelect={(currentValue) => {
+                                  form.setValue("propertyId", currentValue);
+                                  setPropertyOpen(false);
+                                }}
+                              >
+                                {property.address.streetAddress}
+                                {field.value === property.id ? (
+                                  <Check className="ml-auto" />
+                                ) : null}
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
+            <Input
+              type="text"
+              value={selectedProperty?.address?.city ?? ""}
+              readOnly
+              disabled
+              placeholder="City"
+            />
+            <Input
+              type="text"
+              value={selectedProperty?.address?.county ?? ""}
+              readOnly
+              disabled
+              placeholder="County"
+            />
+            <Input
+              type="text"
+              value={selectedProperty?.address?.postTown ?? ""}
+              readOnly
+              disabled
+              placeholder="Post town"
+            />
+            <div className="space-x-2 flex">
+              <Input
+                type="text"
+                value={selectedProperty?.address?.postCode ?? ""}
+                readOnly
+                disabled
+                placeholder="Post code"
+              />
+              <Input
+                type="text"
+                value={selectedProperty?.address?.country ?? ""}
+                readOnly
+                disabled
+                placeholder="Country"
+              />
+            </div>
           </CardContent>
           <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
             <p className="text-sm text-muted-foreground">
