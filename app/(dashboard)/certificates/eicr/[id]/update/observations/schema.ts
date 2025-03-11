@@ -11,5 +11,5 @@ export const UpdateObservationsSchema = z.object({
         location: z.string(),
       }),
     )
-    .optional(),
+    .default([]),
 });

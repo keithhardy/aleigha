@@ -10,5 +10,5 @@ export const UpdateScheduleOfRatesSchema = z.object({
         description: z.string(),
       }),
     )
-    .optional(),
+    .default([]),
 });

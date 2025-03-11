@@ -54,7 +54,9 @@ export function UpdateScheduleOfRatesForm({
   const form = useForm<z.infer<typeof UpdateScheduleOfRatesSchema>>({
     resolver: zodResolver(UpdateScheduleOfRatesSchema),
     defaultValues: {
-      rates: (electricalInstallationConditionReport.rates as Array<any>) || [],
+      id: electricalInstallationConditionReport.id,
+      rates:
+        JSON.parse(electricalInstallationConditionReport.rates as string) || [],
     },
   });
 
@@ -76,7 +78,7 @@ export function UpdateScheduleOfRatesForm({
   const selectedRates =
     (form.watch("rates") as z.infer<
       typeof UpdateScheduleOfRatesSchema
-    >["rates"][number][]) || [];
+    >["rates"]) || [];
 
   const handleRateSelect = (value: string) => {
     const rate = scheduleOfRates.find((r) => r.id === parseInt(value));

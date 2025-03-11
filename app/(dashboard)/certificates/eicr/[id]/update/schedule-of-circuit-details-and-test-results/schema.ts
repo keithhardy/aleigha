@@ -71,5 +71,5 @@ export const UpdateScheduleOfCircuitDetailsAndTestResultsSchema = z.object({
         ),
       }),
     )
-    .optional(),
+    .default([]),
 });

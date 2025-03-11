@@ -19,7 +19,7 @@ export async function updateScheduleOfRates(
         id: electricalInstallationConditionReport.id,
       },
       data: {
-        rates: electricalInstallationConditionReport.rates,
+        rates: JSON.stringify(electricalInstallationConditionReport.rates),
       },
     });
 

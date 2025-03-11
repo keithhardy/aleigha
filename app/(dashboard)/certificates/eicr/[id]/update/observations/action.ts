@@ -19,7 +19,9 @@ export async function updateObservations(
         id: electricalInstallationConditionReport.id,
       },
       data: {
-        observations: electricalInstallationConditionReport.observations,
+        observations: JSON.stringify(
+          electricalInstallationConditionReport.observations,
+        ),
       },
     });
 

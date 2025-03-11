@@ -40,7 +40,8 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
   >({
     resolver: zodResolver(UpdateScheduleOfCircuitDetailsAndTestResultsSchema),
     defaultValues: {
-      db: (electricalInstallationConditionReport.db as Array<any>) || [],
+      id: electricalInstallationConditionReport.id,
+      db: JSON.parse(electricalInstallationConditionReport.db as string) || [],
     },
   });
 
@@ -64,6 +65,8 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
 
   return (
     <Form {...form}>
+      {JSON.stringify(form.formState.errors)}
+      {JSON.stringify(form.formState.isDirty)}
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="space-y-4">
           {dbFields.map((dbItem, dbIndex) => (

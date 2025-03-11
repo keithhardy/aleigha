@@ -54,9 +54,11 @@ export function UpdateObservationsForm({
   const form = useForm<z.infer<typeof UpdateObservationsSchema>>({
     resolver: zodResolver(UpdateObservationsSchema),
     defaultValues: {
+      id: electricalInstallationConditionReport.id,
       observations:
-        (electricalInstallationConditionReport.observations as Array<any>) ||
-        [],
+        JSON.parse(
+          electricalInstallationConditionReport.observations as string,
+        ) || [],
     },
   });
 
