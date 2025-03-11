@@ -185,63 +185,71 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                   </div>
                   <Switch
                     checked={field.value}
-                    onCheckedChange={field.onChange}
+                    onCheckedChange={(checked) => {
+                      field.onChange(checked);
+                      if (!checked) {
+                        form.setValue("earthElectrodeType", "");
+                        form.setValue("earthElectrodeLocation", "");
+                        form.setValue("electrodeResistanceToEarth", "");
+                      }
+                    }}
                   />
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="earthElectrodeType"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Type of Earth Electrode</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="e.g., Copper Rod"
-                      {...field}
-                      disabled={!form.watch("installationEarthElectrodes")}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="earthElectrodeLocation"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Earth Electrode Location</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="e.g., Front Garden"
-                      {...field}
-                      disabled={!form.watch("installationEarthElectrodes")}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="electrodeResistanceToEarth"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Resistance of Electrode to Earth</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="e.g., 10.0 Ω"
-                      {...field}
-                      disabled={!form.watch("installationEarthElectrodes")}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {form.watch("installationEarthElectrodes") &&
+              <>
+                <FormField
+                  control={form.control}
+                  name="earthElectrodeType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Type of Earth Electrode</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="e.g., Copper Rod"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="earthElectrodeLocation"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Earth Electrode Location</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="e.g., Front Garden"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="electrodeResistanceToEarth"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Resistance of Electrode to Earth</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="e.g., 10.0 Ω"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+            }
             <FormField
               control={form.control}
               name="earthingConductorMaterial"

@@ -107,7 +107,6 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                   <FormControl>
                     <Input
                       {...field}
-                      className="lg:max-w-[50%]"
                       placeholder="Specify the regulations the inspection follows, e.g., BS 7671."
                     />
                   </FormControl>
@@ -124,7 +123,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                   <FormControl>
                     <Textarea
                       {...field}
-                      className="lg:max-w-[50%] min-h-[100px]"
+                      className="min-h-[100px]"
                       placeholder="Enter a detailed description of the electrical installation covered by this report, including components such as wiring, panels, and other relevant systems."
                     />
                   </FormControl>
@@ -143,7 +142,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                   <FormControl>
                     <Textarea
                       {...field}
-                      className="lg:max-w-[50%] min-h-[100px]"
+                      className="min-h-[100px]"
                       placeholder="Describe the electrical installation covered by this report, including components such as wiring, panels, etc."
                     />
                   </FormControl>
@@ -160,7 +159,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                   <FormControl>
                     <Textarea
                       {...field}
-                      className="lg:max-w-[50%] min-h-[100px]"
+                      className="min-h-[100px]"
                       placeholder="Specify any agreed limitations for the inspection and testing process, such as restricted access or scope."
                     />
                   </FormControl>
@@ -177,7 +176,6 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                   <FormControl>
                     <Input
                       {...field}
-                      className="lg:max-w-[50%]"
                       placeholder="Who the limitations were agreed with (e.g., property owner, client)."
                     />
                   </FormControl>
@@ -194,7 +192,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                   <FormControl>
                     <Textarea
                       {...field}
-                      className="lg:max-w-[50%] min-h-[100px]"
+                      className="min-h-[100px]"
                       placeholder="Describe any operational limitations during testing, such as time constraints, system shutdowns, or other factors."
                     />
                   </FormControl>

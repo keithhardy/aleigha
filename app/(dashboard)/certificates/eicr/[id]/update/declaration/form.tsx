@@ -332,7 +332,7 @@ export function UpdateDeclarationForm({
                                     form.setValue("reviewDate", new Date(), {
                                       shouldDirty: true,
                                     });
-                                    setInspectorOpen(false);
+                                    setReviewerOpen(false);
                                   }}
                                 >
                                   {user.name}
