@@ -49,6 +49,10 @@ export function UpdateEmailForm({
   const onSubmit = async (data: z.infer<typeof UpdateEmailSchema>) => {
     const response = await updateEmail(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

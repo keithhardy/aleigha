@@ -64,6 +64,10 @@ export function UpdateMethodsOfProtectionForm({
   ) => {
     const response = await updateMethodsOfProtection(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

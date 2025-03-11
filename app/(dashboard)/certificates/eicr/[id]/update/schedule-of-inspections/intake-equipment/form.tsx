@@ -56,6 +56,10 @@ export function UpdateIntakeEquipmentForm({
   ) => {
     const response = await updateIntakeEquipment(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

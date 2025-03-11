@@ -66,6 +66,10 @@ export function UpdatePurposeOfTheReportForm({
   ) => {
     const response = await updatePurposeOfTheReport(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

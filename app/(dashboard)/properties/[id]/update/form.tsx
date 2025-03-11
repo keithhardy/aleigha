@@ -69,6 +69,10 @@ export function UpdatePropertyForm({
   const onSubmit = async (data: z.infer<typeof UpdatePropertySchema>) => {
     const response = await updateProperty(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,
@@ -100,7 +104,7 @@ export function UpdatePropertyForm({
                     >
                       {field.value
                         ? clients.find((client) => client.id === field.value)
-                            ?.name
+                          ?.name
                         : "Select Client..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>

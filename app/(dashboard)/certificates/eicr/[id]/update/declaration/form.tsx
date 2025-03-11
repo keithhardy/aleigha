@@ -78,6 +78,10 @@ export function UpdateDeclarationForm({
   const onSubmit = async (data: z.infer<typeof UpdateDeclarationSchema>) => {
     const response = await updateDeclaration(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

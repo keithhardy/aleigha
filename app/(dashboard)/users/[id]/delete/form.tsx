@@ -26,6 +26,10 @@ export function DeleteUserForm({ user }: { user: User }) {
   const onSubmit = async (data: z.infer<typeof DeleteUserSchema>) => {
     const response = await deleteUser(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

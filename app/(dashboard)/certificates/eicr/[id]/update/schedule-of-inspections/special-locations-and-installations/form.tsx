@@ -59,6 +59,10 @@ export function UpdateSpecialLocationsAndInstallationsForm({
   ) => {
     const response = await updateContractorClientAndInstallation(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

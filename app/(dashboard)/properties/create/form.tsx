@@ -63,6 +63,10 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
   const onSubmit = async (data: z.infer<typeof CreatePropertySchema>) => {
     const response = await createProperty(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,
@@ -94,7 +98,7 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
                     >
                       {field.value
                         ? clients.find((client) => client.id === field.value)
-                            ?.name
+                          ?.name
                         : "Select Client..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>

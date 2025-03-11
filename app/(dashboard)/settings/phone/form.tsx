@@ -49,6 +49,10 @@ export function UpdatePhoneForm({
   const onSubmit = async (data: z.infer<typeof UpdatePhoneSchema>) => {
     const response = await updatePhone(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

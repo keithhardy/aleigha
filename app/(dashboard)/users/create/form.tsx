@@ -70,6 +70,10 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
   const onSubmit = async (data: z.infer<typeof CreateUserSchema>) => {
     const response = await createUserAction(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,
@@ -113,8 +117,8 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                   >
                     {field.value
                       ? UserRoles.find(
-                          (userRole) => userRole.id === field.value,
-                        )?.name
+                        (userRole) => userRole.id === field.value,
+                      )?.name
                       : "Select role..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>

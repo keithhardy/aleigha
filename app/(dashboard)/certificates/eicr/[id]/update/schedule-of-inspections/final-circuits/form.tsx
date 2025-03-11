@@ -74,6 +74,10 @@ export function UpdateFinalCircuitsForm({
   const onSubmit = async (data: z.infer<typeof UpdateFinalCircuitsSchema>) => {
     const response = await updateFinalCircuits(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

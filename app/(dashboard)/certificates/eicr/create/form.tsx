@@ -62,6 +62,10 @@ export function CreateElectricalInstallationConditionReportForm({
   ) => {
     const response = await createElectricalInstallationConditionReport(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,
@@ -92,7 +96,7 @@ export function CreateElectricalInstallationConditionReportForm({
                   >
                     {field.value
                       ? clients.find((client) => client.id === field.value)
-                          ?.name
+                        ?.name
                       : "Select client..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
@@ -147,13 +151,13 @@ export function CreateElectricalInstallationConditionReportForm({
                   >
                     {field.value
                       ? clients
-                          .find(
-                            (client) =>
-                              client.id === form.getValues("clientId"),
-                          )
-                          ?.property.find(
-                            (property) => property.id === field.value,
-                          )?.address.streetAddress
+                        .find(
+                          (client) =>
+                            client.id === form.getValues("clientId"),
+                        )
+                        ?.property.find(
+                          (property) => property.id === field.value,
+                        )?.address.streetAddress
                       : "Select a property..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>

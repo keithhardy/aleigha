@@ -79,6 +79,10 @@ export function UpdatePictureForm({
   const onSubmit = async (data: z.infer<typeof UpdateLogoSchema>) => {
     const response = await updateLogo(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

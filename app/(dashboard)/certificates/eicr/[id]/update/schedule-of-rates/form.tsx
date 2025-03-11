@@ -65,6 +65,10 @@ export function UpdateScheduleOfRatesForm({
   ) => {
     const response = await updateScheduleOfRates(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

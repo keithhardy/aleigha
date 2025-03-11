@@ -91,6 +91,10 @@ export default function UpdateUserForm({
   const onSubmit = async (data: z.infer<typeof UpdateUserSchema>) => {
     const response = await updateUser(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,
@@ -134,8 +138,8 @@ export default function UpdateUserForm({
                   >
                     {field.value
                       ? UserRoles.find(
-                          (userRole) => userRole.id === field.value,
-                        )?.name
+                        (userRole) => userRole.id === field.value,
+                      )?.name
                       : "Select Role..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
@@ -187,7 +191,7 @@ export default function UpdateUserForm({
                 className="max-w-[1024px] justify-between"
               >
                 {clientsToConnect.length === 0 &&
-                clientsToDisconnect.length === 0
+                  clientsToDisconnect.length === 0
                   ? user.clients.length === 0
                     ? "Select Clients..."
                     : `${user.clients.length} clients selected`
@@ -250,7 +254,7 @@ export default function UpdateUserForm({
                         >
                           {client.name}
                           {(isInCurrentClients && !isInDisconnect) ||
-                          isInConnect ? (
+                            isInConnect ? (
                             <Check className="ml-auto" />
                           ) : null}
                           {isInCurrentClients && isInDisconnect ? (

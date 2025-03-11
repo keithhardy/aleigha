@@ -65,6 +65,10 @@ export function UpdateObservationsForm({
   const onSubmit = async (data: z.infer<typeof UpdateObservationsSchema>) => {
     const response = await updateObservations(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,
@@ -105,6 +109,7 @@ export function UpdateObservationsForm({
 
   return (
     <Form {...form}>
+      {JSON.stringify(form.formState.isDirty)}
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="shadow-none rounded-md">
           <CardHeader>
@@ -162,7 +167,7 @@ export function UpdateObservationsForm({
                           >
                             {`${observation.itemNumber}: ${observation.description}`}
                             {observation.id.toString() ===
-                            selectedObservation ? (
+                              selectedObservation ? (
                               <Check className="ml-auto" />
                             ) : null}
                           </CommandItem>

@@ -49,6 +49,10 @@ export function UpdateNameForm({
   const onSubmit = async (data: z.infer<typeof UpdateNameSchema>) => {
     const response = await updateName(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

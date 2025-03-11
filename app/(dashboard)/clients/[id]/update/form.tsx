@@ -82,6 +82,10 @@ export function UpdateClientForm({
   const onSubmit = async (data: z.infer<typeof UpdateClientSchema>) => {
     const response = await updateClient(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

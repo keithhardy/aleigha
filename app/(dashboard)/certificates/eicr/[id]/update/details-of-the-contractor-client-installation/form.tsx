@@ -84,6 +84,10 @@ export function UpdateContractorClientAndInstallationForm({
   ) => {
     const response = await updateContractorClientAndInstallation(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,
@@ -344,7 +348,7 @@ export function UpdateContractorClientAndInstallationForm({
                           <span>
                             {field.value
                               ? selectedProperty?.address.streetAddress ||
-                                "Select a property..."
+                              "Select a property..."
                               : "Select a property..."}
                           </span>
                           <ChevronsUpDown className="opacity-50" />

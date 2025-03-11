@@ -34,6 +34,10 @@ export function DeleteElectricalInstallationConditionReportForm({
   ) => {
     const response = await deleteElectricalInstallationConditionReport(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

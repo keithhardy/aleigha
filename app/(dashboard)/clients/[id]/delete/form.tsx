@@ -26,6 +26,10 @@ export function DeleteClientForm({ client }: { client: Client }) {
   const onSubmit = async (data: z.infer<typeof DeleteClientSchema>) => {
     const response = await deleteClient(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

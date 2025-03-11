@@ -63,6 +63,10 @@ export function CreateClientForm() {
   const onSubmit = async (data: z.infer<typeof CreateClientSchema>) => {
     const response = await createClient(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

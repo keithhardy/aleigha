@@ -26,6 +26,10 @@ export function DeletePropertyForm({ property }: { property: Property }) {
   const onSubmit = async (data: z.infer<typeof DeletePropertySchema>) => {
     const response = await deleteProperty(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

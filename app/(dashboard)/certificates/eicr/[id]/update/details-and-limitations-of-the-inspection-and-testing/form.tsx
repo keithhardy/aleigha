@@ -69,6 +69,10 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
     const response =
       await updateDetailsAndLimitationsOfTheInspectionAndTesting(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

@@ -85,6 +85,10 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
     const response =
       await updateSupplyCharacteristicsAndEarthingArrangements(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,

@@ -58,6 +58,10 @@ export function UpdateCurrentUsingEquipmentForm({
   ) => {
     const response = await updateCurrentUsingEquipment(data);
 
+    if (response.status === "success") {
+      form.reset(data);
+    }
+
     toast({
       title: response.heading,
       description: response.message,
