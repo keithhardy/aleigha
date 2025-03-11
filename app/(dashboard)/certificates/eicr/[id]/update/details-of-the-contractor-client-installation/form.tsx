@@ -210,7 +210,7 @@ export function UpdateContractorClientAndInstallationForm({
                               {clients.map((client) => (
                                 <CommandItem
                                   key={client.id}
-                                  value={client.id}
+                                  value={client.name}
                                   onSelect={(currentValue) => {
                                     form.setValue("clientId", currentValue);
                                     form.setValue("propertyId", "");
@@ -296,7 +296,7 @@ export function UpdateContractorClientAndInstallationForm({
                           <span>
                             {field.value
                               ? selectedProperty?.address.streetAddress ||
-                                "Select a property..."
+                              "Select a property..."
                               : "Select a property..."}
                           </span>
                           <ChevronsUpDown className="opacity-50" />
@@ -314,7 +314,7 @@ export function UpdateContractorClientAndInstallationForm({
                               {selectedClient?.property.map((property) => (
                                 <CommandItem
                                   key={property.id}
-                                  value={property.id}
+                                  value={property.address.streetAddress!}
                                   onSelect={(currentValue) => {
                                     form.setValue("propertyId", currentValue);
                                     setPropertyOpen(false);

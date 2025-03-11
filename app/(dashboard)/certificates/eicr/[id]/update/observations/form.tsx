@@ -150,26 +150,22 @@ export function UpdateObservationsForm({
                 </div>
                 <PopoverContent className="p-0 min-w-[375px]">
                   <Command>
-                    <CommandInput
-                      placeholder="Search observation..."
-                      className="h-9"
-                    />
+                    <CommandInput placeholder="Search observation..." />
                     <CommandList>
                       <CommandEmpty>No observation found.</CommandEmpty>
                       <CommandGroup>
                         {observations.map((observation) => (
                           <CommandItem
                             key={observation.id}
-                            value={observation.id.toString()}
-                            onSelect={(currentValue) => {
-                              setSelectedObservation(currentValue);
-                              handleObservationSelect(currentValue);
+                            value={`${observation.itemNumber} ${observation.description}`}
+                            onSelect={() => {
+                              setSelectedObservation(observation.id.toString());
+                              handleObservationSelect(observation.id.toString());
                               setSelectedObservationOpen(false);
                             }}
                           >
                             {`${observation.itemNumber}: ${observation.description}`}
-                            {observation.id.toString() ===
-                            selectedObservation ? (
+                            {observation.id.toString() === selectedObservation ? (
                               <Check className="ml-auto" />
                             ) : null}
                           </CommandItem>

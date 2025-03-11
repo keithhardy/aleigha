@@ -150,7 +150,7 @@ export function UpdateScheduleOfRatesForm({
                         {rates.map((rate) => (
                           <CommandItem
                             key={rate.id}
-                            value={rate.id.toString()}
+                            value={rate.description}
                             onSelect={(currentValue) => {
                               setSelectedRate(currentValue);
                               handleRateSelect(currentValue);

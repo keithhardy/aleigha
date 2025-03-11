@@ -212,7 +212,7 @@ export function UpdateDeclarationForm({
                               {users.map((user) => (
                                 <CommandItem
                                   key={user.id}
-                                  value={user.id}
+                                  value={user.name}
                                   onSelect={(currentValue) => {
                                     form.setValue("inspectorId", currentValue, {
                                       shouldDirty: true,
@@ -324,7 +324,7 @@ export function UpdateDeclarationForm({
                               {users.map((user) => (
                                 <CommandItem
                                   key={user.id}
-                                  value={user.id}
+                                  value={user.name}
                                   onSelect={(currentValue) => {
                                     form.setValue("reviewerId", currentValue, {
                                       shouldDirty: true,
