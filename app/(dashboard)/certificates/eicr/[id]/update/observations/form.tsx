@@ -83,9 +83,9 @@ export function UpdateObservationsForm({
     name: "observations",
   });
 
-  const [selectedObservation, setSelectedObservation] = useState<string>("");
+  const [selectedObservation, setSelectedObservation] = useState("");
 
-  const handleobservationselect = (value: string) => {
+  const handleObservationSelect = (value: string) => {
     const observation = observations.find((obs) => obs.id === parseInt(value));
     if (observation) {
       append({
@@ -160,7 +160,7 @@ export function UpdateObservationsForm({
                             value={observation.id.toString()}
                             onSelect={(currentValue) => {
                               setSelectedObservation(currentValue);
-                              handleobservationselect(currentValue);
+                              handleObservationSelect(currentValue);
                               setSelectedObservationOpen(false);
                             }}
                           >

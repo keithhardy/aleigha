@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -41,7 +41,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 
 import { updateScheduleOfRates } from "./action";
-import { scheduleOfRates } from "./rates";
+import { rates } from "./rates";
 import { UpdateScheduleOfRatesSchema } from "./schema";
 
 export function UpdateScheduleOfRatesForm({
@@ -77,26 +77,30 @@ export function UpdateScheduleOfRatesForm({
   };
 
   const [selectedRateOpen, setSelectedRateOpen] = useState(false);
-  const [selectedRate, setSelectedRate] = useState<string>("");
 
-  const selectedRates =
-    (form.watch("rates") as z.infer<
-      typeof UpdateScheduleOfRatesSchema
-    >["rates"]) || [];
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "rates",
+  });
+
+  const [selectedRate, setSelectedRate] = useState("");
 
   const handleRateSelect = (value: string) => {
-    const rate = scheduleOfRates.find((r) => r.id === parseInt(value));
+    const rate = rates.find((rate) => rate.id === parseInt(value));
     if (rate) {
-      form.setValue(
-        "rates",
-        [
-          ...selectedRates,
-          { id: rate.id, name: rate.name, description: rate.description },
-        ],
-        { shouldDirty: true },
-      );
+      append({
+        name: rate.name,
+        description: rate.description,
+      });
       setSelectedRate("");
     }
+  };
+
+  const addRate = () => {
+    append({
+      name: "",
+      description: "",
+    });
   };
 
   return (
@@ -125,7 +129,7 @@ export function UpdateScheduleOfRatesForm({
                   >
                     <span>
                       {selectedRate
-                        ? `${selectedRate}: ${scheduleOfRates.find((r) => r.id.toString() === selectedRate)?.name}`
+                        ? `${selectedRate}: ${rates.find((rate) => rate.id.toString() === selectedRate)?.name}`
                         : "Select a rate"}
                     </span>
                     <ChevronsUpDown className="opacity-50 ml-2" />
@@ -140,7 +144,7 @@ export function UpdateScheduleOfRatesForm({
                     <CommandList>
                       <CommandEmpty>No rate found.</CommandEmpty>
                       <CommandGroup>
-                        {scheduleOfRates.map((rate) => (
+                        {rates.map((rate) => (
                           <CommandItem
                             key={rate.id}
                             value={rate.id.toString()}
@@ -162,13 +166,13 @@ export function UpdateScheduleOfRatesForm({
                 </PopoverContent>
               </Popover>
             </FormItem>
-            {selectedRates.length > 0 && (
+            {fields.length > 0 && (
               <div className="grid grid-cols-9 gap-2">
                 <FormLabel className="col-span-4">Rate Name</FormLabel>
                 <FormLabel className="col-span-4">Description</FormLabel>
               </div>
             )}
-            {selectedRates.map((rate, index) => (
+            {fields.map((rate, index) => (
               <div key={index} className="grid grid-cols-9 items-end gap-2">
                 <span className="col-span-4">{rate.name}</span>
                 <FormField
@@ -185,13 +189,8 @@ export function UpdateScheduleOfRatesForm({
                 />
                 <Button
                   type="button"
-                  onClick={() =>
-                    form.setValue(
-                      "rates",
-                      selectedRates.filter((_, i) => i !== index),
-                      { shouldDirty: true },
-                    )
-                  }
+                  onClick={() => remove(index)}
+                  className="ml-2"
                 >
                   Delete
                 </Button>
