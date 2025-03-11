@@ -118,7 +118,7 @@ export function UpdateScheduleOfRatesForm({
           </CardHeader>
           <CardContent className="space-y-4">
             <FormItem>
-              <FormLabel>Select Rate</FormLabel>
+              <FormLabel>Select rate</FormLabel>
               <Popover
                 open={selectedRateOpen}
                 onOpenChange={setSelectedRateOpen}
@@ -139,21 +139,22 @@ export function UpdateScheduleOfRatesForm({
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="p-0 min-w-[375px]">
-                  <Command>
-                    <CommandInput
-                      placeholder="Search rates..."
-                      className="h-9"
-                    />
+                  <Command
+                    filter={(value, search) => {
+                      if (!search) return 1;
+                      return value.toLowerCase().includes(search.toLowerCase()) ? 1 : 0;
+                    }}>
+                    <CommandInput placeholder="Search rates..." />
                     <CommandList>
                       <CommandEmpty>No rate found.</CommandEmpty>
                       <CommandGroup>
                         {rates.map((rate) => (
                           <CommandItem
                             key={rate.id}
-                            value={rate.description}
-                            onSelect={(currentValue) => {
-                              setSelectedRate(currentValue);
-                              handleRateSelect(currentValue);
+                            value={rate.name}
+                            onSelect={() => {
+                              setSelectedRate(rate.id.toString());
+                              handleRateSelect(rate.id.toString());
                               setSelectedRateOpen(false);
                             }}
                           >
@@ -169,22 +170,29 @@ export function UpdateScheduleOfRatesForm({
                 </PopoverContent>
               </Popover>
             </FormItem>
-            {fields.length > 0 && (
-              <div className="grid grid-cols-9 gap-2">
-                <FormLabel className="col-span-4">Name</FormLabel>
-                <FormLabel className="col-span-4">Description</FormLabel>
-              </div>
-            )}
             {fields.map((rate, index) => (
-              <div key={index} className="grid grid-cols-9 items-center gap-2">
-                <span className="col-span-4 text-sm">{rate.name}</span>
+              <div key={index} className="space-y-2">
+                <FormField
+                  control={form.control}
+                  name={`rates.${index}.name`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Find and rectify fault" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name={`rates.${index}.description`}
                   render={({ field }) => (
-                    <FormItem className="col-span-4">
+                    <FormItem>
+                      <FormLabel>Description</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input placeholder="Located loose r1 on bedroom socket and reterminated" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -193,7 +201,6 @@ export function UpdateScheduleOfRatesForm({
                 <Button
                   type="button"
                   onClick={() => remove(index)}
-                  className="ml-2"
                 >
                   Delete
                 </Button>

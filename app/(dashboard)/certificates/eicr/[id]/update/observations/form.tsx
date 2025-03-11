@@ -38,6 +38,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateObservations } from "./action";
@@ -117,39 +118,37 @@ export function UpdateObservationsForm({
           <CardHeader>
             <CardTitle>Observations</CardTitle>
             <CardDescription className="text-primary">
-              Select predefined observations or add custom details about the
-              condition of the installation.
+              Select observations.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormItem>
-              <FormLabel>Select Predefined Observation</FormLabel>
               <Popover
                 open={selectedObservationOpen}
                 onOpenChange={setSelectedObservationOpen}
               >
-                <div className="flex space-y-4 lg:space-x-4 lg:space-y-0 flex-col lg:flex-row">
-                  <PopoverTrigger asChild className="w-full">
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      aria-expanded={selectedObservationOpen ? "true" : "false"}
-                      className="flex justify-between items-center"
-                    >
-                      <span>
-                        {selectedObservation
-                          ? `${selectedObservation}: ${observations.find((obs) => obs.id.toString() === selectedObservation)?.description}`
-                          : "Select an observation"}
-                      </span>
-                      <ChevronsUpDown className="opacity-50 ml-2" />
-                    </Button>
-                  </PopoverTrigger>
-                  <Button type="button" onClick={addObservation}>
-                    Add Observation
+                <PopoverTrigger asChild className="w-full">
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={selectedObservationOpen}
+                    className="flex justify-between items-center"
+                  >
+                    <span>
+                      {selectedObservation
+                        ? `${selectedObservation}: ${observations.find((obs) => obs.id.toString() === selectedObservation)?.description}`
+                        : "Select an observation"}
+                    </span>
+                    <ChevronsUpDown className="opacity-50 ml-2" />
                   </Button>
-                </div>
+                </PopoverTrigger>
                 <PopoverContent className="p-0 min-w-[375px]">
-                  <Command>
+                  <Command
+                    filter={(value, search) => {
+                      if (!search) return 1;
+                      return value.toLowerCase().includes(search.toLowerCase()) ? 1 : 0;
+                    }}
+                  >
                     <CommandInput placeholder="Search observation..." />
                     <CommandList>
                       <CommandEmpty>No observation found.</CommandEmpty>
@@ -176,21 +175,14 @@ export function UpdateObservationsForm({
                 </PopoverContent>
               </Popover>
             </FormItem>
-            {fields.length > 0 && (
-              <div className="grid grid-cols-9 gap-2">
-                <FormLabel>Item Number</FormLabel>
-                <FormLabel className="col-span-4">Description</FormLabel>
-                <FormLabel>Code</FormLabel>
-                <FormLabel className="col-span-2">Location</FormLabel>
-              </div>
-            )}
             {fields.map((field, index) => (
-              <div key={field.id} className="grid grid-cols-9 items-end gap-2">
+              <div key={field.id} className="space-y-2">
                 <FormField
                   control={form.control}
                   name={`observations.${index}.itemNumber`}
                   render={({ field }) => (
                     <FormItem>
+                      <FormLabel>Item number</FormLabel>
                       <FormControl>
                         <Input placeholder="4.19" {...field} />
                       </FormControl>
@@ -202,11 +194,13 @@ export function UpdateObservationsForm({
                   control={form.control}
                   name={`observations.${index}.description`}
                   render={({ field }) => (
-                    <FormItem className="col-span-4">
+                    <FormItem>
+                      <FormLabel>Description</FormLabel>
                       <FormControl>
-                        <Input
+                        <Textarea
                           placeholder="SPDs not provided for protection against transient overvoltage."
                           {...field}
+                          className="h-[100px]"
                         />
                       </FormControl>
                       <FormMessage />
@@ -218,6 +212,7 @@ export function UpdateObservationsForm({
                   name={`observations.${index}.code`}
                   render={({ field }) => (
                     <FormItem>
+                      <FormLabel>Code</FormLabel>
                       <FormControl>
                         <Input placeholder="C3" {...field} />
                       </FormControl>
@@ -229,9 +224,10 @@ export function UpdateObservationsForm({
                   control={form.control}
                   name={`observations.${index}.location`}
                   render={({ field }) => (
-                    <FormItem className="col-span-2">
+                    <FormItem>
+                      <FormLabel>Location</FormLabel>
                       <FormControl>
-                        <Input placeholder="Consumer Unit" {...field} />
+                        <Input placeholder="Electrical cupboard" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

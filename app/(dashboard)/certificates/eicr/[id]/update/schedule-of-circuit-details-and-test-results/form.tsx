@@ -99,7 +99,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                   name={`db.${index}.dbDesignation`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>DB Designation</FormLabel>
+                      <FormLabel>DB designation</FormLabel>
                       <FormControl>
                         <Input placeholder="Consumer Unit" {...field} />
                       </FormControl>
@@ -166,7 +166,7 @@ function CircuitsForm({
             name={`db.${index}.circuits.${circuitIndex}.circuitNumber`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Circuit Number</FormLabel>
+                <FormLabel>Circuit number</FormLabel>
                 <FormControl>
                   <Input placeholder="1" {...field} />
                 </FormControl>
