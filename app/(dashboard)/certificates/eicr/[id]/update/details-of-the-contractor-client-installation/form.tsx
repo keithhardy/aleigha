@@ -211,8 +211,8 @@ export function UpdateContractorClientAndInstallationForm({
                                 <CommandItem
                                   key={client.id}
                                   value={client.name}
-                                  onSelect={(currentValue) => {
-                                    form.setValue("clientId", currentValue);
+                                  onSelect={() => {
+                                    form.setValue("clientId", client.id);
                                     form.setValue("propertyId", "");
                                     setClientOpen(false);
                                   }}
@@ -315,8 +315,8 @@ export function UpdateContractorClientAndInstallationForm({
                                 <CommandItem
                                   key={property.id}
                                   value={property.address.streetAddress!}
-                                  onSelect={(currentValue) => {
-                                    form.setValue("propertyId", currentValue);
+                                  onSelect={() => {
+                                    form.setValue("propertyId", property.id);
                                     setPropertyOpen(false);
                                   }}
                                 >
