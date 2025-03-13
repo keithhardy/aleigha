@@ -17,7 +17,7 @@ function HeaderDescription({ className, ...props }: React.HTMLAttributes<HTMLPar
 }
 
 function HeaderActions({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn('space-x-2 w-full flex justify-between', className)} {...props} />;
+  return <div className={cn('space-x-2', className)} {...props} />;
 }
 
 export { Header, HeaderDescription, HeaderGroup, Heading, HeaderActions };

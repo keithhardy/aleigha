@@ -74,8 +74,7 @@ export default async function UpdateContractorClientAndInstallation({
         </HeaderGroup>
 
         <HeaderActions>
-          <Button>Something</Button>
-          <Button>Something</Button>
+          <Button variant="outline" className="w-full">Button</Button>
         </HeaderActions>
       </Header>
 
