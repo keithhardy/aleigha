@@ -69,7 +69,7 @@ export function UpdatePresenceOfAdequateArrangementsForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="container mx-auto max-w-screen-md"
       >
-        <Card className="shadow-none rounded-md">
+        <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>
               Presence of adequate arrangements for parallel or switched
@@ -103,7 +103,7 @@ export function UpdatePresenceOfAdequateArrangementsForm({
               />
             ))}
           </CardContent>
-          <CardFooter className="flex justify-between bg-muted py-2 border-t rounded-b-md space-x-4">
+          <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-2">
             <p className="text-sm text-muted-foreground">
               Ensure all items related to microgenerators are inspected.
             </p>

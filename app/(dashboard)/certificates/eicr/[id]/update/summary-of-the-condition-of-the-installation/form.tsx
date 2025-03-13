@@ -80,7 +80,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="container mx-auto max-w-screen-md"
       >
-        <Card className="shadow-none rounded-md">
+        <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Summary of the condition of the installation</CardTitle>
             <CardDescription className="text-primary">
@@ -118,7 +118,10 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                       type="string"
                       placeholder="Estimated age of the installation."
                       onChange={(e) => {
-                        const value = Math.max(0, Math.floor(Number(e.target.value) || 0)).toString();
+                        const value = Math.max(
+                          0,
+                          Math.floor(Number(e.target.value) || 0),
+                        ).toString();
                         field.onChange(value);
                       }}
                       value={field.value ?? ""}
@@ -151,7 +154,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                 </FormItem>
               )}
             />
-            {form.watch("evidenceOfAlterations") &&
+            {form.watch("evidenceOfAlterations") && (
               <FormField
                 control={form.control}
                 name="estimatedAgeOfAlterations"
@@ -164,7 +167,10 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                         type="string"
                         placeholder="Estimated age of the alterations."
                         onChange={(e) => {
-                          const value = Math.max(0, Math.floor(Number(e.target.value) || 0)).toString();
+                          const value = Math.max(
+                            0,
+                            Math.floor(Number(e.target.value) || 0),
+                          ).toString();
                           field.onChange(value);
                         }}
                         value={field.value ?? ""}
@@ -174,7 +180,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                   </FormItem>
                 )}
               />
-            }
+            )}
             <FormField
               control={form.control}
               name="overallAssessmentOfTheInstallation"
@@ -199,7 +205,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
               )}
             />
           </CardContent>
-          <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
+          <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
             <p className="text-sm text-muted-foreground">
               Provide details about the condition of the installation and any
               alterations made.

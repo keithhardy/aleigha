@@ -76,7 +76,7 @@ export function UpdateSpecialLocationsAndInstallationsForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="container mx-auto max-w-screen-md"
       >
-        <Card className="shadow-none rounded-md">
+        <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Special locations and installations</CardTitle>
             <CardDescription className="text-primary">
@@ -106,7 +106,7 @@ export function UpdateSpecialLocationsAndInstallationsForm({
               />
             ))}
           </CardContent>
-          <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
+          <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
             <p className="text-sm text-muted-foreground">
               Ensure the condition and safety of special locations and
               installations is checked.

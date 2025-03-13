@@ -81,7 +81,7 @@ export function UpdateIsolationAndSwitchingForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="container mx-auto max-w-screen-md"
       >
-        <Card className="shadow-none rounded-md">
+        <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Isolation and switching</CardTitle>
             <CardDescription className="text-primary">
@@ -111,7 +111,7 @@ export function UpdateIsolationAndSwitchingForm({
               />
             ))}
           </CardContent>
-          <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
+          <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
             <p className="text-sm text-muted-foreground">
               Ensure all isolation and switching mechanisms are inspected.
             </p>

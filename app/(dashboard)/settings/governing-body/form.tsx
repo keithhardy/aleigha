@@ -68,7 +68,7 @@ export function UpdateGoverningBodyForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <Card className="shadow-none rounded-md">
+        <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Governing Body Details</CardTitle>
             <CardDescription className="text-primary">
@@ -109,7 +109,7 @@ export function UpdateGoverningBodyForm({
               )}
             />
           </CardContent>
-          <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
+          <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
             <p className="text-sm text-muted-foreground">
               This is governing body that your company is registered with.
             </p>

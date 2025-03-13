@@ -95,7 +95,7 @@ export function UpdateDeclarationForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="container mx-auto max-w-screen-md"
       >
-        <Card className="shadow-none rounded-md">
+        <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Declaration</CardTitle>
             <CardDescription className="text-primary">
@@ -118,7 +118,7 @@ export function UpdateDeclarationForm({
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "lg:max-w-[50%] pl-3 text-left font-normal",
+                            "pl-3 text-left font-normal lg:max-w-[50%]",
                             !field.value && "text-muted-foreground",
                           )}
                         >
@@ -161,7 +161,7 @@ export function UpdateDeclarationForm({
                   <FormControl>
                     <Textarea
                       {...field}
-                      className="lg:max-w-[50%] min-h-[100px]"
+                      className="min-h-[100px] lg:max-w-[50%]"
                       placeholder="Provide the reason for recommending the retest."
                     />
                   </FormControl>
@@ -190,17 +190,17 @@ export function UpdateDeclarationForm({
                           variant="outline"
                           role="combobox"
                           aria-expanded={inspectorOpen ? "true" : "false"}
-                          className="flex justify-between items-center lg:max-w-[50%]"
+                          className="flex items-center justify-between lg:max-w-[50%]"
                         >
                           <span>
                             {selectedUser
                               ? selectedUser.name
                               : "Select inspector..."}
                           </span>
-                          <ChevronsUpDown className="opacity-50 ml-2" />
+                          <ChevronsUpDown className="ml-2 opacity-50" />
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent className="p-0 min-w-[375px]">
+                      <PopoverContent className="min-w-[375px] p-0">
                         <Command>
                           <CommandInput
                             placeholder="Search user..."
@@ -255,7 +255,7 @@ export function UpdateDeclarationForm({
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "lg:max-w-[50%] pl-3 text-left font-normal",
+                            "pl-3 text-left font-normal lg:max-w-[50%]",
                             !field.value && "text-muted-foreground",
                           )}
                         >
@@ -302,17 +302,17 @@ export function UpdateDeclarationForm({
                           variant="outline"
                           role="combobox"
                           aria-expanded={inspectorOpen ? "true" : "false"}
-                          className="flex justify-between items-center lg:max-w-[50%]"
+                          className="flex items-center justify-between lg:max-w-[50%]"
                         >
                           <span>
                             {selectedUser
                               ? selectedUser.name
                               : "Select reviewer..."}
                           </span>
-                          <ChevronsUpDown className="opacity-50 ml-2" />
+                          <ChevronsUpDown className="ml-2 opacity-50" />
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent className="p-0 min-w-[375px]">
+                      <PopoverContent className="min-w-[375px] p-0">
                         <Command>
                           <CommandInput
                             placeholder="Search user..."
@@ -367,7 +367,7 @@ export function UpdateDeclarationForm({
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "lg:max-w-[50%] pl-3 text-left font-normal",
+                            "pl-3 text-left font-normal lg:max-w-[50%]",
                             !field.value && "text-muted-foreground",
                           )}
                         >
@@ -397,7 +397,7 @@ export function UpdateDeclarationForm({
               )}
             />
           </CardContent>
-          <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
+          <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
             <p className="text-sm text-muted-foreground">
               Provide the details of the retest recommendation and signatories.
             </p>

@@ -4,6 +4,14 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 
 import { UpdateContractorClientAndInstallationForm } from "./form";
+import {
+  Header,
+  HeaderActions,
+  HeaderDescription,
+  HeaderGroup,
+  Heading,
+} from "@/components/page-header";
+import { Button } from "@/components/ui/button";
 
 export default async function UpdateContractorClientAndInstallation({
   params,
@@ -55,12 +63,29 @@ export default async function UpdateContractorClientAndInstallation({
   });
 
   return (
-    <UpdateContractorClientAndInstallationForm
-      electricalInstallationConditionReport={
-        electricalInstallationConditionReport as ElectricalInstallationConditionReport
-      }
-      clients={clients}
-      settings={settings}
-    />
+    <>
+      <Header>
+        <HeaderGroup>
+          <Heading>Details of the contractor, client and installation</Heading>
+          <HeaderDescription>
+            View the contractor and select the client and installation for this
+            EICR report.
+          </HeaderDescription>
+        </HeaderGroup>
+
+        <HeaderActions>
+          <Button>Something</Button>
+          <Button>Something</Button>
+        </HeaderActions>
+      </Header>
+
+      <UpdateContractorClientAndInstallationForm
+        electricalInstallationConditionReport={
+          electricalInstallationConditionReport as ElectricalInstallationConditionReport
+        }
+        clients={clients}
+        settings={settings}
+      />
+    </>
   );
 }

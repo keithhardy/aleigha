@@ -75,7 +75,7 @@ export function UpdateAddressForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <Card className="shadow-none rounded-md">
+        <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Business Address</CardTitle>
             <CardDescription className="text-primary">
@@ -181,7 +181,7 @@ export function UpdateAddressForm({
               )}
             />
           </CardContent>
-          <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
+          <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
             <p className="text-sm text-muted-foreground">
               Your business address.
             </p>

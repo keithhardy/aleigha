@@ -83,7 +83,7 @@ export function UpdatePurposeOfTheReportForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="container mx-auto max-w-screen-md"
       >
-        <Card className="shadow-none rounded-md">
+        <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Purpose of the report</CardTitle>
             <CardDescription className="text-primary">
@@ -231,7 +231,7 @@ export function UpdatePurposeOfTheReportForm({
               )}
             />
 
-            {form.watch("previousReportAvailable") &&
+            {form.watch("previousReportAvailable") && (
               <FormField
                 control={form.control}
                 name="previousReportDate"
@@ -275,9 +275,9 @@ export function UpdatePurposeOfTheReportForm({
                   </FormItem>
                 )}
               />
-            }
+            )}
           </CardContent>
-          <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
+          <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
             <p className="text-sm text-muted-foreground">
               Details about the inspection purpose and relevant dates.
             </p>

@@ -135,7 +135,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="container mx-auto max-w-screen-md"
       >
-        <Card className="shadow-none rounded-md">
+        <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Particulars of Installation</CardTitle>
             <CardDescription className="text-primary">
@@ -198,7 +198,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                 </FormItem>
               )}
             />
-            {form.watch("installationEarthElectrodes") &&
+            {form.watch("installationEarthElectrodes") && (
               <>
                 <FormField
                   control={form.control}
@@ -207,10 +207,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     <FormItem>
                       <FormLabel>Type of Earth Electrode</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="e.g., Copper Rod"
-                          {...field}
-                        />
+                        <Input placeholder="e.g., Copper Rod" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -223,10 +220,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     <FormItem>
                       <FormLabel>Earth Electrode Location</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="e.g., Front Garden"
-                          {...field}
-                        />
+                        <Input placeholder="e.g., Front Garden" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -239,17 +233,14 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     <FormItem>
                       <FormLabel>Resistance of Electrode to Earth</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="e.g., 10.0 Ω"
-                          {...field}
-                        />
+                        <Input placeholder="e.g., 10.0 Ω" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
               </>
-            }
+            )}
             <FormField
               control={form.control}
               name="earthingConductorMaterial"
@@ -495,7 +486,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
               )}
             />
           </CardContent>
-          <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
+          <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
             <p className="text-sm text-muted-foreground">
               Ensure all details are accurate before submission.
             </p>

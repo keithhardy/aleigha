@@ -114,7 +114,7 @@ export function UpdateObservationsForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="container mx-auto max-w-screen-md"
       >
-        <Card className="shadow-none rounded-md">
+        <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Observations</CardTitle>
             <CardDescription className="text-primary">
@@ -132,21 +132,23 @@ export function UpdateObservationsForm({
                     variant="outline"
                     role="combobox"
                     aria-expanded={selectedObservationOpen}
-                    className="flex justify-between items-center"
+                    className="flex items-center justify-between"
                   >
                     <span>
                       {selectedObservation
                         ? `${selectedObservation}: ${observations.find((obs) => obs.id.toString() === selectedObservation)?.description}`
                         : "Select an observation"}
                     </span>
-                    <ChevronsUpDown className="opacity-50 ml-2" />
+                    <ChevronsUpDown className="ml-2 opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="p-0 min-w-[375px]">
+                <PopoverContent className="min-w-[375px] p-0">
                   <Command
                     filter={(value, search) => {
                       if (!search) return 1;
-                      return value.toLowerCase().includes(search.toLowerCase()) ? 1 : 0;
+                      return value.toLowerCase().includes(search.toLowerCase())
+                        ? 1
+                        : 0;
                     }}
                   >
                     <CommandInput placeholder="Search observation..." />
@@ -159,12 +161,15 @@ export function UpdateObservationsForm({
                             value={`${observation.itemNumber} ${observation.description}`}
                             onSelect={() => {
                               setSelectedObservation(observation.id.toString());
-                              handleObservationSelect(observation.id.toString());
+                              handleObservationSelect(
+                                observation.id.toString(),
+                              );
                               setSelectedObservationOpen(false);
                             }}
                           >
                             {`${observation.itemNumber}: ${observation.description}`}
-                            {observation.id.toString() === selectedObservation ? (
+                            {observation.id.toString() ===
+                            selectedObservation ? (
                               <Check className="ml-auto" />
                             ) : null}
                           </CommandItem>
@@ -239,7 +244,7 @@ export function UpdateObservationsForm({
               </div>
             ))}
           </CardContent>
-          <CardFooter className="flex justify-between bg-muted py-4 border-t rounded-b-md space-x-4">
+          <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
             <p className="text-sm text-muted-foreground">
               Review the details of the observations and add any missing
               information.
