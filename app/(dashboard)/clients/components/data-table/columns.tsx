@@ -17,7 +17,9 @@ export const columns: ColumnDef<
   },
   {
     accessorKey: "appointedPerson",
-    header: ({ column }) => <ColumnHeader column={column} title="Appointed Person" />,
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Appointed Person" />
+    ),
   },
   {
     accessorKey: "email",

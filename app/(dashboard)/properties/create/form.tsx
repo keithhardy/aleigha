@@ -11,10 +11,28 @@ import { z } from "zod";
 import { createProperty } from "@/app/(dashboard)/properties/create/action";
 import { CreatePropertySchema } from "@/app/(dashboard)/properties/create/schema";
 import { Button } from "@/components/ui/button";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
@@ -72,14 +90,25 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
                 <FormLabel>Client</FormLabel>
                 <Popover open={clientOpen} onOpenChange={setClientOpen}>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" role="combobox" aria-expanded={clientOpen ? "true" : "false"} className="max-w-[1024px] justify-between">
-                      {field.value ? clients.find((client) => client.id === field.value)?.name : "Select Client..."}
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={clientOpen ? "true" : "false"}
+                      className="max-w-[1024px] justify-between"
+                    >
+                      {field.value
+                        ? clients.find((client) => client.id === field.value)
+                            ?.name
+                        : "Select Client..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="p-0">
                     <Command>
-                      <CommandInput placeholder="Search client..." className="h-9" />
+                      <CommandInput
+                        placeholder="Search client..."
+                        className="h-9"
+                      />
                       <CommandList>
                         <CommandEmpty>No client found.</CommandEmpty>
                         <CommandGroup>
@@ -93,7 +122,14 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
                               }}
                             >
                               {client.name}
-                              <Check className={cn("ml-auto", client.id === field.value ? "opacity-100" : "opacity-0")} />
+                              <Check
+                                className={cn(
+                                  "ml-auto",
+                                  client.id === field.value
+                                    ? "opacity-100"
+                                    : "opacity-0",
+                                )}
+                              />
                             </CommandItem>
                           ))}
                         </CommandGroup>
@@ -209,7 +245,11 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={form.formState.isSubmitting} variant="outline">
+          <Button
+            type="submit"
+            disabled={form.formState.isSubmitting}
+            variant="outline"
+          >
             {form.formState.isSubmitting ? "Saving" : "Save"}
           </Button>
         </div>

@@ -6,8 +6,22 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
 import { RadioGroupComponent } from "../radio-group";
@@ -15,7 +29,11 @@ import { updateIntakeEquipment } from "./action";
 import { inspectionItems } from "./inspection-items";
 import { UpdateIntakeEquipmentSchema } from "./schema";
 
-export function UpdateIntakeEquipmentForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+export function UpdateIntakeEquipmentForm({
+  electricalInstallationConditionReport,
+}: {
+  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
+}) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof UpdateIntakeEquipmentSchema>>({
@@ -33,7 +51,9 @@ export function UpdateIntakeEquipmentForm({ electricalInstallationConditionRepor
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof UpdateIntakeEquipmentSchema>) => {
+  const onSubmit = async (
+    data: z.infer<typeof UpdateIntakeEquipmentSchema>,
+  ) => {
     const response = await updateIntakeEquipment(data);
 
     if (response.status === "success") {
@@ -49,11 +69,18 @@ export function UpdateIntakeEquipmentForm({ electricalInstallationConditionRepor
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="container mx-auto max-w-screen-md"
+      >
         <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Intake equipment (visual inspection only)</CardTitle>
-            <CardDescription className="text-primary">This section covers all outcomes related to the inspection of intake equipment. Any findings other than those regarding access to live parts should not influence the overall evaluation.</CardDescription>
+            <CardDescription className="text-primary">
+              This section covers all outcomes related to the inspection of
+              intake equipment. Any findings other than those regarding access
+              to live parts should not influence the overall evaluation.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -66,7 +93,10 @@ export function UpdateIntakeEquipmentForm({ electricalInstallationConditionRepor
                   <FormItem>
                     <FormLabel>{item.item + " - " + item.label}</FormLabel>
                     <FormControl>
-                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value || "na"} />
+                      <RadioGroupComponent
+                        onChange={field.onChange}
+                        defaultValue={field.value || "na"}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -75,8 +105,14 @@ export function UpdateIntakeEquipmentForm({ electricalInstallationConditionRepor
             ))}
           </CardContent>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">Ensure all inspection items are correctly addressed and noted.</p>
-            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+            <p className="text-sm text-muted-foreground">
+              Ensure all inspection items are correctly addressed and noted.
+            </p>
+            <Button
+              variant="outline"
+              type="submit"
+              disabled={!form.formState.isDirty || form.formState.isSubmitting}
+            >
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

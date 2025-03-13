@@ -4,7 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment } from "react";
 
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const nonLinkableSegments = new Set(["eicr", "update"]);
 
@@ -41,7 +48,13 @@ export function DashboardBreadcrumb() {
             <Fragment key={href}>
               <BreadcrumbItem>
                 {isLast || isNonLinkable ? (
-                  <BreadcrumbPage className={isNonLinkable && !isLast ? "text-muted-foreground" : ""}>{label}</BreadcrumbPage>
+                  <BreadcrumbPage
+                    className={
+                      isNonLinkable && !isLast ? "text-muted-foreground" : ""
+                    }
+                  >
+                    {label}
+                  </BreadcrumbPage>
                 ) : (
                   <BreadcrumbLink asChild>
                     <Link href={href}>{label}</Link>

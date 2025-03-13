@@ -8,7 +8,11 @@ import { ServerActionResponse } from "@/lib/types";
 
 import { UpdatePurposeOfTheReportSchema } from "./schema";
 
-export async function updatePurposeOfTheReport(electricalInstallationConditionReport: z.infer<typeof UpdatePurposeOfTheReportSchema>): Promise<ServerActionResponse<void>> {
+export async function updatePurposeOfTheReport(
+  electricalInstallationConditionReport: z.infer<
+    typeof UpdatePurposeOfTheReportSchema
+  >,
+): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
       where: {
@@ -18,9 +22,12 @@ export async function updatePurposeOfTheReport(electricalInstallationConditionRe
         purpose: electricalInstallationConditionReport.purpose,
         startDate: electricalInstallationConditionReport.startDate,
         endDate: electricalInstallationConditionReport.endDate,
-        recordsAvailable: electricalInstallationConditionReport.recordsAvailable,
-        previousReportAvailable: electricalInstallationConditionReport.previousReportAvailable,
-        previousReportDate: electricalInstallationConditionReport.previousReportDate,
+        recordsAvailable:
+          electricalInstallationConditionReport.recordsAvailable,
+        previousReportAvailable:
+          electricalInstallationConditionReport.previousReportAvailable,
+        previousReportDate:
+          electricalInstallationConditionReport.previousReportDate,
       },
     });
 

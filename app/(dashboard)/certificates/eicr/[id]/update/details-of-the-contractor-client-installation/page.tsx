@@ -4,31 +4,42 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 
 import { UpdateContractorClientAndInstallationForm } from "./form";
-import { Header, HeaderActions, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
+import {
+  Header,
+  HeaderActions,
+  HeaderDescription,
+  HeaderGroup,
+  Heading,
+} from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 
-export default async function UpdateContractorClientAndInstallation({ params }: { params: Promise<{ id: string }> }) {
-  const electricalInstallationConditionReport = await prisma.electricalInstallationConditionReport.findFirst({
-    where: {
-      id: (await params).id,
-    },
-    select: {
-      id: true,
-      clientId: true,
-      propertyId: true,
-      client: {
-        select: {
-          id: true,
-          address: true,
+export default async function UpdateContractorClientAndInstallation({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const electricalInstallationConditionReport =
+    await prisma.electricalInstallationConditionReport.findFirst({
+      where: {
+        id: (await params).id,
+      },
+      select: {
+        id: true,
+        clientId: true,
+        propertyId: true,
+        client: {
+          select: {
+            id: true,
+            address: true,
+          },
+        },
+        property: {
+          select: {
+            address: true,
+          },
         },
       },
-      property: {
-        select: {
-          address: true,
-        },
-      },
-    },
-  });
+    });
 
   if (!electricalInstallationConditionReport) {
     notFound();
@@ -56,7 +67,10 @@ export default async function UpdateContractorClientAndInstallation({ params }: 
       <Header>
         <HeaderGroup>
           <Heading>Details of the contractor, client and installation</Heading>
-          <HeaderDescription>View the contractor and select the client and installation for this EICR report.</HeaderDescription>
+          <HeaderDescription>
+            View the contractor and select the client and installation for this
+            EICR report.
+          </HeaderDescription>
         </HeaderGroup>
 
         {/* <HeaderActions>
@@ -64,7 +78,13 @@ export default async function UpdateContractorClientAndInstallation({ params }: 
         </HeaderActions> */}
       </Header>
 
-      <UpdateContractorClientAndInstallationForm electricalInstallationConditionReport={electricalInstallationConditionReport as ElectricalInstallationConditionReport} clients={clients} settings={settings} />
+      <UpdateContractorClientAndInstallationForm
+        electricalInstallationConditionReport={
+          electricalInstallationConditionReport as ElectricalInstallationConditionReport
+        }
+        clients={clients}
+        settings={settings}
+      />
     </>
   );
 }

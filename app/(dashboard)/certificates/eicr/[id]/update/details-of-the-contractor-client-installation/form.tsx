@@ -1,23 +1,54 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Address, Client, ElectricalInstallationConditionReport, Property, Settings } from "@prisma/client";
+import {
+  Address,
+  Client,
+  ElectricalInstallationConditionReport,
+  Property,
+  Settings,
+} from "@prisma/client";
 import { ChevronsUpDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { CardHeader, CardTitle, CardDescription, CardFooter, Card, CardContent } from "@/components/ui/card";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+  Card,
+  CardContent,
+} from "@/components/ui/card";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateContractorClientAndInstallation } from "./action";
 import { UpdateContractorClientAndInstallationSchema } from "./schema";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export function UpdateContractorClientAndInstallationForm({
@@ -38,7 +69,9 @@ export function UpdateContractorClientAndInstallationForm({
   const { toast } = useToast();
   const isMobile = useIsMobile();
 
-  const form = useForm<z.infer<typeof UpdateContractorClientAndInstallationSchema>>({
+  const form = useForm<
+    z.infer<typeof UpdateContractorClientAndInstallationSchema>
+  >({
     resolver: zodResolver(UpdateContractorClientAndInstallationSchema),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
@@ -47,7 +80,9 @@ export function UpdateContractorClientAndInstallationForm({
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof UpdateContractorClientAndInstallationSchema>) => {
+  const onSubmit = async (
+    data: z.infer<typeof UpdateContractorClientAndInstallationSchema>,
+  ) => {
     const response = await updateContractorClientAndInstallation(data);
 
     if (response.status === "success") {
@@ -61,9 +96,12 @@ export function UpdateContractorClientAndInstallationForm({
     });
   };
 
-  const selectedClient = clients.find((client) => client.id === form.getValues("clientId"));
-  const selectedProperty = selectedClient?.property.find((property) => property.id === form.getValues("propertyId"));
-
+  const selectedClient = clients.find(
+    (client) => client.id === form.getValues("clientId"),
+  );
+  const selectedProperty = selectedClient?.property.find(
+    (property) => property.id === form.getValues("propertyId"),
+  );
 
   const [clientDialogOpen, setClientDialogOpen] = useState(false);
   const [propertyDialogOpen, setPropertyDialogOpen] = useState(false);
@@ -80,7 +118,8 @@ export function UpdateContractorClientAndInstallationForm({
 
     const handleResize = () => {
       if (window.visualViewport) {
-        const isKeyboardVisible = window.visualViewport.height < window.outerHeight * 0.75;
+        const isKeyboardVisible =
+          window.visualViewport.height < window.outerHeight * 0.75;
         setKeyboardVisible(isKeyboardVisible);
       }
     };
@@ -108,26 +147,75 @@ export function UpdateContractorClientAndInstallationForm({
     }
   };
 
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md px-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="container mx-auto max-w-screen-md px-4"
+      >
         <Card className="rounded-md shadow-none">
           <CardHeader>
-            <CardTitle>Details of the contractor, client and installation</CardTitle>
-            <CardDescription className="text-primary">View the contractor and select the client and installation for this EICR report.</CardDescription>
+            <CardTitle>
+              Details of the contractor, client and installation
+            </CardTitle>
+            <CardDescription className="text-primary">
+              View the contractor and select the client and installation for
+              this EICR report.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <FormLabel>Contractor Details</FormLabel>
-              <Input type="text" value={settings?.name ?? ""} readOnly disabled placeholder="Street address" />
-              <Input type="text" value={settings?.address?.streetAddress ?? ""} readOnly disabled placeholder="Street address" />
-              <Input type="text" value={settings?.address?.city ?? ""} readOnly disabled placeholder="City" />
-              <Input type="text" value={settings?.address?.county ?? ""} readOnly disabled placeholder="County" />
-              <Input type="text" value={settings?.address?.postTown ?? ""} readOnly disabled placeholder="Post town" />
+              <Input
+                type="text"
+                value={settings?.name ?? ""}
+                readOnly
+                disabled
+                placeholder="Street address"
+              />
+              <Input
+                type="text"
+                value={settings?.address?.streetAddress ?? ""}
+                readOnly
+                disabled
+                placeholder="Street address"
+              />
+              <Input
+                type="text"
+                value={settings?.address?.city ?? ""}
+                readOnly
+                disabled
+                placeholder="City"
+              />
+              <Input
+                type="text"
+                value={settings?.address?.county ?? ""}
+                readOnly
+                disabled
+                placeholder="County"
+              />
+              <Input
+                type="text"
+                value={settings?.address?.postTown ?? ""}
+                readOnly
+                disabled
+                placeholder="Post town"
+              />
               <div className="flex space-x-2">
-                <Input type="text" value={settings?.address?.postCode ?? ""} readOnly disabled placeholder="Post code" />
-                <Input type="text" value={settings?.address?.country ?? ""} readOnly disabled placeholder="Country" />
+                <Input
+                  type="text"
+                  value={settings?.address?.postCode ?? ""}
+                  readOnly
+                  disabled
+                  placeholder="Post code"
+                />
+                <Input
+                  type="text"
+                  value={settings?.address?.country ?? ""}
+                  readOnly
+                  disabled
+                  placeholder="Country"
+                />
               </div>
             </div>
             <div className="space-y-2">
@@ -138,10 +226,18 @@ export function UpdateContractorClientAndInstallationForm({
                 render={() => (
                   <FormItem>
                     {isMobile ? (
-                      <Sheet open={clientSheetOpen} onOpenChange={handleClientOpenChange}>
+                      <Sheet
+                        open={clientSheetOpen}
+                        onOpenChange={handleClientOpenChange}
+                      >
                         <SheetTrigger asChild>
-                          <Button variant="outline" className="w-full justify-between">
-                            {selectedClient ? selectedClient.name : "Select client..."}
+                          <Button
+                            variant="outline"
+                            className="w-full justify-between"
+                          >
+                            {selectedClient
+                              ? selectedClient.name
+                              : "Select client..."}
                             <ChevronsUpDown className="ml-2 opacity-50" />
                           </Button>
                         </SheetTrigger>
@@ -172,10 +268,18 @@ export function UpdateContractorClientAndInstallationForm({
                         </SheetContent>
                       </Sheet>
                     ) : (
-                      <Dialog open={clientDialogOpen} onOpenChange={setClientDialogOpen}>
+                      <Dialog
+                        open={clientDialogOpen}
+                        onOpenChange={setClientDialogOpen}
+                      >
                         <DialogTrigger asChild>
-                          <Button variant="outline" className="w-full justify-between">
-                            {selectedClient ? selectedClient.name : "Select client..."}
+                          <Button
+                            variant="outline"
+                            className="w-full justify-between"
+                          >
+                            {selectedClient
+                              ? selectedClient.name
+                              : "Select client..."}
                             <ChevronsUpDown className="ml-2 opacity-50" />
                           </Button>
                         </DialogTrigger>
@@ -209,13 +313,49 @@ export function UpdateContractorClientAndInstallationForm({
                   </FormItem>
                 )}
               />
-              <Input type="text" value={selectedClient!.address.streetAddress ?? ""} readOnly disabled placeholder="Street address" />
-              <Input type="text" value={selectedClient?.address?.city ?? ""} readOnly disabled placeholder="City" />
-              <Input type="text" value={selectedClient?.address?.county ?? ""} readOnly disabled placeholder="County" />
-              <Input type="text" value={selectedClient?.address?.postTown ?? ""} readOnly disabled placeholder="Post town" />
+              <Input
+                type="text"
+                value={selectedClient!.address.streetAddress ?? ""}
+                readOnly
+                disabled
+                placeholder="Street address"
+              />
+              <Input
+                type="text"
+                value={selectedClient?.address?.city ?? ""}
+                readOnly
+                disabled
+                placeholder="City"
+              />
+              <Input
+                type="text"
+                value={selectedClient?.address?.county ?? ""}
+                readOnly
+                disabled
+                placeholder="County"
+              />
+              <Input
+                type="text"
+                value={selectedClient?.address?.postTown ?? ""}
+                readOnly
+                disabled
+                placeholder="Post town"
+              />
               <div className="flex space-x-2">
-                <Input type="text" value={selectedClient?.address?.postCode ?? ""} readOnly disabled placeholder="Post code" />
-                <Input type="text" value={selectedClient?.address?.country ?? ""} readOnly disabled placeholder="Country" />
+                <Input
+                  type="text"
+                  value={selectedClient?.address?.postCode ?? ""}
+                  readOnly
+                  disabled
+                  placeholder="Post code"
+                />
+                <Input
+                  type="text"
+                  value={selectedClient?.address?.country ?? ""}
+                  readOnly
+                  disabled
+                  placeholder="Country"
+                />
               </div>
             </div>
             <div className="space-y-2">
@@ -226,10 +366,18 @@ export function UpdateContractorClientAndInstallationForm({
                 render={() => (
                   <FormItem>
                     {isMobile ? (
-                      <Sheet open={propertySheetOpen} onOpenChange={handlePropertyOpenChange}>
+                      <Sheet
+                        open={propertySheetOpen}
+                        onOpenChange={handlePropertyOpenChange}
+                      >
                         <SheetTrigger asChild>
-                          <Button variant="outline" className="w-full justify-between">
-                            {selectedProperty ? selectedProperty.address.streetAddress : "Select property..."}
+                          <Button
+                            variant="outline"
+                            className="w-full justify-between"
+                          >
+                            {selectedProperty
+                              ? selectedProperty.address.streetAddress
+                              : "Select property..."}
                             <ChevronsUpDown className="ml-2 opacity-50" />
                           </Button>
                         </SheetTrigger>
@@ -259,10 +407,18 @@ export function UpdateContractorClientAndInstallationForm({
                         </SheetContent>
                       </Sheet>
                     ) : (
-                      <Dialog open={propertyDialogOpen} onOpenChange={setPropertyDialogOpen}>
+                      <Dialog
+                        open={propertyDialogOpen}
+                        onOpenChange={setPropertyDialogOpen}
+                      >
                         <DialogTrigger asChild>
-                          <Button variant="outline" className="w-full justify-between">
-                            {selectedProperty ? selectedProperty.address.streetAddress : "Select property..."}
+                          <Button
+                            variant="outline"
+                            className="w-full justify-between"
+                          >
+                            {selectedProperty
+                              ? selectedProperty.address.streetAddress
+                              : "Select property..."}
                             <ChevronsUpDown className="ml-2 opacity-50" />
                           </Button>
                         </DialogTrigger>
@@ -296,18 +452,54 @@ export function UpdateContractorClientAndInstallationForm({
                 )}
               />
 
-              <Input type="text" value={selectedProperty?.address?.city ?? ""} readOnly disabled placeholder="City" />
-              <Input type="text" value={selectedProperty?.address?.county ?? ""} readOnly disabled placeholder="County" />
-              <Input type="text" value={selectedProperty?.address?.postTown ?? ""} readOnly disabled placeholder="Post town" />
+              <Input
+                type="text"
+                value={selectedProperty?.address?.city ?? ""}
+                readOnly
+                disabled
+                placeholder="City"
+              />
+              <Input
+                type="text"
+                value={selectedProperty?.address?.county ?? ""}
+                readOnly
+                disabled
+                placeholder="County"
+              />
+              <Input
+                type="text"
+                value={selectedProperty?.address?.postTown ?? ""}
+                readOnly
+                disabled
+                placeholder="Post town"
+              />
               <div className="flex space-x-2">
-                <Input type="text" value={selectedProperty?.address?.postCode ?? ""} readOnly disabled placeholder="Post code" />
-                <Input type="text" value={selectedProperty?.address?.country ?? ""} readOnly disabled placeholder="Country" />
+                <Input
+                  type="text"
+                  value={selectedProperty?.address?.postCode ?? ""}
+                  readOnly
+                  disabled
+                  placeholder="Post code"
+                />
+                <Input
+                  type="text"
+                  value={selectedProperty?.address?.country ?? ""}
+                  readOnly
+                  disabled
+                  placeholder="Country"
+                />
               </div>
             </div>
           </CardContent>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">Properties populate when a client is selected.</p>
-            <Button variant="outline" type="submit" disabled={form.formState.isSubmitting}>
+            <p className="text-sm text-muted-foreground">
+              Properties populate when a client is selected.
+            </p>
+            <Button
+              variant="outline"
+              type="submit"
+              disabled={form.formState.isSubmitting}
+            >
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

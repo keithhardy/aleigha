@@ -6,7 +6,9 @@ import { UpdatePropertySchema } from "@/app/(dashboard)/properties/[id]/update/s
 import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
 
-export async function updateProperty(property: z.infer<typeof UpdatePropertySchema>): Promise<ServerActionResponse<void>> {
+export async function updateProperty(
+  property: z.infer<typeof UpdatePropertySchema>,
+): Promise<ServerActionResponse<void>> {
   try {
     await prisma.property.update({
       where: {

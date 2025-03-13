@@ -8,19 +8,29 @@ import { ServerActionResponse } from "@/lib/types";
 
 import { UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema } from "./schema";
 
-export async function updateDetailsAndLimitationsOfTheInspectionAndTesting(electricalInstallationConditionReport: z.infer<typeof UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema>): Promise<ServerActionResponse<void>> {
+export async function updateDetailsAndLimitationsOfTheInspectionAndTesting(
+  electricalInstallationConditionReport: z.infer<
+    typeof UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema
+  >,
+): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
       where: {
         id: electricalInstallationConditionReport.id,
       },
       data: {
-        regulationAccordanceAsAmendedTo: electricalInstallationConditionReport.regulationAccordanceAsAmendedTo,
-        detailsOfTheElectricalInstallation: electricalInstallationConditionReport.detailsOfTheElectricalInstallation,
-        extentOfSampling: electricalInstallationConditionReport.extentOfSampling,
-        agreedLimitations: electricalInstallationConditionReport.agreedLimitations,
-        agreedLimitationsWith: electricalInstallationConditionReport.agreedLimitationsWith,
-        operationalLimitations: electricalInstallationConditionReport.operationalLimitations,
+        regulationAccordanceAsAmendedTo:
+          electricalInstallationConditionReport.regulationAccordanceAsAmendedTo,
+        detailsOfTheElectricalInstallation:
+          electricalInstallationConditionReport.detailsOfTheElectricalInstallation,
+        extentOfSampling:
+          electricalInstallationConditionReport.extentOfSampling,
+        agreedLimitations:
+          electricalInstallationConditionReport.agreedLimitations,
+        agreedLimitationsWith:
+          electricalInstallationConditionReport.agreedLimitationsWith,
+        operationalLimitations:
+          electricalInstallationConditionReport.operationalLimitations,
       },
     });
 

@@ -1,7 +1,10 @@
 import { z } from "zod";
 
 export const UpdateLogoSchema = z.object({
-  id: z.preprocess((val) => (val === "" ? undefined : val), z.string().cuid().optional()),
+  id: z.preprocess(
+    (val) => (val === "" ? undefined : val),
+    z.string().cuid().optional(),
+  ),
   picture: z.preprocess(
     (val) => (val === "" ? undefined : val),
     z

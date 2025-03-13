@@ -11,10 +11,28 @@ import { z } from "zod";
 import { createUserAction } from "@/app/(dashboard)/users/create/action";
 import { CreateUserSchema } from "@/app/(dashboard)/users/create/schema";
 import { Button } from "@/components/ui/button";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 
 export default function CreateUserForm({ clients }: { clients: Client[] }) {
@@ -87,14 +105,26 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
               <FormControl>
                 <Popover open={userRoleOpen} onOpenChange={setRoleOpen}>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" role="combobox" aria-expanded={userRoleOpen ? "true" : "false"} className="w-[414px] justify-between">
-                      {field.value ? UserRoles.find((userRole) => userRole.id === field.value)?.name : "Select role..."}
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={userRoleOpen ? "true" : "false"}
+                      className="w-[414px] justify-between"
+                    >
+                      {field.value
+                        ? UserRoles.find(
+                            (userRole) => userRole.id === field.value,
+                          )?.name
+                        : "Select role..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-[414px] p-0">
                     <Command>
-                      <CommandInput placeholder="Search roles..." className="h-9" />
+                      <CommandInput
+                        placeholder="Search roles..."
+                        className="h-9"
+                      />
                       <CommandList>
                         <CommandEmpty>No role found.</CommandEmpty>
                         <CommandGroup>
@@ -108,7 +138,9 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                               }}
                             >
                               {userRole.name}
-                              {userRole.id === field.value ? <Check className="ml-auto" /> : null}
+                              {userRole.id === field.value ? (
+                                <Check className="ml-auto" />
+                              ) : null}
                             </CommandItem>
                           ))}
                         </CommandGroup>
@@ -130,26 +162,40 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
               <FormControl>
                 <Popover open={userClientOpen} onOpenChange={setClientOpen}>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" className="max-w-[1024px] justify-between">
-                      {field.value.length === 0 ? "Select Clients..." : field.value.length === 1 ? field.value[0].name : `${field.value.length} clients selected`}
+                    <Button
+                      variant="outline"
+                      className="max-w-[1024px] justify-between"
+                    >
+                      {field.value.length === 0
+                        ? "Select Clients..."
+                        : field.value.length === 1
+                          ? field.value[0].name
+                          : `${field.value.length} clients selected`}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="p-0">
                     <Command>
-                      <CommandInput placeholder="Search client..." className="h-9" />
+                      <CommandInput
+                        placeholder="Search client..."
+                        className="h-9"
+                      />
                       <CommandList>
                         <CommandEmpty>No client found.</CommandEmpty>
                         <CommandGroup>
                           {clients.map((client) => {
-                            const isSelected = field.value.some((field) => field.clientId === client.id);
+                            const isSelected = field.value.some(
+                              (field) => field.clientId === client.id,
+                            );
 
                             return (
                               <CommandItem
                                 key={client.id}
                                 onSelect={() => {
                                   if (isSelected) {
-                                    const index = field.value.findIndex((field) => field.clientId === client.id);
+                                    const index = field.value.findIndex(
+                                      (field) => field.clientId === client.id,
+                                    );
                                     remove(index);
                                   } else {
                                     append({
@@ -160,7 +206,9 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                                 }}
                               >
                                 {client.name}
-                                {isSelected ? <Check className="ml-auto" /> : null}
+                                {isSelected ? (
+                                  <Check className="ml-auto" />
+                                ) : null}
                               </CommandItem>
                             );
                           })}
@@ -213,7 +261,11 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={form.formState.isSubmitting} variant="outline">
+        <Button
+          type="submit"
+          disabled={form.formState.isSubmitting}
+          variant="outline"
+        >
           {form.formState.isSubmitting ? "Creating" : "Create"}
         </Button>
       </form>

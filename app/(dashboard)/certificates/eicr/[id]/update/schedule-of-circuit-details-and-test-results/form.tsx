@@ -6,18 +6,38 @@ import { Control, useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateScheduleOfCircuitDetailsAndTestResults } from "./action";
 import { UpdateScheduleOfCircuitDetailsAndTestResultsSchema } from "./schema";
 
-export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
+  electricalInstallationConditionReport,
+}: {
+  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
+}) {
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>>({
+  const form = useForm<
+    z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>
+  >({
     resolver: zodResolver(UpdateScheduleOfCircuitDetailsAndTestResultsSchema),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
@@ -26,7 +46,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalIns
   });
   ``;
 
-  const onSubmit = async (data: z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>) => {
+  const onSubmit = async (
+    data: z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>,
+  ) => {
     const response = await updateScheduleOfCircuitDetailsAndTestResults(data);
 
     if (response.status === "success") {
@@ -54,11 +76,17 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalIns
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="container mx-auto max-w-screen-md"
+      >
         <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Schedule of circuit details and test results</CardTitle>
-            <CardDescription className="text-primary">Review and update the details of the circuits and test results below.</CardDescription>
+            <CardDescription className="text-primary">
+              Review and update the details of the circuits and test results
+              below.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <Button type="button" onClick={addDb}>
@@ -90,8 +118,15 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalIns
             ))}
           </CardContent>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">Ensure the prosumer’s low voltage installation is inspected for condition.</p>
-            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+            <p className="text-sm text-muted-foreground">
+              Ensure the prosumer’s low voltage installation is inspected for
+              condition.
+            </p>
+            <Button
+              variant="outline"
+              type="submit"
+              disabled={!form.formState.isDirty || form.formState.isSubmitting}
+            >
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>
@@ -101,7 +136,13 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({ electricalIns
   );
 }
 
-function CircuitsForm({ index, control }: { index: number; control: Control<any> }) {
+function CircuitsForm({
+  index,
+  control,
+}: {
+  index: number;
+  control: Control<any>;
+}) {
   const { fields, append, remove } = useFieldArray({
     control: control,
     name: `db.${index}.circuits`,

@@ -19,10 +19,19 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
-        <Input placeholder="Search..." value={(table.getState().globalFilter as string) ?? ""} onChange={(event) => table.setGlobalFilter(event.target.value)} className="h-8 w-[150px] border-dashed lg:w-[250px]" />
+        <Input
+          placeholder="Search..."
+          value={(table.getState().globalFilter as string) ?? ""}
+          onChange={(event) => table.setGlobalFilter(event.target.value)}
+          className="h-8 w-[150px] border-dashed lg:w-[250px]"
+        />
 
         {isFiltered && (
-          <Button variant="ghost" onClick={() => table.resetColumnFilters()} className="h-8 px-2 lg:px-3">
+          <Button
+            variant="ghost"
+            onClick={() => table.resetColumnFilters()}
+            className="h-8 px-2 lg:px-3"
+          >
             Reset
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>

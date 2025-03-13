@@ -7,15 +7,32 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateGoverningBody } from "./action";
 import { UpdateGoverningBodySchema } from "./schema";
 
-export function UpdateGoverningBodyForm({ settings }: { settings: (Settings & { address: Address | null }) | null }) {
+export function UpdateGoverningBodyForm({
+  settings,
+}: {
+  settings: (Settings & { address: Address | null }) | null;
+}) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -54,7 +71,9 @@ export function UpdateGoverningBodyForm({ settings }: { settings: (Settings & { 
         <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Governing Body Details</CardTitle>
-            <CardDescription className="text-primary">Provide details about your governing body registration.</CardDescription>
+            <CardDescription className="text-primary">
+              Provide details about your governing body registration.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField
@@ -63,7 +82,11 @@ export function UpdateGoverningBodyForm({ settings }: { settings: (Settings & { 
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input {...field} placeholder="Governing Body" className="lg:max-w-[50%]" />
+                    <Input
+                      {...field}
+                      placeholder="Governing Body"
+                      className="lg:max-w-[50%]"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -75,7 +98,11 @@ export function UpdateGoverningBodyForm({ settings }: { settings: (Settings & { 
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input {...field} placeholder="Governing Body Number" className="lg:max-w-[50%]" />
+                    <Input
+                      {...field}
+                      placeholder="Governing Body Number"
+                      className="lg:max-w-[50%]"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -83,8 +110,14 @@ export function UpdateGoverningBodyForm({ settings }: { settings: (Settings & { 
             />
           </CardContent>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">This is governing body that your company is registered with.</p>
-            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+            <p className="text-sm text-muted-foreground">
+              This is governing body that your company is registered with.
+            </p>
+            <Button
+              variant="outline"
+              type="submit"
+              disabled={!form.formState.isDirty || form.formState.isSubmitting}
+            >
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

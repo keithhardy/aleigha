@@ -2,7 +2,8 @@ export const inspectionItems = [
   {
     id: "item_8_1",
     item: "8.1",
-    label: "Condition of equipment in terms of IP rating, etc. (416.2; 422.3; 422.4; 522.4)",
+    label:
+      "Condition of equipment in terms of IP rating, etc. (416.2; 422.3; 422.4; 522.4)",
   },
   {
     id: "item_8_2",
@@ -12,7 +13,8 @@ export const inspectionItems = [
   {
     id: "item_8_3",
     item: "8.3",
-    label: "Enclosure not damaged / deteriorated so as to impair safety (134.1.1; 416.2)",
+    label:
+      "Enclosure not damaged / deteriorated so as to impair safety (134.1.1; 416.2)",
   },
   {
     id: "item_8_4",
@@ -28,7 +30,8 @@ export const inspectionItems = [
   {
     id: "item_8_7B",
     item: "8.7B",
-    label: "Installed to minimise build-up of heat by use of \u201cfire rated\u201d fittings, insulation displacement box or similar (421.1.2)",
+    label:
+      "Installed to minimise build-up of heat by use of \u201cfire rated\u201d fittings, insulation displacement box or similar (421.1.2)",
   },
   {
     id: "item_8_7C",
