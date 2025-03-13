@@ -451,7 +451,6 @@ export function UpdateContractorClientAndInstallationForm({
                   </FormItem>
                 )}
               />
-
               <Input
                 type="text"
                 value={selectedProperty?.address?.city ?? ""}
