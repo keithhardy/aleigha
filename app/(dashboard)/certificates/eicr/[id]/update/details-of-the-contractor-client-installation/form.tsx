@@ -151,7 +151,7 @@ export function UpdateContractorClientAndInstallationForm({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="container mx-auto max-w-screen-md px-4"
+        className="container mx-auto max-w-screen-lg px-4"
       >
         <Card className="rounded-md shadow-none">
           <CardHeader>

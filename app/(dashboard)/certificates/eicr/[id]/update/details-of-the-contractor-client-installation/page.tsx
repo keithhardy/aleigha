@@ -12,6 +12,7 @@ import {
   Heading,
 } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
 
 export default async function UpdateContractorClientAndInstallation({
   params,
@@ -72,10 +73,6 @@ export default async function UpdateContractorClientAndInstallation({
             EICR report.
           </HeaderDescription>
         </HeaderGroup>
-
-        {/* <HeaderActions>
-          <Button variant="outline" className="w-full">Button</Button>
-        </HeaderActions> */}
       </Header>
 
       <UpdateContractorClientAndInstallationForm
