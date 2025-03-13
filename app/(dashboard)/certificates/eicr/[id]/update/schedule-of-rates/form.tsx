@@ -8,61 +8,29 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateScheduleOfRates } from "./action";
 import { rates } from "./rates";
 import { UpdateScheduleOfRatesSchema } from "./schema";
 
-export function UpdateScheduleOfRatesForm({
-  electricalInstallationConditionReport,
-}: {
-  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
-}) {
+export function UpdateScheduleOfRatesForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof UpdateScheduleOfRatesSchema>>({
     resolver: zodResolver(UpdateScheduleOfRatesSchema),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
-      rates:
-        JSON.parse(electricalInstallationConditionReport.rates as string) || [],
+      rates: JSON.parse(electricalInstallationConditionReport.rates as string) || [],
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateScheduleOfRatesSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateScheduleOfRatesSchema>) => {
     const response = await updateScheduleOfRates(data);
 
     if (response.status === "success") {
@@ -105,36 +73,19 @@ export function UpdateScheduleOfRatesForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="container mx-auto max-w-screen-md"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
         <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Schedule of rates</CardTitle>
-            <CardDescription>
-              Select predefined rates and input quantities.
-            </CardDescription>
+            <CardDescription>Select predefined rates and input quantities.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormItem>
               <FormLabel>Select rate</FormLabel>
-              <Popover
-                open={selectedRateOpen}
-                onOpenChange={setSelectedRateOpen}
-              >
+              <Popover open={selectedRateOpen} onOpenChange={setSelectedRateOpen}>
                 <PopoverTrigger asChild className="w-full">
-                  <Button
-                    variant="outline"
-                    role="combobox"
-                    aria-expanded={selectedRateOpen}
-                    className="flex items-center justify-between"
-                  >
-                    <span>
-                      {selectedRate
-                        ? `${selectedRate}: ${rates.find((rate) => rate.id.toString() === selectedRate)?.name}`
-                        : "Select a rate"}
-                    </span>
+                  <Button variant="outline" role="combobox" aria-expanded={selectedRateOpen} className="flex items-center justify-between">
+                    <span>{selectedRate ? `${selectedRate}: ${rates.find((rate) => rate.id.toString() === selectedRate)?.name}` : "Select a rate"}</span>
                     <ChevronsUpDown className="ml-2 opacity-50" />
                   </Button>
                 </PopoverTrigger>
@@ -142,9 +93,7 @@ export function UpdateScheduleOfRatesForm({
                   <Command
                     filter={(value, search) => {
                       if (!search) return 1;
-                      return value.toLowerCase().includes(search.toLowerCase())
-                        ? 1
-                        : 0;
+                      return value.toLowerCase().includes(search.toLowerCase()) ? 1 : 0;
                     }}
                   >
                     <CommandInput placeholder="Search rates..." />
@@ -162,9 +111,7 @@ export function UpdateScheduleOfRatesForm({
                             }}
                           >
                             {rate.name}
-                            {rate.id.toString() === selectedRate ? (
-                              <Check className="ml-auto" />
-                            ) : null}
+                            {rate.id.toString() === selectedRate ? <Check className="ml-auto" /> : null}
                           </CommandItem>
                         ))}
                       </CommandGroup>
@@ -182,10 +129,7 @@ export function UpdateScheduleOfRatesForm({
                     <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="Find and rectify fault"
-                          {...field}
-                        />
+                        <Input placeholder="Find and rectify fault" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -198,10 +142,7 @@ export function UpdateScheduleOfRatesForm({
                     <FormItem>
                       <FormLabel>Description</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="Located loose r1 on bedroom socket and reterminated"
-                          {...field}
-                        />
+                        <Input placeholder="Located loose r1 on bedroom socket and reterminated" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -214,14 +155,8 @@ export function UpdateScheduleOfRatesForm({
             ))}
           </CardContent>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">
-              Review the selected rates and update descriptions as needed.
-            </p>
-            <Button
-              variant="outline"
-              type="submit"
-              disabled={!form.formState.isDirty || form.formState.isSubmitting}
-            >
+            <p className="text-sm text-muted-foreground">Review the selected rates and update descriptions as needed.</p>
+            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

@@ -1,20 +1,10 @@
-import {
-  Address,
-  ElectricalInstallationConditionReport,
-  Property,
-} from "@prisma/client";
+import { Address, ElectricalInstallationConditionReport, Property } from "@prisma/client";
 import { pdf } from "@react-pdf/renderer";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 import ElectricalInstallationConditionReportTemplate from "../templates/electrical-installation-condition-report-template";
 
@@ -32,17 +22,8 @@ export function RowActions({
   ) => {
     let blob;
 
-    if (
-      electricalInstallationConditionReport.type ===
-      "Electrical Installation Condition Report"
-    ) {
-      blob = await pdf(
-        <ElectricalInstallationConditionReportTemplate
-          electricalInstallationConditionReport={
-            electricalInstallationConditionReport
-          }
-        />,
-      ).toBlob();
+    if (electricalInstallationConditionReport.type === "Electrical Installation Condition Report") {
+      blob = await pdf(<ElectricalInstallationConditionReportTemplate electricalInstallationConditionReport={electricalInstallationConditionReport} />).toBlob();
     }
 
     if (blob) {
@@ -77,27 +58,16 @@ export function RowActions({
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
-          <Link
-            href={`/certificates/${generateSlug(electricalInstallationConditionReport.type)}/${electricalInstallationConditionReport.id}/update/details-of-the-contractor-client-installation`}
-            className="cursor-pointer"
-          >
+          <Link href={`/certificates/${generateSlug(electricalInstallationConditionReport.type)}/${electricalInstallationConditionReport.id}/update/details-of-the-contractor-client-installation`} className="cursor-pointer">
             Update
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link
-            href={`/certificates/${generateSlug(electricalInstallationConditionReport.type)}/${electricalInstallationConditionReport.id}/delete`}
-            className="cursor-pointer"
-          >
+          <Link href={`/certificates/${generateSlug(electricalInstallationConditionReport.type)}/${electricalInstallationConditionReport.id}/delete`} className="cursor-pointer">
             Delete
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() =>
-            handlePDFDownload(electricalInstallationConditionReport)
-          }
-          className="cursor-pointer"
-        >
+        <DropdownMenuItem onClick={() => handlePDFDownload(electricalInstallationConditionReport)} className="cursor-pointer">
           Download PDF
         </DropdownMenuItem>
       </DropdownMenuContent>

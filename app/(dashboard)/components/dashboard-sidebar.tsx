@@ -1,45 +1,12 @@
 "use client";
 
-import {
-  LayoutPanelLeft,
-  Users,
-  Settings2,
-  Logs,
-  Building2,
-  House,
-  Folder,
-  ChevronRight,
-  TableOfContents,
-  BookText,
-  CircleHelp,
-  ScrollText,
-} from "lucide-react";
+import { LayoutPanelLeft, Users, Settings2, Logs, Building2, House, Folder, ChevronRight, TableOfContents, BookText, CircleHelp, ScrollText } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import Logo from "@/components/logo";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-  SidebarRail,
-  useSidebar,
-} from "@/components/ui/sidebar";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarRail, useSidebar } from "@/components/ui/sidebar";
 
 const dashboard = [
   {
@@ -79,8 +46,7 @@ export function DashboardSidebar() {
 
   const pathname = usePathname();
 
-  const isEICRUpdate =
-    pathname.startsWith("/certificates/eicr/") && pathname.includes("/update");
+  const isEICRUpdate = pathname.startsWith("/certificates/eicr/") && pathname.includes("/update");
 
   const match = pathname.match(/\/certificates\/eicr\/([^/]+)\/update/);
   const certificateId = match ? match[1] : null;
@@ -124,8 +90,7 @@ export function DashboardSidebar() {
           url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/intake-equipment`,
         },
         {
-          title:
-            "Presence of adequate arrangements for parallel or switched alternative sources",
+          title: "Presence of adequate arrangements for parallel or switched alternative sources",
           url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/presence-of-adequate-arrangements-for-parallel-or-switched-alternative-sources`,
         },
         {
@@ -133,8 +98,7 @@ export function DashboardSidebar() {
           url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/methods-of-Protection`,
         },
         {
-          title:
-            "Distribution equipment, including consumer units and distribution boards",
+          title: "Distribution equipment, including consumer units and distribution boards",
           url: `/certificates/eicr/${certificateId}/update/schedule-of-inspections/distribution-equipment`,
         },
         {
@@ -177,10 +141,7 @@ export function DashboardSidebar() {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-            >
+            <SidebarMenuButton size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                 <Logo className="size-4" />
               </div>
@@ -199,12 +160,7 @@ export function DashboardSidebar() {
             <SidebarMenu>
               {dashboard.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    asChild
-                    tooltip={item.title}
-                    isActive={pathname == item.url}
-                    onClick={() => setOpenMobile(false)}
-                  >
+                  <SidebarMenuButton asChild tooltip={item.title} isActive={pathname == item.url} onClick={() => setOpenMobile(false)}>
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
@@ -265,11 +221,7 @@ export function DashboardSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              tooltip="Help"
-              onClick={() => setOpenMobile(false)}
-            >
+            <SidebarMenuButton asChild tooltip="Help" onClick={() => setOpenMobile(false)}>
               <Link href="/settings">
                 <CircleHelp />
                 <span>Help</span>
@@ -277,11 +229,7 @@ export function DashboardSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              tooltip="Documentation"
-              onClick={() => setOpenMobile(false)}
-            >
+            <SidebarMenuButton asChild tooltip="Documentation" onClick={() => setOpenMobile(false)}>
               <Link href="/settings">
                 <BookText />
                 <span>Documentation</span>
@@ -289,11 +237,7 @@ export function DashboardSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              tooltip="Changelog"
-              onClick={() => setOpenMobile(false)}
-            >
+            <SidebarMenuButton asChild tooltip="Changelog" onClick={() => setOpenMobile(false)}>
               <Link href="/settings">
                 <ScrollText />
                 <span>Changelog</span>
@@ -301,11 +245,7 @@ export function DashboardSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              tooltip="Settings"
-              onClick={() => setOpenMobile(false)}
-            >
+            <SidebarMenuButton asChild tooltip="Settings" onClick={() => setOpenMobile(false)}>
               <Link href="/settings">
                 <Settings2 />
                 <span>Settings</span>

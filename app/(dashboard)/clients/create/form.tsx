@@ -10,14 +10,7 @@ import { z } from "zod";
 import { createClient } from "@/app/(dashboard)/clients/create/action";
 import { CreateClientSchema } from "@/app/(dashboard)/clients/create/schema";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
@@ -128,11 +121,7 @@ export function CreateClientForm() {
               <FormItem>
                 <FormLabel>Appointed Person</FormLabel>
                 <FormControl>
-                  <Input
-                    type="tel"
-                    {...field}
-                    autoComplete="appointed-person"
-                  />
+                  <Input type="tel" {...field} autoComplete="appointed-person" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -145,22 +134,12 @@ export function CreateClientForm() {
               <FormItem>
                 <FormLabel>Company Logo</FormLabel>
                 <FormControl>
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                  />
+                  <Input type="file" accept="image/*" onChange={handleFileChange} />
                 </FormControl>
                 <FormMessage />
                 {imagePreview && (
                   <div className="mt-2">
-                    <Image
-                      src={imagePreview}
-                      alt="Logo Preview"
-                      width={200}
-                      height={200}
-                      className="rounded border"
-                    />
+                    <Image src={imagePreview} alt="Logo Preview" width={200} height={200} className="rounded border" />
                   </div>
                 )}
               </FormItem>
@@ -245,11 +224,7 @@ export function CreateClientForm() {
             )}
           />
 
-          <Button
-            type="submit"
-            disabled={form.formState.isSubmitting}
-            variant="outline"
-          >
+          <Button type="submit" disabled={form.formState.isSubmitting} variant="outline">
             {form.formState.isSubmitting ? "Saving" : "Save"}
           </Button>
         </div>

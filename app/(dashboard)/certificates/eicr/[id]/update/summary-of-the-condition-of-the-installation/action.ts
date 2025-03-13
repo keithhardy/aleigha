@@ -8,27 +8,18 @@ import { ServerActionResponse } from "@/lib/types";
 
 import { UpdateSummaryOfTheConditionOfTheInstallationSchema } from "./schema";
 
-export async function updateSummaryOfTheConditionOfTheInstallation(
-  electricalInstallationConditionReport: z.infer<
-    typeof UpdateSummaryOfTheConditionOfTheInstallationSchema
-  >,
-): Promise<ServerActionResponse<void>> {
+export async function updateSummaryOfTheConditionOfTheInstallation(electricalInstallationConditionReport: z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
       where: {
         id: electricalInstallationConditionReport.id,
       },
       data: {
-        generalCondition:
-          electricalInstallationConditionReport.generalCondition,
-        estimatedAgeOfElectricalInstallation:
-          electricalInstallationConditionReport.estimatedAgeOfElectricalInstallation,
-        evidenceOfAlterations:
-          electricalInstallationConditionReport.evidenceOfAlterations,
-        estimatedAgeOfAlterations:
-          electricalInstallationConditionReport.estimatedAgeOfAlterations,
-        overallAssessmentOfTheInstallation:
-          electricalInstallationConditionReport.overallAssessmentOfTheInstallation,
+        generalCondition: electricalInstallationConditionReport.generalCondition,
+        estimatedAgeOfElectricalInstallation: electricalInstallationConditionReport.estimatedAgeOfElectricalInstallation,
+        evidenceOfAlterations: electricalInstallationConditionReport.evidenceOfAlterations,
+        estimatedAgeOfAlterations: electricalInstallationConditionReport.estimatedAgeOfAlterations,
+        overallAssessmentOfTheInstallation: electricalInstallationConditionReport.overallAssessmentOfTheInstallation,
       },
     });
 

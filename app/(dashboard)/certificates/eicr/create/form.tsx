@@ -9,46 +9,21 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 
 import { createElectricalInstallationConditionReport } from "./action";
 import { CreateElectricalInstallationConditionReportSchema } from "./schema";
 
-export function CreateElectricalInstallationConditionReportForm({
-  currentUser,
-  clients,
-}: {
-  currentUser: User;
-  clients: (Client & { property: (Property & { address: Address })[] })[];
-}) {
+export function CreateElectricalInstallationConditionReportForm({ currentUser, clients }: { currentUser: User; clients: (Client & { property: (Property & { address: Address })[] })[] }) {
   const { toast } = useToast();
 
   const [clientOpen, setClientOpen] = useState(false);
   const [propertyOpen, setPropertyOpen] = useState(false);
 
-  const form = useForm<
-    z.infer<typeof CreateElectricalInstallationConditionReportSchema>
-  >({
+  const form = useForm<z.infer<typeof CreateElectricalInstallationConditionReportSchema>>({
     resolver: zodResolver(CreateElectricalInstallationConditionReportSchema),
     defaultValues: {
       creatorId: currentUser.id,
@@ -57,9 +32,7 @@ export function CreateElectricalInstallationConditionReportForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof CreateElectricalInstallationConditionReportSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof CreateElectricalInstallationConditionReportSchema>) => {
     const response = await createElectricalInstallationConditionReport(data);
 
     if (response.status === "success") {
@@ -88,25 +61,14 @@ export function CreateElectricalInstallationConditionReportForm({
               <FormLabel>Client</FormLabel>
               <Popover open={clientOpen} onOpenChange={setClientOpen}>
                 <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    role="combobox"
-                    aria-expanded={clientOpen ? "true" : "false"}
-                    className="max-w-[1024px] justify-between pl-3 text-left font-normal"
-                  >
-                    {field.value
-                      ? clients.find((client) => client.id === field.value)
-                          ?.name
-                      : "Select client..."}
+                  <Button variant="outline" role="combobox" aria-expanded={clientOpen ? "true" : "false"} className="max-w-[1024px] justify-between pl-3 text-left font-normal">
+                    {field.value ? clients.find((client) => client.id === field.value)?.name : "Select client..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="p-0">
                   <Command>
-                    <CommandInput
-                      placeholder="Search client..."
-                      className="h-9"
-                    />
+                    <CommandInput placeholder="Search client..." className="h-9" />
                     <CommandList>
                       <CommandEmpty>No client found.</CommandEmpty>
                       <CommandGroup>
@@ -121,9 +83,7 @@ export function CreateElectricalInstallationConditionReportForm({
                             }}
                           >
                             {client.name}
-                            {client.id === field.value ? (
-                              <Check className="ml-auto" />
-                            ) : null}
+                            {client.id === field.value ? <Check className="ml-auto" /> : null}
                           </CommandItem>
                         ))}
                       </CommandGroup>
@@ -143,39 +103,19 @@ export function CreateElectricalInstallationConditionReportForm({
               <FormLabel>Property</FormLabel>
               <Popover open={propertyOpen} onOpenChange={setPropertyOpen}>
                 <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    role="combobox"
-                    aria-expanded={propertyOpen ? "true" : "false"}
-                    className="max-w-[1024px] justify-between pl-3 text-left font-normal"
-                  >
-                    {field.value
-                      ? clients
-                          .find(
-                            (client) =>
-                              client.id === form.getValues("clientId"),
-                          )
-                          ?.property.find(
-                            (property) => property.id === field.value,
-                          )?.address.streetAddress
-                      : "Select a property..."}
+                  <Button variant="outline" role="combobox" aria-expanded={propertyOpen ? "true" : "false"} className="max-w-[1024px] justify-between pl-3 text-left font-normal">
+                    {field.value ? clients.find((client) => client.id === form.getValues("clientId"))?.property.find((property) => property.id === field.value)?.address.streetAddress : "Select a property..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="p-0">
                   <Command>
-                    <CommandInput
-                      placeholder="Search property..."
-                      className="h-9"
-                    />
+                    <CommandInput placeholder="Search property..." className="h-9" />
                     <CommandList>
                       <CommandEmpty>No property found.</CommandEmpty>
                       <CommandGroup>
                         {clients
-                          .find(
-                            (client) =>
-                              client.id === form.getValues("clientId"),
-                          )
+                          .find((client) => client.id === form.getValues("clientId"))
                           ?.property.map((property) => (
                             <CommandItem
                               key={property.id}
@@ -186,9 +126,7 @@ export function CreateElectricalInstallationConditionReportForm({
                               }}
                             >
                               {property.address.streetAddress}
-                              {field.value === property.id ? (
-                                <Check className="ml-auto" />
-                              ) : null}
+                              {field.value === property.id ? <Check className="ml-auto" /> : null}
                             </CommandItem>
                           ))}
                       </CommandGroup>
@@ -200,11 +138,7 @@ export function CreateElectricalInstallationConditionReportForm({
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          disabled={form.formState.isSubmitting}
-          variant="outline"
-        >
+        <Button type="submit" disabled={form.formState.isSubmitting} variant="outline">
           {form.formState.isSubmitting ? "Saving" : "Save"}
         </Button>
       </form>

@@ -6,22 +6,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
 import { RadioGroupComponent } from "../radio-group";
@@ -29,16 +15,10 @@ import { updateContractorClientAndInstallation } from "./action";
 import { inspectionItems } from "./inspection-items";
 import { UpdateSpecialLocationsAndInstallationsSchema } from "./schema";
 
-export function UpdateSpecialLocationsAndInstallationsForm({
-  electricalInstallationConditionReport,
-}: {
-  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
-}) {
+export function UpdateSpecialLocationsAndInstallationsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
   const { toast } = useToast();
 
-  const form = useForm<
-    z.infer<typeof UpdateSpecialLocationsAndInstallationsSchema>
-  >({
+  const form = useForm<z.infer<typeof UpdateSpecialLocationsAndInstallationsSchema>>({
     resolver: zodResolver(UpdateSpecialLocationsAndInstallationsSchema),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
@@ -54,9 +34,7 @@ export function UpdateSpecialLocationsAndInstallationsForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateSpecialLocationsAndInstallationsSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateSpecialLocationsAndInstallationsSchema>) => {
     const response = await updateContractorClientAndInstallation(data);
 
     if (response.status === "success") {
@@ -72,17 +50,11 @@ export function UpdateSpecialLocationsAndInstallationsForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="container mx-auto max-w-screen-md"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
         <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Special locations and installations</CardTitle>
-            <CardDescription className="text-primary">
-              This section evaluates the condition and safety of special
-              locations and installations.
-            </CardDescription>
+            <CardDescription className="text-primary">This section evaluates the condition and safety of special locations and installations.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -95,10 +67,7 @@ export function UpdateSpecialLocationsAndInstallationsForm({
                   <FormItem>
                     <FormLabel>{item.item + " - " + item.label}</FormLabel>
                     <FormControl>
-                      <RadioGroupComponent
-                        onChange={field.onChange}
-                        defaultValue={field.value || "na"}
-                      />
+                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value || "na"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -107,15 +76,8 @@ export function UpdateSpecialLocationsAndInstallationsForm({
             ))}
           </CardContent>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">
-              Ensure the condition and safety of special locations and
-              installations is checked.
-            </p>
-            <Button
-              variant="outline"
-              type="submit"
-              disabled={!form.formState.isDirty || form.formState.isSubmitting}
-            >
+            <p className="text-sm text-muted-foreground">Ensure the condition and safety of special locations and installations is checked.</p>
+            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

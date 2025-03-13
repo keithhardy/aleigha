@@ -7,32 +7,15 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateName } from "./action";
 import { UpdateNameSchema } from "./schema";
 
-export function UpdateNameForm({
-  settings,
-}: {
-  settings: (Settings & { address: Address | null }) | null;
-}) {
+export function UpdateNameForm({ settings }: { settings: (Settings & { address: Address | null }) | null }) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -70,9 +53,7 @@ export function UpdateNameForm({
         <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Company Name</CardTitle>
-            <CardDescription className="text-primary">
-              Provide the trading name of your company.
-            </CardDescription>
+            <CardDescription className="text-primary">Provide the trading name of your company.</CardDescription>
           </CardHeader>
           <CardContent>
             <FormField
@@ -81,11 +62,7 @@ export function UpdateNameForm({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Trading Name"
-                      className="lg:max-w-[50%]"
-                    />
+                    <Input {...field} placeholder="Trading Name" className="lg:max-w-[50%]" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -93,14 +70,8 @@ export function UpdateNameForm({
             />
           </CardContent>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">
-              Name can only contain letters, spaces, hyphens, or apostrophes.
-            </p>
-            <Button
-              variant="outline"
-              type="submit"
-              disabled={!form.formState.isDirty || form.formState.isSubmitting}
-            >
+            <p className="text-sm text-muted-foreground">Name can only contain letters, spaces, hyphens, or apostrophes.</p>
+            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

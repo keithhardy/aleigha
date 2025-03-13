@@ -6,22 +6,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
@@ -29,94 +15,47 @@ import { useToast } from "@/hooks/use-toast";
 import { updateParticularsOfInstallationsReferredToInThisReport } from "./action";
 import { UpdateParticularsOfInstallationsReferredToInThisReportSchema } from "./schema";
 
-export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
-  electricalInstallationConditionReport,
-}: {
-  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
-}) {
+export function UpdateParticularsOfInstallationsReferredToInThisReportForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
   const { toast } = useToast();
 
-  const form = useForm<
-    z.infer<typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema>
-  >({
-    resolver: zodResolver(
-      UpdateParticularsOfInstallationsReferredToInThisReportSchema,
-    ),
+  const form = useForm<z.infer<typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema>>({
+    resolver: zodResolver(UpdateParticularsOfInstallationsReferredToInThisReportSchema),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
       maximumDemand: electricalInstallationConditionReport.maximumDemand || "",
-      distributorsFacility:
-        electricalInstallationConditionReport.distributorsFacility ?? true,
-      installationEarthElectrodes:
-        electricalInstallationConditionReport.installationEarthElectrodes ??
-        false,
-      earthElectrodeType:
-        electricalInstallationConditionReport.earthElectrodeType || "",
-      earthElectrodeLocation:
-        electricalInstallationConditionReport.earthElectrodeLocation || "",
-      electrodeResistanceToEarth:
-        electricalInstallationConditionReport.electrodeResistanceToEarth || "",
-      earthingConductorMaterial:
-        electricalInstallationConditionReport.earthingConductorMaterial || "",
-      earthingConductorCSA:
-        electricalInstallationConditionReport.earthingConductorCSA || "",
-      earthingConductorVerified:
-        electricalInstallationConditionReport.earthingConductorVerified ??
-        false,
-      mainProtectiveBondingConductorMaterial:
-        electricalInstallationConditionReport.mainProtectiveBondingConductorMaterial ||
-        "",
-      mainProtectiveBondingConductorCSA:
-        electricalInstallationConditionReport.mainProtectiveBondingConductorCSA ||
-        "",
-      mainProtectiveBondingConductorVerified:
-        electricalInstallationConditionReport.mainProtectiveBondingConductorVerified ??
-        false,
-      waterInstallationPipes:
-        electricalInstallationConditionReport.waterInstallationPipes || "",
-      gasInstallationPipes:
-        electricalInstallationConditionReport.gasInstallationPipes || "",
-      structuralSteel:
-        electricalInstallationConditionReport.structuralSteel || "",
-      oilInstallationPipes:
-        electricalInstallationConditionReport.oilInstallationPipes || "",
-      lightningProtection:
-        electricalInstallationConditionReport.lightningProtection || "",
+      distributorsFacility: electricalInstallationConditionReport.distributorsFacility ?? true,
+      installationEarthElectrodes: electricalInstallationConditionReport.installationEarthElectrodes ?? false,
+      earthElectrodeType: electricalInstallationConditionReport.earthElectrodeType || "",
+      earthElectrodeLocation: electricalInstallationConditionReport.earthElectrodeLocation || "",
+      electrodeResistanceToEarth: electricalInstallationConditionReport.electrodeResistanceToEarth || "",
+      earthingConductorMaterial: electricalInstallationConditionReport.earthingConductorMaterial || "",
+      earthingConductorCSA: electricalInstallationConditionReport.earthingConductorCSA || "",
+      earthingConductorVerified: electricalInstallationConditionReport.earthingConductorVerified ?? false,
+      mainProtectiveBondingConductorMaterial: electricalInstallationConditionReport.mainProtectiveBondingConductorMaterial || "",
+      mainProtectiveBondingConductorCSA: electricalInstallationConditionReport.mainProtectiveBondingConductorCSA || "",
+      mainProtectiveBondingConductorVerified: electricalInstallationConditionReport.mainProtectiveBondingConductorVerified ?? false,
+      waterInstallationPipes: electricalInstallationConditionReport.waterInstallationPipes || "",
+      gasInstallationPipes: electricalInstallationConditionReport.gasInstallationPipes || "",
+      structuralSteel: electricalInstallationConditionReport.structuralSteel || "",
+      oilInstallationPipes: electricalInstallationConditionReport.oilInstallationPipes || "",
+      lightningProtection: electricalInstallationConditionReport.lightningProtection || "",
       other: String(electricalInstallationConditionReport.other || ""),
-      mainSwitchLocation:
-        electricalInstallationConditionReport.mainSwitchLocation || "",
-      mainSwitchBSNumber:
-        electricalInstallationConditionReport.mainSwitchBSNumber || "",
-      mainSwitchType:
-        electricalInstallationConditionReport.mainSwitchType || "",
-      mainSwitchRating:
-        electricalInstallationConditionReport.mainSwitchRating || "",
-      mainSwitchPoles:
-        electricalInstallationConditionReport.mainSwitchPoles || "",
-      mainSwitchCurrentRating:
-        electricalInstallationConditionReport.mainSwitchCurrentRating || "",
-      mainSwitchVoltageRating:
-        electricalInstallationConditionReport.mainSwitchVoltageRating || "",
-      mainSwitchRCDOperatingCurrent:
-        electricalInstallationConditionReport.mainSwitchRCDOperatingCurrent ||
-        "",
-      mainSwitchRCDType:
-        electricalInstallationConditionReport.mainSwitchRCDType || "",
-      mainSwitchRCDRatedTimeDelay:
-        electricalInstallationConditionReport.mainSwitchRCDRatedTimeDelay || "",
-      mainSwitchRCDMeasuredOperatingTime:
-        electricalInstallationConditionReport.mainSwitchRCDMeasuredOperatingTime ||
-        "",
+      mainSwitchLocation: electricalInstallationConditionReport.mainSwitchLocation || "",
+      mainSwitchBSNumber: electricalInstallationConditionReport.mainSwitchBSNumber || "",
+      mainSwitchType: electricalInstallationConditionReport.mainSwitchType || "",
+      mainSwitchRating: electricalInstallationConditionReport.mainSwitchRating || "",
+      mainSwitchPoles: electricalInstallationConditionReport.mainSwitchPoles || "",
+      mainSwitchCurrentRating: electricalInstallationConditionReport.mainSwitchCurrentRating || "",
+      mainSwitchVoltageRating: electricalInstallationConditionReport.mainSwitchVoltageRating || "",
+      mainSwitchRCDOperatingCurrent: electricalInstallationConditionReport.mainSwitchRCDOperatingCurrent || "",
+      mainSwitchRCDType: electricalInstallationConditionReport.mainSwitchRCDType || "",
+      mainSwitchRCDRatedTimeDelay: electricalInstallationConditionReport.mainSwitchRCDRatedTimeDelay || "",
+      mainSwitchRCDMeasuredOperatingTime: electricalInstallationConditionReport.mainSwitchRCDMeasuredOperatingTime || "",
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<
-      typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema
-    >,
-  ) => {
-    const response =
-      await updateParticularsOfInstallationsReferredToInThisReport(data);
+  const onSubmit = async (data: z.infer<typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema>) => {
+    const response = await updateParticularsOfInstallationsReferredToInThisReport(data);
 
     if (response.status === "success") {
       form.reset(data);
@@ -131,16 +70,11 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="container mx-auto max-w-screen-md"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
         <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Particulars of Installation</CardTitle>
-            <CardDescription className="text-primary">
-              Key details of the electrical installation for this report.
-            </CardDescription>
+            <CardDescription className="text-primary">Key details of the electrical installation for this report.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField
@@ -150,10 +84,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                 <FormItem>
                   <FormLabel>Maximum Electrical Demand</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Enter Maximum Demand (e.g., 100 A)"
-                      {...field}
-                    />
+                    <Input placeholder="Enter Maximum Demand (e.g., 100 A)" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -167,10 +98,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                   <div>
                     <FormLabel>Distributor&apos;s Facility</FormLabel>
                   </div>
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
+                  <Switch checked={field.value} onCheckedChange={field.onChange} />
                   <FormMessage />
                 </FormItem>
               )}
@@ -275,10 +203,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                   <div>
                     <FormLabel>Earthing Conductor Verified</FormLabel>
                   </div>
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
+                  <Switch checked={field.value} onCheckedChange={field.onChange} />
                   <FormMessage />
                 </FormItem>
               )}
@@ -288,9 +213,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
               name="mainProtectiveBondingConductorMaterial"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    Main Protective Bonding Conductor Material
-                  </FormLabel>
+                  <FormLabel>Main Protective Bonding Conductor Material</FormLabel>
                   <FormControl>
                     <Input placeholder="e.g., Copper" {...field} />
                   </FormControl>
@@ -317,14 +240,9 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
               render={({ field }) => (
                 <FormItem>
                   <div>
-                    <FormLabel>
-                      Main Protective Bonding Conductor Verified
-                    </FormLabel>
+                    <FormLabel>Main Protective Bonding Conductor Verified</FormLabel>
                   </div>
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
+                  <Switch checked={field.value} onCheckedChange={field.onChange} />
                   <FormMessage />
                 </FormItem>
               )}
@@ -487,14 +405,8 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
             />
           </CardContent>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">
-              Ensure all details are accurate before submission.
-            </p>
-            <Button
-              variant="outline"
-              type="submit"
-              disabled={!form.formState.isDirty || form.formState.isSubmitting}
-            >
+            <p className="text-sm text-muted-foreground">Ensure all details are accurate before submission.</p>
+            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

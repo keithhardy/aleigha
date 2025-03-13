@@ -6,22 +6,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
 import { RadioGroupComponent } from "../radio-group";
@@ -29,16 +15,10 @@ import { updatePresenceOfAdequateArrangements } from "./action";
 import { inspectionItems } from "./inspection-items";
 import { UpdatePresenceOfAdequateArrangementsSchema } from "./schema";
 
-export function UpdatePresenceOfAdequateArrangementsForm({
-  electricalInstallationConditionReport,
-}: {
-  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
-}) {
+export function UpdatePresenceOfAdequateArrangementsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
   const { toast } = useToast();
 
-  const form = useForm<
-    z.infer<typeof UpdatePresenceOfAdequateArrangementsSchema>
-  >({
+  const form = useForm<z.infer<typeof UpdatePresenceOfAdequateArrangementsSchema>>({
     resolver: zodResolver(UpdatePresenceOfAdequateArrangementsSchema),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
@@ -47,9 +27,7 @@ export function UpdatePresenceOfAdequateArrangementsForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdatePresenceOfAdequateArrangementsSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdatePresenceOfAdequateArrangementsSchema>) => {
     const response = await updatePresenceOfAdequateArrangements(data);
 
     if (response.status === "success") {
@@ -65,21 +43,11 @@ export function UpdatePresenceOfAdequateArrangementsForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="container mx-auto max-w-screen-md"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
         <Card className="rounded-md shadow-none">
           <CardHeader>
-            <CardTitle>
-              Presence of adequate arrangements for parallel or switched
-              alternative sources
-            </CardTitle>
-            <CardDescription className="text-primary">
-              This section evaluates the presence of suitable arrangements for
-              parallel or switched alternative power sources, such as
-              microgenerators.
-            </CardDescription>
+            <CardTitle>Presence of adequate arrangements for parallel or switched alternative sources</CardTitle>
+            <CardDescription className="text-primary">This section evaluates the presence of suitable arrangements for parallel or switched alternative power sources, such as microgenerators.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -92,10 +60,7 @@ export function UpdatePresenceOfAdequateArrangementsForm({
                   <FormItem>
                     <FormLabel>{item.item + " - " + item.label}</FormLabel>
                     <FormControl>
-                      <RadioGroupComponent
-                        onChange={field.onChange}
-                        defaultValue={field.value || "na"}
-                      />
+                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value || "na"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -104,14 +69,8 @@ export function UpdatePresenceOfAdequateArrangementsForm({
             ))}
           </CardContent>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-2">
-            <p className="text-sm text-muted-foreground">
-              Ensure all items related to microgenerators are inspected.
-            </p>
-            <Button
-              variant="outline"
-              type="submit"
-              disabled={!form.formState.isDirty || form.formState.isSubmitting}
-            >
+            <p className="text-sm text-muted-foreground">Ensure all items related to microgenerators are inspected.</p>
+            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

@@ -8,13 +8,10 @@ import { prisma } from "@/lib/prisma";
 import { ServerActionResponse } from "@/lib/types";
 import { uploadFile } from "@/lib/vercel-blob";
 
-export async function createClient(
-  client: z.infer<typeof CreateClientSchema>,
-): Promise<ServerActionResponse<Client>> {
+export async function createClient(client: z.infer<typeof CreateClientSchema>): Promise<ServerActionResponse<Client>> {
   if (client.picture) {
     try {
-      client.picture =
-        (await uploadFile(client.picture, "client-picture")) || "";
+      client.picture = (await uploadFile(client.picture, "client-picture")) || "";
     } catch {
       return {
         status: "error",

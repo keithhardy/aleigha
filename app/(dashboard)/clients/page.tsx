@@ -1,11 +1,6 @@
 import { columns } from "@/app/(dashboard)/clients/components/data-table/columns";
 import { DataTable } from "@/app/(dashboard)/clients/components/data-table/data-table";
-import {
-  Header,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
+import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
 export default async function Clients() {
@@ -20,10 +15,7 @@ export default async function Clients() {
       <Header>
         <HeaderGroup>
           <Heading>View Clients</Heading>
-          <HeaderDescription>
-            Manage your clients. Browse a table of clients and find links to
-            add, update, or remove client records.
-          </HeaderDescription>
+          <HeaderDescription>Manage your clients. Browse a table of clients and find links to add, update, or remove client records.</HeaderDescription>
         </HeaderGroup>
       </Header>
 

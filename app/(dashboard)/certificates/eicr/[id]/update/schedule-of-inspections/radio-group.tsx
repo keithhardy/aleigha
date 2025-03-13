@@ -8,16 +8,9 @@ interface RadioGroupComponentProps {
   defaultValue: string;
 }
 
-export const RadioGroupComponent = ({
-  onChange,
-  defaultValue,
-}: RadioGroupComponentProps) => {
+export const RadioGroupComponent = ({ onChange, defaultValue }: RadioGroupComponentProps) => {
   return (
-    <RadioGroup
-      onValueChange={onChange}
-      defaultValue={defaultValue}
-      className="grid grid-cols-4 space-y-1"
-    >
+    <RadioGroup onValueChange={onChange} defaultValue={defaultValue} className="grid grid-cols-4 space-y-1">
       <FormItem className="flex items-center space-x-3 space-y-0">
         <FormControl>
           <RadioGroupItem value="ok" />

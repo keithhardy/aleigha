@@ -8,11 +8,7 @@ import { ServerActionResponse } from "@/lib/types";
 
 import { UpdateParticularsOfInstallationsReferredToInThisReportSchema } from "./schema";
 
-export async function updateParticularsOfInstallationsReferredToInThisReport(
-  electricalInstallationConditionReport: z.infer<
-    typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema
-  >,
-): Promise<ServerActionResponse<void>> {
+export async function updateParticularsOfInstallationsReferredToInThisReport(electricalInstallationConditionReport: z.infer<typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema>): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
       where: {
@@ -20,58 +16,34 @@ export async function updateParticularsOfInstallationsReferredToInThisReport(
       },
       data: {
         maximumDemand: electricalInstallationConditionReport.maximumDemand,
-        distributorsFacility:
-          electricalInstallationConditionReport.distributorsFacility,
-        installationEarthElectrodes:
-          electricalInstallationConditionReport.installationEarthElectrodes,
-        earthElectrodeType:
-          electricalInstallationConditionReport.earthElectrodeType,
-        earthElectrodeLocation:
-          electricalInstallationConditionReport.earthElectrodeLocation,
-        electrodeResistanceToEarth:
-          electricalInstallationConditionReport.electrodeResistanceToEarth,
-        earthingConductorMaterial:
-          electricalInstallationConditionReport.earthingConductorMaterial,
-        earthingConductorCSA:
-          electricalInstallationConditionReport.earthingConductorCSA,
-        earthingConductorVerified:
-          electricalInstallationConditionReport.earthingConductorVerified,
-        mainProtectiveBondingConductorMaterial:
-          electricalInstallationConditionReport.mainProtectiveBondingConductorMaterial,
-        mainProtectiveBondingConductorCSA:
-          electricalInstallationConditionReport.mainProtectiveBondingConductorCSA,
-        mainProtectiveBondingConductorVerified:
-          electricalInstallationConditionReport.mainProtectiveBondingConductorVerified,
-        waterInstallationPipes:
-          electricalInstallationConditionReport.waterInstallationPipes,
-        gasInstallationPipes:
-          electricalInstallationConditionReport.gasInstallationPipes,
+        distributorsFacility: electricalInstallationConditionReport.distributorsFacility,
+        installationEarthElectrodes: electricalInstallationConditionReport.installationEarthElectrodes,
+        earthElectrodeType: electricalInstallationConditionReport.earthElectrodeType,
+        earthElectrodeLocation: electricalInstallationConditionReport.earthElectrodeLocation,
+        electrodeResistanceToEarth: electricalInstallationConditionReport.electrodeResistanceToEarth,
+        earthingConductorMaterial: electricalInstallationConditionReport.earthingConductorMaterial,
+        earthingConductorCSA: electricalInstallationConditionReport.earthingConductorCSA,
+        earthingConductorVerified: electricalInstallationConditionReport.earthingConductorVerified,
+        mainProtectiveBondingConductorMaterial: electricalInstallationConditionReport.mainProtectiveBondingConductorMaterial,
+        mainProtectiveBondingConductorCSA: electricalInstallationConditionReport.mainProtectiveBondingConductorCSA,
+        mainProtectiveBondingConductorVerified: electricalInstallationConditionReport.mainProtectiveBondingConductorVerified,
+        waterInstallationPipes: electricalInstallationConditionReport.waterInstallationPipes,
+        gasInstallationPipes: electricalInstallationConditionReport.gasInstallationPipes,
         structuralSteel: electricalInstallationConditionReport.structuralSteel,
-        oilInstallationPipes:
-          electricalInstallationConditionReport.oilInstallationPipes,
-        lightningProtection:
-          electricalInstallationConditionReport.lightningProtection,
+        oilInstallationPipes: electricalInstallationConditionReport.oilInstallationPipes,
+        lightningProtection: electricalInstallationConditionReport.lightningProtection,
         other: electricalInstallationConditionReport.other,
-        mainSwitchLocation:
-          electricalInstallationConditionReport.mainSwitchLocation,
-        mainSwitchBSNumber:
-          electricalInstallationConditionReport.mainSwitchBSNumber,
+        mainSwitchLocation: electricalInstallationConditionReport.mainSwitchLocation,
+        mainSwitchBSNumber: electricalInstallationConditionReport.mainSwitchBSNumber,
         mainSwitchType: electricalInstallationConditionReport.mainSwitchType,
-        mainSwitchRating:
-          electricalInstallationConditionReport.mainSwitchRating,
+        mainSwitchRating: electricalInstallationConditionReport.mainSwitchRating,
         mainSwitchPoles: electricalInstallationConditionReport.mainSwitchPoles,
-        mainSwitchCurrentRating:
-          electricalInstallationConditionReport.mainSwitchCurrentRating,
-        mainSwitchVoltageRating:
-          electricalInstallationConditionReport.mainSwitchVoltageRating,
-        mainSwitchRCDOperatingCurrent:
-          electricalInstallationConditionReport.mainSwitchRCDOperatingCurrent,
-        mainSwitchRCDType:
-          electricalInstallationConditionReport.mainSwitchRCDType,
-        mainSwitchRCDRatedTimeDelay:
-          electricalInstallationConditionReport.mainSwitchRCDRatedTimeDelay,
-        mainSwitchRCDMeasuredOperatingTime:
-          electricalInstallationConditionReport.mainSwitchRCDMeasuredOperatingTime,
+        mainSwitchCurrentRating: electricalInstallationConditionReport.mainSwitchCurrentRating,
+        mainSwitchVoltageRating: electricalInstallationConditionReport.mainSwitchVoltageRating,
+        mainSwitchRCDOperatingCurrent: electricalInstallationConditionReport.mainSwitchRCDOperatingCurrent,
+        mainSwitchRCDType: electricalInstallationConditionReport.mainSwitchRCDType,
+        mainSwitchRCDRatedTimeDelay: electricalInstallationConditionReport.mainSwitchRCDRatedTimeDelay,
+        mainSwitchRCDMeasuredOperatingTime: electricalInstallationConditionReport.mainSwitchRCDMeasuredOperatingTime,
       },
     });
 

@@ -8,18 +8,12 @@ import { updateFile } from "@/lib/vercel-blob";
 
 import { UpdateLogoSchema } from "./schema";
 
-export async function updateLogo(
-  settings: z.infer<typeof UpdateLogoSchema>,
-): Promise<ServerActionResponse<void>> {
+export async function updateLogo(settings: z.infer<typeof UpdateLogoSchema>): Promise<ServerActionResponse<void>> {
   const settingsResponse = await prisma.settings.findFirst();
 
   if (settings.picture) {
     try {
-      settings.picture = await updateFile(
-        settings.picture,
-        settingsResponse?.picture ?? undefined,
-        "contractor-picture",
-      );
+      settings.picture = await updateFile(settings.picture, settingsResponse?.picture ?? undefined, "contractor-picture");
     } catch {
       return {
         status: "error",
