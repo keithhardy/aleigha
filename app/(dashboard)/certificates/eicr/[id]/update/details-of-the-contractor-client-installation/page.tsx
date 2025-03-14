@@ -1,9 +1,7 @@
 import { ElectricalInstallationConditionReport } from "@prisma/client";
+import { Menu } from "lucide-react";
 import { notFound } from "next/navigation";
 
-import { prisma } from "@/lib/prisma";
-
-import { UpdateContractorClientAndInstallationForm } from "./form";
 import {
   Header,
   HeaderActions,
@@ -12,7 +10,9 @@ import {
   Heading,
 } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { prisma } from "@/lib/prisma";
+
+import { UpdateContractorClientAndInstallationForm } from "./form";
 
 export default async function UpdateContractorClientAndInstallation({
   params,

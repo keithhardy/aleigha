@@ -31,6 +31,12 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
   Form,
   FormField,
   FormItem,
@@ -39,17 +45,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateContractorClientAndInstallation } from "./action";
 import { UpdateContractorClientAndInstallationSchema } from "./schema";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 export function UpdateContractorClientAndInstallationForm({
   electricalInstallationConditionReport,
@@ -158,7 +158,7 @@ export function UpdateContractorClientAndInstallationForm({
             <CardTitle>
               Details of the contractor, client and installation
             </CardTitle>
-            <CardDescription className="text-primary">
+            <CardDescription>
               View the contractor and select the client and installation for
               this EICR report.
             </CardDescription>
@@ -490,7 +490,7 @@ export function UpdateContractorClientAndInstallationForm({
               </div>
             </div>
           </CardContent>
-          <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+          <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
             <p className="text-sm text-muted-foreground">
               Properties populate when a client is selected.
             </p>

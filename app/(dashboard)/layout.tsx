@@ -55,7 +55,7 @@ export default async function DashboardLayout({
           </div>
         </header>
         <main className="flex flex-1 flex-col">{children}</main>
-        <footer className="mt-4 flex flex-col items-center justify-between border-t p-4 text-sm lg:flex-row">
+        <footer className="z-10 mt-4 flex flex-col items-center justify-between border-t p-4 text-sm lg:flex-row">
           <div className="flex justify-between">
             <p>© {currentYear} Reiyen Group | All Rights Reserved.</p>
           </div>
