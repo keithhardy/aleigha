@@ -111,10 +111,8 @@ export function UpdateContractorClientAndInstallationForm({
 
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 
-  const anySheetOpen = clientSheetOpen || propertySheetOpen;
-
   useEffect(() => {
-    if (!anySheetOpen) return;
+    if (!clientSheetOpen || !propertySheetOpen) return;
 
     const handleResize = () => {
       if (window.visualViewport) {
@@ -129,7 +127,7 @@ export function UpdateContractorClientAndInstallationForm({
     return () => {
       window.visualViewport?.removeEventListener("resize", handleResize);
     };
-  }, [anySheetOpen]);
+  }, [clientSheetOpen || propertySheetOpen]);
 
   const handleClientOpenChange = (isOpen: boolean) => {
     setClientSheetOpen(isOpen);
@@ -151,12 +149,12 @@ export function UpdateContractorClientAndInstallationForm({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="container mx-auto max-w-screen-lg px-4"
+        className="container mx-auto max-w-screen-xl px-4"
       >
         <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>
-              Details of the contractor, client and installation
+              Contractor
             </CardTitle>
             <CardDescription>
               View the contractor and select the client and installation for
@@ -164,330 +162,343 @@ export function UpdateContractorClientAndInstallationForm({
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <FormLabel>Contractor Details</FormLabel>
+            <Input
+              type="text"
+              value={settings?.name ?? ""}
+              readOnly
+              disabled
+              placeholder="Street address"
+            />
+            <Input
+              type="text"
+              value={settings?.address?.streetAddress ?? ""}
+              readOnly
+              disabled
+              placeholder="Street address"
+            />
+            <Input
+              type="text"
+              value={settings?.address?.city ?? ""}
+              readOnly
+              disabled
+              placeholder="City"
+            />
+            <Input
+              type="text"
+              value={settings?.address?.county ?? ""}
+              readOnly
+              disabled
+              placeholder="County"
+            />
+            <Input
+              type="text"
+              value={settings?.address?.postTown ?? ""}
+              readOnly
+              disabled
+              placeholder="Post town"
+            />
+            <div className="flex space-x-2">
               <Input
                 type="text"
-                value={settings?.name ?? ""}
+                value={settings?.address?.postCode ?? ""}
                 readOnly
                 disabled
-                placeholder="Street address"
+                placeholder="Post code"
               />
               <Input
                 type="text"
-                value={settings?.address?.streetAddress ?? ""}
+                value={settings?.address?.country ?? ""}
                 readOnly
                 disabled
-                placeholder="Street address"
+                placeholder="Country"
               />
-              <Input
-                type="text"
-                value={settings?.address?.city ?? ""}
-                readOnly
-                disabled
-                placeholder="City"
-              />
-              <Input
-                type="text"
-                value={settings?.address?.county ?? ""}
-                readOnly
-                disabled
-                placeholder="County"
-              />
-              <Input
-                type="text"
-                value={settings?.address?.postTown ?? ""}
-                readOnly
-                disabled
-                placeholder="Post town"
-              />
-              <div className="flex space-x-2">
-                <Input
-                  type="text"
-                  value={settings?.address?.postCode ?? ""}
-                  readOnly
-                  disabled
-                  placeholder="Post code"
-                />
-                <Input
-                  type="text"
-                  value={settings?.address?.country ?? ""}
-                  readOnly
-                  disabled
-                  placeholder="Country"
-                />
-              </div>
             </div>
-            <div className="space-y-2">
-              <FormLabel>Client Details</FormLabel>
-              <FormField
-                control={form.control}
-                name="clientId"
-                render={() => (
-                  <FormItem>
-                    {isMobile ? (
-                      <Sheet
-                        open={clientSheetOpen}
-                        onOpenChange={handleClientOpenChange}
-                      >
-                        <SheetTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="w-full justify-between"
-                          >
-                            {selectedClient
-                              ? selectedClient.name
-                              : "Select client..."}
-                            <ChevronsUpDown className="ml-2 opacity-50" />
-                          </Button>
-                        </SheetTrigger>
-                        <SheetContent side={keyboardVisible ? "top" : "bottom"}>
-                          <DialogTitle />
-                          <Command>
-                            <CommandInput placeholder="Search client..." />
-                            <CommandList className="scrollbar-hidden">
-                              <CommandEmpty>No client found.</CommandEmpty>
-                              <CommandGroup>
-                                {clients.map((client) => (
-                                  <CommandItem
-                                    key={client.id}
-                                    value={client.name}
-                                    onSelect={() => {
-                                      form.setValue("clientId", client.id);
-                                      form.setValue("propertyId", "");
-                                      setClientSheetOpen(false);
-                                      setKeyboardVisible(false);
-                                    }}
-                                  >
-                                    {client.name}
-                                  </CommandItem>
-                                ))}
-                              </CommandGroup>
-                            </CommandList>
-                          </Command>
-                        </SheetContent>
-                      </Sheet>
-                    ) : (
-                      <Dialog
-                        open={clientDialogOpen}
-                        onOpenChange={setClientDialogOpen}
-                      >
-                        <DialogTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="w-full justify-between"
-                          >
-                            {selectedClient
-                              ? selectedClient.name
-                              : "Select client..."}
-                            <ChevronsUpDown className="ml-2 opacity-50" />
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogTitle />
-                          <Command>
-                            <CommandInput placeholder="Search client..." />
-                            <CommandList className="scrollbar-hidden">
-                              <CommandEmpty>No client found.</CommandEmpty>
-                              <CommandGroup>
-                                {clients.map((client) => (
-                                  <CommandItem
-                                    key={client.id}
-                                    value={client.name}
-                                    onSelect={() => {
-                                      form.setValue("clientId", client.id);
-                                      form.setValue("propertyId", "");
-                                      setClientDialogOpen(false);
-                                    }}
-                                  >
-                                    {client.name}
-                                  </CommandItem>
-                                ))}
-                              </CommandGroup>
-                            </CommandList>
-                          </Command>
-                        </DialogContent>
-                      </Dialog>
-                    )}
-                    <FormMessage />
-                  </FormItem>
-                )}
+          </CardContent>
+          <CardHeader>
+            <CardTitle>
+              Client
+            </CardTitle>
+            <CardDescription>
+              View the contractor and select the client and installation for
+              this EICR report.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <FormField
+              control={form.control}
+              name="clientId"
+              render={() => (
+                <FormItem>
+                  {isMobile ? (
+                    <Sheet
+                      open={clientSheetOpen}
+                      onOpenChange={handleClientOpenChange}
+                    >
+                      <SheetTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="w-full justify-between"
+                        >
+                          {selectedClient
+                            ? selectedClient.name
+                            : "Select client..."}
+                          <ChevronsUpDown className="ml-2 opacity-50" />
+                        </Button>
+                      </SheetTrigger>
+                      <SheetContent side={keyboardVisible ? "top" : "bottom"}>
+                        <DialogTitle />
+                        <Command>
+                          <CommandInput placeholder="Search client..." />
+                          <CommandList className="scrollbar-hidden">
+                            <CommandEmpty>No client found.</CommandEmpty>
+                            <CommandGroup>
+                              {clients.map((client) => (
+                                <CommandItem
+                                  key={client.id}
+                                  value={client.name}
+                                  onSelect={() => {
+                                    form.setValue("clientId", client.id);
+                                    form.setValue("propertyId", "");
+                                    setClientSheetOpen(false);
+                                    setKeyboardVisible(false);
+                                  }}
+                                >
+                                  {client.name}
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </SheetContent>
+                    </Sheet>
+                  ) : (
+                    <Dialog
+                      open={clientDialogOpen}
+                      onOpenChange={setClientDialogOpen}
+                    >
+                      <DialogTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="w-full justify-between"
+                        >
+                          {selectedClient
+                            ? selectedClient.name
+                            : "Select client..."}
+                          <ChevronsUpDown className="ml-2 opacity-50" />
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogTitle />
+                        <Command>
+                          <CommandInput placeholder="Search client..." />
+                          <CommandList className="scrollbar-hidden">
+                            <CommandEmpty>No client found.</CommandEmpty>
+                            <CommandGroup>
+                              {clients.map((client) => (
+                                <CommandItem
+                                  key={client.id}
+                                  value={client.name}
+                                  onSelect={() => {
+                                    form.setValue("clientId", client.id);
+                                    form.setValue("propertyId", "");
+                                    setClientDialogOpen(false);
+                                  }}
+                                >
+                                  {client.name}
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </DialogContent>
+                    </Dialog>
+                  )}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Input
+              type="text"
+              value={selectedClient!.address.streetAddress ?? ""}
+              readOnly
+              disabled
+              placeholder="Street address"
+            />
+            <Input
+              type="text"
+              value={selectedClient?.address?.city ?? ""}
+              readOnly
+              disabled
+              placeholder="City"
+            />
+            <Input
+              type="text"
+              value={selectedClient?.address?.county ?? ""}
+              readOnly
+              disabled
+              placeholder="County"
+            />
+            <Input
+              type="text"
+              value={selectedClient?.address?.postTown ?? ""}
+              readOnly
+              disabled
+              placeholder="Post town"
+            />
+            <div className="flex space-x-2">
+              <Input
+                type="text"
+                value={selectedClient?.address?.postCode ?? ""}
+                readOnly
+                disabled
+                placeholder="Post code"
               />
               <Input
                 type="text"
-                value={selectedClient!.address.streetAddress ?? ""}
+                value={selectedClient?.address?.country ?? ""}
                 readOnly
                 disabled
-                placeholder="Street address"
+                placeholder="Country"
               />
-              <Input
-                type="text"
-                value={selectedClient?.address?.city ?? ""}
-                readOnly
-                disabled
-                placeholder="City"
-              />
-              <Input
-                type="text"
-                value={selectedClient?.address?.county ?? ""}
-                readOnly
-                disabled
-                placeholder="County"
-              />
-              <Input
-                type="text"
-                value={selectedClient?.address?.postTown ?? ""}
-                readOnly
-                disabled
-                placeholder="Post town"
-              />
-              <div className="flex space-x-2">
-                <Input
-                  type="text"
-                  value={selectedClient?.address?.postCode ?? ""}
-                  readOnly
-                  disabled
-                  placeholder="Post code"
-                />
-                <Input
-                  type="text"
-                  value={selectedClient?.address?.country ?? ""}
-                  readOnly
-                  disabled
-                  placeholder="Country"
-                />
-              </div>
             </div>
-            <div className="space-y-2">
-              <FormLabel>Installation Details</FormLabel>
-              <FormField
-                control={form.control}
-                name="propertyId"
-                render={() => (
-                  <FormItem>
-                    {isMobile ? (
-                      <Sheet
-                        open={propertySheetOpen}
-                        onOpenChange={handlePropertyOpenChange}
-                      >
-                        <SheetTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="w-full justify-between"
-                          >
-                            {selectedProperty
-                              ? selectedProperty.address.streetAddress
-                              : "Select property..."}
-                            <ChevronsUpDown className="ml-2 opacity-50" />
-                          </Button>
-                        </SheetTrigger>
-                        <SheetContent side={keyboardVisible ? "top" : "bottom"}>
-                          <DialogTitle />
-                          <Command>
-                            <CommandInput placeholder="Search property..." />
-                            <CommandList className="scrollbar-hidden">
-                              <CommandEmpty>No property found.</CommandEmpty>
-                              <CommandGroup>
-                                {selectedClient?.property.map((property) => (
-                                  <CommandItem
-                                    key={property.id}
-                                    value={property.address.streetAddress!}
-                                    onSelect={() => {
-                                      form.setValue("propertyId", property.id);
-                                      setPropertySheetOpen(false);
-                                      setKeyboardVisible(false);
-                                    }}
-                                  >
-                                    {property.address.streetAddress}
-                                  </CommandItem>
-                                ))}
-                              </CommandGroup>
-                            </CommandList>
-                          </Command>
-                        </SheetContent>
-                      </Sheet>
-                    ) : (
-                      <Dialog
-                        open={propertyDialogOpen}
-                        onOpenChange={setPropertyDialogOpen}
-                      >
-                        <DialogTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="w-full justify-between"
-                          >
-                            {selectedProperty
-                              ? selectedProperty.address.streetAddress
-                              : "Select property..."}
-                            <ChevronsUpDown className="ml-2 opacity-50" />
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogTitle />
-                          <Command>
-                            <CommandInput placeholder="Search property..." />
-                            <CommandList className="scrollbar-hidden">
-                              <CommandEmpty>No property found.</CommandEmpty>
-                              <CommandGroup>
-                                {selectedClient?.property.map((property) => (
-                                  <CommandItem
-                                    key={property.id}
-                                    value={property.address.streetAddress!}
-                                    onSelect={() => {
-                                      form.setValue("propertyId", property.id);
-                                      setPropertyDialogOpen(false);
-                                    }}
-                                  >
-                                    {property.address.streetAddress}
-                                  </CommandItem>
-                                ))}
-                              </CommandGroup>
-                            </CommandList>
-                          </Command>
-                        </DialogContent>
-                      </Dialog>
-                    )}
-                    <FormMessage />
-                  </FormItem>
-                )}
+          </CardContent>
+          <CardHeader>
+            <CardTitle>
+              Installation
+            </CardTitle>
+            <CardDescription>
+              View the contractor and select the client and installation for
+              this EICR report.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <FormField
+              control={form.control}
+              name="propertyId"
+              render={() => (
+                <FormItem>
+                  {isMobile ? (
+                    <Sheet
+                      open={propertySheetOpen}
+                      onOpenChange={handlePropertyOpenChange}
+                    >
+                      <SheetTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="w-full justify-between"
+                        >
+                          {selectedProperty
+                            ? selectedProperty.address.streetAddress
+                            : "Select property..."}
+                          <ChevronsUpDown className="ml-2 opacity-50" />
+                        </Button>
+                      </SheetTrigger>
+                      <SheetContent side={keyboardVisible ? "top" : "bottom"}>
+                        <DialogTitle />
+                        <Command>
+                          <CommandInput placeholder="Search property..." />
+                          <CommandList className="scrollbar-hidden">
+                            <CommandEmpty>No property found.</CommandEmpty>
+                            <CommandGroup>
+                              {selectedClient?.property.map((property) => (
+                                <CommandItem
+                                  key={property.id}
+                                  value={property.address.streetAddress!}
+                                  onSelect={() => {
+                                    form.setValue("propertyId", property.id);
+                                    setPropertySheetOpen(false);
+                                    setKeyboardVisible(false);
+                                  }}
+                                >
+                                  {property.address.streetAddress}
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </SheetContent>
+                    </Sheet>
+                  ) : (
+                    <Dialog
+                      open={propertyDialogOpen}
+                      onOpenChange={setPropertyDialogOpen}
+                    >
+                      <DialogTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="w-full justify-between"
+                        >
+                          {selectedProperty
+                            ? selectedProperty.address.streetAddress
+                            : "Select property..."}
+                          <ChevronsUpDown className="ml-2 opacity-50" />
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogTitle />
+                        <Command>
+                          <CommandInput placeholder="Search property..." />
+                          <CommandList className="scrollbar-hidden">
+                            <CommandEmpty>No property found.</CommandEmpty>
+                            <CommandGroup>
+                              {selectedClient?.property.map((property) => (
+                                <CommandItem
+                                  key={property.id}
+                                  value={property.address.streetAddress!}
+                                  onSelect={() => {
+                                    form.setValue("propertyId", property.id);
+                                    setPropertyDialogOpen(false);
+                                  }}
+                                >
+                                  {property.address.streetAddress}
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </DialogContent>
+                    </Dialog>
+                  )}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Input
+              type="text"
+              value={selectedProperty?.address?.city ?? ""}
+              readOnly
+              disabled
+              placeholder="City"
+            />
+            <Input
+              type="text"
+              value={selectedProperty?.address?.county ?? ""}
+              readOnly
+              disabled
+              placeholder="County"
+            />
+            <Input
+              type="text"
+              value={selectedProperty?.address?.postTown ?? ""}
+              readOnly
+              disabled
+              placeholder="Post town"
+            />
+            <div className="flex space-x-2">
+              <Input
+                type="text"
+                value={selectedProperty?.address?.postCode ?? ""}
+                readOnly
+                disabled
+                placeholder="Post code"
               />
               <Input
                 type="text"
-                value={selectedProperty?.address?.city ?? ""}
+                value={selectedProperty?.address?.country ?? ""}
                 readOnly
                 disabled
-                placeholder="City"
+                placeholder="Country"
               />
-              <Input
-                type="text"
-                value={selectedProperty?.address?.county ?? ""}
-                readOnly
-                disabled
-                placeholder="County"
-              />
-              <Input
-                type="text"
-                value={selectedProperty?.address?.postTown ?? ""}
-                readOnly
-                disabled
-                placeholder="Post town"
-              />
-              <div className="flex space-x-2">
-                <Input
-                  type="text"
-                  value={selectedProperty?.address?.postCode ?? ""}
-                  readOnly
-                  disabled
-                  placeholder="Post code"
-                />
-                <Input
-                  type="text"
-                  value={selectedProperty?.address?.country ?? ""}
-                  readOnly
-                  disabled
-                  placeholder="Country"
-                />
-              </div>
             </div>
           </CardContent>
           <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
