@@ -4,7 +4,7 @@ function Header({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <header
       className={cn(
-        "flex flex-col justify-between space-y-4 px-4 py-8 lg:flex-row lg:items-center lg:space-y-0 lg:px-8",
+        "flex flex-col justify-between space-y-4 py-8 lg:flex-row lg:items-center lg:space-y-0",
         className,
       )}
       {...props}
@@ -25,7 +25,7 @@ function Heading({
 }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h1
-      className={cn("text-balance text-3xl font-semibold", className)}
+      className={cn("text-balance text-2xl font-semibold", className)}
       {...props}
     />
   );
@@ -37,7 +37,7 @@ function HeaderDescription({
 }: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
     <p
-      className={cn("text-balance text-sm text-muted-foreground", className)}
+      className={cn("text-balance text-sm text-muted-foreground leading-none", className)}
       {...props}
     />
   );

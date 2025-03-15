@@ -1,5 +1,3 @@
-import { ElectricalInstallationConditionReport } from "@prisma/client";
-import { Menu } from "lucide-react";
 import { notFound } from "next/navigation";
 
 import {
@@ -9,10 +7,10 @@ import {
   HeaderGroup,
   Heading,
 } from "@/components/page-header";
-import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 
 import { UpdateContractorClientAndInstallationForm } from "./form";
+import { Button } from "@/components/ui/button";
 
 export default async function UpdateContractorClientAndInstallation({
   params,
@@ -64,10 +62,10 @@ export default async function UpdateContractorClientAndInstallation({
   });
 
   return (
-    <>
+    <div className="container mx-auto max-w-screen-lg px-6">
       <Header>
         <HeaderGroup>
-          <Heading>Details of the contractor, client and installation</Heading>
+          <Heading>Contractor, Client and Installation</Heading>
           <HeaderDescription>
             View the contractor and select the client and installation for this
             EICR report.
@@ -77,11 +75,11 @@ export default async function UpdateContractorClientAndInstallation({
 
       <UpdateContractorClientAndInstallationForm
         electricalInstallationConditionReport={
-          electricalInstallationConditionReport as ElectricalInstallationConditionReport
+          electricalInstallationConditionReport
         }
         clients={clients}
         settings={settings}
       />
-    </>
+    </div>
   );
 }
