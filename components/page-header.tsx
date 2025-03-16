@@ -4,7 +4,7 @@ function Header({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <header
       className={cn(
-        "flex flex-col justify-between space-y-4 py-8 lg:flex-row lg:items-center lg:space-y-0",
+        "flex flex-col justify-between space-y-4 pb-8 pt-2 lg:flex-row lg:items-center lg:space-y-0",
         className,
       )}
       {...props}

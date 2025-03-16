@@ -1,23 +1,15 @@
 import { notFound } from "next/navigation";
 
-import {
-  Header,
-  HeaderActions,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
 import { UpdateContractorClientAndInstallationForm } from "./form";
-import { Button } from "@/components/ui/button";
 
 export default async function UpdateContractorClientAndInstallation({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const electricalInstallationConditionReport =
+  const certificate =
     await prisma.electricalInstallationConditionReport.findFirst({
       where: {
         id: (await params).id,
@@ -40,7 +32,7 @@ export default async function UpdateContractorClientAndInstallation({
       },
     });
 
-  if (!electricalInstallationConditionReport) {
+  if (!certificate) {
     notFound();
   }
 
@@ -62,24 +54,10 @@ export default async function UpdateContractorClientAndInstallation({
   });
 
   return (
-    <div className="container mx-auto max-w-screen-lg px-6">
-      <Header>
-        <HeaderGroup>
-          <Heading>Contractor, Client and Installation</Heading>
-          <HeaderDescription>
-            View the contractor and select the client and installation for this
-            EICR report.
-          </HeaderDescription>
-        </HeaderGroup>
-      </Header>
-
-      <UpdateContractorClientAndInstallationForm
-        electricalInstallationConditionReport={
-          electricalInstallationConditionReport
-        }
-        clients={clients}
-        settings={settings}
-      />
-    </div>
+    <UpdateContractorClientAndInstallationForm
+      certificate={certificate}
+      clients={clients}
+      settings={settings}
+    />
   );
 }
