@@ -2,10 +2,10 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Address, Client, Property, Settings } from "@prisma/client";
-import { ChevronsUpDown, MoveLeft } from "lucide-react";
+import { ChevronsUpDown, ExternalLink, Link2, MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -31,7 +31,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
@@ -149,7 +149,9 @@ export function UpdateContractorClientAndInstallationForm({
   const { toast } = useToast();
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof UpdateContractorClientAndInstallationSchema>>({
+  const form = useForm<
+    z.infer<typeof UpdateContractorClientAndInstallationSchema>
+  >({
     resolver: zodResolver(UpdateContractorClientAndInstallationSchema),
     defaultValues: {
       id: certificate.id,
@@ -195,8 +197,10 @@ export function UpdateContractorClientAndInstallationForm({
   const [unsavedChangesOpen, setUnsavedChangesOpen] = useState(false);
   const [nextUrl, setNextUrl] = useState("");
 
+  const originalPush = useRef(router.push);
+
   useEffect(() => {
-    const originalPush = router.push;
+    originalPush.current = router.push;
 
     router.push = (url: string) => {
       if (form.formState.isDirty) {
@@ -204,12 +208,12 @@ export function UpdateContractorClientAndInstallationForm({
         setNextUrl(url);
         return;
       } else {
-        originalPush.call(router, url);
+        originalPush.current.call(router, url);
       }
     };
 
     return () => {
-      router.push = originalPush;
+      router.push = originalPush.current;
     };
   }, [form.formState.isDirty, router]);
 
@@ -234,7 +238,7 @@ export function UpdateContractorClientAndInstallationForm({
         </Header>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <Card className="rounded-md shadow-none">
               <CardContent className="space-y-6 p-6">
                 <div className="flex flex-col gap-4 lg:flex-row">
@@ -299,6 +303,23 @@ export function UpdateContractorClientAndInstallationForm({
                     </div>
                   </div>
                 </div>
+              </CardContent>
+              <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+                <p className="text-sm text-muted-foreground text-balance">
+                  To update the contractor, visit{" "}
+                  <Link
+                    href={"/settings"}
+                    className="inline-flex items-center space-x-1 text-blue-500"
+                  >
+                    <span>Settings</span>
+                    <ExternalLink size={14} />
+                  </Link>
+                  .
+                </p>
+              </CardFooter>
+            </Card>
+            <Card className="rounded-md shadow-none">
+              <CardContent className="space-y-6 p-6">
                 <div className="flex flex-col gap-4 lg:flex-row">
                   <div className="w-full">
                     <CardTitle>Client</CardTitle>
@@ -401,6 +422,23 @@ export function UpdateContractorClientAndInstallationForm({
                     </div>
                   </div>
                 </div>
+              </CardContent>
+              <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+                <p className="text-sm text-muted-foreground text-balance">
+                  To add a new client, visit{" "}
+                  <Link
+                    href={"/clients"}
+                    className="inline-flex items-center space-x-1 text-blue-500"
+                  >
+                    <span>Clients</span>
+                    <ExternalLink size={14} />
+                  </Link>
+                  .
+                </p>
+              </CardFooter>
+            </Card>
+            <Card className="rounded-md shadow-none">
+              <CardContent className="space-y-6 p-6">
                 <div className="flex flex-col gap-4 lg:flex-row">
                   <div className="w-full">
                     <CardTitle>Installation</CardTitle>
@@ -502,16 +540,17 @@ export function UpdateContractorClientAndInstallationForm({
                 </div>
               </CardContent>
               <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-                <Button
-                  variant="outline"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    form.reset();
-                  }}
-                  disabled={!form.formState.isDirty}
-                >
-                  Cancel
-                </Button>
+                <p className="text-sm text-muted-foreground text-balance">
+                  To add a new property, visit{" "}
+                  <Link
+                    href={"/properties"}
+                    className="inline-flex items-center space-x-1 text-blue-500"
+                  >
+                    <span>Properties</span>
+                    <ExternalLink size={14} />
+                  </Link>
+                  .
+                </p>
                 <Button
                   variant="outline"
                   type="submit"
@@ -578,8 +617,7 @@ export function UpdateContractorClientAndInstallationForm({
           <AlertDialogHeader>
             <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
             <AlertDialogDescription>
-              You have unsaved changes. Are you sure you want to leave without
-              saving?
+              You have unsaved changes. Leave without saving?
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -589,7 +627,7 @@ export function UpdateContractorClientAndInstallationForm({
                 setNextUrl("");
               }}
             >
-              Cancel
+              Stay
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={() => {
@@ -597,7 +635,15 @@ export function UpdateContractorClientAndInstallationForm({
                 setUnsavedChangesOpen(false);
               }}
             >
-              Save and leave
+              Save
+            </AlertDialogAction>
+            <AlertDialogAction
+              onClick={() => {
+                setUnsavedChangesOpen(false);
+                if (nextUrl) originalPush.current.call(router, nextUrl);
+              }}
+            >
+              Leave
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
