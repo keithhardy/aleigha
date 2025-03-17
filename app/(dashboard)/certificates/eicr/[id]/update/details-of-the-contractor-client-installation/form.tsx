@@ -574,7 +574,7 @@ export function UpdateContractorClientAndInstallationForm({
         open={unsavedChangesOpen}
         onOpenChange={setUnsavedChangesOpen}
       >
-        <AlertDialogContent>
+        <AlertDialogContent className="w-[90%]">
           <AlertDialogHeader>
             <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
             <AlertDialogDescription>
