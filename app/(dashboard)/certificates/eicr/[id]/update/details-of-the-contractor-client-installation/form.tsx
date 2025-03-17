@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { isDirty, z } from "zod";
 
 import {
   Header,
@@ -45,6 +45,7 @@ import { useToast } from "@/hooks/use-toast";
 
 import { updateContractorClientAndInstallation } from "./action";
 import { UpdateContractorClientAndInstallationSchema } from "./schema";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
 const pages = [
   {
@@ -144,7 +145,9 @@ export function UpdateContractorClientAndInstallationForm({
   settings?: (Settings & { address?: Address | null }) | null;
 }) {
   const { toast } = useToast();
+
   const isMobile = useIsMobile();
+
   const router = useRouter();
 
   const form = useForm<
@@ -165,6 +168,12 @@ export function UpdateContractorClientAndInstallationForm({
 
     if (response.status === "success") {
       form.reset(data);
+
+      setTimeout(() => {
+        if (nextUrl) {
+          router.push(nextUrl);
+        }
+      }, 1000);
     }
 
     toast({
@@ -177,40 +186,9 @@ export function UpdateContractorClientAndInstallationForm({
   const selectedClient = clients.find(
     (client) => client.id === form.getValues("clientId"),
   );
-  const selectedProperty = selectedClient?.property.find(
-    (property) => property.id === form.getValues("propertyId"),
-  );
 
   const [clientDialogOpen, setClientDialogOpen] = useState(false);
-  const [propertyDialogOpen, setPropertyDialogOpen] = useState(false);
-  const [navigationDialogOpen, setNavigationDialogOpen] = useState(false);
-
   const [clientSheetOpen, setClientSheetOpen] = useState(false);
-  const [propertySheetOpen, setPropertySheetOpen] = useState(false);
-  const [navigationSheetOpen, setNavigationSheetOpen] = useState(false);
-
-  const [keyboardVisible, setKeyboardVisible] = useState(false);
-
-  const anySheetOpen =
-    clientSheetOpen || propertySheetOpen || navigationSheetOpen;
-
-  useEffect(() => {
-    if (!anySheetOpen) return;
-
-    const handleResize = () => {
-      if (window.visualViewport) {
-        const isKeyboardVisible =
-          window.visualViewport.height < window.outerHeight * 0.75;
-        setKeyboardVisible(isKeyboardVisible);
-      }
-    };
-
-    window.visualViewport?.addEventListener("resize", handleResize);
-
-    return () => {
-      window.visualViewport?.removeEventListener("resize", handleResize);
-    };
-  }, [anySheetOpen]);
 
   const handleClientOpenChange = (isOpen: boolean) => {
     setClientSheetOpen(isOpen);
@@ -220,6 +198,13 @@ export function UpdateContractorClientAndInstallationForm({
     }
   };
 
+  const selectedProperty = selectedClient?.property.find(
+    (property) => property.id === form.getValues("propertyId"),
+  );
+
+  const [propertyDialogOpen, setPropertyDialogOpen] = useState(false);
+  const [propertySheetOpen, setPropertySheetOpen] = useState(false);
+
   const handlePropertyOpenChange = (isOpen: boolean) => {
     setPropertySheetOpen(isOpen);
 
@@ -228,6 +213,9 @@ export function UpdateContractorClientAndInstallationForm({
     }
   };
 
+  const [navigationDialogOpen, setNavigationDialogOpen] = useState(false);
+  const [navigationSheetOpen, setNavigationSheetOpen] = useState(false);
+
   const handleNavigationOpenChange = (isOpen: boolean) => {
     setNavigationSheetOpen(isOpen);
 
@@ -235,6 +223,29 @@ export function UpdateContractorClientAndInstallationForm({
       setKeyboardVisible(false);
     }
   };
+
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  const [open, setOpen] = useState(false);
+  const [nextUrl, setNextUrl] = useState("");
+
+  useEffect(() => {
+    const originalPush = router.push;
+
+    router.push = (url: string) => {
+      if (form.formState.isDirty) {
+        setOpen(true)
+        setNextUrl(url)
+        return;
+      } else {
+        originalPush.call(router, url);
+      }
+    };
+
+    return () => {
+      router.push = originalPush;
+    };
+  }, [form.formState.isDirty, router]);
 
   return (
     <>
@@ -743,6 +754,28 @@ export function UpdateContractorClientAndInstallationForm({
           <Button variant="outline">Next</Button>
         </Link>
       </div>
+
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
+            <AlertDialogDescription>
+              You have unsaved changes. Are you sure you want to leave without saving?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => { setOpen(false); setNextUrl("") }}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                form.handleSubmit(onSubmit)();
+                setOpen(false);
+              }}
+            >
+              Save and leave
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 }
