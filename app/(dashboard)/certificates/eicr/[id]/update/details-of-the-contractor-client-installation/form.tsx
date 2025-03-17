@@ -2,12 +2,12 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Address, Client, Property, Settings } from "@prisma/client";
-import { ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown, MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { isDirty, z } from "zod";
+import { z } from "zod";
 
 import {
   Header,
@@ -31,21 +31,23 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateContractorClientAndInstallation } from "./action";
 import { UpdateContractorClientAndInstallationSchema } from "./schema";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import ResponsiveDialog from "@/components/responsive-dialog";
 
 const pages = [
   {
@@ -145,14 +147,9 @@ export function UpdateContractorClientAndInstallationForm({
   settings?: (Settings & { address?: Address | null }) | null;
 }) {
   const { toast } = useToast();
-
-  const isMobile = useIsMobile();
-
   const router = useRouter();
 
-  const form = useForm<
-    z.infer<typeof UpdateContractorClientAndInstallationSchema>
-  >({
+  const form = useForm<z.infer<typeof UpdateContractorClientAndInstallationSchema>>({
     resolver: zodResolver(UpdateContractorClientAndInstallationSchema),
     defaultValues: {
       id: certificate.id,
@@ -187,46 +184,15 @@ export function UpdateContractorClientAndInstallationForm({
     (client) => client.id === form.getValues("clientId"),
   );
 
-  const [clientDialogOpen, setClientDialogOpen] = useState(false);
-  const [clientSheetOpen, setClientSheetOpen] = useState(false);
-
-  const handleClientOpenChange = (isOpen: boolean) => {
-    setClientSheetOpen(isOpen);
-
-    if (!isOpen) {
-      setKeyboardVisible(false);
-    }
-  };
-
   const selectedProperty = selectedClient?.property.find(
     (property) => property.id === form.getValues("propertyId"),
   );
 
-  const [propertyDialogOpen, setPropertyDialogOpen] = useState(false);
-  const [propertySheetOpen, setPropertySheetOpen] = useState(false);
-
-  const handlePropertyOpenChange = (isOpen: boolean) => {
-    setPropertySheetOpen(isOpen);
-
-    if (!isOpen) {
-      setKeyboardVisible(false);
-    }
-  };
-
-  const [navigationDialogOpen, setNavigationDialogOpen] = useState(false);
-  const [navigationSheetOpen, setNavigationSheetOpen] = useState(false);
-
-  const handleNavigationOpenChange = (isOpen: boolean) => {
-    setNavigationSheetOpen(isOpen);
-
-    if (!isOpen) {
-      setKeyboardVisible(false);
-    }
-  };
-
   const [keyboardVisible, setKeyboardVisible] = useState(false);
-
-  const [open, setOpen] = useState(false);
+  const [clientDialogOpen, setClientDialogOpen] = useState(false);
+  const [propertyOpen, setPropertyOpen] = useState(false);
+  const [navigationOpen, setNavigationOpen] = useState(false);
+  const [unsavedChangesOpen, setUnsavedChangesOpen] = useState(false);
   const [nextUrl, setNextUrl] = useState("");
 
   useEffect(() => {
@@ -234,8 +200,8 @@ export function UpdateContractorClientAndInstallationForm({
 
     router.push = (url: string) => {
       if (form.formState.isDirty) {
-        setOpen(true)
-        setNextUrl(url)
+        setUnsavedChangesOpen(true);
+        setNextUrl(url);
         return;
       } else {
         originalPush.call(router, url);
@@ -250,8 +216,15 @@ export function UpdateContractorClientAndInstallationForm({
   return (
     <>
       <div className="container mx-auto max-w-screen-lg p-6">
-        <Header className="px-6 lg:px-0">
+        <Header>
           <HeaderGroup>
+            <Link
+              href={"/certificates"}
+              className="inline-flex items-center text-sm font-semibold"
+            >
+              <MoveLeft size={22} className="mr-2" />
+              <span>Back to Certificates</span>
+            </Link>
             <Heading>Contractor, Client and Installation</Heading>
             <HeaderDescription>
               View the contractor and select the client and installation for
@@ -339,102 +312,45 @@ export function UpdateContractorClientAndInstallationForm({
                       name="clientId"
                       render={() => (
                         <FormItem>
-                          {isMobile ? (
-                            <Sheet
-                              open={clientSheetOpen}
-                              onOpenChange={handleClientOpenChange}
-                            >
-                              <SheetTrigger asChild>
-                                <Button
-                                  variant="outline"
-                                  className="w-full justify-between"
-                                >
-                                  {selectedClient
-                                    ? selectedClient.name
-                                    : "Select client..."}
-                                  <ChevronsUpDown className="ml-2 opacity-50" />
-                                </Button>
-                              </SheetTrigger>
-                              <SheetContent
-                                side={keyboardVisible ? "top" : "bottom"}
+                          <ResponsiveDialog
+                            sheetOpen={clientDialogOpen}
+                            setSheetOpen={setClientDialogOpen}
+                            keyboardVisible={keyboardVisible}
+                            setKeyboardVisible={setKeyboardVisible}
+                            triggerButton={
+                              <Button
+                                variant="outline"
+                                className="w-full justify-between"
                               >
-                                <DialogTitle />
-                                <Command>
-                                  <CommandInput placeholder="Search client..." />
-                                  <CommandList className="scrollbar-hidden">
-                                    <CommandEmpty>
-                                      No client found.
-                                    </CommandEmpty>
-                                    <CommandGroup>
-                                      {clients.map((client) => (
-                                        <CommandItem
-                                          key={client.id}
-                                          value={client.name}
-                                          onSelect={() => {
-                                            form.setValue(
-                                              "clientId",
-                                              client.id,
-                                            );
-                                            form.setValue("propertyId", "");
-                                            setClientSheetOpen(false);
-                                            setKeyboardVisible(false);
-                                          }}
-                                        >
-                                          {client.name}
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </SheetContent>
-                            </Sheet>
-                          ) : (
-                            <Dialog
-                              open={clientDialogOpen}
-                              onOpenChange={setClientDialogOpen}
-                            >
-                              <DialogTrigger asChild>
-                                <Button
-                                  variant="outline"
-                                  className="w-full justify-between"
-                                >
-                                  {selectedClient
-                                    ? selectedClient.name
-                                    : "Select client..."}
-                                  <ChevronsUpDown className="ml-2 opacity-50" />
-                                </Button>
-                              </DialogTrigger>
-                              <DialogContent>
-                                <DialogTitle />
-                                <Command>
-                                  <CommandInput placeholder="Search client..." />
-                                  <CommandList className="scrollbar-hidden">
-                                    <CommandEmpty>
-                                      No client found.
-                                    </CommandEmpty>
-                                    <CommandGroup>
-                                      {clients.map((client) => (
-                                        <CommandItem
-                                          key={client.id}
-                                          value={client.name}
-                                          onSelect={() => {
-                                            form.setValue(
-                                              "clientId",
-                                              client.id,
-                                            );
-                                            form.setValue("propertyId", "");
-                                            setClientDialogOpen(false);
-                                          }}
-                                        >
-                                          {client.name}
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </DialogContent>
-                            </Dialog>
-                          )}
+                                {selectedClient
+                                  ? selectedClient.name
+                                  : "Select client..."}
+                                <ChevronsUpDown className="ml-2 opacity-50" />
+                              </Button>
+                            }
+                          >
+                            <Command>
+                              <CommandInput placeholder="Search client..." />
+                              <CommandList className="scrollbar-hidden">
+                                <CommandEmpty>No client found.</CommandEmpty>
+                                <CommandGroup>
+                                  {clients.map((client) => (
+                                    <CommandItem
+                                      key={client.id}
+                                      value={client.name}
+                                      onSelect={() => {
+                                        form.setValue("clientId", client.id);
+                                        form.setValue("propertyId", "");
+                                        setClientDialogOpen(false);
+                                      }}
+                                    >
+                                      {client.name}
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </ResponsiveDialog>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -498,110 +414,49 @@ export function UpdateContractorClientAndInstallationForm({
                       name="propertyId"
                       render={() => (
                         <FormItem>
-                          {isMobile ? (
-                            <Sheet
-                              open={propertySheetOpen}
-                              onOpenChange={handlePropertyOpenChange}
-                            >
-                              <SheetTrigger asChild>
-                                <Button
-                                  variant="outline"
-                                  className="w-full justify-between"
-                                >
-                                  {selectedProperty
-                                    ? selectedProperty.address.streetAddress
-                                    : "Select property..."}
-                                  <ChevronsUpDown className="ml-2 opacity-50" />
-                                </Button>
-                              </SheetTrigger>
-                              <SheetContent
-                                side={keyboardVisible ? "top" : "bottom"}
+                          <ResponsiveDialog
+                            sheetOpen={propertyOpen}
+                            setSheetOpen={setPropertyOpen}
+                            keyboardVisible={keyboardVisible}
+                            setKeyboardVisible={setKeyboardVisible}
+                            triggerButton={
+                              <Button
+                                variant="outline"
+                                className="w-full justify-between"
                               >
-                                <DialogTitle />
-                                <Command>
-                                  <CommandInput placeholder="Search property..." />
-                                  <CommandList className="scrollbar-hidden">
-                                    <CommandEmpty>
-                                      No property found.
-                                    </CommandEmpty>
-                                    <CommandGroup>
-                                      {selectedClient?.property.map(
-                                        (property) => (
-                                          <CommandItem
-                                            key={property.id}
-                                            value={
-                                              property.address.streetAddress!
-                                            }
-                                            onSelect={() => {
-                                              form.setValue(
-                                                "propertyId",
-                                                property.id,
-                                                { shouldDirty: true },
-                                              );
-                                              setPropertySheetOpen(false);
-                                              setKeyboardVisible(false);
-                                            }}
-                                          >
-                                            {property.address.streetAddress}
-                                          </CommandItem>
-                                        ),
-                                      )}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </SheetContent>
-                            </Sheet>
-                          ) : (
-                            <Dialog
-                              open={propertyDialogOpen}
-                              onOpenChange={setPropertyDialogOpen}
-                            >
-                              <DialogTrigger asChild>
-                                <Button
-                                  variant="outline"
-                                  className="w-full justify-between"
-                                >
-                                  {selectedProperty
-                                    ? selectedProperty.address.streetAddress
-                                    : "Select property..."}
-                                  <ChevronsUpDown className="ml-2 opacity-50" />
-                                </Button>
-                              </DialogTrigger>
-                              <DialogContent>
-                                <DialogTitle />
-                                <Command>
-                                  <CommandInput placeholder="Search property..." />
-                                  <CommandList className="scrollbar-hidden">
-                                    <CommandEmpty>
-                                      No property found.
-                                    </CommandEmpty>
-                                    <CommandGroup>
-                                      {selectedClient?.property.map(
-                                        (property) => (
-                                          <CommandItem
-                                            key={property.id}
-                                            value={
-                                              property.address.streetAddress!
-                                            }
-                                            onSelect={() => {
-                                              form.setValue(
-                                                "propertyId",
-                                                property.id,
-                                                { shouldDirty: true },
-                                              );
-                                              setPropertyDialogOpen(false);
-                                            }}
-                                          >
-                                            {property.address.streetAddress}
-                                          </CommandItem>
-                                        ),
-                                      )}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              </DialogContent>
-                            </Dialog>
-                          )}
+                                {selectedProperty
+                                  ? selectedProperty.address.streetAddress
+                                  : "Select property..."}
+                                <ChevronsUpDown className="ml-2 opacity-50" />
+                              </Button>
+                            }
+                          >
+                            <Command>
+                              <CommandInput placeholder="Search property..." />
+                              <CommandList className="scrollbar-hidden">
+                                <CommandEmpty>No property found.</CommandEmpty>
+                                <CommandGroup>
+                                  {selectedClient?.property.map((property) => (
+                                    <CommandItem
+                                      key={property.id}
+                                      value={property.address.streetAddress!}
+                                      onSelect={() => {
+                                        form.setValue(
+                                          "propertyId",
+                                          property.id,
+                                          { shouldDirty: true },
+                                        );
+                                        setPropertyOpen(false);
+                                        setKeyboardVisible(false);
+                                      }}
+                                    >
+                                      {property.address.streetAddress}
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </ResponsiveDialog>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -646,7 +501,7 @@ export function UpdateContractorClientAndInstallationForm({
                   </div>
                 </div>
               </CardContent>
-              <CardFooter className="justify-end space-x-4 rounded-b-md border-t bg-muted py-4">
+              <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <Button
                   variant="outline"
                   onClick={(event) => {
@@ -676,78 +531,38 @@ export function UpdateContractorClientAndInstallationForm({
         <Button variant="outline" disabled>
           Prev
         </Button>
-        {isMobile ? (
-          <Sheet
-            open={navigationSheetOpen}
-            onOpenChange={handleNavigationOpenChange}
-          >
-            <SheetTrigger asChild>
-              <Button variant="outline">Sections</Button>
-            </SheetTrigger>
-            <SheetContent side={keyboardVisible ? "top" : "bottom"}>
-              <DialogTitle />
-              <Command>
-                <CommandInput placeholder="Search ..." />
-                <CommandList className="scrollbar-hidden">
-                  <CommandEmpty>No found.</CommandEmpty>
-                  <CommandGroup>
-                    {pages.map((page, index) => (
-                      <CommandItem
-                        key={index}
-                        value={page.title}
-                        onSelect={() => {
-                          setNavigationSheetOpen(false);
-                          setKeyboardVisible(false);
-                          router.push(
-                            `/certificates/eicr/${certificate.id}/update${page.url}`,
-                          );
-                        }}
-                        className="truncate"
-                      >
-                        <p className="truncate">{page.title}</p>
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </SheetContent>
-          </Sheet>
-        ) : (
-          <Dialog
-            open={navigationDialogOpen}
-            onOpenChange={setNavigationDialogOpen}
-          >
-            <DialogTrigger asChild>
-              <Button variant="outline">Sections</Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogTitle />
-              <Command>
-                <CommandInput placeholder="Search ..." />
-                <CommandList className="scrollbar-hidden">
-                  <CommandEmpty>No found.</CommandEmpty>
-                  <CommandGroup>
-                    {pages.map((page, index) => (
-                      <CommandItem
-                        key={index}
-                        value={page.title}
-                        onSelect={() => {
-                          setNavigationDialogOpen(false);
-                          setKeyboardVisible(false);
-                          router.push(
-                            `/certificates/eicr/${certificate.id}/update${page.url}`,
-                          );
-                        }}
-                      >
-                        <p className="truncate">{page.title}</p>
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </DialogContent>
-          </Dialog>
-        )}
+        <ResponsiveDialog
+          sheetOpen={navigationOpen}
+          setSheetOpen={setNavigationOpen}
+          keyboardVisible={keyboardVisible}
+          setKeyboardVisible={setKeyboardVisible}
+          triggerButton={<Button variant="outline">Sections</Button>}
+        >
+          <Command>
+            <CommandInput placeholder="Search ..." />
+            <CommandList className="scrollbar-hidden">
+              <CommandEmpty>No found.</CommandEmpty>
+              <CommandGroup>
+                {pages.map((page, index) => (
+                  <CommandItem
+                    key={index}
+                    value={page.title}
+                    onSelect={() => {
+                      setNavigationOpen(false);
+                      setKeyboardVisible(false);
+                      router.push(
+                        `/certificates/eicr/${certificate.id}/update${page.url}`,
+                      );
+                    }}
+                    className="truncate"
+                  >
+                    <p className="truncate">{page.title}</p>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </ResponsiveDialog>
         <Link
           href={`/certificates/eicr/${certificate.id}/update/purpose-of-the-report`}
         >
@@ -755,20 +570,31 @@ export function UpdateContractorClientAndInstallationForm({
         </Link>
       </div>
 
-      <AlertDialog open={open} onOpenChange={setOpen}>
+      <AlertDialog
+        open={unsavedChangesOpen}
+        onOpenChange={setUnsavedChangesOpen}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
             <AlertDialogDescription>
-              You have unsaved changes. Are you sure you want to leave without saving?
+              You have unsaved changes. Are you sure you want to leave without
+              saving?
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => { setOpen(false); setNextUrl("") }}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel
+              onClick={() => {
+                setUnsavedChangesOpen(false);
+                setNextUrl("");
+              }}
+            >
+              Cancel
+            </AlertDialogCancel>
             <AlertDialogAction
               onClick={() => {
                 form.handleSubmit(onSubmit)();
-                setOpen(false);
+                setUnsavedChangesOpen(false);
               }}
             >
               Save and leave
