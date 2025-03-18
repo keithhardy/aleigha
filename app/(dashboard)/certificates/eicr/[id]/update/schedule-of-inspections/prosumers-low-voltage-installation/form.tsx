@@ -72,7 +72,7 @@ export function UpdateProsumersLowVoltageInstallationForm({
           <CardHeader>
             <CardTitle>Prosumer&apos;s low voltage installation</CardTitle>
             <CardDescription className="text-primary">
-              Observations regarding the condition of the prosumer's low voltage
+              Observations regarding the condition of the prosumer&apos;s low voltage
               installation.
             </CardDescription>
           </CardHeader>

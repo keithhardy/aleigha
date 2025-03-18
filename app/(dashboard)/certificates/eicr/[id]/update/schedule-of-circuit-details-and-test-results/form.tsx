@@ -44,7 +44,6 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
       db: JSON.parse(electricalInstallationConditionReport.db as string) || [],
     },
   });
-  ``;
 
   const onSubmit = async (
     data: z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>,

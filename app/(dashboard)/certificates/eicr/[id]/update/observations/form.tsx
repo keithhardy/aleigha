@@ -99,15 +99,6 @@ export function UpdateObservationsForm({
     }
   };
 
-  const addObservation = () => {
-    append({
-      itemNumber: "",
-      description: "",
-      code: "",
-      location: "",
-    });
-  };
-
   return (
     <Form {...form}>
       <form
@@ -169,7 +160,7 @@ export function UpdateObservationsForm({
                           >
                             {`${observation.itemNumber}: ${observation.description}`}
                             {observation.id.toString() ===
-                            selectedObservation ? (
+                              selectedObservation ? (
                               <Check className="ml-auto" />
                             ) : null}
                           </CommandItem>

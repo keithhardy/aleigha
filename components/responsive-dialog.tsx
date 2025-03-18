@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import {
   Dialog,
   DialogPortal,
@@ -12,9 +14,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useEffect } from "react";
 
-const ResponsiveDialog = ({
+export const ResponsiveDialog = ({
   triggerButton,
   children,
   keyboardVisible,
@@ -76,5 +77,3 @@ const ResponsiveDialog = ({
     </>
   );
 };
-
-export default ResponsiveDialog;

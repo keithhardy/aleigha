@@ -96,13 +96,6 @@ export function UpdateScheduleOfRatesForm({
     }
   };
 
-  const addRate = () => {
-    append({
-      name: "",
-      description: "",
-    });
-  };
-
   return (
     <Form {...form}>
       <form

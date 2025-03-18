@@ -16,11 +16,18 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { Header, HeaderGroup, Heading } from "@/components/page-header";
+import { ResponsiveDialog } from "@/components/responsive-dialog";
 import {
-  Header,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   CardTitle,
@@ -37,28 +44,12 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateContractorClientAndInstallation } from "./action";
 import { UpdateContractorClientAndInstallationSchema } from "./schema";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import ResponsiveDialog from "@/components/responsive-dialog";
 import { sections } from "../components/sections";
 
 export function UpdateContractorClientAndInstallationForm({

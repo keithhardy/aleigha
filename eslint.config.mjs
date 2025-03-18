@@ -18,8 +18,7 @@ const eslintConfig = [
         "error",
         {
           groups: [
-            ["builtin"],
-            ["external"],
+            ["builtin", "external"],
             ["internal"],
             ["sibling", "parent"],
             "index",
