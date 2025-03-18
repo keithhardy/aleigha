@@ -6,9 +6,12 @@ import {
   ArrowLeft,
   ArrowRight,
   ChevronsUpDown,
-  Ellipsis,
   ExternalLink,
+  List,
   MoveLeft,
+  RotateCcw,
+  Save,
+  Send,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -16,7 +19,7 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Header, HeaderGroup, Heading } from "@/components/page-header";
+import { Header, HeaderActions, HeaderGroup, Heading } from "@/components/page-header";
 import { ResponsiveDialog } from "@/components/responsive-dialog";
 import {
   AlertDialog,
@@ -138,386 +141,407 @@ export function UpdateContractorClientAndInstallationForm({
 
   return (
     <>
-      <div className="container mx-auto max-w-screen-xl p-6">
-        <Header>
-          <HeaderGroup>
-            <Link
-              href={"/certificates"}
-              className="inline-flex items-center text-sm font-semibold"
-            >
-              <MoveLeft size={22} className="mr-2" />
-              <span>Back to Certificates</span>
-            </Link>
-            <Heading>Contractor, Client and Installation</Heading>
-          </HeaderGroup>
-        </Header>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="container mx-auto max-w-screen-xl p-6 flex-grow">
+            <Header>
+              <HeaderGroup>
+                <Link
+                  href={"/certificates"}
+                  className="inline-flex items-center text-sm font-semibold"
+                >
+                  <MoveLeft size={22} className="mr-2" />
+                  <span>Back to Certificates</span>
+                </Link>
+                <Heading>
+                  Details of the Contractor, Client and Installation
+                </Heading>
+              </HeaderGroup>
+            </Header>
+            <div className="space-y-4">
+              <Card className="rounded-md shadow-none">
+                <CardContent className="space-y-6 p-6">
+                  <div className="flex flex-col gap-4 lg:flex-row">
+                    <div className="w-full space-y-2">
+                      <CardTitle>Contractor</CardTitle>
+                      <CardDescription>
+                        Your company details will be shown here and included on
+                        the certificate to identify the contractor conducting the
+                        report.
+                      </CardDescription>
+                    </div>
+                    <div className="w-full space-y-2">
+                      <Input
+                        type="text"
+                        value={settings?.name ?? ""}
+                        readOnly
+                        placeholder="Street address"
+                      />
+                      <Input
+                        type="text"
+                        value={settings?.address?.streetAddress ?? ""}
+                        readOnly
+                        placeholder="Street address"
+                      />
+                      <Input
+                        type="text"
+                        value={settings?.address?.city ?? ""}
+                        readOnly
+                        placeholder="City"
+                      />
+                      <Input
+                        type="text"
+                        value={settings?.address?.county ?? ""}
+                        readOnly
+                        placeholder="County"
+                      />
+                      <Input
+                        type="text"
+                        value={settings?.address?.postTown ?? ""}
+                        readOnly
+                        placeholder="Post town"
+                      />
+                      <div className="flex space-x-2">
+                        <Input
+                          type="text"
+                          value={settings?.address?.postCode ?? ""}
+                          readOnly
+                          placeholder="Post code"
+                        />
+                        <Input
+                          type="text"
+                          value={settings?.address?.country ?? ""}
+                          readOnly
+                          placeholder="Country"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+                  <p className="text-balance text-sm text-muted-foreground">
+                    To update the contractor, visit{" "}
+                    <Link
+                      href={"/settings"}
+                      className="inline-flex items-center space-x-1 text-blue-500"
+                    >
+                      <span>Settings</span>
+                      <ExternalLink size={14} />
+                    </Link>
+                    .
+                  </p>
+                </CardFooter>
+              </Card>
+              <Card className="rounded-md shadow-none">
+                <CardContent className="space-y-6 p-6">
+                  <div className="flex flex-col gap-4 lg:flex-row">
+                    <div className="w-full space-y-2">
+                      <CardTitle>Client</CardTitle>
+                      <CardDescription>
+                        Select the client for whom you are conducting this report.
+                        Their details will be included on the certificate.
+                      </CardDescription>
+                    </div>
+                    <div className="w-full space-y-2">
+                      <FormField
+                        control={form.control}
+                        name="clientId"
+                        render={() => (
+                          <FormItem>
+                            <ResponsiveDialog
+                              sheetOpen={clientDialogOpen}
+                              setSheetOpen={setClientDialogOpen}
+                              keyboardVisible={keyboardVisible}
+                              setKeyboardVisible={setKeyboardVisible}
+                              triggerButton={
+                                <Button
+                                  variant="outline"
+                                  className="w-full justify-between"
+                                >
+                                  {selectedClient
+                                    ? selectedClient.name
+                                    : "Select client..."}
+                                  <ChevronsUpDown className="ml-2 opacity-50" />
+                                </Button>
+                              }
+                            >
+                              <Command>
+                                <CommandInput placeholder="Search clients..." />
+                                <CommandList className="scrollbar-hidden">
+                                  <CommandEmpty>No client found.</CommandEmpty>
+                                  <CommandGroup>
+                                    {clients.map((client) => (
+                                      <CommandItem
+                                        key={client.id}
+                                        value={client.name}
+                                        onSelect={() => {
+                                          form.setValue("clientId", client.id);
+                                          form.setValue("propertyId", "");
+                                          setClientDialogOpen(false);
+                                        }}
+                                      >
+                                        {client.name}
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </CommandList>
+                              </Command>
+                            </ResponsiveDialog>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <Input
+                        type="text"
+                        value={selectedClient!.address.streetAddress ?? ""}
+                        readOnly
+                        placeholder="Street address"
+                      />
+                      <Input
+                        type="text"
+                        value={selectedClient?.address?.city ?? ""}
+                        readOnly
+                        placeholder="City"
+                      />
+                      <Input
+                        type="text"
+                        value={selectedClient?.address?.county ?? ""}
+                        readOnly
+                        placeholder="County"
+                      />
+                      <Input
+                        type="text"
+                        value={selectedClient?.address?.postTown ?? ""}
+                        readOnly
+                        placeholder="Post town"
+                      />
+                      <div className="flex space-x-2">
+                        <Input
+                          type="text"
+                          value={selectedClient?.address?.postCode ?? ""}
+                          readOnly
+                          placeholder="Post code"
+                        />
+                        <Input
+                          type="text"
+                          value={selectedClient?.address?.country ?? ""}
+                          readOnly
+                          placeholder="Country"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+                  <p className="text-balance text-sm text-muted-foreground">
+                    To add a new client, visit{" "}
+                    <Link
+                      href={"/clients"}
+                      className="inline-flex items-center space-x-1 text-blue-500"
+                    >
+                      <span>Clients</span>
+                      <ExternalLink size={14} />
+                    </Link>
+                    .
+                  </p>
+                </CardFooter>
+              </Card>
+              <Card className="rounded-md shadow-none">
+                <CardContent className="space-y-6 p-6">
+                  <div className="flex flex-col gap-4 lg:flex-row">
+                    <div className="w-full space-y-2">
+                      <CardTitle>Installation</CardTitle>
+                      <CardDescription>
+                        Select the installation for this report. Available
+                        properties will populate once a client is selected.
+                      </CardDescription>
+                    </div>
+                    <div className="w-full space-y-2">
+                      <FormField
+                        control={form.control}
+                        name="propertyId"
+                        render={() => (
+                          <FormItem>
+                            <ResponsiveDialog
+                              sheetOpen={propertyOpen}
+                              setSheetOpen={setPropertyOpen}
+                              keyboardVisible={keyboardVisible}
+                              setKeyboardVisible={setKeyboardVisible}
+                              triggerButton={
+                                <Button
+                                  variant="outline"
+                                  className="w-full justify-between"
+                                >
+                                  {selectedProperty
+                                    ? selectedProperty.address.streetAddress
+                                    : "Select property..."}
+                                  <ChevronsUpDown className="ml-2 opacity-50" />
+                                </Button>
+                              }
+                            >
+                              <Command>
+                                <CommandInput placeholder="Search properties..." />
+                                <CommandList className="scrollbar-hidden">
+                                  <CommandEmpty>No property found.</CommandEmpty>
+                                  <CommandGroup>
+                                    {selectedClient?.property.map((property) => (
+                                      <CommandItem
+                                        key={property.id}
+                                        value={property.address.streetAddress!}
+                                        onSelect={() => {
+                                          form.setValue(
+                                            "propertyId",
+                                            property.id,
+                                            { shouldDirty: true },
+                                          );
+                                          setPropertyOpen(false);
+                                          setKeyboardVisible(false);
+                                        }}
+                                      >
+                                        {property.address.streetAddress}
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </CommandList>
+                              </Command>
+                            </ResponsiveDialog>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <Input
+                        type="text"
+                        value={selectedProperty?.address?.city ?? ""}
+                        readOnly
+                        placeholder="City"
+                      />
+                      <Input
+                        type="text"
+                        value={selectedProperty?.address?.county ?? ""}
+                        readOnly
+                        placeholder="County"
+                      />
+                      <Input
+                        type="text"
+                        value={selectedProperty?.address?.postTown ?? ""}
+                        readOnly
+                        placeholder="Post town"
+                      />
+                      <div className="flex space-x-2">
+                        <Input
+                          type="text"
+                          value={selectedProperty?.address?.postCode ?? ""}
+                          readOnly
+                          placeholder="Post code"
+                        />
+                        <Input
+                          type="text"
+                          value={selectedProperty?.address?.country ?? ""}
+                          readOnly
+                          placeholder="Country"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+                  <p className="text-balance text-sm text-muted-foreground">
+                    To add a new property, visit{" "}
+                    <Link
+                      href={"/properties"}
+                      className="inline-flex items-center space-x-1 text-blue-500"
+                    >
+                      <span>Properties</span>
+                      <ExternalLink size={14} />
+                    </Link>
+                    .
+                  </p>
+                </CardFooter>
+              </Card>
+            </div>
+          </div>
 
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <Card className="rounded-md shadow-none">
-              <CardContent className="space-y-6 p-6">
-                <div className="flex flex-col gap-4 lg:flex-row">
-                  <div className="w-full space-y-2">
-                    <CardTitle>Contractor</CardTitle>
-                    <CardDescription>
-                      Your company details will be shown here and included on
-                      the certificate to identify the contractor conducting the
-                      report.
-                    </CardDescription>
-                  </div>
-                  <div className="w-full space-y-2">
-                    <Input
-                      type="text"
-                      value={settings?.name ?? ""}
-                      readOnly
-                      placeholder="Street address"
-                    />
-                    <Input
-                      type="text"
-                      value={settings?.address?.streetAddress ?? ""}
-                      readOnly
-                      placeholder="Street address"
-                    />
-                    <Input
-                      type="text"
-                      value={settings?.address?.city ?? ""}
-                      readOnly
-                      placeholder="City"
-                    />
-                    <Input
-                      type="text"
-                      value={settings?.address?.county ?? ""}
-                      readOnly
-                      placeholder="County"
-                    />
-                    <Input
-                      type="text"
-                      value={settings?.address?.postTown ?? ""}
-                      readOnly
-                      placeholder="Post town"
-                    />
-                    <div className="flex space-x-2">
-                      <Input
-                        type="text"
-                        value={settings?.address?.postCode ?? ""}
-                        readOnly
-                        placeholder="Post code"
-                      />
-                      <Input
-                        type="text"
-                        value={settings?.address?.country ?? ""}
-                        readOnly
-                        placeholder="Country"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-                <p className="text-balance text-sm text-muted-foreground">
-                  To update the contractor, visit{" "}
-                  <Link
-                    href={"/settings"}
-                    className="inline-flex items-center space-x-1 text-blue-500"
-                  >
-                    <span>Settings</span>
-                    <ExternalLink size={14} />
-                  </Link>
-                  .
-                </p>
-              </CardFooter>
-            </Card>
-            <Card className="rounded-md shadow-none">
-              <CardContent className="space-y-6 p-6">
-                <div className="flex flex-col gap-4 lg:flex-row">
-                  <div className="w-full space-y-2">
-                    <CardTitle>Client</CardTitle>
-                    <CardDescription>
-                      Select the client for whom you are conducting this report.
-                      Their details will be included on the certificate.
-                    </CardDescription>
-                  </div>
-                  <div className="w-full space-y-2">
-                    <FormField
-                      control={form.control}
-                      name="clientId"
-                      render={() => (
-                        <FormItem>
-                          <ResponsiveDialog
-                            sheetOpen={clientDialogOpen}
-                            setSheetOpen={setClientDialogOpen}
-                            keyboardVisible={keyboardVisible}
-                            setKeyboardVisible={setKeyboardVisible}
-                            triggerButton={
-                              <Button
-                                variant="outline"
-                                className="w-full justify-between"
-                              >
-                                {selectedClient
-                                  ? selectedClient.name
-                                  : "Select client..."}
-                                <ChevronsUpDown className="ml-2 opacity-50" />
-                              </Button>
-                            }
+          <div className="sticky bottom-0 border-t bg-background">
+            <div className="container mx-auto flex max-w-screen-xl justify-between px-6 py-4">
+              <Button variant="outline" size="icon" disabled>
+                <ArrowLeft />
+              </Button>
+              <div className="space-x-2">
+                <ResponsiveDialog
+                  sheetOpen={navigationOpen}
+                  setSheetOpen={setNavigationOpen}
+                  keyboardVisible={keyboardVisible}
+                  setKeyboardVisible={setKeyboardVisible}
+                  triggerButton={
+                    <Button variant="outline" size="icon">
+                      <List />
+                    </Button>
+                  }
+                >
+                  <Command>
+                    <CommandInput placeholder="Search sections..." />
+                    <CommandList className="scrollbar-hidden">
+                      <CommandEmpty>No found.</CommandEmpty>
+                      <CommandGroup>
+                        {sections.map((section, index) => (
+                          <CommandItem
+                            key={index}
+                            value={section.title}
+                            onSelect={() => {
+                              setNavigationOpen(false);
+                              setKeyboardVisible(false);
+                              router.push(
+                                `/certificates/eicr/${certificate.id}/update${section.url}`,
+                              );
+                            }}
+                            className="truncate"
                           >
-                            <Command>
-                              <CommandInput placeholder="Search clients..." />
-                              <CommandList className="scrollbar-hidden">
-                                <CommandEmpty>No client found.</CommandEmpty>
-                                <CommandGroup>
-                                  {clients.map((client) => (
-                                    <CommandItem
-                                      key={client.id}
-                                      value={client.name}
-                                      onSelect={() => {
-                                        form.setValue("clientId", client.id);
-                                        form.setValue("propertyId", "");
-                                        setClientDialogOpen(false);
-                                      }}
-                                    >
-                                      {client.name}
-                                    </CommandItem>
-                                  ))}
-                                </CommandGroup>
-                              </CommandList>
-                            </Command>
-                          </ResponsiveDialog>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Input
-                      type="text"
-                      value={selectedClient!.address.streetAddress ?? ""}
-                      readOnly
-                      placeholder="Street address"
-                    />
-                    <Input
-                      type="text"
-                      value={selectedClient?.address?.city ?? ""}
-                      readOnly
-                      placeholder="City"
-                    />
-                    <Input
-                      type="text"
-                      value={selectedClient?.address?.county ?? ""}
-                      readOnly
-                      placeholder="County"
-                    />
-                    <Input
-                      type="text"
-                      value={selectedClient?.address?.postTown ?? ""}
-                      readOnly
-                      placeholder="Post town"
-                    />
-                    <div className="flex space-x-2">
-                      <Input
-                        type="text"
-                        value={selectedClient?.address?.postCode ?? ""}
-                        readOnly
-                        placeholder="Post code"
-                      />
-                      <Input
-                        type="text"
-                        value={selectedClient?.address?.country ?? ""}
-                        readOnly
-                        placeholder="Country"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-                <p className="text-balance text-sm text-muted-foreground">
-                  To add a new client, visit{" "}
-                  <Link
-                    href={"/clients"}
-                    className="inline-flex items-center space-x-1 text-blue-500"
-                  >
-                    <span>Clients</span>
-                    <ExternalLink size={14} />
-                  </Link>
-                  .
-                </p>
-              </CardFooter>
-            </Card>
-            <Card className="rounded-md shadow-none">
-              <CardContent className="space-y-6 p-6">
-                <div className="flex flex-col gap-4 lg:flex-row">
-                  <div className="w-full space-y-2">
-                    <CardTitle>Installation</CardTitle>
-                    <CardDescription>
-                      Select the installation for this report. Available
-                      properties will populate once a client is selected.
-                    </CardDescription>
-                  </div>
-                  <div className="w-full space-y-2">
-                    <FormField
-                      control={form.control}
-                      name="propertyId"
-                      render={() => (
-                        <FormItem>
-                          <ResponsiveDialog
-                            sheetOpen={propertyOpen}
-                            setSheetOpen={setPropertyOpen}
-                            keyboardVisible={keyboardVisible}
-                            setKeyboardVisible={setKeyboardVisible}
-                            triggerButton={
-                              <Button
-                                variant="outline"
-                                className="w-full justify-between"
-                              >
-                                {selectedProperty
-                                  ? selectedProperty.address.streetAddress
-                                  : "Select property..."}
-                                <ChevronsUpDown className="ml-2 opacity-50" />
-                              </Button>
-                            }
-                          >
-                            <Command>
-                              <CommandInput placeholder="Search properties..." />
-                              <CommandList className="scrollbar-hidden">
-                                <CommandEmpty>No property found.</CommandEmpty>
-                                <CommandGroup>
-                                  {selectedClient?.property.map((property) => (
-                                    <CommandItem
-                                      key={property.id}
-                                      value={property.address.streetAddress!}
-                                      onSelect={() => {
-                                        form.setValue(
-                                          "propertyId",
-                                          property.id,
-                                          { shouldDirty: true },
-                                        );
-                                        setPropertyOpen(false);
-                                        setKeyboardVisible(false);
-                                      }}
-                                    >
-                                      {property.address.streetAddress}
-                                    </CommandItem>
-                                  ))}
-                                </CommandGroup>
-                              </CommandList>
-                            </Command>
-                          </ResponsiveDialog>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Input
-                      type="text"
-                      value={selectedProperty?.address?.city ?? ""}
-                      readOnly
-                      placeholder="City"
-                    />
-                    <Input
-                      type="text"
-                      value={selectedProperty?.address?.county ?? ""}
-                      readOnly
-                      placeholder="County"
-                    />
-                    <Input
-                      type="text"
-                      value={selectedProperty?.address?.postTown ?? ""}
-                      readOnly
-                      placeholder="Post town"
-                    />
-                    <div className="flex space-x-2">
-                      <Input
-                        type="text"
-                        value={selectedProperty?.address?.postCode ?? ""}
-                        readOnly
-                        placeholder="Post code"
-                      />
-                      <Input
-                        type="text"
-                        value={selectedProperty?.address?.country ?? ""}
-                        readOnly
-                        placeholder="Country"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-                <p className="text-balance text-sm text-muted-foreground">
-                  To add a new property, visit{" "}
-                  <Link
-                    href={"/properties"}
-                    className="inline-flex items-center space-x-1 text-blue-500"
-                  >
-                    <span>Properties</span>
-                    <ExternalLink size={14} />
-                  </Link>
-                  .
-                </p>
+                            <p className="truncate">{section.title}</p>
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </ResponsiveDialog>
                 <Button
                   variant="outline"
-                  type="submit"
+                  size="icon"
+                  onClick={() => form.reset()}
                   disabled={
                     !form.formState.isDirty || form.formState.isSubmitting
                   }
                 >
-                  {form.formState.isSubmitting ? "Saving..." : "Save"}
+                  <RotateCcw />
                 </Button>
-              </CardFooter>
-            </Card>
-          </form>
-        </Form>
-      </div>
-
-      <div className="sticky bottom-0 border-t bg-background">
-        <div className="container mx-auto flex max-w-screen-xl justify-between px-6 py-4">
-          <Button variant="outline" disabled>
-            <ArrowLeft />
-            Prev
-          </Button>
-          <ResponsiveDialog
-            sheetOpen={navigationOpen}
-            setSheetOpen={setNavigationOpen}
-            keyboardVisible={keyboardVisible}
-            setKeyboardVisible={setKeyboardVisible}
-            triggerButton={
-              <Button variant="outline">
-                <Ellipsis />
-              </Button>
-            }
-          >
-            <Command>
-              <CommandInput placeholder="Search sections..." />
-              <CommandList className="scrollbar-hidden">
-                <CommandEmpty>No found.</CommandEmpty>
-                <CommandGroup>
-                  {sections.map((section, index) => (
-                    <CommandItem
-                      key={index}
-                      value={section.title}
-                      onSelect={() => {
-                        setNavigationOpen(false);
-                        setKeyboardVisible(false);
-                        router.push(
-                          `/certificates/eicr/${certificate.id}/update${section.url}`,
-                        );
-                      }}
-                      className="truncate"
-                    >
-                      <p className="truncate">{section.title}</p>
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              </CommandList>
-            </Command>
-          </ResponsiveDialog>
-          <Link
-            href={`/certificates/eicr/${certificate.id}/update/purpose-of-the-report`}
-          >
-            <Button variant="outline">
-              Next
-              <ArrowRight />
-            </Button>
-          </Link>
-        </div>
-      </div>
+                <Button
+                  type="submit"
+                  variant="outline"
+                  size="icon"
+                  disabled={
+                    !form.formState.isDirty || form.formState.isSubmitting
+                  }
+                >
+                  <Save />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => form.reset()}
+                >
+                  <Send />
+                </Button>
+              </div>
+              <Link
+                href={`/certificates/eicr/${certificate.id}/update/purpose-of-the-report`}
+              >
+                <Button variant="outline" size="icon">
+                  <ArrowRight />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </form>
+      </Form>
 
       <AlertDialog
         open={unsavedChangesOpen}

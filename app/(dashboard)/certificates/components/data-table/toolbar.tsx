@@ -30,31 +30,31 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
   const clientColumn = table.getColumn("client");
   const clientOptions = clientColumn
     ? Array.from(clientColumn.getFacetedUniqueValues().entries()).map(
-      ([value]) => ({
-        label: String(value),
-        value: String(value),
-      }),
-    )
+        ([value]) => ({
+          label: String(value),
+          value: String(value),
+        }),
+      )
     : [];
 
   const creatorColumn = table.getColumn("creator");
   const creatorOptions = creatorColumn
     ? Array.from(creatorColumn.getFacetedUniqueValues().entries()).map(
-      ([value]) => ({
-        label: String(value),
-        value: String(value),
-      }),
-    )
+        ([value]) => ({
+          label: String(value),
+          value: String(value),
+        }),
+      )
     : [];
 
   const statusColumn = table.getColumn("status");
   const statusOptions = statusColumn
     ? Array.from(statusColumn.getFacetedUniqueValues().entries()).map(
-      ([value]) => ({
-        label: String(value),
-        value: String(value),
-      }),
-    )
+        ([value]) => ({
+          label: String(value),
+          value: String(value),
+        }),
+      )
     : [];
 
   const [, setDateRange] = useState<DateRange | undefined>(undefined);

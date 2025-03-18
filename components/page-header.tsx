@@ -4,7 +4,7 @@ function Header({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <header
       className={cn(
-        "flex flex-col justify-between space-y-4 pb-8 pt-2 lg:flex-row lg:items-center lg:space-y-0",
+        "flex flex-col justify-between space-y-4 pb-8 pt-2 lg:flex-row lg:items-end lg:space-y-0",
         className,
       )}
       {...props}
@@ -47,7 +47,7 @@ function HeaderActions({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("flex space-x-2", className)} {...props} />;
+  return <div className={cn("flex space-x-2 pb-0 lg:pb-2 justify-end", className)} {...props} />;
 }
 
 export { Header, HeaderDescription, HeaderGroup, Heading, HeaderActions };
