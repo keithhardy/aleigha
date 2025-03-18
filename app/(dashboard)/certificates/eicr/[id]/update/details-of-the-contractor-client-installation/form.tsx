@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Address, Client, Property, Settings } from "@prisma/client";
-import { ChevronsUpDown, ExternalLink, Link2, MoveLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronsUpDown, Ellipsis, ExternalLink, Link2, MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -351,7 +351,7 @@ export function UpdateContractorClientAndInstallationForm({
                             }
                           >
                             <Command>
-                              <CommandInput placeholder="Search client..." />
+                              <CommandInput placeholder="Search clients..." />
                               <CommandList className="scrollbar-hidden">
                                 <CommandEmpty>No client found.</CommandEmpty>
                                 <CommandGroup>
@@ -470,7 +470,7 @@ export function UpdateContractorClientAndInstallationForm({
                             }
                           >
                             <Command>
-                              <CommandInput placeholder="Search property..." />
+                              <CommandInput placeholder="Search properties..." />
                               <CommandList className="scrollbar-hidden">
                                 <CommandEmpty>No property found.</CommandEmpty>
                                 <CommandGroup>
@@ -568,17 +568,17 @@ export function UpdateContractorClientAndInstallationForm({
 
       <div className="sticky bottom-0 flex w-full items-center justify-between border-t bg-background px-6 py-4">
         <Button variant="outline" disabled>
-          Prev
+          <ArrowLeft />Prev
         </Button>
         <ResponsiveDialog
           sheetOpen={navigationOpen}
           setSheetOpen={setNavigationOpen}
           keyboardVisible={keyboardVisible}
           setKeyboardVisible={setKeyboardVisible}
-          triggerButton={<Button variant="outline">Sections</Button>}
+          triggerButton={<Button variant="outline"><Ellipsis /></Button>}
         >
           <Command>
-            <CommandInput placeholder="Search ..." />
+            <CommandInput placeholder="Search sections..." />
             <CommandList className="scrollbar-hidden">
               <CommandEmpty>No found.</CommandEmpty>
               <CommandGroup>
@@ -605,7 +605,7 @@ export function UpdateContractorClientAndInstallationForm({
         <Link
           href={`/certificates/eicr/${certificate.id}/update/purpose-of-the-report`}
         >
-          <Button variant="outline">Next</Button>
+          <Button variant="outline">Next<ArrowRight /></Button>
         </Link>
       </div>
 
@@ -627,23 +627,24 @@ export function UpdateContractorClientAndInstallationForm({
                 setNextUrl("");
               }}
             >
-              Stay
+              Cancel
             </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                setUnsavedChangesOpen(false);
+                if (nextUrl) originalPush.current.call(router, nextUrl);
+              }}
+              className="mt-2 sm:mt-0"
+            >
+              Continue
+            </AlertDialogAction>
             <AlertDialogAction
               onClick={() => {
                 form.handleSubmit(onSubmit)();
                 setUnsavedChangesOpen(false);
               }}
             >
-              Save
-            </AlertDialogAction>
-            <AlertDialogAction
-              onClick={() => {
-                setUnsavedChangesOpen(false);
-                if (nextUrl) originalPush.current.call(router, nextUrl);
-              }}
-            >
-              Leave
+              Save then continue
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
