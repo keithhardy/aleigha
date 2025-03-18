@@ -147,7 +147,7 @@ export function UpdateContractorClientAndInstallationForm({
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
           <div className="container mx-auto max-w-screen-xl flex-grow p-6">
             <Header>
               <HeaderGroup>
