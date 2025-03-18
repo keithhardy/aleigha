@@ -2,7 +2,14 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Address, Client, Property, Settings } from "@prisma/client";
-import { ArrowLeft, ArrowRight, ChevronsUpDown, Ellipsis, ExternalLink, Link2, MoveLeft } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ChevronsUpDown,
+  Ellipsis,
+  ExternalLink,
+  MoveLeft,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -11,7 +18,6 @@ import { z } from "zod";
 
 import {
   Header,
-  HeaderDescription,
   HeaderGroup,
   Heading,
 } from "@/components/page-header";
@@ -31,7 +37,12 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
@@ -48,91 +59,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import ResponsiveDialog from "@/components/responsive-dialog";
-
-const pages = [
-  {
-    title: "Details of the contractor, client and installation",
-    url: `/details-of-the-contractor-client-installation`,
-  },
-  {
-    title: "Purpose of the report",
-    url: `/purpose-of-the-report`,
-  },
-  {
-    title: "Summary of the condition of the installation",
-    url: `/summary-of-the-condition-of-the-installation`,
-  },
-  {
-    title: "Declaration",
-    url: `/declaration`,
-  },
-  {
-    title: "Observations",
-    url: `/observations`,
-  },
-  {
-    title: "Details and limitations of the inspection and testing",
-    url: `/details-and-limitations-of-the-inspection-and-testing`,
-  },
-  {
-    title: "Supply characteristics and earthing arrangements",
-    url: `/supply-characteristics-and-earthing-arrangements`,
-  },
-  {
-    title: "Particulars of installation reffered to in this Report",
-    url: `/particulars-of-installation-reffered-to-in-this-Report`,
-  },
-  {
-    title: "Intake equipment (visual inspection only)",
-    url: `/schedule-of-inspections/intake-equipment`,
-  },
-  {
-    title:
-      "Presence of adequate arrangements for parallel or switched alternative sources",
-    url: `/schedule-of-inspections/presence-of-adequate-arrangements-for-parallel-or-switched-alternative-sources`,
-  },
-  {
-    title: "Methods of protection",
-    url: `/schedule-of-inspections/methods-of-Protection`,
-  },
-  {
-    title:
-      "Distribution equipment, including consumer units and distribution boards",
-    url: `/schedule-of-inspections/distribution-equipment`,
-  },
-  {
-    title: "Distribution circuits",
-    url: `/schedule-of-inspections/distribution-Circuits`,
-  },
-  {
-    title: "Final circuits",
-    url: `/schedule-of-inspections/final-circuits`,
-  },
-  {
-    title: "Isolation and switching",
-    url: `/schedule-of-inspections/isolation-and-switching`,
-  },
-  {
-    title: "Current-using equipment (permanently connected)",
-    url: `/schedule-of-inspections/current-using-equipment`,
-  },
-  {
-    title: "Special locations and installations",
-    url: `/schedule-of-inspections/special-locations-and-installations`,
-  },
-  {
-    title: "Prosumer’s low voltage installation",
-    url: `/schedule-of-inspections/prosumers-low-voltage-installation`,
-  },
-  {
-    title: "Schedule of circuit details and test results",
-    url: `/schedule-of-circuit-details-and-test-results`,
-  },
-  {
-    title: "Schedule of rates",
-    url: `/schedule-of-rates`,
-  },
-];
+import { sections } from "../components/sections";
 
 export function UpdateContractorClientAndInstallationForm({
   certificate,
@@ -147,7 +74,17 @@ export function UpdateContractorClientAndInstallationForm({
   settings?: (Settings & { address?: Address | null }) | null;
 }) {
   const { toast } = useToast();
+
   const router = useRouter();
+
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+  const [clientDialogOpen, setClientDialogOpen] = useState(false);
+  const [propertyOpen, setPropertyOpen] = useState(false);
+  const [navigationOpen, setNavigationOpen] = useState(false);
+  const [unsavedChangesOpen, setUnsavedChangesOpen] = useState(false);
+  const [nextUrl, setNextUrl] = useState("");
+
+  const originalPush = useRef(router.push);
 
   const form = useForm<
     z.infer<typeof UpdateContractorClientAndInstallationSchema>
@@ -159,6 +96,32 @@ export function UpdateContractorClientAndInstallationForm({
       propertyId: certificate.propertyId,
     },
   });
+
+  const selectedClient = clients.find(
+    (client) => client.id === form.getValues("clientId"),
+  );
+
+  const selectedProperty = selectedClient?.property.find(
+    (property) => property.id === form.getValues("propertyId"),
+  );
+
+  useEffect(() => {
+    originalPush.current = router.push;
+
+    router.push = (url: string) => {
+      if (form.formState.isDirty) {
+        setUnsavedChangesOpen(true);
+        setNextUrl(url);
+        return;
+      } else {
+        originalPush.current.call(router, url);
+      }
+    };
+
+    return () => {
+      router.push = originalPush.current;
+    };
+  }, [form.formState.isDirty, router]);
 
   const onSubmit = async (
     data: z.infer<typeof UpdateContractorClientAndInstallationSchema>,
@@ -182,44 +145,9 @@ export function UpdateContractorClientAndInstallationForm({
     });
   };
 
-  const selectedClient = clients.find(
-    (client) => client.id === form.getValues("clientId"),
-  );
-
-  const selectedProperty = selectedClient?.property.find(
-    (property) => property.id === form.getValues("propertyId"),
-  );
-
-  const [keyboardVisible, setKeyboardVisible] = useState(false);
-  const [clientDialogOpen, setClientDialogOpen] = useState(false);
-  const [propertyOpen, setPropertyOpen] = useState(false);
-  const [navigationOpen, setNavigationOpen] = useState(false);
-  const [unsavedChangesOpen, setUnsavedChangesOpen] = useState(false);
-  const [nextUrl, setNextUrl] = useState("");
-
-  const originalPush = useRef(router.push);
-
-  useEffect(() => {
-    originalPush.current = router.push;
-
-    router.push = (url: string) => {
-      if (form.formState.isDirty) {
-        setUnsavedChangesOpen(true);
-        setNextUrl(url);
-        return;
-      } else {
-        originalPush.current.call(router, url);
-      }
-    };
-
-    return () => {
-      router.push = originalPush.current;
-    };
-  }, [form.formState.isDirty, router]);
-
   return (
     <>
-      <div className="container mx-auto max-w-screen-lg p-6">
+      <div className="container mx-auto max-w-screen-xl p-6">
         <Header>
           <HeaderGroup>
             <Link
@@ -230,10 +158,6 @@ export function UpdateContractorClientAndInstallationForm({
               <span>Back to Certificates</span>
             </Link>
             <Heading>Contractor, Client and Installation</Heading>
-            <HeaderDescription>
-              View the contractor and select the client and installation for
-              this EICR report.
-            </HeaderDescription>
           </HeaderGroup>
         </Header>
 
@@ -242,10 +166,11 @@ export function UpdateContractorClientAndInstallationForm({
             <Card className="rounded-md shadow-none">
               <CardContent className="space-y-6 p-6">
                 <div className="flex flex-col gap-4 lg:flex-row">
-                  <div className="w-full">
+                  <div className="w-full space-y-2">
                     <CardTitle>Contractor</CardTitle>
                     <CardDescription>
-                      View the contractor details associated with this EICR
+                      Your company details will be shown here and included on
+                      the certificate to identify the contractor conducting the
                       report.
                     </CardDescription>
                   </div>
@@ -254,35 +179,30 @@ export function UpdateContractorClientAndInstallationForm({
                       type="text"
                       value={settings?.name ?? ""}
                       readOnly
-                      disabled
                       placeholder="Street address"
                     />
                     <Input
                       type="text"
                       value={settings?.address?.streetAddress ?? ""}
                       readOnly
-                      disabled
                       placeholder="Street address"
                     />
                     <Input
                       type="text"
                       value={settings?.address?.city ?? ""}
                       readOnly
-                      disabled
                       placeholder="City"
                     />
                     <Input
                       type="text"
                       value={settings?.address?.county ?? ""}
                       readOnly
-                      disabled
                       placeholder="County"
                     />
                     <Input
                       type="text"
                       value={settings?.address?.postTown ?? ""}
                       readOnly
-                      disabled
                       placeholder="Post town"
                     />
                     <div className="flex space-x-2">
@@ -290,14 +210,12 @@ export function UpdateContractorClientAndInstallationForm({
                         type="text"
                         value={settings?.address?.postCode ?? ""}
                         readOnly
-                        disabled
                         placeholder="Post code"
                       />
                       <Input
                         type="text"
                         value={settings?.address?.country ?? ""}
                         readOnly
-                        disabled
                         placeholder="Country"
                       />
                     </div>
@@ -305,7 +223,7 @@ export function UpdateContractorClientAndInstallationForm({
                 </div>
               </CardContent>
               <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-                <p className="text-sm text-muted-foreground text-balance">
+                <p className="text-balance text-sm text-muted-foreground">
                   To update the contractor, visit{" "}
                   <Link
                     href={"/settings"}
@@ -321,10 +239,11 @@ export function UpdateContractorClientAndInstallationForm({
             <Card className="rounded-md shadow-none">
               <CardContent className="space-y-6 p-6">
                 <div className="flex flex-col gap-4 lg:flex-row">
-                  <div className="w-full">
+                  <div className="w-full space-y-2">
                     <CardTitle>Client</CardTitle>
                     <CardDescription>
-                      Select the client for this EICR report.
+                      Select the client for whom you are conducting this report.
+                      Their details will be included on the certificate.
                     </CardDescription>
                   </div>
                   <div className="w-full space-y-2">
@@ -380,28 +299,24 @@ export function UpdateContractorClientAndInstallationForm({
                       type="text"
                       value={selectedClient!.address.streetAddress ?? ""}
                       readOnly
-                      disabled
                       placeholder="Street address"
                     />
                     <Input
                       type="text"
                       value={selectedClient?.address?.city ?? ""}
                       readOnly
-                      disabled
                       placeholder="City"
                     />
                     <Input
                       type="text"
                       value={selectedClient?.address?.county ?? ""}
                       readOnly
-                      disabled
                       placeholder="County"
                     />
                     <Input
                       type="text"
                       value={selectedClient?.address?.postTown ?? ""}
                       readOnly
-                      disabled
                       placeholder="Post town"
                     />
                     <div className="flex space-x-2">
@@ -409,14 +324,12 @@ export function UpdateContractorClientAndInstallationForm({
                         type="text"
                         value={selectedClient?.address?.postCode ?? ""}
                         readOnly
-                        disabled
                         placeholder="Post code"
                       />
                       <Input
                         type="text"
                         value={selectedClient?.address?.country ?? ""}
                         readOnly
-                        disabled
                         placeholder="Country"
                       />
                     </div>
@@ -424,7 +337,7 @@ export function UpdateContractorClientAndInstallationForm({
                 </div>
               </CardContent>
               <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-                <p className="text-sm text-muted-foreground text-balance">
+                <p className="text-balance text-sm text-muted-foreground">
                   To add a new client, visit{" "}
                   <Link
                     href={"/clients"}
@@ -440,10 +353,11 @@ export function UpdateContractorClientAndInstallationForm({
             <Card className="rounded-md shadow-none">
               <CardContent className="space-y-6 p-6">
                 <div className="flex flex-col gap-4 lg:flex-row">
-                  <div className="w-full">
+                  <div className="w-full space-y-2">
                     <CardTitle>Installation</CardTitle>
                     <CardDescription>
-                      Select the installation for this EICR report.
+                      Select the installation for this report. Available
+                      properties will populate once a client is selected.
                     </CardDescription>
                   </div>
                   <div className="w-full space-y-2">
@@ -503,21 +417,18 @@ export function UpdateContractorClientAndInstallationForm({
                       type="text"
                       value={selectedProperty?.address?.city ?? ""}
                       readOnly
-                      disabled
                       placeholder="City"
                     />
                     <Input
                       type="text"
                       value={selectedProperty?.address?.county ?? ""}
                       readOnly
-                      disabled
                       placeholder="County"
                     />
                     <Input
                       type="text"
                       value={selectedProperty?.address?.postTown ?? ""}
                       readOnly
-                      disabled
                       placeholder="Post town"
                     />
                     <div className="flex space-x-2">
@@ -525,14 +436,12 @@ export function UpdateContractorClientAndInstallationForm({
                         type="text"
                         value={selectedProperty?.address?.postCode ?? ""}
                         readOnly
-                        disabled
                         placeholder="Post code"
                       />
                       <Input
                         type="text"
                         value={selectedProperty?.address?.country ?? ""}
                         readOnly
-                        disabled
                         placeholder="Country"
                       />
                     </div>
@@ -540,7 +449,7 @@ export function UpdateContractorClientAndInstallationForm({
                 </div>
               </CardContent>
               <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-                <p className="text-sm text-muted-foreground text-balance">
+                <p className="text-balance text-sm text-muted-foreground">
                   To add a new property, visit{" "}
                   <Link
                     href={"/properties"}
@@ -566,47 +475,57 @@ export function UpdateContractorClientAndInstallationForm({
         </Form>
       </div>
 
-      <div className="sticky bottom-0 flex w-full items-center justify-between border-t bg-background px-6 py-4">
-        <Button variant="outline" disabled>
-          <ArrowLeft />Prev
-        </Button>
-        <ResponsiveDialog
-          sheetOpen={navigationOpen}
-          setSheetOpen={setNavigationOpen}
-          keyboardVisible={keyboardVisible}
-          setKeyboardVisible={setKeyboardVisible}
-          triggerButton={<Button variant="outline"><Ellipsis /></Button>}
-        >
-          <Command>
-            <CommandInput placeholder="Search sections..." />
-            <CommandList className="scrollbar-hidden">
-              <CommandEmpty>No found.</CommandEmpty>
-              <CommandGroup>
-                {pages.map((page, index) => (
-                  <CommandItem
-                    key={index}
-                    value={page.title}
-                    onSelect={() => {
-                      setNavigationOpen(false);
-                      setKeyboardVisible(false);
-                      router.push(
-                        `/certificates/eicr/${certificate.id}/update${page.url}`,
-                      );
-                    }}
-                    className="truncate"
-                  >
-                    <p className="truncate">{page.title}</p>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </ResponsiveDialog>
-        <Link
-          href={`/certificates/eicr/${certificate.id}/update/purpose-of-the-report`}
-        >
-          <Button variant="outline">Next<ArrowRight /></Button>
-        </Link>
+      <div className="sticky bottom-0 border-t bg-background">
+        <div className="container mx-auto flex max-w-screen-xl justify-between px-6 py-4">
+          <Button variant="outline" disabled>
+            <ArrowLeft />
+            Prev
+          </Button>
+          <ResponsiveDialog
+            sheetOpen={navigationOpen}
+            setSheetOpen={setNavigationOpen}
+            keyboardVisible={keyboardVisible}
+            setKeyboardVisible={setKeyboardVisible}
+            triggerButton={
+              <Button variant="outline">
+                <Ellipsis />
+              </Button>
+            }
+          >
+            <Command>
+              <CommandInput placeholder="Search sections..." />
+              <CommandList className="scrollbar-hidden">
+                <CommandEmpty>No found.</CommandEmpty>
+                <CommandGroup>
+                  {sections.map((section, index) => (
+                    <CommandItem
+                      key={index}
+                      value={section.title}
+                      onSelect={() => {
+                        setNavigationOpen(false);
+                        setKeyboardVisible(false);
+                        router.push(
+                          `/certificates/eicr/${certificate.id}/update${section.url}`,
+                        );
+                      }}
+                      className="truncate"
+                    >
+                      <p className="truncate">{section.title}</p>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </ResponsiveDialog>
+          <Link
+            href={`/certificates/eicr/${certificate.id}/update/purpose-of-the-report`}
+          >
+            <Button variant="outline">
+              Next
+              <ArrowRight />
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <AlertDialog

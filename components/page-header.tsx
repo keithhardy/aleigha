@@ -37,7 +37,7 @@ function HeaderDescription({
 }: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
     <p
-      className={cn("text-balance text-sm text-muted-foreground leading-none", className)}
+      className={cn("text-balance text-sm text-muted-foreground", className)}
       {...props}
     />
   );
