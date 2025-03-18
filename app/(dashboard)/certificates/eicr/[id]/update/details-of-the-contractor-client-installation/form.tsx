@@ -19,7 +19,12 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Header, HeaderActions, HeaderGroup, Heading } from "@/components/page-header";
+import {
+  Header,
+  HeaderActions,
+  HeaderGroup,
+  Heading,
+} from "@/components/page-header";
 import { ResponsiveDialog } from "@/components/responsive-dialog";
 import {
   AlertDialog,
@@ -143,7 +148,7 @@ export function UpdateContractorClientAndInstallationForm({
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="container mx-auto max-w-screen-xl p-6 flex-grow">
+          <div className="container mx-auto max-w-screen-xl flex-grow p-6">
             <Header>
               <HeaderGroup>
                 <Link
@@ -166,8 +171,8 @@ export function UpdateContractorClientAndInstallationForm({
                       <CardTitle>Contractor</CardTitle>
                       <CardDescription>
                         Your company details will be shown here and included on
-                        the certificate to identify the contractor conducting the
-                        report.
+                        the certificate to identify the contractor conducting
+                        the report.
                       </CardDescription>
                     </div>
                     <div className="w-full space-y-2">
@@ -238,8 +243,9 @@ export function UpdateContractorClientAndInstallationForm({
                     <div className="w-full space-y-2">
                       <CardTitle>Client</CardTitle>
                       <CardDescription>
-                        Select the client for whom you are conducting this report.
-                        Their details will be included on the certificate.
+                        Select the client for whom you are conducting this
+                        report. Their details will be included on the
+                        certificate.
                       </CardDescription>
                     </div>
                     <div className="w-full space-y-2">
@@ -382,25 +388,31 @@ export function UpdateContractorClientAndInstallationForm({
                               <Command>
                                 <CommandInput placeholder="Search properties..." />
                                 <CommandList className="scrollbar-hidden">
-                                  <CommandEmpty>No property found.</CommandEmpty>
+                                  <CommandEmpty>
+                                    No property found.
+                                  </CommandEmpty>
                                   <CommandGroup>
-                                    {selectedClient?.property.map((property) => (
-                                      <CommandItem
-                                        key={property.id}
-                                        value={property.address.streetAddress!}
-                                        onSelect={() => {
-                                          form.setValue(
-                                            "propertyId",
-                                            property.id,
-                                            { shouldDirty: true },
-                                          );
-                                          setPropertyOpen(false);
-                                          setKeyboardVisible(false);
-                                        }}
-                                      >
-                                        {property.address.streetAddress}
-                                      </CommandItem>
-                                    ))}
+                                    {selectedClient?.property.map(
+                                      (property) => (
+                                        <CommandItem
+                                          key={property.id}
+                                          value={
+                                            property.address.streetAddress!
+                                          }
+                                          onSelect={() => {
+                                            form.setValue(
+                                              "propertyId",
+                                              property.id,
+                                              { shouldDirty: true },
+                                            );
+                                            setPropertyOpen(false);
+                                            setKeyboardVisible(false);
+                                          }}
+                                        >
+                                          {property.address.streetAddress}
+                                        </CommandItem>
+                                      ),
+                                    )}
                                   </CommandGroup>
                                 </CommandList>
                               </Command>

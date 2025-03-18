@@ -10,9 +10,24 @@ import {
   Ellipsis,
   MoveLeft,
 } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { Header, HeaderGroup, Heading } from "@/components/page-header";
+import { ResponsiveDialog } from "@/components/responsive-dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -23,6 +38,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import {
   Form,
   FormControl,
@@ -43,21 +66,8 @@ import { cn } from "@/lib/utils";
 
 import { updatePurposeOfTheReport } from "./action";
 import { UpdatePurposeOfTheReportSchema } from "./schema";
-import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import Link from "next/link";
-import { ResponsiveDialog } from "@/components/responsive-dialog";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
 import { sections } from "../components/sections";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+
 
 export function UpdatePurposeOfTheReportForm({
   certificate,
@@ -130,7 +140,7 @@ export function UpdatePurposeOfTheReportForm({
 
   return (
     <>
-      <div className="container mx-auto max-w-screen-xl p-6 flex-grow">
+      <div className="container mx-auto max-w-screen-xl flex-grow p-6">
         <Header>
           <HeaderGroup>
             <Link
@@ -152,7 +162,8 @@ export function UpdatePurposeOfTheReportForm({
                   <div className="w-full space-y-2">
                     <CardTitle>Report Purpose Details</CardTitle>
                     <CardDescription>
-                      Please describe the purpose of the inspection, including the inspection dates and related information.
+                      Please describe the purpose of the inspection, including
+                      the inspection dates and related information.
                     </CardDescription>
                   </div>
                   <div className="w-full space-y-2">
@@ -161,7 +172,9 @@ export function UpdatePurposeOfTheReportForm({
                       name="purpose"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-muted-foreground">Purpose of the Report</FormLabel>
+                          <FormLabel className="text-muted-foreground">
+                            Purpose of the Report
+                          </FormLabel>
                           <FormControl>
                             <Textarea
                               {...field}
@@ -179,7 +192,9 @@ export function UpdatePurposeOfTheReportForm({
                       render={({ field }) => (
                         <FormItem className="flex flex-col">
                           <div>
-                            <FormLabel className="text-muted-foreground">Start Date of Inspection</FormLabel>
+                            <FormLabel className="text-muted-foreground">
+                              Start Date of Inspection
+                            </FormLabel>
                           </div>
                           <Popover>
                             <PopoverTrigger asChild>
@@ -200,13 +215,17 @@ export function UpdatePurposeOfTheReportForm({
                                 </Button>
                               </FormControl>
                             </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0" align="start">
+                            <PopoverContent
+                              className="w-auto p-0"
+                              align="start"
+                            >
                               <Calendar
                                 mode="single"
                                 selected={field.value}
                                 onSelect={field.onChange}
                                 disabled={(date) =>
-                                  date > new Date() || date < new Date("1900-01-01")
+                                  date > new Date() ||
+                                  date < new Date("1900-01-01")
                                 }
                                 initialFocus
                               />
@@ -222,7 +241,9 @@ export function UpdatePurposeOfTheReportForm({
                       render={({ field }) => (
                         <FormItem className="flex flex-col">
                           <div>
-                            <FormLabel className="text-muted-foreground">End Date of Inspection</FormLabel>
+                            <FormLabel className="text-muted-foreground">
+                              End Date of Inspection
+                            </FormLabel>
                           </div>
                           <Popover>
                             <PopoverTrigger asChild>
@@ -243,13 +264,17 @@ export function UpdatePurposeOfTheReportForm({
                                 </Button>
                               </FormControl>
                             </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0" align="start">
+                            <PopoverContent
+                              className="w-auto p-0"
+                              align="start"
+                            >
                               <Calendar
                                 mode="single"
                                 selected={field.value}
                                 onSelect={field.onChange}
                                 disabled={(date) =>
-                                  date > new Date() || date < new Date("1900-01-01")
+                                  date > new Date() ||
+                                  date < new Date("1900-01-01")
                                 }
                                 initialFocus
                               />
@@ -265,7 +290,9 @@ export function UpdatePurposeOfTheReportForm({
                       render={({ field }) => (
                         <FormItem>
                           <div>
-                            <FormLabel className="text-muted-foreground">Are Inspection Records Available?</FormLabel>
+                            <FormLabel className="text-muted-foreground">
+                              Are Inspection Records Available?
+                            </FormLabel>
                           </div>
                           <FormControl>
                             <Switch
@@ -283,7 +310,9 @@ export function UpdatePurposeOfTheReportForm({
                       render={({ field }) => (
                         <FormItem>
                           <div>
-                            <FormLabel className="text-muted-foreground">Is Previous Report Available?</FormLabel>
+                            <FormLabel className="text-muted-foreground">
+                              Is Previous Report Available?
+                            </FormLabel>
                           </div>
                           <FormControl>
                             <Switch
@@ -303,7 +332,9 @@ export function UpdatePurposeOfTheReportForm({
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
                             <div>
-                              <FormLabel className="text-muted-foreground">Date of Previous Report</FormLabel>
+                              <FormLabel className="text-muted-foreground">
+                                Date of Previous Report
+                              </FormLabel>
                             </div>
                             <Popover>
                               <PopoverTrigger asChild>
@@ -324,7 +355,10 @@ export function UpdatePurposeOfTheReportForm({
                                   </Button>
                                 </FormControl>
                               </PopoverTrigger>
-                              <PopoverContent className="w-auto p-0" align="start">
+                              <PopoverContent
+                                className="w-auto p-0"
+                                align="start"
+                              >
                                 <Calendar
                                   mode="single"
                                   selected={field.value}
@@ -363,7 +397,6 @@ export function UpdatePurposeOfTheReportForm({
           </form>
         </Form>
       </div>
-
 
       <div className="sticky bottom-0 border-t bg-background">
         <div className="container mx-auto flex max-w-screen-xl justify-between px-6 py-4">
