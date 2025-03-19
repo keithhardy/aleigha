@@ -2,12 +2,19 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport } from "@prisma/client";
+import { ArrowLeft, ArrowRight, List, MoveLeft, RotateCcw, Save, Send } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { Header, HeaderGroup, Heading } from "@/components/page-header";
+import { ResponsiveDialog } from "@/components/responsive-dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -16,13 +23,6 @@ import { useToast } from "@/hooks/use-toast";
 
 import { updateSummaryOfTheConditionOfTheInstallation } from "./action";
 import { UpdateSummaryOfTheConditionOfTheInstallationSchema } from "./schema";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import Link from "next/link";
-import { ArrowLeft, ArrowRight, List, MoveLeft, RotateCcw, Save, Send } from "lucide-react";
-import { ResponsiveDialog } from "@/components/responsive-dialog";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { sections } from "../components/sections";
 
 export function UpdateSummaryOfTheConditionOfTheInstallationForm({ certificate }: { certificate: ElectricalInstallationConditionReport }) {

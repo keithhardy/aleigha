@@ -53,13 +53,9 @@ export function UpdateContractorClientAndInstallationForm({
     },
   });
 
-  const selectedClient = clients.find(
-    (client) => client.id === form.watch("clientId")
-  );
+  const selectedClient = clients.find((client) => client.id === form.watch("clientId"));
 
-  const selectedProperty = selectedClient?.property.find(
-    (property) => property.id === form.watch("propertyId")
-  );
+  const selectedProperty = selectedClient?.property.find((property) => property.id === form.watch("propertyId"));
 
   useEffect(() => {
     originalPush.current = router.push;
@@ -84,12 +80,6 @@ export function UpdateContractorClientAndInstallationForm({
 
     if (response.status === "success") {
       form.reset(data);
-
-      setTimeout(() => {
-        if (nextUrl) {
-          router.push(nextUrl);
-        }
-      }, 1000);
     }
 
     toast({
@@ -342,26 +332,6 @@ export function UpdateContractorClientAndInstallationForm({
         </form>
       </Form>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       <AlertDialog open={unsavedChangesOpen} onOpenChange={setUnsavedChangesOpen}>
         <AlertDialogContent className="w-[90%]">
           <AlertDialogHeader>
@@ -380,19 +350,20 @@ export function UpdateContractorClientAndInstallationForm({
             <AlertDialogAction
               onClick={() => {
                 setUnsavedChangesOpen(false);
+                form.handleSubmit(onSubmit)();
+                setTimeout(() => { if (nextUrl) originalPush.current.call(router, nextUrl); }, 1000);
+              }}
+            >
+              Save and continue
+            </AlertDialogAction>
+            <AlertDialogAction
+              onClick={() => {
+                setUnsavedChangesOpen(false);
                 if (nextUrl) originalPush.current.call(router, nextUrl);
               }}
               className="mt-2 sm:mt-0"
             >
               Continue
-            </AlertDialogAction>
-            <AlertDialogAction
-              onClick={() => {
-                form.handleSubmit(onSubmit)();
-                setUnsavedChangesOpen(false);
-              }}
-            >
-              Save then continue
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

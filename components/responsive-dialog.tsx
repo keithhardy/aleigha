@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 import {
   Dialog,
-  DialogPortal,
   DialogTrigger,
   DialogContent,
   DialogTitle,
@@ -26,43 +25,34 @@ export const ResponsiveDialog = ({
   const [open, setOpen] = useState(false);
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 
+  useEffect(() => {
+    const handleResize = () => {
+      const viewportHeight = window.visualViewport?.height ?? window.outerHeight;
+      setKeyboardVisible(viewportHeight < window.outerHeight * 0.75);
+    };
+
+    window.visualViewport?.addEventListener("resize", handleResize);
+    return () =>
+      window.visualViewport?.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleOpenChange = (isOpen: boolean) => {
     setOpen(isOpen);
     if (!isOpen) setKeyboardVisible(false);
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.visualViewport) {
-        const isKeyboardVisible =
-          window.visualViewport.height < window.outerHeight * 0.75;
-        setKeyboardVisible(isKeyboardVisible);
-      }
-    };
+  const Component = isMobile ? Sheet : Dialog;
+  const Trigger = isMobile ? SheetTrigger : DialogTrigger;
+  const Content = isMobile ? SheetContent : DialogContent;
+  const Title = isMobile ? SheetTitle : DialogTitle;
 
-    window.visualViewport?.addEventListener("resize", handleResize);
-    return () => {
-      window.visualViewport?.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  return isMobile ? (
-    <Sheet open={open} onOpenChange={handleOpenChange}>
-      <SheetTrigger asChild>{trigger}</SheetTrigger>
-      <SheetContent side={keyboardVisible ? "top" : "bottom"}>
-        <SheetTitle />
+  return (
+    <Component open={open} onOpenChange={handleOpenChange}>
+      <Trigger asChild>{trigger}</Trigger>
+      <Content side={isMobile && keyboardVisible ? "top" : "bottom"}>
+        <Title />
         {content(setOpen)}
-      </SheetContent>
-    </Sheet>
-  ) : (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogPortal>
-        <DialogContent>
-          <DialogTitle />
-          {content(setOpen)}
-        </DialogContent>
-      </DialogPortal>
-    </Dialog>
+      </Content>
+    </Component>
   );
 };
