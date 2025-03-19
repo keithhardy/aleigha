@@ -9,7 +9,9 @@ import { updateFile } from "@/lib/vercel-blob";
 
 import { UpdateClientSchema } from "./schema";
 
-export async function updateClient(client: z.infer<typeof UpdateClientSchema>): Promise<ServerActionResponse<Client>> {
+export async function updateClient(
+  client: z.infer<typeof UpdateClientSchema>,
+): Promise<ServerActionResponse<Client>> {
   const clientResponse = await prisma.client.findUnique({
     where: {
       id: client.id,
@@ -18,7 +20,11 @@ export async function updateClient(client: z.infer<typeof UpdateClientSchema>): 
 
   if (client.picture) {
     try {
-      client.picture = await updateFile(client.picture, clientResponse?.picture || undefined, "client-picture");
+      client.picture = await updateFile(
+        client.picture,
+        clientResponse?.picture || undefined,
+        "client-picture",
+      );
     } catch {
       return {
         status: "error",

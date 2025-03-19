@@ -7,7 +7,9 @@ import { ServerActionResponse } from "@/lib/types";
 
 import { UpdateGoverningBodySchema } from "./schema";
 
-export async function updateGoverningBody(settings: z.infer<typeof UpdateGoverningBodySchema>): Promise<ServerActionResponse<void>> {
+export async function updateGoverningBody(
+  settings: z.infer<typeof UpdateGoverningBodySchema>,
+): Promise<ServerActionResponse<void>> {
   try {
     await prisma.settings.upsert({
       where: {

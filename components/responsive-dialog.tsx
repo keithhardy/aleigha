@@ -27,7 +27,8 @@ export const ResponsiveDialog = ({
 
   useEffect(() => {
     const handleResize = () => {
-      const viewportHeight = window.visualViewport?.height ?? window.outerHeight;
+      const viewportHeight =
+        window.visualViewport?.height ?? window.outerHeight;
       setKeyboardVisible(viewportHeight < window.outerHeight * 0.75);
     };
 

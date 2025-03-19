@@ -1,7 +1,12 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
+import {
+  Header,
+  HeaderDescription,
+  HeaderGroup,
+  Heading,
+} from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
 import UpdateUserForm from "./form";
@@ -10,7 +15,11 @@ export const metadata: Metadata = {
   title: "Reiyen – User",
 };
 
-export default async function UpdateUser({ params }: { params: Promise<{ id: string }> }) {
+export default async function UpdateUser({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const user = await prisma.user.findFirst({
     where: {
       id: decodeURIComponent((await params).id),
@@ -30,7 +39,10 @@ export default async function UpdateUser({ params }: { params: Promise<{ id: str
       <Header>
         <HeaderGroup>
           <Heading>User</Heading>
-          <HeaderDescription>View and edit the user&apos;s details. Update any information as needed and save your changes.</HeaderDescription>
+          <HeaderDescription>
+            View and edit the user&apos;s details. Update any information as
+            needed and save your changes.
+          </HeaderDescription>
         </HeaderGroup>
       </Header>
 

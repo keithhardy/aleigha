@@ -8,14 +8,20 @@ import { ServerActionResponse } from "@/lib/types";
 
 import { UpdateObservationsSchema } from "./schema";
 
-export async function updateObservations(electricalInstallationConditionReport: z.infer<typeof UpdateObservationsSchema>): Promise<ServerActionResponse<void>> {
+export async function updateObservations(
+  electricalInstallationConditionReport: z.infer<
+    typeof UpdateObservationsSchema
+  >,
+): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
       where: {
         id: electricalInstallationConditionReport.id,
       },
       data: {
-        observations: JSON.stringify(electricalInstallationConditionReport.observations),
+        observations: JSON.stringify(
+          electricalInstallationConditionReport.observations,
+        ),
       },
     });
 

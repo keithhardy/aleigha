@@ -9,7 +9,12 @@ import { DateRange } from "react-day-picker";
 
 import { DatePickerWithRange } from "@/components/date-picker-with-range";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 
 import { FacetedFilter } from "./faceted-filter";
@@ -24,26 +29,32 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
 
   const clientColumn = table.getColumn("client");
   const clientOptions = clientColumn
-    ? Array.from(clientColumn.getFacetedUniqueValues().entries()).map(([value]) => ({
-        label: String(value),
-        value: String(value),
-      }))
+    ? Array.from(clientColumn.getFacetedUniqueValues().entries()).map(
+        ([value]) => ({
+          label: String(value),
+          value: String(value),
+        }),
+      )
     : [];
 
   const creatorColumn = table.getColumn("creator");
   const creatorOptions = creatorColumn
-    ? Array.from(creatorColumn.getFacetedUniqueValues().entries()).map(([value]) => ({
-        label: String(value),
-        value: String(value),
-      }))
+    ? Array.from(creatorColumn.getFacetedUniqueValues().entries()).map(
+        ([value]) => ({
+          label: String(value),
+          value: String(value),
+        }),
+      )
     : [];
 
   const statusColumn = table.getColumn("status");
   const statusOptions = statusColumn
-    ? Array.from(statusColumn.getFacetedUniqueValues().entries()).map(([value]) => ({
-        label: String(value),
-        value: String(value),
-      }))
+    ? Array.from(statusColumn.getFacetedUniqueValues().entries()).map(
+        ([value]) => ({
+          label: String(value),
+          value: String(value),
+        }),
+      )
     : [];
 
   const [, setDateRange] = useState<DateRange | undefined>(undefined);
@@ -78,15 +89,41 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
-        <Input placeholder="Search..." value={(table.getState().globalFilter as string) ?? ""} onChange={(event) => table.setGlobalFilter(event.target.value)} className="h-8 w-[150px] border-dashed lg:w-[250px]" />
+        <Input
+          placeholder="Search..."
+          value={(table.getState().globalFilter as string) ?? ""}
+          onChange={(event) => table.setGlobalFilter(event.target.value)}
+          className="h-8 w-[150px] border-dashed lg:w-[250px]"
+        />
 
-        <DatePickerWithRange ref={datePickerRef} onSelect={handleDateRangeSelect} />
+        <DatePickerWithRange
+          ref={datePickerRef}
+          onSelect={handleDateRangeSelect}
+        />
 
-        {clientColumn && <FacetedFilter column={clientColumn} title="Client" options={clientOptions} />}
+        {clientColumn && (
+          <FacetedFilter
+            column={clientColumn}
+            title="Client"
+            options={clientOptions}
+          />
+        )}
 
-        {creatorColumn && <FacetedFilter column={creatorColumn} title="Operative" options={creatorOptions} />}
+        {creatorColumn && (
+          <FacetedFilter
+            column={creatorColumn}
+            title="Operative"
+            options={creatorOptions}
+          />
+        )}
 
-        {statusColumn && <FacetedFilter column={statusColumn} title="Status" options={statusOptions} />}
+        {statusColumn && (
+          <FacetedFilter
+            column={statusColumn}
+            title="Status"
+            options={statusOptions}
+          />
+        )}
 
         {isFiltered && (
           <Button

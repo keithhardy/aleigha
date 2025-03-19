@@ -1,24 +1,36 @@
-import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"; // Adjust imports as needed
+import { useState, useEffect, useRef } from "react";
 
-interface UnsavedChangesDialogProps {
-  form: any;
-  onSubmit: (data: any) => void;
-}
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
-export const UnsavedChangesDialog = ({ form, onSubmit }: UnsavedChangesDialogProps) => {
-  const [unsavedChangesOpen, setUnsavedChangesOpen] = useState(false);
-  const originalPush = useRef((url: string) => { });
+export const UnsavedChangesDialog = ({
+  condition,
+  action,
+}: {
+  condition: boolean;
+  action: () => void;
+}) => {
   const router = useRouter();
+  const originalPush = useRef(router.push);
+  const [open, setOpen] = useState(false);
+  const [url, setUrl] = useState("");
 
   useEffect(() => {
     originalPush.current = router.push;
 
     router.push = (url: string) => {
-      if (form.formState.isDirty) {
-        setUnsavedChangesOpen(true);
-        localStorage.setItem("nextUrl", url);
+      if (condition) {
+        setOpen(true);
+        setUrl(url);
         return;
       } else {
         originalPush.current.call(router, url);
@@ -28,33 +40,26 @@ export const UnsavedChangesDialog = ({ form, onSubmit }: UnsavedChangesDialogPro
     return () => {
       router.push = originalPush.current;
     };
-  }, [form.formState.isDirty, router]);
+  }, [condition, router]);
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
 
   const handleSaveAndContinue = () => {
-    form.handleSubmit(onSubmit)();
-
-    const nextUrl = localStorage.getItem("nextUrl");
-    if (nextUrl) {
-      router.push(nextUrl);
-      localStorage.removeItem("nextUrl");
-    }
-
-    setUnsavedChangesOpen(false);
+    setOpen(false);
+    action();
+    if (url) setTimeout(() => originalPush.current.call(router, url), 1000);
   };
 
   const handleContinue = () => {
-    const nextUrl = localStorage.getItem("nextUrl");
-    if (nextUrl) {
-      router.push(nextUrl);
-      localStorage.removeItem("nextUrl");
-    }
-
-    setUnsavedChangesOpen(false);
+    setOpen(false);
+    if (url) originalPush.current.call(router, url);
   };
 
   return (
-    <AlertDialog open={unsavedChangesOpen} onOpenChange={setUnsavedChangesOpen}>
-      <AlertDialogContent className="w-[90%]">
+    <AlertDialog open={open} onOpenChange={setOpen}>
+      <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
           <AlertDialogDescription>
@@ -62,17 +67,11 @@ export const UnsavedChangesDialog = ({ form, onSubmit }: UnsavedChangesDialogPro
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel
-            onClick={() => {
-              setUnsavedChangesOpen(false);
-            }}
-          >
-            Cancel
-          </AlertDialogCancel>
+          <AlertDialogCancel onClick={handleCancel}>Cancel</AlertDialogCancel>
           <AlertDialogAction onClick={handleSaveAndContinue}>
             Save and continue
           </AlertDialogAction>
-          <AlertDialogAction onClick={handleContinue} className="mt-2 sm:mt-0">
+          <AlertDialogAction onClick={handleContinue}>
             Continue
           </AlertDialogAction>
         </AlertDialogFooter>

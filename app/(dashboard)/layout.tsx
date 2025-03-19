@@ -6,12 +6,18 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
 // import { getCurrentUser } from "@/lib/auth";
 
 import { DashboardSidebar } from "./components/dashboard-sidebar";
 
-export default async function DashboardLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function DashboardLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   // const currentUser = await getCurrentUser();
 
   // if (!currentUser) redirect("/auth/login");
@@ -41,17 +47,28 @@ export default async function DashboardLayout({ children }: Readonly<{ children:
         </header>
         <main className="flex flex-1 flex-col">{children}</main>
         <footer className="flex flex-col items-center justify-between gap-2 border-t py-4 lg:flex-row">
-          <div className="flex items-center gap-2 px-6 text-sm">© {currentYear} Reiyen Group | All Rights Reserved.</div>
           <div className="flex items-center gap-2 px-6 text-sm">
-            <Link href="/terms-of-service" className="text-muted-foreground transition-colors hover:text-foreground">
+            © {currentYear} Reiyen Group | All Rights Reserved.
+          </div>
+          <div className="flex items-center gap-2 px-6 text-sm">
+            <Link
+              href="/terms-of-service"
+              className="text-muted-foreground transition-colors hover:text-foreground"
+            >
               Terms of Service
             </Link>{" "}
             |{" "}
-            <Link href="privacy-policy" className="text-muted-foreground transition-colors hover:text-foreground">
+            <Link
+              href="privacy-policy"
+              className="text-muted-foreground transition-colors hover:text-foreground"
+            >
               Privacy Policy
             </Link>{" "}
             |{" "}
-            <Link href="cookie-policy" className="text-muted-foreground transition-colors hover:text-foreground">
+            <Link
+              href="cookie-policy"
+              className="text-muted-foreground transition-colors hover:text-foreground"
+            >
               Cookie Policy
             </Link>
           </div>

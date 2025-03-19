@@ -8,11 +8,36 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
@@ -20,14 +45,21 @@ import { updateObservations } from "./action";
 import { observations } from "./observations";
 import { UpdateObservationsSchema } from "./schema";
 
-export function UpdateObservationsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+export function UpdateObservationsForm({
+  electricalInstallationConditionReport,
+}: {
+  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
+}) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof UpdateObservationsSchema>>({
     resolver: zodResolver(UpdateObservationsSchema),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
-      observations: JSON.parse(electricalInstallationConditionReport.observations as string) || [],
+      observations:
+        JSON.parse(
+          electricalInstallationConditionReport.observations as string,
+        ) || [],
     },
   });
 
@@ -69,18 +101,35 @@ export function UpdateObservationsForm({ electricalInstallationConditionReport }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="container mx-auto max-w-screen-md"
+      >
         <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Observations</CardTitle>
-            <CardDescription className="text-primary">Select observations.</CardDescription>
+            <CardDescription className="text-primary">
+              Select observations.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormItem>
-              <Popover open={selectedObservationOpen} onOpenChange={setSelectedObservationOpen}>
+              <Popover
+                open={selectedObservationOpen}
+                onOpenChange={setSelectedObservationOpen}
+              >
                 <PopoverTrigger asChild className="w-full">
-                  <Button variant="outline" role="combobox" aria-expanded={selectedObservationOpen} className="flex items-center justify-between">
-                    <span>{selectedObservation ? `${selectedObservation}: ${observations.find((obs) => obs.id.toString() === selectedObservation)?.description}` : "Select an observation"}</span>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={selectedObservationOpen}
+                    className="flex items-center justify-between"
+                  >
+                    <span>
+                      {selectedObservation
+                        ? `${selectedObservation}: ${observations.find((obs) => obs.id.toString() === selectedObservation)?.description}`
+                        : "Select an observation"}
+                    </span>
                     <ChevronsUpDown className="ml-2 opacity-50" />
                   </Button>
                 </PopoverTrigger>
@@ -88,7 +137,9 @@ export function UpdateObservationsForm({ electricalInstallationConditionReport }
                   <Command
                     filter={(value, search) => {
                       if (!search) return 1;
-                      return value.toLowerCase().includes(search.toLowerCase()) ? 1 : 0;
+                      return value.toLowerCase().includes(search.toLowerCase())
+                        ? 1
+                        : 0;
                     }}
                   >
                     <CommandInput placeholder="Search observation..." />
@@ -101,12 +152,17 @@ export function UpdateObservationsForm({ electricalInstallationConditionReport }
                             value={`${observation.itemNumber} ${observation.description}`}
                             onSelect={() => {
                               setSelectedObservation(observation.id.toString());
-                              handleObservationSelect(observation.id.toString());
+                              handleObservationSelect(
+                                observation.id.toString(),
+                              );
                               setSelectedObservationOpen(false);
                             }}
                           >
                             {`${observation.itemNumber}: ${observation.description}`}
-                            {observation.id.toString() === selectedObservation ? <Check className="ml-auto" /> : null}
+                            {observation.id.toString() ===
+                            selectedObservation ? (
+                              <Check className="ml-auto" />
+                            ) : null}
                           </CommandItem>
                         ))}
                       </CommandGroup>
@@ -137,7 +193,11 @@ export function UpdateObservationsForm({ electricalInstallationConditionReport }
                     <FormItem>
                       <FormLabel>Description</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="SPDs not provided for protection against transient overvoltage." {...field} className="h-[100px]" />
+                        <Textarea
+                          placeholder="SPDs not provided for protection against transient overvoltage."
+                          {...field}
+                          className="h-[100px]"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -176,8 +236,15 @@ export function UpdateObservationsForm({ electricalInstallationConditionReport }
             ))}
           </CardContent>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">Review the details of the observations and add any missing information.</p>
-            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+            <p className="text-sm text-muted-foreground">
+              Review the details of the observations and add any missing
+              information.
+            </p>
+            <Button
+              variant="outline"
+              type="submit"
+              disabled={!form.formState.isDirty || form.formState.isSubmitting}
+            >
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

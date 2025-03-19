@@ -6,8 +6,22 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
 import { RadioGroupComponent } from "../radio-group";
@@ -15,7 +29,11 @@ import { updateDistributionCircuits } from "./action";
 import { inspectionItems } from "./inspection-items";
 import { UpdateDistributionCircuitsSchema } from "./schema";
 
-export function UpdateDistributionCircuitsForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
+export function UpdateDistributionCircuitsForm({
+  electricalInstallationConditionReport,
+}: {
+  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
+}) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof UpdateDistributionCircuitsSchema>>({
@@ -50,7 +68,9 @@ export function UpdateDistributionCircuitsForm({ electricalInstallationCondition
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof UpdateDistributionCircuitsSchema>) => {
+  const onSubmit = async (
+    data: z.infer<typeof UpdateDistributionCircuitsSchema>,
+  ) => {
     const response = await updateDistributionCircuits(data);
 
     if (response.status === "success") {
@@ -66,11 +86,17 @@ export function UpdateDistributionCircuitsForm({ electricalInstallationCondition
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="container mx-auto max-w-screen-md"
+      >
         <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Distribution circuits</CardTitle>
-            <CardDescription className="text-primary">This section covers the condition and adequacy of the distribution circuits in the system.</CardDescription>
+            <CardDescription className="text-primary">
+              This section covers the condition and adequacy of the distribution
+              circuits in the system.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -83,7 +109,10 @@ export function UpdateDistributionCircuitsForm({ electricalInstallationCondition
                   <FormItem>
                     <FormLabel>{item.item + " - " + item.label}</FormLabel>
                     <FormControl>
-                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value || "na"} />
+                      <RadioGroupComponent
+                        onChange={field.onChange}
+                        defaultValue={field.value || "na"}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -92,8 +121,14 @@ export function UpdateDistributionCircuitsForm({ electricalInstallationCondition
             ))}
           </CardContent>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">Ensure all distribution circuits are properly inspected.</p>
-            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+            <p className="text-sm text-muted-foreground">
+              Ensure all distribution circuits are properly inspected.
+            </p>
+            <Button
+              variant="outline"
+              type="submit"
+              disabled={!form.formState.isDirty || form.formState.isSubmitting}
+            >
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

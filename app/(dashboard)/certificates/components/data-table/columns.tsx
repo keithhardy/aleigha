@@ -23,7 +23,9 @@ export const columns: ColumnDef<any>[] = [
   },
   {
     accessorKey: "property.uprn",
-    header: ({ column }) => <ColumnHeader column={column} title="Property Reference" />,
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Property Reference" />
+    ),
   },
   {
     accessorKey: "property.address.streetAddress",

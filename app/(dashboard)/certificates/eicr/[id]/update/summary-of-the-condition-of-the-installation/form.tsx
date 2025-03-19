@@ -2,7 +2,15 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport } from "@prisma/client";
-import { ArrowLeft, ArrowRight, List, MoveLeft, RotateCcw, Save, Send } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  List,
+  MoveLeft,
+  RotateCcw,
+  Save,
+  Send,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -11,11 +19,41 @@ import { z } from "zod";
 
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { ResponsiveDialog } from "@/components/responsive-dialog";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,7 +63,11 @@ import { updateSummaryOfTheConditionOfTheInstallation } from "./action";
 import { UpdateSummaryOfTheConditionOfTheInstallationSchema } from "./schema";
 import { sections } from "../components/sections";
 
-export function UpdateSummaryOfTheConditionOfTheInstallationForm({ certificate }: { certificate: ElectricalInstallationConditionReport }) {
+export function UpdateSummaryOfTheConditionOfTheInstallationForm({
+  certificate,
+}: {
+  certificate: ElectricalInstallationConditionReport;
+}) {
   const { toast } = useToast();
 
   const router = useRouter();
@@ -37,15 +79,19 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({ certificate }
 
   const originalPush = useRef(router.push);
 
-  const form = useForm<z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>>({
+  const form = useForm<
+    z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>
+  >({
     resolver: zodResolver(UpdateSummaryOfTheConditionOfTheInstallationSchema),
     defaultValues: {
       id: certificate.id,
       generalCondition: certificate.generalCondition || "",
-      estimatedAgeOfElectricalInstallation: certificate.estimatedAgeOfElectricalInstallation || "",
+      estimatedAgeOfElectricalInstallation:
+        certificate.estimatedAgeOfElectricalInstallation || "",
       evidenceOfAlterations: certificate.evidenceOfAlterations ?? false,
       estimatedAgeOfAlterations: certificate.estimatedAgeOfAlterations || "",
-      overallAssessmentOfTheInstallation: certificate.overallAssessmentOfTheInstallation ?? true,
+      overallAssessmentOfTheInstallation:
+        certificate.overallAssessmentOfTheInstallation ?? true,
     },
   });
 
@@ -67,7 +113,9 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({ certificate }
     };
   }, [form.formState.isDirty, router]);
 
-  const onSubmit = async (data: z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>) => {
+  const onSubmit = async (
+    data: z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>,
+  ) => {
     const response = await updateSummaryOfTheConditionOfTheInstallation(data);
 
     if (response.status === "success") {
@@ -84,11 +132,17 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({ certificate }
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-1 flex-col"
+        >
           <div className="container mx-auto max-w-screen-xl flex-grow p-6">
             <Header>
               <HeaderGroup>
-                <Link href={"/certificates"} className="inline-flex items-center text-sm font-semibold">
+                <Link
+                  href={"/certificates"}
+                  className="inline-flex items-center text-sm font-semibold"
+                >
                   <MoveLeft size={22} className="mr-2" />
                   <span>Back to Certificates</span>
                 </Link>
@@ -99,8 +153,14 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({ certificate }
             <div className="space-y-4">
               <Card className="rounded-md shadow-none">
                 <CardHeader>
-                  <CardTitle>Summary of the condition of the installation</CardTitle>
-                  <CardDescription className="text-primary">Provide an overview of the electrical installation&apos;s condition, including age, alterations, and overall assessment.</CardDescription>
+                  <CardTitle>
+                    Summary of the condition of the installation
+                  </CardTitle>
+                  <CardDescription className="text-primary">
+                    Provide an overview of the electrical installation&apos;s
+                    condition, including age, alterations, and overall
+                    assessment.
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <FormField
@@ -110,7 +170,11 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({ certificate }
                       <FormItem>
                         <FormLabel>General Condition</FormLabel>
                         <FormControl>
-                          <Textarea {...field} className="min-h-[100px]" placeholder="Describe the general condition of the installation, focusing on electrical safety and overall reliability." />
+                          <Textarea
+                            {...field}
+                            className="min-h-[100px]"
+                            placeholder="Describe the general condition of the installation, focusing on electrical safety and overall reliability."
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -128,7 +192,10 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({ certificate }
                             type="string"
                             placeholder="Estimated age of the installation."
                             onChange={(e) => {
-                              const value = Math.max(0, Math.floor(Number(e.target.value) || 0)).toString();
+                              const value = Math.max(
+                                0,
+                                Math.floor(Number(e.target.value) || 0),
+                              ).toString();
                               field.onChange(value);
                             }}
                             value={field.value ?? ""}
@@ -174,7 +241,10 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({ certificate }
                               type="string"
                               placeholder="Estimated age of the alterations."
                               onChange={(e) => {
-                                const value = Math.max(0, Math.floor(Number(e.target.value) || 0)).toString();
+                                const value = Math.max(
+                                  0,
+                                  Math.floor(Number(e.target.value) || 0),
+                                ).toString();
                                 field.onChange(value);
                               }}
                               value={field.value ?? ""}
@@ -195,8 +265,13 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({ certificate }
                         </div>
                         <FormControl>
                           <div className="flex items-center space-x-2">
-                            <Switch checked={field.value} onCheckedChange={field.onChange} />
-                            <span className="text-sm font-medium">{field.value ? "Satisfactory" : "Unsatisfactory"}</span>
+                            <Switch
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                            <span className="text-sm font-medium">
+                              {field.value ? "Satisfactory" : "Unsatisfactory"}
+                            </span>
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -205,8 +280,17 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({ certificate }
                   />
                 </CardContent>
                 <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-                  <p className="text-sm text-muted-foreground">Provide details about the condition of the installation and any alterations made.</p>
-                  <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+                  <p className="text-sm text-muted-foreground">
+                    Provide details about the condition of the installation and
+                    any alterations made.
+                  </p>
+                  <Button
+                    variant="outline"
+                    type="submit"
+                    disabled={
+                      !form.formState.isDirty || form.formState.isSubmitting
+                    }
+                  >
                     {form.formState.isSubmitting ? "Saving..." : "Save"}
                   </Button>
                 </CardFooter>
@@ -216,7 +300,9 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({ certificate }
 
           <div className="sticky bottom-0 border-t bg-background">
             <div className="container mx-auto flex max-w-screen-xl justify-between px-6 py-4">
-              <Link href={`/certificates/eicr/${certificate.id}/update/purpose-of-the-report`}>
+              <Link
+                href={`/certificates/eicr/${certificate.id}/update/purpose-of-the-report`}
+              >
                 <Button variant="outline" size="icon">
                   <ArrowLeft />
                 </Button>
@@ -245,7 +331,9 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({ certificate }
                             onSelect={() => {
                               setNavigationOpen(false);
                               setKeyboardVisible(false);
-                              router.push(`/certificates/eicr/${certificate.id}/update${section.url}`);
+                              router.push(
+                                `/certificates/eicr/${certificate.id}/update${section.url}`,
+                              );
                             }}
                             className="truncate"
                           >
@@ -256,17 +344,37 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({ certificate }
                     </CommandList>
                   </Command>
                 </ResponsiveDialog>
-                <Button variant="outline" size="icon" onClick={() => form.reset()} disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => form.reset()}
+                  disabled={
+                    !form.formState.isDirty || form.formState.isSubmitting
+                  }
+                >
                   <RotateCcw />
                 </Button>
-                <Button type="submit" variant="outline" size="icon" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
+                <Button
+                  type="submit"
+                  variant="outline"
+                  size="icon"
+                  disabled={
+                    !form.formState.isDirty || form.formState.isSubmitting
+                  }
+                >
                   <Save />
                 </Button>
-                <Button variant="outline" size="icon" onClick={() => form.reset()}>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => form.reset()}
+                >
                   <Send />
                 </Button>
               </div>
-              <Link href={`/certificates/eicr/${certificate.id}/update/declaration`}>
+              <Link
+                href={`/certificates/eicr/${certificate.id}/update/declaration`}
+              >
                 <Button variant="outline" size="icon">
                   <ArrowRight />
                 </Button>
@@ -276,11 +384,16 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({ certificate }
         </form>
       </Form>
 
-      <AlertDialog open={unsavedChangesOpen} onOpenChange={setUnsavedChangesOpen}>
+      <AlertDialog
+        open={unsavedChangesOpen}
+        onOpenChange={setUnsavedChangesOpen}
+      >
         <AlertDialogContent className="w-[90%]">
           <AlertDialogHeader>
             <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
-            <AlertDialogDescription>You have unsaved changes. Leave without saving?</AlertDialogDescription>
+            <AlertDialogDescription>
+              You have unsaved changes. Leave without saving?
+            </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel

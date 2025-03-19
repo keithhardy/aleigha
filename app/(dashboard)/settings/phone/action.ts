@@ -7,7 +7,9 @@ import { ServerActionResponse } from "@/lib/types";
 
 import { UpdatePhoneSchema } from "./schema";
 
-export async function updatePhone(settings: z.infer<typeof UpdatePhoneSchema>): Promise<ServerActionResponse<void>> {
+export async function updatePhone(
+  settings: z.infer<typeof UpdatePhoneSchema>,
+): Promise<ServerActionResponse<void>> {
   try {
     await prisma.settings.upsert({
       where: {

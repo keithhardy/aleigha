@@ -47,7 +47,12 @@ function HeaderActions({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("flex space-x-2 pb-0 lg:pb-2 justify-end", className)} {...props} />;
+  return (
+    <div
+      className={cn("flex justify-end space-x-2 pb-0 lg:pb-2", className)}
+      {...props}
+    />
+  );
 }
 
 export { Header, HeaderDescription, HeaderGroup, Heading, HeaderActions };

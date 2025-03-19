@@ -9,10 +9,28 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +38,13 @@ import { updateUser } from "./action";
 import { UpdateUserSchema } from "./schema";
 import { SignatureField } from "../../components/signature-field";
 
-export default function UpdateUserForm({ user, clients }: { user: User & { clients: Client[] }; clients: Client[] }) {
+export default function UpdateUserForm({
+  user,
+  clients,
+}: {
+  user: User & { clients: Client[] };
+  clients: Client[];
+}) {
   const { toast } = useToast();
 
   const [userRoleOpen, setRoleOpen] = useState(false);
@@ -106,14 +130,26 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
               <FormLabel>Client</FormLabel>
               <Popover open={userRoleOpen} onOpenChange={setRoleOpen}>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" role="combobox" aria-expanded={userRoleOpen ? "true" : "false"} className="max-w-[1024px] justify-between">
-                    {field.value ? UserRoles.find((userRole) => userRole.id === field.value)?.name : "Select Role..."}
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={userRoleOpen ? "true" : "false"}
+                    className="max-w-[1024px] justify-between"
+                  >
+                    {field.value
+                      ? UserRoles.find(
+                          (userRole) => userRole.id === field.value,
+                        )?.name
+                      : "Select Role..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="p-0">
                   <Command>
-                    <CommandInput placeholder="Search userRole..." className="h-9" />
+                    <CommandInput
+                      placeholder="Search userRole..."
+                      className="h-9"
+                    />
                     <CommandList>
                       <CommandEmpty>No userRole found.</CommandEmpty>
                       <CommandGroup>
@@ -127,7 +163,14 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
                             }}
                           >
                             {userRole.name}
-                            <Check className={cn("ml-auto", userRole.id === field.value ? "opacity-100" : "opacity-0")} />
+                            <Check
+                              className={cn(
+                                "ml-auto",
+                                userRole.id === field.value
+                                  ? "opacity-100"
+                                  : "opacity-0",
+                              )}
+                            />
                           </CommandItem>
                         ))}
                       </CommandGroup>
@@ -143,8 +186,16 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
           <FormLabel>Clients</FormLabel>
           <Popover open={userClientOpen} onOpenChange={setClientOpen}>
             <PopoverTrigger asChild>
-              <Button variant="outline" className="max-w-[1024px] justify-between">
-                {clientsToConnect.length === 0 && clientsToDisconnect.length === 0 ? (user.clients.length === 0 ? "Select Clients..." : `${user.clients.length} clients selected`) : `${clientsToConnect.length} added, ${clientsToDisconnect.length} removed`}
+              <Button
+                variant="outline"
+                className="max-w-[1024px] justify-between"
+              >
+                {clientsToConnect.length === 0 &&
+                clientsToDisconnect.length === 0
+                  ? user.clients.length === 0
+                    ? "Select Clients..."
+                    : `${user.clients.length} clients selected`
+                  : `${clientsToConnect.length} added, ${clientsToDisconnect.length} removed`}
                 <ChevronsUpDown className="opacity-50" />
               </Button>
             </PopoverTrigger>
@@ -155,10 +206,18 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
                   <CommandEmpty>No client found.</CommandEmpty>
                   <CommandGroup>
                     {clients.map((client) => {
-                      const isInDisconnect = clientsToDisconnect.some((c) => c.clientId === client.id);
-                      const isInConnect = clientsToConnect.some((c) => c.clientId === client.id);
-                      const filteredCurrentClients = user.clients.filter((c) => c !== null);
-                      const isInCurrentClients = filteredCurrentClients.some((c) => c.id === client.id);
+                      const isInDisconnect = clientsToDisconnect.some(
+                        (c) => c.clientId === client.id,
+                      );
+                      const isInConnect = clientsToConnect.some(
+                        (c) => c.clientId === client.id,
+                      );
+                      const filteredCurrentClients = user.clients.filter(
+                        (c) => c !== null,
+                      );
+                      const isInCurrentClients = filteredCurrentClients.some(
+                        (c) => c.id === client.id,
+                      );
 
                       return (
                         <CommandItem
@@ -166,7 +225,11 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
                           onSelect={() => {
                             if (isInCurrentClients) {
                               if (isInDisconnect) {
-                                removeFromDisconnect(clientsToDisconnect.findIndex((field) => field.clientId === client.id));
+                                removeFromDisconnect(
+                                  clientsToDisconnect.findIndex(
+                                    (field) => field.clientId === client.id,
+                                  ),
+                                );
                               } else {
                                 appendToDisconnect({
                                   clientId: client.id,
@@ -175,7 +238,11 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
                               }
                             } else {
                               if (isInConnect) {
-                                removeFromConnect(clientsToConnect.findIndex((c) => c.clientId === client.id));
+                                removeFromConnect(
+                                  clientsToConnect.findIndex(
+                                    (c) => c.clientId === client.id,
+                                  ),
+                                );
                               } else {
                                 appendToConnect({
                                   clientId: client.id,
@@ -186,8 +253,13 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
                           }}
                         >
                           {client.name}
-                          {(isInCurrentClients && !isInDisconnect) || isInConnect ? <Check className="ml-auto" /> : null}
-                          {isInCurrentClients && isInDisconnect ? <X className="ml-auto" /> : null}
+                          {(isInCurrentClients && !isInDisconnect) ||
+                          isInConnect ? (
+                            <Check className="ml-auto" />
+                          ) : null}
+                          {isInCurrentClients && isInDisconnect ? (
+                            <X className="ml-auto" />
+                          ) : null}
                         </CommandItem>
                       );
                     })}
@@ -236,7 +308,11 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={form.formState.isSubmitting} variant="outline">
+        <Button
+          type="submit"
+          disabled={form.formState.isSubmitting}
+          variant="outline"
+        >
           {form.formState.isSubmitting ? "Saving" : "Save"}
         </Button>
       </form>
