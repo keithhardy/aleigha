@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { LeavePageAlertDialog } from "@/components/leave-page-alert-dialog";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { ResponsiveDialog } from "@/components/responsive-dialog";
 import { Button } from "@/components/ui/button";
@@ -38,7 +39,6 @@ import {
 } from "@/components/ui/command";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ActionConfirmationDialog } from "@/components/unsaved-changes-dialog";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateContractorClientAndInstallation } from "./action";
@@ -118,6 +118,7 @@ export function UpdateContractorClientAndInstallationForm({
                 </Heading>
               </HeaderGroup>
             </Header>
+
             <div className="space-y-4">
               <Card className="rounded-md shadow-none">
                 <CardContent className="space-y-6 p-6">
@@ -504,7 +505,7 @@ export function UpdateContractorClientAndInstallationForm({
         </form>
       </Form>
 
-      <ActionConfirmationDialog
+      <LeavePageAlertDialog
         condition={form.formState.isDirty}
         action={form.handleSubmit(onSubmit)}
       />
