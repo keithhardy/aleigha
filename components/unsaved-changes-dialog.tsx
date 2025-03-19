@@ -12,7 +12,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-export const UnsavedChangesDialog = ({
+export const ActionConfirmationDialog = ({
   condition,
   action,
 }: {
