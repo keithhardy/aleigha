@@ -6,22 +6,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
 import { RadioGroupComponent } from "../radio-group";
@@ -29,16 +15,10 @@ import { updateContractorClientAndInstallation } from "./action";
 import { inspectionItems } from "./inspection-items";
 import { UpdateProsumersLowVoltageInstallationSchema } from "./schema";
 
-export function UpdateProsumersLowVoltageInstallationForm({
-  electricalInstallationConditionReport,
-}: {
-  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
-}) {
+export function UpdateProsumersLowVoltageInstallationForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
   const { toast } = useToast();
 
-  const form = useForm<
-    z.infer<typeof UpdateProsumersLowVoltageInstallationSchema>
-  >({
+  const form = useForm<z.infer<typeof UpdateProsumersLowVoltageInstallationSchema>>({
     resolver: zodResolver(UpdateProsumersLowVoltageInstallationSchema),
     defaultValues: {
       id: electricalInstallationConditionReport.id,
@@ -46,9 +26,7 @@ export function UpdateProsumersLowVoltageInstallationForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateProsumersLowVoltageInstallationSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateProsumersLowVoltageInstallationSchema>) => {
     const response = await updateContractorClientAndInstallation(data);
 
     if (response.status === "success") {
@@ -64,17 +42,11 @@ export function UpdateProsumersLowVoltageInstallationForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="container mx-auto max-w-screen-md"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
         <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Prosumer&apos;s low voltage installation</CardTitle>
-            <CardDescription className="text-primary">
-              Observations regarding the condition of the prosumer&apos;s low
-              voltage installation.
-            </CardDescription>
+            <CardDescription className="text-primary">Observations regarding the condition of the prosumer&apos;s low voltage installation.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -87,10 +59,7 @@ export function UpdateProsumersLowVoltageInstallationForm({
                   <FormItem>
                     <FormLabel>{item.item + " - " + item.label}</FormLabel>
                     <FormControl>
-                      <RadioGroupComponent
-                        onChange={field.onChange}
-                        defaultValue={field.value || "na"}
-                      />
+                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value || "na"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -99,15 +68,8 @@ export function UpdateProsumersLowVoltageInstallationForm({
             ))}
           </CardContent>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">
-              Ensure the prosumer’s low voltage installation is inspected for
-              condition.
-            </p>
-            <Button
-              variant="outline"
-              type="submit"
-              disabled={!form.formState.isDirty || form.formState.isSubmitting}
-            >
+            <p className="text-sm text-muted-foreground">Ensure the prosumer’s low voltage installation is inspected for condition.</p>
+            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

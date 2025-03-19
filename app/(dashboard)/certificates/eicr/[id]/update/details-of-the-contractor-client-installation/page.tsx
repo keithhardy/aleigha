@@ -4,33 +4,28 @@ import { prisma } from "@/lib/prisma";
 
 import { UpdateContractorClientAndInstallationForm } from "./form";
 
-export default async function UpdateContractorClientAndInstallation({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const certificate =
-    await prisma.electricalInstallationConditionReport.findFirst({
-      where: {
-        id: (await params).id,
-      },
-      select: {
-        id: true,
-        clientId: true,
-        propertyId: true,
-        client: {
-          select: {
-            id: true,
-            address: true,
-          },
-        },
-        property: {
-          select: {
-            address: true,
-          },
+export default async function UpdateContractorClientAndInstallation({ params }: { params: Promise<{ id: string }> }) {
+  const certificate = await prisma.electricalInstallationConditionReport.findFirst({
+    where: {
+      id: (await params).id,
+    },
+    select: {
+      id: true,
+      clientId: true,
+      propertyId: true,
+      client: {
+        select: {
+          id: true,
+          address: true,
         },
       },
-    });
+      property: {
+        select: {
+          address: true,
+        },
+      },
+    },
+  });
 
   if (!certificate) {
     notFound();
@@ -53,11 +48,5 @@ export default async function UpdateContractorClientAndInstallation({
     },
   });
 
-  return (
-    <UpdateContractorClientAndInstallationForm
-      certificate={certificate}
-      clients={clients}
-      settings={settings}
-    />
-  );
+  return <UpdateContractorClientAndInstallationForm certificate={certificate} clients={clients} settings={settings} />;
 }

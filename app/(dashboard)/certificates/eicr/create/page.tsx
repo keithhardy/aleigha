@@ -1,11 +1,6 @@
 import { redirect } from "next/navigation";
 
-import {
-  Header,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
+import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 import { getCurrentUser } from "@/lib/auth";
 
 import { CreateElectricalInstallationConditionReportForm } from "./form";
@@ -30,17 +25,11 @@ export default async function CreateElectricalInstallationConditionReport() {
       <Header>
         <HeaderGroup>
           <Heading>Create Electrical Installation Condition Report</Heading>
-          <HeaderDescription>
-            Fill in the details below to create a new Electrical Installation
-            Condition Report (EICR).
-          </HeaderDescription>
+          <HeaderDescription>Fill in the details below to create a new Electrical Installation Condition Report (EICR).</HeaderDescription>
         </HeaderGroup>
       </Header>
 
-      <CreateElectricalInstallationConditionReportForm
-        currentUser={currentUser}
-        clients={clients}
-      />
+      <CreateElectricalInstallationConditionReportForm currentUser={currentUser} clients={clients} />
     </div>
   );
 }

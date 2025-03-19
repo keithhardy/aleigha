@@ -11,11 +11,7 @@ import { CreateElectricalInstallationConditionReportSchema } from "./schema";
 
 const MAX_RETRIES = 5;
 
-export async function createElectricalInstallationConditionReport(
-  electricalInstallationConditionReport: z.infer<
-    typeof CreateElectricalInstallationConditionReportSchema
-  >,
-): Promise<ServerActionResponse<ElectricalInstallationConditionReport>> {
+export async function createElectricalInstallationConditionReport(electricalInstallationConditionReport: z.infer<typeof CreateElectricalInstallationConditionReportSchema>): Promise<ServerActionResponse<ElectricalInstallationConditionReport>> {
   let retries = 0;
 
   while (retries < MAX_RETRIES) {
@@ -42,8 +38,7 @@ export async function createElectricalInstallationConditionReport(
         return {
           status: "error",
           heading: "Certificate Creation Failed",
-          message:
-            "There was an issue creating the certificate. Please try again.",
+          message: "There was an issue creating the certificate. Please try again.",
         };
       }
     }

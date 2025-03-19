@@ -8,41 +8,25 @@ import { ServerActionResponse } from "@/lib/types";
 
 import { UpdateSupplyCharacteristicsAndEarthingArrangementsSchema } from "./schema";
 
-export async function updateSupplyCharacteristicsAndEarthingArrangements(
-  electricalInstallationConditionReport: z.infer<
-    typeof UpdateSupplyCharacteristicsAndEarthingArrangementsSchema
-  >,
-): Promise<ServerActionResponse<void>> {
+export async function updateSupplyCharacteristicsAndEarthingArrangements(electricalInstallationConditionReport: z.infer<typeof UpdateSupplyCharacteristicsAndEarthingArrangementsSchema>): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
       where: {
         id: electricalInstallationConditionReport.id,
       },
       data: {
-        systemTypeAndEarthingArrangements:
-          electricalInstallationConditionReport.systemTypeAndEarthingArrangements,
-        supplyProtectiveDeviceBSNumber:
-          electricalInstallationConditionReport.supplyProtectiveDeviceBSNumber,
-        supplyProtectiveDeviceType:
-          electricalInstallationConditionReport.supplyProtectiveDeviceType,
-        supplyProtectiveDeviceRatedCurrent:
-          electricalInstallationConditionReport.supplyProtectiveDeviceRatedCurrent,
-        numberAndTypeOfLiveConductors:
-          electricalInstallationConditionReport.numberAndTypeOfLiveConductors,
-        confirmationOfSupplyPolarity:
-          electricalInstallationConditionReport.confirmationOfSupplyPolarity,
-        otherSourcesOfSupply:
-          electricalInstallationConditionReport.otherSourcesOfSupply,
-        nominalVoltageBetweenLines:
-          electricalInstallationConditionReport.nominalVoltageBetweenLines,
-        nominalLineVoltageToEarth:
-          electricalInstallationConditionReport.nominalLineVoltageToEarth,
-        nominalFrequency:
-          electricalInstallationConditionReport.nominalFrequency,
-        prospectiveFaultCurrent:
-          electricalInstallationConditionReport.prospectiveFaultCurrent,
-        externalEarthFaultLoopImpedance:
-          electricalInstallationConditionReport.externalEarthFaultLoopImpedance,
+        systemTypeAndEarthingArrangements: electricalInstallationConditionReport.systemTypeAndEarthingArrangements,
+        supplyProtectiveDeviceBSNumber: electricalInstallationConditionReport.supplyProtectiveDeviceBSNumber,
+        supplyProtectiveDeviceType: electricalInstallationConditionReport.supplyProtectiveDeviceType,
+        supplyProtectiveDeviceRatedCurrent: electricalInstallationConditionReport.supplyProtectiveDeviceRatedCurrent,
+        numberAndTypeOfLiveConductors: electricalInstallationConditionReport.numberAndTypeOfLiveConductors,
+        confirmationOfSupplyPolarity: electricalInstallationConditionReport.confirmationOfSupplyPolarity,
+        otherSourcesOfSupply: electricalInstallationConditionReport.otherSourcesOfSupply,
+        nominalVoltageBetweenLines: electricalInstallationConditionReport.nominalVoltageBetweenLines,
+        nominalLineVoltageToEarth: electricalInstallationConditionReport.nominalLineVoltageToEarth,
+        nominalFrequency: electricalInstallationConditionReport.nominalFrequency,
+        prospectiveFaultCurrent: electricalInstallationConditionReport.prospectiveFaultCurrent,
+        externalEarthFaultLoopImpedance: electricalInstallationConditionReport.externalEarthFaultLoopImpedance,
       },
     });
 

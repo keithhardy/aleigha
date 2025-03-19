@@ -1,12 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { DeletePropertyForm } from "@/app/(dashboard)/properties/[id]/delete/form";
-import {
-  Header,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
+import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
 export async function generateStaticParams() {
@@ -19,11 +14,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function DeleteProperty({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function DeleteProperty({ params }: { params: Promise<{ id: string }> }) {
   const property = await prisma.property.findUnique({
     where: {
       id: (await params).id,
@@ -42,10 +33,7 @@ export default async function DeleteProperty({
       <Header>
         <HeaderGroup>
           <Heading>Delete Property</Heading>
-          <HeaderDescription>
-            Are you sure you want to delete {property.address.streetAddress}?
-            This action cannot be undone.
-          </HeaderDescription>
+          <HeaderDescription>Are you sure you want to delete {property.address.streetAddress}? This action cannot be undone.</HeaderDescription>
         </HeaderGroup>
       </Header>
 

@@ -10,32 +10,15 @@ import { z } from "zod";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateLogo } from "./action";
 import { UpdateLogoSchema } from "./schema";
 
-export function UpdatePictureForm({
-  settings,
-}: {
-  settings: (Settings & { address: Address | null }) | null;
-}) {
+export function UpdatePictureForm({ settings }: { settings: (Settings & { address: Address | null }) | null }) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -101,9 +84,7 @@ export function UpdatePictureForm({
           <CardHeader className="flex flex-row justify-between">
             <div className="space-y-2">
               <CardTitle>Upload Logo</CardTitle>
-              <CardDescription className="text-primary">
-                Add or update your company logo.
-              </CardDescription>
+              <CardDescription className="text-primary">Add or update your company logo.</CardDescription>
             </div>
             {imagePreview && (
               <div className="w-[100px]">
@@ -121,18 +102,9 @@ export function UpdatePictureForm({
                 <FormItem className="space-y-4">
                   <div className="flex items-center gap-2 lg:max-w-[50%]">
                     <FormControl>
-                      <Input
-                        type="file"
-                        accept="image/*"
-                        ref={fileInputRef}
-                        onChange={handleFileChange}
-                      />
+                      <Input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileChange} />
                     </FormControl>
-                    <Button
-                      variant="outline"
-                      type="button"
-                      onClick={handleClear}
-                    >
+                    <Button variant="outline" type="button" onClick={handleClear}>
                       Clear
                     </Button>
                   </div>
@@ -142,14 +114,8 @@ export function UpdatePictureForm({
             />
           </CardContent>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">
-              Logo must be less than 1 MB.
-            </p>
-            <Button
-              variant="outline"
-              type="submit"
-              disabled={!form.formState.isDirty || form.formState.isSubmitting}
-            >
+            <p className="text-sm text-muted-foreground">Logo must be less than 1 MB.</p>
+            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

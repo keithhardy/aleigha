@@ -1,11 +1,6 @@
 import { Metadata } from "next";
 
-import {
-  Header,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
+import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
 import { columns } from "./components/data-table/columns";
@@ -23,10 +18,7 @@ export default async function Users() {
       <Header>
         <HeaderGroup>
           <Heading>View Users</Heading>
-          <HeaderDescription>
-            Manage your users. View a table of users and access links to create,
-            update, or delete user records.
-          </HeaderDescription>
+          <HeaderDescription>Manage your users. View a table of users and access links to create, update, or delete user records.</HeaderDescription>
         </HeaderGroup>
       </Header>
 

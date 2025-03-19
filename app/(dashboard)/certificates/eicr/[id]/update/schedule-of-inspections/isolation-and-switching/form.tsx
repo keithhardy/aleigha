@@ -6,22 +6,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
 import { RadioGroupComponent } from "../radio-group";
@@ -29,11 +15,7 @@ import { updateIsolationAndSwitching } from "./action";
 import { inspectionItems } from "./inspection-items";
 import { UpdateIsolationAndSwitchingSchema } from "./schema";
 
-export function UpdateIsolationAndSwitchingForm({
-  electricalInstallationConditionReport,
-}: {
-  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
-}) {
+export function UpdateIsolationAndSwitchingForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof UpdateIsolationAndSwitchingSchema>>({
@@ -59,9 +41,7 @@ export function UpdateIsolationAndSwitchingForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateIsolationAndSwitchingSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateIsolationAndSwitchingSchema>) => {
     const response = await updateIsolationAndSwitching(data);
 
     if (response.status === "success") {
@@ -77,17 +57,11 @@ export function UpdateIsolationAndSwitchingForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="container mx-auto max-w-screen-md"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
         <Card className="rounded-md shadow-none">
           <CardHeader>
             <CardTitle>Isolation and switching</CardTitle>
-            <CardDescription className="text-primary">
-              This section evaluates the isolation and switching arrangements
-              for safety and compliance.
-            </CardDescription>
+            <CardDescription className="text-primary">This section evaluates the isolation and switching arrangements for safety and compliance.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -100,10 +74,7 @@ export function UpdateIsolationAndSwitchingForm({
                   <FormItem>
                     <FormLabel>{item.item + " - " + item.label}</FormLabel>
                     <FormControl>
-                      <RadioGroupComponent
-                        onChange={field.onChange}
-                        defaultValue={field.value || "na"}
-                      />
+                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value || "na"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -112,14 +83,8 @@ export function UpdateIsolationAndSwitchingForm({
             ))}
           </CardContent>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">
-              Ensure all isolation and switching mechanisms are inspected.
-            </p>
-            <Button
-              variant="outline"
-              type="submit"
-              disabled={!form.formState.isDirty || form.formState.isSubmitting}
-            >
+            <p className="text-sm text-muted-foreground">Ensure all isolation and switching mechanisms are inspected.</p>
+            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>

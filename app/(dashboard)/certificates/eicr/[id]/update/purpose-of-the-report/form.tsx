@@ -3,18 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { format } from "date-fns";
-import {
-  ArrowLeft,
-  ArrowRight,
-  CalendarIcon,
-  Ellipsis,
-  ExternalLink,
-  List,
-  MoveLeft,
-  RotateCcw,
-  Save,
-  Send,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarIcon, Ellipsis, ExternalLink, List, MoveLeft, RotateCcw, Save, Send } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -23,47 +12,13 @@ import { z } from "zod";
 
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { ResponsiveDialog } from "@/components/responsive-dialog";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
@@ -73,12 +28,7 @@ import { updatePurposeOfTheReport } from "./action";
 import { UpdatePurposeOfTheReportSchema } from "./schema";
 import { sections } from "../components/sections";
 
-
-export function UpdatePurposeOfTheReportForm({
-  certificate,
-}: {
-  certificate: ElectricalInstallationConditionReport;
-}) {
+export function UpdatePurposeOfTheReportForm({ certificate }: { certificate: ElectricalInstallationConditionReport }) {
   const { toast } = useToast();
 
   const router = useRouter();
@@ -121,9 +71,7 @@ export function UpdatePurposeOfTheReportForm({
     };
   }, [form.formState.isDirty, router]);
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdatePurposeOfTheReportSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdatePurposeOfTheReportSchema>) => {
     const response = await updatePurposeOfTheReport(data);
 
     if (response.status === "success") {
@@ -150,10 +98,7 @@ export function UpdatePurposeOfTheReportForm({
           <div className="container mx-auto max-w-screen-xl flex-grow p-6">
             <Header>
               <HeaderGroup>
-                <Link
-                  href={"/certificates"}
-                  className="inline-flex items-center text-sm font-semibold"
-                >
+                <Link href={"/certificates"} className="inline-flex items-center text-sm font-semibold">
                   <MoveLeft size={22} className="mr-2" />
                   <span>Back to Certificates</span>
                 </Link>
@@ -167,9 +112,7 @@ export function UpdatePurposeOfTheReportForm({
                   <div className="flex flex-col gap-4 lg:flex-row">
                     <div className="w-full space-y-2">
                       <CardTitle>Purpose</CardTitle>
-                      <CardDescription>
-                        Please specify the reason for generating this report and any specific objectives or requirements for the inspection.
-                      </CardDescription>
+                      <CardDescription>Please specify the reason for generating this report and any specific objectives or requirements for the inspection.</CardDescription>
                     </div>
                     <div className="w-full space-y-2">
                       <FormField
@@ -178,10 +121,7 @@ export function UpdatePurposeOfTheReportForm({
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Textarea
-                                {...field}
-                                className="min-h-[200px]"
-                              />
+                              <Textarea {...field} className="min-h-[200px]" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -193,10 +133,7 @@ export function UpdatePurposeOfTheReportForm({
                 <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                   <p className="text-balance text-sm text-muted-foreground">
                     To set or change the default value for the purpose, visit the{" "}
-                    <Link
-                      href={"/settings"}
-                      className="inline-flex items-center space-x-1 text-blue-500"
-                    >
+                    <Link href={"/settings"} className="inline-flex items-center space-x-1 text-blue-500">
                       <span>Settings</span>
                       <ExternalLink size={14} />
                     </Link>
@@ -210,9 +147,7 @@ export function UpdatePurposeOfTheReportForm({
                   <div className="flex flex-col gap-4 lg:flex-row">
                     <div className="w-full space-y-2">
                       <CardTitle>Dates</CardTitle>
-                      <CardDescription>
-                        Please specify the start and end dates of the inspection and testing to accurately reflect the report timeline.
-                      </CardDescription>
+                      <CardDescription>Please specify the start and end dates of the inspection and testing to accurately reflect the report timeline.</CardDescription>
                     </div>
                     <div className="w-full space-y-2">
                       <FormField
@@ -221,43 +156,19 @@ export function UpdatePurposeOfTheReportForm({
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
                             <div>
-                              <FormLabel className="text-muted-foreground">
-                                Start Date
-                              </FormLabel>
+                              <FormLabel className="text-muted-foreground">Start Date</FormLabel>
                             </div>
                             <Popover>
                               <PopoverTrigger asChild>
                                 <FormControl>
-                                  <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                      "pl-3 text-left font-normal",
-                                      !field.value && "text-muted-foreground",
-                                    )}
-                                  >
-                                    {field.value ? (
-                                      format(field.value, "PPP")
-                                    ) : (
-                                      <span>Pick a date</span>
-                                    )}
+                                  <Button variant={"outline"} className={cn("pl-3 text-left font-normal", !field.value && "text-muted-foreground")}>
+                                    {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
                                     <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                   </Button>
                                 </FormControl>
                               </PopoverTrigger>
-                              <PopoverContent
-                                className="w-auto p-0"
-                                align="center"
-                              >
-                                <Calendar
-                                  mode="single"
-                                  selected={field.value}
-                                  onSelect={field.onChange}
-                                  disabled={(date) =>
-                                    date > new Date() ||
-                                    date < new Date("1900-01-01")
-                                  }
-                                  initialFocus
-                                />
+                              <PopoverContent className="w-auto p-0" align="center">
+                                <Calendar mode="single" selected={field.value} onSelect={field.onChange} disabled={(date) => date > new Date() || date < new Date("1900-01-01")} initialFocus />
                               </PopoverContent>
                             </Popover>
                             <FormMessage />
@@ -270,43 +181,19 @@ export function UpdatePurposeOfTheReportForm({
                         render={({ field }) => (
                           <FormItem className="flex flex-col">
                             <div>
-                              <FormLabel className="text-muted-foreground">
-                                End Date
-                              </FormLabel>
+                              <FormLabel className="text-muted-foreground">End Date</FormLabel>
                             </div>
                             <Popover>
                               <PopoverTrigger asChild>
                                 <FormControl>
-                                  <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                      "pl-3 text-left font-normal",
-                                      !field.value && "text-muted-foreground",
-                                    )}
-                                  >
-                                    {field.value ? (
-                                      format(field.value, "PPP")
-                                    ) : (
-                                      <span>Pick a date</span>
-                                    )}
+                                  <Button variant={"outline"} className={cn("pl-3 text-left font-normal", !field.value && "text-muted-foreground")}>
+                                    {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
                                     <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                   </Button>
                                 </FormControl>
                               </PopoverTrigger>
-                              <PopoverContent
-                                className="w-auto p-0"
-                                align="center"
-                              >
-                                <Calendar
-                                  mode="single"
-                                  selected={field.value}
-                                  onSelect={field.onChange}
-                                  disabled={(date) =>
-                                    date > new Date() ||
-                                    date < new Date("1900-01-01")
-                                  }
-                                  initialFocus
-                                />
+                              <PopoverContent className="w-auto p-0" align="center">
+                                <Calendar mode="single" selected={field.value} onSelect={field.onChange} disabled={(date) => date > new Date() || date < new Date("1900-01-01")} initialFocus />
                               </PopoverContent>
                             </Popover>
                             <FormMessage />
@@ -317,9 +204,7 @@ export function UpdatePurposeOfTheReportForm({
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-                  <p className="text-balance text-sm text-muted-foreground">
-                    Please ensure the inspection dates are accurate.
-                  </p>
+                  <p className="text-balance text-sm text-muted-foreground">Please ensure the inspection dates are accurate.</p>
                 </CardFooter>
               </Card>
 
@@ -328,10 +213,7 @@ export function UpdatePurposeOfTheReportForm({
                   <div className="flex flex-col gap-4 lg:flex-row">
                     <div className="w-full space-y-2">
                       <CardTitle>Records</CardTitle>
-                      <CardDescription>
-                        Please describe the purpose of the inspection, including
-                        the inspection dates and related information.
-                      </CardDescription>
+                      <CardDescription>Please describe the purpose of the inspection, including the inspection dates and related information.</CardDescription>
                     </div>
                     <div className="w-full space-y-2">
                       <FormField
@@ -340,15 +222,10 @@ export function UpdatePurposeOfTheReportForm({
                         render={({ field }) => (
                           <FormItem>
                             <div>
-                              <FormLabel className="text-muted-foreground">
-                                Are Inspection Records Available?
-                              </FormLabel>
+                              <FormLabel className="text-muted-foreground">Are Inspection Records Available?</FormLabel>
                             </div>
                             <FormControl>
-                              <Switch
-                                checked={field.value}
-                                onCheckedChange={field.onChange}
-                              />
+                              <Switch checked={field.value} onCheckedChange={field.onChange} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -360,15 +237,10 @@ export function UpdatePurposeOfTheReportForm({
                         render={({ field }) => (
                           <FormItem>
                             <div>
-                              <FormLabel className="text-muted-foreground">
-                                Is Previous Report Available?
-                              </FormLabel>
+                              <FormLabel className="text-muted-foreground">Is Previous Report Available?</FormLabel>
                             </div>
                             <FormControl>
-                              <Switch
-                                checked={field.value}
-                                onCheckedChange={field.onChange}
-                              />
+                              <Switch checked={field.value} onCheckedChange={field.onChange} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -382,43 +254,19 @@ export function UpdatePurposeOfTheReportForm({
                           render={({ field }) => (
                             <FormItem className="flex flex-col">
                               <div>
-                                <FormLabel className="text-muted-foreground">
-                                  Date of Previous Report
-                                </FormLabel>
+                                <FormLabel className="text-muted-foreground">Date of Previous Report</FormLabel>
                               </div>
                               <Popover>
                                 <PopoverTrigger asChild>
                                   <FormControl>
-                                    <Button
-                                      variant={"outline"}
-                                      className={cn(
-                                        "pl-3 text-left font-normal",
-                                        !field.value && "text-muted-foreground",
-                                      )}
-                                    >
-                                      {field.value ? (
-                                        format(field.value, "PPP")
-                                      ) : (
-                                        <span>Pick a date</span>
-                                      )}
+                                    <Button variant={"outline"} className={cn("pl-3 text-left font-normal", !field.value && "text-muted-foreground")}>
+                                      {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
                                       <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                     </Button>
                                   </FormControl>
                                 </PopoverTrigger>
-                                <PopoverContent
-                                  className="w-auto p-0"
-                                  align="start"
-                                >
-                                  <Calendar
-                                    mode="single"
-                                    selected={field.value}
-                                    onSelect={field.onChange}
-                                    disabled={(date) =>
-                                      date > new Date() ||
-                                      date < new Date("1900-01-01")
-                                    }
-                                    initialFocus
-                                  />
+                                <PopoverContent className="w-auto p-0" align="start">
+                                  <Calendar mode="single" selected={field.value} onSelect={field.onChange} disabled={(date) => date > new Date() || date < new Date("1900-01-01")} initialFocus />
                                 </PopoverContent>
                               </Popover>
                               <FormMessage />
@@ -432,26 +280,20 @@ export function UpdatePurposeOfTheReportForm({
                 <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                   <p className="text-balance text-sm text-muted-foreground">
                     To confirm if records are available, visit{" "}
-                    <Link
-                      href={"/certificates"}
-                      className="inline-flex items-center space-x-1 text-blue-500"
-                    >
+                    <Link href={"/certificates"} className="inline-flex items-center space-x-1 text-blue-500">
                       <span>Certificates</span>
                       <ExternalLink size={14} />
                     </Link>{" "}
                     or reach out to the client directly.
                   </p>
                 </CardFooter>
-
               </Card>
             </div>
           </div>
 
           <div className="sticky bottom-0 border-t bg-background">
             <div className="container mx-auto flex max-w-screen-xl justify-between px-6 py-4">
-              <Link
-                href={`/certificates/eicr/${certificate.id}/update/details-of-the-contractor-client-installation`}
-              >
+              <Link href={`/certificates/eicr/${certificate.id}/update/details-of-the-contractor-client-installation`}>
                 <Button variant="outline" size="icon">
                   <ArrowLeft />
                 </Button>
@@ -480,9 +322,7 @@ export function UpdatePurposeOfTheReportForm({
                             onSelect={() => {
                               setNavigationOpen(false);
                               setKeyboardVisible(false);
-                              router.push(
-                                `/certificates/eicr/${certificate.id}/update${section.url}`,
-                              );
+                              router.push(`/certificates/eicr/${certificate.id}/update${section.url}`);
                             }}
                             className="truncate"
                           >
@@ -493,37 +333,17 @@ export function UpdatePurposeOfTheReportForm({
                     </CommandList>
                   </Command>
                 </ResponsiveDialog>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => form.reset()}
-                  disabled={
-                    !form.formState.isDirty || form.formState.isSubmitting
-                  }
-                >
+                <Button variant="outline" size="icon" onClick={() => form.reset()} disabled={!form.formState.isDirty || form.formState.isSubmitting}>
                   <RotateCcw />
                 </Button>
-                <Button
-                  type="submit"
-                  variant="outline"
-                  size="icon"
-                  disabled={
-                    !form.formState.isDirty || form.formState.isSubmitting
-                  }
-                >
+                <Button type="submit" variant="outline" size="icon" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
                   <Save />
                 </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => form.reset()}
-                >
+                <Button variant="outline" size="icon" onClick={() => form.reset()}>
                   <Send />
                 </Button>
               </div>
-              <Link
-                href={`/certificates/eicr/${certificate.id}/update/summary-of-the-condition-of-the-installation`}
-              >
+              <Link href={`/certificates/eicr/${certificate.id}/update/summary-of-the-condition-of-the-installation`}>
                 <Button variant="outline" size="icon">
                   <ArrowRight />
                 </Button>
@@ -531,18 +351,13 @@ export function UpdatePurposeOfTheReportForm({
             </div>
           </div>
         </form>
-      </Form >
+      </Form>
 
-      <AlertDialog
-        open={unsavedChangesOpen}
-        onOpenChange={setUnsavedChangesOpen}
-      >
+      <AlertDialog open={unsavedChangesOpen} onOpenChange={setUnsavedChangesOpen}>
         <AlertDialogContent className="w-[90%]">
           <AlertDialogHeader>
             <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
-            <AlertDialogDescription>
-              You have unsaved changes. Leave without saving?
-            </AlertDialogDescription>
+            <AlertDialogDescription>You have unsaved changes. Leave without saving?</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel

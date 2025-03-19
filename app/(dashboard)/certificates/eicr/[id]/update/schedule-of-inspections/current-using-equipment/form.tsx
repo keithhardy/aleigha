@@ -6,22 +6,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
 import { RadioGroupComponent } from "../radio-group";
@@ -29,11 +15,7 @@ import { updateCurrentUsingEquipment } from "./action";
 import { inspectionItems } from "./inspection-items";
 import { UpdateCurrentUsingEquipmentSchema } from "./schema";
 
-export function UpdateCurrentUsingEquipmentForm({
-  electricalInstallationConditionReport,
-}: {
-  electricalInstallationConditionReport: ElectricalInstallationConditionReport;
-}) {
+export function UpdateCurrentUsingEquipmentForm({ electricalInstallationConditionReport }: { electricalInstallationConditionReport: ElectricalInstallationConditionReport }) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof UpdateCurrentUsingEquipmentSchema>>({
@@ -53,9 +35,7 @@ export function UpdateCurrentUsingEquipmentForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateCurrentUsingEquipmentSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateCurrentUsingEquipmentSchema>) => {
     const response = await updateCurrentUsingEquipment(data);
 
     if (response.status === "success") {
@@ -71,19 +51,11 @@ export function UpdateCurrentUsingEquipmentForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="container mx-auto max-w-screen-md"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="container mx-auto max-w-screen-md">
         <Card className="rounded-md shadow-none">
           <CardHeader>
-            <CardTitle>
-              Current-using equipment (permanently connected)
-            </CardTitle>
-            <CardDescription className="text-primary">
-              This section evaluates the condition and safety of current-using
-              equipment that is permanently connected.
-            </CardDescription>
+            <CardTitle>Current-using equipment (permanently connected)</CardTitle>
+            <CardDescription className="text-primary">This section evaluates the condition and safety of current-using equipment that is permanently connected.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {inspectionItems.map((item) => (
@@ -96,10 +68,7 @@ export function UpdateCurrentUsingEquipmentForm({
                   <FormItem>
                     <FormLabel>{item.item + " - " + item.label}</FormLabel>
                     <FormControl>
-                      <RadioGroupComponent
-                        onChange={field.onChange}
-                        defaultValue={field.value || "na"}
-                      />
+                      <RadioGroupComponent onChange={field.onChange} defaultValue={field.value || "na"} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -108,15 +77,8 @@ export function UpdateCurrentUsingEquipmentForm({
             ))}
           </CardContent>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">
-              Ensure the condition and safety of permanently connected equipment
-              is checked.
-            </p>
-            <Button
-              variant="outline"
-              type="submit"
-              disabled={!form.formState.isDirty || form.formState.isSubmitting}
-            >
+            <p className="text-sm text-muted-foreground">Ensure the condition and safety of permanently connected equipment is checked.</p>
+            <Button variant="outline" type="submit" disabled={!form.formState.isDirty || form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>
