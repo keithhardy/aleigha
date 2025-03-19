@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { UpdateSummaryOfTheConditionOfTheInstallationForm } from "./form";
 
 export default async function UpdateSummaryOfTheConditionOfTheInstallation({ params }: { params: Promise<{ id: string }> }) {
-  const electricalInstallationConditionReport = await prisma.electricalInstallationConditionReport.findFirst({
+  const certificate = await prisma.electricalInstallationConditionReport.findFirst({
     where: {
       id: (await params).id,
     },
@@ -20,8 +20,9 @@ export default async function UpdateSummaryOfTheConditionOfTheInstallation({ par
     },
   });
 
-  if (!electricalInstallationConditionReport) {
+  if (!certificate) {
     notFound();
   }
-  return <UpdateSummaryOfTheConditionOfTheInstallationForm electricalInstallationConditionReport={electricalInstallationConditionReport as ElectricalInstallationConditionReport} />;
+
+  return <UpdateSummaryOfTheConditionOfTheInstallationForm certificate={certificate as ElectricalInstallationConditionReport} />;
 }
