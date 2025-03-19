@@ -39,10 +39,6 @@ export function UpdateContractorClientAndInstallationForm({
 
   const router = useRouter();
 
-  const [keyboardVisible, setKeyboardVisible] = useState(false);
-  const [clientDialogOpen, setClientDialogOpen] = useState(false);
-  const [propertyOpen, setPropertyOpen] = useState(false);
-  const [navigationOpen, setNavigationOpen] = useState(false);
   const [unsavedChangesOpen, setUnsavedChangesOpen] = useState(false);
   const [nextUrl, setNextUrl] = useState("");
 
@@ -57,9 +53,13 @@ export function UpdateContractorClientAndInstallationForm({
     },
   });
 
-  const selectedClient = clients.find((client) => client.id === form.getValues("clientId"));
+  const selectedClient = clients.find(
+    (client) => client.id === form.watch("clientId")
+  );
 
-  const selectedProperty = selectedClient?.property.find((property) => property.id === form.getValues("propertyId"));
+  const selectedProperty = selectedClient?.property.find(
+    (property) => property.id === form.watch("propertyId")
+  );
 
   useEffect(() => {
     originalPush.current = router.push;
@@ -159,39 +159,36 @@ export function UpdateContractorClientAndInstallationForm({
                         render={() => (
                           <FormItem>
                             <ResponsiveDialog
-                              sheetOpen={clientDialogOpen}
-                              setSheetOpen={setClientDialogOpen}
-                              keyboardVisible={keyboardVisible}
-                              setKeyboardVisible={setKeyboardVisible}
-                              triggerButton={
+                              trigger={
                                 <Button variant="outline" className="w-full justify-between">
                                   {selectedClient ? selectedClient.name : "Select client..."}
                                   <ChevronsUpDown className="ml-2 opacity-50" />
                                 </Button>
                               }
-                            >
-                              <Command>
-                                <CommandInput placeholder="Search clients..." />
-                                <CommandList className="scrollbar-hidden">
-                                  <CommandEmpty>No client found.</CommandEmpty>
-                                  <CommandGroup>
-                                    {clients.map((client) => (
-                                      <CommandItem
-                                        key={client.id}
-                                        value={client.name}
-                                        onSelect={() => {
-                                          form.setValue("clientId", client.id);
-                                          form.setValue("propertyId", "");
-                                          setClientDialogOpen(false);
-                                        }}
-                                      >
-                                        {client.name}
-                                      </CommandItem>
-                                    ))}
-                                  </CommandGroup>
-                                </CommandList>
-                              </Command>
-                            </ResponsiveDialog>
+                              content={(setOpen) => (
+                                <Command>
+                                  <CommandInput placeholder="Search clients..." />
+                                  <CommandList className="scrollbar-hidden">
+                                    <CommandEmpty>No client found.</CommandEmpty>
+                                    <CommandGroup>
+                                      {clients.map((client) => (
+                                        <CommandItem
+                                          key={client.id}
+                                          value={client.name}
+                                          onSelect={() => {
+                                            form.setValue("clientId", client.id);
+                                            form.setValue("propertyId", "");
+                                            setOpen(false);
+                                          }}
+                                        >
+                                          {client.name}
+                                        </CommandItem>
+                                      ))}
+                                    </CommandGroup>
+                                  </CommandList>
+                                </Command>
+                              )}
+                            />
                             <FormMessage />
                           </FormItem>
                         )}
@@ -232,39 +229,35 @@ export function UpdateContractorClientAndInstallationForm({
                         render={() => (
                           <FormItem>
                             <ResponsiveDialog
-                              sheetOpen={propertyOpen}
-                              setSheetOpen={setPropertyOpen}
-                              keyboardVisible={keyboardVisible}
-                              setKeyboardVisible={setKeyboardVisible}
-                              triggerButton={
+                              trigger={
                                 <Button variant="outline" className="w-full justify-between">
                                   {selectedProperty ? selectedProperty.address.streetAddress : "Select property..."}
                                   <ChevronsUpDown className="ml-2 opacity-50" />
                                 </Button>
                               }
-                            >
-                              <Command>
-                                <CommandInput placeholder="Search properties..." />
-                                <CommandList className="scrollbar-hidden">
-                                  <CommandEmpty>No property found.</CommandEmpty>
-                                  <CommandGroup>
-                                    {selectedClient?.property.map((property) => (
-                                      <CommandItem
-                                        key={property.id}
-                                        value={property.address.streetAddress!}
-                                        onSelect={() => {
-                                          form.setValue("propertyId", property.id, { shouldDirty: true });
-                                          setPropertyOpen(false);
-                                          setKeyboardVisible(false);
-                                        }}
-                                      >
-                                        {property.address.streetAddress}
-                                      </CommandItem>
-                                    ))}
-                                  </CommandGroup>
-                                </CommandList>
-                              </Command>
-                            </ResponsiveDialog>
+                              content={(setOpen) => (
+                                <Command>
+                                  <CommandInput placeholder="Search properties..." />
+                                  <CommandList className="scrollbar-hidden">
+                                    <CommandEmpty>No property found.</CommandEmpty>
+                                    <CommandGroup>
+                                      {selectedClient?.property.map((property) => (
+                                        <CommandItem
+                                          key={property.id}
+                                          value={property.address.streetAddress!}
+                                          onSelect={() => {
+                                            form.setValue("propertyId", property.id, { shouldDirty: true });
+                                            setOpen(false);
+                                          }}
+                                        >
+                                          {property.address.streetAddress}
+                                        </CommandItem>
+                                      ))}
+                                    </CommandGroup>
+                                  </CommandList>
+                                </Command>
+                              )}
+                            />
                             <FormMessage />
                           </FormItem>
                         )}
@@ -300,39 +293,35 @@ export function UpdateContractorClientAndInstallationForm({
               </Button>
               <div className="space-x-2">
                 <ResponsiveDialog
-                  sheetOpen={navigationOpen}
-                  setSheetOpen={setNavigationOpen}
-                  keyboardVisible={keyboardVisible}
-                  setKeyboardVisible={setKeyboardVisible}
-                  triggerButton={
+                  trigger={
                     <Button variant="outline" size="icon">
                       <List />
                     </Button>
                   }
-                >
-                  <Command>
-                    <CommandInput placeholder="Search sections..." />
-                    <CommandList className="scrollbar-hidden">
-                      <CommandEmpty>No found.</CommandEmpty>
-                      <CommandGroup>
-                        {sections.map((section, index) => (
-                          <CommandItem
-                            key={index}
-                            value={section.title}
-                            onSelect={() => {
-                              setNavigationOpen(false);
-                              setKeyboardVisible(false);
-                              router.push(`/certificates/eicr/${certificate.id}/update${section.url}`);
-                            }}
-                            className="truncate"
-                          >
-                            <p className="truncate">{section.title}</p>
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </ResponsiveDialog>
+                  content={(setOpen) => (
+                    <Command>
+                      <CommandInput placeholder="Search sections..." />
+                      <CommandList className="scrollbar-hidden">
+                        <CommandEmpty>No found.</CommandEmpty>
+                        <CommandGroup>
+                          {sections.map((section, index) => (
+                            <CommandItem
+                              key={index}
+                              value={section.title}
+                              onSelect={() => {
+                                setOpen(false);
+                                router.push(`/certificates/eicr/${certificate.id}/update${section.url}`);
+                              }}
+                              className="truncate"
+                            >
+                              <p className="truncate">{section.title}</p>
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  )}
+                />
                 <Button variant="outline" size="icon" onClick={() => form.reset()} disabled={!form.formState.isDirty || form.formState.isSubmitting}>
                   <RotateCcw />
                 </Button>
@@ -352,6 +341,26 @@ export function UpdateContractorClientAndInstallationForm({
           </div>
         </form>
       </Form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <AlertDialog open={unsavedChangesOpen} onOpenChange={setUnsavedChangesOpen}>
         <AlertDialogContent className="w-[90%]">

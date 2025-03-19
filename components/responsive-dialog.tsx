@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Dialog,
@@ -16,24 +16,18 @@ import {
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export const ResponsiveDialog = ({
-  triggerButton,
-  children,
-  keyboardVisible,
-  setKeyboardVisible,
-  sheetOpen,
-  setSheetOpen,
+  trigger,
+  content,
 }: {
-  triggerButton: React.ReactNode;
-  children: React.ReactNode;
-  keyboardVisible: boolean;
-  setKeyboardVisible: (visible: boolean) => void;
-  sheetOpen: boolean;
-  setSheetOpen: (open: boolean) => void;
+  trigger: React.ReactNode;
+  content: (setOpen: (open: boolean) => void) => React.ReactNode;
 }) => {
   const isMobile = useIsMobile();
+  const [open, setOpen] = useState(false);
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
 
-  const handleSheetOpenChange = (isOpen: boolean) => {
-    setSheetOpen(isOpen);
+  const handleOpenChange = (isOpen: boolean) => {
+    setOpen(isOpen);
     if (!isOpen) setKeyboardVisible(false);
   };
 
@@ -47,33 +41,28 @@ export const ResponsiveDialog = ({
     };
 
     window.visualViewport?.addEventListener("resize", handleResize);
-
     return () => {
       window.visualViewport?.removeEventListener("resize", handleResize);
     };
-  });
+  }, []);
 
-  return (
-    <>
-      {isMobile ? (
-        <Sheet open={sheetOpen} onOpenChange={handleSheetOpenChange}>
-          <SheetTrigger asChild>{triggerButton}</SheetTrigger>
-          <SheetContent side={keyboardVisible ? "top" : "bottom"}>
-            <SheetTitle />
-            {children}
-          </SheetContent>
-        </Sheet>
-      ) : (
-        <Dialog open={sheetOpen} onOpenChange={setSheetOpen}>
-          <DialogTrigger asChild>{triggerButton}</DialogTrigger>
-          <DialogPortal>
-            <DialogContent>
-              <DialogTitle />
-              {children}
-            </DialogContent>
-          </DialogPortal>
-        </Dialog>
-      )}
-    </>
+  return isMobile ? (
+    <Sheet open={open} onOpenChange={handleOpenChange}>
+      <SheetTrigger asChild>{trigger}</SheetTrigger>
+      <SheetContent side={keyboardVisible ? "top" : "bottom"}>
+        <SheetTitle />
+        {content(setOpen)}
+      </SheetContent>
+    </Sheet>
+  ) : (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogPortal>
+        <DialogContent>
+          <DialogTitle />
+          {content(setOpen)}
+        </DialogContent>
+      </DialogPortal>
+    </Dialog>
   );
 };
