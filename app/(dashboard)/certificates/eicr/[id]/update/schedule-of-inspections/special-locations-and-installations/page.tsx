@@ -10,7 +10,7 @@ export default async function UpdateSpecialLocationsAndInstallations({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const electricalInstallationConditionReport =
+  const certificate =
     await prisma.electricalInstallationConditionReport.findFirst({
       where: {
         id: (await params).id,
@@ -29,15 +29,13 @@ export default async function UpdateSpecialLocationsAndInstallations({
       },
     });
 
-  if (!electricalInstallationConditionReport) {
+  if (!certificate) {
     notFound();
   }
 
   return (
     <UpdateSpecialLocationsAndInstallationsForm
-      electricalInstallationConditionReport={
-        electricalInstallationConditionReport as ElectricalInstallationConditionReport
-      }
+      certificate={certificate as ElectricalInstallationConditionReport}
     />
   );
 }

@@ -5,17 +5,17 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface RadioGroupComponentProps {
   onChange: (value: string) => void;
-  defaultValue: string;
+  value: string;
 }
 
 export const RadioGroupComponent = ({
   onChange,
-  defaultValue,
+  value,
 }: RadioGroupComponentProps) => {
   return (
     <RadioGroup
       onValueChange={onChange}
-      defaultValue={defaultValue}
+      value={value}
       className="grid grid-cols-4 space-y-1"
     >
       <FormItem className="flex items-center space-x-3 space-y-0">

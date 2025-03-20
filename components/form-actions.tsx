@@ -110,9 +110,6 @@ export default function FormActions({
           >
             <Save />
           </Button>
-          <Button variant="outline" size="icon" onClick={() => form.reset()}>
-            <Send />
-          </Button>
         </div>
         <Button
           variant="outline"
