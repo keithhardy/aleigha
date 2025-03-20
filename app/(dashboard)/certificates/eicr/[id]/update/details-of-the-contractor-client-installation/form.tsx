@@ -37,7 +37,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Form, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
@@ -71,14 +71,6 @@ export function UpdateContractorClientAndInstallationForm({
       propertyId: certificate.propertyId,
     },
   });
-
-  const selectedClient = clients.find(
-    (client) => client.id === form.watch("clientId"),
-  );
-
-  const selectedProperty = selectedClient?.property.find(
-    (property) => property.id === form.watch("propertyId"),
-  );
 
   const onSubmit = async (
     data: z.infer<typeof UpdateContractorClientAndInstallationSchema>,
@@ -193,6 +185,7 @@ export function UpdateContractorClientAndInstallationForm({
                   </p>
                 </CardFooter>
               </Card>
+
               <Card className="rounded-md shadow-none">
                 <CardContent className="space-y-6 p-6">
                   <div className="flex flex-col gap-4 lg:flex-row">
@@ -208,91 +201,99 @@ export function UpdateContractorClientAndInstallationForm({
                       <FormField
                         control={form.control}
                         name="clientId"
-                        render={() => (
-                          <FormItem>
-                            <ResponsiveDialog
-                              trigger={
-                                <Button
-                                  variant="outline"
-                                  className="w-full justify-between"
-                                >
-                                  {selectedClient
-                                    ? selectedClient.name
-                                    : "Select client..."}
-                                  <ChevronsUpDown className="ml-2 opacity-50" />
-                                </Button>
-                              }
-                              content={(setOpen) => (
-                                <Command>
-                                  <CommandInput placeholder="Search clients..." />
-                                  <CommandList className="scrollbar-hidden">
-                                    <CommandEmpty>
-                                      No client found.
-                                    </CommandEmpty>
-                                    <CommandGroup>
-                                      {clients.map((client) => (
-                                        <CommandItem
-                                          key={client.id}
-                                          value={client.name}
-                                          onSelect={() => {
-                                            form.setValue(
-                                              "clientId",
-                                              client.id,
-                                            );
-                                            form.setValue("propertyId", "");
-                                            setOpen(false);
-                                          }}
-                                        >
-                                          {client.name}
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              )}
-                            />
-                            <FormMessage />
-                          </FormItem>
-                        )}
+                        render={({ field }) => {
+                          const selectedClient = clients.find(
+                            (client) => client.id === field.value,
+                          );
+
+                          return (
+                            <>
+                              <FormItem>
+                                <ResponsiveDialog
+                                  trigger={
+                                    <Button
+                                      variant="outline"
+                                      className="w-full justify-between"
+                                    >
+                                      {selectedClient
+                                        ? selectedClient.name
+                                        : "Select client..."}
+                                      <ChevronsUpDown className="ml-2 opacity-50" />
+                                    </Button>
+                                  }
+                                  content={(setOpen) => (
+                                    <Command>
+                                      <CommandInput placeholder="Search clients..." />
+                                      <CommandList className="scrollbar-hidden">
+                                        <CommandEmpty>
+                                          No client found.
+                                        </CommandEmpty>
+                                        <CommandGroup>
+                                          {clients.map((client) => (
+                                            <CommandItem
+                                              key={client.id}
+                                              value={client.name}
+                                              onSelect={() => {
+                                                form.setValue(
+                                                  "clientId",
+                                                  client.id,
+                                                );
+                                                form.setValue("propertyId", "");
+                                                setOpen(false);
+                                              }}
+                                            >
+                                              {client.name}
+                                            </CommandItem>
+                                          ))}
+                                        </CommandGroup>
+                                      </CommandList>
+                                    </Command>
+                                  )}
+                                />
+                                <FormMessage />
+                              </FormItem>
+                              <Input
+                                type="text"
+                                value={selectedClient!.address.streetAddress ?? ""}
+                                readOnly
+                                placeholder="Street address"
+                              />
+                              <Input
+                                type="text"
+                                value={selectedClient?.address?.city ?? ""}
+                                readOnly
+                                placeholder="City"
+                              />
+                              <Input
+                                type="text"
+                                value={selectedClient?.address?.county ?? ""}
+                                readOnly
+                                placeholder="County"
+                              />
+                              <Input
+                                type="text"
+                                value={selectedClient?.address?.postTown ?? ""}
+                                readOnly
+                                placeholder="Post town"
+                              />
+                              <div className="flex space-x-2">
+                                <Input
+                                  type="text"
+                                  value={selectedClient?.address?.postCode ?? ""}
+                                  readOnly
+                                  placeholder="Post code"
+                                />
+                                <Input
+                                  type="text"
+                                  value={selectedClient?.address?.country ?? ""}
+                                  readOnly
+                                  placeholder="Country"
+                                />
+                              </div>
+                            </>
+                          )
+                        }}
                       />
-                      <Input
-                        type="text"
-                        value={selectedClient!.address.streetAddress ?? ""}
-                        readOnly
-                        placeholder="Street address"
-                      />
-                      <Input
-                        type="text"
-                        value={selectedClient?.address?.city ?? ""}
-                        readOnly
-                        placeholder="City"
-                      />
-                      <Input
-                        type="text"
-                        value={selectedClient?.address?.county ?? ""}
-                        readOnly
-                        placeholder="County"
-                      />
-                      <Input
-                        type="text"
-                        value={selectedClient?.address?.postTown ?? ""}
-                        readOnly
-                        placeholder="Post town"
-                      />
-                      <div className="flex space-x-2">
-                        <Input
-                          type="text"
-                          value={selectedClient?.address?.postCode ?? ""}
-                          readOnly
-                          placeholder="Post code"
-                        />
-                        <Input
-                          type="text"
-                          value={selectedClient?.address?.country ?? ""}
-                          readOnly
-                          placeholder="Country"
-                        />
-                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -310,103 +311,118 @@ export function UpdateContractorClientAndInstallationForm({
                   </p>
                 </CardFooter>
               </Card>
+
               <Card className="rounded-md shadow-none">
                 <CardContent className="space-y-6 p-6">
                   <div className="flex flex-col gap-4 lg:flex-row">
                     <div className="w-full space-y-2">
                       <CardTitle>Installation</CardTitle>
                       <CardDescription>
-                        Select the installation for this report. Available
-                        properties will populate once a client is selected.
+                        Choose the installation for this report. This property will be the subject of the report.
                       </CardDescription>
                     </div>
                     <div className="w-full space-y-2">
                       <FormField
                         control={form.control}
                         name="propertyId"
-                        render={() => (
-                          <FormItem>
-                            <ResponsiveDialog
-                              trigger={
-                                <Button
-                                  variant="outline"
-                                  className="w-full justify-between"
-                                >
-                                  {selectedProperty
-                                    ? selectedProperty.address.streetAddress
-                                    : "Select property..."}
-                                  <ChevronsUpDown className="ml-2 opacity-50" />
-                                </Button>
-                              }
-                              content={(setOpen) => (
-                                <Command>
-                                  <CommandInput placeholder="Search properties..." />
-                                  <CommandList className="scrollbar-hidden">
-                                    <CommandEmpty>
-                                      No property found.
-                                    </CommandEmpty>
-                                    <CommandGroup>
-                                      {selectedClient?.property.map(
-                                        (property) => (
-                                          <CommandItem
-                                            key={property.id}
-                                            value={
-                                              property.address.streetAddress!
-                                            }
-                                            onSelect={() => {
-                                              form.setValue(
-                                                "propertyId",
-                                                property.id,
-                                                { shouldDirty: true },
-                                              );
-                                              setOpen(false);
-                                            }}
-                                          >
-                                            {property.address.streetAddress}
-                                          </CommandItem>
-                                        ),
-                                      )}
-                                    </CommandGroup>
-                                  </CommandList>
-                                </Command>
-                              )}
-                            />
-                            <FormMessage />
-                          </FormItem>
-                        )}
+                        render={({ field }) => {
+                          const selectedClient = clients.find(
+                            (client) => client.id === form.watch("clientId"),
+                          );
+
+                          const selectedProperty = selectedClient?.property.find(
+                            (property) => property.id === field.value,
+                          );
+
+                          return (
+                            <>
+                              <FormItem>
+                                <ResponsiveDialog
+                                  trigger={
+                                    <Button
+                                      variant="outline"
+                                      className="w-full justify-between"
+                                    >
+                                      {selectedProperty
+                                        ? selectedProperty.address.streetAddress
+                                        : "Select property..."}
+                                      <ChevronsUpDown className="ml-2 opacity-50" />
+                                    </Button>
+                                  }
+                                  content={(setOpen) => (
+                                    <Command>
+                                      <CommandInput placeholder="Search properties..." />
+                                      <CommandList className="scrollbar-hidden">
+                                        <CommandEmpty>
+                                          No property found.
+                                        </CommandEmpty>
+                                        <CommandGroup>
+                                          {selectedClient?.property.map(
+                                            (property) => (
+                                              <CommandItem
+                                                key={property.id}
+                                                value={
+                                                  property.address.streetAddress!
+                                                }
+                                                onSelect={() => {
+                                                  form.setValue(
+                                                    "propertyId",
+                                                    property.id,
+                                                    { shouldDirty: true },
+                                                  );
+                                                  setOpen(false);
+                                                }}
+                                              >
+                                                {property.address.streetAddress}
+                                              </CommandItem>
+                                            ),
+                                          )}
+                                        </CommandGroup>
+                                      </CommandList>
+                                    </Command>
+                                  )}
+                                />
+                                <FormDescription>
+                                  Select a client to view and choose from their available properties.
+                                </FormDescription>
+                                <FormMessage />
+                              </FormItem>
+                              <Input
+                                type="text"
+                                value={selectedProperty?.address?.city ?? ""}
+                                readOnly
+                                placeholder="City"
+                              />
+                              <Input
+                                type="text"
+                                value={selectedProperty?.address?.county ?? ""}
+                                readOnly
+                                placeholder="County"
+                              />
+                              <Input
+                                type="text"
+                                value={selectedProperty?.address?.postTown ?? ""}
+                                readOnly
+                                placeholder="Post town"
+                              />
+                              <div className="flex space-x-2">
+                                <Input
+                                  type="text"
+                                  value={selectedProperty?.address?.postCode ?? ""}
+                                  readOnly
+                                  placeholder="Post code"
+                                />
+                                <Input
+                                  type="text"
+                                  value={selectedProperty?.address?.country ?? ""}
+                                  readOnly
+                                  placeholder="Country"
+                                />
+                              </div>
+                            </>
+                          )
+                        }}
                       />
-                      <Input
-                        type="text"
-                        value={selectedProperty?.address?.city ?? ""}
-                        readOnly
-                        placeholder="City"
-                      />
-                      <Input
-                        type="text"
-                        value={selectedProperty?.address?.county ?? ""}
-                        readOnly
-                        placeholder="County"
-                      />
-                      <Input
-                        type="text"
-                        value={selectedProperty?.address?.postTown ?? ""}
-                        readOnly
-                        placeholder="Post town"
-                      />
-                      <div className="flex space-x-2">
-                        <Input
-                          type="text"
-                          value={selectedProperty?.address?.postCode ?? ""}
-                          readOnly
-                          placeholder="Post code"
-                        />
-                        <Input
-                          type="text"
-                          value={selectedProperty?.address?.country ?? ""}
-                          readOnly
-                          placeholder="Country"
-                        />
-                      </div>
                     </div>
                   </div>
                 </CardContent>

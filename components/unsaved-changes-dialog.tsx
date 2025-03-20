@@ -66,7 +66,7 @@ export const UnsavedChangesDialog = ({
             You have unsaved changes. Leave without saving?
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter className="space-y-2">
+        <AlertDialogFooter className="space-y-2 sm:space-y-0">
           <AlertDialogCancel onClick={handleCancel}>Cancel</AlertDialogCancel>
           <AlertDialogAction onClick={handleSaveAndContinue}>
             Save and continue
