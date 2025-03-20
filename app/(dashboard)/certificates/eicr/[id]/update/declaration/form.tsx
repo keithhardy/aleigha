@@ -112,336 +112,331 @@ export function UpdateDeclarationForm({
 
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
-              <CardHeader>
-                <CardTitle>Declaration</CardTitle>
-                <CardDescription className="text-primary">
-                  Provide the necessary details for the retest, including the
-                  inspector and qualified supervisor&apos;s information.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="recommendedRetestDate"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <div>
-                        <FormLabel>Retest Date</FormLabel>
-                      </div>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={"outline"}
-                              className={cn(
-                                "pl-3 text-left font-normal lg:max-w-[50%]",
-                                !field.value && "text-muted-foreground",
-                              )}
-                            >
-                              {field.value ? (
-                                format(field.value, "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            disabled={(date) => date < new Date()}
-                            initialFocus
-                            defaultMonth={
-                              new Date(
-                                new Date().setFullYear(
-                                  new Date().getFullYear() + 5,
-                                ),
-                              )
-                            }
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="reasonForRecommendation"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Reason for Recommendation</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          {...field}
-                          className="min-h-[100px] lg:max-w-[50%]"
-                          placeholder="Provide the reason for recommending the retest."
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="inspectorId"
-                  render={({ field }) => {
-                    const selectedUser = users.find(
-                      (user) => user.id === field.value,
-                    );
-                    return (
-                      <FormItem>
+              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+                <CardHeader className="w-full p-0">
+                  <CardTitle>Declaration</CardTitle>
+                  <CardDescription>
+                    Provide the necessary details for the retest, including the
+                    inspector and qualified supervisor&apos;s information.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="w-full space-y-2 p-0">
+                  <FormField
+                    control={form.control}
+                    name="recommendedRetestDate"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
                         <div>
-                          <FormLabel>Name</FormLabel>
+                          <FormLabel>Retest Date</FormLabel>
                         </div>
-                        <Popover
-                          open={inspectorOpen}
-                          onOpenChange={setInspectorOpen}
-                        >
-                          <PopoverTrigger asChild className="w-full">
-                            <Button
-                              variant="outline"
-                              role="combobox"
-                              aria-expanded={inspectorOpen ? "true" : "false"}
-                              className="flex items-center justify-between lg:max-w-[50%]"
-                            >
-                              <span>
-                                {selectedUser
-                                  ? selectedUser.name
-                                  : "Select inspector..."}
-                              </span>
-                              <ChevronsUpDown className="ml-2 opacity-50" />
-                            </Button>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant={"outline"}
+                                className={cn(
+                                  "pl-3 text-left font-normal",
+                                  !field.value && "text-muted-foreground",
+                                )}
+                              >
+                                {field.value ? (
+                                  format(field.value, "PPP")
+                                ) : (
+                                  <span>Pick a date</span>
+                                )}
+                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                              </Button>
+                            </FormControl>
                           </PopoverTrigger>
-                          <PopoverContent className="min-w-[375px] p-0">
-                            <Command>
-                              <CommandInput
-                                placeholder="Search user..."
-                                className="h-9"
-                              />
-                              <CommandList>
-                                <CommandEmpty>No user found.</CommandEmpty>
-                                <CommandGroup>
-                                  {users.map((user) => (
-                                    <CommandItem
-                                      key={user.id}
-                                      value={user.name}
-                                      onSelect={(currentValue) => {
-                                        form.setValue(
-                                          "inspectorId",
-                                          currentValue,
-                                          {
-                                            shouldDirty: true,
-                                          },
-                                        );
-                                        form.setValue(
-                                          "inspectionDate",
-                                          new Date(),
-                                          { shouldDirty: true },
-                                        );
-                                        setInspectorOpen(false);
-                                      }}
-                                    >
-                                      {user.name}
-                                      {user.id === field.value ? (
-                                        <Check className="ml-auto" />
-                                      ) : null}
-                                    </CommandItem>
-                                  ))}
-                                </CommandGroup>
-                              </CommandList>
-                            </Command>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              disabled={(date) => date < new Date()}
+                              initialFocus
+                              defaultMonth={
+                                new Date(
+                                  new Date().setFullYear(
+                                    new Date().getFullYear() + 5,
+                                  ),
+                                )
+                              }
+                            />
                           </PopoverContent>
                         </Popover>
                         <FormMessage />
                       </FormItem>
-                    );
-                  }}
-                />
-                <FormField
-                  control={form.control}
-                  name="inspectionDate"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <div>
-                        <FormLabel>Inspector&apos;s Signature Date</FormLabel>
-                      </div>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={"outline"}
-                              className={cn(
-                                "pl-3 text-left font-normal lg:max-w-[50%]",
-                                !field.value && "text-muted-foreground",
-                              )}
-                            >
-                              {field.value ? (
-                                format(field.value, "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            disabled={(date) =>
-                              date > new Date() || date < new Date("1900-01-01")
-                            }
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="reviewerId"
-                  render={({ field }) => {
-                    const selectedUser = users.find(
-                      (user) => user.id === field.value,
-                    );
-                    return (
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="reasonForRecommendation"
+                    render={({ field }) => (
                       <FormItem>
+                        <FormLabel>Reason for Recommendation</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            {...field}
+                            className="min-h-[100px]"
+                            placeholder="Provide the reason for recommending the retest."
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="inspectorId"
+                    render={({ field }) => {
+                      const selectedUser = users.find(
+                        (user) => user.id === field.value,
+                      );
+                      return (
+                        <FormItem>
+                          <div>
+                            <FormLabel>Name</FormLabel>
+                          </div>
+                          <Popover
+                            open={inspectorOpen}
+                            onOpenChange={setInspectorOpen}
+                          >
+                            <PopoverTrigger asChild className="w-full">
+                              <Button
+                                variant="outline"
+                                role="combobox"
+                                aria-expanded={inspectorOpen ? "true" : "false"}
+                                className="flex items-center justify-between"
+                              >
+                                <span>
+                                  {selectedUser
+                                    ? selectedUser.name
+                                    : "Select inspector..."}
+                                </span>
+                                <ChevronsUpDown className="ml-2 opacity-50" />
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="min-w-[375px] p-0">
+                              <Command>
+                                <CommandInput
+                                  placeholder="Search user..."
+                                  className="h-9"
+                                />
+                                <CommandList>
+                                  <CommandEmpty>No user found.</CommandEmpty>
+                                  <CommandGroup>
+                                    {users.map((user) => (
+                                      <CommandItem
+                                        key={user.id}
+                                        value={user.name}
+                                        onSelect={(currentValue) => {
+                                          form.setValue(
+                                            "inspectorId",
+                                            currentValue,
+                                            {
+                                              shouldDirty: true,
+                                            },
+                                          );
+                                          form.setValue(
+                                            "inspectionDate",
+                                            new Date(),
+                                            { shouldDirty: true },
+                                          );
+                                          setInspectorOpen(false);
+                                        }}
+                                      >
+                                        {user.name}
+                                        {user.id === field.value ? (
+                                          <Check className="ml-auto" />
+                                        ) : null}
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </CommandList>
+                              </Command>
+                            </PopoverContent>
+                          </Popover>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="inspectionDate"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
                         <div>
-                          <FormLabel>Name</FormLabel>
+                          <FormLabel>Inspector&apos;s Signature Date</FormLabel>
                         </div>
-                        <Popover
-                          open={reviewerOpen}
-                          onOpenChange={setReviewerOpen}
-                        >
-                          <PopoverTrigger asChild className="w-full">
-                            <Button
-                              variant="outline"
-                              role="combobox"
-                              aria-expanded={inspectorOpen ? "true" : "false"}
-                              className="flex items-center justify-between lg:max-w-[50%]"
-                            >
-                              <span>
-                                {selectedUser
-                                  ? selectedUser.name
-                                  : "Select reviewer..."}
-                              </span>
-                              <ChevronsUpDown className="ml-2 opacity-50" />
-                            </Button>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant={"outline"}
+                                className={cn(
+                                  "pl-3 text-left font-normal",
+                                  !field.value && "text-muted-foreground",
+                                )}
+                              >
+                                {field.value ? (
+                                  format(field.value, "PPP")
+                                ) : (
+                                  <span>Pick a date</span>
+                                )}
+                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                              </Button>
+                            </FormControl>
                           </PopoverTrigger>
-                          <PopoverContent className="min-w-[375px] p-0">
-                            <Command>
-                              <CommandInput
-                                placeholder="Search user..."
-                                className="h-9"
-                              />
-                              <CommandList>
-                                <CommandEmpty>No user found.</CommandEmpty>
-                                <CommandGroup>
-                                  {users.map((user) => (
-                                    <CommandItem
-                                      key={user.id}
-                                      value={user.name}
-                                      onSelect={(currentValue) => {
-                                        form.setValue(
-                                          "reviewerId",
-                                          currentValue,
-                                          {
-                                            shouldDirty: true,
-                                          },
-                                        );
-                                        form.setValue(
-                                          "reviewDate",
-                                          new Date(),
-                                          {
-                                            shouldDirty: true,
-                                          },
-                                        );
-                                        setReviewerOpen(false);
-                                      }}
-                                    >
-                                      {user.name}
-                                      {user.id === field.value ? (
-                                        <Check className="ml-auto" />
-                                      ) : null}
-                                    </CommandItem>
-                                  ))}
-                                </CommandGroup>
-                              </CommandList>
-                            </Command>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              disabled={(date) =>
+                                date > new Date() ||
+                                date < new Date("1900-01-01")
+                              }
+                              initialFocus
+                            />
                           </PopoverContent>
                         </Popover>
                         <FormMessage />
                       </FormItem>
-                    );
-                  }}
-                />
-                <FormField
-                  control={form.control}
-                  name="reviewDate"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <div>
-                        <FormLabel>
-                          Qualified Supervisor&apos;s Signature Date
-                        </FormLabel>
-                      </div>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={"outline"}
-                              className={cn(
-                                "pl-3 text-left font-normal lg:max-w-[50%]",
-                                !field.value && "text-muted-foreground",
-                              )}
-                            >
-                              {field.value ? (
-                                format(field.value, "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            disabled={(date) =>
-                              date > new Date() || date < new Date("1900-01-01")
-                            }
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </CardContent>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="reviewerId"
+                    render={({ field }) => {
+                      const selectedUser = users.find(
+                        (user) => user.id === field.value,
+                      );
+                      return (
+                        <FormItem>
+                          <div>
+                            <FormLabel>Name</FormLabel>
+                          </div>
+                          <Popover
+                            open={reviewerOpen}
+                            onOpenChange={setReviewerOpen}
+                          >
+                            <PopoverTrigger asChild className="w-full">
+                              <Button
+                                variant="outline"
+                                role="combobox"
+                                aria-expanded={inspectorOpen ? "true" : "false"}
+                                className="flex items-center justify-between"
+                              >
+                                <span>
+                                  {selectedUser
+                                    ? selectedUser.name
+                                    : "Select reviewer..."}
+                                </span>
+                                <ChevronsUpDown className="ml-2 opacity-50" />
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="min-w-[375px] p-0">
+                              <Command>
+                                <CommandInput
+                                  placeholder="Search user..."
+                                  className="h-9"
+                                />
+                                <CommandList>
+                                  <CommandEmpty>No user found.</CommandEmpty>
+                                  <CommandGroup>
+                                    {users.map((user) => (
+                                      <CommandItem
+                                        key={user.id}
+                                        value={user.name}
+                                        onSelect={(currentValue) => {
+                                          form.setValue(
+                                            "reviewerId",
+                                            currentValue,
+                                            {
+                                              shouldDirty: true,
+                                            },
+                                          );
+                                          form.setValue(
+                                            "reviewDate",
+                                            new Date(),
+                                            {
+                                              shouldDirty: true,
+                                            },
+                                          );
+                                          setReviewerOpen(false);
+                                        }}
+                                      >
+                                        {user.name}
+                                        {user.id === field.value ? (
+                                          <Check className="ml-auto" />
+                                        ) : null}
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </CommandList>
+                              </Command>
+                            </PopoverContent>
+                          </Popover>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="reviewDate"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <div>
+                          <FormLabel>
+                            Qualified Supervisor&apos;s Signature Date
+                          </FormLabel>
+                        </div>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant={"outline"}
+                                className={cn(
+                                  "pl-3 text-left font-normal",
+                                  !field.value && "text-muted-foreground",
+                                )}
+                              >
+                                {field.value ? (
+                                  format(field.value, "PPP")
+                                ) : (
+                                  <span>Pick a date</span>
+                                )}
+                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              disabled={(date) =>
+                                date > new Date() ||
+                                date < new Date("1900-01-01")
+                              }
+                              initialFocus
+                            />
+                          </PopoverContent>
+                        </Popover>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </CardContent>
+              </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-sm text-muted-foreground">
                   Provide the details of the retest recommendation and
                   signatories.
                 </p>
-                <Button
-                  variant="outline"
-                  type="submit"
-                  disabled={
-                    !form.formState.isDirty || form.formState.isSubmitting
-                  }
-                >
-                  {form.formState.isSubmitting ? "Saving..." : "Save"}
-                </Button>
               </CardFooter>
             </Card>
           </div>

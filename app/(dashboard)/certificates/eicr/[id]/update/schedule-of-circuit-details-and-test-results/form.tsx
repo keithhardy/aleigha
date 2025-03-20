@@ -101,58 +101,51 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
 
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
-              <CardHeader>
-                <CardTitle>
-                  Schedule of circuit details and test results
-                </CardTitle>
-                <CardDescription className="text-primary">
-                  Review and update the details of the circuits and test results
-                  below.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <Button type="button" onClick={addDb}>
-                  Add DB
-                </Button>
-                {fields.map((field, index) => (
-                  <div key={field.id} className="space-y-4">
-                    <FormField
-                      control={form.control}
-                      name={`db.${index}.dbDesignation`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>DB designation</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Consumer Unit" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button type="button" onClick={() => remove(index)}>
-                      Delete
-                    </Button>
+              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+                <CardHeader className="w-full p-0">
+                  <CardTitle>
+                    Schedule of circuit details and test results
+                  </CardTitle>
+                  <CardDescription>
+                    Review and update the details of the circuits and test
+                    results below.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="w-full space-y-2 p-0">
+                  <Button type="button" onClick={addDb}>
+                    Add DB
+                  </Button>
+                  {fields.map((field, index) => (
+                    <div key={field.id} className="space-y-4">
+                      <FormField
+                        control={form.control}
+                        name={`db.${index}.dbDesignation`}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>DB designation</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Consumer Unit" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <Button type="button" onClick={() => remove(index)}>
+                        Delete
+                      </Button>
 
-                    <div>
-                      <CircuitsForm index={index} control={form.control} />
+                      <div>
+                        <CircuitsForm index={index} control={form.control} />
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </CardContent>
+                  ))}
+                </CardContent>
+              </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-sm text-muted-foreground">
                   Ensure the prosumer’s low voltage installation is inspected
                   for condition.
                 </p>
-                <Button
-                  variant="outline"
-                  type="submit"
-                  disabled={
-                    !form.formState.isDirty || form.formState.isSubmitting
-                  }
-                >
-                  {form.formState.isSubmitting ? "Saving..." : "Save"}
-                </Button>
               </CardFooter>
             </Card>
           </div>

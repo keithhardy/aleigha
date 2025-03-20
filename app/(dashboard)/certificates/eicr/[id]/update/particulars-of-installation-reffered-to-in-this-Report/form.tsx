@@ -130,379 +130,375 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
 
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
-              <CardHeader>
-                <CardTitle>Particulars of Installation</CardTitle>
-                <CardDescription className="text-primary">
-                  Key details of the electrical installation for this report.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="maximumDemand"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Maximum Electrical Demand</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter Maximum Demand (e.g., 100 A)"
-                          {...field}
+              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+                <CardHeader className="w-full p-0">
+                  <CardTitle>Particulars of Installation</CardTitle>
+                  <CardDescription>
+                    Key details of the electrical installation for this report.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="w-full space-y-2 p-0">
+                  <FormField
+                    control={form.control}
+                    name="maximumDemand"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Maximum Electrical Demand</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Enter Maximum Demand (e.g., 100 A)"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="distributorsFacility"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div>
+                          <FormLabel>Distributor&apos;s Facility</FormLabel>
+                        </div>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
                         />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="distributorsFacility"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div>
-                        <FormLabel>Distributor&apos;s Facility</FormLabel>
-                      </div>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="installationEarthElectrodes"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div>
+                          <FormLabel>Earth Electrodes Installed?</FormLabel>
+                        </div>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={(checked) => {
+                            field.onChange(checked);
+                            if (!checked) {
+                              form.setValue("earthElectrodeType", "");
+                              form.setValue("earthElectrodeLocation", "");
+                              form.setValue("electrodeResistanceToEarth", "");
+                            }
+                          }}
+                        />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  {form.watch("installationEarthElectrodes") && (
+                    <>
+                      <FormField
+                        control={form.control}
+                        name="earthElectrodeType"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Type of Earth Electrode</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="e.g., Copper Rod"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="installationEarthElectrodes"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div>
-                        <FormLabel>Earth Electrodes Installed?</FormLabel>
-                      </div>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={(checked) => {
-                          field.onChange(checked);
-                          if (!checked) {
-                            form.setValue("earthElectrodeType", "");
-                            form.setValue("earthElectrodeLocation", "");
-                            form.setValue("electrodeResistanceToEarth", "");
-                          }
-                        }}
+                      <FormField
+                        control={form.control}
+                        name="earthElectrodeLocation"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Earth Electrode Location</FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="e.g., Front Garden"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                {form.watch("installationEarthElectrodes") && (
-                  <>
-                    <FormField
-                      control={form.control}
-                      name="earthElectrodeType"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Type of Earth Electrode</FormLabel>
-                          <FormControl>
-                            <Input placeholder="e.g., Copper Rod" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="earthElectrodeLocation"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Earth Electrode Location</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="e.g., Front Garden"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="electrodeResistanceToEarth"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>
-                            Resistance of Electrode to Earth
-                          </FormLabel>
-                          <FormControl>
-                            <Input placeholder="e.g., 10.0 Ω" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </>
-                )}
-                <FormField
-                  control={form.control}
-                  name="earthingConductorMaterial"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Material of Earthing Conductor</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., Copper" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="earthingConductorCSA"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>CSA of Earthing Conductor</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., 16 mm²" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="earthingConductorVerified"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div>
-                        <FormLabel>Earthing Conductor Verified</FormLabel>
-                      </div>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
+                      <FormField
+                        control={form.control}
+                        name="electrodeResistanceToEarth"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>
+                              Resistance of Electrode to Earth
+                            </FormLabel>
+                            <FormControl>
+                              <Input placeholder="e.g., 10.0 Ω" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
-                      <FormMessage />
-                    </FormItem>
+                    </>
                   )}
-                />
-                <FormField
-                  control={form.control}
-                  name="mainProtectiveBondingConductorMaterial"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        Main Protective Bonding Conductor Material
-                      </FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., Copper" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="mainProtectiveBondingConductorCSA"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        Main Protective Bonding Conductor CSA
-                      </FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., 10 mm²" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="mainProtectiveBondingConductorVerified"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div>
+                  <FormField
+                    control={form.control}
+                    name="earthingConductorMaterial"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Material of Earthing Conductor</FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g., Copper" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="earthingConductorCSA"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>CSA of Earthing Conductor</FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g., 16 mm²" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="earthingConductorVerified"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div>
+                          <FormLabel>Earthing Conductor Verified</FormLabel>
+                        </div>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="mainProtectiveBondingConductorMaterial"
+                    render={({ field }) => (
+                      <FormItem>
                         <FormLabel>
-                          Main Protective Bonding Conductor Verified
+                          Main Protective Bonding Conductor Material
                         </FormLabel>
-                      </div>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="waterInstallationPipes"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Water Installation Pipes</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., 0.02 Ω" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="gasInstallationPipes"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Gas Installation Pipes</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., 0.01 Ω" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="structuralSteel"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Structural Steel</FormLabel>
-                      <FormControl>
-                        <Input placeholder="N/A" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="oilInstallationPipes"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Oil Installation Pipes</FormLabel>
-                      <FormControl>
-                        <Input placeholder="N/A" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="lightningProtection"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Lightning Protection</FormLabel>
-                      <FormControl>
-                        <Input placeholder="N/A" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="other"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Other Installation Details</FormLabel>
-                      <FormControl>
-                        <Input placeholder="N/A" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="mainSwitchLocation"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Main Switch Location</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="e.g., Electric Cupboard"
-                          {...field}
+                        <FormControl>
+                          <Input placeholder="e.g., Copper" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="mainProtectiveBondingConductorCSA"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          Main Protective Bonding Conductor CSA
+                        </FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g., 10 mm²" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="mainProtectiveBondingConductorVerified"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div>
+                          <FormLabel>
+                            Main Protective Bonding Conductor Verified
+                          </FormLabel>
+                        </div>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
                         />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="mainSwitchBSNumber"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>BS Number of Main Switch</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., BS 60898" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="mainSwitchType"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Type of Main Switch</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., Type B" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="mainSwitchRating"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Main Switch Rating / Setting</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., 100 A" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="mainSwitchPoles"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Number of Poles in Main Switch</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., 2" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="mainSwitchCurrentRating"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Main Switch Current Rating</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., 32 A" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </CardContent>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="waterInstallationPipes"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Water Installation Pipes</FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g., 0.02 Ω" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="gasInstallationPipes"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Gas Installation Pipes</FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g., 0.01 Ω" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="structuralSteel"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Structural Steel</FormLabel>
+                        <FormControl>
+                          <Input placeholder="N/A" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="oilInstallationPipes"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Oil Installation Pipes</FormLabel>
+                        <FormControl>
+                          <Input placeholder="N/A" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="lightningProtection"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Lightning Protection</FormLabel>
+                        <FormControl>
+                          <Input placeholder="N/A" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="other"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Other Installation Details</FormLabel>
+                        <FormControl>
+                          <Input placeholder="N/A" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="mainSwitchLocation"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Main Switch Location</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="e.g., Electric Cupboard"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="mainSwitchBSNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>BS Number of Main Switch</FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g., BS 60898" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="mainSwitchType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Type of Main Switch</FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g., Type B" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="mainSwitchRating"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Main Switch Rating / Setting</FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g., 100 A" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="mainSwitchPoles"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Number of Poles in Main Switch</FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g., 2" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="mainSwitchCurrentRating"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Main Switch Current Rating</FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g., 32 A" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </CardContent>
+              </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-sm text-muted-foreground">
                   Ensure all details are accurate before submission.
                 </p>
-                <Button
-                  variant="outline"
-                  type="submit"
-                  disabled={
-                    !form.formState.isDirty || form.formState.isSubmitting
-                  }
-                >
-                  {form.formState.isSubmitting ? "Saving..." : "Save"}
-                </Button>
               </CardFooter>
             </Card>
           </div>

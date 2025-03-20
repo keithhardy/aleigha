@@ -103,49 +103,45 @@ export function UpdateMethodsOfProtectionForm({
 
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
-              <CardHeader>
-                <CardTitle>Methods of protection</CardTitle>
-                <CardDescription className="text-primary">
-                  This section assesses the condition and adequacy of earthing,
-                  bonding, insulation, and safety provisions, including main
-                  earthing, protective bonding, and equipotential bonding.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {inspectionItems.map((item) => (
-                  <FormField
-                    key={item.id}
-                    control={form.control}
-                    // @ts-expect-error Field value is an enum, Input expects string
-                    name={item.id}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{item.item + " - " + item.label}</FormLabel>
-                        <FormControl>
-                          <RadioGroupComponent
-                            onChange={field.onChange}
-                            value={field.value || "na"}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                ))}
-              </CardContent>
+              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+                <CardHeader className="w-full p-0">
+                  <CardTitle>Methods of protection</CardTitle>
+                  <CardDescription>
+                    This section assesses the condition and adequacy of
+                    earthing, bonding, insulation, and safety provisions,
+                    including main earthing, protective bonding, and
+                    equipotential bonding.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="w-full space-y-2 p-0">
+                  {inspectionItems.map((item) => (
+                    <FormField
+                      key={item.id}
+                      control={form.control}
+                      // @ts-expect-error Field value is an enum, Input expects string
+                      name={item.id}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            {item.item + " - " + item.label}
+                          </FormLabel>
+                          <FormControl>
+                            <RadioGroupComponent
+                              onChange={field.onChange}
+                              value={field.value || "na"}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  ))}
+                </CardContent>
+              </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-sm text-muted-foreground">
                   Ensure all earthing and bonding arrangements are inspected.
                 </p>
-                <Button
-                  variant="outline"
-                  type="submit"
-                  disabled={
-                    !form.formState.isDirty || form.formState.isSubmitting
-                  }
-                >
-                  {form.formState.isSubmitting ? "Saving..." : "Save"}
-                </Button>
               </CardFooter>
             </Card>
           </div>

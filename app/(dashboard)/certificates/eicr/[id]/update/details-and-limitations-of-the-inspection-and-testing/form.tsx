@@ -104,134 +104,127 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
 
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
-              <CardHeader>
-                <CardTitle>
-                  Details and limitations of the inspection and testing
-                </CardTitle>
-                <CardDescription className="text-primary">
-                  Provide details regarding the inspection, any regulatory
-                  compliance, limitations of the testing, and the scope of the
-                  report.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="regulationAccordanceAsAmendedTo"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Regulation Compliance</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          placeholder="Specify the regulations the inspection follows, e.g., BS 7671."
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="extentOfSampling"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Extent of Sampling</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          {...field}
-                          className="min-h-[100px]"
-                          placeholder="Enter a detailed description of the electrical installation covered by this report, including components such as wiring, panels, and other relevant systems."
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="detailsOfTheElectricalInstallation"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        Electrical Installation Covered by This Report
-                      </FormLabel>
-                      <FormControl>
-                        <Textarea
-                          {...field}
-                          className="min-h-[100px]"
-                          placeholder="Describe the electrical installation covered by this report, including components such as wiring, panels, etc."
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="agreedLimitations"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Agreed Limitations</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          {...field}
-                          className="min-h-[100px]"
-                          placeholder="Specify any agreed limitations for the inspection and testing process, such as restricted access or scope."
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="agreedLimitationsWith"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Agreed With</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          placeholder="Who the limitations were agreed with (e.g., property owner, client)."
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="operationalLimitations"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Operational Limitations</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          {...field}
-                          className="min-h-[100px]"
-                          placeholder="Describe any operational limitations during testing, such as time constraints, system shutdowns, or other factors."
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </CardContent>
+              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+                <CardHeader className="w-full p-0">
+                  <CardTitle>
+                    Details and limitations of the inspection and testing
+                  </CardTitle>
+                  <CardDescription>
+                    Provide details regarding the inspection, any regulatory
+                    compliance, limitations of the testing, and the scope of the
+                    report.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="w-full space-y-2 p-0">
+                  <FormField
+                    control={form.control}
+                    name="regulationAccordanceAsAmendedTo"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Regulation Compliance</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="Specify the regulations the inspection follows, e.g., BS 7671."
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="extentOfSampling"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Extent of Sampling</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            {...field}
+                            className="min-h-[100px]"
+                            placeholder="Enter a detailed description of the electrical installation covered by this report, including components such as wiring, panels, and other relevant systems."
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="detailsOfTheElectricalInstallation"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          Electrical Installation Covered by This Report
+                        </FormLabel>
+                        <FormControl>
+                          <Textarea
+                            {...field}
+                            className="min-h-[100px]"
+                            placeholder="Describe the electrical installation covered by this report, including components such as wiring, panels, etc."
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="agreedLimitations"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Agreed Limitations</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            {...field}
+                            className="min-h-[100px]"
+                            placeholder="Specify any agreed limitations for the inspection and testing process, such as restricted access or scope."
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="agreedLimitationsWith"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Agreed With</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="Who the limitations were agreed with (e.g., property owner, client)."
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="operationalLimitations"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Operational Limitations</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            {...field}
+                            className="min-h-[100px]"
+                            placeholder="Describe any operational limitations during testing, such as time constraints, system shutdowns, or other factors."
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </CardContent>
+              </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-sm text-muted-foreground">
                   Provide detailed information regarding the inspection process
                   and limitations.
                 </p>
-                <Button
-                  variant="outline"
-                  type="submit"
-                  disabled={
-                    !form.formState.isDirty || form.formState.isSubmitting
-                  }
-                >
-                  {form.formState.isSubmitting ? "Saving..." : "Save"}
-                </Button>
               </CardFooter>
             </Card>
           </div>
