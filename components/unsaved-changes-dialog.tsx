@@ -12,7 +12,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-export const LeavePageAlertDialog = ({
+export const UnsavedChangesDialog = ({
   condition,
   action,
 }: {
@@ -66,7 +66,7 @@ export const LeavePageAlertDialog = ({
             You have unsaved changes. Leave without saving?
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className="space-y-2">
           <AlertDialogCancel onClick={handleCancel}>Cancel</AlertDialogCancel>
           <AlertDialogAction onClick={handleSaveAndContinue}>
             Save and continue

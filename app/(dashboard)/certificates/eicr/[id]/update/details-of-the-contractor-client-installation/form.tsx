@@ -18,7 +18,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { LeavePageAlertDialog } from "@/components/leave-page-alert-dialog";
+import { UnsavedChangesDialog } from "@/components/unsaved-changes-dialog";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { ResponsiveDialog } from "@/components/responsive-dialog";
 import { Button } from "@/components/ui/button";
@@ -505,7 +505,7 @@ export function UpdateContractorClientAndInstallationForm({
         </form>
       </Form>
 
-      <LeavePageAlertDialog
+      <UnsavedChangesDialog
         condition={form.formState.isDirty}
         action={form.handleSubmit(onSubmit)}
       />
