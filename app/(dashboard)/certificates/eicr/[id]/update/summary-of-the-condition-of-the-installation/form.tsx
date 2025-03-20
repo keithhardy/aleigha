@@ -50,7 +50,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
     resolver: zodResolver(UpdateSummaryOfTheConditionOfTheInstallationSchema),
     defaultValues: {
       id: certificate.id,
-      generalCondition: certificate.generalCondition || "",
+      generalCondition: certificate.generalCondition || "The electrical installation is in an acceptable condition and complies with the current version of BS 7671 with the exception of the non-rectified items recorded in the observations section of this report. Earthing and bonding is adequate. Accessories are suitable for continued use. Installation is satisfactory and safe for continued use. ",
       estimatedAgeOfElectricalInstallation:
         certificate.estimatedAgeOfElectricalInstallation || "",
       evidenceOfAlterations: certificate.evidenceOfAlterations ?? false,
