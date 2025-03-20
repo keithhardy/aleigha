@@ -106,7 +106,7 @@ export function UpdateMethodsOfProtectionForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Methods of protection</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     This section assesses the condition and adequacy of
                     earthing, bonding, insulation, and safety provisions,
                     including main earthing, protective bonding, and

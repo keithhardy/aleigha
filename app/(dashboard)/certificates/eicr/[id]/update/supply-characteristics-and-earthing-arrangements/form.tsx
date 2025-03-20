@@ -119,7 +119,7 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                   <CardTitle>
                     Supply characteristics and earthing arrangements
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     Please fill out the details regarding the supply
                     characteristics and earthing arrangements for the electrical
                     installation.

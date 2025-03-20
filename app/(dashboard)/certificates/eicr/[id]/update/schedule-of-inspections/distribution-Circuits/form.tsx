@@ -115,7 +115,7 @@ export function UpdateDistributionCircuitsForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Distribution circuits</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     This section covers the condition and adequacy of the
                     distribution circuits in the system.
                   </CardDescription>

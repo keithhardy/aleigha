@@ -104,7 +104,7 @@ export function UpdateContractorClientAndInstallationForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Contractor</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     Your company details will be shown here and included on the
                     certificate to identify the contractor conducting the
                     report.
@@ -176,7 +176,7 @@ export function UpdateContractorClientAndInstallationForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Client</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     Select the client for whom you are conducting this report.
                     Their details will be included on the certificate.
                   </CardDescription>
@@ -299,7 +299,7 @@ export function UpdateContractorClientAndInstallationForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Installation</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     Choose the installation for this report. This property will
                     be the subject of the report.
                   </CardDescription>

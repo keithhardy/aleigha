@@ -116,7 +116,7 @@ export function UpdateFinalCircuitsForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Final circuits</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     This section covers the condition and performance of the
                     final circuits.
                   </CardDescription>

@@ -109,7 +109,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                   <CardTitle>
                     Details and limitations of the inspection and testing
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     Provide details regarding the inspection, any regulatory
                     compliance, limitations of the testing, and the scope of the
                     report.

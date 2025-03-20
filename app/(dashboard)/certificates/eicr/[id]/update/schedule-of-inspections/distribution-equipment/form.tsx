@@ -121,7 +121,7 @@ export function UpdateDistributionEquipmentForm({
                     Distribution equipment, including consumer units and
                     distribution boards
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     This section covers the condition of distribution equipment,
                     including consumer units, circuit breakers, and distribution
                     boards.

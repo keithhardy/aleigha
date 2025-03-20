@@ -106,7 +106,7 @@ export function UpdateIsolationAndSwitchingForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Isolation and switching</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     This section evaluates the isolation and switching
                     arrangements for safety and compliance.
                   </CardDescription>

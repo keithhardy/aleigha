@@ -107,7 +107,7 @@ export function UpdatePurposeOfTheReportForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Purpose</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     Please specify the reason for generating this report and any
                     specific objectives or requirements for the inspection.
                   </CardDescription>
@@ -146,7 +146,7 @@ export function UpdatePurposeOfTheReportForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Dates</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     Please specify the start and end dates of the inspection and
                     testing to accurately reflect the report timeline.
                   </CardDescription>
@@ -253,7 +253,7 @@ export function UpdatePurposeOfTheReportForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Records</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     Please describe the purpose of the inspection, including the
                     inspection dates and related information.
                   </CardDescription>

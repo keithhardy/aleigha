@@ -133,7 +133,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Particulars of Installation</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     Key details of the electrical installation for this report.
                   </CardDescription>
                 </CardHeader>

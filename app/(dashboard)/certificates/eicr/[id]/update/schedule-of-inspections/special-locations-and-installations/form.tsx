@@ -101,7 +101,7 @@ export function UpdateSpecialLocationsAndInstallationsForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Special locations and installations</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     This section evaluates the condition and safety of special
                     locations and installations.
                   </CardDescription>

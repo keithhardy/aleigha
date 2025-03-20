@@ -101,7 +101,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Condition</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     Provide an overview of the electrical installation&apos;s
                     condition, including age, alterations, and overall
                     assessment.
@@ -133,7 +133,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Age and Alterations</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     Provide the estimated age of the installation and indicate
                     if any alterations or modifications have been made to it.
                   </CardDescription>

@@ -106,7 +106,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                   <CardTitle>
                     Schedule of circuit details and test results
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     Review and update the details of the circuits and test
                     results below.
                   </CardDescription>

@@ -115,7 +115,7 @@ export function UpdateDeclarationForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Declaration</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     Provide the necessary details for the retest, including the
                     inspector and qualified supervisor&apos;s information.
                   </CardDescription>

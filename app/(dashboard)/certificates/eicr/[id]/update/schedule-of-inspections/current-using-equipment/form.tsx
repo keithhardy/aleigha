@@ -102,7 +102,7 @@ export function UpdateCurrentUsingEquipmentForm({
                   <CardTitle>
                     Current-using equipment (permanently connected)
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     This section evaluates the condition and safety of
                     current-using equipment that is permanently connected.
                   </CardDescription>

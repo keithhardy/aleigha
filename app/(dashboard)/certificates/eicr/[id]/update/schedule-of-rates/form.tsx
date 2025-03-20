@@ -125,7 +125,7 @@ export function UpdateScheduleOfRatesForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Schedule of rates</CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     Select predefined rates and input quantities.
                   </CardDescription>
                 </CardHeader>

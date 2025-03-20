@@ -100,7 +100,7 @@ export function UpdateIntakeEquipmentForm({
                   <CardTitle>
                     Intake equipment (visual inspection only)
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     This section covers all outcomes related to the inspection
                     of intake equipment. Any findings other than those regarding
                     access to live parts should not influence the overall

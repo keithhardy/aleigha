@@ -100,7 +100,7 @@ export function UpdatePresenceOfAdequateArrangementsForm({
                     Presence of adequate arrangements for parallel or switched
                     alternative sources
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-balance">
                     This section evaluates the presence of suitable arrangements
                     for parallel or switched alternative power sources, such as
                     microgenerators.
