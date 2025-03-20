@@ -120,7 +120,7 @@ export function UpdateDistributionCircuitsForm({
                     distribution circuits in the system.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="w-full space-y-2 p-0">
+                <CardContent className="w-full space-y-4 p-0">
                   {inspectionItems.map((item) => (
                     <FormField
                       key={item.id}

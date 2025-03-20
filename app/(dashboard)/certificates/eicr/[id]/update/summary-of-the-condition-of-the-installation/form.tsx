@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport } from "@prisma/client";
-import { MoveLeft } from "lucide-react";
+import { ExternalLink, MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -21,6 +21,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -99,50 +100,68 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
-                  <CardTitle>
-                    Summary of the condition of the installation
-                  </CardTitle>
+                  <CardTitle>Condition</CardTitle>
                   <CardDescription>
                     Provide an overview of the electrical installation&apos;s
                     condition, including age, alterations, and overall
                     assessment.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="w-full space-y-2 p-0">
+                <CardContent className="w-full space-y-4 p-0">
                   <FormField
                     control={form.control}
                     name="generalCondition"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>General Condition</FormLabel>
                         <FormControl>
-                          <Textarea
-                            {...field}
-                            className="min-h-[100px]"
-                            placeholder="Describe the general condition of the installation, focusing on electrical safety and overall reliability."
-                          />
+                          <Textarea {...field} className="min-h-[200px]" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
+                </CardContent>
+              </div>
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+                <p className="text-sm text-muted-foreground">
+                  Provide details about the condition of the installation.
+                </p>
+              </CardFooter>
+            </Card>
+
+            <Card className="rounded-md shadow-none">
+              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+                <CardHeader className="w-full p-0">
+                  <CardTitle>Age and Alterations</CardTitle>
+                  <CardDescription>
+                    Provide the estimated age of the installation and indicate
+                    if any alterations or modifications have been made to it.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="w-full space-y-4 p-0">
                   <FormField
                     control={form.control}
                     name="estimatedAgeOfElectricalInstallation"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Estimated Age of Installation</FormLabel>
+                        <FormLabel>
+                          Estimated age of installation (years)
+                        </FormLabel>
                         <FormControl>
                           <Input
                             {...field}
                             type="string"
-                            placeholder="Estimated age of the installation."
                             onChange={(e) => {
-                              const value = Math.max(
-                                0,
-                                Math.floor(Number(e.target.value) || 0),
-                              ).toString();
-                              field.onChange(value);
+                              const rawValue = e.target.value;
+                              if (rawValue === "") {
+                                field.onChange("");
+                              } else {
+                                const value = Math.max(
+                                  0,
+                                  Math.floor(Number(rawValue) || 0),
+                                ).toString();
+                                field.onChange(value);
+                              }
                             }}
                             value={field.value ?? ""}
                           />
@@ -151,13 +170,17 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                       </FormItem>
                     )}
                   />
+
                   <FormField
                     control={form.control}
                     name="evidenceOfAlterations"
                     render={({ field }) => (
-                      <FormItem>
-                        <div>
-                          <FormLabel>Evidence of Alterations</FormLabel>
+                      <FormItem className="flex flex-row items-center justify-between gap-4 rounded-lg border p-4 shadow-sm">
+                        <div className="space-y-0.5">
+                          <FormLabel>Alterations</FormLabel>
+                          <FormDescription>
+                            Check if alterations have been made.
+                          </FormDescription>
                         </div>
                         <FormControl>
                           <Switch
@@ -180,18 +203,24 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                       name="estimatedAgeOfAlterations"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Estimated Age of Alterations</FormLabel>
+                          <FormLabel>
+                            Estimated age of alterations (years)
+                          </FormLabel>
                           <FormControl>
                             <Input
                               {...field}
                               type="string"
-                              placeholder="Estimated age of the alterations."
                               onChange={(e) => {
-                                const value = Math.max(
-                                  0,
-                                  Math.floor(Number(e.target.value) || 0),
-                                ).toString();
-                                field.onChange(value);
+                                const rawValue = e.target.value;
+                                if (rawValue === "") {
+                                  field.onChange("");
+                                } else {
+                                  const value = Math.max(
+                                    0,
+                                    Math.floor(Number(rawValue) || 0),
+                                  ).toString();
+                                  field.onChange(value);
+                                }
                               }}
                               value={field.value ?? ""}
                             />
@@ -201,35 +230,19 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                       )}
                     />
                   )}
-                  <FormField
-                    control={form.control}
-                    name="overallAssessmentOfTheInstallation"
-                    render={({ field }) => (
-                      <FormItem>
-                        <div>
-                          <FormLabel>Overall Assessment</FormLabel>
-                        </div>
-                        <FormControl>
-                          <div className="flex items-center space-x-2">
-                            <Switch
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                            <span className="text-sm font-medium">
-                              {field.value ? "Satisfactory" : "Unsatisfactory"}
-                            </span>
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
                 </CardContent>
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-                <p className="text-sm text-muted-foreground">
-                  Provide details about the condition of the installation and
-                  any alterations made.
+                <p className="text-balance text-sm text-muted-foreground">
+                  Not sure about the age? Check out our{" "}
+                  <Link
+                    href={"/settings"}
+                    className="inline-flex items-center space-x-1 text-blue-500"
+                  >
+                    <span>guide</span>
+                    <ExternalLink size={14} />
+                  </Link>{" "}
+                  for more details.
                 </p>
               </CardFooter>
             </Card>

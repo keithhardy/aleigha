@@ -115,7 +115,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                     report.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="w-full space-y-2 p-0">
+                <CardContent className="w-full space-y-4 p-0">
                   <FormField
                     control={form.control}
                     name="regulationAccordanceAsAmendedTo"

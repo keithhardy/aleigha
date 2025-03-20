@@ -128,7 +128,7 @@ export function UpdateObservationsForm({
                   <CardTitle>Observations</CardTitle>
                   <CardDescription>Select observations.</CardDescription>
                 </CardHeader>
-                <CardContent className="w-full space-y-2 p-0">
+                <CardContent className="w-full space-y-4 p-0">
                   <FormItem>
                     <Popover
                       open={selectedObservationOpen}

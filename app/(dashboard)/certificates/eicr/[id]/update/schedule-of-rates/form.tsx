@@ -129,7 +129,7 @@ export function UpdateScheduleOfRatesForm({
                     Select predefined rates and input quantities.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="w-full space-y-2 p-0">
+                <CardContent className="w-full space-y-4 p-0">
                   <FormItem>
                     <FormLabel>Select rate</FormLabel>
                     <Popover

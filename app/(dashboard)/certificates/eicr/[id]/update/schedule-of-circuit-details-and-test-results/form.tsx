@@ -111,7 +111,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                     results below.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="w-full space-y-2 p-0">
+                <CardContent className="w-full space-y-4 p-0">
                   <Button type="button" onClick={addDb}>
                     Add DB
                   </Button>

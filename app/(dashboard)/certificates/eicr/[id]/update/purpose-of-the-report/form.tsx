@@ -23,6 +23,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -111,7 +112,7 @@ export function UpdatePurposeOfTheReportForm({
                     specific objectives or requirements for the inspection.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="w-full space-y-2 p-0">
+                <CardContent className="w-full space-y-4 p-0">
                   <FormField
                     control={form.control}
                     name="purpose"
@@ -150,16 +151,14 @@ export function UpdatePurposeOfTheReportForm({
                     testing to accurately reflect the report timeline.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="w-full space-y-2 p-0">
+                <CardContent className="w-full space-y-4 p-0">
                   <FormField
                     control={form.control}
                     name="startDate"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <div>
-                          <FormLabel className="text-muted-foreground">
-                            Start Date
-                          </FormLabel>
+                          <FormLabel>Start Date</FormLabel>
                         </div>
                         <Popover>
                           <PopoverTrigger asChild>
@@ -203,9 +202,7 @@ export function UpdatePurposeOfTheReportForm({
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <div>
-                          <FormLabel className="text-muted-foreground">
-                            End Date
-                          </FormLabel>
+                          <FormLabel>End Date</FormLabel>
                         </div>
                         <Popover>
                           <PopoverTrigger asChild>
@@ -261,16 +258,19 @@ export function UpdatePurposeOfTheReportForm({
                     inspection dates and related information.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="w-full space-y-2 p-0">
+                <CardContent className="w-full space-y-4 p-0">
                   <FormField
                     control={form.control}
                     name="recordsAvailable"
                     render={({ field }) => (
-                      <FormItem>
-                        <div>
-                          <FormLabel className="text-muted-foreground">
+                      <FormItem className="flex flex-row items-center justify-between gap-4 rounded-lg border p-4 shadow-sm">
+                        <div className="space-y-0.5">
+                          <FormLabel>
                             Are Inspection Records Available?
                           </FormLabel>
+                          <FormDescription>
+                            Check if previous inspection records are accessible.
+                          </FormDescription>
                         </div>
                         <FormControl>
                           <Switch
@@ -286,11 +286,12 @@ export function UpdatePurposeOfTheReportForm({
                     control={form.control}
                     name="previousReportAvailable"
                     render={({ field }) => (
-                      <FormItem>
-                        <div>
-                          <FormLabel className="text-muted-foreground">
-                            Is Previous Report Available?
-                          </FormLabel>
+                      <FormItem className="flex flex-row items-center justify-between gap-4 rounded-lg border p-4 shadow-sm">
+                        <div className="space-y-0.5">
+                          <FormLabel>Is Previous Report Available?</FormLabel>
+                          <FormDescription>
+                            Check if previous report records are accessible.
+                          </FormDescription>
                         </div>
                         <FormControl>
                           <Switch
