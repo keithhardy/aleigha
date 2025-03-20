@@ -3,35 +3,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { format } from "date-fns";
-import {
-  ArrowLeft,
-  ArrowRight,
-  CalendarIcon,
-  ExternalLink,
-  List,
-  MoveLeft,
-  RotateCcw,
-  Save,
-  Send,
-} from "lucide-react";
+import { CalendarIcon, ExternalLink, MoveLeft } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import FormActions from "@/components/form-actions";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import { ResponsiveDialog } from "@/components/responsive-dialog";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -39,17 +17,8 @@ import {
   CardContent,
   CardDescription,
   CardFooter,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
 import {
   Form,
   FormControl,
@@ -65,6 +34,7 @@ import {
 } from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { UnsavedChangesDialog } from "@/components/unsaved-changes-dialog";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
@@ -78,15 +48,6 @@ export function UpdatePurposeOfTheReportForm({
   certificate: ElectricalInstallationConditionReport;
 }) {
   const { toast } = useToast();
-
-  const router = useRouter();
-
-  const [keyboardVisible, setKeyboardVisible] = useState(false);
-  const [navigationOpen, setNavigationOpen] = useState(false);
-  const [unsavedChangesOpen, setUnsavedChangesOpen] = useState(false);
-  const [nextUrl, setNextUrl] = useState("");
-
-  const originalPush = useRef(router.push);
 
   const form = useForm<z.infer<typeof UpdatePurposeOfTheReportSchema>>({
     resolver: zodResolver(UpdatePurposeOfTheReportSchema),
@@ -103,24 +64,6 @@ export function UpdatePurposeOfTheReportForm({
     },
   });
 
-  useEffect(() => {
-    originalPush.current = router.push;
-
-    router.push = (url: string) => {
-      if (form.formState.isDirty) {
-        setUnsavedChangesOpen(true);
-        setNextUrl(url);
-        return;
-      } else {
-        originalPush.current.call(router, url);
-      }
-    };
-
-    return () => {
-      router.push = originalPush.current;
-    };
-  }, [form.formState.isDirty, router]);
-
   const onSubmit = async (
     data: z.infer<typeof UpdatePurposeOfTheReportSchema>,
   ) => {
@@ -128,12 +71,6 @@ export function UpdatePurposeOfTheReportForm({
 
     if (response.status === "success") {
       form.reset(data);
-
-      setTimeout(() => {
-        if (nextUrl) {
-          router.push(nextUrl);
-        }
-      }, 1000);
     }
 
     toast({
@@ -450,132 +387,18 @@ export function UpdatePurposeOfTheReportForm({
             </div>
           </div>
 
-          <div className="sticky bottom-0 border-t bg-background">
-            <div className="container mx-auto flex max-w-screen-xl justify-between px-6 py-4">
-              <Link
-                href={`/certificates/eicr/${certificate.id}/update/details-of-the-contractor-client-installation`}
-              >
-                <Button variant="outline" size="icon">
-                  <ArrowLeft />
-                </Button>
-              </Link>
-              <div className="space-x-2">
-                <ResponsiveDialog
-                  sheetOpen={navigationOpen}
-                  setSheetOpen={setNavigationOpen}
-                  keyboardVisible={keyboardVisible}
-                  setKeyboardVisible={setKeyboardVisible}
-                  triggerButton={
-                    <Button variant="outline" size="icon">
-                      <List />
-                    </Button>
-                  }
-                >
-                  <Command>
-                    <CommandInput placeholder="Search sections..." />
-                    <CommandList className="scrollbar-hidden">
-                      <CommandEmpty>No found.</CommandEmpty>
-                      <CommandGroup>
-                        {sections.map((section, index) => (
-                          <CommandItem
-                            key={index}
-                            value={section.title}
-                            onSelect={() => {
-                              setNavigationOpen(false);
-                              setKeyboardVisible(false);
-                              router.push(
-                                `/certificates/eicr/${certificate.id}/update${section.url}`,
-                              );
-                            }}
-                            className="truncate"
-                          >
-                            <p className="truncate">{section.title}</p>
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </ResponsiveDialog>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => form.reset()}
-                  disabled={
-                    !form.formState.isDirty || form.formState.isSubmitting
-                  }
-                >
-                  <RotateCcw />
-                </Button>
-                <Button
-                  type="submit"
-                  variant="outline"
-                  size="icon"
-                  disabled={
-                    !form.formState.isDirty || form.formState.isSubmitting
-                  }
-                >
-                  <Save />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => form.reset()}
-                >
-                  <Send />
-                </Button>
-              </div>
-              <Link
-                href={`/certificates/eicr/${certificate.id}/update/summary-of-the-condition-of-the-installation`}
-              >
-                <Button variant="outline" size="icon">
-                  <ArrowRight />
-                </Button>
-              </Link>
-            </div>
-          </div>
+          <FormActions
+            form={form}
+            sections={sections}
+            baseUrl={"/certificates/eicr"}
+          />
         </form>
       </Form>
 
-      <AlertDialog
-        open={unsavedChangesOpen}
-        onOpenChange={setUnsavedChangesOpen}
-      >
-        <AlertDialogContent className="w-[90%]">
-          <AlertDialogHeader>
-            <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
-            <AlertDialogDescription>
-              You have unsaved changes. Leave without saving?
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel
-              onClick={() => {
-                setUnsavedChangesOpen(false);
-                setNextUrl("");
-              }}
-            >
-              Cancel
-            </AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => {
-                setUnsavedChangesOpen(false);
-                if (nextUrl) originalPush.current.call(router, nextUrl);
-              }}
-              className="mt-2 sm:mt-0"
-            >
-              Continue
-            </AlertDialogAction>
-            <AlertDialogAction
-              onClick={() => {
-                form.handleSubmit(onSubmit)();
-                setUnsavedChangesOpen(false);
-              }}
-            >
-              Save then continue
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <UnsavedChangesDialog
+        condition={form.formState.isDirty}
+        action={form.handleSubmit(onSubmit)}
+      />
     </>
   );
 }

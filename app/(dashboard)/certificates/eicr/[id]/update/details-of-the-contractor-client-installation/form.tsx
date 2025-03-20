@@ -2,22 +2,12 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Address, Client, Property, Settings } from "@prisma/client";
-import {
-  ArrowLeft,
-  ArrowRight,
-  ChevronsUpDown,
-  ExternalLink,
-  List,
-  MoveLeft,
-  RotateCcw,
-  Save,
-  Send,
-} from "lucide-react";
+import { ChevronsUpDown, ExternalLink, MoveLeft } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import FormActions from "@/components/form-actions";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { ResponsiveDialog } from "@/components/responsive-dialog";
 import { Button } from "@/components/ui/button";
@@ -37,13 +27,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import {
-  Form,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { UnsavedChangesDialog } from "@/components/unsaved-changes-dialog";
 import { useToast } from "@/hooks/use-toast";
@@ -65,8 +49,6 @@ export function UpdateContractorClientAndInstallationForm({
   settings?: (Settings & { address?: Address | null }) | null;
 }) {
   const { toast } = useToast();
-
-  const router = useRouter();
 
   const form = useForm<
     z.infer<typeof UpdateContractorClientAndInstallationSchema>
@@ -386,10 +368,6 @@ export function UpdateContractorClientAndInstallationForm({
                                   </Command>
                                 )}
                               />
-                              <FormDescription>
-                                Change the client to view and choose from their
-                                available properties.
-                              </FormDescription>
                               <FormMessage />
                             </FormItem>
                             <Input
@@ -449,81 +427,11 @@ export function UpdateContractorClientAndInstallationForm({
             </div>
           </div>
 
-          <div className="sticky bottom-0 border-t bg-background">
-            <div className="container mx-auto flex max-w-screen-xl justify-between px-6 py-4">
-              <Button variant="outline" size="icon" disabled>
-                <ArrowLeft />
-              </Button>
-              <div className="space-x-2">
-                <ResponsiveDialog
-                  trigger={
-                    <Button variant="outline" size="icon">
-                      <List />
-                    </Button>
-                  }
-                  content={(setOpen) => (
-                    <Command>
-                      <CommandInput placeholder="Search sections..." />
-                      <CommandList className="scrollbar-hidden">
-                        <CommandEmpty>No found.</CommandEmpty>
-                        <CommandGroup>
-                          {sections.map((section, index) => (
-                            <CommandItem
-                              key={index}
-                              value={section.title}
-                              onSelect={() => {
-                                setOpen(false);
-                                router.push(
-                                  `/certificates/eicr/${certificate.id}/update${section.url}`,
-                                );
-                              }}
-                              className="truncate"
-                            >
-                              <p className="truncate">{section.title}</p>
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  )}
-                />
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => form.reset()}
-                  disabled={
-                    !form.formState.isDirty || form.formState.isSubmitting
-                  }
-                >
-                  <RotateCcw />
-                </Button>
-                <Button
-                  type="submit"
-                  variant="outline"
-                  size="icon"
-                  disabled={
-                    !form.formState.isDirty || form.formState.isSubmitting
-                  }
-                >
-                  <Save />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => form.reset()}
-                >
-                  <Send />
-                </Button>
-              </div>
-              <Link
-                href={`/certificates/eicr/${certificate.id}/update/purpose-of-the-report`}
-              >
-                <Button variant="outline" size="icon">
-                  <ArrowRight />
-                </Button>
-              </Link>
-            </div>
-          </div>
+          <FormActions
+            form={form}
+            sections={sections}
+            baseUrl={"/certificates/eicr"}
+          />
         </form>
       </Form>
 
