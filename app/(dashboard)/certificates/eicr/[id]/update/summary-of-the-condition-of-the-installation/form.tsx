@@ -9,7 +9,6 @@ import { z } from "zod";
 
 import FormActions from "@/components/form-actions";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -176,7 +175,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                       control={form.control}
                       name="evidenceOfAlterations"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between">
+                        <FormItem className="flex flex-row gap-4 items-center justify-between">
                           <div className="space-y-0.5">
                             <FormLabel>Alterations</FormLabel>
                             <FormDescription>

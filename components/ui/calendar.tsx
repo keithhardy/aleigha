@@ -21,11 +21,11 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
-  const [month, setMonth] = React.useState(new Date());
-
+  const [month, setMonth] = React.useState(props.defaultMonth || new Date());
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: currentYear - 1899 }, (_, i) => 1900 + i);
-
+  const minYear = currentYear - 25;
+  const maxYear = currentYear + 25;
+  const years = Array.from({ length: maxYear - minYear + 1 }, (_, i) => minYear + i);
   const months = Array.from({ length: 12 }, (_, i) =>
     new Date(0, i).toLocaleString("default", { month: "long" })
   );

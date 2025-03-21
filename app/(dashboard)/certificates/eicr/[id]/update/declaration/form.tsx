@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport, User } from "@prisma/client";
 import { format } from "date-fns";
-import { CalendarIcon, Check, ChevronsUpDown, MoveLeft } from "lucide-react";
+import { CalendarIcon, Check, ChevronsUpDown, ExternalLink, MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -67,7 +67,8 @@ export function UpdateDeclarationForm({
     resolver: zodResolver(UpdateDeclarationSchema),
     defaultValues: {
       id: certificate.id,
-      recommendedRetestDate: certificate.recommendedRetestDate || undefined,
+      recommendedRetestDate: certificate.recommendedRetestDate ||
+        (certificate.endDate ? new Date(certificate.endDate.setFullYear(certificate.endDate.getFullYear() + 5) - 86400000) : undefined),
       reasonForRecommendation: certificate.reasonForRecommendation || "",
       inspectorId: certificate.inspectorId || "",
       inspectionDate: certificate.inspectionDate || undefined,
@@ -114,10 +115,9 @@ export function UpdateDeclarationForm({
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
-                  <CardTitle>Declaration</CardTitle>
+                  <CardTitle>Retest Details</CardTitle>
                   <CardDescription className="text-balance">
-                    Provide the necessary details for the retest, including the
-                    inspector and qualified supervisor&apos;s information.
+                    Provide the recommended retest date and explain the reason for recommending the retest, including any relevant details.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -148,20 +148,12 @@ export function UpdateDeclarationForm({
                               </Button>
                             </FormControl>
                           </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
+                          <PopoverContent className="w-auto p-0" align="center">
                             <Calendar
                               mode="single"
                               selected={field.value}
                               onSelect={field.onChange}
                               disabled={(date) => date < new Date()}
-                              initialFocus
-                              defaultMonth={
-                                new Date(
-                                  new Date().setFullYear(
-                                    new Date().getFullYear() + 5,
-                                  ),
-                                )
-                              }
                             />
                           </PopoverContent>
                         </Popover>
@@ -178,14 +170,38 @@ export function UpdateDeclarationForm({
                         <FormControl>
                           <Textarea
                             {...field}
-                            className="min-h-[100px]"
-                            placeholder="Provide the reason for recommending the retest."
+                            className="min-h-[200px]"
                           />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
+                </CardContent>
+              </div>
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+                <p className="text-balance text-sm text-muted-foreground">
+                  Not sure about the retest period? Check out our{" "}
+                  <Link
+                    href={"/guide"}
+                    className="inline-flex items-center space-x-1 text-blue-500"
+                  >
+                    <span>guide</span>
+                    <ExternalLink size={14} />
+                  </Link>{" "}
+                  for more details.
+                </p>
+              </CardFooter>
+            </Card>
+            <Card className="rounded-md shadow-none">
+              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+                <CardHeader className="w-full p-0">
+                  <CardTitle>Inspector</CardTitle>
+                  <CardDescription className="text-balance">
+                    The inspector's name and signature are required to formally sign off on the report, confirming its accuracy and completeness.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="w-full space-y-4 p-0">
                   <FormField
                     control={form.control}
                     name="inspectorId"
@@ -230,10 +246,10 @@ export function UpdateDeclarationForm({
                                       <CommandItem
                                         key={user.id}
                                         value={user.name}
-                                        onSelect={(currentValue) => {
+                                        onSelect={() => {
                                           form.setValue(
                                             "inspectorId",
-                                            currentValue,
+                                            user.id,
                                             {
                                               shouldDirty: true,
                                             },
@@ -289,7 +305,7 @@ export function UpdateDeclarationForm({
                               </Button>
                             </FormControl>
                           </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
+                          <PopoverContent className="w-auto p-0" align="center">
                             <Calendar
                               mode="single"
                               selected={field.value}
@@ -306,6 +322,23 @@ export function UpdateDeclarationForm({
                       </FormItem>
                     )}
                   />
+                </CardContent>
+              </div>
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+                <p className="text-balance text-sm text-muted-foreground">
+                  Ensure all information is accurate and verified before submitting.
+                </p>
+              </CardFooter>
+            </Card>
+            <Card className="rounded-md shadow-none">
+              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+                <CardHeader className="w-full p-0">
+                  <CardTitle>Reviewer</CardTitle>
+                  <CardDescription className="text-balance">
+                    The reviewer's name and signature are required to confirm that the report has been thoroughly checked and approved.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="w-full space-y-4 p-0">
                   <FormField
                     control={form.control}
                     name="reviewerId"
@@ -350,10 +383,10 @@ export function UpdateDeclarationForm({
                                       <CommandItem
                                         key={user.id}
                                         value={user.name}
-                                        onSelect={(currentValue) => {
+                                        onSelect={() => {
                                           form.setValue(
                                             "reviewerId",
-                                            currentValue,
+                                            user.id,
                                             {
                                               shouldDirty: true,
                                             },
@@ -413,7 +446,7 @@ export function UpdateDeclarationForm({
                               </Button>
                             </FormControl>
                           </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
+                          <PopoverContent className="w-auto p-0" align="center">
                             <Calendar
                               mode="single"
                               selected={field.value}
@@ -434,8 +467,7 @@ export function UpdateDeclarationForm({
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-balance text-sm text-muted-foreground">
-                  Provide the details of the retest recommendation and
-                  signatories.
+                  Ensure all findings are verified before signing off the report. If unsure, consult with the inspector.
                 </p>
               </CardFooter>
             </Card>
