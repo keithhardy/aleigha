@@ -171,65 +171,68 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                     )}
                   />
 
-                  <FormField
-                    control={form.control}
-                    name="evidenceOfAlterations"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center justify-between gap-4 rounded-lg border p-4 shadow-sm">
-                        <div className="space-y-0.5">
-                          <FormLabel>Alterations</FormLabel>
-                          <FormDescription>
-                            Check if alterations have been made.
-                          </FormDescription>
-                        </div>
-                        <FormControl>
-                          <Switch
-                            checked={field.value}
-                            onCheckedChange={(checked) => {
-                              field.onChange(checked);
-                              if (!checked) {
-                                form.setValue("estimatedAgeOfAlterations", "");
-                              }
-                            }}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  {form.watch("evidenceOfAlterations") && (
+                  <div className="rounded-lg border p-4 shadow-sm space-y-4">
                     <FormField
                       control={form.control}
-                      name="estimatedAgeOfAlterations"
+                      name="evidenceOfAlterations"
                       render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>
-                            Estimated age of alterations (years)
-                          </FormLabel>
+                        <FormItem className="flex flex-row items-center justify-between">
+                          <div className="space-y-0.5">
+                            <FormLabel>Alterations</FormLabel>
+                            <FormDescription>
+                              Check if alterations have been made.
+                            </FormDescription>
+                          </div>
                           <FormControl>
-                            <Input
-                              {...field}
-                              type="string"
-                              onChange={(e) => {
-                                const rawValue = e.target.value;
-                                if (rawValue === "") {
-                                  field.onChange("");
-                                } else {
-                                  const value = Math.max(
-                                    0,
-                                    Math.floor(Number(rawValue) || 0),
-                                  ).toString();
-                                  field.onChange(value);
+                            <Switch
+                              checked={field.value}
+                              onCheckedChange={(checked) => {
+                                field.onChange(checked);
+                                if (!checked) {
+                                  form.setValue("estimatedAgeOfAlterations", "");
                                 }
                               }}
-                              value={field.value ?? ""}
                             />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                  )}
+                    {form.watch("evidenceOfAlterations") && (
+                      <FormField
+                        control={form.control}
+                        name="estimatedAgeOfAlterations"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>
+                              Estimated age of alterations (years)
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                type="string"
+                                onChange={(e) => {
+                                  const rawValue = e.target.value;
+                                  if (rawValue === "") {
+                                    field.onChange("");
+                                  } else {
+                                    const value = Math.max(
+                                      0,
+                                      Math.floor(Number(rawValue) || 0),
+                                    ).toString();
+                                    field.onChange(value);
+                                  }
+                                }}
+                                value={field.value ?? ""}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+
+                  </div>
                 </CardContent>
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
