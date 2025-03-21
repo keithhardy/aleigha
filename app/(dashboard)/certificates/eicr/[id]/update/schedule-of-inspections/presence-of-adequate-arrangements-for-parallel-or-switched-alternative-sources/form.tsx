@@ -132,7 +132,7 @@ export function UpdatePresenceOfAdequateArrangementsForm({
                 </CardContent>
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-2">
-                <p className="text-sm text-muted-foreground">
+                <p className="text-balance text-sm text-muted-foreground">
                   Ensure all items related to microgenerators are inspected.
                 </p>
               </CardFooter>

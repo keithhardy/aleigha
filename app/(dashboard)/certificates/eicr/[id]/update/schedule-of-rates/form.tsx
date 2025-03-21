@@ -230,7 +230,7 @@ export function UpdateScheduleOfRatesForm({
                 </CardContent>
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-                <p className="text-sm text-muted-foreground">
+                <p className="text-balance text-sm text-muted-foreground">
                   Review the selected rates and update descriptions as needed.
                 </p>
               </CardFooter>

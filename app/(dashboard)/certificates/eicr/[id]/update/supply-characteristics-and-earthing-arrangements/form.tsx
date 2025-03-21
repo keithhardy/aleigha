@@ -306,7 +306,7 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                 </CardContent>
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-                <p className="text-sm text-muted-foreground">
+                <p className="text-balance text-sm text-muted-foreground">
                   Ensure all details are accurate before submission.
                 </p>
               </CardFooter>
