@@ -9,7 +9,6 @@ import { z } from "zod";
 
 import FormActions from "@/components/form-actions";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -84,7 +83,7 @@ export function UpdateProsumersLowVoltageInstallationForm({
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
-              <Heading>Prosumer's low voltage installation</Heading>
+              <Heading>Prosumer&apos;s low voltage installation</Heading>
             </HeaderGroup>
           </Header>
 
@@ -100,7 +99,7 @@ export function UpdateProsumersLowVoltageInstallationForm({
                     low voltage installation.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="w-full space-y-4 p-0">
+                <CardContent className="w-full space-y-8 p-0">
                   {inspectionItems.map((item) => (
                     <FormField
                       key={item.id}

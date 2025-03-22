@@ -126,7 +126,9 @@ export function UpdateObservationsForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Observations</CardTitle>
-                  <CardDescription className="text-balance">Select observations.</CardDescription>
+                  <CardDescription className="text-balance">
+                    Select observations.
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
                   <FormItem>
@@ -180,7 +182,7 @@ export function UpdateObservationsForm({
                                 >
                                   {`${observation.itemNumber}: ${observation.description}`}
                                   {observation.id.toString() ===
-                                    selectedObservation ? (
+                                  selectedObservation ? (
                                     <Check className="ml-auto" />
                                   ) : null}
                                 </CommandItem>

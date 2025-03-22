@@ -103,13 +103,12 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
 
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
-              <div className="flex flex-col gap-4 p-6 lg:flex-row items-center">
+              <div className="flex flex-col items-center gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
-                  <CardTitle>
-                    Regulation
-                  </CardTitle>
+                  <CardTitle>Regulation</CardTitle>
                   <CardDescription className="text-balance">
-                    Specify the regulations the inspection follows, e.g., BS 7671.
+                    Specify the regulations the inspection follows, e.g., BS
+                    7671.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -119,9 +118,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <Input
-                            {...field}
-                          />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -139,9 +136,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
-                  <CardTitle>
-                    Scope
-                  </CardTitle>
+                  <CardTitle>Scope</CardTitle>
                   <CardDescription className="text-balance">
                     Provide details regarding the inspection, any regulatory
                     compliance, limitations of the testing, and the scope of the
@@ -158,10 +153,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                           Electrical Installation Covered by This Report
                         </FormLabel>
                         <FormControl>
-                          <Textarea
-                            {...field}
-                            className="min-h-[200px]"
-                          />
+                          <Textarea {...field} className="min-h-[200px]" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -174,10 +166,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                       <FormItem>
                         <FormLabel>Extent of Sampling</FormLabel>
                         <FormControl>
-                          <Textarea
-                            {...field}
-                            className="min-h-[200px]"
-                          />
+                          <Textarea {...field} className="min-h-[200px]" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -195,9 +184,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
-                  <CardTitle>
-                    Limitations
-                  </CardTitle>
+                  <CardTitle>Limitations</CardTitle>
                   <CardDescription className="text-balance">
                     Provide details regarding the inspection, any regulatory
                     compliance, limitations of the testing, and the scope of the
@@ -212,10 +199,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                       <FormItem>
                         <FormLabel>Agreed Limitations</FormLabel>
                         <FormControl>
-                          <Textarea
-                            {...field}
-                            className="min-h-[200px]"
-                          />
+                          <Textarea {...field} className="min-h-[200px]" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -228,9 +212,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                       <FormItem>
                         <FormLabel>Agreed With</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                          />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -243,10 +225,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                       <FormItem>
                         <FormLabel>Operational Limitations</FormLabel>
                         <FormControl>
-                          <Textarea
-                            {...field}
-                            className="min-h-[200px]"
-                          />
+                          <Textarea {...field} className="min-h-[200px]" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

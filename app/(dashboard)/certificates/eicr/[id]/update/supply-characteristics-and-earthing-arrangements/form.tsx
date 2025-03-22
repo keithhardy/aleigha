@@ -119,8 +119,8 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Characteristics</CardTitle>
                   <CardDescription className="text-balance">
-                    Provide details about the supply characteristics and earthing arrangements
-                    of the electrical installation.
+                    Provide details about the supply characteristics and
+                    earthing arrangements of the electrical installation.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -129,7 +129,9 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                     name="systemTypeAndEarthingArrangements"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>System Type and Earthing Arrangements</FormLabel>
+                        <FormLabel>
+                          System Type and Earthing Arrangements
+                        </FormLabel>
                         <FormControl>
                           <Input {...field} />
                         </FormControl>
@@ -142,7 +144,9 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                     name="numberAndTypeOfLiveConductors"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Number and Type of Live Conductors</FormLabel>
+                        <FormLabel>
+                          Number and Type of Live Conductors
+                        </FormLabel>
                         <FormControl>
                           <Input {...field} />
                         </FormControl>
@@ -173,7 +177,9 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                     name="nominalLineVoltageToEarth"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Nominal Line Voltage to Earth (U0)</FormLabel>
+                        <FormLabel>
+                          Nominal Line Voltage to Earth (U0)
+                        </FormLabel>
                         <FormControl>
                           <div className="relative w-full">
                             <Input {...field} className="pr-10" />
@@ -238,8 +244,8 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Protective Device</CardTitle>
                   <CardDescription className="text-balance">
-                    Enter details about the supply protective device, including its BS number,
-                    type, and rated current.
+                    Enter details about the supply protective device, including
+                    its BS number, type, and rated current.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -248,7 +254,9 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                     name="supplyProtectiveDeviceBSNumber"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Supply Protective Device BS Number</FormLabel>
+                        <FormLabel>
+                          Supply Protective Device BS Number
+                        </FormLabel>
                         <FormControl>
                           <Input {...field} />
                         </FormControl>
@@ -274,7 +282,9 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                     name="supplyProtectiveDeviceRatedCurrent"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Rated Current of Supply Protective Device</FormLabel>
+                        <FormLabel>
+                          Rated Current of Supply Protective Device
+                        </FormLabel>
                         <FormControl>
                           <div className="relative w-full">
                             <Input {...field} className="pr-10" />
@@ -300,20 +310,21 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Confirmation</CardTitle>
                   <CardDescription className="text-balance">
-                    Verify and confirm key supply characteristics, including polarity checks,
-                    fault current, and earth loop impedance.
+                    Verify and confirm key supply characteristics, including
+                    polarity checks, fault current, and earth loop impedance.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
-
-                  <div className="rounded-lg border p-4 shadow-sm space-y-4">
+                  <div className="space-y-4 rounded-lg border p-4 shadow-sm">
                     <FormField
                       control={form.control}
                       name="confirmationOfSupplyPolarity"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row gap-4 items-center justify-between">
+                        <FormItem className="flex flex-row items-center justify-between gap-4">
                           <div className="space-y-0.5">
-                            <FormLabel>Confirmation of Supply Polarity</FormLabel>
+                            <FormLabel>
+                              Confirmation of Supply Polarity
+                            </FormLabel>
                             <FormDescription>
                               Check if supply polarity is correct.
                             </FormDescription>

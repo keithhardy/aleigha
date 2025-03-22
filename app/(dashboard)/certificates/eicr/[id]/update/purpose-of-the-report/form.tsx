@@ -259,7 +259,7 @@ export function UpdatePurposeOfTheReportForm({
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
-                  <div className="rounded-lg border p-4 shadow-sm space-y-4">
+                  <div className="space-y-4 rounded-lg border p-4 shadow-sm">
                     <FormField
                       control={form.control}
                       name="recordsAvailable"
@@ -270,7 +270,8 @@ export function UpdatePurposeOfTheReportForm({
                               Are Inspection Records Available?
                             </FormLabel>
                             <FormDescription>
-                              Check if previous inspection records are accessible.
+                              Check if previous inspection records are
+                              accessible.
                             </FormDescription>
                           </div>
                           <FormControl>
@@ -284,12 +285,12 @@ export function UpdatePurposeOfTheReportForm({
                       )}
                     />
                   </div>
-                  <div className="rounded-lg border p-4 shadow-sm space-y-4">
+                  <div className="space-y-4 rounded-lg border p-4 shadow-sm">
                     <FormField
                       control={form.control}
                       name="previousReportAvailable"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row gap-4 items-center justify-between">
+                        <FormItem className="flex flex-row items-center justify-between gap-4">
                           <div className="space-y-0.5">
                             <FormLabel>Is Previous Report Available?</FormLabel>
                             <FormDescription>

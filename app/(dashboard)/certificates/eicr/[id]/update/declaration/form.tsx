@@ -3,7 +3,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport, User } from "@prisma/client";
 import { format } from "date-fns";
-import { CalendarIcon, Check, ChevronsUpDown, ExternalLink, MoveLeft } from "lucide-react";
+import {
+  CalendarIcon,
+  Check,
+  ChevronsUpDown,
+  ExternalLink,
+  MoveLeft,
+} from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -67,8 +73,15 @@ export function UpdateDeclarationForm({
     resolver: zodResolver(UpdateDeclarationSchema),
     defaultValues: {
       id: certificate.id,
-      recommendedRetestDate: certificate.recommendedRetestDate ||
-        (certificate.endDate ? new Date(certificate.endDate.setFullYear(certificate.endDate.getFullYear() + 5) - 86400000) : undefined),
+      recommendedRetestDate:
+        certificate.recommendedRetestDate ||
+        (certificate.endDate
+          ? new Date(
+              certificate.endDate.setFullYear(
+                certificate.endDate.getFullYear() + 5,
+              ) - 86400000,
+            )
+          : undefined),
       reasonForRecommendation: certificate.reasonForRecommendation || "",
       inspectorId: certificate.inspectorId || "",
       inspectionDate: certificate.inspectionDate || undefined,
@@ -117,7 +130,8 @@ export function UpdateDeclarationForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Retest Details</CardTitle>
                   <CardDescription className="text-balance">
-                    Provide the recommended retest date and explain the reason for recommending the retest, including any relevant details.
+                    Provide the recommended retest date and explain the reason
+                    for recommending the retest, including any relevant details.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -168,10 +182,7 @@ export function UpdateDeclarationForm({
                       <FormItem>
                         <FormLabel>Reason for Recommendation</FormLabel>
                         <FormControl>
-                          <Textarea
-                            {...field}
-                            className="min-h-[200px]"
-                          />
+                          <Textarea {...field} className="min-h-[200px]" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -198,7 +209,9 @@ export function UpdateDeclarationForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Inspector</CardTitle>
                   <CardDescription className="text-balance">
-                    The inspector's name and signature are required to formally sign off on the report, confirming its accuracy and completeness.
+                    The inspector&apos;s name and signature are required to
+                    formally sign off on the report, confirming its accuracy and
+                    completeness.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -326,7 +339,8 @@ export function UpdateDeclarationForm({
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-balance text-sm text-muted-foreground">
-                  Ensure all information is accurate and verified before submitting.
+                  Ensure all information is accurate and verified before
+                  submitting.
                 </p>
               </CardFooter>
             </Card>
@@ -335,7 +349,9 @@ export function UpdateDeclarationForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Reviewer</CardTitle>
                   <CardDescription className="text-balance">
-                    The reviewer's name and signature are required to confirm that the report has been thoroughly checked and approved.
+                    The reviewer&apos;s name and signature are required to
+                    confirm that the report has been thoroughly checked and
+                    approved.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -384,13 +400,9 @@ export function UpdateDeclarationForm({
                                         key={user.id}
                                         value={user.name}
                                         onSelect={() => {
-                                          form.setValue(
-                                            "reviewerId",
-                                            user.id,
-                                            {
-                                              shouldDirty: true,
-                                            },
-                                          );
+                                          form.setValue("reviewerId", user.id, {
+                                            shouldDirty: true,
+                                          });
                                           form.setValue(
                                             "reviewDate",
                                             new Date(),
@@ -467,7 +479,8 @@ export function UpdateDeclarationForm({
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-balance text-sm text-muted-foreground">
-                  Ensure all findings are verified before signing off the report. If unsure, consult with the inspector.
+                  Ensure all findings are verified before signing off the
+                  report. If unsure, consult with the inspector.
                 </p>
               </CardFooter>
             </Card>

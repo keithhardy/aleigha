@@ -49,7 +49,9 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
     resolver: zodResolver(UpdateSummaryOfTheConditionOfTheInstallationSchema),
     defaultValues: {
       id: certificate.id,
-      generalCondition: certificate.generalCondition || "The electrical installation is in an acceptable condition and complies with the current version of BS 7671 with the exception of the non-rectified items recorded in the observations section of this report. Earthing and bonding is adequate. Accessories are suitable for continued use. Installation is satisfactory and safe for continued use. ",
+      generalCondition:
+        certificate.generalCondition ||
+        "The electrical installation is in an acceptable condition and complies with the current version of BS 7671 with the exception of the non-rectified items recorded in the observations section of this report. Earthing and bonding is adequate. Accessories are suitable for continued use. Installation is satisfactory and safe for continued use. ",
       estimatedAgeOfElectricalInstallation:
         certificate.estimatedAgeOfElectricalInstallation || "",
       evidenceOfAlterations: certificate.evidenceOfAlterations ?? false,
@@ -143,9 +145,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                     name="estimatedAgeOfElectricalInstallation"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          Estimated age of installation
-                        </FormLabel>
+                        <FormLabel>Estimated age of installation</FormLabel>
                         <FormControl>
                           <div className="relative w-full">
                             <Input
@@ -176,12 +176,12 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                     )}
                   />
 
-                  <div className="rounded-lg border p-4 shadow-sm space-y-4">
+                  <div className="space-y-4 rounded-lg border p-4 shadow-sm">
                     <FormField
                       control={form.control}
                       name="evidenceOfAlterations"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row gap-4 items-center justify-between">
+                        <FormItem className="flex flex-row items-center justify-between gap-4">
                           <div className="space-y-0.5">
                             <FormLabel>Alterations</FormLabel>
                             <FormDescription>
@@ -194,7 +194,10 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                               onCheckedChange={(checked) => {
                                 field.onChange(checked);
                                 if (!checked) {
-                                  form.setValue("estimatedAgeOfAlterations", "");
+                                  form.setValue(
+                                    "estimatedAgeOfAlterations",
+                                    "",
+                                  );
                                 }
                               }}
                             />
@@ -209,9 +212,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                         name="estimatedAgeOfAlterations"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>
-                              Estimated age of alterations
-                            </FormLabel>
+                            <FormLabel>Estimated age of alterations</FormLabel>
                             <FormControl>
                               <div className="relative w-full">
                                 <Input

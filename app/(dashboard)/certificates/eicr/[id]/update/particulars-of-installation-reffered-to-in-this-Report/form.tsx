@@ -130,7 +130,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
 
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
-              <div className="flex flex-col gap-4 p-6 lg:flex-row items-center">
+              <div className="flex flex-col items-center gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Maximum Demand</CardTitle>
                   <CardDescription className="text-balance">
@@ -180,16 +180,17 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
-                  <div className="rounded-lg border p-4 shadow-sm space-y-4">
+                  <div className="space-y-4 rounded-lg border p-4 shadow-sm">
                     <FormField
                       control={form.control}
                       name="distributorsFacility"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row gap-4 items-center justify-between">
+                        <FormItem className="flex flex-row items-center justify-between gap-4">
                           <div className="space-y-0.5">
                             <FormLabel>Distributor&apos;s Facility?</FormLabel>
                             <FormDescription>
-                              Check if the earthing is supplied by the distributor.
+                              Check if the earthing is supplied by the
+                              distributor.
                             </FormDescription>
                           </div>
                           <Switch
@@ -201,12 +202,12 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                       )}
                     />
                   </div>
-                  <div className="rounded-lg border p-4 shadow-sm space-y-4">
+                  <div className="space-y-4 rounded-lg border p-4 shadow-sm">
                     <FormField
                       control={form.control}
                       name="installationEarthElectrodes"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row gap-4 items-center justify-between">
+                        <FormItem className="flex flex-row items-center justify-between gap-4">
                           <div className="space-y-0.5">
                             <FormLabel>Earth Electrodes Installed?</FormLabel>
                             <FormDescription>
@@ -237,9 +238,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                             <FormItem>
                               <FormLabel>Type</FormLabel>
                               <FormControl>
-                                <Input
-                                  {...field}
-                                />
+                                <Input {...field} />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -252,9 +251,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                             <FormItem>
                               <FormLabel>Location</FormLabel>
                               <FormControl>
-                                <Input
-                                  {...field}
-                                />
+                                <Input {...field} />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -265,9 +262,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                           name="electrodeResistanceToEarth"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>
-                                Resistance to Earth
-                              </FormLabel>
+                              <FormLabel>Resistance to Earth</FormLabel>
                               <FormControl>
                                 <div className="relative w-full">
                                   <Input {...field} className="pr-10" />
@@ -288,9 +283,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     name="earthingConductorMaterial"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          Conductor Material
-                        </FormLabel>
+                        <FormLabel>Conductor Material</FormLabel>
                         <FormControl>
                           <Input {...field} />
                         </FormControl>
@@ -354,9 +347,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     name="mainProtectiveBondingConductorMaterial"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          Conductor Material
-                        </FormLabel>
+                        <FormLabel>Conductor Material</FormLabel>
                         <FormControl>
                           <Input {...field} />
                         </FormControl>
@@ -369,9 +360,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     name="mainProtectiveBondingConductorCSA"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          Conductor CSA
-                        </FormLabel>
+                        <FormLabel>Conductor CSA</FormLabel>
                         <FormControl>
                           <div className="relative w-full">
                             <Input {...field} className="pr-10" />
@@ -390,9 +379,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     render={({ field }) => (
                       <FormItem>
                         <div>
-                          <FormLabel>
-                            Conductor Verified
-                          </FormLabel>
+                          <FormLabel>Conductor Verified</FormLabel>
                         </div>
                         <Switch
                           checked={field.value}
@@ -504,9 +491,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                       <FormItem>
                         <FormLabel>Location</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                          />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

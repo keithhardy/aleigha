@@ -23,7 +23,7 @@ export default async function UpdateDeclaration({
         inspectionDate: true,
         reviewerId: true,
         reviewDate: true,
-        endDate: true
+        endDate: true,
       },
     });
 
