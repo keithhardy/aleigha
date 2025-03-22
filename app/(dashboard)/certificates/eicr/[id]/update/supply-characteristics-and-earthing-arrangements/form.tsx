@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport } from "@prisma/client";
-import { MoveLeft } from "lucide-react";
+import { ExternalLink, MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -21,6 +21,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -116,13 +117,10 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
-                  <CardTitle>
-                    Supply characteristics and earthing arrangements
-                  </CardTitle>
+                  <CardTitle>Characteristics</CardTitle>
                   <CardDescription className="text-balance">
-                    Please fill out the details regarding the supply
-                    characteristics and earthing arrangements for the electrical
-                    installation.
+                    Provide details about the supply characteristics and earthing arrangements
+                    of the electrical installation.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -131,11 +129,9 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                     name="systemTypeAndEarthingArrangements"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          System Type and Earthing Arrangements
-                        </FormLabel>
+                        <FormLabel>System Type and Earthing Arrangements</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., TN-C-S" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -143,14 +139,103 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                   />
                   <FormField
                     control={form.control}
+                    name="numberAndTypeOfLiveConductors"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Number and Type of Live Conductors</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="nominalVoltageBetweenLines"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nominal Voltage Between Lines (U)</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="nominalLineVoltageToEarth"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nominal Line Voltage to Earth (U0)</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="nominalFrequency"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nominal Frequency (f)</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="otherSourcesOfSupply"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Other Sources of Supply</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </CardContent>
+              </div>
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+                <p className="text-balance text-sm text-muted-foreground">
+                  Not sure about the system type? Check out our{" "}
+                  <Link
+                    href={"/settings"}
+                    className="inline-flex items-center space-x-1 text-blue-500"
+                  >
+                    <span>guide</span>
+                    <ExternalLink size={14} />
+                  </Link>{" "}
+                  for more details.
+                </p>
+              </CardFooter>
+            </Card>
+            <Card className="rounded-md shadow-none">
+              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+                <CardHeader className="w-full p-0">
+                  <CardTitle>Protective Device</CardTitle>
+                  <CardDescription className="text-balance">
+                    Enter details about the supply protective device, including its BS number,
+                    type, and rated current.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="w-full space-y-4 p-0">
+                  <FormField
+                    control={form.control}
                     name="supplyProtectiveDeviceBSNumber"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          Supply Protective Device BS Number
-                        </FormLabel>
+                        <FormLabel>Supply Protective Device BS Number</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., BS 1361" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -163,7 +248,7 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                       <FormItem>
                         <FormLabel>Supply Protective Device Type</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., IIb" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -174,34 +259,32 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                     name="supplyProtectiveDeviceRatedCurrent"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          Rated Current of Supply Protective Device
-                        </FormLabel>
+                        <FormLabel>Rated Current of Supply Protective Device</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., 80 A" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <FormField
-                    control={form.control}
-                    name="numberAndTypeOfLiveConductors"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          Number and Type of Live Conductors
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="e.g., 2 Wire Single Phase AC"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                </CardContent>
+              </div>
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+                <p className="text-sm text-muted-foreground">
+                  Ensure all details are correct before submission.
+                </p>
+              </CardFooter>
+            </Card>
+            <Card className="rounded-md shadow-none">
+              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+                <CardHeader className="w-full p-0">
+                  <CardTitle>Confirmation</CardTitle>
+                  <CardDescription className="text-balance">
+                    Verify and confirm key supply characteristics, including polarity checks,
+                    fault current, and earth loop impedance.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="w-full space-y-4 p-0">
                   <FormField
                     control={form.control}
                     name="confirmationOfSupplyPolarity"
@@ -220,69 +303,12 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                   />
                   <FormField
                     control={form.control}
-                    name="otherSourcesOfSupply"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Other Sources of Supply</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="e.g., Photovoltaic System"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="nominalVoltageBetweenLines"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Nominal Voltage Between Lines (U)</FormLabel>
-                        <FormControl>
-                          <Input placeholder="e.g., N/A" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="nominalLineVoltageToEarth"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          Nominal Line Voltage to Earth (U0)
-                        </FormLabel>
-                        <FormControl>
-                          <Input placeholder="e.g., 230 V" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="nominalFrequency"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Nominal Frequency (f)</FormLabel>
-                        <FormControl>
-                          <Input placeholder="e.g., 50 Hz" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
                     name="prospectiveFaultCurrent"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Prospective Fault Current (Ipf)</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., 2.0 KA" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -297,7 +323,7 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                           External Earth Fault Loop Impedance (Ze)
                         </FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., 0.35 Ω" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -307,7 +333,15 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-balance text-sm text-muted-foreground">
-                  Ensure all details are accurate before submission.
+                  Not sure how to test? Check out our{" "}
+                  <Link
+                    href={"/settings"}
+                    className="inline-flex items-center space-x-1 text-blue-500"
+                  >
+                    <span>guide</span>
+                    <ExternalLink size={14} />
+                  </Link>{" "}
+                  for more details.
                 </p>
               </CardFooter>
             </Card>
