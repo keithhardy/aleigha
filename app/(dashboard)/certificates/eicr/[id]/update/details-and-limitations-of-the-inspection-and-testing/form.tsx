@@ -9,7 +9,6 @@ import { z } from "zod";
 
 import FormActions from "@/components/form-actions";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -104,10 +103,44 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
 
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
+              <div className="flex flex-col gap-4 p-6 lg:flex-row items-center">
+                <CardHeader className="w-full p-0">
+                  <CardTitle>
+                    Regulation
+                  </CardTitle>
+                  <CardDescription className="text-balance">
+                    Specify the regulations the inspection follows, e.g., BS 7671.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="w-full space-y-4 p-0">
+                  <FormField
+                    control={form.control}
+                    name="regulationAccordanceAsAmendedTo"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </CardContent>
+              </div>
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+                <p className="text-balance text-sm text-muted-foreground">
+                  Provide detailed information regarding the inspection process
+                  and limitations.
+                </p>
+              </CardFooter>
+            </Card>
+            <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>
-                    Details and limitations of the inspection and testing
+                    Scope
                   </CardTitle>
                   <CardDescription className="text-balance">
                     Provide details regarding the inspection, any regulatory
@@ -118,14 +151,16 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                 <CardContent className="w-full space-y-4 p-0">
                   <FormField
                     control={form.control}
-                    name="regulationAccordanceAsAmendedTo"
+                    name="detailsOfTheElectricalInstallation"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Regulation Compliance</FormLabel>
+                        <FormLabel>
+                          Electrical Installation Covered by This Report
+                        </FormLabel>
                         <FormControl>
-                          <Input
+                          <Textarea
                             {...field}
-                            placeholder="Specify the regulations the inspection follows, e.g., BS 7671."
+                            className="min-h-[200px]"
                           />
                         </FormControl>
                         <FormMessage />
@@ -141,33 +176,35 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                         <FormControl>
                           <Textarea
                             {...field}
-                            className="min-h-[100px]"
-                            placeholder="Enter a detailed description of the electrical installation covered by this report, including components such as wiring, panels, and other relevant systems."
+                            className="min-h-[200px]"
                           />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <FormField
-                    control={form.control}
-                    name="detailsOfTheElectricalInstallation"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          Electrical Installation Covered by This Report
-                        </FormLabel>
-                        <FormControl>
-                          <Textarea
-                            {...field}
-                            className="min-h-[100px]"
-                            placeholder="Describe the electrical installation covered by this report, including components such as wiring, panels, etc."
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                </CardContent>
+              </div>
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+                <p className="text-balance text-sm text-muted-foreground">
+                  Provide detailed information regarding the inspection process
+                  and limitations.
+                </p>
+              </CardFooter>
+            </Card>
+            <Card className="rounded-md shadow-none">
+              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+                <CardHeader className="w-full p-0">
+                  <CardTitle>
+                    Limitations
+                  </CardTitle>
+                  <CardDescription className="text-balance">
+                    Provide details regarding the inspection, any regulatory
+                    compliance, limitations of the testing, and the scope of the
+                    report.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="w-full space-y-4 p-0">
                   <FormField
                     control={form.control}
                     name="agreedLimitations"
@@ -177,8 +214,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                         <FormControl>
                           <Textarea
                             {...field}
-                            className="min-h-[100px]"
-                            placeholder="Specify any agreed limitations for the inspection and testing process, such as restricted access or scope."
+                            className="min-h-[200px]"
                           />
                         </FormControl>
                         <FormMessage />
@@ -194,7 +230,6 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                         <FormControl>
                           <Input
                             {...field}
-                            placeholder="Who the limitations were agreed with (e.g., property owner, client)."
                           />
                         </FormControl>
                         <FormMessage />
@@ -210,8 +245,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                         <FormControl>
                           <Textarea
                             {...field}
-                            className="min-h-[100px]"
-                            placeholder="Describe any operational limitations during testing, such as time constraints, system shutdowns, or other factors."
+                            className="min-h-[200px]"
                           />
                         </FormControl>
                         <FormMessage />
