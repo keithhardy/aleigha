@@ -157,7 +157,12 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                       <FormItem>
                         <FormLabel>Nominal Voltage Between Lines (U)</FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <div className="relative w-full">
+                            <Input {...field} className="pr-10" />
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                              V
+                            </span>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -170,7 +175,12 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                       <FormItem>
                         <FormLabel>Nominal Line Voltage to Earth (U0)</FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <div className="relative w-full">
+                            <Input {...field} className="pr-10" />
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                              V
+                            </span>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -183,7 +193,12 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                       <FormItem>
                         <FormLabel>Nominal Frequency (f)</FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <div className="relative w-full">
+                            <Input {...field} className="pr-10" />
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                              Hz
+                            </span>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -261,7 +276,12 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                       <FormItem>
                         <FormLabel>Rated Current of Supply Protective Device</FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <div className="relative w-full">
+                            <Input {...field} className="pr-10" />
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                              A
+                            </span>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -285,22 +305,28 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
-                  <FormField
-                    control={form.control}
-                    name="confirmationOfSupplyPolarity"
-                    render={({ field }) => (
-                      <FormItem>
-                        <div>
-                          <FormLabel>Confirmation of Supply Polarity</FormLabel>
-                        </div>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+
+                  <div className="rounded-lg border p-4 shadow-sm space-y-4">
+                    <FormField
+                      control={form.control}
+                      name="confirmationOfSupplyPolarity"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row gap-4 items-center justify-between">
+                          <div className="space-y-0.5">
+                            <FormLabel>Confirmation of Supply Polarity</FormLabel>
+                            <FormDescription>
+                              Check if supply polarity is correct.
+                            </FormDescription>
+                          </div>
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                   <FormField
                     control={form.control}
                     name="prospectiveFaultCurrent"
@@ -308,7 +334,12 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                       <FormItem>
                         <FormLabel>Prospective Fault Current (Ipf)</FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <div className="relative w-full">
+                            <Input {...field} className="pr-10" />
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                              kA
+                            </span>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -323,7 +354,12 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                           External Earth Fault Loop Impedance (Ze)
                         </FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <div className="relative w-full">
+                            <Input {...field} className="pr-10" />
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                              Ω
+                            </span>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>

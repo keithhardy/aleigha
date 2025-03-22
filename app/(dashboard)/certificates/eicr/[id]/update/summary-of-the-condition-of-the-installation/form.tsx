@@ -144,26 +144,32 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>
-                          Estimated age of installation (years)
+                          Estimated age of installation
                         </FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            type="string"
-                            onChange={(e) => {
-                              const rawValue = e.target.value;
-                              if (rawValue === "") {
-                                field.onChange("");
-                              } else {
-                                const value = Math.max(
-                                  0,
-                                  Math.floor(Number(rawValue) || 0),
-                                ).toString();
-                                field.onChange(value);
-                              }
-                            }}
-                            value={field.value ?? ""}
-                          />
+                          <div className="relative w-full">
+                            <Input
+                              {...field}
+                              type="string"
+                              onChange={(e) => {
+                                const rawValue = e.target.value;
+                                if (rawValue === "") {
+                                  field.onChange("");
+                                } else {
+                                  const value = Math.max(
+                                    0,
+                                    Math.floor(Number(rawValue) || 0),
+                                  ).toString();
+                                  field.onChange(value);
+                                }
+                              }}
+                              value={field.value ?? ""}
+                              className="pr-10"
+                            />
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                              Years
+                            </span>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -204,33 +210,38 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>
-                              Estimated age of alterations (years)
+                              Estimated age of alterations
                             </FormLabel>
                             <FormControl>
-                              <Input
-                                {...field}
-                                type="string"
-                                onChange={(e) => {
-                                  const rawValue = e.target.value;
-                                  if (rawValue === "") {
-                                    field.onChange("");
-                                  } else {
-                                    const value = Math.max(
-                                      0,
-                                      Math.floor(Number(rawValue) || 0),
-                                    ).toString();
-                                    field.onChange(value);
-                                  }
-                                }}
-                                value={field.value ?? ""}
-                              />
+                              <div className="relative w-full">
+                                <Input
+                                  {...field}
+                                  type="string"
+                                  onChange={(e) => {
+                                    const rawValue = e.target.value;
+                                    if (rawValue === "") {
+                                      field.onChange("");
+                                    } else {
+                                      const value = Math.max(
+                                        0,
+                                        Math.floor(Number(rawValue) || 0),
+                                      ).toString();
+                                      field.onChange(value);
+                                    }
+                                  }}
+                                  value={field.value ?? ""}
+                                  className="pr-10"
+                                />
+                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                  Years
+                                </span>
+                              </div>
                             </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
                     )}
-
                   </div>
                 </CardContent>
               </div>

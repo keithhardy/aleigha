@@ -2,14 +2,13 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport } from "@prisma/client";
-import { MoveLeft } from "lucide-react";
+import { ExternalLink, MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import FormActions from "@/components/form-actions";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -21,6 +20,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -130,9 +130,9 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
 
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
-              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+              <div className="flex flex-col gap-4 p-6 lg:flex-row items-center">
                 <CardHeader className="w-full p-0">
-                  <CardTitle>Particulars of Installation</CardTitle>
+                  <CardTitle>Maximum Demand</CardTitle>
                   <CardDescription className="text-balance">
                     Key details of the electrical installation for this report.
                   </CardDescription>
@@ -143,115 +143,156 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     name="maximumDemand"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Maximum Electrical Demand</FormLabel>
                         <FormControl>
-                          <Input
-                            placeholder="Enter Maximum Demand (e.g., 100 A)"
-                            {...field}
-                          />
+                          <div className="relative w-full">
+                            <Input {...field} className="pr-10" />
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                              kW
+                            </span>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <FormField
-                    control={form.control}
-                    name="distributorsFacility"
-                    render={({ field }) => (
-                      <FormItem>
-                        <div>
-                          <FormLabel>Distributor&apos;s Facility</FormLabel>
-                        </div>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
+                </CardContent>
+              </div>
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+                <p className="text-balance text-sm text-muted-foreground">
+                  Not sure how to calculate maximum demand? Check out our{" "}
+                  <Link
+                    href={"/settings"}
+                    className="inline-flex items-center space-x-1 text-blue-500"
+                  >
+                    <span>guide</span>
+                    <ExternalLink size={14} />
+                  </Link>{" "}
+                  for more details.
+                </p>
+              </CardFooter>
+            </Card>
+            <Card className="rounded-md shadow-none">
+              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+                <CardHeader className="w-full p-0">
+                  <CardTitle>Earthing Conductor</CardTitle>
+                  <CardDescription className="text-balance">
+                    Key details of the electrical installation for this report.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="w-full space-y-4 p-0">
+                  <div className="rounded-lg border p-4 shadow-sm space-y-4">
+                    <FormField
+                      control={form.control}
+                      name="distributorsFacility"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row gap-4 items-center justify-between">
+                          <div className="space-y-0.5">
+                            <FormLabel>Distributor&apos;s Facility?</FormLabel>
+                            <FormDescription>
+                              Check if the earthing is supplied by the distributor.
+                            </FormDescription>
+                          </div>
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="rounded-lg border p-4 shadow-sm space-y-4">
+                    <FormField
+                      control={form.control}
+                      name="installationEarthElectrodes"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row gap-4 items-center justify-between">
+                          <div className="space-y-0.5">
+                            <FormLabel>Earth Electrodes Installed?</FormLabel>
+                            <FormDescription>
+                              Check if earth electrode has been installed.
+                            </FormDescription>
+                          </div>
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={(checked) => {
+                              field.onChange(checked);
+                              if (!checked) {
+                                form.setValue("earthElectrodeType", "");
+                                form.setValue("earthElectrodeLocation", "");
+                                form.setValue("electrodeResistanceToEarth", "");
+                              }
+                            }}
+                          />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    {form.watch("installationEarthElectrodes") && (
+                      <>
+                        <FormField
+                          control={form.control}
+                          name="earthElectrodeType"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Type</FormLabel>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="installationEarthElectrodes"
-                    render={({ field }) => (
-                      <FormItem>
-                        <div>
-                          <FormLabel>Earth Electrodes Installed?</FormLabel>
-                        </div>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={(checked) => {
-                            field.onChange(checked);
-                            if (!checked) {
-                              form.setValue("earthElectrodeType", "");
-                              form.setValue("earthElectrodeLocation", "");
-                              form.setValue("electrodeResistanceToEarth", "");
-                            }
-                          }}
+                        <FormField
+                          control={form.control}
+                          name="earthElectrodeLocation"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Location</FormLabel>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
-                        <FormMessage />
-                      </FormItem>
+                        <FormField
+                          control={form.control}
+                          name="electrodeResistanceToEarth"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>
+                                Resistance to Earth
+                              </FormLabel>
+                              <FormControl>
+                                <div className="relative w-full">
+                                  <Input {...field} className="pr-10" />
+                                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                    Ω
+                                  </span>
+                                </div>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </>
                     )}
-                  />
-                  {form.watch("installationEarthElectrodes") && (
-                    <>
-                      <FormField
-                        control={form.control}
-                        name="earthElectrodeType"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Type of Earth Electrode</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="e.g., Copper Rod"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="earthElectrodeLocation"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Earth Electrode Location</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="e.g., Front Garden"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="electrodeResistanceToEarth"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>
-                              Resistance of Electrode to Earth
-                            </FormLabel>
-                            <FormControl>
-                              <Input placeholder="e.g., 10.0 Ω" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </>
-                  )}
+                  </div>
                   <FormField
                     control={form.control}
                     name="earthingConductorMaterial"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Material of Earthing Conductor</FormLabel>
+                        <FormLabel>
+                          Conductor Material
+                        </FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., Copper" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -262,9 +303,14 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     name="earthingConductorCSA"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>CSA of Earthing Conductor</FormLabel>
+                        <FormLabel>Conductor CSA</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., 16 mm²" {...field} />
+                          <div className="relative w-full">
+                            <Input {...field} className="pr-10" />
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                              mm²
+                            </span>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -276,7 +322,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     render={({ field }) => (
                       <FormItem>
                         <div>
-                          <FormLabel>Earthing Conductor Verified</FormLabel>
+                          <FormLabel>Conductor Verified</FormLabel>
                         </div>
                         <Switch
                           checked={field.value}
@@ -286,16 +332,33 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                       </FormItem>
                     )}
                   />
+                </CardContent>
+              </div>
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+                <p className="text-balance text-sm text-muted-foreground">
+                  Ensure all details are accurate before submission.
+                </p>
+              </CardFooter>
+            </Card>
+            <Card className="rounded-md shadow-none">
+              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+                <CardHeader className="w-full p-0">
+                  <CardTitle>Main Protective Bonding</CardTitle>
+                  <CardDescription className="text-balance">
+                    Key details of the electrical installation for this report.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="w-full space-y-4 p-0">
                   <FormField
                     control={form.control}
                     name="mainProtectiveBondingConductorMaterial"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>
-                          Main Protective Bonding Conductor Material
+                          Conductor Material
                         </FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., Copper" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -307,10 +370,15 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>
-                          Main Protective Bonding Conductor CSA
+                          Conductor CSA
                         </FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., 10 mm²" {...field} />
+                          <div className="relative w-full">
+                            <Input {...field} className="pr-10" />
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                              mm²
+                            </span>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -323,7 +391,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                       <FormItem>
                         <div>
                           <FormLabel>
-                            Main Protective Bonding Conductor Verified
+                            Conductor Verified
                           </FormLabel>
                         </div>
                         <Switch
@@ -341,7 +409,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                       <FormItem>
                         <FormLabel>Water Installation Pipes</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., 0.02 Ω" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -354,7 +422,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                       <FormItem>
                         <FormLabel>Gas Installation Pipes</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., 0.01 Ω" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -367,7 +435,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                       <FormItem>
                         <FormLabel>Structural Steel</FormLabel>
                         <FormControl>
-                          <Input placeholder="N/A" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -380,7 +448,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                       <FormItem>
                         <FormLabel>Oil Installation Pipes</FormLabel>
                         <FormControl>
-                          <Input placeholder="N/A" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -393,7 +461,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                       <FormItem>
                         <FormLabel>Lightning Protection</FormLabel>
                         <FormControl>
-                          <Input placeholder="N/A" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -406,21 +474,37 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                       <FormItem>
                         <FormLabel>Other Installation Details</FormLabel>
                         <FormControl>
-                          <Input placeholder="N/A" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
+                </CardContent>
+              </div>
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+                <p className="text-balance text-sm text-muted-foreground">
+                  Ensure all details are accurate before submission.
+                </p>
+              </CardFooter>
+            </Card>
+            <Card className="rounded-md shadow-none">
+              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+                <CardHeader className="w-full p-0">
+                  <CardTitle>Main Switch</CardTitle>
+                  <CardDescription className="text-balance">
+                    Key details of the electrical installation for this report.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="w-full space-y-4 p-0">
                   <FormField
                     control={form.control}
                     name="mainSwitchLocation"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Main Switch Location</FormLabel>
+                        <FormLabel>Location</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="e.g., Electric Cupboard"
                             {...field}
                           />
                         </FormControl>
@@ -433,9 +517,9 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     name="mainSwitchBSNumber"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>BS Number of Main Switch</FormLabel>
+                        <FormLabel>BS Number</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., BS 60898" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -446,9 +530,9 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     name="mainSwitchType"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Type of Main Switch</FormLabel>
+                        <FormLabel>Type</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., Type B" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -459,9 +543,14 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     name="mainSwitchRating"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Main Switch Rating / Setting</FormLabel>
+                        <FormLabel>Rating / Setting</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., 100 A" {...field} />
+                          <div className="relative w-full">
+                            <Input {...field} className="pr-10" />
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                              A
+                            </span>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -472,9 +561,9 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     name="mainSwitchPoles"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Number of Poles in Main Switch</FormLabel>
+                        <FormLabel>Number of Poles</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., 2" {...field} />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -485,9 +574,14 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     name="mainSwitchCurrentRating"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Main Switch Current Rating</FormLabel>
+                        <FormLabel>Current Rating</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., 32 A" {...field} />
+                          <div className="relative w-full">
+                            <Input {...field} className="pr-10" />
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                              A
+                            </span>
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
