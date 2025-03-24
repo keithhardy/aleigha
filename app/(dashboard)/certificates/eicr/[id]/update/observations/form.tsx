@@ -2,9 +2,14 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport } from "@prisma/client";
-import { Check, ChevronsUpDown, Ellipsis, ExternalLink, MoreVertical, MoveLeft } from "lucide-react";
+import {
+  ChevronsUpDown,
+  Ellipsis,
+  ExternalLink,
+  MoreVertical,
+  MoveLeft,
+} from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -30,6 +35,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -38,15 +44,17 @@ import {
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+} from "@/components/ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { UnsavedChangesDialog } from "@/components/unsaved-changes-dialog";
 import { useToast } from "@/hooks/use-toast";
 
@@ -56,6 +64,13 @@ import { UpdateObservationsSchema } from "./schema";
 import { sections } from "../components/sections";
 import { ResponsiveDialog } from "@/components/responsive-dialog";
 import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
+import { DialogFooter } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { ResponsiveDialog as ResponsiveDialogTest } from "@/components/responsive-dialog-test";
+import { useState } from "react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Switch } from "@/components/ui/switch";
 
 export function UpdateObservationsForm({
   certificate,
@@ -103,6 +118,9 @@ export function UpdateObservationsForm({
     }
   };
 
+  const [observationDialogOpen, setObservationDialogOpen] = useState(false);
+  const [selectedObservation, setSelectedObservation] = useState<any>(null);
+
   return (
     <Form {...form}>
       <form
@@ -139,7 +157,7 @@ export function UpdateObservationsForm({
                         <Button
                           variant="outline"
                           role="combobox"
-                          className="flex items-center justify-between w-full"
+                          className="flex w-full items-center justify-between"
                         >
                           Select an observation
                           <ChevronsUpDown className="ml-2 opacity-50" />
@@ -185,34 +203,50 @@ export function UpdateObservationsForm({
               <CardContent>
                 {fields.length > 0 && (
                   <>
-                    <Card className="hidden md:block rounded-md shadow-none">
+                    <Card className="hidden rounded-md shadow-none md:block">
                       <CardContent className="p-0">
                         <Table className="text-sm">
                           <TableHeader>
                             <TableRow className="h-8">
-                              <TableHead className="pl-6">Item Number</TableHead>
+                              <TableHead className="pl-6">
+                                Item Number
+                              </TableHead>
                               <TableHead>Code</TableHead>
                               <TableHead>Description</TableHead>
-                              <TableHead className="text-right pr-6">Actions</TableHead>
+                              <TableHead className="pr-6 text-right">
+                                Actions
+                              </TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
                             {fields.map((field, index) => (
                               <TableRow key={index}>
-                                <TableCell className="pl-6">{field.itemNumber}</TableCell>
+                                <TableCell className="pl-6">
+                                  {field.itemNumber}
+                                </TableCell>
                                 <TableCell>{field.code}</TableCell>
                                 <TableCell>{field.description}</TableCell>
-                                <TableCell className="text-right pr-6">
+                                <TableCell className="pr-6 text-right">
                                   <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                       <Button variant="ghost" size="icon">
                                         <Ellipsis className="h-4 w-4" />
-                                        <span className="sr-only">Open menu</span>
                                       </Button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="end">
-                                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                                      <DropdownMenuItem>Delete</DropdownMenuItem>
+                                      <DropdownMenuItem
+                                        onSelect={() => {
+                                          setSelectedObservation(fields[index]);
+                                          setObservationDialogOpen(true);
+                                        }}
+                                      >
+                                        Edit
+                                      </DropdownMenuItem>
+                                      <DropdownMenuItem
+                                        onSelect={() => remove(index)}
+                                      >
+                                        Delete
+                                      </DropdownMenuItem>
                                     </DropdownMenuContent>
                                   </DropdownMenu>
                                 </TableCell>
@@ -222,47 +256,64 @@ export function UpdateObservationsForm({
                         </Table>
                       </CardContent>
                     </Card>
-                    <Card className="md:hidden rounded-md shadow-none">
+                    <Card className="rounded-md shadow-none md:hidden">
                       <CardContent className="p-0">
                         <div>
                           {fields.map((field, index) => (
                             <div key={index}>
                               <div className="flex items-start justify-between p-6">
-                                <div className="space-y-1.5 text-sm w-full">
+                                <div className="w-full space-y-1.5 text-sm">
                                   <div className="flex items-center justify-between gap-2">
                                     <div>
                                       <span>{field.itemNumber}</span>
-                                      <span className="text-muted-foreground"> - </span>
+                                      <span className="text-muted-foreground">
+                                        {" "}
+                                        -{" "}
+                                      </span>
                                       <span>{field.code}</span>
                                     </div>
                                     <DropdownMenu>
                                       <DropdownMenuTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="-mt-2">
+                                        <Button
+                                          variant="ghost"
+                                          size="icon"
+                                          className="-mt-2"
+                                        >
                                           <Ellipsis className="h-4 w-4" />
-                                          <span className="sr-only">Open menu</span>
+                                          <span className="sr-only">
+                                            Open menu
+                                          </span>
                                         </Button>
                                       </DropdownMenuTrigger>
                                       <DropdownMenuContent align="end">
-                                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                                        <DropdownMenuItem>Delete</DropdownMenuItem>
+                                        <DropdownMenuItem
+                                          onSelect={() => {
+                                            setSelectedObservation(
+                                              fields[index],
+                                            );
+                                            setObservationDialogOpen(true);
+                                          }}
+                                        >
+                                          Edit
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                          Delete
+                                        </DropdownMenuItem>
                                       </DropdownMenuContent>
                                     </DropdownMenu>
                                   </div>
                                   <p>{field.description}</p>
                                 </div>
-                                <div>
-                                </div>
+                                <div></div>
                               </div>
                               {index !== fields.length - 1 && <Separator />}
                             </div>
                           ))}
                         </div>
                       </CardContent>
-
                     </Card>
                   </>
                 )}
-
               </CardContent>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-balance text-sm text-muted-foreground">
@@ -286,12 +337,130 @@ export function UpdateObservationsForm({
           sections={sections}
           baseUrl={"/certificates/eicr"}
         />
-      </form>
 
-      <UnsavedChangesDialog
-        condition={form.formState.isDirty}
-        action={form.handleSubmit(onSubmit)}
-      />
+        <ResponsiveDialogTest
+          open={observationDialogOpen}
+          onOpenChange={setObservationDialogOpen}
+        >
+          {selectedObservation && (<>
+            <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
+              <div className="space-y-4 p-6">
+                <FormField
+                  control={form.control}
+                  name={`observations.${fields.indexOf(selectedObservation)}.itemNumber`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Item Number</FormLabel>
+                      <FormControl>
+                        <Input {...field} readOnly />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={`observations.${fields.indexOf(selectedObservation)}.code`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Code</FormLabel>
+                      <FormControl>
+                        <Input {...field} readOnly />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={`observations.${fields.indexOf(selectedObservation)}.description`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Observation</FormLabel>
+                      <FormControl>
+                        <Textarea {...field} className="min-h-[100px]" readOnly />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={`observations.${fields.indexOf(selectedObservation)}.location`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Location</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormItem>
+                  <FormLabel>Photo of issue</FormLabel>
+                  <FormControl>
+                    <Input type="file" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+
+                <div className="space-y-4 rounded-lg border p-4 shadow-sm">
+                  <FormItem className="flex flex-row items-center justify-between">
+                    <div className="space-y-0.5">
+                      <FormLabel>
+                        Remedial actions taken?
+                      </FormLabel>
+                      <FormDescription>
+                        Check if completed the remedial actions.
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={true}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+
+                  <FormItem>
+                    <FormLabel>Description of action taken</FormLabel>
+                    <FormControl>
+                      <Textarea className="min-h-[100px]" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+
+                  <FormItem>
+                    <FormLabel>Photo of completed remedial</FormLabel>
+                    <FormControl>
+                      <Input type="file" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+
+                  <FormItem>
+                    <FormLabel>Code after remedial</FormLabel>
+                    <FormControl>
+                      <Input />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                </div>
+
+
+
+              </div>
+            </ScrollArea >
+          </>
+          )}
+        </ResponsiveDialogTest>
+
+        <UnsavedChangesDialog
+          condition={form.formState.isDirty}
+          action={form.handleSubmit(onSubmit)}
+        />
+      </form>
     </Form>
   );
 }
