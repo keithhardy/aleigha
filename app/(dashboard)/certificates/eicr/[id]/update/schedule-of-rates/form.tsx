@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport } from "@prisma/client";
-import { Check, ChevronsUpDown, MoveLeft } from "lucide-react";
+import { Check, ChevronsUpDown, Ellipsis, MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -36,11 +36,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { UnsavedChangesDialog } from "@/components/unsaved-changes-dialog";
 import { useToast } from "@/hooks/use-toast";
 
@@ -48,6 +43,25 @@ import { updateScheduleOfRates } from "./action";
 import { rates } from "./rates";
 import { UpdateScheduleOfRatesSchema } from "./schema";
 import { sections } from "../components/sections";
+import { ResponsiveDialog as ResponsiveDialogTest } from "@/components/responsive-dialog-test";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ResponsiveDialog } from "@/components/responsive-dialog";
+import { Textarea } from "@/components/ui/textarea";
 
 export function UpdateScheduleOfRatesForm({
   certificate,
@@ -80,14 +94,10 @@ export function UpdateScheduleOfRatesForm({
     });
   };
 
-  const [selectedRateOpen, setSelectedRateOpen] = useState(false);
-
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "rates",
   });
-
-  const [selectedRate, setSelectedRate] = useState("");
 
   const handleRateSelect = (value: string) => {
     const rate = rates.find((rate) => rate.id === parseInt(value));
@@ -99,6 +109,9 @@ export function UpdateScheduleOfRatesForm({
       setSelectedRate("");
     }
   };
+
+  const [rateDialogOpen, setRateDialogOpen] = useState(false);
+  const [selectedRate, setSelectedRate] = useState<any>(null);
 
   return (
     <Form {...form}>
@@ -122,7 +135,7 @@ export function UpdateScheduleOfRatesForm({
 
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
-              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+              <div className="flex flex-col items-center gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>Schedule of rates</CardTitle>
                   <CardDescription className="text-balance">
@@ -131,27 +144,18 @@ export function UpdateScheduleOfRatesForm({
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
                   <FormItem>
-                    <FormLabel>Select rate</FormLabel>
-                    <Popover
-                      open={selectedRateOpen}
-                      onOpenChange={setSelectedRateOpen}
-                    >
-                      <PopoverTrigger asChild className="w-full">
+                    <ResponsiveDialog
+                      trigger={
                         <Button
                           variant="outline"
                           role="combobox"
-                          aria-expanded={selectedRateOpen}
-                          className="flex items-center justify-between"
+                          className="flex w-full items-center justify-between"
                         >
-                          <span>
-                            {selectedRate
-                              ? `${selectedRate}: ${rates.find((rate) => rate.id.toString() === selectedRate)?.name}`
-                              : "Select a rate"}
-                          </span>
+                          Select a rate
                           <ChevronsUpDown className="ml-2 opacity-50" />
                         </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="min-w-[375px] p-0">
+                      }
+                      content={(setOpen) => (
                         <Command
                           filter={(value, search) => {
                             if (!search) return 1;
@@ -173,7 +177,7 @@ export function UpdateScheduleOfRatesForm({
                                   onSelect={() => {
                                     setSelectedRate(rate.id.toString());
                                     handleRateSelect(rate.id.toString());
-                                    setSelectedRateOpen(false);
+                                    setOpen(false);
                                   }}
                                 >
                                   {rate.name}
@@ -185,50 +189,120 @@ export function UpdateScheduleOfRatesForm({
                             </CommandGroup>
                           </CommandList>
                         </Command>
-                      </PopoverContent>
-                    </Popover>
+                      )}
+                    />
                   </FormItem>
-                  {fields.map((rate, index) => (
-                    <div key={index} className="space-y-2">
-                      <FormField
-                        control={form.control}
-                        name={`rates.${index}.name`}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Name</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Find and rectify fault"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name={`rates.${index}.description`}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Description</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Located loose r1 on bedroom socket and reterminated"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <Button type="button" onClick={() => remove(index)}>
-                        Delete
-                      </Button>
-                    </div>
-                  ))}
                 </CardContent>
               </div>
+
+              <CardContent>
+                {fields.length > 0 && (
+                  <>
+                    <Card className="hidden rounded-md shadow-none md:block">
+                      <CardContent className="p-0">
+                        <Table className="text-sm">
+                          <TableHeader>
+                            <TableRow className="h-8">
+                              <TableHead className="pl-6">Name</TableHead>
+                              <TableHead>Description</TableHead>
+                              <TableHead className="pr-6 text-right">
+                                Actions
+                              </TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {fields.map((field, index) => (
+                              <TableRow key={index}>
+                                <TableCell className="pl-6">
+                                  {field.name}
+                                </TableCell>
+                                <TableCell>{field.description}</TableCell>
+                                <TableCell className="pr-6 text-right">
+                                  <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                      <Button variant="ghost" size="icon">
+                                        <Ellipsis className="h-4 w-4" />
+                                      </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                      <DropdownMenuItem
+                                        onSelect={() => {
+                                          setSelectedRate(fields[index]);
+                                          setRateDialogOpen(true);
+                                        }}
+                                      >
+                                        Edit
+                                      </DropdownMenuItem>
+                                      <DropdownMenuItem
+                                        onSelect={() => remove(index)}
+                                      >
+                                        Delete
+                                      </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                  </DropdownMenu>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </CardContent>
+                    </Card>
+                    <Card className="rounded-md shadow-none md:hidden">
+                      <CardContent className="p-0">
+                        <div>
+                          {fields.map((field, index) => (
+                            <div key={index}>
+                              <div className="flex items-start justify-between p-6">
+                                <div className="w-full space-y-1.5 text-sm">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <div>
+                                      <span>{field.name}</span>
+                                    </div>
+                                    <DropdownMenu>
+                                      <DropdownMenuTrigger asChild>
+                                        <Button
+                                          variant="ghost"
+                                          size="icon"
+                                          className="-mt-2"
+                                        >
+                                          <Ellipsis className="h-4 w-4" />
+                                          <span className="sr-only">
+                                            Open menu
+                                          </span>
+                                        </Button>
+                                      </DropdownMenuTrigger>
+                                      <DropdownMenuContent align="end">
+                                        <DropdownMenuItem
+                                          onSelect={() => {
+                                            setSelectedRate(fields[index]);
+                                            setRateDialogOpen(true);
+                                          }}
+                                        >
+                                          Edit
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem
+                                          onSelect={() => {
+                                            remove(index);
+                                          }}
+                                        >
+                                          Delete
+                                        </DropdownMenuItem>
+                                      </DropdownMenuContent>
+                                    </DropdownMenu>
+                                  </div>
+                                  <p>{field.description}</p>
+                                </div>
+                                <div></div>
+                              </div>
+                              {index !== fields.length - 1 && <Separator />}
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </>
+                )}
+              </CardContent>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-balance text-sm text-muted-foreground">
                   Review the selected rates and update descriptions as needed.
@@ -243,12 +317,52 @@ export function UpdateScheduleOfRatesForm({
           sections={sections}
           baseUrl={"/certificates/eicr"}
         />
-      </form>
 
-      <UnsavedChangesDialog
-        condition={form.formState.isDirty}
-        action={form.handleSubmit(onSubmit)}
-      />
+        <ResponsiveDialogTest
+          open={rateDialogOpen}
+          onOpenChange={setRateDialogOpen}
+        >
+          {selectedRate && (
+            <>
+              <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
+                <div className="space-y-4 p-6">
+                  <FormField
+                    control={form.control}
+                    name={`rates.${fields.indexOf(selectedRate)}.name`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Name</FormLabel>
+                        <FormControl>
+                          <Input {...field} readOnly />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`rates.${fields.indexOf(selectedRate)}.description`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Description</FormLabel>
+                        <FormControl>
+                          <Textarea {...field} className="min-h-[100px]" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </ScrollArea>
+            </>
+          )}
+        </ResponsiveDialogTest>
+
+        <UnsavedChangesDialog
+          condition={form.formState.isDirty}
+          action={form.handleSubmit(onSubmit)}
+        />
+      </form>
     </Form>
   );
 }

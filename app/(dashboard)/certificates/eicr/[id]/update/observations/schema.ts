@@ -8,6 +8,7 @@ export const UpdateObservationsSchema = z.object({
         itemNumber: z.string(),
         description: z.string(),
         code: z.string(),
+        photo: z.string(),
         location: z.string(),
         redmedialActionTaken: z.boolean(),
         descriptionOfActionTaken: z.string(),

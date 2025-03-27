@@ -105,6 +105,7 @@ export function UpdateObservationsForm({
       append({
         itemNumber: observation.itemNumber,
         description: observation.description,
+        photo: "",
         code: observation.code,
         location: observation.location,
         redmedialActionTaken: false,
@@ -293,7 +294,11 @@ export function UpdateObservationsForm({
                                         >
                                           Edit
                                         </DropdownMenuItem>
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem
+                                          onSelect={() => {
+                                            remove(index);
+                                          }}
+                                        >
                                           Delete
                                         </DropdownMenuItem>
                                       </DropdownMenuContent>
@@ -399,14 +404,19 @@ export function UpdateObservationsForm({
                       </FormItem>
                     )}
                   />
-                  <FormItem>
-                    <FormLabel>Photo of issue</FormLabel>
-                    <FormControl>
-                      <Input type="file" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-
+                  <FormField
+                    control={form.control}
+                    name={`observations.${fields.indexOf(selectedObservation)}.location`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Photo of issue</FormLabel>
+                        <FormControl>
+                          <Input type="file" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   <div className="space-y-4 rounded-lg border p-4 shadow-sm">
                     <FormField
                       control={form.control}
