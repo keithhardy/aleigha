@@ -2,6 +2,7 @@ import { Metadata } from "next";
 
 import { Modal } from "@/app/@modal/components/modal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { prisma } from "@/lib/prisma";
 
 import CreateUserForm from "./form";
 

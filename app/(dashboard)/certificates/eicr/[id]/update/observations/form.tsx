@@ -2,19 +2,16 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport } from "@prisma/client";
-import {
-  ChevronsUpDown,
-  Ellipsis,
-  ExternalLink,
-  MoreVertical,
-  MoveLeft,
-} from "lucide-react";
+import { ChevronsUpDown, Ellipsis, ExternalLink, MoveLeft } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import FormActions from "@/components/form-actions";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
+import { ResponsiveDialog } from "@/components/responsive-dialog";
+import { ResponsiveDialog as ResponsiveDialogTest } from "@/components/responsive-dialog-test";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -33,6 +30,12 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   Form,
   FormControl,
   FormDescription,
@@ -41,6 +44,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
 import {
   Table,
   TableBody,
@@ -49,12 +56,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Textarea } from "@/components/ui/textarea";
 import { UnsavedChangesDialog } from "@/components/unsaved-changes-dialog";
 import { useToast } from "@/hooks/use-toast";
 
@@ -62,15 +64,6 @@ import { updateObservations } from "./action";
 import { observations } from "./observations";
 import { UpdateObservationsSchema } from "./schema";
 import { sections } from "../components/sections";
-import { ResponsiveDialog } from "@/components/responsive-dialog";
-import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
-import { DialogFooter } from "@/components/ui/dialog";
-import { Textarea } from "@/components/ui/textarea";
-import { ResponsiveDialog as ResponsiveDialogTest } from "@/components/responsive-dialog-test";
-import { useState } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Switch } from "@/components/ui/switch";
 
 export function UpdateObservationsForm({
   certificate,
@@ -317,7 +310,7 @@ export function UpdateObservationsForm({
               </CardContent>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-balance text-sm text-muted-foreground">
-                  Can't find an observation? Add one in{" "}
+                  Can`&apos;t find an observation? Add one in{" "}
                   <Link
                     href={"/properties"}
                     className="inline-flex items-center space-x-1 text-blue-500"
@@ -342,117 +335,115 @@ export function UpdateObservationsForm({
           open={observationDialogOpen}
           onOpenChange={setObservationDialogOpen}
         >
-          {selectedObservation && (<>
-            <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
-              <div className="space-y-4 p-6">
-                <FormField
-                  control={form.control}
-                  name={`observations.${fields.indexOf(selectedObservation)}.itemNumber`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Item Number</FormLabel>
-                      <FormControl>
-                        <Input {...field} readOnly />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`observations.${fields.indexOf(selectedObservation)}.code`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Code</FormLabel>
-                      <FormControl>
-                        <Input {...field} readOnly />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`observations.${fields.indexOf(selectedObservation)}.description`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Observation</FormLabel>
-                      <FormControl>
-                        <Textarea {...field} className="min-h-[100px]" readOnly />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`observations.${fields.indexOf(selectedObservation)}.location`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Location</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormItem>
-                  <FormLabel>Photo of issue</FormLabel>
-                  <FormControl>
-                    <Input type="file" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-
-                <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                  <FormItem className="flex flex-row items-center justify-between">
-                    <div className="space-y-0.5">
-                      <FormLabel>
-                        Remedial actions taken?
-                      </FormLabel>
-                      <FormDescription>
-                        Check if completed the remedial actions.
-                      </FormDescription>
-                    </div>
-                    <FormControl>
-                      <Switch
-                        checked={true}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-
+          {selectedObservation && (
+            <>
+              <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
+                <div className="space-y-4 p-6">
+                  <FormField
+                    control={form.control}
+                    name={`observations.${fields.indexOf(selectedObservation)}.itemNumber`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Item Number</FormLabel>
+                        <FormControl>
+                          <Input {...field} readOnly />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`observations.${fields.indexOf(selectedObservation)}.code`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Code</FormLabel>
+                        <FormControl>
+                          <Input {...field} readOnly />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`observations.${fields.indexOf(selectedObservation)}.description`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Observation</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            {...field}
+                            className="min-h-[100px]"
+                            readOnly
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`observations.${fields.indexOf(selectedObservation)}.location`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Location</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   <FormItem>
-                    <FormLabel>Description of action taken</FormLabel>
-                    <FormControl>
-                      <Textarea className="min-h-[100px]" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-
-                  <FormItem>
-                    <FormLabel>Photo of completed remedial</FormLabel>
+                    <FormLabel>Photo of issue</FormLabel>
                     <FormControl>
                       <Input type="file" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
 
-                  <FormItem>
-                    <FormLabel>Code after remedial</FormLabel>
-                    <FormControl>
-                      <Input />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                  <div className="space-y-4 rounded-lg border p-4 shadow-sm">
+                    <FormItem className="flex flex-row items-center justify-between">
+                      <div className="space-y-0.5">
+                        <FormLabel>Remedial actions taken?</FormLabel>
+                        <FormDescription>
+                          Check if completed the remedial actions.
+                        </FormDescription>
+                      </div>
+                      <FormControl>
+                        <Switch checked={true} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+
+                    <FormItem>
+                      <FormLabel>Description of action taken</FormLabel>
+                      <FormControl>
+                        <Textarea className="min-h-[100px]" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+
+                    <FormItem>
+                      <FormLabel>Photo of completed remedial</FormLabel>
+                      <FormControl>
+                        <Input type="file" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+
+                    <FormItem>
+                      <FormLabel>Code after remedial</FormLabel>
+                      <FormControl>
+                        <Input />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  </div>
                 </div>
-
-
-
-              </div>
-            </ScrollArea >
-          </>
+              </ScrollArea>
+            </>
           )}
         </ResponsiveDialogTest>
 

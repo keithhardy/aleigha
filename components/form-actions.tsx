@@ -4,7 +4,6 @@ import {
   List,
   RotateCcw,
   Save,
-  Send,
 } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import { UseFormReturn } from "react-hook-form";
