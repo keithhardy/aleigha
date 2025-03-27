@@ -89,7 +89,15 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
     });
   };
 
+  const [isFirstRender, setIsFirstRender] = useState(true);
+
   useEffect(() => {
+    if (isFirstRender) {
+      setIsFirstRender(false);
+      setSelectedDB(fields[0]?.id || null);
+      return;
+    }
+
     setSelectedDB(fields[fields.length - 1]?.id || null);
   }, [fields.length]);
 
@@ -139,7 +147,12 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                         role="combobox"
                         className="flex w-full items-center justify-between"
                       >
-                        Select or add a DB
+
+                        <span>
+                          {selectedDB
+                            ? fields.find((item) => item.id === selectedDB)?.dbDesignation
+                            : "Select db..."}
+                        </span>
                         <ChevronsUpDown className="ml-2 opacity-50" />
                       </Button>
                     }
