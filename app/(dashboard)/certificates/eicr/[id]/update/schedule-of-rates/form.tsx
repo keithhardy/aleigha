@@ -10,6 +10,8 @@ import { z } from "zod";
 
 import FormActions from "@/components/form-actions";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
+import { ResponsiveDialog } from "@/components/responsive-dialog";
+import { ResponsiveDialog as ResponsiveDialogTest } from "@/components/responsive-dialog-test";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -28,6 +30,12 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   Form,
   FormControl,
   FormField,
@@ -36,14 +44,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { UnsavedChangesDialog } from "@/components/unsaved-changes-dialog";
-import { useToast } from "@/hooks/use-toast";
-
-import { updateScheduleOfRates } from "./action";
-import { rates } from "./rates";
-import { UpdateScheduleOfRatesSchema } from "./schema";
-import { sections } from "../components/sections";
-import { ResponsiveDialog as ResponsiveDialogTest } from "@/components/responsive-dialog-test";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import {
   Table,
   TableBody,
@@ -52,16 +54,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { ResponsiveDialog } from "@/components/responsive-dialog";
 import { Textarea } from "@/components/ui/textarea";
+import { UnsavedChangesDialog } from "@/components/unsaved-changes-dialog";
+import { useToast } from "@/hooks/use-toast";
+
+import { updateScheduleOfRates } from "./action";
+import { rates } from "./rates";
+import { UpdateScheduleOfRatesSchema } from "./schema";
+import { sections } from "../components/sections";
 
 export function UpdateScheduleOfRatesForm({
   certificate,

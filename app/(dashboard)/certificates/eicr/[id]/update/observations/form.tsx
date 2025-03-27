@@ -411,7 +411,7 @@ export function UpdateObservationsForm({
                       <FormItem>
                         <FormLabel>Photo of issue</FormLabel>
                         <FormControl>
-                          <Input type="file" />
+                          <Input type="file" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
