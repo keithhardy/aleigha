@@ -9,6 +9,10 @@ export const UpdateObservationsSchema = z.object({
         description: z.string(),
         code: z.string(),
         location: z.string(),
+        redmedialActionTaken: z.boolean(),
+        descriptionOfActionTaken: z.string(),
+        photoOfActionTaken: z.string(),
+        codeAfterRemedial: z.string(),
       }),
     )
     .default([]),
