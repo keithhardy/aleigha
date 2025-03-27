@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport } from "@prisma/client";
-import { MoveLeft } from "lucide-react";
+import { Check, ChevronsUpDown, MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { Control, useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -33,6 +33,16 @@ import { useToast } from "@/hooks/use-toast";
 import { updateScheduleOfCircuitDetailsAndTestResults } from "./action";
 import { UpdateScheduleOfCircuitDetailsAndTestResultsSchema } from "./schema";
 import { sections } from "../components/sections";
+import { ResponsiveDialog } from "@/components/responsive-dialog";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import { useEffect, useState } from "react";
 
 export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
   certificate,
@@ -74,10 +84,20 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
 
   const addDb = () => {
     append({
-      dbDesignation: "",
+      dbDesignation: `Consumer Unit ${fields.length + 1}`,
       circuits: [],
     });
   };
+
+  useEffect(() => {
+    setSelectedDB(fields[fields.length - 1]?.id || null);
+  }, [fields.length]);
+
+  const handleDBSelect = (value: string) => {
+    setSelectedDB(value);
+  };
+
+  const [selectedDB, setSelectedDB] = useState<any>(null);
 
   return (
     <Form {...form}>
@@ -101,7 +121,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
 
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
-              <div className="flex flex-col gap-4 p-6 lg:flex-row">
+              <div className="flex flex-col items-center gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>
                     Schedule of circuit details and test results
@@ -112,35 +132,100 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
-                  <Button type="button" onClick={addDb}>
-                    Add DB
-                  </Button>
-                  {fields.map((field, index) => (
-                    <div key={field.id} className="space-y-4">
-                      <FormField
-                        control={form.control}
-                        name={`db.${index}.dbDesignation`}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>DB designation</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Consumer Unit" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <Button type="button" onClick={() => remove(index)}>
-                        Delete
+                  <ResponsiveDialog
+                    trigger={
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        className="flex w-full items-center justify-between"
+                      >
+                        Select or add a DB
+                        <ChevronsUpDown className="ml-2 opacity-50" />
                       </Button>
-
-                      <div>
-                        <CircuitsForm index={index} control={form.control} />
-                      </div>
-                    </div>
-                  ))}
+                    }
+                    content={(setOpen) => (
+                      <Command
+                        filter={(value, search) => {
+                          if (!search) return 1;
+                          return value
+                            .toLowerCase()
+                            .includes(search.toLowerCase())
+                            ? 1
+                            : 0;
+                        }}
+                      >
+                        {fields.length > 0 && (
+                          <CommandInput placeholder="Search fields..." />
+                        )}
+                        <CommandList>
+                          <CommandEmpty>No field found.</CommandEmpty>
+                          <CommandGroup>
+                            {fields.length > 0 &&
+                              fields.map((field) => (
+                                <CommandItem
+                                  key={field.id}
+                                  value={field.dbDesignation}
+                                  onSelect={() => {
+                                    setSelectedDB(field.id.toString());
+                                    handleDBSelect(field.id.toString());
+                                    setOpen(false);
+                                  }}
+                                >
+                                  {field.dbDesignation}
+                                  {field.id.toString() === selectedDB ? (
+                                    <Check className="ml-auto" />
+                                  ) : null}
+                                </CommandItem>
+                              ))}
+                            <CommandItem
+                              key={"addNewDB"}
+                              onSelect={() => {
+                                addDb();
+                                setOpen(false);
+                              }}
+                            >
+                              Add new DB
+                            </CommandItem>
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    )}
+                  />
                 </CardContent>
               </div>
+
+
+
+              <CardContent>
+                {selectedDB && (
+                  <>
+                    <Card className="hidden rounded-md shadow-none md:block">
+                      <CardContent key={selectedDB} className="p-0">
+                        <FormField
+                          control={form.control}
+                          name={`db.${fields.findIndex((item) => item.id === selectedDB)}.dbDesignation`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>DB designation</FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="Consumer Unit"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <Button type="button" onClick={() => remove(fields.findIndex((item) => item.id === selectedDB))}>
+                          Delete
+                        </Button>
+                        {/* <CircuitsForm index={fields.findIndex((item) => item.id === selectedDB)} control={form.control} /> */}
+                      </CardContent>
+                    </Card>
+                  </>
+                )}
+              </CardContent>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-balance text-sm text-muted-foreground">
                   Ensure the prosumer’s low voltage installation is inspected
@@ -189,6 +274,7 @@ function CircuitsForm({
       <Button type="button" onClick={addCircuit}>
         Add New Circuit
       </Button>
+
       {fields.map((circuitItem, circuitIndex) => (
         <div key={circuitItem.id} className="space-y-4">
           <FormField
@@ -204,7 +290,7 @@ function CircuitsForm({
               </FormItem>
             )}
           />
-          <Button type="button" onClick={() => remove(index)}>
+          <Button type="button" onClick={() => remove(circuitIndex)}>
             Delete
           </Button>
         </div>
