@@ -93,11 +93,11 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
     });
   };
 
-  //      DDDDD    BBBBB    SSSSS  
-  //      D    D   B    B   S    
-  //      D    D   BBBBB    SSSSS 
-  //      D    D   B    B       S 
-  //      DDDDD    BBBBB    SSSSS 
+  //      DDDDD    BBBBB    SSSSS
+  //      D    D   B    B   S
+  //      D    D   BBBBB    SSSSS
+  //      D    D   B    B       S
+  //      DDDDD    BBBBB    SSSSS
 
   const {
     fields: dbs,
@@ -126,12 +126,11 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
     setSelectedDB(previousIndex >= 0 ? previousIndex : null);
   };
 
-  //   CCCCC   III  RRRR   CCCCC  U   U  III  TTTTT  SSSSS  
-  //  C        I    R   R  C      U   U   I     T    S      
-  //  C        I    RRRR   C      U   U   I     T    SSSSS  
-  //  C        I    R  R   C      U   U   I     T        S  
-  //   CCCCC   III  R   R  CCCCC  UUUUU  III    T    SSSSS  
-
+  //   CCCCC   III  RRRR   CCCCC  U   U  III  TTTTT  SSSSS
+  //  C        I    R   R  C      U   U   I     T    S
+  //  C        I    RRRR   C      U   U   I     T    SSSSS
+  //  C        I    R  R   C      U   U   I     T        S
+  //   CCCCC   III  R   R  CCCCC  UUUUU  III    T    SSSSS
 
   const {
     fields: circuits,
@@ -145,17 +144,20 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
 
   const [selectedCircuit, setSelectedCircuit] = useState<number | null>(null);
 
+  useEffect(() => {
+    if (selectedDB !== null) {
+      const newCircuits = form.watch(`db.${selectedDB}.circuits`) || [];
+      replace(newCircuits);
+    } else {
+      replace([]);
+    }
+  }, [selectedDB, form, replace]);
+
   const addCircuit = () => {
     appendCircuit({
       circuitNumber: "",
     });
     setSelectedCircuit(circuits.length);
-  };
-
-  const deleteCircuit = (index: number) => {
-    removeCircuit(index);
-    const previousIndex = index - 1;
-    setSelectedCircuit(previousIndex >= 0 ? previousIndex : null);
   };
 
   const [circuitDialogOpen, setCircuitDialogOpen] = useState(false);
@@ -301,7 +303,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             {circuits.map((field, index) => (
                               <TableRow key={index}>
                                 <TableCell className="pl-6">
-                                  {field.circuitNumber}
+                                  {form.watch(
+                                    `db.${selectedDB}.circuits.${index}.circuitNumber`,
+                                  )}
                                 </TableCell>
                                 <TableCell className="pr-6 text-right">
                                   <DropdownMenu>
@@ -387,6 +391,6 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
           action={form.handleSubmit(onSubmit)}
         />
       </form>
-    </Form >
+    </Form>
   );
 }
