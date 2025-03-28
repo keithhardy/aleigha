@@ -2,13 +2,16 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport } from "@prisma/client";
-import { Check, ChevronsUpDown, MoveLeft } from "lucide-react";
+import { Check, ChevronsUpDown, Ellipsis, MoveLeft, Plus } from "lucide-react";
 import Link from "next/link";
-import { Control, useFieldArray, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import FormActions from "@/components/form-actions";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
+import { ResponsiveDialog } from "@/components/responsive-dialog";
+import { ResponsiveDialog as ResponsiveDialogTest } from "@/components/responsive-dialog-test";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,6 +22,20 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   Form,
   FormControl,
   FormField,
@@ -27,22 +44,21 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { UnsavedChangesDialog } from "@/components/unsaved-changes-dialog";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateScheduleOfCircuitDetailsAndTestResults } from "./action";
 import { UpdateScheduleOfCircuitDetailsAndTestResultsSchema } from "./schema";
 import { sections } from "../components/sections";
-import { ResponsiveDialog } from "@/components/responsive-dialog";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import { useEffect, useState } from "react";
 
 export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
   certificate,
@@ -77,35 +93,72 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
     });
   };
 
-  const { fields, append, remove } = useFieldArray({
+  //      DDDDD    BBBBB    SSSSS  
+  //      D    D   B    B   S    
+  //      D    D   BBBBB    SSSSS 
+  //      D    D   B    B       S 
+  //      DDDDD    BBBBB    SSSSS 
+
+  const {
+    fields: dbs,
+    append: appendDB,
+    remove: removeDB,
+  } = useFieldArray({
     control: form.control,
     name: "db",
   });
 
+  const [selectedDB, setSelectedDB] = useState<number | null>(
+    dbs.length > 0 ? 0 : null,
+  );
+
   const addDb = () => {
-    append({
-      dbDesignation: `Consumer Unit ${fields.length + 1}`,
+    appendDB({
+      dbDesignation: `New Consumer Unit`,
       circuits: [],
     });
+    setSelectedDB(dbs.length);
   };
 
-  const [isFirstRender, setIsFirstRender] = useState(true);
-
-  useEffect(() => {
-    if (isFirstRender) {
-      setIsFirstRender(false);
-      setSelectedDB(fields[0]?.id || null);
-      return;
-    }
-
-    setSelectedDB(fields[fields.length - 1]?.id || null);
-  }, [fields.length]);
-
-  const handleDBSelect = (value: string) => {
-    setSelectedDB(value);
+  const deleteDb = (index: number) => {
+    removeDB(index);
+    const previousIndex = index - 1;
+    setSelectedDB(previousIndex >= 0 ? previousIndex : null);
   };
 
-  const [selectedDB, setSelectedDB] = useState<any>(null);
+  //   CCCCC   III  RRRR   CCCCC  U   U  III  TTTTT  SSSSS  
+  //  C        I    R   R  C      U   U   I     T    S      
+  //  C        I    RRRR   C      U   U   I     T    SSSSS  
+  //  C        I    R  R   C      U   U   I     T        S  
+  //   CCCCC   III  R   R  CCCCC  UUUUU  III    T    SSSSS  
+
+
+  const {
+    fields: circuits,
+    append: appendCircuit,
+    remove: removeCircuit,
+    replace,
+  } = useFieldArray({
+    control: form.control,
+    name: selectedDB !== null ? `db.${selectedDB}.circuits` : "db.0.circuits",
+  });
+
+  const [selectedCircuit, setSelectedCircuit] = useState<number | null>(null);
+
+  const addCircuit = () => {
+    appendCircuit({
+      circuitNumber: "",
+    });
+    setSelectedCircuit(circuits.length);
+  };
+
+  const deleteCircuit = (index: number) => {
+    removeCircuit(index);
+    const previousIndex = index - 1;
+    setSelectedCircuit(previousIndex >= 0 ? previousIndex : null);
+  };
+
+  const [circuitDialogOpen, setCircuitDialogOpen] = useState(false);
 
   return (
     <Form {...form}>
@@ -139,7 +192,8 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                     results below.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="w-full space-y-4 p-0">
+
+                <CardContent className="flex w-full space-x-4 p-0">
                   <ResponsiveDialog
                     trigger={
                       <Button
@@ -147,10 +201,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                         role="combobox"
                         className="flex w-full items-center justify-between"
                       >
-
                         <span>
-                          {selectedDB
-                            ? fields.find((item) => item.id === selectedDB)?.dbDesignation
+                          {selectedDB !== null
+                            ? form.watch(`db.${selectedDB}.dbDesignation`)
                             : "Select db..."}
                         </span>
                         <ChevronsUpDown className="ml-2 opacity-50" />
@@ -167,78 +220,123 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             : 0;
                         }}
                       >
-                        {fields.length > 0 && (
-                          <CommandInput placeholder="Search fields..." />
+                        {dbs.length > 0 && (
+                          <CommandInput placeholder="Search..." />
                         )}
                         <CommandList>
-                          <CommandEmpty>No field found.</CommandEmpty>
+                          <CommandEmpty>None found.</CommandEmpty>
                           <CommandGroup>
-                            {fields.length > 0 &&
-                              fields.map((field) => (
-                                <CommandItem
-                                  key={field.id}
-                                  value={field.dbDesignation}
-                                  onSelect={() => {
-                                    setSelectedDB(field.id.toString());
-                                    handleDBSelect(field.id.toString());
-                                    setOpen(false);
-                                  }}
-                                >
-                                  {field.dbDesignation}
-                                  {field.id.toString() === selectedDB ? (
-                                    <Check className="ml-auto" />
-                                  ) : null}
-                                </CommandItem>
-                              ))}
-                            <CommandItem
-                              key={"addNewDB"}
-                              onSelect={() => {
-                                addDb();
-                                setOpen(false);
-                              }}
-                            >
-                              Add new DB
-                            </CommandItem>
+                            {dbs.map((db, index) => (
+                              <CommandItem
+                                key={db.id}
+                                value={db.id}
+                                onSelect={() => {
+                                  setSelectedDB(index);
+                                  setOpen(false);
+                                }}
+                              >
+                                {form.watch(`db.${index}.dbDesignation`)}
+                                {index === selectedDB ? (
+                                  <Check className="ml-auto" />
+                                ) : null}
+                              </CommandItem>
+                            ))}
                           </CommandGroup>
                         </CommandList>
                       </Command>
                     )}
                   />
+                  <Button
+                    variant="outline"
+                    type="button"
+                    onClick={() => {
+                      addDb();
+                    }}
+                  >
+                    <Plus />
+                  </Button>
                 </CardContent>
               </div>
 
-
-
               <CardContent>
-                {selectedDB && (
-                  <>
+                {selectedDB != null && (
+                  <div key={selectedDB} className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      <FormField
+                        control={form.control}
+                        name={`db.${selectedDB}.dbDesignation`}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Input placeholder="Consumer Unit" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <Button
+                        type="button"
+                        onClick={() => deleteDb(selectedDB)}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+
                     <Card className="hidden rounded-md shadow-none md:block">
-                      <CardContent key={selectedDB} className="p-0">
-                        <FormField
-                          control={form.control}
-                          name={`db.${fields.findIndex((item) => item.id === selectedDB)}.dbDesignation`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>DB designation</FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="Consumer Unit"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <Button type="button" onClick={() => remove(fields.findIndex((item) => item.id === selectedDB))}>
-                          Delete
+                      <CardContent className="p-0">
+                        <Button type="button" onClick={addCircuit}>
+                          Add New Circuit
                         </Button>
-                        {/* <CircuitsForm index={fields.findIndex((item) => item.id === selectedDB)} control={form.control} /> */}
+                        <Table className="text-sm">
+                          <TableHeader>
+                            <TableRow className="h-8">
+                              <TableHead className="pl-6">ID</TableHead>
+                              <TableHead className="pr-6 text-right">
+                                Actions
+                              </TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {circuits.map((field, index) => (
+                              <TableRow key={index}>
+                                <TableCell className="pl-6">
+                                  {field.circuitNumber}
+                                </TableCell>
+                                <TableCell className="pr-6 text-right">
+                                  <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                      <Button variant="ghost" size="icon">
+                                        <Ellipsis className="h-4 w-4" />
+                                      </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                      <DropdownMenuItem
+                                        onSelect={() => {
+                                          setCircuitDialogOpen(true);
+                                          setSelectedCircuit(index);
+                                        }}
+                                      >
+                                        Edit
+                                      </DropdownMenuItem>
+                                      <DropdownMenuItem
+                                        onSelect={() => removeCircuit(index)}
+                                      >
+                                        Delete
+                                      </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                  </DropdownMenu>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
                       </CardContent>
                     </Card>
-                  </>
+                  </div>
                 )}
               </CardContent>
+
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-balance text-sm text-muted-foreground">
                   Ensure the prosumer’s low voltage installation is inspected
@@ -254,60 +352,41 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
           sections={sections}
           baseUrl={"/certificates/eicr"}
         />
+
+        <ResponsiveDialogTest
+          open={circuitDialogOpen}
+          onOpenChange={setCircuitDialogOpen}
+        >
+          {selectedCircuit != null && (
+            <>
+              <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
+                <div className="space-y-4 p-6">
+                  {selectedDB !== null && selectedCircuit !== null && (
+                    <FormField
+                      control={form.control}
+                      name={`db.${selectedDB}.circuits.${selectedCircuit}.circuitNumber`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Circuit number</FormLabel>
+                          <FormControl>
+                            <Input placeholder="1" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  )}
+                </div>
+              </ScrollArea>
+            </>
+          )}
+        </ResponsiveDialogTest>
+
+        <UnsavedChangesDialog
+          condition={form.formState.isDirty}
+          action={form.handleSubmit(onSubmit)}
+        />
       </form>
-
-      <UnsavedChangesDialog
-        condition={form.formState.isDirty}
-        action={form.handleSubmit(onSubmit)}
-      />
-    </Form>
-  );
-}
-
-function CircuitsForm({
-  index,
-  control,
-}: {
-  index: number;
-  control: Control<any>;
-}) {
-  const { fields, append, remove } = useFieldArray({
-    control: control,
-    name: `db.${index}.circuits`,
-  });
-
-  const addCircuit = () => {
-    append({
-      circuitNumber: "",
-    });
-  };
-
-  return (
-    <>
-      <Button type="button" onClick={addCircuit}>
-        Add New Circuit
-      </Button>
-
-      {fields.map((circuitItem, circuitIndex) => (
-        <div key={circuitItem.id} className="space-y-4">
-          <FormField
-            control={control}
-            name={`db.${index}.circuits.${circuitIndex}.circuitNumber`}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Circuit number</FormLabel>
-                <FormControl>
-                  <Input placeholder="1" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="button" onClick={() => remove(circuitIndex)}>
-            Delete
-          </Button>
-        </div>
-      ))}
-    </>
+    </Form >
   );
 }
