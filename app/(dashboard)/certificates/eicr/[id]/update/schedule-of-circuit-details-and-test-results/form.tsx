@@ -2,7 +2,14 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport } from "@prisma/client";
-import { Check, ChevronsUpDown, Ellipsis, MoveLeft, Plus } from "lucide-react";
+import {
+  Check,
+  ChevronsUpDown,
+  Ellipsis,
+  MoveLeft,
+  Plus,
+  Trash2,
+} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -122,8 +129,13 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
 
   const deleteDb = (index: number) => {
     removeDB(index);
-    const previousIndex = index - 1;
-    setSelectedDB(previousIndex >= 0 ? previousIndex : null);
+
+    if (dbs.length === 1) {
+      setSelectedDB(null);
+    } else {
+      const previousIndex = index - 1;
+      setSelectedDB(previousIndex >= 0 ? previousIndex : 0);
+    }
   };
 
   //   CCCCC   III  RRRR   CCCCC  U   U  III  TTTTT  SSSSS
@@ -139,7 +151,8 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
     replace,
   } = useFieldArray({
     control: form.control,
-    name: selectedDB !== null ? `db.${selectedDB}.circuits` : "db.0.circuits",
+    // @ts-expect-error: Ignoring type error due to dynamic field name with selectedDB
+    name: `db.${selectedDB}.circuits`,
   });
 
   const [selectedCircuit, setSelectedCircuit] = useState<number | null>(null);
@@ -181,7 +194,6 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
               <Heading>Schedule of circuit details and test results</Heading>
             </HeaderGroup>
           </Header>
-
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col items-center gap-4 p-6 lg:flex-row">
@@ -257,6 +269,15 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                   >
                     <Plus />
                   </Button>
+                  {selectedDB != null && (
+                    <Button
+                      variant="outline"
+                      type="button"
+                      onClick={() => deleteDb(selectedDB)}
+                    >
+                      <Trash2 />
+                    </Button>
+                  )}
                 </CardContent>
               </div>
 
@@ -276,20 +297,17 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                           </FormItem>
                         )}
                       />
-
                       <Button
+                        variant="outline"
                         type="button"
-                        onClick={() => deleteDb(selectedDB)}
+                        onClick={addCircuit}
                       >
-                        Delete
+                        Add Circuit
                       </Button>
                     </div>
 
                     <Card className="hidden rounded-md shadow-none md:block">
                       <CardContent className="p-0">
-                        <Button type="button" onClick={addCircuit}>
-                          Add New Circuit
-                        </Button>
                         <Table className="text-sm">
                           <TableHeader>
                             <TableRow className="h-8">
