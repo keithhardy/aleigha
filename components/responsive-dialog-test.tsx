@@ -1,3 +1,4 @@
+import { DialogTitle } from "@radix-ui/react-dialog";
 import { useEffect, useState, useCallback } from "react";
 
 import {
@@ -38,6 +39,7 @@ export const ResponsiveDialog = ({
   return (
     <Component open={open} onOpenChange={onOpenChange}>
       <Content side={isMobile && keyboardVisible ? "top" : "bottom"}>
+        <DialogTitle />
         {children}
       </Content>
     </Component>

@@ -2,14 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ElectricalInstallationConditionReport } from "@prisma/client";
-import {
-  Check,
-  ChevronsUpDown,
-  Ellipsis,
-  MoveLeft,
-  Plus,
-  Trash2,
-} from "lucide-react";
+import { Check, ChevronsUpDown, Ellipsis, MoveLeft, Plus } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -138,6 +131,8 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
     }
   };
 
+  const [dbDialogOpen, setDBDialogOpen] = useState(false);
+
   //   CCCCC   III  RRRR   CCCCC  U   U  III  TTTTT  SSSSS
   //  C        I    R   R  C      U   U   I     T    S
   //  C        I    RRRR   C      U   U   I     T    SSSSS
@@ -148,7 +143,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
     fields: circuits,
     append: appendCircuit,
     remove: removeCircuit,
-    replace,
+    replace: replaceCircuits,
   } = useFieldArray({
     control: form.control,
     // @ts-expect-error: Ignoring type error due to dynamic field name with selectedDB
@@ -160,17 +155,25 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
   useEffect(() => {
     if (selectedDB !== null) {
       const newCircuits = form.watch(`db.${selectedDB}.circuits`) || [];
-      replace(newCircuits);
+      replaceCircuits(newCircuits);
     } else {
-      replace([]);
+      replaceCircuits([]);
     }
-  }, [selectedDB, form, replace]);
+  }, [selectedDB, form, replaceCircuits]);
 
   const addCircuit = () => {
     appendCircuit({
       circuitNumber: "",
     });
     setSelectedCircuit(circuits.length);
+  };
+
+  const deleteCircuit = (index: number) => {
+    removeCircuit(index);
+
+    if (circuits.length === 1) {
+      setSelectedCircuit(null);
+    }
   };
 
   const [circuitDialogOpen, setCircuitDialogOpen] = useState(false);
@@ -198,22 +201,20 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col items-center gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
-                  <CardTitle>
-                    Schedule of circuit details and test results
-                  </CardTitle>
+                  <CardTitle>Distribution Boards</CardTitle>
                   <CardDescription className="text-balance">
                     Review and update the details of the circuits and test
                     results below.
                   </CardDescription>
                 </CardHeader>
 
-                <CardContent className="flex w-full space-x-4 p-0">
+                <div className="flex w-full justify-end space-x-4">
                   <ResponsiveDialog
                     trigger={
                       <Button
                         variant="outline"
                         role="combobox"
-                        className="flex w-full items-center justify-between"
+                        className="flex-1 items-center justify-between"
                       >
                         <span>
                           {selectedDB !== null
@@ -262,95 +263,119 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                   />
                   <Button
                     variant="outline"
+                    size="icon"
                     type="button"
                     onClick={() => {
                       addDb();
+                      setDBDialogOpen(true);
                     }}
                   >
                     <Plus />
                   </Button>
                   {selectedDB != null && (
-                    <Button
-                      variant="outline"
-                      type="button"
-                      onClick={() => deleteDb(selectedDB)}
-                    >
-                      <Trash2 />
-                    </Button>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="outline" size="icon">
+                          <Ellipsis className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem
+                          onSelect={() => {
+                            setDBDialogOpen(true);
+                          }}
+                        >
+                          Edit
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onSelect={() => deleteDb(selectedDB)}>
+                          Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   )}
-                </CardContent>
+                </div>
               </div>
 
-              <CardContent>
+              <CardContent className="p-6">
                 {selectedDB != null && (
                   <div key={selectedDB} className="space-y-4">
-                    <div className="flex items-center gap-4">
-                      <FormField
-                        control={form.control}
-                        name={`db.${selectedDB}.dbDesignation`}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormControl>
-                              <Input placeholder="Consumer Unit" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <Button
-                        variant="outline"
-                        type="button"
-                        onClick={addCircuit}
-                      >
-                        Add Circuit
-                      </Button>
-                    </div>
+                    <Card className="rounded-md shadow-none">
+                      <div className="flex flex-col items-center gap-4 p-6 lg:flex-row">
+                        <CardHeader className="w-full p-0">
+                          <CardTitle>Circuits</CardTitle>
+                          <CardDescription className="text-balance">
+                            Review and update the details of the circuits and
+                            test results below.
+                          </CardDescription>
+                        </CardHeader>
 
-                    <Card className="hidden rounded-md shadow-none md:block">
-                      <CardContent className="p-0">
-                        <Table className="text-sm">
+                        <div className="flex w-full justify-end space-x-4">
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            type="button"
+                            onClick={addCircuit}
+                          >
+                            <Plus />
+                          </Button>
+                        </div>
+                      </div>
+
+                      <CardContent>
+                        <Table className="border text-sm">
                           <TableHeader>
                             <TableRow className="h-8">
-                              <TableHead className="pl-6">ID</TableHead>
+                              <TableHead className="pl-6">Number</TableHead>
                               <TableHead className="pr-6 text-right">
                                 Actions
                               </TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
-                            {circuits.map((field, index) => (
-                              <TableRow key={index}>
-                                <TableCell className="pl-6">
-                                  {form.watch(
-                                    `db.${selectedDB}.circuits.${index}.circuitNumber`,
-                                  )}
-                                </TableCell>
-                                <TableCell className="pr-6 text-right">
-                                  <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                      <Button variant="ghost" size="icon">
-                                        <Ellipsis className="h-4 w-4" />
-                                      </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent align="end">
-                                      <DropdownMenuItem
-                                        onSelect={() => {
-                                          setCircuitDialogOpen(true);
-                                          setSelectedCircuit(index);
-                                        }}
-                                      >
-                                        Edit
-                                      </DropdownMenuItem>
-                                      <DropdownMenuItem
-                                        onSelect={() => removeCircuit(index)}
-                                      >
-                                        Delete
-                                      </DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                  </DropdownMenu>
+                            {circuits.length > 0 ? (
+                              circuits.map((field, index) => (
+                                <TableRow key={index}>
+                                  <TableCell className="pl-6">
+                                    {form.watch(
+                                      `db.${selectedDB}.circuits.${index}.circuitNumber`,
+                                    )}
+                                  </TableCell>
+                                  <TableCell className="pr-6 text-right">
+                                    <DropdownMenu>
+                                      <DropdownMenuTrigger asChild>
+                                        <Button variant="ghost" size="icon">
+                                          <Ellipsis className="h-4 w-4" />
+                                        </Button>
+                                      </DropdownMenuTrigger>
+                                      <DropdownMenuContent align="end">
+                                        <DropdownMenuItem
+                                          onSelect={() => {
+                                            setCircuitDialogOpen(true);
+                                            setSelectedCircuit(index);
+                                          }}
+                                        >
+                                          Edit
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem
+                                          onSelect={() => deleteCircuit(index)}
+                                        >
+                                          Delete
+                                        </DropdownMenuItem>
+                                      </DropdownMenuContent>
+                                    </DropdownMenu>
+                                  </TableCell>
+                                </TableRow>
+                              ))
+                            ) : (
+                              <TableRow>
+                                <TableCell
+                                  colSpan={2}
+                                  className="py-4 text-center"
+                                >
+                                  None Found
                                 </TableCell>
                               </TableRow>
-                            ))}
+                            )}
                           </TableBody>
                         </Table>
                       </CardContent>
@@ -376,6 +401,35 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
         />
 
         <ResponsiveDialogTest
+          open={dbDialogOpen}
+          onOpenChange={setDBDialogOpen}
+        >
+          {selectedDB != null && (
+            <>
+              <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
+                <div className="space-y-4 p-6">
+                  {selectedDB !== null && (
+                    <FormField
+                      control={form.control}
+                      name={`db.${selectedDB}.dbDesignation`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Designation</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  )}
+                </div>
+              </ScrollArea>
+            </>
+          )}
+        </ResponsiveDialogTest>
+
+        <ResponsiveDialogTest
           open={circuitDialogOpen}
           onOpenChange={setCircuitDialogOpen}
         >
@@ -391,7 +445,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                         <FormItem>
                           <FormLabel>Circuit number</FormLabel>
                           <FormControl>
-                            <Input placeholder="1" {...field} />
+                            <Input {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

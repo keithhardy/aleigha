@@ -51,6 +51,7 @@ export const ResponsiveDialog = ({
     <Component open={open} onOpenChange={handleOpenChange}>
       <Trigger asChild>{trigger}</Trigger>
       <Content side={isMobile && keyboardVisible ? "top" : "bottom"}>
+        <DialogTitle />
         <Title />
         {content(setOpen)}
       </Content>
