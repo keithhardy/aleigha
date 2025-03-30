@@ -339,24 +339,6 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                   </div>
                   <FormField
                     control={form.control}
-                    name="prospectiveFaultCurrent"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Prospective Fault Current (Ipf)</FormLabel>
-                        <FormControl>
-                          <div className="relative w-full">
-                            <Input {...field} className="pr-10" />
-                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                              kA
-                            </span>
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
                     name="externalEarthFaultLoopImpedance"
                     render={({ field }) => (
                       <FormItem>
@@ -368,6 +350,24 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                             <Input {...field} className="pr-10" />
                             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
                               Ω
+                            </span>
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="prospectiveFaultCurrent"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Prospective Fault Current (Ipf)</FormLabel>
+                        <FormControl>
+                          <div className="relative w-full">
+                            <Input {...field} className="pr-10" />
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                              kA
                             </span>
                           </div>
                         </FormControl>
