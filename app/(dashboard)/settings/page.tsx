@@ -16,7 +16,7 @@ export default async function Settings() {
   });
 
   return (
-    <div className="container mx-auto max-w-screen-lg space-y-4">
+    <>
       <Header>
         <HeaderGroup>
           <Heading>Account Settings</Heading>
@@ -29,6 +29,6 @@ export default async function Settings() {
       <UpdatePictureForm settings={settings} />
       <UpdateGoverningBodyForm settings={settings} />
       <UpdateAddressForm settings={settings} />
-    </div>
+    </>
   );
 }

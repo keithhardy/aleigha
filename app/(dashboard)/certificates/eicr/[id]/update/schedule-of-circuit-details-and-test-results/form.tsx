@@ -426,7 +426,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             ) : (
                               <TableRow>
                                 <TableCell
-                                  colSpan={2}
+                                  colSpan={3}
                                   className="py-4 text-center"
                                 >
                                   None Found
