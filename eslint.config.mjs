@@ -26,8 +26,8 @@ const eslintConfig = [
       "@typescript-eslint": tsPlugin,
     },
     rules: {
-      "import/named": "off",
-      "@typescript-eslint/no-explicit-any": "off",
+      // "import/named": "off",
+      // "@typescript-eslint/no-explicit-any": "off",
       "import/order": [
         "error",
         {

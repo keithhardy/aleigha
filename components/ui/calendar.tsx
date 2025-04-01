@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { DayPicker, CaptionProps } from "react-day-picker";
+import { DayPicker, type CaptionProps } from "react-day-picker";
 
 import {
   Select,

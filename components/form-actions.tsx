@@ -1,6 +1,6 @@
 import { ArrowLeft, ArrowRight, List, RotateCcw, Save } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
-import { UseFormReturn } from "react-hook-form";
+import { type UseFormReturn } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 

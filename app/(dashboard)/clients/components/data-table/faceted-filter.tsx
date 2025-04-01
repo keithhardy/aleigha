@@ -1,5 +1,5 @@
 import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
-import { Column } from "@tanstack/react-table";
+import { type Column } from "@tanstack/react-table";
 import * as React from "react";
 
 import { Badge } from "@/components/ui/badge";

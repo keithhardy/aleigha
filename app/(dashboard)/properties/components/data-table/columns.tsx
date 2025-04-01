@@ -1,7 +1,7 @@
 "use client";
 
 import { Address, Client, Property } from "@prisma/client";
-import { ColumnDef } from "@tanstack/react-table";
+import { type ColumnDef } from "@tanstack/react-table";
 
 import { ColumnHeader } from "@/app/(dashboard)/properties/components/data-table/column-header";
 import { RowActions } from "@/app/(dashboard)/properties/components/data-table/row-actions";

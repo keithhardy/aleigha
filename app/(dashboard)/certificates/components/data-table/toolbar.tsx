@@ -1,11 +1,11 @@
 "use client";
 
 import { Cross2Icon, PlusCircledIcon } from "@radix-ui/react-icons";
-import { Table } from "@tanstack/react-table";
+import { type Table } from "@tanstack/react-table";
 import { addDays } from "date-fns";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { DateRange } from "react-day-picker";
+import { type DateRange } from "react-day-picker";
 
 import { DatePickerWithRange } from "@/components/date-picker-with-range";
 import { Button } from "@/components/ui/button";

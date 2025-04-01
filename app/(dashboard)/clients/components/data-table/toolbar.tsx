@@ -1,7 +1,7 @@
 "use client";
 
 import { Cross2Icon, PlusCircledIcon } from "@radix-ui/react-icons";
-import { Table } from "@tanstack/react-table";
+import { type Table } from "@tanstack/react-table";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";

@@ -3,7 +3,7 @@
 import { Eraser, Signature } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { ControllerRenderProps } from "react-hook-form";
+import { type ControllerRenderProps } from "react-hook-form";
 import SignatureCanvas from "react-signature-canvas";
 
 import { Button } from "@/components/ui/button";
