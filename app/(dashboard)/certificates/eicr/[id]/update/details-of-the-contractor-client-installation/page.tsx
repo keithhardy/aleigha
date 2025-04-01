@@ -18,17 +18,6 @@ export default async function UpdateContractorClientAndInstallation({
         id: true,
         clientId: true,
         propertyId: true,
-        client: {
-          select: {
-            id: true,
-            address: true,
-          },
-        },
-        property: {
-          select: {
-            address: true,
-          },
-        },
       },
     });
 

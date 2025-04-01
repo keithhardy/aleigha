@@ -16,7 +16,6 @@ import {
 } from "@/components/dialog-sheet";
 import FormActions from "@/components/form-actions";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import { ResponsiveDialog } from "@/components/responsive-dialog";
 import { Button } from "@/components/ui/button";
 import {
   CardTitle,
@@ -84,6 +83,7 @@ export function UpdateContractorClientAndInstallationForm({
     });
   };
 
+  const [selectClientOpen, setSelectClientOpen] = useState(false);
   const [selectPropertyOpen, setSelectPropertyOpen] = useState(false);
 
   return (
@@ -202,8 +202,11 @@ export function UpdateContractorClientAndInstallationForm({
                       return (
                         <>
                           <FormItem>
-                            <ResponsiveDialog
-                              trigger={
+                            <DialogSheet
+                              open={selectClientOpen}
+                              onOpenChange={setSelectClientOpen}
+                            >
+                              <DialogSheetTrigger asChild>
                                 <Button
                                   variant="outline"
                                   className="w-full justify-between"
@@ -211,13 +214,14 @@ export function UpdateContractorClientAndInstallationForm({
                                   {selectedClient
                                     ? selectedClient.name
                                     : "Select client..."}
-                                  <ChevronsUpDown className="ml-2 opacity-50" />
+                                  <ChevronsUpDown />
                                 </Button>
-                              }
-                              content={(setOpen) => (
-                                <Command>
+                              </DialogSheetTrigger>
+                              <DialogSheetContent className="p-0">
+                                <DialogSheetTitle className="hidden" />
+                                <Command className="pt-2">
                                   <CommandInput placeholder="Search clients..." />
-                                  <CommandList className="scrollbar-hidden">
+                                  <CommandList className="scrollbar-hidden mt-1 border-t">
                                     <CommandEmpty>
                                       No client found.
                                     </CommandEmpty>
@@ -232,17 +236,21 @@ export function UpdateContractorClientAndInstallationForm({
                                               client.id,
                                             );
                                             form.setValue("propertyId", "");
-                                            setOpen(false);
+                                            setSelectClientOpen(false);
                                           }}
                                         >
                                           {client.name}
+                                          {client.id === field.value ? (
+                                            <Check className="ml-auto" />
+                                          ) : null}
                                         </CommandItem>
-                                      ))}
+                                      ),
+                                      )}
                                     </CommandGroup>
                                   </CommandList>
                                 </Command>
-                              )}
-                            />
+                              </DialogSheetContent>
+                            </DialogSheet>
                             <FormMessage />
                           </FormItem>
                           <Input
@@ -303,7 +311,6 @@ export function UpdateContractorClientAndInstallationForm({
                 </p>
               </CardFooter>
             </Card>
-
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
