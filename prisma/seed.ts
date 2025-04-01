@@ -44,8 +44,8 @@ async function main() {
             },
           },
         },
-      })
-    )
+      }),
+    ),
   );
 
   const properties = await Promise.all(
@@ -70,8 +70,8 @@ async function main() {
             },
           },
         },
-      })
-    )
+      }),
+    ),
   );
 
   const keith = await prisma.user.create({
@@ -113,8 +113,8 @@ async function main() {
               .map((client: { id: any }) => ({ id: client.id })),
           },
         },
-      })
-    )
+      }),
+    ),
   );
 
   const electricalInstallationConditionReports = await Promise.all(
@@ -141,7 +141,7 @@ async function main() {
           },
         },
       });
-    })
+    }),
   );
 }
 

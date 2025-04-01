@@ -27,9 +27,12 @@ function Calendar({
   const currentYear = new Date().getFullYear();
   const minYear = currentYear - 25;
   const maxYear = currentYear + 25;
-  const years = Array.from({ length: maxYear - minYear + 1 }, (_, i) => minYear + i);
+  const years = Array.from(
+    { length: maxYear - minYear + 1 },
+    (_, i) => minYear + i,
+  );
   const months = Array.from({ length: 12 }, (_, i) =>
-    new Date(0, i).toLocaleString("default", { month: "long" })
+    new Date(0, i).toLocaleString("default", { month: "long" }),
   );
 
   const CustomCaption = ({ displayMonth }: CaptionProps) => {
@@ -93,18 +96,19 @@ function Calendar({
         caption_label: "text-sm font-medium",
         table: "w-full border-collapse space-y-1",
         head_row: "flex",
-        head_cell: "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]",
+        head_cell:
+          "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]",
         row: "flex w-full mt-2",
         cell: cn(
           "relative p-0 text-center text-sm focus-within:relative focus-within:z-20",
           "[&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50",
           props.mode === "range"
             ? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md"
-            : "[&:has([aria-selected])]:rounded-md"
+            : "[&:has([aria-selected])]:rounded-md",
         ),
         day: cn(
           buttonVariants({ variant: "ghost" }),
-          "h-8 w-8 p-0 font-normal aria-selected:opacity-100"
+          "h-8 w-8 p-0 font-normal aria-selected:opacity-100",
         ),
         day_selected:
           "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground",

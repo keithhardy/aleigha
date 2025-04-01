@@ -1,14 +1,8 @@
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useEffect, useState, useCallback } from "react";
 
-import {
-  Dialog,
-  DialogContent,
-} from "@/components/ui/dialog";
-import {
-  Sheet,
-  SheetContent,
-} from "@/components/ui/sheet";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export const ResponsiveDialog = ({
@@ -30,7 +24,8 @@ export const ResponsiveDialog = ({
 
   useEffect(() => {
     window.visualViewport?.addEventListener("resize", handleResize);
-    return () => window.visualViewport?.removeEventListener("resize", handleResize);
+    return () =>
+      window.visualViewport?.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
   const Component = isMobile ? Sheet : Dialog;

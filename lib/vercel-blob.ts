@@ -2,7 +2,7 @@ import { del, put } from "@vercel/blob";
 
 async function saveFile(
   fileData: string | Buffer,
-  fileName: string
+  fileName: string,
 ): Promise<string> {
   try {
     const binaryData =
@@ -30,7 +30,7 @@ export async function deleteFile(fileUrl: string): Promise<void> {
 
 export async function uploadFile(
   newFile?: string,
-  filePrefix: string = "uploaded-file"
+  filePrefix: string = "uploaded-file",
 ): Promise<string | undefined> {
   if (newFile === "") {
     return undefined;
@@ -57,7 +57,7 @@ export async function uploadFile(
 export async function updateFile(
   newFile?: string,
   currentFile?: string,
-  filePrefix: string = "uploaded-file"
+  filePrefix: string = "uploaded-file",
 ): Promise<string | undefined> {
   if (newFile === "") {
     if (currentFile && currentFile.includes("vercel-storage.com")) {

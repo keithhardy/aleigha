@@ -1,10 +1,4 @@
-import {
-  ArrowLeft,
-  ArrowRight,
-  List,
-  RotateCcw,
-  Save,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, List, RotateCcw, Save } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import { UseFormReturn } from "react-hook-form";
 

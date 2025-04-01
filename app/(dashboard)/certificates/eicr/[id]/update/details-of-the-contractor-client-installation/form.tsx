@@ -2,11 +2,18 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Address, Client, Property, Settings } from "@prisma/client";
-import { ChevronsUpDown, ExternalLink, MoveLeft } from "lucide-react";
+import { Check, ChevronsUpDown, ExternalLink, MoveLeft } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/dialog-sheet";
 import FormActions from "@/components/form-actions";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { ResponsiveDialog } from "@/components/responsive-dialog";
@@ -76,6 +83,8 @@ export function UpdateContractorClientAndInstallationForm({
       variant: response.status === "success" ? "default" : "destructive",
     });
   };
+
+  const [selectPropertyOpen, setSelectPropertyOpen] = useState(false);
 
   return (
     <Form {...form}>
@@ -320,8 +329,11 @@ export function UpdateContractorClientAndInstallationForm({
                       return (
                         <>
                           <FormItem>
-                            <ResponsiveDialog
-                              trigger={
+                            <DialogSheet
+                              open={selectPropertyOpen}
+                              onOpenChange={setSelectPropertyOpen}
+                            >
+                              <DialogSheetTrigger asChild>
                                 <Button
                                   variant="outline"
                                   className="w-full justify-between"
@@ -329,13 +341,14 @@ export function UpdateContractorClientAndInstallationForm({
                                   {selectedProperty
                                     ? selectedProperty.address.streetAddress
                                     : "Select property..."}
-                                  <ChevronsUpDown className="ml-2 opacity-50" />
+                                  <ChevronsUpDown />
                                 </Button>
-                              }
-                              content={(setOpen) => (
-                                <Command>
+                              </DialogSheetTrigger>
+                              <DialogSheetContent className="p-0">
+                                <DialogSheetTitle className="hidden" />
+                                <Command className="pt-2">
                                   <CommandInput placeholder="Search properties..." />
-                                  <CommandList className="scrollbar-hidden">
+                                  <CommandList className="scrollbar-hidden mt-1 border-t">
                                     <CommandEmpty>
                                       No property found.
                                     </CommandEmpty>
@@ -353,18 +366,22 @@ export function UpdateContractorClientAndInstallationForm({
                                                 property.id,
                                                 { shouldDirty: true },
                                               );
-                                              setOpen(false);
+                                              setSelectPropertyOpen(false);
                                             }}
                                           >
                                             {property.address.streetAddress}
+
+                                            {property.id === field.value ? (
+                                              <Check className="ml-auto" />
+                                            ) : null}
                                           </CommandItem>
                                         ),
                                       )}
                                     </CommandGroup>
                                   </CommandList>
                                 </Command>
-                              )}
-                            />
+                              </DialogSheetContent>
+                            </DialogSheet>
                             <FormMessage />
                           </FormItem>
                           <Input
