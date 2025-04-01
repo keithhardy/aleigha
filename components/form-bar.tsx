@@ -14,17 +14,13 @@ import {
   CommandList,
 } from "./ui/command";
 
-interface FormActionsProps {
+interface FormBarProps {
   form: UseFormReturn<any>;
   sections: { title: string; url: string }[];
   baseUrl: string;
 }
 
-export default function FormActions({
-  form,
-  sections,
-  baseUrl,
-}: FormActionsProps) {
+export default function FormBar({ form, sections, baseUrl }: FormBarProps) {
   const router = useRouter();
   const pathname = usePathname();
 

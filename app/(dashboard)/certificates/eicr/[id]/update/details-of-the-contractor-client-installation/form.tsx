@@ -14,7 +14,7 @@ import {
   DialogSheetTitle,
   DialogSheetTrigger,
 } from "@/components/dialog-sheet";
-import FormActions from "@/components/form-actions";
+import FormBar from "@/components/form-bar";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import {
@@ -56,6 +56,9 @@ export function UpdateContractorClientAndInstallationForm({
 }) {
   const { toast } = useToast();
 
+  const [selectClientOpen, setSelectClientOpen] = useState(false);
+  const [selectPropertyOpen, setSelectPropertyOpen] = useState(false);
+
   const form = useForm<
     z.infer<typeof UpdateContractorClientAndInstallationSchema>
   >({
@@ -82,9 +85,6 @@ export function UpdateContractorClientAndInstallationForm({
       variant: response.status === "success" ? "default" : "destructive",
     });
   };
-
-  const [selectClientOpen, setSelectClientOpen] = useState(false);
-  const [selectPropertyOpen, setSelectPropertyOpen] = useState(false);
 
   return (
     <Form {...form}>
@@ -121,44 +121,37 @@ export function UpdateContractorClientAndInstallationForm({
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
                   <Input
-                    type="text"
                     value={settings?.name ?? ""}
                     readOnly
                     placeholder="Street address"
                   />
                   <Input
-                    type="text"
                     value={settings?.address?.streetAddress ?? ""}
                     readOnly
                     placeholder="Street address"
                   />
                   <Input
-                    type="text"
                     value={settings?.address?.city ?? ""}
                     readOnly
                     placeholder="City"
                   />
                   <Input
-                    type="text"
                     value={settings?.address?.county ?? ""}
                     readOnly
                     placeholder="County"
                   />
                   <Input
-                    type="text"
                     value={settings?.address?.postTown ?? ""}
                     readOnly
                     placeholder="Post town"
                   />
                   <div className="flex gap-2">
                     <Input
-                      type="text"
                       value={settings?.address?.postCode ?? ""}
                       readOnly
                       placeholder="Post code"
                     />
                     <Input
-                      type="text"
                       value={settings?.address?.country ?? ""}
                       readOnly
                       placeholder="Country"
@@ -180,7 +173,6 @@ export function UpdateContractorClientAndInstallationForm({
                 </p>
               </CardFooter>
             </Card>
-
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
@@ -244,8 +236,7 @@ export function UpdateContractorClientAndInstallationForm({
                                             <Check className="ml-auto" />
                                           ) : null}
                                         </CommandItem>
-                                      ),
-                                      )}
+                                      ))}
                                     </CommandGroup>
                                   </CommandList>
                                 </Command>
@@ -254,38 +245,32 @@ export function UpdateContractorClientAndInstallationForm({
                             <FormMessage />
                           </FormItem>
                           <Input
-                            type="text"
                             value={selectedClient!.address.streetAddress ?? ""}
                             readOnly
                             placeholder="Street address"
                           />
                           <Input
-                            type="text"
                             value={selectedClient?.address?.city ?? ""}
                             readOnly
                             placeholder="City"
                           />
                           <Input
-                            type="text"
                             value={selectedClient?.address?.county ?? ""}
                             readOnly
                             placeholder="County"
                           />
                           <Input
-                            type="text"
                             value={selectedClient?.address?.postTown ?? ""}
                             readOnly
                             placeholder="Post town"
                           />
                           <div className="flex gap-2">
                             <Input
-                              type="text"
                               value={selectedClient?.address?.postCode ?? ""}
                               readOnly
                               placeholder="Post code"
                             />
                             <Input
-                              type="text"
                               value={selectedClient?.address?.country ?? ""}
                               readOnly
                               placeholder="Country"
@@ -392,32 +377,27 @@ export function UpdateContractorClientAndInstallationForm({
                             <FormMessage />
                           </FormItem>
                           <Input
-                            type="text"
                             value={selectedProperty?.address?.city ?? ""}
                             readOnly
                             placeholder="City"
                           />
                           <Input
-                            type="text"
                             value={selectedProperty?.address?.county ?? ""}
                             readOnly
                             placeholder="County"
                           />
                           <Input
-                            type="text"
                             value={selectedProperty?.address?.postTown ?? ""}
                             readOnly
                             placeholder="Post town"
                           />
                           <div className="flex gap-2">
                             <Input
-                              type="text"
                               value={selectedProperty?.address?.postCode ?? ""}
                               readOnly
                               placeholder="Post code"
                             />
                             <Input
-                              type="text"
                               value={selectedProperty?.address?.country ?? ""}
                               readOnly
                               placeholder="Country"
@@ -446,17 +426,17 @@ export function UpdateContractorClientAndInstallationForm({
           </div>
         </div>
 
-        <FormActions
+        <FormBar
           form={form}
           sections={sections}
           baseUrl={"/certificates/eicr"}
         />
-      </form>
 
-      <UnsavedChangesDialog
-        condition={form.formState.isDirty}
-        action={form.handleSubmit(onSubmit)}
-      />
+        <UnsavedChangesDialog
+          condition={form.formState.isDirty}
+          action={form.handleSubmit(onSubmit)}
+        />
+      </form>
     </Form>
   );
 }

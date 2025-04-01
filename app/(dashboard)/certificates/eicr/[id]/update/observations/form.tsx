@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import FormActions from "@/components/form-actions";
+import FormActions from "@/components/form-bar";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { ResponsiveDialog } from "@/components/responsive-dialog";
 import { ResponsiveDialog as ResponsiveDialogTest } from "@/components/responsive-dialog-test";

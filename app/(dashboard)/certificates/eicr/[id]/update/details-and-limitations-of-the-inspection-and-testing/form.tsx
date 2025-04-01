@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import FormActions from "@/components/form-actions";
+import FormActions from "@/components/form-bar";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import {
   Card,
