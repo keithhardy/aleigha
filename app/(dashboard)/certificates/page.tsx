@@ -9,34 +9,37 @@ import {
 import { prisma } from "@/lib/prisma";
 
 export default async function Certificates() {
-  const electricalInstallationConditionReports =
-    await prisma.electricalInstallationConditionReport.findMany({
-      include: {
-        creator: {
-          select: {
-            name: true,
-          },
+  const certificates = await prisma.electricalInstallationConditionReport.findMany({
+    select: {
+      id: true,
+      type: true,
+      serial: true,
+      status: true,
+      startDate: true,
+      endDate: true,
+      client: {
+        select: {
+          name: true,
         },
-        client: {
-          select: {
-            name: true,
-          },
-        },
-        property: {
-          select: {
-            uprn: true,
-            address: {
-              select: {
-                streetAddress: true,
-                postCode: true,
-              },
+      },
+      property: {
+        select: {
+          uprn: true,
+          address: {
+            select: {
+              streetAddress: true,
+              postCode: true,
             },
           },
         },
       },
-    });
-
-  const certificates = [...electricalInstallationConditionReports];
+      creator: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
 
   return (
     <>

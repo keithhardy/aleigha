@@ -1,9 +1,7 @@
 import {
-  Address,
-  ElectricalInstallationConditionReport,
-  Property,
+  EICRStatus,
 } from "@prisma/client";
-import { pdf } from "@react-pdf/renderer";
+// import { pdf } from "@react-pdf/renderer";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
@@ -16,54 +14,62 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import ElectricalInstallationConditionReportTemplate from "../templates/electrical-installation-condition-report-template";
+// import ElectricalInstallationConditionReportTemplate from "../templates/electrical-installation-condition-report-template";
 
 export function RowActions({
   electricalInstallationConditionReport,
 }: {
-  electricalInstallationConditionReport: ElectricalInstallationConditionReport & {
-    property: Property & { address: Address };
-  };
+  electricalInstallationConditionReport: {
+    id: string;
+    type: string;
+    serial: string;
+    status: EICRStatus | null;
+    startDate: Date | null;
+    endDate: Date | null;
+    client: { name: string };
+    property: { uprn: string; address: { streetAddress: string | null; postCode: string | null } };
+    creator: { name: string };
+  }
 }) {
-  const handlePDFDownload = async (
-    electricalInstallationConditionReport: ElectricalInstallationConditionReport & {
-      property: Property & { address: Address };
-    },
-  ) => {
-    let blob;
+  // const handlePDFDownload = async (
+  //   electricalInstallationConditionReport: ElectricalInstallationConditionReport & {
+  //     property: Property & { address: Address };
+  //   },
+  // ) => {
+  //   let blob;
 
-    if (
-      electricalInstallationConditionReport.type ===
-      "Electrical Installation Condition Report"
-    ) {
-      blob = await pdf(
-        <ElectricalInstallationConditionReportTemplate
-          electricalInstallationConditionReport={
-            electricalInstallationConditionReport
-          }
-        />,
-      ).toBlob();
-    }
+  //   if (
+  //     electricalInstallationConditionReport.type ===
+  //     "Electrical Installation Condition Report"
+  //   ) {
+  //     blob = await pdf(
+  //       <ElectricalInstallationConditionReportTemplate
+  //         electricalInstallationConditionReport={
+  //           electricalInstallationConditionReport
+  //         }
+  //       />,
+  //     ).toBlob();
+  //   }
 
-    if (blob) {
-      const link = Object.assign(document.createElement("a"), {
-        href: URL.createObjectURL(blob),
-        download: `${electricalInstallationConditionReport.serial}_${encodeURIComponent(electricalInstallationConditionReport.property.address.streetAddress!.trim().toUpperCase().replace(/\s+/g, "_"))}`,
-      });
+  //   if (blob) {
+  //     const link = Object.assign(document.createElement("a"), {
+  //       href: URL.createObjectURL(blob),
+  //       download: `${electricalInstallationConditionReport.serial}_${encodeURIComponent(electricalInstallationConditionReport.property.address.streetAddress!.trim().toUpperCase().replace(/\s+/g, "_"))}`,
+  //     });
 
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(link.href);
-    }
-  };
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     document.body.removeChild(link);
+  //     URL.revokeObjectURL(link.href);
+  //   }
+  // };
 
   const generateSlug = (type: string) => {
     return type
       .trim()
-      .split(/\s+/) // Split by spaces
-      .map((word) => word[0].toLowerCase()) // Take the first letter of each word
-      .join(""); // Join letters together
+      .split(/\s+/)
+      .map((word) => word[0].toLowerCase())
+      .join("");
   };
 
   return (
@@ -93,9 +99,9 @@ export function RowActions({
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() =>
-            handlePDFDownload(electricalInstallationConditionReport)
-          }
+          // onClick={() =>
+          //   // handlePDFDownload(electricalInstallationConditionReport)
+          // }
           className="cursor-pointer"
         >
           Download PDF
