@@ -20,7 +20,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -179,104 +178,89 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
-                  <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                    <FormField
-                      control={form.control}
-                      name="distributorsFacility"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between gap-4">
-                          <div className="space-y-0.5">
-                            <FormLabel>Distributor&apos;s Facility?</FormLabel>
-                            <FormDescription>
-                              Check if the earthing is supplied by the
-                              distributor.
-                            </FormDescription>
-                          </div>
-                          <Switch
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                    <FormField
-                      control={form.control}
-                      name="installationEarthElectrodes"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between gap-4">
-                          <div className="space-y-0.5">
-                            <FormLabel>Earth Electrodes Installed?</FormLabel>
-                            <FormDescription>
-                              Check if earth electrode has been installed.
-                            </FormDescription>
-                          </div>
-                          <Switch
-                            checked={field.value}
-                            onCheckedChange={(checked) => {
-                              field.onChange(checked);
-                              if (!checked) {
-                                form.setValue("earthElectrodeType", "");
-                                form.setValue("earthElectrodeLocation", "");
-                                form.setValue("electrodeResistanceToEarth", "");
-                              }
-                            }}
-                          />
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    {form.watch("installationEarthElectrodes") && (
-                      <>
-                        <FormField
-                          control={form.control}
-                          name="earthElectrodeType"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Type</FormLabel>
-                              <FormControl>
-                                <Input {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
+                  <FormField
+                    control={form.control}
+                    name="distributorsFacility"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Distributor&apos;s Facility?</FormLabel>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
                         />
-                        <FormField
-                          control={form.control}
-                          name="earthElectrodeLocation"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Location</FormLabel>
-                              <FormControl>
-                                <Input {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="electrodeResistanceToEarth"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Resistance to Earth</FormLabel>
-                              <FormControl>
-                                <div className="relative w-full">
-                                  <Input {...field} className="pr-10" />
-                                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                                    Ω
-                                  </span>
-                                </div>
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </>
+                        <FormMessage />
+                      </FormItem>
                     )}
-                  </div>
+                  />
+                  <FormField
+                    control={form.control}
+                    name="installationEarthElectrodes"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Earth Electrodes Installed?</FormLabel>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={(checked) => {
+                            field.onChange(checked);
+                            if (!checked) {
+                              form.setValue("earthElectrodeType", "");
+                              form.setValue("earthElectrodeLocation", "");
+                              form.setValue("electrodeResistanceToEarth", "");
+                            }
+                          }}
+                        />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  {form.watch("installationEarthElectrodes") && (
+                    <>
+                      <FormField
+                        control={form.control}
+                        name="earthElectrodeType"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Type</FormLabel>
+                            <FormControl>
+                              <Input {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="earthElectrodeLocation"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Location</FormLabel>
+                            <FormControl>
+                              <Input {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="electrodeResistanceToEarth"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Resistance to Earth</FormLabel>
+                            <FormControl>
+                              <div className="relative w-full">
+                                <Input {...field} className="pr-10" />
+                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                  Ω
+                                </span>
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </>
+                  )}
                   <FormField
                     control={form.control}
                     name="earthingConductorMaterial"
@@ -312,10 +296,8 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     control={form.control}
                     name="earthingConductorVerified"
                     render={({ field }) => (
-                      <FormItem>
-                        <div>
-                          <FormLabel>Conductor Verified</FormLabel>
-                        </div>
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Conductor Verified</FormLabel>
                         <Switch
                           checked={field.value}
                           onCheckedChange={field.onChange}
@@ -376,10 +358,8 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     control={form.control}
                     name="mainProtectiveBondingConductorVerified"
                     render={({ field }) => (
-                      <FormItem>
-                        <div>
-                          <FormLabel>Conductor Verified</FormLabel>
-                        </div>
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Conductor Verified</FormLabel>
                         <Switch
                           checked={field.value}
                           onCheckedChange={field.onChange}

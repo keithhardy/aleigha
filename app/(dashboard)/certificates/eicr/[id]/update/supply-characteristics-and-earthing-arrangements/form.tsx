@@ -20,7 +20,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -313,29 +312,20 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
-                  <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                    <FormField
-                      control={form.control}
-                      name="confirmationOfSupplyPolarity"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between gap-4">
-                          <div className="space-y-0.5">
-                            <FormLabel>
-                              Confirmation of Supply Polarity
-                            </FormLabel>
-                            <FormDescription>
-                              Check if supply polarity is correct.
-                            </FormDescription>
-                          </div>
-                          <Switch
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+                  <FormField
+                    control={form.control}
+                    name="confirmationOfSupplyPolarity"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Confirmation of Supply Polarity</FormLabel>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   <FormField
                     control={form.control}
                     name="externalEarthFaultLoopImpedance"

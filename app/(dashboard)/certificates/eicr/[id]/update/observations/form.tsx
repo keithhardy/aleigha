@@ -42,7 +42,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -383,85 +382,78 @@ export function UpdateObservationsForm({
                                   </FormItem>
                                 )}
                               />
-                              <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                                <FormField
-                                  control={form.control}
-                                  name={`observations.${selectedObservation}.redmedialActionTaken`}
-                                  render={({ field }) => (
-                                    <FormItem className="flex flex-row items-center justify-between gap-4">
-                                      <div className="space-y-0.5">
-                                        <FormLabel>Alterations</FormLabel>
-                                        <FormDescription>
-                                          Check if alterations have been made.
-                                        </FormDescription>
-                                      </div>
-                                      <FormControl>
-                                        <Switch
-                                          checked={field.value}
-                                          onCheckedChange={(checked) => {
-                                            field.onChange(checked);
-                                          }}
-                                        />
-                                      </FormControl>
-                                      <FormMessage />
-                                    </FormItem>
-                                  )}
-                                />
-                                {form.watch(
-                                  `observations.${selectedObservation}.redmedialActionTaken`,
-                                ) && (
-                                  <>
-                                    <FormField
-                                      control={form.control}
-                                      name={`observations.${selectedObservation}.descriptionOfActionTaken`}
-                                      render={({ field }) => (
-                                        <FormItem>
-                                          <FormLabel>
-                                            Description of action taken
-                                          </FormLabel>
-                                          <FormControl>
-                                            <Textarea
-                                              className="min-h-[100px]"
-                                              {...field}
-                                            />
-                                          </FormControl>
-                                          <FormMessage />
-                                        </FormItem>
-                                      )}
-                                    />
-                                    <FormField
-                                      control={form.control}
-                                      name={`observations.${selectedObservation}.photoOfActionTaken`}
-                                      render={({ field }) => (
-                                        <FormItem>
-                                          <FormLabel>
-                                            Photo of completed remedial
-                                          </FormLabel>
-                                          <FormControl>
-                                            <Input type="file" {...field} />
-                                          </FormControl>
-                                          <FormMessage />
-                                        </FormItem>
-                                      )}
-                                    />
-                                    <FormField
-                                      control={form.control}
-                                      name={`observations.${selectedObservation}.codeAfterRemedial`}
-                                      render={({ field }) => (
-                                        <FormItem>
-                                          <FormLabel>
-                                            Code after remedial
-                                          </FormLabel>
-                                          <FormControl>
-                                            <Input {...field} />
-                                          </FormControl>
-                                          <FormMessage />
-                                        </FormItem>
-                                      )}
-                                    />
-                                  </>
+                              <FormField
+                                control={form.control}
+                                name={`observations.${selectedObservation}.redmedialActionTaken`}
+                                render={({ field }) => (
+                                  <FormItem className="flex flex-col">
+                                    <FormLabel>Alterations</FormLabel>
+                                    <FormControl>
+                                      <Switch
+                                        checked={field.value}
+                                        onCheckedChange={(checked) => {
+                                          field.onChange(checked);
+                                        }}
+                                      />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
                                 )}
-                              </div>
+                              />
+                              {form.watch(
+                                `observations.${selectedObservation}.redmedialActionTaken`,
+                              ) && (
+                                <>
+                                  <FormField
+                                    control={form.control}
+                                    name={`observations.${selectedObservation}.descriptionOfActionTaken`}
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <FormLabel>
+                                          Description of action taken
+                                        </FormLabel>
+                                        <FormControl>
+                                          <Textarea
+                                            className="min-h-[100px]"
+                                            {...field}
+                                          />
+                                        </FormControl>
+                                        <FormMessage />
+                                      </FormItem>
+                                    )}
+                                  />
+                                  <FormField
+                                    control={form.control}
+                                    name={`observations.${selectedObservation}.photoOfActionTaken`}
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <FormLabel>
+                                          Photo of completed remedial
+                                        </FormLabel>
+                                        <FormControl>
+                                          <Input type="file" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                      </FormItem>
+                                    )}
+                                  />
+                                  <FormField
+                                    control={form.control}
+                                    name={`observations.${selectedObservation}.codeAfterRemedial`}
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <FormLabel>
+                                          Code after remedial
+                                        </FormLabel>
+                                        <FormControl>
+                                          <Input {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                      </FormItem>
+                                    )}
+                                  />
+                                </>
+                              )}
                             </div>
                           </ScrollArea>
                         )}

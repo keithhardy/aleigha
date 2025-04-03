@@ -20,7 +20,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -171,74 +170,64 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                       </FormItem>
                     )}
                   />
-                  <div className="space-y-4 rounded-lg border p-4 shadow-sm">
+                  <FormField
+                    control={form.control}
+                    name="evidenceOfAlterations"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Alterations</FormLabel>
+                        <FormControl>
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={(checked) => {
+                              field.onChange(checked);
+                              if (!checked) {
+                                form.setValue("estimatedAgeOfAlterations", "");
+                              }
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  {form.watch("evidenceOfAlterations") && (
                     <FormField
                       control={form.control}
-                      name="evidenceOfAlterations"
+                      name="estimatedAgeOfAlterations"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between gap-4">
-                          <div className="space-y-0.5">
-                            <FormLabel>Alterations</FormLabel>
-                            <FormDescription>
-                              Check if alterations have been made.
-                            </FormDescription>
-                          </div>
+                        <FormItem>
+                          <FormLabel>Estimated age of alterations</FormLabel>
                           <FormControl>
-                            <Switch
-                              checked={field.value}
-                              onCheckedChange={(checked) => {
-                                field.onChange(checked);
-                                if (!checked) {
-                                  form.setValue(
-                                    "estimatedAgeOfAlterations",
-                                    "",
-                                  );
-                                }
-                              }}
-                            />
+                            <div className="relative w-full">
+                              <Input
+                                {...field}
+                                type="string"
+                                onChange={(e) => {
+                                  const rawValue = e.target.value;
+                                  if (rawValue === "") {
+                                    field.onChange("");
+                                  } else {
+                                    const value = Math.max(
+                                      0,
+                                      Math.floor(Number(rawValue) || 0),
+                                    ).toString();
+                                    field.onChange(value);
+                                  }
+                                }}
+                                value={field.value ?? ""}
+                                className="pr-10"
+                              />
+                              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                Years
+                              </span>
+                            </div>
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                    {form.watch("evidenceOfAlterations") && (
-                      <FormField
-                        control={form.control}
-                        name="estimatedAgeOfAlterations"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Estimated age of alterations</FormLabel>
-                            <FormControl>
-                              <div className="relative w-full">
-                                <Input
-                                  {...field}
-                                  type="string"
-                                  onChange={(e) => {
-                                    const rawValue = e.target.value;
-                                    if (rawValue === "") {
-                                      field.onChange("");
-                                    } else {
-                                      const value = Math.max(
-                                        0,
-                                        Math.floor(Number(rawValue) || 0),
-                                      ).toString();
-                                      field.onChange(value);
-                                    }
-                                  }}
-                                  value={field.value ?? ""}
-                                  className="pr-10"
-                                />
-                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                                  Years
-                                </span>
-                              </div>
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    )}
-                  </div>
+                  )}
                 </CardContent>
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">

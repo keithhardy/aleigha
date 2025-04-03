@@ -42,7 +42,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -361,29 +360,22 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                                 </FormItem>
                               )}
                             />
-                            <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                              <FormField
-                                control={form.control}
-                                name={`consumerUnits.${selectedDB}.confirmationOfSupplyPolarity`}
-                                render={({ field }) => (
-                                  <FormItem className="flex flex-row items-center justify-between gap-4">
-                                    <div className="space-y-0.5">
-                                      <FormLabel>
-                                        Confirmation of Supply Polarity
-                                      </FormLabel>
-                                      <FormDescription>
-                                        Check if supply polarity is correct.
-                                      </FormDescription>
-                                    </div>
-                                    <Switch
-                                      checked={field.value}
-                                      onCheckedChange={field.onChange}
-                                    />
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                            </div>
+                            <FormField
+                              control={form.control}
+                              name={`consumerUnits.${selectedDB}.confirmationOfSupplyPolarity`}
+                              render={({ field }) => (
+                                <FormItem className="flex flex-col">
+                                  <FormLabel>
+                                    Confirmation of Supply Polarity
+                                  </FormLabel>
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
                             <FormField
                               control={form.control}
                               name={`consumerUnits.${selectedDB}.zdb`}
@@ -424,30 +416,22 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                                 </FormItem>
                               )}
                             />
-                            <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                              <FormField
-                                control={form.control}
-                                name={`consumerUnits.${selectedDB}.phaseSequenceConfirmed`}
-                                render={({ field }) => (
-                                  <FormItem className="flex flex-row items-center justify-between gap-4">
-                                    <div className="space-y-0.5">
-                                      <FormLabel>
-                                        Confirmation of Phase Sequence
-                                      </FormLabel>
-                                      <FormDescription>
-                                        Check if supply phase sequence is
-                                        correct.
-                                      </FormDescription>
-                                    </div>
-                                    <Switch
-                                      checked={field.value}
-                                      onCheckedChange={field.onChange}
-                                    />
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                            </div>
+                            <FormField
+                              control={form.control}
+                              name={`consumerUnits.${selectedDB}.phaseSequenceConfirmed`}
+                              render={({ field }) => (
+                                <FormItem className="flex flex-col">
+                                  <FormLabel>
+                                    Confirmation of Phase Sequence
+                                  </FormLabel>
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
                             <FormField
                               control={form.control}
                               name={`consumerUnits.${selectedDB}.spdType`}
@@ -461,30 +445,22 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                                 </FormItem>
                               )}
                             />
-                            <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                              <FormField
-                                control={form.control}
-                                name={`consumerUnits.${selectedDB}.spdStatusIndicator`}
-                                render={({ field }) => (
-                                  <FormItem className="flex flex-row items-center justify-between gap-4">
-                                    <div className="space-y-0.5">
-                                      <FormLabel>
-                                        Confirmation of Phase Sequence
-                                      </FormLabel>
-                                      <FormDescription>
-                                        Check if supply phase sequence is
-                                        correct.
-                                      </FormDescription>
-                                    </div>
-                                    <Switch
-                                      checked={field.value}
-                                      onCheckedChange={field.onChange}
-                                    />
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                            </div>
+                            <FormField
+                              control={form.control}
+                              name={`consumerUnits.${selectedDB}.spdStatusIndicator`}
+                              render={({ field }) => (
+                                <FormItem className="flex flex-col">
+                                  <FormLabel>
+                                    Confirmation of Phase Sequence
+                                  </FormLabel>
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
                             <FormField
                               control={form.control}
                               name={`consumerUnits.${selectedDB}.supplyFrom`}
@@ -1092,29 +1068,22 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                                 </FormItem>
                               )}
                             />
-                            <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                              <FormField
-                                control={form.control}
-                                name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.polarity`}
-                                render={({ field }) => (
-                                  <FormItem className="flex flex-row items-center justify-between gap-4">
-                                    <div className="space-y-0.5">
-                                      <FormLabel>
-                                        Confirmation of Polarity
-                                      </FormLabel>
-                                      <FormDescription>
-                                        Check if polarity is correct.
-                                      </FormDescription>
-                                    </div>
-                                    <Switch
-                                      checked={field.value}
-                                      onCheckedChange={field.onChange}
-                                    />
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                            </div>
+                            <FormField
+                              control={form.control}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.polarity`}
+                              render={({ field }) => (
+                                <FormItem className="flex flex-col">
+                                  <FormLabel>
+                                    Confirmation of Polarity
+                                  </FormLabel>
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
                             <FormField
                               control={form.control}
                               name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.maximumZs`}
@@ -1141,52 +1110,38 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                                 </FormItem>
                               )}
                             />
-                            <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                              <FormField
-                                control={form.control}
-                                name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.rcdTestButton`}
-                                render={({ field }) => (
-                                  <FormItem className="flex flex-row items-center justify-between gap-4">
-                                    <div className="space-y-0.5">
-                                      <FormLabel>
-                                        Confirmation of RCD Test Button
-                                      </FormLabel>
-                                      <FormDescription>
-                                        Check the RCD test button works.
-                                      </FormDescription>
-                                    </div>
-                                    <Switch
-                                      checked={field.value}
-                                      onCheckedChange={field.onChange}
-                                    />
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                            </div>
-                            <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                              <FormField
-                                control={form.control}
-                                name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.afddOTestButton`}
-                                render={({ field }) => (
-                                  <FormItem className="flex flex-row items-center justify-between gap-4">
-                                    <div className="space-y-0.5">
-                                      <FormLabel>
-                                        Confirmation of AFDD Test Button
-                                      </FormLabel>
-                                      <FormDescription>
-                                        Check the AFDD test button works.
-                                      </FormDescription>
-                                    </div>
-                                    <Switch
-                                      checked={field.value}
-                                      onCheckedChange={field.onChange}
-                                    />
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                            </div>
+                            <FormField
+                              control={form.control}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.rcdTestButton`}
+                              render={({ field }) => (
+                                <FormItem className="flex flex-col">
+                                  <FormLabel>
+                                    Confirmation of RCD Test Button
+                                  </FormLabel>
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.afddOTestButton`}
+                              render={({ field }) => (
+                                <FormItem className="flex flex-col">
+                                  <FormLabel>
+                                    Confirmation of AFDD Test Button
+                                  </FormLabel>
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
                             <FormField
                               control={form.control}
                               name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.comments`}
