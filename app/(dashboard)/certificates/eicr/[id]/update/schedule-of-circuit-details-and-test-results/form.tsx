@@ -79,7 +79,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
     resolver: zodResolver(UpdateScheduleOfCircuitDetailsAndTestResultsSchema),
     defaultValues: {
       id: certificate.id,
-      db: JSON.parse(certificate.db as string) || [],
+      consumerUnits: JSON.parse(certificate.consumerUnits as string) || [],
     },
   });
 
@@ -100,17 +100,17 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
   };
 
   const {
-    fields: dbs,
+    fields: consumerUnitss,
     append: appendDB,
     remove: removeDB,
   } = useFieldArray({
     control: form.control,
-    name: "db",
+    name: "consumerUnits",
   });
 
   const [selectDBOpen, setSelectDBOpen] = useState(false);
   const [selectedDB, setSelectedDB] = useState<number | null>(
-    dbs.length > 0 ? 0 : null,
+    consumerUnitss.length > 0 ? 0 : null,
   );
   const [editDBOpen, setEditDBOpen] = useState(false);
 
@@ -137,12 +137,12 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
       rcdOperatingTime: "",
       circuits: [],
     });
-    setSelectedDB(dbs.length);
+    setSelectedDB(consumerUnitss.length);
   };
 
   const deleteDb = (index: number) => {
     removeDB(index);
-    if (dbs.length === 1) {
+    if (consumerUnitss.length === 1) {
       setSelectedDB(null);
     } else {
       const previousIndex = index - 1;
@@ -158,7 +158,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
   } = useFieldArray({
     control: form.control,
     // @ts-expect-error: Ignoring type error due to dynamic field name with selectedDB
-    name: `db.${selectedDB}.circuits`,
+    name: `consumerUnits.${selectedDB}.circuits`,
   });
 
   const [selectedCircuit, setSelectedCircuit] = useState<number | null>(
@@ -168,7 +168,8 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
 
   useEffect(() => {
     if (selectedDB !== null) {
-      const newCircuits = form.watch(`db.${selectedDB}.circuits`) || [];
+      const newCircuits =
+        form.watch(`consumerUnits.${selectedDB}.circuits`) || [];
       replaceCircuits(newCircuits);
     } else {
       replaceCircuits([]);
@@ -260,28 +261,32 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                         className="w-full justify-between"
                       >
                         {selectedDB !== null
-                          ? form.watch(`db.${selectedDB}.designation`)
-                          : "Select db..."}
+                          ? form.watch(
+                            `consumerUnits.${selectedDB}.designation`,
+                          )
+                          : "Select consumer unit..."}
                         <ChevronsUpDown />
                       </Button>
                     </DialogSheetTrigger>
                     <DialogSheetContent className="p-0">
                       <DialogSheetTitle className="hidden" />
                       <Command className="pt-2">
-                        <CommandInput placeholder="Search dbs..." />
-                        <CommandList className="scrollbar-hidden mt-1 border-t">
-                          <CommandEmpty>None found.</CommandEmpty>
+                        <CommandInput placeholder="Search..." />
+                        <CommandList className="scrollbar-hidden mt-1 border-t p-1">
+                          <CommandEmpty>No results found.</CommandEmpty>
                           <CommandGroup>
-                            {dbs.map((db, index) => (
+                            {consumerUnitss.map((consumerUnits, index) => (
                               <CommandItem
-                                key={db.id}
-                                value={db.id}
+                                key={consumerUnits.id}
+                                value={consumerUnits.id}
                                 onSelect={() => {
                                   setSelectedDB(index);
                                   setSelectDBOpen(false);
                                 }}
                               >
-                                {form.watch(`db.${index}.designation`)}
+                                {form.watch(
+                                  `consumerUnits.${index}.designation`,
+                                )}
                                 {index === selectedDB ? (
                                   <Check className="ml-auto" />
                                 ) : null}
@@ -332,7 +337,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                           <div className="space-y-4 p-6">
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.designation`}
+                              name={`consumerUnits.${selectedDB}.designation`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Designation</FormLabel>
@@ -345,7 +350,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.location`}
+                              name={`consumerUnits.${selectedDB}.location`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Location</FormLabel>
@@ -359,7 +364,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             <div className="space-y-4 rounded-lg border p-4 shadow-sm">
                               <FormField
                                 control={form.control}
-                                name={`db.${selectedDB}.confirmationOfSupplyPolarity`}
+                                name={`consumerUnits.${selectedDB}.confirmationOfSupplyPolarity`}
                                 render={({ field }) => (
                                   <FormItem className="flex flex-row items-center justify-between gap-4">
                                     <div className="space-y-0.5">
@@ -381,7 +386,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             </div>
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.zdb`}
+                              name={`consumerUnits.${selectedDB}.zdb`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>
@@ -401,7 +406,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.ipf`}
+                              name={`consumerUnits.${selectedDB}.ipf`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>
@@ -422,7 +427,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             <div className="space-y-4 rounded-lg border p-4 shadow-sm">
                               <FormField
                                 control={form.control}
-                                name={`db.${selectedDB}.phaseSequenceConfirmed`}
+                                name={`consumerUnits.${selectedDB}.phaseSequenceConfirmed`}
                                 render={({ field }) => (
                                   <FormItem className="flex flex-row items-center justify-between gap-4">
                                     <div className="space-y-0.5">
@@ -445,7 +450,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             </div>
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.spdType`}
+                              name={`consumerUnits.${selectedDB}.spdType`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>SPD Type</FormLabel>
@@ -459,7 +464,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             <div className="space-y-4 rounded-lg border p-4 shadow-sm">
                               <FormField
                                 control={form.control}
-                                name={`db.${selectedDB}.spdStatusIndicator`}
+                                name={`consumerUnits.${selectedDB}.spdStatusIndicator`}
                                 render={({ field }) => (
                                   <FormItem className="flex flex-row items-center justify-between gap-4">
                                     <div className="space-y-0.5">
@@ -482,7 +487,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             </div>
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.supplyFrom`}
+                              name={`consumerUnits.${selectedDB}.supplyFrom`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Supplied From</FormLabel>
@@ -495,7 +500,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.ocpdBSnumber`}
+                              name={`consumerUnits.${selectedDB}.ocpdBSnumber`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>OCPD BS Number</FormLabel>
@@ -508,7 +513,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.ocpdType`}
+                              name={`consumerUnits.${selectedDB}.ocpdType`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>OCPD Type</FormLabel>
@@ -521,7 +526,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.ocpdNominalVoltage`}
+                              name={`consumerUnits.${selectedDB}.ocpdNominalVoltage`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>OCPD Nominal Voltage</FormLabel>
@@ -539,7 +544,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.ocpdRating`}
+                              name={`consumerUnits.${selectedDB}.ocpdRating`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>OCPD Rating</FormLabel>
@@ -557,7 +562,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.ocpdNumberOfPhases`}
+                              name={`consumerUnits.${selectedDB}.ocpdNumberOfPhases`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>OCPD No. of Phases</FormLabel>
@@ -570,7 +575,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.rcdBSNumber`}
+                              name={`consumerUnits.${selectedDB}.rcdBSNumber`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>RCD BS Number</FormLabel>
@@ -583,7 +588,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.rcdType`}
+                              name={`consumerUnits.${selectedDB}.rcdType`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>RCD Type</FormLabel>
@@ -596,7 +601,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.rcdOperatingCurrent`}
+                              name={`consumerUnits.${selectedDB}.rcdOperatingCurrent`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>RCD Operating Current</FormLabel>
@@ -614,7 +619,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.rcdNumberOfPoles`}
+                              name={`consumerUnits.${selectedDB}.rcdNumberOfPoles`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>RCD No. of Poles</FormLabel>
@@ -627,7 +632,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.rcdOperatingTime`}
+                              name={`consumerUnits.${selectedDB}.rcdOperatingTime`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>RCD Operating Time</FormLabel>
@@ -690,12 +695,12 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                                 <TableRow key={index}>
                                   <TableCell className="pl-6">
                                     {form.watch(
-                                      `db.${selectedDB}.circuits.${index}.number`,
+                                      `consumerUnits.${selectedDB}.circuits.${index}.number`,
                                     )}
                                   </TableCell>
                                   <TableCell>
                                     {form.watch(
-                                      `db.${selectedDB}.circuits.${index}.description`,
+                                      `consumerUnits.${selectedDB}.circuits.${index}.description`,
                                     )}
                                   </TableCell>
                                   <TableCell className="pr-6 text-right">
@@ -752,7 +757,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                           <div className="space-y-4 p-6">
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.number`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.number`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Number</FormLabel>
@@ -765,7 +770,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.description`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.description`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Description</FormLabel>
@@ -778,7 +783,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.typeOfWiring`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.typeOfWiring`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Type of Wiring</FormLabel>
@@ -791,7 +796,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.referenceMethod`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.referenceMethod`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Reference Method</FormLabel>
@@ -804,7 +809,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.numberOfPoints`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.numberOfPoints`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Number of Points</FormLabel>
@@ -817,7 +822,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.conductorLiveCSA`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.conductorLiveCSA`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Conductor Live CSA</FormLabel>
@@ -830,7 +835,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.conductorCPCCSA`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.conductorCPCCSA`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Conductor CPC CSA</FormLabel>
@@ -843,7 +848,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.maxDisconnectionTime`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.maxDisconnectionTime`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>
@@ -858,7 +863,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.ocpdBSNumber`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.ocpdBSNumber`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>OCPD BS Number</FormLabel>
@@ -871,7 +876,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.ocpdType`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.ocpdType`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>OCPD Type</FormLabel>
@@ -884,7 +889,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.ocpdRating`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.ocpdRating`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>OCPD Rating</FormLabel>
@@ -897,7 +902,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.ocpdShortCircuitCapacity`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.ocpdShortCircuitCapacity`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>
@@ -912,7 +917,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.ocpdMaxPermittedZs`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.ocpdMaxPermittedZs`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>
@@ -927,7 +932,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdBSNumber`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.rcdBSNumber`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>RCD BS Number</FormLabel>
@@ -940,7 +945,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdType`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.rcdType`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>RCD Type</FormLabel>
@@ -953,7 +958,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdRating`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.rcdRating`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>RCD Rating</FormLabel>
@@ -966,7 +971,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdOperatingCurrent`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.rcdOperatingCurrent`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>RCD Operating Current</FormLabel>
@@ -979,7 +984,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.continuityr1`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.continuityr1`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Continuity r1</FormLabel>
@@ -992,7 +997,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.continuityrn`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.continuityrn`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Continuity rn</FormLabel>
@@ -1005,7 +1010,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.continuityr2`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.continuityr2`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Continuity r2</FormLabel>
@@ -1018,7 +1023,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.continuityR1R2`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.continuityR1R2`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Continuity R1 + R2</FormLabel>
@@ -1031,7 +1036,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.continuityR2`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.continuityR2`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Continuity R2</FormLabel>
@@ -1044,7 +1049,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.insulationResistanceLiveLive`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.insulationResistanceLiveLive`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>
@@ -1059,7 +1064,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.insulationResistanceLiveEarth`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.insulationResistanceLiveEarth`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>
@@ -1074,7 +1079,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.insulationResistanceTestVoltage`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.insulationResistanceTestVoltage`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>
@@ -1090,7 +1095,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             <div className="space-y-4 rounded-lg border p-4 shadow-sm">
                               <FormField
                                 control={form.control}
-                                name={`db.${selectedDB}.circuits.${selectedCircuit}.polarity`}
+                                name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.polarity`}
                                 render={({ field }) => (
                                   <FormItem className="flex flex-row items-center justify-between gap-4">
                                     <div className="space-y-0.5">
@@ -1112,7 +1117,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             </div>
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.maximumZs`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.maximumZs`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Maximum Zs</FormLabel>
@@ -1125,7 +1130,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdOperatingTime`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.rcdOperatingTime`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>RCD Operating Time</FormLabel>
@@ -1139,7 +1144,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             <div className="space-y-4 rounded-lg border p-4 shadow-sm">
                               <FormField
                                 control={form.control}
-                                name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdTestButton`}
+                                name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.rcdTestButton`}
                                 render={({ field }) => (
                                   <FormItem className="flex flex-row items-center justify-between gap-4">
                                     <div className="space-y-0.5">
@@ -1162,7 +1167,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             <div className="space-y-4 rounded-lg border p-4 shadow-sm">
                               <FormField
                                 control={form.control}
-                                name={`db.${selectedDB}.circuits.${selectedCircuit}.afddOTestButton`}
+                                name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.afddOTestButton`}
                                 render={({ field }) => (
                                   <FormItem className="flex flex-row items-center justify-between gap-4">
                                     <div className="space-y-0.5">
@@ -1184,7 +1189,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             </div>
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.comments`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.comments`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>Comments</FormLabel>
@@ -1197,7 +1202,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             />
                             <FormField
                               control={form.control}
-                              name={`db.${selectedDB}.circuits.${selectedCircuit}.equipmentVunerableToDamage`}
+                              name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.equipmentVunerableToDamage`}
                               render={({ field }) => (
                                 <FormItem>
                                   <FormLabel>

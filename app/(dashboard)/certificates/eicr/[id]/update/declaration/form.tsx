@@ -248,11 +248,11 @@ export function UpdateDeclarationForm({
                             <PopoverContent className="min-w-[375px] p-0">
                               <Command>
                                 <CommandInput
-                                  placeholder="Search user..."
+                                  placeholder="Search..."
                                   className="h-9"
                                 />
                                 <CommandList>
-                                  <CommandEmpty>No user found.</CommandEmpty>
+                                  <CommandEmpty>No results found.</CommandEmpty>
                                   <CommandGroup>
                                     {users.map((user) => (
                                       <CommandItem
@@ -388,11 +388,11 @@ export function UpdateDeclarationForm({
                             <PopoverContent className="min-w-[375px] p-0">
                               <Command>
                                 <CommandInput
-                                  placeholder="Search user..."
+                                  placeholder="Search..."
                                   className="h-9"
                                 />
                                 <CommandList>
-                                  <CommandEmpty>No user found.</CommandEmpty>
+                                  <CommandEmpty>No results found.</CommandEmpty>
                                   <CommandGroup>
                                     {users.map((user) => (
                                       <CommandItem

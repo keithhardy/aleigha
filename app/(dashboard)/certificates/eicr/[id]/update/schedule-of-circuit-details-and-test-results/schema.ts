@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const UpdateScheduleOfCircuitDetailsAndTestResultsSchema = z.object({
   id: z.string().cuid(),
-  db: z
+  consumerUnits: z
     .array(
       z.object({
         designation: z.string(),

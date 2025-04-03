@@ -341,7 +341,7 @@ model ElectricalInstallationConditionReport {
   // 10.0 Prosumer’s low voltage installation 
   item_10_0                              String?
   // Schedule of circuit details and test results
-  db                                     Json?
+  consumerUnits                          Json?
   // Schedule of rates
   rates                                  Json?
 }

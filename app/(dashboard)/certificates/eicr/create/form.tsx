@@ -96,19 +96,16 @@ export function CreateElectricalInstallationConditionReportForm({
                   >
                     {field.value
                       ? clients.find((client) => client.id === field.value)
-                          ?.name
+                        ?.name
                       : "Select client..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="p-0">
                   <Command>
-                    <CommandInput
-                      placeholder="Search client..."
-                      className="h-9"
-                    />
+                    <CommandInput placeholder="Search..." className="h-9" />
                     <CommandList>
-                      <CommandEmpty>No client found.</CommandEmpty>
+                      <CommandEmpty>No results found.</CommandEmpty>
                       <CommandGroup>
                         {clients.map((client) => (
                           <CommandItem
@@ -151,25 +148,22 @@ export function CreateElectricalInstallationConditionReportForm({
                   >
                     {field.value
                       ? clients
-                          .find(
-                            (client) =>
-                              client.id === form.getValues("clientId"),
-                          )
-                          ?.property.find(
-                            (property) => property.id === field.value,
-                          )?.address.streetAddress
-                      : "Select a property..."}
+                        .find(
+                          (client) =>
+                            client.id === form.getValues("clientId"),
+                        )
+                        ?.property.find(
+                          (property) => property.id === field.value,
+                        )?.address.streetAddress
+                      : "Select property..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="p-0">
                   <Command>
-                    <CommandInput
-                      placeholder="Search property..."
-                      className="h-9"
-                    />
+                    <CommandInput placeholder="Search..." className="h-9" />
                     <CommandList>
-                      <CommandEmpty>No property found.</CommandEmpty>
+                      <CommandEmpty>No results found.</CommandEmpty>
                       <CommandGroup>
                         {clients
                           .find(

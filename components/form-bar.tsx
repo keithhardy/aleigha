@@ -67,10 +67,10 @@ export default function FormBar({ form, sections, baseUrl }: FormBarProps) {
             </DialogSheetTrigger>
             <DialogSheetContent className="p-0">
               <DialogSheetTitle className="hidden" />
-              <Command>
+              <Command className="pt-2">
                 <CommandInput placeholder="Search..." />
-                <CommandList className="scrollbar-hidden">
-                  <CommandEmpty>None found.</CommandEmpty>
+                <CommandList className="scrollbar-hidden mt-1 border-t p-1">
+                  <CommandEmpty>No results found.</CommandEmpty>
                   <CommandGroup>
                     {sections.map((section, index) => (
                       <CommandItem

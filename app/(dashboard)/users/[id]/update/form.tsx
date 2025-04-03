@@ -138,20 +138,17 @@ export default function UpdateUserForm({
                   >
                     {field.value
                       ? UserRoles.find(
-                          (userRole) => userRole.id === field.value,
-                        )?.name
-                      : "Select Role..."}
+                        (userRole) => userRole.id === field.value,
+                      )?.name
+                      : "Select role..."}
                     <ChevronsUpDown className="opacity-50" />
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="p-0">
                   <Command>
-                    <CommandInput
-                      placeholder="Search userRole..."
-                      className="h-9"
-                    />
+                    <CommandInput placeholder="Search..." className="h-9" />
                     <CommandList>
-                      <CommandEmpty>No userRole found.</CommandEmpty>
+                      <CommandEmpty>No results found.</CommandEmpty>
                       <CommandGroup>
                         {UserRoles.map((userRole) => (
                           <CommandItem
@@ -191,7 +188,7 @@ export default function UpdateUserForm({
                 className="max-w-[1024px] justify-between"
               >
                 {clientsToConnect.length === 0 &&
-                clientsToDisconnect.length === 0
+                  clientsToDisconnect.length === 0
                   ? user.clients.length === 0
                     ? "Select Clients..."
                     : `${user.clients.length} clients selected`
@@ -201,9 +198,9 @@ export default function UpdateUserForm({
             </PopoverTrigger>
             <PopoverContent className="p-0">
               <Command>
-                <CommandInput placeholder="Search client..." className="h-9" />
+                <CommandInput placeholder="Search..." className="h-9" />
                 <CommandList>
-                  <CommandEmpty>No client found.</CommandEmpty>
+                  <CommandEmpty>No results found.</CommandEmpty>
                   <CommandGroup>
                     {clients.map((client) => {
                       const isInDisconnect = clientsToDisconnect.some(
@@ -254,7 +251,7 @@ export default function UpdateUserForm({
                         >
                           {client.name}
                           {(isInCurrentClients && !isInDisconnect) ||
-                          isInConnect ? (
+                            isInConnect ? (
                             <Check className="ml-auto" />
                           ) : null}
                           {isInCurrentClients && isInDisconnect ? (

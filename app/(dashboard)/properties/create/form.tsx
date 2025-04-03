@@ -98,19 +98,16 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
                     >
                       {field.value
                         ? clients.find((client) => client.id === field.value)
-                            ?.name
-                        : "Select Client..."}
+                          ?.name
+                        : "Select client..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="p-0">
                     <Command>
-                      <CommandInput
-                        placeholder="Search client..."
-                        className="h-9"
-                      />
+                      <CommandInput placeholder="Search..." className="h-9" />
                       <CommandList>
-                        <CommandEmpty>No client found.</CommandEmpty>
+                        <CommandEmpty>No results found.</CommandEmpty>
                         <CommandGroup>
                           {clients.map((client) => (
                             <CommandItem

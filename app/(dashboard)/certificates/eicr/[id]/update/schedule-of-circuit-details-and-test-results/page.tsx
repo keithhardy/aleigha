@@ -17,7 +17,7 @@ export default async function UpdateScheduleOfCircuitDetailsAndTestResults({
       },
       select: {
         id: true,
-        db: true,
+        consumerUnits: true,
       },
     });
 

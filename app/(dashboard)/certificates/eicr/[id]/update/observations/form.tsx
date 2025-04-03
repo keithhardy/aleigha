@@ -170,9 +170,9 @@ export function UpdateObservationsForm({
                       <DialogSheetContent className="p-0">
                         <DialogSheetTitle className="hidden" />
                         <Command className="pt-2">
-                          <CommandInput placeholder="Search clients..." />
-                          <CommandList className="scrollbar-hidden mt-1 max-h-[320px] border-t">
-                            <CommandEmpty>No client found.</CommandEmpty>
+                          <CommandInput placeholder="Search..." />
+                          <CommandList className="scrollbar-hidden mt-1 border-t p-1">
+                            <CommandEmpty>No results found.</CommandEmpty>
                             <CommandGroup>
                               {observations.map((observation) => (
                                 <CommandItem

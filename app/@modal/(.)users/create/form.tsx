@@ -113,20 +113,17 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                     >
                       {field.value
                         ? UserRoles.find(
-                            (userRole) => userRole.id === field.value,
-                          )?.name
+                          (userRole) => userRole.id === field.value,
+                        )?.name
                         : "Select role..."}
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-[414px] p-0">
                     <Command>
-                      <CommandInput
-                        placeholder="Search roles..."
-                        className="h-9"
-                      />
+                      <CommandInput placeholder="Search..." className="h-9" />
                       <CommandList>
-                        <CommandEmpty>No role found.</CommandEmpty>
+                        <CommandEmpty>No results found.</CommandEmpty>
                         <CommandGroup>
                           {UserRoles.map((userRole) => (
                             <CommandItem
@@ -176,12 +173,9 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                   </PopoverTrigger>
                   <PopoverContent className="p-0">
                     <Command>
-                      <CommandInput
-                        placeholder="Search client..."
-                        className="h-9"
-                      />
+                      <CommandInput placeholder="Search..." className="h-9" />
                       <CommandList>
-                        <CommandEmpty>No client found.</CommandEmpty>
+                        <CommandEmpty>No results found.</CommandEmpty>
                         <CommandGroup>
                           {clients.map((client) => {
                             const isSelected = field.value.some(

@@ -211,10 +211,10 @@ export function UpdateContractorClientAndInstallationForm({
                               <DialogSheetContent className="p-0">
                                 <DialogSheetTitle className="hidden" />
                                 <Command className="pt-2">
-                                  <CommandInput placeholder="Search clients..." />
-                                  <CommandList className="scrollbar-hidden mt-1 border-t">
+                                  <CommandInput placeholder="Search..." />
+                                  <CommandList className="scrollbar-hidden mt-1 border-t p-1">
                                     <CommandEmpty>
-                                      No client found.
+                                      No results found.
                                     </CommandEmpty>
                                     <CommandGroup>
                                       {clients.map((client) => (
@@ -336,10 +336,10 @@ export function UpdateContractorClientAndInstallationForm({
                               <DialogSheetContent className="p-0">
                                 <DialogSheetTitle className="hidden" />
                                 <Command className="pt-2">
-                                  <CommandInput placeholder="Search properties..." />
-                                  <CommandList className="scrollbar-hidden mt-1 border-t">
+                                  <CommandInput placeholder="Search..." />
+                                  <CommandList className="scrollbar-hidden mt-1 border-t p-1">
                                     <CommandEmpty>
-                                      No property found.
+                                      No results found.
                                     </CommandEmpty>
                                     <CommandGroup>
                                       {selectedClient?.property.map(

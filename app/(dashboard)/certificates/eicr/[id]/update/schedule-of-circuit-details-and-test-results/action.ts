@@ -19,7 +19,9 @@ export async function updateScheduleOfCircuitDetailsAndTestResults(
         id: electricalInstallationConditionReport.id,
       },
       data: {
-        db: JSON.stringify(electricalInstallationConditionReport.db),
+        consumerUnits: JSON.stringify(
+          electricalInstallationConditionReport.consumerUnits,
+        ),
       },
     });
 
