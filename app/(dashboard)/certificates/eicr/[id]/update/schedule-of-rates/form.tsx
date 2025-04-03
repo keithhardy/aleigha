@@ -8,10 +8,14 @@ import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/dialog-sheet";
 import FormActions from "@/components/form-bar";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import { ResponsiveDialog } from "@/components/responsive-dialog";
-import { ResponsiveDialog as ResponsiveDialogTest } from "@/components/responsive-dialog-test";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -70,6 +74,10 @@ export function UpdateScheduleOfRatesForm({
 }) {
   const { toast } = useToast();
 
+  const [selectedRate, setSelectedRate] = useState<any>(null);
+  const [selectRateOpen, setSelectRateOpen] = useState(false);
+  const [editRateOpen, setEditRateOpen] = useState(false);
+
   const form = useForm<z.infer<typeof UpdateScheduleOfRatesSchema>>({
     resolver: zodResolver(UpdateScheduleOfRatesSchema),
     defaultValues: {
@@ -110,9 +118,6 @@ export function UpdateScheduleOfRatesForm({
     }
   };
 
-  const [rateDialogOpen, setRateDialogOpen] = useState(false);
-  const [selectedRate, setSelectedRate] = useState<any>(null);
-
   return (
     <Form {...form}>
       <form
@@ -144,44 +149,37 @@ export function UpdateScheduleOfRatesForm({
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
                   <FormItem>
-                    <ResponsiveDialog
-                      trigger={
+                    <DialogSheet
+                      open={selectRateOpen}
+                      onOpenChange={setSelectRateOpen}
+                    >
+                      <DialogSheetTrigger asChild>
                         <Button
                           variant="outline"
-                          role="combobox"
-                          className="flex w-full items-center justify-between"
+                          className="w-full justify-between"
                         >
                           Select a rate
-                          <ChevronsUpDown className="ml-2 opacity-50" />
+                          <ChevronsUpDown />
                         </Button>
-                      }
-                      content={(setOpen) => (
-                        <Command
-                          filter={(value, search) => {
-                            if (!search) return 1;
-                            return value
-                              .toLowerCase()
-                              .includes(search.toLowerCase())
-                              ? 1
-                              : 0;
-                          }}
-                        >
-                          <CommandInput placeholder="Search rates..." />
-                          <CommandList>
-                            <CommandEmpty>No rate found.</CommandEmpty>
+                      </DialogSheetTrigger>
+                      <DialogSheetContent className="p-0">
+                        <DialogSheetTitle className="hidden" />
+                        <Command className="pt-2">
+                          <CommandInput placeholder="Search properties..." />
+                          <CommandList className="scrollbar-hidden mt-1 border-t">
+                            <CommandEmpty>No property found.</CommandEmpty>
                             <CommandGroup>
                               {rates.map((rate) => (
                                 <CommandItem
                                   key={rate.id}
                                   value={rate.name}
                                   onSelect={() => {
-                                    setSelectedRate(rate.id.toString());
                                     handleRateSelect(rate.id.toString());
-                                    setOpen(false);
+                                    setSelectRateOpen(false);
                                   }}
                                 >
                                   {rate.name}
-                                  {rate.id.toString() === selectedRate ? (
+                                  {rate.id === selectedRate ? (
                                     <Check className="ml-auto" />
                                   ) : null}
                                 </CommandItem>
@@ -189,8 +187,8 @@ export function UpdateScheduleOfRatesForm({
                             </CommandGroup>
                           </CommandList>
                         </Command>
-                      )}
-                    />
+                      </DialogSheetContent>
+                    </DialogSheet>
                   </FormItem>
                 </CardContent>
               </div>
@@ -228,7 +226,7 @@ export function UpdateScheduleOfRatesForm({
                                       <DropdownMenuItem
                                         onSelect={() => {
                                           setSelectedRate(fields[index]);
-                                          setRateDialogOpen(true);
+                                          setEditRateOpen(true);
                                         }}
                                       >
                                         Edit
@@ -275,7 +273,7 @@ export function UpdateScheduleOfRatesForm({
                                         <DropdownMenuItem
                                           onSelect={() => {
                                             setSelectedRate(fields[index]);
-                                            setRateDialogOpen(true);
+                                            setEditRateOpen(true);
                                           }}
                                         >
                                           Edit
@@ -300,6 +298,49 @@ export function UpdateScheduleOfRatesForm({
                         </div>
                       </CardContent>
                     </Card>
+                    <DialogSheet
+                      open={editRateOpen}
+                      onOpenChange={setEditRateOpen}
+                    >
+                      <DialogSheetContent className="p-0">
+                        <DialogSheetTitle className="hidden" />
+                        {selectedRate && (
+                          <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
+                            <div className="space-y-4 p-6">
+                              <FormField
+                                control={form.control}
+                                name={`rates.${fields.indexOf(selectedRate)}.name`}
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Name</FormLabel>
+                                    <FormControl>
+                                      <Input {...field} readOnly />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                              <FormField
+                                control={form.control}
+                                name={`rates.${fields.indexOf(selectedRate)}.description`}
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Description</FormLabel>
+                                    <FormControl>
+                                      <Textarea
+                                        {...field}
+                                        className="min-h-[100px]"
+                                      />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                          </ScrollArea>
+                        )}
+                      </DialogSheetContent>
+                    </DialogSheet>
                   </>
                 )}
               </CardContent>
@@ -311,53 +352,11 @@ export function UpdateScheduleOfRatesForm({
             </Card>
           </div>
         </div>
-
         <FormActions
           form={form}
           sections={sections}
           baseUrl={"/certificates/eicr"}
         />
-
-        <ResponsiveDialogTest
-          open={rateDialogOpen}
-          onOpenChange={setRateDialogOpen}
-        >
-          {selectedRate && (
-            <>
-              <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
-                <div className="space-y-4 p-6">
-                  <FormField
-                    control={form.control}
-                    name={`rates.${fields.indexOf(selectedRate)}.name`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Name</FormLabel>
-                        <FormControl>
-                          <Input {...field} readOnly />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`rates.${fields.indexOf(selectedRate)}.description`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Description</FormLabel>
-                        <FormControl>
-                          <Textarea {...field} className="min-h-[100px]" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </ScrollArea>
-            </>
-          )}
-        </ResponsiveDialogTest>
-
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

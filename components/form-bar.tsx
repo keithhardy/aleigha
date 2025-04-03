@@ -1,10 +1,16 @@
 import { ArrowLeft, ArrowRight, List, RotateCcw, Save } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
+import { useState } from "react";
 import { type UseFormReturn } from "react-hook-form";
 
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/dialog-sheet";
 import { Button } from "@/components/ui/button";
 
-import { ResponsiveDialog } from "./responsive-dialog";
 import {
   Command,
   CommandEmpty,
@@ -33,6 +39,8 @@ export default function FormBar({ form, sections, baseUrl }: FormBarProps) {
       ? sections[currentIndex + 1]
       : null;
 
+  const [sectionsOpen, setSectionsOpen] = useState(false);
+
   return (
     <div className="sticky bottom-0 border-t bg-background">
       <div className="container mx-auto flex max-w-screen-xl justify-between px-6 py-4">
@@ -51,13 +59,14 @@ export default function FormBar({ form, sections, baseUrl }: FormBarProps) {
           <ArrowLeft />
         </Button>
         <div className="space-x-2">
-          <ResponsiveDialog
-            trigger={
+          <DialogSheet open={sectionsOpen} onOpenChange={setSectionsOpen}>
+            <DialogSheetTrigger asChild>
               <Button variant="outline" size="icon">
                 <List />
               </Button>
-            }
-            content={(setOpen) => (
+            </DialogSheetTrigger>
+            <DialogSheetContent className="p-0">
+              <DialogSheetTitle className="hidden" />
               <Command>
                 <CommandInput placeholder="Search..." />
                 <CommandList className="scrollbar-hidden">
@@ -68,7 +77,7 @@ export default function FormBar({ form, sections, baseUrl }: FormBarProps) {
                         key={index}
                         value={section.title}
                         onSelect={() => {
-                          setOpen(false);
+                          setSectionsOpen(false);
                           router.push(
                             `${baseUrl}/${form.getValues("id")}/update/${section.url}`,
                           );
@@ -81,8 +90,9 @@ export default function FormBar({ form, sections, baseUrl }: FormBarProps) {
                   </CommandGroup>
                 </CommandList>
               </Command>
-            )}
-          />
+            </DialogSheetContent>
+          </DialogSheet>
+
           <Button
             variant="outline"
             size="icon"

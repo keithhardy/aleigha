@@ -8,10 +8,14 @@ import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/dialog-sheet";
 import FormActions from "@/components/form-bar";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import { ResponsiveDialog } from "@/components/responsive-dialog";
-import { ResponsiveDialog as ResponsiveDialogTest } from "@/components/responsive-dialog-test";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -72,6 +76,10 @@ export function UpdateObservationsForm({
 }) {
   const { toast } = useToast();
 
+  const [selectObservationOpen, setSelectObservationOpen] = useState(false);
+  const [observationDialogOpen, setObservationDialogOpen] = useState(false);
+  const [selectedObservation, setSelectedObservation] = useState<any>(null);
+
   const form = useForm<z.infer<typeof UpdateObservationsSchema>>({
     resolver: zodResolver(UpdateObservationsSchema),
     defaultValues: {
@@ -116,9 +124,6 @@ export function UpdateObservationsForm({
     }
   };
 
-  const [observationDialogOpen, setObservationDialogOpen] = useState(false);
-  const [selectedObservation, setSelectedObservation] = useState<any>(null);
-
   return (
     <Form {...form}>
       <form
@@ -138,7 +143,6 @@ export function UpdateObservationsForm({
               <Heading>Observations</Heading>
             </HeaderGroup>
           </Header>
-
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col items-center gap-4 p-6 lg:flex-row">
@@ -150,31 +154,25 @@ export function UpdateObservationsForm({
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
                   <FormItem>
-                    <ResponsiveDialog
-                      trigger={
+                    <DialogSheet
+                      open={selectObservationOpen}
+                      onOpenChange={setSelectObservationOpen}
+                    >
+                      <DialogSheetTrigger asChild>
                         <Button
                           variant="outline"
-                          role="combobox"
-                          className="flex w-full items-center justify-between"
+                          className="w-full justify-between"
                         >
                           Select an observation
-                          <ChevronsUpDown className="ml-2 opacity-50" />
+                          <ChevronsUpDown />
                         </Button>
-                      }
-                      content={(setOpen) => (
-                        <Command
-                          filter={(value, search) => {
-                            if (!search) return 1;
-                            return value
-                              .toLowerCase()
-                              .includes(search.toLowerCase())
-                              ? 1
-                              : 0;
-                          }}
-                        >
-                          <CommandInput placeholder="Search observation..." />
-                          <CommandList>
-                            <CommandEmpty>No observation found.</CommandEmpty>
+                      </DialogSheetTrigger>
+                      <DialogSheetContent className="p-0">
+                        <DialogSheetTitle className="hidden" />
+                        <Command className="pt-2">
+                          <CommandInput placeholder="Search clients..." />
+                          <CommandList className="scrollbar-hidden mt-1 max-h-[320px] border-t">
+                            <CommandEmpty>No client found.</CommandEmpty>
                             <CommandGroup>
                               {observations.map((observation) => (
                                 <CommandItem
@@ -184,7 +182,7 @@ export function UpdateObservationsForm({
                                     handleObservationSelect(
                                       observation.id.toString(),
                                     );
-                                    setOpen(false);
+                                    setSelectObservationOpen(false);
                                   }}
                                 >
                                   {`${observation.itemNumber}: ${observation.description}`}
@@ -193,8 +191,8 @@ export function UpdateObservationsForm({
                             </CommandGroup>
                           </CommandList>
                         </Command>
-                      )}
-                    />
+                      </DialogSheetContent>
+                    </DialogSheet>
                   </FormItem>
                 </CardContent>
               </div>
@@ -256,64 +254,217 @@ export function UpdateObservationsForm({
                     </Card>
                     <Card className="rounded-md shadow-none md:hidden">
                       <CardContent className="p-0">
-                        <div>
-                          {fields.map((field, index) => (
-                            <div key={index}>
-                              <div className="flex items-start justify-between p-6">
-                                <div className="w-full space-y-1.5 text-sm">
-                                  <div className="flex items-center justify-between gap-2">
-                                    <div>
-                                      <span>{field.itemNumber}</span>
-                                      <span className="text-muted-foreground">
-                                        {" "}
-                                        -{" "}
-                                      </span>
-                                      <span>{field.code}</span>
-                                    </div>
-                                    <DropdownMenu>
-                                      <DropdownMenuTrigger asChild>
-                                        <Button
-                                          variant="ghost"
-                                          size="icon"
-                                          className="-mt-2"
-                                        >
-                                          <Ellipsis className="h-4 w-4" />
-                                          <span className="sr-only">
-                                            Open menu
-                                          </span>
-                                        </Button>
-                                      </DropdownMenuTrigger>
-                                      <DropdownMenuContent align="end">
-                                        <DropdownMenuItem
-                                          onSelect={() => {
-                                            setSelectedObservation(
-                                              fields[index],
-                                            );
-                                            setObservationDialogOpen(true);
-                                          }}
-                                        >
-                                          Edit
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem
-                                          onSelect={() => {
-                                            remove(index);
-                                          }}
-                                        >
-                                          Delete
-                                        </DropdownMenuItem>
-                                      </DropdownMenuContent>
-                                    </DropdownMenu>
-                                  </div>
-                                  <p>{field.description}</p>
+                        {fields.map((field, index) => (
+                          <div key={index}>
+                            <div className="w-full space-y-1.5 p-6 text-sm">
+                              <div className="flex items-center justify-between gap-2">
+                                <div>
+                                  <span>{field.itemNumber}</span>
+                                  <span className="text-muted-foreground">
+                                    {" "}
+                                    -{" "}
+                                  </span>
+                                  <span>{field.code}</span>
                                 </div>
-                                <div></div>
+                                <DropdownMenu>
+                                  <DropdownMenuTrigger asChild>
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      className="-mt-2"
+                                    >
+                                      <Ellipsis className="h-4 w-4" />
+                                      <span className="sr-only">Open menu</span>
+                                    </Button>
+                                  </DropdownMenuTrigger>
+                                  <DropdownMenuContent align="end">
+                                    <DropdownMenuItem
+                                      onSelect={() => {
+                                        setSelectedObservation(fields[index]);
+                                        setObservationDialogOpen(true);
+                                      }}
+                                    >
+                                      Edit
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem
+                                      onSelect={() => {
+                                        remove(index);
+                                      }}
+                                    >
+                                      Delete
+                                    </DropdownMenuItem>
+                                  </DropdownMenuContent>
+                                </DropdownMenu>
                               </div>
-                              {index !== fields.length - 1 && <Separator />}
+                              <p>{field.description}</p>
                             </div>
-                          ))}
-                        </div>
+                            {index !== fields.length - 1 && <Separator />}
+                          </div>
+                        ))}
                       </CardContent>
                     </Card>
+                    <DialogSheet
+                      open={observationDialogOpen}
+                      onOpenChange={setObservationDialogOpen}
+                    >
+                      <DialogSheetContent className="p-0">
+                        <DialogSheetTitle className="hidden" />
+                        {selectedObservation && (
+                          <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
+                            <div className="space-y-4 p-6">
+                              <FormField
+                                control={form.control}
+                                name={`observations.${fields.indexOf(selectedObservation)}.itemNumber`}
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Item Number</FormLabel>
+                                    <FormControl>
+                                      <Input {...field} readOnly />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                              <FormField
+                                control={form.control}
+                                name={`observations.${fields.indexOf(selectedObservation)}.code`}
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Code</FormLabel>
+                                    <FormControl>
+                                      <Input {...field} readOnly />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                              <FormField
+                                control={form.control}
+                                name={`observations.${fields.indexOf(selectedObservation)}.description`}
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Observation</FormLabel>
+                                    <FormControl>
+                                      <Textarea
+                                        {...field}
+                                        className="min-h-[100px]"
+                                        readOnly
+                                      />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                              <FormField
+                                control={form.control}
+                                name={`observations.${fields.indexOf(selectedObservation)}.location`}
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Location</FormLabel>
+                                    <FormControl>
+                                      <Input {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                              <FormField
+                                control={form.control}
+                                name={`observations.${fields.indexOf(selectedObservation)}.location`}
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Photo of issue</FormLabel>
+                                    <FormControl>
+                                      <Input type="file" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                              <div className="space-y-4 rounded-lg border p-4 shadow-sm">
+                                <FormField
+                                  control={form.control}
+                                  name={`observations.${fields.indexOf(selectedObservation)}.redmedialActionTaken`}
+                                  render={({ field }) => (
+                                    <FormItem className="flex flex-row items-center justify-between gap-4">
+                                      <div className="space-y-0.5">
+                                        <FormLabel>Alterations</FormLabel>
+                                        <FormDescription>
+                                          Check if alterations have been made.
+                                        </FormDescription>
+                                      </div>
+                                      <FormControl>
+                                        <Switch
+                                          checked={field.value}
+                                          onCheckedChange={(checked) => {
+                                            field.onChange(checked);
+                                          }}
+                                        />
+                                      </FormControl>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+                                {form.watch(
+                                  `observations.${fields.indexOf(selectedObservation)}.redmedialActionTaken`,
+                                ) && (
+                                  <>
+                                    <FormField
+                                      control={form.control}
+                                      name={`observations.${fields.indexOf(selectedObservation)}.descriptionOfActionTaken`}
+                                      render={({ field }) => (
+                                        <FormItem>
+                                          <FormLabel>
+                                            Description of action taken
+                                          </FormLabel>
+                                          <FormControl>
+                                            <Textarea
+                                              className="min-h-[100px]"
+                                              {...field}
+                                            />
+                                          </FormControl>
+                                          <FormMessage />
+                                        </FormItem>
+                                      )}
+                                    />
+                                    <FormField
+                                      control={form.control}
+                                      name={`observations.${fields.indexOf(selectedObservation)}.photoOfActionTaken`}
+                                      render={({ field }) => (
+                                        <FormItem>
+                                          <FormLabel>
+                                            Photo of completed remedial
+                                          </FormLabel>
+                                          <FormControl>
+                                            <Input type="file" {...field} />
+                                          </FormControl>
+                                          <FormMessage />
+                                        </FormItem>
+                                      )}
+                                    />
+                                    <FormField
+                                      control={form.control}
+                                      name={`observations.${fields.indexOf(selectedObservation)}.codeAfterRemedial`}
+                                      render={({ field }) => (
+                                        <FormItem>
+                                          <FormLabel>
+                                            Code after remedial
+                                          </FormLabel>
+                                          <FormControl>
+                                            <Input {...field} />
+                                          </FormControl>
+                                          <FormMessage />
+                                        </FormItem>
+                                      )}
+                                    />
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          </ScrollArea>
+                        )}
+                      </DialogSheetContent>
+                    </DialogSheet>
                   </>
                 )}
               </CardContent>
@@ -333,170 +484,11 @@ export function UpdateObservationsForm({
             </Card>
           </div>
         </div>
-
         <FormActions
           form={form}
           sections={sections}
           baseUrl={"/certificates/eicr"}
         />
-
-        <ResponsiveDialogTest
-          open={observationDialogOpen}
-          onOpenChange={setObservationDialogOpen}
-        >
-          {selectedObservation && (
-            <>
-              <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
-                <div className="space-y-4 p-6">
-                  <FormField
-                    control={form.control}
-                    name={`observations.${fields.indexOf(selectedObservation)}.itemNumber`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Item Number</FormLabel>
-                        <FormControl>
-                          <Input {...field} readOnly />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`observations.${fields.indexOf(selectedObservation)}.code`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Code</FormLabel>
-                        <FormControl>
-                          <Input {...field} readOnly />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`observations.${fields.indexOf(selectedObservation)}.description`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Observation</FormLabel>
-                        <FormControl>
-                          <Textarea
-                            {...field}
-                            className="min-h-[100px]"
-                            readOnly
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`observations.${fields.indexOf(selectedObservation)}.location`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Location</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`observations.${fields.indexOf(selectedObservation)}.location`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Photo of issue</FormLabel>
-                        <FormControl>
-                          <Input type="file" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                    <FormField
-                      control={form.control}
-                      name={`observations.${fields.indexOf(selectedObservation)}.redmedialActionTaken`}
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between gap-4">
-                          <div className="space-y-0.5">
-                            <FormLabel>Alterations</FormLabel>
-                            <FormDescription>
-                              Check if alterations have been made.
-                            </FormDescription>
-                          </div>
-                          <FormControl>
-                            <Switch
-                              checked={field.value}
-                              onCheckedChange={(checked) => {
-                                field.onChange(checked);
-                              }}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    {form.watch(
-                      `observations.${fields.indexOf(selectedObservation)}.redmedialActionTaken`,
-                    ) && (
-                      <>
-                        <FormField
-                          control={form.control}
-                          name={`observations.${fields.indexOf(selectedObservation)}.descriptionOfActionTaken`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Description of action taken</FormLabel>
-                              <FormControl>
-                                <Textarea
-                                  className="min-h-[100px]"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name={`observations.${fields.indexOf(selectedObservation)}.photoOfActionTaken`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Photo of completed remedial</FormLabel>
-                              <FormControl>
-                                <Input type="file" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name={`observations.${fields.indexOf(selectedObservation)}.codeAfterRemedial`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Code after remedial</FormLabel>
-                              <FormControl>
-                                <Input {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </>
-                    )}
-                  </div>
-                </div>
-              </ScrollArea>
-            </>
-          )}
-        </ResponsiveDialogTest>
-
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

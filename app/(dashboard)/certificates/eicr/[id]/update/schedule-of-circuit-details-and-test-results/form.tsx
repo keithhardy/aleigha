@@ -8,10 +8,14 @@ import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/dialog-sheet";
 import FormActions from "@/components/form-bar";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import { ResponsiveDialog } from "@/components/responsive-dialog";
-import { ResponsiveDialog as ResponsiveDialogTest } from "@/components/responsive-dialog-test";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -95,12 +99,6 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
     });
   };
 
-  //      DDDDD    BBBBB    SSSSS
-  //      D    D   B    B   S
-  //      D    D   BBBBB    SSSSS
-  //      D    D   B    B       S
-  //      DDDDD    BBBBB    SSSSS
-
   const {
     fields: dbs,
     append: appendDB,
@@ -110,9 +108,11 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
     name: "db",
   });
 
+  const [selectDBOpen, setSelectDBOpen] = useState(false);
   const [selectedDB, setSelectedDB] = useState<number | null>(
     dbs.length > 0 ? 0 : null,
   );
+  const [editDBOpen, setEditDBOpen] = useState(false);
 
   const addDb = () => {
     appendDB({
@@ -142,7 +142,6 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
 
   const deleteDb = (index: number) => {
     removeDB(index);
-
     if (dbs.length === 1) {
       setSelectedDB(null);
     } else {
@@ -150,14 +149,6 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
       setSelectedDB(previousIndex >= 0 ? previousIndex : 0);
     }
   };
-
-  const [dbDialogOpen, setDBDialogOpen] = useState(false);
-
-  //   CCCCC   III  RRRR   CCCCC  U   U  III  TTTTT  SSSSS
-  //  C        I    R   R  C      U   U   I     T    S
-  //  C        I    RRRR   C      U   U   I     T    SSSSS
-  //  C        I    R  R   C      U   U   I     T        S
-  //   CCCCC   III  R   R  CCCCC  UUUUU  III    T    SSSSS
 
   const {
     fields: circuits,
@@ -170,7 +161,10 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
     name: `db.${selectedDB}.circuits`,
   });
 
-  const [selectedCircuit, setSelectedCircuit] = useState<number | null>(null);
+  const [selectedCircuit, setSelectedCircuit] = useState<number | null>(
+    circuits.length > 0 ? 0 : null,
+  );
+  const [editCircuitOpen, setEditCircuitOpen] = useState(false);
 
   useEffect(() => {
     if (selectedDB !== null) {
@@ -221,13 +215,10 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
 
   const deleteCircuit = (index: number) => {
     removeCircuit(index);
-
     if (circuits.length === 1) {
       setSelectedCircuit(null);
     }
   };
-
-  const [circuitDialogOpen, setCircuitDialogOpen] = useState(false);
 
   return (
     <Form {...form}>
@@ -258,38 +249,27 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                     results below.
                   </CardDescription>
                 </CardHeader>
-
                 <div className="flex w-full justify-end space-x-4">
-                  <ResponsiveDialog
-                    trigger={
+                  <DialogSheet
+                    open={selectDBOpen}
+                    onOpenChange={setSelectDBOpen}
+                  >
+                    <DialogSheetTrigger asChild>
                       <Button
                         variant="outline"
-                        role="combobox"
-                        className="flex-1 items-center justify-between"
+                        className="w-full justify-between"
                       >
-                        <span>
-                          {selectedDB !== null
-                            ? form.watch(`db.${selectedDB}.designation`)
-                            : "Select db..."}
-                        </span>
-                        <ChevronsUpDown className="ml-2 opacity-50" />
+                        {selectedDB !== null
+                          ? form.watch(`db.${selectedDB}.designation`)
+                          : "Select db..."}
+                        <ChevronsUpDown />
                       </Button>
-                    }
-                    content={(setOpen) => (
-                      <Command
-                        filter={(value, search) => {
-                          if (!search) return 1;
-                          return value
-                            .toLowerCase()
-                            .includes(search.toLowerCase())
-                            ? 1
-                            : 0;
-                        }}
-                      >
-                        {dbs.length > 0 && (
-                          <CommandInput placeholder="Search..." />
-                        )}
-                        <CommandList>
+                    </DialogSheetTrigger>
+                    <DialogSheetContent className="p-0">
+                      <DialogSheetTitle className="hidden" />
+                      <Command className="pt-2">
+                        <CommandInput placeholder="Search dbs..." />
+                        <CommandList className="scrollbar-hidden mt-1 border-t">
                           <CommandEmpty>None found.</CommandEmpty>
                           <CommandGroup>
                             {dbs.map((db, index) => (
@@ -298,7 +278,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                                 value={db.id}
                                 onSelect={() => {
                                   setSelectedDB(index);
-                                  setOpen(false);
+                                  setSelectDBOpen(false);
                                 }}
                               >
                                 {form.watch(`db.${index}.designation`)}
@@ -310,15 +290,15 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                           </CommandGroup>
                         </CommandList>
                       </Command>
-                    )}
-                  />
+                    </DialogSheetContent>
+                  </DialogSheet>
                   <Button
                     variant="outline"
                     size="icon"
                     type="button"
                     onClick={() => {
                       addDb();
-                      setDBDialogOpen(true);
+                      setEditDBOpen(true);
                     }}
                   >
                     <Plus />
@@ -333,7 +313,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem
                           onSelect={() => {
-                            setDBDialogOpen(true);
+                            setEditDBOpen(true);
                           }}
                         >
                           Edit
@@ -344,9 +324,332 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                       </DropdownMenuContent>
                     </DropdownMenu>
                   )}
+                  <DialogSheet open={editDBOpen} onOpenChange={setEditDBOpen}>
+                    <DialogSheetContent className="p-0">
+                      <DialogSheetTitle className="hidden" />
+                      {selectedDB != null && (
+                        <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
+                          <div className="space-y-4 p-6">
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.designation`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Designation</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.location`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Location</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <div className="space-y-4 rounded-lg border p-4 shadow-sm">
+                              <FormField
+                                control={form.control}
+                                name={`db.${selectedDB}.confirmationOfSupplyPolarity`}
+                                render={({ field }) => (
+                                  <FormItem className="flex flex-row items-center justify-between gap-4">
+                                    <div className="space-y-0.5">
+                                      <FormLabel>
+                                        Confirmation of Supply Polarity
+                                      </FormLabel>
+                                      <FormDescription>
+                                        Check if supply polarity is correct.
+                                      </FormDescription>
+                                    </div>
+                                    <Switch
+                                      checked={field.value}
+                                      onCheckedChange={field.onChange}
+                                    />
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.zdb`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>
+                                    Earth Fault Loop Impedance (Zdb)
+                                  </FormLabel>
+                                  <FormControl>
+                                    <div className="relative w-full">
+                                      <Input {...field} className="pr-10" />
+                                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                        Ω
+                                      </span>
+                                    </div>
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.ipf`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>
+                                    Prospective Fault Current (Ipf)
+                                  </FormLabel>
+                                  <FormControl>
+                                    <div className="relative w-full">
+                                      <Input {...field} className="pr-10" />
+                                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                        kA
+                                      </span>
+                                    </div>
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <div className="space-y-4 rounded-lg border p-4 shadow-sm">
+                              <FormField
+                                control={form.control}
+                                name={`db.${selectedDB}.phaseSequenceConfirmed`}
+                                render={({ field }) => (
+                                  <FormItem className="flex flex-row items-center justify-between gap-4">
+                                    <div className="space-y-0.5">
+                                      <FormLabel>
+                                        Confirmation of Phase Sequence
+                                      </FormLabel>
+                                      <FormDescription>
+                                        Check if supply phase sequence is
+                                        correct.
+                                      </FormDescription>
+                                    </div>
+                                    <Switch
+                                      checked={field.value}
+                                      onCheckedChange={field.onChange}
+                                    />
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.spdType`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>SPD Type</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <div className="space-y-4 rounded-lg border p-4 shadow-sm">
+                              <FormField
+                                control={form.control}
+                                name={`db.${selectedDB}.spdStatusIndicator`}
+                                render={({ field }) => (
+                                  <FormItem className="flex flex-row items-center justify-between gap-4">
+                                    <div className="space-y-0.5">
+                                      <FormLabel>
+                                        Confirmation of Phase Sequence
+                                      </FormLabel>
+                                      <FormDescription>
+                                        Check if supply phase sequence is
+                                        correct.
+                                      </FormDescription>
+                                    </div>
+                                    <Switch
+                                      checked={field.value}
+                                      onCheckedChange={field.onChange}
+                                    />
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.supplyFrom`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Supplied From</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.ocpdBSnumber`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>OCPD BS Number</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.ocpdType`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>OCPD Type</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.ocpdNominalVoltage`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>OCPD Nominal Voltage</FormLabel>
+                                  <FormControl>
+                                    <div className="relative w-full">
+                                      <Input {...field} className="pr-10" />
+                                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                        V
+                                      </span>
+                                    </div>
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.ocpdRating`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>OCPD Rating</FormLabel>
+                                  <FormControl>
+                                    <div className="relative w-full">
+                                      <Input {...field} className="pr-10" />
+                                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                        A
+                                      </span>
+                                    </div>
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.ocpdNumberOfPhases`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>OCPD No. of Phases</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.rcdBSNumber`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>RCD BS Number</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.rcdType`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>RCD Type</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.rcdOperatingCurrent`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>RCD Operating Current</FormLabel>
+                                  <FormControl>
+                                    <div className="relative w-full">
+                                      <Input {...field} className="pr-10" />
+                                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                        mA
+                                      </span>
+                                    </div>
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.rcdNumberOfPoles`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>RCD No. of Poles</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.rcdOperatingTime`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>RCD Operating Time</FormLabel>
+                                  <FormControl>
+                                    <div className="relative w-full">
+                                      <Input {...field} className="pr-10" />
+                                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                        mS
+                                      </span>
+                                    </div>
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        </ScrollArea>
+                      )}
+                    </DialogSheetContent>
+                  </DialogSheet>
                 </div>
               </div>
-
               <CardContent className="p-6">
                 {selectedDB != null && (
                   <div key={selectedDB} className="space-y-4">
@@ -359,7 +662,6 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             test results below.
                           </CardDescription>
                         </CardHeader>
-
                         <div className="flex w-full justify-end space-x-4">
                           <Button
                             variant="outline"
@@ -371,7 +673,6 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                           </Button>
                         </div>
                       </div>
-
                       <CardContent>
                         <Table className="border text-sm">
                           <TableHeader>
@@ -385,7 +686,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                           </TableHeader>
                           <TableBody>
                             {circuits.length > 0 ? (
-                              circuits.map((field, index) => (
+                              circuits.map((_, index) => (
                                 <TableRow key={index}>
                                   <TableCell className="pl-6">
                                     {form.watch(
@@ -407,8 +708,8 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                                       <DropdownMenuContent align="end">
                                         <DropdownMenuItem
                                           onSelect={() => {
-                                            setCircuitDialogOpen(true);
                                             setSelectedCircuit(index);
+                                            setEditCircuitOpen(true);
                                           }}
                                         >
                                           Edit
@@ -439,8 +740,483 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                     </Card>
                   </div>
                 )}
+                <DialogSheet
+                  open={editCircuitOpen}
+                  onOpenChange={setEditCircuitOpen}
+                >
+                  <DialogSheetContent className="p-0">
+                    <DialogSheetTitle className="hidden" />
+                    {selectedCircuit != null && (
+                      <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
+                        {selectedDB !== null && selectedCircuit !== null && (
+                          <div className="space-y-4 p-6">
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.number`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Number</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.description`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Description</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.typeOfWiring`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Type of Wiring</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.referenceMethod`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Reference Method</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.numberOfPoints`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Number of Points</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.conductorLiveCSA`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Conductor Live CSA</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.conductorCPCCSA`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Conductor CPC CSA</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.maxDisconnectionTime`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>
+                                    Maximum Disconnection Time
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.ocpdBSNumber`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>OCPD BS Number</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.ocpdType`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>OCPD Type</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.ocpdRating`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>OCPD Rating</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.ocpdShortCircuitCapacity`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>
+                                    OCPD Short Circuit Capacity
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.ocpdMaxPermittedZs`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>
+                                    OCPD Maximum Permitted Zs
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdBSNumber`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>RCD BS Number</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdType`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>RCD Type</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdRating`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>RCD Rating</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdOperatingCurrent`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>RCD Operating Current</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.continuityr1`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Continuity r1</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.continuityrn`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Continuity rn</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.continuityr2`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Continuity r2</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.continuityR1R2`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Continuity R1 + R2</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.continuityR2`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Continuity R2</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.insulationResistanceLiveLive`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>
+                                    Insulation Resistance Live Live
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.insulationResistanceLiveEarth`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>
+                                    Insulation Resistance Live Earth
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.insulationResistanceTestVoltage`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>
+                                    Insulation Resistance Test Voltage
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <div className="space-y-4 rounded-lg border p-4 shadow-sm">
+                              <FormField
+                                control={form.control}
+                                name={`db.${selectedDB}.circuits.${selectedCircuit}.polarity`}
+                                render={({ field }) => (
+                                  <FormItem className="flex flex-row items-center justify-between gap-4">
+                                    <div className="space-y-0.5">
+                                      <FormLabel>
+                                        Confirmation of Polarity
+                                      </FormLabel>
+                                      <FormDescription>
+                                        Check if polarity is correct.
+                                      </FormDescription>
+                                    </div>
+                                    <Switch
+                                      checked={field.value}
+                                      onCheckedChange={field.onChange}
+                                    />
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.maximumZs`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Maximum Zs</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdOperatingTime`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>RCD Operating Time</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <div className="space-y-4 rounded-lg border p-4 shadow-sm">
+                              <FormField
+                                control={form.control}
+                                name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdTestButton`}
+                                render={({ field }) => (
+                                  <FormItem className="flex flex-row items-center justify-between gap-4">
+                                    <div className="space-y-0.5">
+                                      <FormLabel>
+                                        Confirmation of RCD Test Button
+                                      </FormLabel>
+                                      <FormDescription>
+                                        Check the RCD test button works.
+                                      </FormDescription>
+                                    </div>
+                                    <Switch
+                                      checked={field.value}
+                                      onCheckedChange={field.onChange}
+                                    />
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                            <div className="space-y-4 rounded-lg border p-4 shadow-sm">
+                              <FormField
+                                control={form.control}
+                                name={`db.${selectedDB}.circuits.${selectedCircuit}.afddOTestButton`}
+                                render={({ field }) => (
+                                  <FormItem className="flex flex-row items-center justify-between gap-4">
+                                    <div className="space-y-0.5">
+                                      <FormLabel>
+                                        Confirmation of AFDD Test Button
+                                      </FormLabel>
+                                      <FormDescription>
+                                        Check the AFDD test button works.
+                                      </FormDescription>
+                                    </div>
+                                    <Switch
+                                      checked={field.value}
+                                      onCheckedChange={field.onChange}
+                                    />
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.comments`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Comments</FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name={`db.${selectedDB}.circuits.${selectedCircuit}.equipmentVunerableToDamage`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>
+                                    Equipment Vunerable to Damage
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        )}
+                      </ScrollArea>
+                    )}
+                  </DialogSheetContent>
+                </DialogSheet>
               </CardContent>
-
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-balance text-sm text-muted-foreground">
                   Ensure the prosumer’s low voltage installation is inspected
@@ -456,780 +1232,6 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
           sections={sections}
           baseUrl={"/certificates/eicr"}
         />
-
-        <ResponsiveDialogTest
-          open={dbDialogOpen}
-          onOpenChange={setDBDialogOpen}
-        >
-          {selectedDB != null && (
-            <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
-              <div className="space-y-4 p-6">
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.designation`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Designation</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.location`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Location</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.confirmationOfSupplyPolarity`}
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center justify-between gap-4">
-                        <div className="space-y-0.5">
-                          <FormLabel>Confirmation of Supply Polarity</FormLabel>
-                          <FormDescription>
-                            Check if supply polarity is correct.
-                          </FormDescription>
-                        </div>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.zdb`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Earth Fault Loop Impedance (Zdb)</FormLabel>
-                      <FormControl>
-                        <div className="relative w-full">
-                          <Input {...field} className="pr-10" />
-                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                            Ω
-                          </span>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.ipf`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Prospective Fault Current (Ipf)</FormLabel>
-                      <FormControl>
-                        <div className="relative w-full">
-                          <Input {...field} className="pr-10" />
-                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                            kA
-                          </span>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.phaseSequenceConfirmed`}
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center justify-between gap-4">
-                        <div className="space-y-0.5">
-                          <FormLabel>Confirmation of Phase Sequence</FormLabel>
-                          <FormDescription>
-                            Check if supply phase sequence is correct.
-                          </FormDescription>
-                        </div>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.spdType`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>SPD Type</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.spdStatusIndicator`}
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center justify-between gap-4">
-                        <div className="space-y-0.5">
-                          <FormLabel>Confirmation of Phase Sequence</FormLabel>
-                          <FormDescription>
-                            Check if supply phase sequence is correct.
-                          </FormDescription>
-                        </div>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.supplyFrom`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Supplied From</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.ocpdBSnumber`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>OCPD BS Number</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.ocpdType`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>OCPD Type</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.ocpdNominalVoltage`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>OCPD Nominal Voltage</FormLabel>
-                      <FormControl>
-                        <div className="relative w-full">
-                          <Input {...field} className="pr-10" />
-                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                            V
-                          </span>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.ocpdRating`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>OCPD Rating</FormLabel>
-                      <FormControl>
-                        <div className="relative w-full">
-                          <Input {...field} className="pr-10" />
-                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                            A
-                          </span>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.ocpdNumberOfPhases`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>OCPD No. of Phases</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.rcdBSNumber`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>RCD BS Number</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.rcdType`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>RCD Type</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.rcdOperatingCurrent`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>RCD Operating Current</FormLabel>
-                      <FormControl>
-                        <div className="relative w-full">
-                          <Input {...field} className="pr-10" />
-                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                            mA
-                          </span>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.rcdNumberOfPoles`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>RCD No. of Poles</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={`db.${selectedDB}.rcdOperatingTime`}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>RCD Operating Time</FormLabel>
-                      <FormControl>
-                        <div className="relative w-full">
-                          <Input {...field} className="pr-10" />
-                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                            mS
-                          </span>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </ScrollArea>
-          )}
-        </ResponsiveDialogTest>
-
-        <ResponsiveDialogTest
-          open={circuitDialogOpen}
-          onOpenChange={setCircuitDialogOpen}
-        >
-          {selectedCircuit != null && (
-            <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
-              {selectedDB !== null && selectedCircuit !== null && (
-                <div className="space-y-4 p-6">
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.number`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Number</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.description`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Description</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.typeOfWiring`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Type of Wiring</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.referenceMethod`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Reference Method</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.numberOfPoints`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Number of Points</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.conductorLiveCSA`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Conductor Live CSA</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.conductorCPCCSA`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Conductor CPC CSA</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.maxDisconnectionTime`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Maximum Disconnection Time</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.ocpdBSNumber`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>OCPD BS Number</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.ocpdType`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>OCPD Type</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.ocpdRating`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>OCPD Rating</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.ocpdShortCircuitCapacity`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>OCPD Short Circuit Capacity</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.ocpdMaxPermittedZs`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>OCPD Maximum Permitted Zs</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdBSNumber`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>RCD BS Number</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdType`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>RCD Type</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdRating`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>RCD Rating</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdOperatingCurrent`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>RCD Operating Current</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.continuityr1`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Continuity r1</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.continuityrn`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Continuity rn</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.continuityr2`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Continuity r2</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.continuityR1R2`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Continuity R1 + R2</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.continuityR2`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Continuity R2</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.insulationResistanceLiveLive`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Insulation Resistance Live Live</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.insulationResistanceLiveEarth`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Insulation Resistance Live Earth</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.insulationResistanceTestVoltage`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          Insulation Resistance Test Voltage
-                        </FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                    <FormField
-                      control={form.control}
-                      name={`db.${selectedDB}.circuits.${selectedCircuit}.polarity`}
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between gap-4">
-                          <div className="space-y-0.5">
-                            <FormLabel>Confirmation of Polarity</FormLabel>
-                            <FormDescription>
-                              Check if polarity is correct.
-                            </FormDescription>
-                          </div>
-                          <Switch
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.maximumZs`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Maximum Zs</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdOperatingTime`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>RCD Operating Time</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                    <FormField
-                      control={form.control}
-                      name={`db.${selectedDB}.circuits.${selectedCircuit}.rcdTestButton`}
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between gap-4">
-                          <div className="space-y-0.5">
-                            <FormLabel>
-                              Confirmation of RCD Test Button
-                            </FormLabel>
-                            <FormDescription>
-                              Check the RCD test button works.
-                            </FormDescription>
-                          </div>
-                          <Switch
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <div className="space-y-4 rounded-lg border p-4 shadow-sm">
-                    <FormField
-                      control={form.control}
-                      name={`db.${selectedDB}.circuits.${selectedCircuit}.afddOTestButton`}
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between gap-4">
-                          <div className="space-y-0.5">
-                            <FormLabel>
-                              Confirmation of AFDD Test Button
-                            </FormLabel>
-                            <FormDescription>
-                              Check the AFDD test button works.
-                            </FormDescription>
-                          </div>
-                          <Switch
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.comments`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Comments</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name={`db.${selectedDB}.circuits.${selectedCircuit}.equipmentVunerableToDamage`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Equipment Vunerable to Damage</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              )}
-            </ScrollArea>
-          )}
-        </ResponsiveDialogTest>
-
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

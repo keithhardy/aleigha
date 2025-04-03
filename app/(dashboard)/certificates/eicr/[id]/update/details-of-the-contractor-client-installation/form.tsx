@@ -313,11 +313,9 @@ export function UpdateContractorClientAndInstallationForm({
                       const selectedClient = clients.find(
                         (client) => client.id === form.watch("clientId"),
                       );
-
                       const selectedProperty = selectedClient?.property.find(
                         (property) => property.id === field.value,
                       );
-
                       return (
                         <>
                           <FormItem>
@@ -362,7 +360,6 @@ export function UpdateContractorClientAndInstallationForm({
                                             }}
                                           >
                                             {property.address.streetAddress}
-
                                             {property.id === field.value ? (
                                               <Check className="ml-auto" />
                                             ) : null}
@@ -425,13 +422,11 @@ export function UpdateContractorClientAndInstallationForm({
             </Card>
           </div>
         </div>
-
         <FormBar
           form={form}
           sections={sections}
           baseUrl={"/certificates/eicr"}
         />
-
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}
