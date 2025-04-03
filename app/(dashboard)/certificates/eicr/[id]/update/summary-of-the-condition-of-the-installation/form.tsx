@@ -49,9 +49,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
     resolver: zodResolver(UpdateSummaryOfTheConditionOfTheInstallationSchema),
     defaultValues: {
       id: certificate.id,
-      generalCondition:
-        certificate.generalCondition ||
-        "The electrical installation is in an acceptable condition and complies with the current version of BS 7671 with the exception of the non-rectified items recorded in the observations section of this report. Earthing and bonding is adequate. Accessories are suitable for continued use. Installation is satisfactory and safe for continued use. ",
+      generalCondition: certificate.generalCondition || "",
       estimatedAgeOfElectricalInstallation:
         certificate.estimatedAgeOfElectricalInstallation || "",
       evidenceOfAlterations: certificate.evidenceOfAlterations ?? false,
@@ -96,7 +94,6 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
               <Heading>Summary of the condition of the installation</Heading>
             </HeaderGroup>
           </Header>
-
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
@@ -129,7 +126,6 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                 </p>
               </CardFooter>
             </Card>
-
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
@@ -175,7 +171,6 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                       </FormItem>
                     )}
                   />
-
                   <div className="space-y-4 rounded-lg border p-4 shadow-sm">
                     <FormField
                       control={form.control}
@@ -262,18 +257,16 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
             </Card>
           </div>
         </div>
-
         <FormActions
           form={form}
           sections={sections}
           baseUrl={"/certificates/eicr"}
         />
+        <UnsavedChangesDialog
+          condition={form.formState.isDirty}
+          action={form.handleSubmit(onSubmit)}
+        />
       </form>
-
-      <UnsavedChangesDialog
-        condition={form.formState.isDirty}
-        action={form.handleSubmit(onSubmit)}
-      />
     </Form>
   );
 }

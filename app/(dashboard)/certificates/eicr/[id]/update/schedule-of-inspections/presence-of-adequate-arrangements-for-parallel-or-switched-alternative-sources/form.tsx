@@ -90,7 +90,6 @@ export function UpdatePresenceOfAdequateArrangementsForm({
               </Heading>
             </HeaderGroup>
           </Header>
-
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
@@ -138,18 +137,16 @@ export function UpdatePresenceOfAdequateArrangementsForm({
             </Card>
           </div>
         </div>
-
         <FormActions
           form={form}
           sections={sections}
           baseUrl={"/certificates/eicr"}
         />
+        <UnsavedChangesDialog
+          condition={form.formState.isDirty}
+          action={form.handleSubmit(onSubmit)}
+        />
       </form>
-
-      <UnsavedChangesDialog
-        condition={form.formState.isDirty}
-        action={form.handleSubmit(onSubmit)}
-      />
     </Form>
   );
 }

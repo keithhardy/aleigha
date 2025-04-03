@@ -137,7 +137,6 @@ export function UpdateScheduleOfRatesForm({
               <Heading>Schedule of rates</Heading>
             </HeaderGroup>
           </Header>
-
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col items-center gap-4 p-6 lg:flex-row">
@@ -192,7 +191,6 @@ export function UpdateScheduleOfRatesForm({
                   </FormItem>
                 </CardContent>
               </div>
-
               <CardContent>
                 {fields.length > 0 && (
                   <>

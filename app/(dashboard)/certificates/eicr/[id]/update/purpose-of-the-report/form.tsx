@@ -55,9 +55,7 @@ export function UpdatePurposeOfTheReportForm({
     resolver: zodResolver(UpdatePurposeOfTheReportSchema),
     defaultValues: {
       id: certificate.id,
-      purpose:
-        certificate.purpose ||
-        "To assess the safety and compliance of the electrical fixed wiring within the property, ensuring it meets the current BS 7671 regulations and identifying any non-compliance or potential hazards that could pose a risk to continued use.",
+      purpose: certificate.purpose || "",
       startDate: certificate.startDate || undefined,
       endDate: certificate.endDate || undefined,
       recordsAvailable: certificate.recordsAvailable ?? false,
@@ -101,7 +99,6 @@ export function UpdatePurposeOfTheReportForm({
               <Heading>Purpose of the Report</Heading>
             </HeaderGroup>
           </Header>
-
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
@@ -141,7 +138,6 @@ export function UpdatePurposeOfTheReportForm({
                 </p>
               </CardFooter>
             </Card>
-
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
@@ -248,7 +244,6 @@ export function UpdatePurposeOfTheReportForm({
                 </p>
               </CardFooter>
             </Card>
-
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
@@ -307,7 +302,6 @@ export function UpdatePurposeOfTheReportForm({
                         </FormItem>
                       )}
                     />
-
                     {form.watch("previousReportAvailable") && (
                       <FormField
                         control={form.control}
@@ -374,18 +368,16 @@ export function UpdatePurposeOfTheReportForm({
             </Card>
           </div>
         </div>
-
         <FormActions
           form={form}
           sections={sections}
           baseUrl={"/certificates/eicr"}
         />
+        <UnsavedChangesDialog
+          condition={form.formState.isDirty}
+          action={form.handleSubmit(onSubmit)}
+        />
       </form>
-
-      <UnsavedChangesDialog
-        condition={form.formState.isDirty}
-        action={form.handleSubmit(onSubmit)}
-      />
     </Form>
   );
 }

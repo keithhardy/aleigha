@@ -1226,7 +1226,6 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
             </Card>
           </div>
         </div>
-
         <FormActions
           form={form}
           sections={sections}
