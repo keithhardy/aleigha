@@ -14,7 +14,7 @@ import {
   DialogSheetTitle,
   DialogSheetTrigger,
 } from "@/components/dialog-sheet";
-import FormActions from "@/components/form-bar";
+import { FormBar } from "@/components/form-bar";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import {
@@ -100,7 +100,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
   };
 
   const {
-    fields: consumerUnitss,
+    fields: consumerUnits,
     append: appendDB,
     remove: removeDB,
   } = useFieldArray({
@@ -110,7 +110,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
 
   const [selectDBOpen, setSelectDBOpen] = useState(false);
   const [selectedDB, setSelectedDB] = useState<number | null>(
-    consumerUnitss.length > 0 ? 0 : null,
+    consumerUnits.length > 0 ? 0 : null,
   );
   const [editDBOpen, setEditDBOpen] = useState(false);
 
@@ -137,12 +137,12 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
       rcdOperatingTime: "",
       circuits: [],
     });
-    setSelectedDB(consumerUnitss.length);
+    setSelectedDB(consumerUnits.length);
   };
 
   const deleteDb = (index: number) => {
     removeDB(index);
-    if (consumerUnitss.length === 1) {
+    if (consumerUnits.length === 1) {
       setSelectedDB(null);
     } else {
       const previousIndex = index - 1;
@@ -275,7 +275,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                         <CommandList className="scrollbar-hidden mt-1 border-t p-1">
                           <CommandEmpty>No results found.</CommandEmpty>
                           <CommandGroup>
-                            {consumerUnitss.map((consumerUnits, index) => (
+                            {consumerUnits.map((consumerUnits, index) => (
                               <CommandItem
                                 key={consumerUnits.id}
                                 value={consumerUnits.id}
@@ -1231,7 +1231,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
             </Card>
           </div>
         </div>
-        <FormActions
+        <FormBar
           form={form}
           sections={sections}
           baseUrl={"/certificates/eicr"}

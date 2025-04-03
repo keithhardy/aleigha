@@ -14,7 +14,7 @@ import {
   DialogSheetTitle,
   DialogSheetTrigger,
 } from "@/components/dialog-sheet";
-import FormBar from "@/components/form-bar";
+import { FormBar } from "@/components/form-bar";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import {

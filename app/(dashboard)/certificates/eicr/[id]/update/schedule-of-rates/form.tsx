@@ -14,7 +14,7 @@ import {
   DialogSheetTitle,
   DialogSheetTrigger,
 } from "@/components/dialog-sheet";
-import FormActions from "@/components/form-bar";
+import { FormBar } from "@/components/form-bar";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import {
@@ -74,7 +74,7 @@ export function UpdateScheduleOfRatesForm({
 }) {
   const { toast } = useToast();
 
-  const [selectedRate, setSelectedRate] = useState<any>(null);
+  const [selectedRate, setSelectedRate] = useState<number | null>(null);
   const [selectRateOpen, setSelectRateOpen] = useState(false);
   const [editRateOpen, setEditRateOpen] = useState(false);
 
@@ -114,7 +114,7 @@ export function UpdateScheduleOfRatesForm({
         name: rate.name,
         description: rate.description,
       });
-      setSelectedRate("");
+      setSelectedRate(null);
     }
   };
 
@@ -223,7 +223,7 @@ export function UpdateScheduleOfRatesForm({
                                     <DropdownMenuContent align="end">
                                       <DropdownMenuItem
                                         onSelect={() => {
-                                          setSelectedRate(fields[index]);
+                                          setSelectedRate(index);
                                           setEditRateOpen(true);
                                         }}
                                       >
@@ -270,7 +270,7 @@ export function UpdateScheduleOfRatesForm({
                                       <DropdownMenuContent align="end">
                                         <DropdownMenuItem
                                           onSelect={() => {
-                                            setSelectedRate(fields[index]);
+                                            setSelectedRate(index);
                                             setEditRateOpen(true);
                                           }}
                                         >
@@ -302,12 +302,12 @@ export function UpdateScheduleOfRatesForm({
                     >
                       <DialogSheetContent className="p-0">
                         <DialogSheetTitle className="hidden" />
-                        {selectedRate && (
+                        {selectedRate !== null && (
                           <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
                             <div className="space-y-4 p-6">
                               <FormField
                                 control={form.control}
-                                name={`rates.${fields.indexOf(selectedRate)}.name`}
+                                name={`rates.${selectedRate}.name`}
                                 render={({ field }) => (
                                   <FormItem>
                                     <FormLabel>Name</FormLabel>
@@ -320,7 +320,7 @@ export function UpdateScheduleOfRatesForm({
                               />
                               <FormField
                                 control={form.control}
-                                name={`rates.${fields.indexOf(selectedRate)}.description`}
+                                name={`rates.${selectedRate}.description`}
                                 render={({ field }) => (
                                   <FormItem>
                                     <FormLabel>Description</FormLabel>
@@ -350,7 +350,7 @@ export function UpdateScheduleOfRatesForm({
             </Card>
           </div>
         </div>
-        <FormActions
+        <FormBar
           form={form}
           sections={sections}
           baseUrl={"/certificates/eicr"}

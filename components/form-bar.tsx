@@ -21,12 +21,13 @@ import {
 } from "./ui/command";
 
 interface FormBarProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   form: UseFormReturn<any>;
   sections: { title: string; url: string }[];
   baseUrl: string;
 }
 
-export default function FormBar({ form, sections, baseUrl }: FormBarProps) {
+export function FormBar({ form, sections, baseUrl }: FormBarProps) {
   const router = useRouter();
   const pathname = usePathname();
 

@@ -1,6 +1,4 @@
-import {
-  EICRStatus,
-} from "@prisma/client";
+import { EICRStatus } from "@prisma/client";
 // import { pdf } from "@react-pdf/renderer";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
@@ -27,9 +25,12 @@ export function RowActions({
     startDate: Date | null;
     endDate: Date | null;
     client: { name: string };
-    property: { uprn: string; address: { streetAddress: string | null; postCode: string | null } };
+    property: {
+      uprn: string;
+      address: { streetAddress: string | null; postCode: string | null };
+    };
     creator: { name: string };
-  }
+  };
 }) {
   // const handlePDFDownload = async (
   //   electricalInstallationConditionReport: ElectricalInstallationConditionReport & {

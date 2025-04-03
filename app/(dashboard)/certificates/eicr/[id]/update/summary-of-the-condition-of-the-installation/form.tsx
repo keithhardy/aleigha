@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import FormActions from "@/components/form-bar";
+import { FormBar } from "@/components/form-bar";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import {
   Card,
@@ -257,7 +257,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
             </Card>
           </div>
         </div>
-        <FormActions
+        <FormBar
           form={form}
           sections={sections}
           baseUrl={"/certificates/eicr"}

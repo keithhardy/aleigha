@@ -1,6 +1,7 @@
 "use server";
 
 import { ElectricalInstallationConditionReport } from "@prisma/client";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { customAlphabet } from "nanoid";
 import { z } from "zod";
 
@@ -35,15 +36,24 @@ export async function createElectricalInstallationConditionReport(
         heading: "Certificate Created Successfully",
         message: "The new certificate has been created.",
       };
-    } catch (error: any) {
-      if (error.code === "P2002" && error.meta?.target?.includes("serial")) {
-        retries++;
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        const meta = error.meta as { target: string | string[] };
+        if (error.code === "P2002" && meta?.target?.includes("serial")) {
+          retries++;
+        } else {
+          return {
+            status: "error",
+            heading: "Certificate Creation Failed",
+            message:
+              "There was an issue creating the certificate. Please try again.",
+          };
+        }
       } else {
         return {
           status: "error",
-          heading: "Certificate Creation Failed",
-          message:
-            "There was an issue creating the certificate. Please try again.",
+          heading: "Unexpected Error",
+          message: "An unexpected error occurred. Please try again later.",
         };
       }
     }

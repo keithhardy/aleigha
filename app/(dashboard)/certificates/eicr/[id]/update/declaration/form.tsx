@@ -15,7 +15,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import FormActions from "@/components/form-bar";
+import { FormBar } from "@/components/form-bar";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -485,7 +485,7 @@ export function UpdateDeclarationForm({
             </Card>
           </div>
         </div>
-        <FormActions
+        <FormBar
           form={form}
           sections={sections}
           baseUrl={"/certificates/eicr"}

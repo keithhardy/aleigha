@@ -14,7 +14,7 @@ import {
   DialogSheetTitle,
   DialogSheetTrigger,
 } from "@/components/dialog-sheet";
-import FormActions from "@/components/form-bar";
+import { FormBar } from "@/components/form-bar";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import {
@@ -78,7 +78,9 @@ export function UpdateObservationsForm({
 
   const [selectObservationOpen, setSelectObservationOpen] = useState(false);
   const [observationDialogOpen, setObservationDialogOpen] = useState(false);
-  const [selectedObservation, setSelectedObservation] = useState<any>(null);
+  const [selectedObservation, setSelectedObservation] = useState<number | null>(
+    null,
+  );
 
   const form = useForm<z.infer<typeof UpdateObservationsSchema>>({
     resolver: zodResolver(UpdateObservationsSchema),
@@ -232,7 +234,7 @@ export function UpdateObservationsForm({
                                     <DropdownMenuContent align="end">
                                       <DropdownMenuItem
                                         onSelect={() => {
-                                          setSelectedObservation(fields[index]);
+                                          setSelectedObservation(index);
                                           setObservationDialogOpen(true);
                                         }}
                                       >
@@ -280,7 +282,7 @@ export function UpdateObservationsForm({
                                   <DropdownMenuContent align="end">
                                     <DropdownMenuItem
                                       onSelect={() => {
-                                        setSelectedObservation(fields[index]);
+                                        setSelectedObservation(index);
                                         setObservationDialogOpen(true);
                                       }}
                                     >
@@ -309,12 +311,12 @@ export function UpdateObservationsForm({
                     >
                       <DialogSheetContent className="p-0">
                         <DialogSheetTitle className="hidden" />
-                        {selectedObservation && (
+                        {selectedObservation !== null && (
                           <ScrollArea className="max-h-[320px] overflow-y-auto overflow-x-hidden">
                             <div className="space-y-4 p-6">
                               <FormField
                                 control={form.control}
-                                name={`observations.${fields.indexOf(selectedObservation)}.itemNumber`}
+                                name={`observations.${selectedObservation}.itemNumber`}
                                 render={({ field }) => (
                                   <FormItem>
                                     <FormLabel>Item Number</FormLabel>
@@ -327,7 +329,7 @@ export function UpdateObservationsForm({
                               />
                               <FormField
                                 control={form.control}
-                                name={`observations.${fields.indexOf(selectedObservation)}.code`}
+                                name={`observations.${selectedObservation}.code`}
                                 render={({ field }) => (
                                   <FormItem>
                                     <FormLabel>Code</FormLabel>
@@ -340,7 +342,7 @@ export function UpdateObservationsForm({
                               />
                               <FormField
                                 control={form.control}
-                                name={`observations.${fields.indexOf(selectedObservation)}.description`}
+                                name={`observations.${selectedObservation}.description`}
                                 render={({ field }) => (
                                   <FormItem>
                                     <FormLabel>Observation</FormLabel>
@@ -357,7 +359,7 @@ export function UpdateObservationsForm({
                               />
                               <FormField
                                 control={form.control}
-                                name={`observations.${fields.indexOf(selectedObservation)}.location`}
+                                name={`observations.${selectedObservation}.location`}
                                 render={({ field }) => (
                                   <FormItem>
                                     <FormLabel>Location</FormLabel>
@@ -370,7 +372,7 @@ export function UpdateObservationsForm({
                               />
                               <FormField
                                 control={form.control}
-                                name={`observations.${fields.indexOf(selectedObservation)}.location`}
+                                name={`observations.${selectedObservation}.location`}
                                 render={({ field }) => (
                                   <FormItem>
                                     <FormLabel>Photo of issue</FormLabel>
@@ -384,7 +386,7 @@ export function UpdateObservationsForm({
                               <div className="space-y-4 rounded-lg border p-4 shadow-sm">
                                 <FormField
                                   control={form.control}
-                                  name={`observations.${fields.indexOf(selectedObservation)}.redmedialActionTaken`}
+                                  name={`observations.${selectedObservation}.redmedialActionTaken`}
                                   render={({ field }) => (
                                     <FormItem className="flex flex-row items-center justify-between gap-4">
                                       <div className="space-y-0.5">
@@ -406,12 +408,12 @@ export function UpdateObservationsForm({
                                   )}
                                 />
                                 {form.watch(
-                                  `observations.${fields.indexOf(selectedObservation)}.redmedialActionTaken`,
+                                  `observations.${selectedObservation}.redmedialActionTaken`,
                                 ) && (
                                   <>
                                     <FormField
                                       control={form.control}
-                                      name={`observations.${fields.indexOf(selectedObservation)}.descriptionOfActionTaken`}
+                                      name={`observations.${selectedObservation}.descriptionOfActionTaken`}
                                       render={({ field }) => (
                                         <FormItem>
                                           <FormLabel>
@@ -429,7 +431,7 @@ export function UpdateObservationsForm({
                                     />
                                     <FormField
                                       control={form.control}
-                                      name={`observations.${fields.indexOf(selectedObservation)}.photoOfActionTaken`}
+                                      name={`observations.${selectedObservation}.photoOfActionTaken`}
                                       render={({ field }) => (
                                         <FormItem>
                                           <FormLabel>
@@ -444,7 +446,7 @@ export function UpdateObservationsForm({
                                     />
                                     <FormField
                                       control={form.control}
-                                      name={`observations.${fields.indexOf(selectedObservation)}.codeAfterRemedial`}
+                                      name={`observations.${selectedObservation}.codeAfterRemedial`}
                                       render={({ field }) => (
                                         <FormItem>
                                           <FormLabel>
@@ -484,7 +486,7 @@ export function UpdateObservationsForm({
             </Card>
           </div>
         </div>
-        <FormActions
+        <FormBar
           form={form}
           sections={sections}
           baseUrl={"/certificates/eicr"}
