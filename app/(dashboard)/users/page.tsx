@@ -12,8 +12,25 @@ export const metadata: Metadata = {
   title: "Reiyen – Users",
 };
 
-export default async function Users() {
-  const users = await prisma.user.findMany();
+interface UsersPageProps {
+  searchParams: Promise<{ page?: string; pageSize?: string }>;
+}
+
+export default async function Users({ searchParams }: UsersPageProps) {
+  const resolvedParams = await searchParams;
+
+  const page = Number(resolvedParams.page) || 1;
+  const pageSize = Number(resolvedParams.pageSize) || 10;
+
+  const [users, totalCount] = await Promise.all([
+    prisma.user.findMany({
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    }),
+    prisma.user.count(),
+  ]);
+
+  const pageCount = Math.ceil(totalCount / pageSize);
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
@@ -29,7 +46,12 @@ export default async function Users() {
           <Heading>Users</Heading>
         </HeaderGroup>
       </Header>
-      <DataTable columns={columns} data={users} />
+      <DataTable
+        columns={columns}
+        data={users}
+        pageCount={pageCount}
+        pagination={{ pageIndex: page - 1, pageSize }}
+      />
     </div>
   );
 }
