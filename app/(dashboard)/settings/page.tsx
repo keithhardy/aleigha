@@ -16,19 +16,20 @@ export default async function Settings() {
   });
 
   return (
-    <>
+    <div className="container mx-auto max-w-screen-xl flex-grow p-6">
       <Header>
         <HeaderGroup>
           <Heading>Account Settings</Heading>
         </HeaderGroup>
       </Header>
-
-      <UpdateNameForm settings={settings} />
-      <UpdateEmailForm settings={settings} />
-      <UpdatePhoneForm settings={settings} />
-      <UpdatePictureForm settings={settings} />
-      <UpdateGoverningBodyForm settings={settings} />
-      <UpdateAddressForm settings={settings} />
-    </>
+      <div className="space-y-4">
+        <UpdateNameForm settings={settings} />
+        <UpdateEmailForm settings={settings} />
+        <UpdatePhoneForm settings={settings} />
+        <UpdatePictureForm settings={settings} />
+        <UpdateGoverningBodyForm settings={settings} />
+        <UpdateAddressForm settings={settings} />
+      </div>
+    </div>
   );
 }

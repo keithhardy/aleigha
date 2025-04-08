@@ -67,48 +67,42 @@ export function UpdateGoverningBodyForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="rounded-md shadow-none">
-          <CardHeader>
-            <CardTitle>Governing Body Details</CardTitle>
-            <CardDescription className="text-primary">
-              Provide details about your governing body registration.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <FormField
-              control={form.control}
-              name="governingBody"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Governing Body"
-                      className="lg:max-w-[50%]"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="governingBodyNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Governing Body Number"
-                      className="lg:max-w-[50%]"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </CardContent>
+          <div className="flex flex-col gap-4 p-6 lg:flex-row">
+            <CardHeader className="w-full p-0">
+              <CardTitle>Governing Body Details</CardTitle>
+              <CardDescription className="text-primary">
+                Provide details about your governing body registration.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="w-full space-y-4 p-0">
+              <FormField
+                control={form.control}
+                name="governingBody"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input {...field} placeholder="Governing Body" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="governingBodyNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input {...field} placeholder="Governing Body Number" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+          </div>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
             <p className="text-sm text-muted-foreground">
               This is governing body that your company is registered with.

@@ -66,34 +66,32 @@ export function UpdateNameForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="rounded-md shadow-none">
-          <CardHeader>
-            <CardTitle>Company Name</CardTitle>
-            <CardDescription className="text-primary">
-              Provide the trading name of your company.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Trading Name"
-                      className="lg:max-w-[50%]"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </CardContent>
+          <div className="flex flex-col gap-4 p-6 lg:flex-row">
+            <CardHeader className="w-full p-0">
+              <CardTitle>Company Name</CardTitle>
+              <CardDescription className="text-primary">
+                Provide the trading name of your company.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="w-full space-y-4 p-0">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input {...field} placeholder="Trading Name" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+          </div>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">
+            <p className="text-balance text-sm text-muted-foreground">
               Name can only contain letters, spaces, hyphens, or apostrophes.
             </p>
             <Button

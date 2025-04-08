@@ -44,29 +44,6 @@ export function UpdatePictureForm({
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setImagePreview(base64String);
-        form.setValue("picture", base64String);
-        form.trigger("picture");
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleClear = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-    setImagePreview(settings?.picture || "");
-    form.setValue("picture", "");
-    form.trigger("picture");
-  };
-
   const form = useForm({
     resolver: zodResolver(UpdateLogoSchema),
     defaultValues: {
@@ -94,64 +71,90 @@ export function UpdatePictureForm({
     }
   };
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setImagePreview(base64String);
+        form.setValue("picture", base64String, { shouldDirty: true });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleClear = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+    setImagePreview(settings?.picture || "");
+    form.reset();
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <Card className="rounded-md shadow-none">
-          <CardHeader className="flex flex-row justify-between">
-            <div className="space-y-2">
+          <div className="flex flex-col gap-4 p-6 lg:flex-row">
+            <CardHeader className="w-full p-0">
               <CardTitle>Upload Logo</CardTitle>
               <CardDescription className="text-primary">
                 Add or update your company logo.
               </CardDescription>
-            </div>
-            {imagePreview && (
-              <div className="w-[100px]">
-                <AspectRatio ratio={16 / 9}>
-                  <Image src={imagePreview} alt="Logo Preview" fill />
-                </AspectRatio>
-              </div>
-            )}
-          </CardHeader>
-          <CardContent>
-            <FormField
-              control={form.control}
-              name="picture"
-              render={() => (
-                <FormItem className="space-y-4">
-                  <div className="flex items-center gap-2 lg:max-w-[50%]">
-                    <FormControl>
-                      <Input
-                        type="file"
-                        accept="image/*"
-                        ref={fileInputRef}
-                        onChange={handleFileChange}
-                      />
-                    </FormControl>
-                    <Button
-                      variant="outline"
-                      type="button"
-                      onClick={handleClear}
-                    >
-                      Clear
-                    </Button>
-                  </div>
-                  <FormMessage />
-                </FormItem>
+            </CardHeader>
+            <CardContent className="w-full space-y-4 p-0">
+              <FormField
+                control={form.control}
+                name="picture"
+                render={() => (
+                  <FormItem>
+                    <div className="flex gap-2">
+                      <FormControl>
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          ref={fileInputRef}
+                          onChange={handleFileChange}
+                        />
+                      </FormControl>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {imagePreview && (
+                <div className="w-[100px]">
+                  <AspectRatio>
+                    <Image src={imagePreview} alt="Logo Preview" fill />
+                  </AspectRatio>
+                </div>
               )}
-            />
-          </CardContent>
+            </CardContent>
+          </div>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
             <p className="text-sm text-muted-foreground">
               Logo must be less than 1 MB.
             </p>
-            <Button
-              variant="outline"
-              type="submit"
-              disabled={!form.formState.isDirty || form.formState.isSubmitting}
-            >
-              {form.formState.isSubmitting ? "Saving..." : "Save"}
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                type="button"
+                onClick={handleClear}
+                disabled={!form.formState.isDirty}
+              >
+                Clear
+              </Button>
+              <Button
+                variant="outline"
+                type="submit"
+                disabled={
+                  !form.formState.isDirty || form.formState.isSubmitting
+                }
+              >
+                {form.formState.isSubmitting ? "Saving..." : "Save"}
+              </Button>
+            </div>
           </CardFooter>
         </Card>
       </form>
