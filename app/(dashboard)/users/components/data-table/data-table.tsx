@@ -1,14 +1,14 @@
 "use client";
 
+import { $Enums } from "@prisma/client";
 import {
   type ColumnDef,
+  useReactTable,
   flexRender,
   getCoreRowModel,
-  useReactTable,
   getPaginationRowModel,
-  type PaginationState,
 } from "@tanstack/react-table";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,41 +20,64 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-  pageCount: number;
-  pagination: PaginationState;
+import { getPaginatedUsers } from "./get-paginated-users";
+
+interface User {
+  name: string;
+  id: string;
+  auth0Id: string;
+  email: string;
+  phone: string;
+  signature: string | null;
+  role: $Enums.UserRole;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-  pageCount,
-  pagination,
-}: DataTableProps<TData, TValue>) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+interface DataTableProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  columns: ColumnDef<User, any>[];
+}
+
+export function DataTable({ columns }: DataTableProps) {
+  const [pageIndex, setPageIndex] = useState(0);
+  const [pageSize] = useState(10);
+  const [data, setData] = useState<{ users: User[]; totalCount: number }>({
+    users: [],
+    totalCount: 0,
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getPaginatedUsers({ page: pageIndex + 1, pageSize });
+      setData(result);
+    };
+
+    fetchData();
+  }, [pageIndex, pageSize]);
 
   const table = useReactTable({
-    data,
+    data: data.users,
     columns,
-    pageCount,
     state: {
-      pagination,
+      pagination: {
+        pageIndex,
+        pageSize,
+      },
     },
     manualPagination: true,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onPaginationChange: (updater) => {
-      const newPagination =
-        typeof updater === "function" ? updater(pagination) : updater;
-
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("page", String(newPagination.pageIndex + 1));
-      params.set("pageSize", String(newPagination.pageSize));
-
-      router.push(`?${params.toString()}`);
+      if (typeof updater === "function") {
+        const newState = updater({
+          pageIndex,
+          pageSize,
+        });
+        setPageIndex(newState.pageIndex);
+      } else {
+        setPageIndex(updater.pageIndex);
+      }
     },
   });
 
@@ -96,7 +119,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className="py-4 text-center"
                 >
                   No results.
                 </TableCell>
@@ -105,23 +128,20 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex justify-end space-x-2 py-4">
         <Button
           variant="outline"
           size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
+          onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
+          disabled={pageIndex === 0}
         >
           Previous
         </Button>
-        <span className="text-sm">
-          Page {pagination.pageIndex + 1} of {pageCount}
-        </span>
         <Button
           variant="outline"
           size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
+          onClick={() => setPageIndex((prev) => prev + 1)}
+          disabled={pageIndex + 1 >= Math.ceil(data.totalCount / pageSize)}
         >
           Next
         </Button>
