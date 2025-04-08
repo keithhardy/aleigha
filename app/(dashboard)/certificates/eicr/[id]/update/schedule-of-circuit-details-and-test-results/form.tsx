@@ -261,8 +261,8 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                       >
                         {selectedDB !== null
                           ? form.watch(
-                            `consumerUnits.${selectedDB}.designation`,
-                          )
+                              `consumerUnits.${selectedDB}.designation`,
+                            )
                           : "Select consumer unit..."}
                         <ChevronsUpDown />
                       </Button>

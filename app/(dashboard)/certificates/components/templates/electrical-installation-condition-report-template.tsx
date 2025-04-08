@@ -721,7 +721,9 @@ export default function ElectricalInstallationConditionReportTemplate({
           <Text>Schedule of Circuit Details and Test Results</Text>
           <Text>
             DB:{" "}
-            {JSON.stringify(electricalInstallationConditionReport.consumerUnits) ?? "na"}
+            {JSON.stringify(
+              electricalInstallationConditionReport.consumerUnits,
+            ) ?? "na"}
           </Text>
 
           {/* Schedule of rates */}

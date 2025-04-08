@@ -8,6 +8,12 @@ import { useRef, useState } from "react";
 import { type DateRange } from "react-day-picker";
 
 import { DatePickerWithRange } from "@/components/date-picker-with-range";
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/dialog-sheet";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -17,18 +23,6 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  DialogSheet,
-  DialogSheetContent,
-  DialogSheetTitle,
-  DialogSheetTrigger,
-} from "@/components/dialog-sheet";
 import { Input } from "@/components/ui/input";
 
 import { FacetedFilter } from "./faceted-filter";
@@ -44,31 +38,31 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
   const clientColumn = table.getColumn("client");
   const clientOptions = clientColumn
     ? Array.from(clientColumn.getFacetedUniqueValues().entries()).map(
-      ([value]) => ({
-        label: String(value),
-        value: String(value),
-      }),
-    )
+        ([value]) => ({
+          label: String(value),
+          value: String(value),
+        }),
+      )
     : [];
 
   const creatorColumn = table.getColumn("creator");
   const creatorOptions = creatorColumn
     ? Array.from(creatorColumn.getFacetedUniqueValues().entries()).map(
-      ([value]) => ({
-        label: String(value),
-        value: String(value),
-      }),
-    )
+        ([value]) => ({
+          label: String(value),
+          value: String(value),
+        }),
+      )
     : [];
 
   const statusColumn = table.getColumn("status");
   const statusOptions = statusColumn
     ? Array.from(statusColumn.getFacetedUniqueValues().entries()).map(
-      ([value]) => ({
-        label: String(value),
-        value: String(value),
-      }),
-    )
+        ([value]) => ({
+          label: String(value),
+          value: String(value),
+        }),
+      )
     : [];
 
   const [, setDateRange] = useState<DateRange | undefined>(undefined);
@@ -170,63 +164,45 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
             <Command className="pt-2">
               <CommandInput placeholder="Search..." />
               <CommandList className="scrollbar-hidden mt-1 border-t p-1">
-                <CommandEmpty>
-                  No results found.
-                </CommandEmpty>
+                <CommandEmpty>No results found.</CommandEmpty>
                 <CommandGroup>
                   <Link href="/certificates/eicr/create">
-                    <CommandItem
-                      value="Electrical Installation Condition Report"
-                    >
+                    <CommandItem value="Electrical Installation Condition Report">
                       Electrical Installation Condition Report
                     </CommandItem>
                   </Link>
                   <Link href="/certificates/eic/create">
-                    <CommandItem
-                      value="Electrical Installation Certificate"
-                    >
+                    <CommandItem value="Electrical Installation Certificate">
                       Electrical Installation Certificate
                     </CommandItem>
                   </Link>
                   <Link href="/certificates/eic/create">
-                    <CommandItem
-                      value="Minor Works Certificate"
-                    >
+                    <CommandItem value="Minor Works Certificate">
                       Minor Works Certificate
                     </CommandItem>
                   </Link>
                   <Link href="/certificates/eic/create">
-                    <CommandItem
-                      value="Fire Detection Installation Certificate"
-                    >
+                    <CommandItem value="Fire Detection Installation Certificate">
                       Fire Detection Installation Certificate
                     </CommandItem>
                   </Link>
                   <Link href="/certificates/eic/create">
-                    <CommandItem
-                      value="Domestic Ventilation Installation Certificate"
-                    >
+                    <CommandItem value="Domestic Ventilation Installation Certificate">
                       Domestic Ventilation Installation Certificate
                     </CommandItem>
                   </Link>
                   <Link href="/certificates/eic/create">
-                    <CommandItem
-                      value="Emergency Lighting Installation Condition Report"
-                    >
+                    <CommandItem value="Emergency Lighting Installation Condition Report">
                       Emergency Lighting Installation Condition Report
                     </CommandItem>
                   </Link>
                   <Link href="/certificates/eic/create">
-                    <CommandItem
-                      value="Emergency Lighting Installation Certificate"
-                    >
+                    <CommandItem value="Emergency Lighting Installation Certificate">
                       Emergency Lighting Installation Certificate
                     </CommandItem>
                   </Link>
                   <Link href="/certificates/eic/create">
-                    <CommandItem
-                      value="Electrical Danger Notification"
-                    >
+                    <CommandItem value="Electrical Danger Notification">
                       Electrical Danger Notification
                     </CommandItem>
                   </Link>
@@ -235,11 +211,6 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
             </Command>
           </DialogSheetContent>
         </DialogSheet>
-
-
-
-
-
 
         <ViewOptions table={table} />
       </div>
