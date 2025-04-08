@@ -125,7 +125,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                   />
                 </CardContent>
               </div>
-              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
                   Provide detailed information regarding the inspection process
                   and limitations.
@@ -173,7 +173,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                   />
                 </CardContent>
               </div>
-              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
                   Provide detailed information regarding the inspection process
                   and limitations.
@@ -232,7 +232,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                   />
                 </CardContent>
               </div>
-              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
                   Provide detailed information regarding the inspection process
                   and limitations.

@@ -189,7 +189,7 @@ export function UpdateDeclarationForm({
                   />
                 </CardContent>
               </div>
-              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
                   Not sure about the retest period? Check out our{" "}
                   <Link
@@ -336,7 +336,7 @@ export function UpdateDeclarationForm({
                   />
                 </CardContent>
               </div>
-              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
                   Ensure all information is accurate and verified before
                   submitting.
@@ -476,7 +476,7 @@ export function UpdateDeclarationForm({
                   />
                 </CardContent>
               </div>
-              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
                   Ensure all findings are verified before signing off the
                   report. If unsure, consult with the inspector.

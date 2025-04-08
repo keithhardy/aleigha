@@ -8,9 +8,9 @@ import {
   Building2,
   House,
   Folder,
-  BookText,
-  CircleHelp,
-  ScrollText,
+  // BookText,
+  // CircleHelp,
+  // ScrollText,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -115,7 +115,7 @@ export function DashboardSidebar() {
 
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem>
+          {/* <SidebarMenuItem>
             <SidebarMenuButton
               asChild
               tooltip="Help"
@@ -150,7 +150,7 @@ export function DashboardSidebar() {
                 <span>Changelog</span>
               </Link>
             </SidebarMenuButton>
-          </SidebarMenuItem>
+          </SidebarMenuItem> */}
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild

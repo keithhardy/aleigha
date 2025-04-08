@@ -222,7 +222,7 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                   />
                 </CardContent>
               </div>
-              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
                   Not sure about the system type? Check out our{" "}
                   <Link
@@ -296,7 +296,7 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                   />
                 </CardContent>
               </div>
-              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-sm text-muted-foreground">
                   Ensure all details are correct before submission.
                 </p>
@@ -366,7 +366,7 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                   />
                 </CardContent>
               </div>
-              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
                   Not sure how to test? Check out our{" "}
                   <Link

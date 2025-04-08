@@ -123,7 +123,7 @@ export function UpdatePurposeOfTheReportForm({
                   />
                 </CardContent>
               </div>
-              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
                   To set or change the default value for the purpose, visit the{" "}
                   <Link
@@ -237,7 +237,7 @@ export function UpdatePurposeOfTheReportForm({
                   />
                 </CardContent>
               </div>
-              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
                   Please ensure the inspection dates are accurate.
                 </p>
@@ -334,7 +334,7 @@ export function UpdatePurposeOfTheReportForm({
                   )}
                 </CardContent>
               </div>
-              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
                   To confirm if records are available, visit{" "}
                   <Link

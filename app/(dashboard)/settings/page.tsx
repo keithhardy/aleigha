@@ -1,3 +1,6 @@
+import { MoveLeft } from "lucide-react";
+import Link from "next/link";
+
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
@@ -19,6 +22,13 @@ export default async function Settings() {
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
       <Header>
         <HeaderGroup>
+          <Link
+            href={"/"}
+            className="inline-flex items-center text-sm font-semibold"
+          >
+            <MoveLeft size={22} className="mr-2" />
+            <span>Back to Dashboard</span>
+          </Link>
           <Heading>Account Settings</Heading>
         </HeaderGroup>
       </Header>

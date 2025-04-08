@@ -129,7 +129,7 @@ export function UpdateSpecialLocationsAndInstallationsForm({
                   ))}
                 </CardContent>
               </div>
-              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+              <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
                   Ensure the condition and safety of special locations and
                   installations is checked.
