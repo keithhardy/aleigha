@@ -40,7 +40,7 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
 
       <div className="flex items-center space-x-2">
         <Link href="/clients/create">
-          <Button size="sm">
+          <Button variant="outline" size="sm">
             Create <PlusCircledIcon />
           </Button>
         </Link>

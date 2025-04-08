@@ -314,7 +314,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                           <Ellipsis />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
+                      <DropdownMenuContent>
                         <DropdownMenuItem
                           onSelect={() => {
                             setEditDBOpen(true);
@@ -686,7 +686,7 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                                           <Ellipsis className="h-4 w-4" />
                                         </Button>
                                       </DropdownMenuTrigger>
-                                      <DropdownMenuContent align="end">
+                                      <DropdownMenuContent>
                                         <DropdownMenuItem
                                           onSelect={() => {
                                             setSelectedCircuit(index);

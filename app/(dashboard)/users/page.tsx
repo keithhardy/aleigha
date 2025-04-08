@@ -1,11 +1,8 @@
+import { MoveLeft } from "lucide-react";
 import { Metadata } from "next";
+import Link from "next/link";
 
-import {
-  Header,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
+import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
 import { columns } from "./components/data-table/columns";
@@ -19,18 +16,20 @@ export default async function Users() {
   const users = await prisma.user.findMany();
 
   return (
-    <>
+    <div className="container mx-auto max-w-screen-xl flex-grow p-6">
       <Header>
         <HeaderGroup>
-          <Heading>View Users</Heading>
-          <HeaderDescription>
-            Manage your users. View a table of users and access links to create,
-            update, or delete user records.
-          </HeaderDescription>
+          <Link
+            href={"/"}
+            className="inline-flex items-center text-sm font-semibold"
+          >
+            <MoveLeft size={22} className="mr-2" />
+            <span>Back to Dashboard</span>
+          </Link>
+          <Heading>Users</Heading>
         </HeaderGroup>
       </Header>
-
       <DataTable columns={columns} data={users} />
-    </>
+    </div>
   );
 }

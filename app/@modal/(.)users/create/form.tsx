@@ -171,7 +171,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="p-0">
+                  <PopoverContent className="w-[414px] p-0">
                     <Command>
                       <CommandInput placeholder="Search..." className="h-9" />
                       <CommandList>

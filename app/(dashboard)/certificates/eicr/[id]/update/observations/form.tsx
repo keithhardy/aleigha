@@ -230,7 +230,7 @@ export function UpdateObservationsForm({
                                         <Ellipsis className="h-4 w-4" />
                                       </Button>
                                     </DropdownMenuTrigger>
-                                    <DropdownMenuContent align="end">
+                                    <DropdownMenuContent>
                                       <DropdownMenuItem
                                         onSelect={() => {
                                           setSelectedObservation(index);
@@ -278,7 +278,7 @@ export function UpdateObservationsForm({
                                       <span className="sr-only">Open menu</span>
                                     </Button>
                                   </DropdownMenuTrigger>
-                                  <DropdownMenuContent align="end">
+                                  <DropdownMenuContent>
                                     <DropdownMenuItem
                                       onSelect={() => {
                                         setSelectedObservation(index);

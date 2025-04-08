@@ -35,6 +35,16 @@ interface ToolbarProps<TData> {
 export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
+  const typeColumn = table.getColumn("type");
+  const typeOptions = typeColumn
+    ? Array.from(typeColumn.getFacetedUniqueValues().entries()).map(
+        ([value]) => ({
+          label: String(value),
+          value: String(value),
+        }),
+      )
+    : [];
+
   const clientColumn = table.getColumn("client");
   const clientOptions = clientColumn
     ? Array.from(clientColumn.getFacetedUniqueValues().entries()).map(
@@ -69,7 +79,7 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
   const datePickerRef = useRef<{ reset: () => void }>(null);
 
   const applyDateRangeFilter = (range: DateRange | undefined) => {
-    const column = table.getColumn("startDate");
+    const column = table.getColumn("Date");
     if (column) {
       const fromDate = range?.from ? range.from.toISOString() : null;
       const toDate = range?.to ? range.to.toISOString() : null;
@@ -108,6 +118,14 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
           ref={datePickerRef}
           onSelect={handleDateRangeSelect}
         />
+
+        {typeColumn && (
+          <FacetedFilter
+            column={typeColumn}
+            title="Type"
+            options={typeOptions}
+          />
+        )}
 
         {clientColumn && (
           <FacetedFilter

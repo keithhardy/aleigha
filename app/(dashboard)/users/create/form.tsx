@@ -111,8 +111,6 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
-                    role="combobox"
-                    aria-expanded={userRoleOpen ? "true" : "false"}
                     className="max-w-[1024px] justify-between"
                   >
                     {field.value

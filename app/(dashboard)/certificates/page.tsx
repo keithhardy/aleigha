@@ -1,11 +1,9 @@
+import { MoveLeft } from "lucide-react";
+import Link from "next/link";
+
 import { columns } from "@/app/(dashboard)/certificates/components/data-table/columns";
 import { DataTable } from "@/app/(dashboard)/certificates/components/data-table/data-table";
-import {
-  Header,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
+import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
 export default async function Certificates() {
@@ -43,18 +41,21 @@ export default async function Certificates() {
     });
 
   return (
-    <>
+    <div className="container mx-auto max-w-screen-xl flex-grow p-6">
       <Header>
         <HeaderGroup>
+          <Link
+            href={"/"}
+            className="inline-flex items-center text-sm font-semibold"
+          >
+            <MoveLeft size={22} className="mr-2" />
+            <span>Back to Dashboard</span>
+          </Link>
           <Heading>View Certificates</Heading>
-          <HeaderDescription>
-            Manage your certificates. Browse through the list of certificates
-            and easily add, update, or remove records as needed.
-          </HeaderDescription>
         </HeaderGroup>
       </Header>
 
       <DataTable columns={columns} data={certificates} />
-    </>
+    </div>
   );
 }

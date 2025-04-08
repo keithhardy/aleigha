@@ -59,7 +59,7 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
 
       <div className="flex items-center space-x-2">
         <Link href="/users/create">
-          <Button size="sm">
+          <Button size="sm" variant="outline">
             Create <PlusCircledIcon />
           </Button>
         </Link>

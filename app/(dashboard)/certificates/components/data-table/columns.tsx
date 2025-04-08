@@ -23,11 +23,21 @@ export const columns: ColumnDef<{
 }>[] = [
   {
     accessorKey: "serial",
-    header: ({ column }) => <ColumnHeader column={column} title="Serial" />,
+    header: ({ column }) => <ColumnHeader column={column} title="Serial No." />,
   },
   {
     accessorKey: "type",
     header: ({ column }) => <ColumnHeader column={column} title="Type" />,
+    cell: ({ getValue }) => {
+      const value = getValue() as string;
+      const initials = value
+        .split(" ")
+        .map((word) => word[0])
+        .join("")
+        .toUpperCase();
+      return initials;
+    },
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
     accessorFn: (row) => row.client?.name,
@@ -37,21 +47,23 @@ export const columns: ColumnDef<{
   },
   {
     accessorKey: "property.uprn",
-    header: ({ column }) => (
-      <ColumnHeader column={column} title="Property Reference" />
-    ),
+    id: "UPRN",
+    header: ({ column }) => <ColumnHeader column={column} title="UPRN" />,
   },
   {
     accessorKey: "property.address.streetAddress",
+    id: "Address",
     header: ({ column }) => <ColumnHeader column={column} title="Address" />,
   },
   {
     accessorKey: "property.address.postCode",
+    id: "Postcode",
     header: ({ column }) => <ColumnHeader column={column} title="Postcode" />,
   },
   {
     accessorKey: "startDate",
-    header: ({ column }) => <ColumnHeader column={column} title="Start Date" />,
+    id: "Date",
+    header: ({ column }) => <ColumnHeader column={column} title="Date" />,
     cell: ({ getValue }) => {
       const date = getValue() as string | undefined;
 
@@ -83,18 +95,6 @@ export const columns: ColumnDef<{
       }
 
       return true;
-    },
-  },
-  {
-    accessorKey: "endDate",
-    header: ({ column }) => <ColumnHeader column={column} title="End Date" />,
-    cell: ({ getValue }) => {
-      const date = getValue() as string | undefined;
-
-      if (date) {
-        return format(new Date(date), "dd/MM/yy");
-      }
-      return "N/A";
     },
   },
   {

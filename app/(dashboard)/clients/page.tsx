@@ -1,11 +1,9 @@
+import { MoveLeft } from "lucide-react";
+import Link from "next/link";
+
 import { columns } from "@/app/(dashboard)/clients/components/data-table/columns";
 import { DataTable } from "@/app/(dashboard)/clients/components/data-table/data-table";
-import {
-  Header,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
+import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
 export default async function Clients() {
@@ -16,18 +14,20 @@ export default async function Clients() {
   });
 
   return (
-    <>
+    <div className="container mx-auto max-w-screen-xl flex-grow p-6">
       <Header>
         <HeaderGroup>
-          <Heading>View Clients</Heading>
-          <HeaderDescription>
-            Manage your clients. Browse a table of clients and find links to
-            add, update, or remove client records.
-          </HeaderDescription>
+          <Link
+            href={"/"}
+            className="inline-flex items-center text-sm font-semibold"
+          >
+            <MoveLeft size={22} className="mr-2" />
+            <span>Back to Dashboard</span>
+          </Link>
+          <Heading>Clients</Heading>
         </HeaderGroup>
       </Header>
-
       <DataTable columns={columns} data={clients} />
-    </>
+    </div>
   );
 }

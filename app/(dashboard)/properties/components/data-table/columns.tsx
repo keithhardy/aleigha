@@ -14,6 +14,7 @@ export const columns: ColumnDef<
 >[] = [
   {
     accessorKey: "uprn",
+    id: "UPRN",
     header: ({ column }) => <ColumnHeader column={column} title="UPRN" />,
   },
   {
@@ -29,10 +30,12 @@ export const columns: ColumnDef<
   },
   {
     accessorKey: "address.streetAddress",
+    id: "Address",
     header: ({ column }) => <ColumnHeader column={column} title="Address" />,
   },
   {
     accessorKey: "address.postCode",
+    id: "Postcode",
     header: ({ column }) => <ColumnHeader column={column} title="Postcode" />,
   },
   {

@@ -81,7 +81,7 @@ export function RowActions({
           <MoreHorizontal className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent>
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
           <Link
@@ -99,14 +99,14 @@ export function RowActions({
             Delete
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem
+        {/* <DropdownMenuItem
           // onClick={() =>
           //   // handlePDFDownload(electricalInstallationConditionReport)
           // }
           className="cursor-pointer"
         >
           Download PDF
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

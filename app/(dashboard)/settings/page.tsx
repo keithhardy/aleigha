@@ -29,7 +29,7 @@ export default async function Settings() {
             <MoveLeft size={22} className="mr-2" />
             <span>Back to Dashboard</span>
           </Link>
-          <Heading>Account Settings</Heading>
+          <Heading>Settings</Heading>
         </HeaderGroup>
       </Header>
       <div className="space-y-4">

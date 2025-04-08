@@ -1,11 +1,9 @@
+import { MoveLeft } from "lucide-react";
+import Link from "next/link";
+
 import { columns } from "@/app/(dashboard)/properties/components/data-table/columns";
 import { DataTable } from "@/app/(dashboard)/properties/components/data-table/data-table";
-import {
-  Header,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
+import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
 
 export default async function Properties() {
@@ -17,18 +15,21 @@ export default async function Properties() {
   });
 
   return (
-    <>
+    <div className="container mx-auto max-w-screen-xl flex-grow p-6">
       <Header>
         <HeaderGroup>
-          <Heading>View Properties</Heading>
-          <HeaderDescription>
-            Manage your properties. Browse a table of properties and find links
-            to add, update, or remove property records.
-          </HeaderDescription>
+          <Link
+            href={"/"}
+            className="inline-flex items-center text-sm font-semibold"
+          >
+            <MoveLeft size={22} className="mr-2" />
+            <span>Back to Dashboard</span>
+          </Link>
+          <Heading>Properties</Heading>
         </HeaderGroup>
       </Header>
 
       <DataTable columns={columns} data={properties} />
-    </>
+    </div>
   );
 }
