@@ -50,6 +50,7 @@ import {
 } from "@/components/ui/table";
 
 import { getPaginatedUsers } from "./get-paginated-users";
+import { Card, CardFooter } from "@/components/ui/card";
 
 interface User {
   name: string;
@@ -240,7 +241,8 @@ export function DataTable({ columns, initialData }: DataTableProps) {
           </Link>
         </div>
       </div>
-      <div className="rounded-md border">
+
+      <Card className="rounded-md shadow-none">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -250,9 +252,9 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
                   </TableHead>
                 ))}
               </TableRow>
@@ -284,45 +286,45 @@ export function DataTable({ columns, initialData }: DataTableProps) {
             )}
           </TableBody>
         </Table>
-      </div>
-      <div className="flex items-center space-x-2">
-        <div className="flex-1 text-sm font-medium">
-          {selectedRows.length} of {data.totalCount} row(s) selected.
-        </div>
-        <p className="text-sm font-medium">Rows per page</p>
-        <Select
-          value={`${pageSize}`}
-          onValueChange={(value) => {
-            setPageSize(Number(value));
-            setPageIndex(0);
-          }}
-        >
-          <SelectTrigger className="w-[70px]">
-            <SelectValue placeholder={pageSize} />
-          </SelectTrigger>
-          <SelectContent side="top" align="center">
-            {[10, 30, 50, 100].map((pageSize) => (
-              <SelectItem key={pageSize} value={`${pageSize}`}>
-                {pageSize}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Button
-          variant="outline"
-          onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
-          disabled={pageIndex === 0}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => setPageIndex((prev) => prev + 1)}
-          disabled={pageIndex + 1 >= Math.ceil(data.totalCount / pageSize)}
-        >
-          Next
-        </Button>
-      </div>
+        <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+          <div className="flex-1 text-sm font-medium">
+            {selectedRows.length} of {data.totalCount} row(s) selected.
+          </div>
+          <p className="text-sm font-medium">Rows per page</p>
+          <Select
+            value={`${pageSize}`}
+            onValueChange={(value) => {
+              setPageSize(Number(value));
+              setPageIndex(0);
+            }}
+          >
+            <SelectTrigger className="w-[70px] bg-background">
+              <SelectValue placeholder={pageSize} />
+            </SelectTrigger>
+            <SelectContent side="top" align="center">
+              {[10, 30, 50, 100].map((pageSize) => (
+                <SelectItem key={pageSize} value={`${pageSize}`}>
+                  {pageSize}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Button
+            variant="outline"
+            onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
+            disabled={pageIndex === 0}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => setPageIndex((prev) => prev + 1)}
+            disabled={pageIndex + 1 >= Math.ceil(data.totalCount / pageSize)}
+          >
+            Next
+          </Button>
+        </CardFooter>
+      </Card>
     </div>
   );
 }
