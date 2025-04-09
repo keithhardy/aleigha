@@ -7,6 +7,8 @@ import {
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
+  type SortingState,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
 
@@ -50,6 +52,8 @@ export function DataTable({ columns, initialData }: DataTableProps) {
 
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
 
+  const [sorting, setSorting] = useState<SortingState>([]);
+
   const rowSelection = useMemo(() => {
     const selection: Record<number, boolean> = {};
     data.users.forEach((user, index) => {
@@ -60,29 +64,40 @@ export function DataTable({ columns, initialData }: DataTableProps) {
     return selection;
   }, [data.users, selectedUserIds]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleRowSelectionChange = (updater: any) => {
     const newSelection =
       typeof updater === "function" ? updater(rowSelection) : updater;
 
     const newlySelectedIds = Object.entries(newSelection)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .filter(([_, selected]) => selected)
       .map(([index]) => data.users[Number(index)].id);
 
     const currentPageIds = data.users.map((user) => user.id);
 
-    const filtered = selectedUserIds.filter((id) => !currentPageIds.includes(id));
+    const filtered = selectedUserIds.filter(
+      (id) => !currentPageIds.includes(id),
+    );
 
     setSelectedUserIds([...filtered, ...newlySelectedIds]);
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getPaginatedUsers({ page: pageIndex + 1, pageSize });
+      const sort = sorting[0];
+      const result = await getPaginatedUsers({
+        page: pageIndex + 1,
+        pageSize,
+        sortBy: sort?.id,
+        sortOrder: sort?.desc ? "desc" : "asc",
+      });
+
       setData(result);
     };
 
     fetchData();
-  }, [pageIndex, pageSize]);
+  }, [pageIndex, pageSize, sorting]);
 
   const table = useReactTable({
     data: data.users,
@@ -93,22 +108,22 @@ export function DataTable({ columns, initialData }: DataTableProps) {
         pageSize,
       },
       rowSelection,
+      sorting,
     },
     manualPagination: true,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    manualSorting: true,
     onPaginationChange: (updater) => {
-      if (typeof updater === "function") {
-        const newState = updater({
-          pageIndex,
-          pageSize,
-        });
-        setPageIndex(newState.pageIndex);
-      } else {
-        setPageIndex(updater.pageIndex);
-      }
+      const newPage =
+        typeof updater === "function"
+          ? updater({ pageIndex, pageSize })
+          : updater;
+      setPageIndex(newPage.pageIndex);
     },
     onRowSelectionChange: handleRowSelectionChange,
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   });
 
   return (
@@ -123,9 +138,9 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                   </TableHead>
                 ))}
               </TableRow>
