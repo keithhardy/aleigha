@@ -9,8 +9,10 @@ import {
   getPaginationRowModel,
   type SortingState,
   getSortedRowModel,
+  type OnChangeFn,
+  type RowSelectionState,
 } from "@tanstack/react-table";
-import { Check, PlusCircle, XCircle } from "lucide-react";
+import { Check, FolderUp, Plus, PlusCircle, XCircle } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
@@ -62,8 +64,7 @@ interface User {
 }
 
 interface DataTableProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  columns: ColumnDef<User, any>[];
+  columns: ColumnDef<User, unknown>[];
   initialData: {
     users: User[];
     totalCount: number;
@@ -71,44 +72,55 @@ interface DataTableProps {
 }
 
 export function DataTable({ columns, initialData }: DataTableProps) {
+  const [data, setData] = useState(initialData);
+
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(10);
-  const [data, setData] = useState(initialData);
+
+  const [selectedRows, setSelectedRows] = useState<string[]>([]);
+
+  const [sorting, setSorting] = useState<SortingState>([]);
+
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
-  const [sorting, setSorting] = useState<SortingState>([]);
   const [roleFilter, setRoleFilter] = useState<$Enums.UserRole[]>([]);
-
-  const [selectClientOpen, setSelectClientOpen] = useState(false);
+  const [selectRoleFilterOpen, setSelectRoleFilterOpen] = useState(false);
 
   const rowSelection = useMemo(() => {
-    const selection: Record<number, boolean> = {};
-    data.users.forEach((user, index) => {
-      if (selectedUserIds.includes(user.id)) {
-        selection[index] = true;
-      }
-    });
-    return selection;
-  }, [data.users, selectedUserIds]);
+    const idSet = new Set(selectedRows);
+    return data.users.reduce<Record<number, boolean>>((acc, user, index) => {
+      if (idSet.has(user.id)) acc[index] = true;
+      return acc;
+    }, {});
+  }, [data.users, selectedRows]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleRowSelectionChange = (updater: any) => {
+  const handleRowSelectionChange: OnChangeFn<RowSelectionState> = (
+    updaterOrValue,
+  ) => {
     const newSelection =
-      typeof updater === "function" ? updater(rowSelection) : updater;
+      typeof updaterOrValue === "function"
+        ? updaterOrValue(rowSelection)
+        : (updaterOrValue ?? {});
 
-    const newlySelectedIds = Object.entries(newSelection)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .filter(([_, selected]) => selected)
-      .map(([index]) => data.users[Number(index)].id);
+    const selectedIds = Object.entries(newSelection)
+      .filter(([, selected]) => selected)
+      .map(([index]) => data.users[Number(index)]?.id)
+      .filter(Boolean);
 
-    const currentPageIds = data.users.map((user) => user.id);
+    const currentPageIds = new Set(data.users.map((user) => user.id));
 
-    const filtered = selectedUserIds.filter(
-      (id) => !currentPageIds.includes(id),
+    setSelectedRows((prev) => {
+      const retained = prev.filter((id) => !currentPageIds.has(id));
+      return Array.from(new Set([...retained, ...selectedIds]));
+    });
+  };
+
+  const toggleRoleSelection = (role: $Enums.UserRole) => {
+    setRoleFilter((prevRoles) =>
+      prevRoles.includes(role)
+        ? prevRoles.filter((r) => r !== role)
+        : [...prevRoles, role],
     );
-
-    setSelectedUserIds([...filtered, ...newlySelectedIds]);
   };
 
   useEffect(() => {
@@ -128,14 +140,6 @@ export function DataTable({ columns, initialData }: DataTableProps) {
 
     fetchData();
   }, [pageIndex, pageSize, sorting, searchQuery, roleFilter]);
-
-  const toggleRoleSelection = (role: $Enums.UserRole) => {
-    setRoleFilter((prevRoles) =>
-      prevRoles.includes(role)
-        ? prevRoles.filter((r) => r !== role)
-        : [...prevRoles, role],
-    );
-  };
 
   const table = useReactTable({
     data: data.users,
@@ -172,15 +176,14 @@ export function DataTable({ columns, initialData }: DataTableProps) {
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-[32px] w-[150px] lg:w-[250px]"
+            className="w-[150px] lg:w-[250px]"
           />
-
           <DialogSheet
-            open={selectClientOpen}
-            onOpenChange={setSelectClientOpen}
+            open={selectRoleFilterOpen}
+            onOpenChange={setSelectRoleFilterOpen}
           >
             <DialogSheetTrigger asChild>
-              <Button size="sm" variant="outline">
+              <Button variant="outline">
                 <PlusCircle />
                 Role
                 {roleFilter.length > 0 && (
@@ -190,7 +193,6 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                 )}
               </Button>
             </DialogSheetTrigger>
-
             <DialogSheetContent className="p-0">
               <DialogSheetTitle className="hidden" />
               <Command className="pt-2">
@@ -219,26 +221,25 @@ export function DataTable({ columns, initialData }: DataTableProps) {
             </DialogSheetContent>
           </DialogSheet>
           {roleFilter.length > 0 && (
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setRoleFilter([])}
-            >
+            <Button variant="outline" onClick={() => setRoleFilter([])}>
               <XCircle />
               Clear
             </Button>
           )}
         </div>
-
         <div className="flex items-center space-x-2">
-          <Link href="/clients/create">
-            <Button size="sm" variant="outline">
+          <Button variant="outline" disabled={selectedRows.length <= 0}>
+            <FolderUp />
+            Export
+          </Button>
+          <Link href="/users/create">
+            <Button variant="outline">
+              <Plus />
               Create
             </Button>
           </Link>
         </div>
       </div>
-
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -284,10 +285,9 @@ export function DataTable({ columns, initialData }: DataTableProps) {
           </TableBody>
         </Table>
       </div>
-
       <div className="flex items-center space-x-2">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {selectedUserIds.length} of {data.totalCount} row(s) selected.
+        <div className="flex-1 text-sm font-medium">
+          {selectedRows.length} of {data.totalCount} row(s) selected.
         </div>
         <p className="text-sm font-medium">Rows per page</p>
         <Select
@@ -297,7 +297,7 @@ export function DataTable({ columns, initialData }: DataTableProps) {
             setPageIndex(0);
           }}
         >
-          <SelectTrigger className="h-[32px] w-[70px]">
+          <SelectTrigger className="w-[70px]">
             <SelectValue placeholder={pageSize} />
           </SelectTrigger>
           <SelectContent side="top" align="center">
@@ -309,7 +309,6 @@ export function DataTable({ columns, initialData }: DataTableProps) {
           </SelectContent>
         </Select>
         <Button
-          size="sm"
           variant="outline"
           onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
           disabled={pageIndex === 0}
@@ -317,7 +316,6 @@ export function DataTable({ columns, initialData }: DataTableProps) {
           Previous
         </Button>
         <Button
-          size="sm"
           variant="outline"
           onClick={() => setPageIndex((prev) => prev + 1)}
           disabled={pageIndex + 1 >= Math.ceil(data.totalCount / pageSize)}
