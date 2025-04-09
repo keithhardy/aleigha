@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@prisma/client";
+import { $Enums } from "@prisma/client";
 import { type ColumnDef } from "@tanstack/react-table";
 import {
   ArrowDownIcon,
@@ -18,6 +18,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
+interface User {
+  name: string;
+  id: string;
+  auth0Id: string;
+  email: string;
+  phone: string;
+  signature: string | null;
+  role: $Enums.UserRole;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export const columns: ColumnDef<User>[] = [
   {
