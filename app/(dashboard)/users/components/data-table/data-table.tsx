@@ -8,7 +8,7 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
 } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -48,15 +48,40 @@ export function DataTable({ columns, initialData }: DataTableProps) {
   const [pageSize] = useState(10);
   const [data, setData] = useState(initialData);
 
+  const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
+
+  const rowSelection = useMemo(() => {
+    const selection: Record<number, boolean> = {};
+    data.users.forEach((user, index) => {
+      if (selectedUserIds.includes(user.id)) {
+        selection[index] = true;
+      }
+    });
+    return selection;
+  }, [data.users, selectedUserIds]);
+
+  const handleRowSelectionChange = (updater: any) => {
+    const newSelection =
+      typeof updater === "function" ? updater(rowSelection) : updater;
+
+    const newlySelectedIds = Object.entries(newSelection)
+      .filter(([_, selected]) => selected)
+      .map(([index]) => data.users[Number(index)].id);
+
+    const currentPageIds = data.users.map((user) => user.id);
+
+    const filtered = selectedUserIds.filter((id) => !currentPageIds.includes(id));
+
+    setSelectedUserIds([...filtered, ...newlySelectedIds]);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const result = await getPaginatedUsers({ page: pageIndex + 1, pageSize });
       setData(result);
     };
 
-    if (pageIndex !== 0) {
-      fetchData();
-    }
+    fetchData();
   }, [pageIndex, pageSize]);
 
   const table = useReactTable({
@@ -67,6 +92,7 @@ export function DataTable({ columns, initialData }: DataTableProps) {
         pageIndex,
         pageSize,
       },
+      rowSelection,
     },
     manualPagination: true,
     getCoreRowModel: getCoreRowModel(),
@@ -82,6 +108,7 @@ export function DataTable({ columns, initialData }: DataTableProps) {
         setPageIndex(updater.pageIndex);
       }
     },
+    onRowSelectionChange: handleRowSelectionChange,
   });
 
   return (
@@ -132,6 +159,9 @@ export function DataTable({ columns, initialData }: DataTableProps) {
         </Table>
       </div>
       <div className="flex justify-end space-x-2 py-4">
+        <div className="flex-1 text-sm text-muted-foreground">
+          {selectedUserIds.length} of {data.totalCount} row(s) selected.
+        </div>
         <Button
           variant="outline"
           size="sm"
