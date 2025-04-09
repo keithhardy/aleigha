@@ -10,9 +10,11 @@ import {
   type SortingState,
   getSortedRowModel,
 } from "@tanstack/react-table";
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -56,6 +58,7 @@ export function DataTable({ columns, initialData }: DataTableProps) {
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [data, setData] = useState(initialData);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
 
@@ -98,13 +101,14 @@ export function DataTable({ columns, initialData }: DataTableProps) {
         pageSize,
         sortBy: sort?.id,
         sortOrder: sort?.desc ? "desc" : "asc",
+        searchQuery,
       });
 
       setData(result);
     };
 
     fetchData();
-  }, [pageIndex, pageSize, sorting]);
+  }, [pageIndex, pageSize, sorting, searchQuery]);
 
   const table = useReactTable({
     data: data.users,
@@ -134,7 +138,24 @@ export function DataTable({ columns, initialData }: DataTableProps) {
   });
 
   return (
-    <div>
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div className="flex flex-1 items-center space-x-2">
+          <Input
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-[150px] lg:w-[250px]"
+          />
+        </div>
+
+        <div className="flex items-center space-x-2">
+          <Link href="/clients/create">
+            <Button variant="outline">Create</Button>
+          </Link>
+        </div>
+      </div>
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -145,9 +166,9 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
                   </TableHead>
                 ))}
               </TableRow>
@@ -180,7 +201,8 @@ export function DataTable({ columns, initialData }: DataTableProps) {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center space-x-2 py-4">
+
+      <div className="flex items-center space-x-2">
         <div className="flex-1 text-sm text-muted-foreground">
           {selectedUserIds.length} of {data.totalCount} row(s) selected.
         </div>

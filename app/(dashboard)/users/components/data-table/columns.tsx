@@ -49,7 +49,6 @@ export const columns: ColumnDef<User>[] = [
         onCheckedChange={(value) => row.toggleSelected(!!value)}
       />
     ),
-    enableSorting: false,
   },
   {
     accessorKey: "name",
@@ -84,7 +83,6 @@ export const columns: ColumnDef<User>[] = [
         </DropdownMenu>
       );
     },
-    enableSorting: true,
   },
   {
     accessorKey: "email",

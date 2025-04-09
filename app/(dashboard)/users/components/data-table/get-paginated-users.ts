@@ -7,12 +7,24 @@ export async function getPaginatedUsers({
   pageSize,
   sortBy,
   sortOrder,
+  searchQuery,
 }: {
   page: number;
   pageSize: number;
   sortBy?: string;
   sortOrder?: "asc" | "desc";
+  searchQuery?: string;
 }) {
+  const where = searchQuery
+    ? {
+        OR: [
+          { name: { contains: searchQuery } },
+          { email: { contains: searchQuery } },
+          { phone: { contains: searchQuery } },
+        ],
+      }
+    : undefined;
+
   const [users, totalCount] = await Promise.all([
     prisma.user.findMany({
       skip: (page - 1) * pageSize,
@@ -22,8 +34,9 @@ export async function getPaginatedUsers({
             [sortBy]: sortOrder || "asc",
           }
         : undefined,
+      where,
     }),
-    prisma.user.count(),
+    prisma.user.count({ where }),
   ]);
 
   return {
