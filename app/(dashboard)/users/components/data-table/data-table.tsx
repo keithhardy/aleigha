@@ -37,15 +37,16 @@ interface User {
 interface DataTableProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   columns: ColumnDef<User, any>[];
+  initialData: {
+    users: User[];
+    totalCount: number;
+  };
 }
 
-export function DataTable({ columns }: DataTableProps) {
+export function DataTable({ columns, initialData }: DataTableProps) {
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize] = useState(10);
-  const [data, setData] = useState<{ users: User[]; totalCount: number }>({
-    users: [],
-    totalCount: 0,
-  });
+  const [data, setData] = useState(initialData);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,7 +54,9 @@ export function DataTable({ columns }: DataTableProps) {
       setData(result);
     };
 
-    fetchData();
+    if (pageIndex !== 0) {
+      fetchData();
+    }
   }, [pageIndex, pageSize]);
 
   const table = useReactTable({
@@ -93,9 +96,9 @@ export function DataTable({ columns }: DataTableProps) {
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
                   </TableHead>
                 ))}
               </TableRow>
