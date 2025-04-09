@@ -14,6 +14,13 @@ import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Table,
   TableBody,
   TableCell,
@@ -47,7 +54,7 @@ interface DataTableProps {
 
 export function DataTable({ columns, initialData }: DataTableProps) {
   const [pageIndex, setPageIndex] = useState(0);
-  const [pageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(10);
   const [data, setData] = useState(initialData);
 
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
@@ -173,13 +180,31 @@ export function DataTable({ columns, initialData }: DataTableProps) {
           </TableBody>
         </Table>
       </div>
-      <div className="flex justify-end space-x-2 py-4">
+      <div className="flex items-center space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
           {selectedUserIds.length} of {data.totalCount} row(s) selected.
         </div>
+        <p className="text-sm font-medium">Rows per page</p>
+        <Select
+          value={`${pageSize}`}
+          onValueChange={(value) => {
+            setPageSize(Number(value));
+            setPageIndex(0);
+          }}
+        >
+          <SelectTrigger className="w-[70px]">
+            <SelectValue placeholder={pageSize} />
+          </SelectTrigger>
+          <SelectContent side="top" align="center">
+            {[10, 30, 50, 100].map((pageSize) => (
+              <SelectItem key={pageSize} value={`${pageSize}`}>
+                {pageSize}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
         <Button
           variant="outline"
-          size="sm"
           onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
           disabled={pageIndex === 0}
         >
@@ -187,7 +212,6 @@ export function DataTable({ columns, initialData }: DataTableProps) {
         </Button>
         <Button
           variant="outline"
-          size="sm"
           onClick={() => setPageIndex((prev) => prev + 1)}
           disabled={pageIndex + 1 >= Math.ceil(data.totalCount / pageSize)}
         >
