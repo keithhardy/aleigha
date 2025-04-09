@@ -10,7 +10,7 @@ import {
   type SortingState,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import { Check, PlusCircle, X, XCircle } from "lucide-react";
+import { Check, PlusCircle, XCircle } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
@@ -219,7 +219,11 @@ export function DataTable({ columns, initialData }: DataTableProps) {
             </DialogSheetContent>
           </DialogSheet>
           {roleFilter.length > 0 && (
-            <Button size="sm" variant="outline" onClick={() => setRoleFilter([])}>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setRoleFilter([])}
+            >
               <XCircle />
               Clear
             </Button>
@@ -245,9 +249,9 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                   </TableHead>
                 ))}
               </TableRow>
