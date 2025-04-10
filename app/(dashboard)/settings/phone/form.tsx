@@ -72,7 +72,7 @@ export function UpdatePhoneForm({
             <CardHeader className="w-full p-0">
               <CardTitle>Phone Number</CardTitle>
               <CardDescription className="text-primary">
-                Provide the company phone number for contact purposes.
+                Provide the phone number for the organization.
               </CardDescription>
             </CardHeader>
             <CardContent className="w-full space-y-4 p-0">

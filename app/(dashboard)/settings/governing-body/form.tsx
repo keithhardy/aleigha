@@ -71,9 +71,9 @@ export function UpdateGoverningBodyForm({
         <Card className="rounded-md shadow-none">
           <div className="flex flex-col gap-4 p-6 lg:flex-row">
             <CardHeader className="w-full p-0">
-              <CardTitle>Governing Body Details</CardTitle>
+              <CardTitle>Governing Body</CardTitle>
               <CardDescription className="text-primary">
-                Provide details about your governing body registration.
+                Provide your governing body registration information.
               </CardDescription>
             </CardHeader>
             <CardContent className="w-full space-y-4 p-0">
@@ -113,7 +113,7 @@ export function UpdateGoverningBodyForm({
           </div>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
             <p className="text-sm text-muted-foreground">
-              This is governing body that your company is registered with.
+              This is governing body that your organization is registered.
             </p>
             <Button
               variant="outline"

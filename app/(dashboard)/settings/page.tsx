@@ -1,7 +1,14 @@
-import { MoveLeft } from "lucide-react";
+import { MoveLeft, SquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
 
-import { Header, HeaderGroup, Heading } from "@/components/page-header";
+import {
+  Header,
+  HeaderActions,
+  HeaderDescription,
+  HeaderGroup,
+  Heading,
+} from "@/components/page-header";
+import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 
 import { UpdateAddressForm } from "./address/form";
@@ -30,15 +37,27 @@ export default async function Settings() {
             <span>Back to Dashboard</span>
           </Link>
           <Heading>Settings</Heading>
+          <HeaderDescription>
+            Update your organization’s settings. These will be shown on all
+            certificates.
+          </HeaderDescription>
+          <HeaderActions>
+            <Button asChild size="sm" variant="secondary">
+              <Link href="/documentation">
+                Docs
+                <SquareArrowOutUpRight />
+              </Link>
+            </Button>
+          </HeaderActions>
         </HeaderGroup>
       </Header>
       <div className="space-y-4">
         <UpdateNameForm settings={settings} />
+        <UpdateAddressForm settings={settings} />
         <UpdateEmailForm settings={settings} />
         <UpdatePhoneForm settings={settings} />
         <UpdatePictureForm settings={settings} />
         <UpdateGoverningBodyForm settings={settings} />
-        <UpdateAddressForm settings={settings} />
       </div>
     </div>
   );

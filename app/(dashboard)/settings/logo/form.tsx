@@ -98,9 +98,9 @@ export function UpdatePictureForm({
         <Card className="rounded-md shadow-none">
           <div className="flex flex-col gap-4 p-6 lg:flex-row">
             <CardHeader className="w-full p-0">
-              <CardTitle>Upload Logo</CardTitle>
+              <CardTitle>Logo</CardTitle>
               <CardDescription className="text-primary">
-                Add or update your company logo.
+                Add your organization’s logo.
               </CardDescription>
             </CardHeader>
             <CardContent className="w-full space-y-4 p-0">

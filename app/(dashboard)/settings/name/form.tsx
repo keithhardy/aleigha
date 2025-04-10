@@ -70,9 +70,9 @@ export function UpdateNameForm({
         <Card className="rounded-md shadow-none">
           <div className="flex flex-col gap-4 p-6 lg:flex-row">
             <CardHeader className="w-full p-0">
-              <CardTitle>Company Name</CardTitle>
+              <CardTitle>Name</CardTitle>
               <CardDescription className="text-primary">
-                Provide the trading name of your company.
+                Provide the trading name of your organization.
               </CardDescription>
             </CardHeader>
             <CardContent className="w-full space-y-4 p-0">

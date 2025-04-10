@@ -265,7 +265,6 @@ export function DataTable({ columns, initialData }: DataTableProps) {
           </Link>
         </div>
       </div>
-
       <Card className="rounded-md shadow-none">
         <Table>
           <TableHeader>
@@ -276,9 +275,9 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                   </TableHead>
                 ))}
               </TableRow>

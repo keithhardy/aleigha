@@ -40,7 +40,7 @@ export default async function Users() {
           <HeaderActions>
             <Button asChild size="sm" variant="secondary">
               <Link href="/documentation">
-                User management guide
+                Docs
                 <SquareArrowOutUpRight />
               </Link>
             </Button>
