@@ -114,6 +114,7 @@ export function UpdatePictureForm({
                         <Input
                           type="file"
                           accept="image/*"
+                          className="h-[32px]"
                           ref={fileInputRef}
                           onChange={handleFileChange}
                         />
@@ -140,6 +141,7 @@ export function UpdatePictureForm({
               <Button
                 variant="outline"
                 type="button"
+                className="h-[32px]"
                 onClick={handleClear}
                 disabled={!form.formState.isDirty}
               >
@@ -148,6 +150,7 @@ export function UpdatePictureForm({
               <Button
                 variant="outline"
                 type="submit"
+                className="h-[32px]"
                 disabled={
                   !form.formState.isDirty || form.formState.isSubmitting
                 }

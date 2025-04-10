@@ -82,7 +82,7 @@ export function UpdateNameForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Trading Name" />
+                      <Input {...field} placeholder="Trading Name" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -96,6 +96,7 @@ export function UpdateNameForm({
             </p>
             <Button
               variant="outline"
+              size="sm"
               type="submit"
               disabled={!form.formState.isDirty || form.formState.isSubmitting}
             >

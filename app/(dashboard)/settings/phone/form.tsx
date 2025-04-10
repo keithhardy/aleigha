@@ -82,7 +82,7 @@ export function UpdatePhoneForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Phone" />
+                      <Input {...field} placeholder="Phone" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -96,6 +96,7 @@ export function UpdatePhoneForm({
             </p>
             <Button
               variant="outline"
+              size="sm"
               type="submit"
               disabled={!form.formState.isDirty || form.formState.isSubmitting}
             >

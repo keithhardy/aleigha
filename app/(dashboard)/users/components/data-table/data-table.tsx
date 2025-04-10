@@ -212,7 +212,7 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                         <CommandItem
                           key={role}
                           value={role}
-                          onSelect={() => toggleRoleSelection(role)}
+                          onSelect={() => { toggleRoleSelection(role), setPageIndex(0); }}
                         >
                           <div
                             className={cn(

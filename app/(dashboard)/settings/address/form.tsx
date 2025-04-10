@@ -90,7 +90,7 @@ export function UpdateAddressForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Street Address" />
+                      <Input {...field} placeholder="Street Address" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -102,7 +102,7 @@ export function UpdateAddressForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="City" />
+                      <Input {...field} placeholder="City" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -118,6 +118,7 @@ export function UpdateAddressForm({
                         {...field}
                         value={field.value ?? ""}
                         placeholder="County"
+                        className="h-[32px]"
                       />
                     </FormControl>
                     <FormMessage />
@@ -130,7 +131,7 @@ export function UpdateAddressForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Post Town" />
+                      <Input {...field} placeholder="Post Town" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -142,7 +143,7 @@ export function UpdateAddressForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Postcode" />
+                      <Input {...field} placeholder="Postcode" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -154,7 +155,7 @@ export function UpdateAddressForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Country" />
+                      <Input {...field} placeholder="Country" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -168,6 +169,7 @@ export function UpdateAddressForm({
             </p>
             <Button
               variant="outline"
+              size="sm"
               type="submit"
               disabled={!form.formState.isDirty || form.formState.isSubmitting}
             >

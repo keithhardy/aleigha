@@ -83,7 +83,7 @@ export function UpdateGoverningBodyForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Governing Body" />
+                      <Input {...field} placeholder="Governing Body" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -95,7 +95,7 @@ export function UpdateGoverningBodyForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Governing Body Number" />
+                      <Input {...field} placeholder="Governing Body Number" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -109,6 +109,7 @@ export function UpdateGoverningBodyForm({
             </p>
             <Button
               variant="outline"
+              size="sm"
               type="submit"
               disabled={!form.formState.isDirty || form.formState.isSubmitting}
             >

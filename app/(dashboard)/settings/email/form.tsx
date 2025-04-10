@@ -82,7 +82,7 @@ export function UpdateEmailForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Email" />
+                      <Input {...field} placeholder="Email" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -96,6 +96,7 @@ export function UpdateEmailForm({
             </p>
             <Button
               variant="outline"
+              size="sm"
               type="submit"
               disabled={!form.formState.isDirty || form.formState.isSubmitting}
             >
