@@ -13,7 +13,14 @@ import {
   type OnChangeFn,
   type RowSelectionState,
 } from "@tanstack/react-table";
-import { FolderUp, Plus, PlusCircle, XCircle } from "lucide-react";
+import {
+  ArrowDownToLine,
+  ArrowUpToLine,
+  ListFilterPlus,
+  MoreHorizontal,
+  UserPlus2,
+  XCircle,
+} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
@@ -25,7 +32,13 @@ import {
 } from "@/components/dialog-sheet";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Command,
   CommandEmpty,
@@ -34,7 +47,14 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
@@ -174,98 +194,115 @@ export function DataTable({ columns, initialData }: DataTableProps) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div className="flex flex-1 items-center space-x-2">
+      <div className="flex flex-col justify-between gap-2 md:flex-row">
+        <div className="flex flex-col gap-2 md:flex-row">
           <Input
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-[32px] w-[150px] lg:w-[250px]"
+            className="h-[32px] w-full lg:w-[300px]"
           />
-          <DialogSheet
-            open={selectRoleFilterOpen}
-            onOpenChange={setSelectRoleFilterOpen}
-          >
-            <DialogSheetTrigger asChild>
-              <Button variant="outline" size="sm">
-                <PlusCircle />
-                Role
-                {roleFilter.length > 0 && (
-                  <Badge variant="secondary">
-                    {roleFilter.length} selected
-                  </Badge>
-                )}
-              </Button>
-            </DialogSheetTrigger>
-            <DialogSheetContent className="p-0">
-              <DialogSheetTitle className="hidden" />
-              <Command className="pt-2">
-                <CommandInput placeholder="Search..." />
-                <CommandList className="scrollbar-hidden mt-1 border-t p-1">
-                  <CommandEmpty>No results found.</CommandEmpty>
-                  <CommandGroup>
-                    {Object.keys(UserRole).map((key) => {
-                      const role = key as $Enums.UserRole;
-                      const count = initialData.roleCounts?.[role] ?? 0;
+          <ScrollArea className="w-full whitespace-nowrap">
+            <div className="flex gap-2">
+              <DialogSheet
+                open={selectRoleFilterOpen}
+                onOpenChange={setSelectRoleFilterOpen}
+              >
+                <DialogSheetTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    <ListFilterPlus />
+                    Role
+                    {roleFilter.length > 0 && (
+                      <Badge variant="secondary">
+                        {roleFilter.length} selected
+                      </Badge>
+                    )}
+                  </Button>
+                </DialogSheetTrigger>
+                <DialogSheetContent className="p-0">
+                  <DialogSheetTitle className="hidden" />
+                  <Command className="pt-2">
+                    <CommandInput placeholder="Search..." autoFocus={false} />
+                    <CommandList className="scrollbar-hidden mt-1 border-t p-1">
+                      <CommandEmpty>No results found.</CommandEmpty>
+                      <CommandGroup>
+                        {Object.keys(UserRole).map((key) => {
+                          const role = key as $Enums.UserRole;
+                          const count = initialData.roleCounts?.[role] ?? 0;
 
-                      return (
-                        <CommandItem
-                          key={role}
-                          value={role}
-                          onSelect={() => {
-                            toggleRoleSelection(role);
-                            setPageIndex(0);
-                          }}
-                        >
-                          <div
-                            className={cn(
-                              "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                              roleFilter.includes(role)
-                                ? "bg-primary text-primary-foreground"
-                                : "opacity-50 [&_svg]:invisible",
-                            )}
-                          >
-                            <CheckIcon />
-                          </div>
-                          {UserRole[role]}
-                          <span className="ml-auto">{count}</span>
-                        </CommandItem>
-                      );
-                    })}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </DialogSheetContent>
-          </DialogSheet>
-          {roleFilter.length > 0 && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setRoleFilter([])}
-            >
-              <XCircle />
-              Clear
-            </Button>
-          )}
+                          return (
+                            <CommandItem
+                              key={role}
+                              value={role}
+                              onSelect={() => {
+                                toggleRoleSelection(role);
+                                setPageIndex(0);
+                              }}
+                            >
+                              <div
+                                className={cn(
+                                  "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                                  roleFilter.includes(role)
+                                    ? "bg-primary text-primary-foreground"
+                                    : "opacity-50 [&_svg]:invisible",
+                                )}
+                              >
+                                <CheckIcon />
+                              </div>
+                              {UserRole[role]}
+                              <span className="ml-auto">{count}</span>
+                            </CommandItem>
+                          );
+                        })}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </DialogSheetContent>
+              </DialogSheet>
+              <Button variant="outline" size="sm">
+                <ListFilterPlus />
+                Email
+              </Button>
+              <Button variant="outline" size="sm">
+                <ListFilterPlus />
+                Phone
+              </Button>
+              {roleFilter.length > 0 && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setRoleFilter([])}
+                >
+                  <XCircle />
+                  Clear
+                </Button>
+              )}
+            </div>
+            <ScrollBar orientation="horizontal" className="hidden" />
+          </ScrollArea>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex gap-2">
+          <Link href="/users/create">
+            <Button variant="outline" size="sm">
+              <UserPlus2 />
+              Create
+            </Button>
+          </Link>
+          <Button variant="outline" size="sm">
+            <ArrowDownToLine />
+            Import
+          </Button>
           <Button
             variant="outline"
             size="sm"
             disabled={selectedRows.length <= 0}
           >
-            <FolderUp />
+            <ArrowUpToLine />
             Export
           </Button>
-          <Link href="/users/create">
-            <Button variant="outline" size="sm">
-              <Plus />
-              Create
-            </Button>
-          </Link>
         </div>
       </div>
-      <Card className="rounded-md shadow-none">
+      <Card className="hidden rounded-md shadow-none md:block">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -350,6 +387,79 @@ export function DataTable({ columns, initialData }: DataTableProps) {
           </Button>
         </CardFooter>
       </Card>
+
+      <div className="flex flex-col gap-4 md:hidden">
+        <Card className="rounded-md shadow-none">
+          <CardHeader className="relative">
+            <CardDescription>Operative</CardDescription>
+            <CardTitle className="text-2xl font-semibold tabular-nums">
+              Keith Hardy
+            </CardTitle>
+            <div className="absolute right-4 top-4">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="data-[state=open]:bg-accent"
+                  >
+                    <MoreHorizontal />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem asChild>
+                    <Link href={`/users/${"user.id"}/update`}>Edit</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href={`/users/${"user.id"}/delete`}>Delete</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </CardHeader>
+          <CardFooter className="flex-col items-start gap-1 text-sm">
+            <div className="line-clamp-1 flex gap-2 font-medium">
+              Reuben55@yahoo.com
+            </div>
+            <div className="text-muted-foreground">07853688540</div>
+          </CardFooter>
+        </Card>
+        <Card className="rounded-md shadow-none">
+          <CardHeader className="relative">
+            <CardDescription>Operative</CardDescription>
+            <CardTitle className="text-2xl font-semibold tabular-nums">
+              Edgar Vandervort
+            </CardTitle>
+            <div className="absolute right-4 top-4">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="data-[state=open]:bg-accent"
+                  >
+                    <MoreHorizontal />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem asChild>
+                    <Link href={`/users/${"user.id"}/update`}>Edit</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href={`/users/${"user.id"}/delete`}>Delete</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </CardHeader>
+          <CardFooter className="flex-col items-start gap-1 text-sm">
+            <div className="line-clamp-1 flex gap-2 font-medium">
+              Reuben55@yahoo.com
+            </div>
+            <div className="text-muted-foreground">07853688540</div>
+          </CardFooter>
+        </Card>
+      </div>
     </div>
   );
 }
