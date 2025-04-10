@@ -1,6 +1,7 @@
 "use client";
 
 import { $Enums, UserRole } from "@prisma/client";
+import { CheckIcon } from "@radix-ui/react-icons";
 import {
   type ColumnDef,
   useReactTable,
@@ -12,7 +13,7 @@ import {
   type OnChangeFn,
   type RowSelectionState,
 } from "@tanstack/react-table";
-import { Check, FolderUp, Plus, PlusCircle, XCircle } from "lucide-react";
+import { FolderUp, Plus, PlusCircle, XCircle } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
@@ -24,6 +25,7 @@ import {
 } from "@/components/dialog-sheet";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardFooter } from "@/components/ui/card";
 import {
   Command,
   CommandEmpty,
@@ -48,9 +50,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 
 import { getPaginatedUsers } from "./get-paginated-users";
-import { Card, CardFooter } from "@/components/ui/card";
 
 interface User {
   name: string;
@@ -69,7 +71,7 @@ interface DataTableProps {
   initialData: {
     users: User[];
     totalCount: number;
-    roleCounts: Record<UserRole, number>
+    roleCounts: Record<UserRole, number>;
   };
 }
 
@@ -212,10 +214,18 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                           value={role}
                           onSelect={() => toggleRoleSelection(role)}
                         >
-                          {UserRole[role]}<span>{count}</span>
-                          {roleFilter.includes(role) && (
-                            <Check className="ml-auto" />
-                          )}
+                          <div
+                            className={cn(
+                              "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                              roleFilter.includes(role)
+                                ? "bg-primary text-primary-foreground"
+                                : "opacity-50 [&_svg]:invisible",
+                            )}
+                          >
+                            <CheckIcon />
+                          </div>
+                          {UserRole[role]}
+                          <span className="ml-auto">{count}</span>
                         </CommandItem>
                       );
                     })}
@@ -255,9 +265,9 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                   </TableHead>
                 ))}
               </TableRow>
