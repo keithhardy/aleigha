@@ -180,14 +180,14 @@ export function DataTable({ columns, initialData }: DataTableProps) {
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-[150px] lg:w-[250px]"
+            className="w-[150px] lg:w-[250px] h-[32px]"
           />
           <DialogSheet
             open={selectRoleFilterOpen}
             onOpenChange={setSelectRoleFilterOpen}
           >
             <DialogSheetTrigger asChild>
-              <Button variant="outline">
+              <Button variant="outline" size="sm">
                 <PlusCircle />
                 Role
                 {roleFilter.length > 0 && (
@@ -235,19 +235,19 @@ export function DataTable({ columns, initialData }: DataTableProps) {
             </DialogSheetContent>
           </DialogSheet>
           {roleFilter.length > 0 && (
-            <Button variant="outline" onClick={() => setRoleFilter([])}>
+            <Button variant="outline" size="sm" onClick={() => setRoleFilter([])}>
               <XCircle />
               Clear
             </Button>
           )}
         </div>
         <div className="flex items-center space-x-2">
-          <Button variant="outline" disabled={selectedRows.length <= 0}>
+          <Button variant="outline" size="sm" disabled={selectedRows.length <= 0}>
             <FolderUp />
             Export
           </Button>
           <Link href="/users/create">
-            <Button variant="outline">
+            <Button variant="outline" size="sm">
               <Plus />
               Create
             </Button>
@@ -265,9 +265,9 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
                   </TableHead>
                 ))}
               </TableRow>
@@ -311,7 +311,7 @@ export function DataTable({ columns, initialData }: DataTableProps) {
               setPageIndex(0);
             }}
           >
-            <SelectTrigger className="w-[70px] bg-background">
+            <SelectTrigger className="w-[70px] h-[32px] bg-background">
               <SelectValue placeholder={pageSize} />
             </SelectTrigger>
             <SelectContent side="top" align="center">
@@ -324,6 +324,7 @@ export function DataTable({ columns, initialData }: DataTableProps) {
           </Select>
           <Button
             variant="outline"
+            size="sm"
             onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
             disabled={pageIndex === 0}
           >
@@ -331,6 +332,7 @@ export function DataTable({ columns, initialData }: DataTableProps) {
           </Button>
           <Button
             variant="outline"
+            size="sm"
             onClick={() => setPageIndex((prev) => prev + 1)}
             disabled={pageIndex + 1 >= Math.ceil(data.totalCount / pageSize)}
           >
