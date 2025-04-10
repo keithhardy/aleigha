@@ -69,6 +69,7 @@ interface DataTableProps {
   initialData: {
     users: User[];
     totalCount: number;
+    roleCounts: Record<UserRole, number>
   };
 }
 
@@ -203,13 +204,15 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                   <CommandGroup>
                     {Object.keys(UserRole).map((key) => {
                       const role = key as $Enums.UserRole;
+                      const count = initialData.roleCounts?.[role] ?? 0;
+
                       return (
                         <CommandItem
                           key={role}
                           value={role}
                           onSelect={() => toggleRoleSelection(role)}
                         >
-                          {UserRole[role]}
+                          {UserRole[role]}<span>{count}</span>
                           {roleFilter.includes(role) && (
                             <Check className="ml-auto" />
                           )}
