@@ -300,10 +300,10 @@ export function DataTable({ columns, initialData }: DataTableProps) {
           </TableBody>
         </Table>
         <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-          <div className="flex-1 text-sm font-medium">
+          <div className="flex-1 text-sm text-muted-foreground">
             {selectedRows.length} of {data.totalCount} row(s) selected.
           </div>
-          <p className="text-sm font-medium">Rows per page</p>
+          <p className=" text-sm text-muted-foreground">Rows per page</p>
           <Select
             value={`${pageSize}`}
             onValueChange={(value) => {

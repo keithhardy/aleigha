@@ -141,7 +141,7 @@ export function UpdatePictureForm({
               <Button
                 variant="outline"
                 type="button"
-                className="h-[32px]"
+                size="sm"
                 onClick={handleClear}
                 disabled={!form.formState.isDirty}
               >
@@ -150,7 +150,7 @@ export function UpdatePictureForm({
               <Button
                 variant="outline"
                 type="submit"
-                className="h-[32px]"
+                size="sm"
                 disabled={
                   !form.formState.isDirty || form.formState.isSubmitting
                 }
