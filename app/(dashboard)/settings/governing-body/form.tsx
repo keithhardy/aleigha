@@ -83,7 +83,11 @@ export function UpdateGoverningBodyForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Governing Body" className="h-[32px]" />
+                      <Input
+                        {...field}
+                        placeholder="Governing Body"
+                        className="h-[32px]"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -95,7 +99,11 @@ export function UpdateGoverningBodyForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Governing Body Number" className="h-[32px]" />
+                      <Input
+                        {...field}
+                        placeholder="Governing Body Number"
+                        className="h-[32px]"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

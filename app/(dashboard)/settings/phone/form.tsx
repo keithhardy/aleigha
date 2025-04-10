@@ -82,7 +82,11 @@ export function UpdatePhoneForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Phone" className="h-[32px]" />
+                      <Input
+                        {...field}
+                        placeholder="Phone"
+                        className="h-[32px]"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

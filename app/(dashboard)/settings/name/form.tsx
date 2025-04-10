@@ -82,7 +82,11 @@ export function UpdateNameForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Trading Name" className="h-[32px]" />
+                      <Input
+                        {...field}
+                        placeholder="Trading Name"
+                        className="h-[32px]"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

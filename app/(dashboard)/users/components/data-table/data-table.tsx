@@ -180,7 +180,7 @@ export function DataTable({ columns, initialData }: DataTableProps) {
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-[150px] lg:w-[250px] h-[32px]"
+            className="h-[32px] w-[150px] lg:w-[250px]"
           />
           <DialogSheet
             open={selectRoleFilterOpen}
@@ -212,7 +212,10 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                         <CommandItem
                           key={role}
                           value={role}
-                          onSelect={() => { toggleRoleSelection(role), setPageIndex(0); }}
+                          onSelect={() => {
+                            toggleRoleSelection(role);
+                            setPageIndex(0);
+                          }}
                         >
                           <div
                             className={cn(
@@ -235,14 +238,22 @@ export function DataTable({ columns, initialData }: DataTableProps) {
             </DialogSheetContent>
           </DialogSheet>
           {roleFilter.length > 0 && (
-            <Button variant="outline" size="sm" onClick={() => setRoleFilter([])}>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setRoleFilter([])}
+            >
               <XCircle />
               Clear
             </Button>
           )}
         </div>
         <div className="flex items-center space-x-2">
-          <Button variant="outline" size="sm" disabled={selectedRows.length <= 0}>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={selectedRows.length <= 0}
+          >
             <FolderUp />
             Export
           </Button>
@@ -265,9 +276,9 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                   </TableHead>
                 ))}
               </TableRow>
@@ -303,7 +314,7 @@ export function DataTable({ columns, initialData }: DataTableProps) {
           <div className="flex-1 text-sm text-muted-foreground">
             {selectedRows.length} of {data.totalCount} row(s) selected.
           </div>
-          <p className=" text-sm text-muted-foreground">Rows per page</p>
+          <p className="text-sm text-muted-foreground">Rows per page</p>
           <Select
             value={`${pageSize}`}
             onValueChange={(value) => {
@@ -311,7 +322,7 @@ export function DataTable({ columns, initialData }: DataTableProps) {
               setPageIndex(0);
             }}
           >
-            <SelectTrigger className="w-[70px] h-[32px] bg-background">
+            <SelectTrigger className="h-[32px] w-[70px] bg-background">
               <SelectValue placeholder={pageSize} />
             </SelectTrigger>
             <SelectContent side="top" align="center">

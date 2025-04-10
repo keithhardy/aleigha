@@ -82,7 +82,11 @@ export function UpdateEmailForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Email" className="h-[32px]" />
+                      <Input
+                        {...field}
+                        placeholder="Email"
+                        className="h-[32px]"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

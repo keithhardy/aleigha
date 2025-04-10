@@ -1,13 +1,19 @@
-import { ExternalLink, MoveLeft, SquareArrowOutUpRight } from "lucide-react";
+import { MoveLeft, SquareArrowOutUpRight } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 
-import { Header, HeaderActions, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
+import {
+  Header,
+  HeaderActions,
+  HeaderDescription,
+  HeaderGroup,
+  Heading,
+} from "@/components/page-header";
+import { Button } from "@/components/ui/button";
 
 import { columns } from "./components/data-table/columns";
 import { DataTable } from "./components/data-table/data-table";
 import { getPaginatedUsers } from "./components/data-table/get-paginated-users";
-import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "Reiyen – Users",
@@ -27,14 +33,15 @@ export default async function Users() {
             <MoveLeft size={22} className="mr-2" />
             <span>Back to Dashboard</span>
           </Link>
-          <Heading>Users</Heading>
+          <Heading>User Management</Heading>
           <HeaderDescription>
             Create, view and manage user accounts.
           </HeaderDescription>
           <HeaderActions>
             <Button asChild size="sm" variant="secondary">
               <Link href="/documentation">
-                User management guide<SquareArrowOutUpRight />
+                User management guide
+                <SquareArrowOutUpRight />
               </Link>
             </Button>
           </HeaderActions>
