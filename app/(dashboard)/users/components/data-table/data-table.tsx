@@ -202,84 +202,102 @@ export function DataTable({ columns, initialData }: DataTableProps) {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="h-[32px] w-full lg:w-[300px]"
           />
-          <ScrollArea className="w-full whitespace-nowrap">
-            <div className="flex gap-2">
-              <DialogSheet
-                open={selectRoleFilterOpen}
-                onOpenChange={setSelectRoleFilterOpen}
-              >
-                <DialogSheetTrigger asChild>
-                  <Button variant="outline" size="sm">
-                    <ListFilterPlus />
-                    Role
-                    {roleFilter.length > 0 && (
-                      <Badge variant="secondary">
-                        {roleFilter.length} selected
-                      </Badge>
-                    )}
-                  </Button>
-                </DialogSheetTrigger>
-                <DialogSheetContent className="p-0">
-                  <DialogSheetTitle className="hidden" />
-                  <Command className="pt-2">
-                    <CommandInput placeholder="Search..." autoFocus={false} />
-                    <CommandList className="scrollbar-hidden mt-1 border-t p-1">
-                      <CommandEmpty>No results found.</CommandEmpty>
-                      <CommandGroup>
-                        {Object.keys(UserRole).map((key) => {
-                          const role = key as $Enums.UserRole;
-                          const count = initialData.roleCounts?.[role] ?? 0;
-
-                          return (
-                            <CommandItem
-                              key={role}
-                              value={role}
-                              onSelect={() => {
-                                toggleRoleSelection(role);
-                                setPageIndex(0);
-                              }}
-                            >
-                              <div
-                                className={cn(
-                                  "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                                  roleFilter.includes(role)
-                                    ? "bg-primary text-primary-foreground"
-                                    : "opacity-50 [&_svg]:invisible",
-                                )}
-                              >
-                                <CheckIcon />
-                              </div>
-                              {UserRole[role]}
-                              <span className="ml-auto">{count}</span>
-                            </CommandItem>
-                          );
-                        })}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </DialogSheetContent>
-              </DialogSheet>
-              <Button variant="outline" size="sm">
-                <ListFilterPlus />
-                Email
-              </Button>
-              <Button variant="outline" size="sm">
-                <ListFilterPlus />
-                Phone
-              </Button>
-              {roleFilter.length > 0 && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setRoleFilter([])}
+          <div className="flex">
+            <ScrollArea className="w-1 flex-1">
+              <div className="flex gap-2">
+                <DialogSheet
+                  open={selectRoleFilterOpen}
+                  onOpenChange={setSelectRoleFilterOpen}
                 >
-                  <XCircle />
-                  Clear
+                  <DialogSheetTrigger asChild>
+                    <Button variant="outline" size="sm">
+                      <ListFilterPlus />
+                      Role
+                      {roleFilter.length > 0 && (
+                        <Badge variant="secondary">
+                          {roleFilter.length} selected
+                        </Badge>
+                      )}
+                    </Button>
+                  </DialogSheetTrigger>
+                  <DialogSheetContent className="p-0">
+                    <DialogSheetTitle className="hidden" />
+                    <Command className="pt-2">
+                      <CommandInput placeholder="Search..." autoFocus={false} />
+                      <CommandList className="scrollbar-hidden mt-1 border-t p-1">
+                        <CommandEmpty>No results found.</CommandEmpty>
+                        <CommandGroup>
+                          {Object.keys(UserRole).map((key) => {
+                            const role = key as $Enums.UserRole;
+                            const count = initialData.roleCounts?.[role] ?? 0;
+
+                            return (
+                              <CommandItem
+                                key={role}
+                                value={role}
+                                onSelect={() => {
+                                  toggleRoleSelection(role);
+                                  setPageIndex(0);
+                                }}
+                              >
+                                <div
+                                  className={cn(
+                                    "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                                    roleFilter.includes(role)
+                                      ? "bg-primary text-primary-foreground"
+                                      : "opacity-50 [&_svg]:invisible",
+                                  )}
+                                >
+                                  <CheckIcon />
+                                </div>
+                                {UserRole[role]}
+                                <span className="ml-auto">{count}</span>
+                              </CommandItem>
+                            );
+                          })}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </DialogSheetContent>
+                </DialogSheet>
+                <Button variant="outline" size="sm">
+                  <ListFilterPlus />
+                  Email
                 </Button>
-              )}
-            </div>
-            <ScrollBar orientation="horizontal" className="hidden" />
-          </ScrollArea>
+                <Button variant="outline" size="sm">
+                  <ListFilterPlus />
+                  Phone
+                </Button>
+                <Button variant="outline" size="sm">
+                  <ListFilterPlus />
+                  Email
+                </Button>
+                <Button variant="outline" size="sm">
+                  <ListFilterPlus />
+                  Phone
+                </Button>
+                <Button variant="outline" size="sm">
+                  <ListFilterPlus />
+                  Email
+                </Button>
+                <Button variant="outline" size="sm">
+                  <ListFilterPlus />
+                  Phone
+                </Button>
+                {roleFilter.length > 0 && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setRoleFilter([])}
+                  >
+                    <XCircle />
+                    Clear
+                  </Button>
+                )}
+              </div>
+              <ScrollBar orientation="horizontal" className="hidden" />
+            </ScrollArea>
+          </div>
         </div>
         <div className="flex gap-2">
           <Link href="/users/create">
@@ -312,9 +330,9 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
                   </TableHead>
                 ))}
               </TableRow>
