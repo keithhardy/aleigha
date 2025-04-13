@@ -20,7 +20,7 @@ export const UpdateUserSchema = z.object({
   phone: z.string().regex(/^(?:\+44|0)(?:\d{9}|\d{10}|\d{11}|\d{12})$/, {
     message: "Invalid phone number format",
   }),
-  signature: z.string().url().optional(),
+  signature: z.string().optional(),
   role: z.enum(Object.values(UserRole) as [UserRole, ...UserRole[]], {
     message: "Please select a role for the user",
   }),

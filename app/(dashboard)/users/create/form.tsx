@@ -2,13 +2,22 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Client, UserRole } from "@prisma/client";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, ExternalLink } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Command,
   CommandEmpty,
@@ -87,176 +96,222 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="role"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Role</FormLabel>
-              <Popover open={userRoleOpen} onOpenChange={setRoleOpen}>
-                <PopoverTrigger asChild>
-                  <Button variant="outline" className="justify-between">
-                    {field.value
-                      ? UserRoles.find(
-                          (userRole) => userRole.id === field.value,
-                        )?.name
-                      : "Select role..."}
-                    <ChevronsUpDown className="opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="p-0">
-                  <Command>
-                    <CommandInput placeholder="Search..." className="h-9" />
-                    <CommandList>
-                      <CommandEmpty>No results found.</CommandEmpty>
-                      <CommandGroup>
-                        {UserRoles.map((userRole) => (
-                          <CommandItem
-                            key={userRole.id}
-                            value={userRole.id}
-                            onSelect={(currentValue) => {
-                              form.setValue("role", currentValue as UserRole);
-                              setRoleOpen(false);
-                            }}
-                          >
-                            {userRole.name}
-                            {userRole.id === field.value ? (
-                              <Check className="ml-auto" />
-                            ) : null}
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="clients"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Clients</FormLabel>
-              <FormControl>
-                <Popover open={userClientOpen} onOpenChange={setClientOpen}>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline" className="justify-between">
-                      {field.value.length === 0
-                        ? "Select Clients..."
-                        : field.value.length === 1
-                          ? field.value[0].name
-                          : `${field.value.length} clients selected`}
-                      <ChevronsUpDown className="opacity-50" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="p-0">
-                    <Command>
-                      <CommandInput placeholder="Search..." className="h-9" />
-                      <CommandList>
-                        <CommandEmpty>No results found.</CommandEmpty>
-                        <CommandGroup>
-                          {clients.map((client) => {
-                            const isSelected = field.value.some(
-                              (field) => field.clientId === client.id,
-                            );
-
-                            return (
-                              <CommandItem
-                                key={client.id}
-                                onSelect={() => {
-                                  if (isSelected) {
-                                    const index = field.value.findIndex(
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="space-y-4">
+          <Card className="rounded-md shadow-none">
+            <div className="flex flex-col gap-4 p-6 lg:flex-row">
+              <CardHeader className="w-full p-0">
+                <CardTitle>User Details</CardTitle>
+                <CardDescription className="text-balance">
+                  Please make sure all values are correct.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="w-full space-y-4 p-0">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="role"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Role</FormLabel>
+                      <Popover open={userRoleOpen} onOpenChange={setRoleOpen}>
+                        <PopoverTrigger asChild>
+                          <Button variant="outline" className="justify-between">
+                            {field.value
+                              ? UserRoles.find(
+                                  (userRole) => userRole.id === field.value,
+                                )?.name
+                              : "Select role..."}
+                            <ChevronsUpDown className="opacity-50" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="p-0">
+                          <Command>
+                            <CommandInput
+                              placeholder="Search..."
+                              className="h-9"
+                            />
+                            <CommandList>
+                              <CommandEmpty>No results found.</CommandEmpty>
+                              <CommandGroup>
+                                {UserRoles.map((userRole) => (
+                                  <CommandItem
+                                    key={userRole.id}
+                                    value={userRole.id}
+                                    onSelect={(currentValue) => {
+                                      form.setValue(
+                                        "role",
+                                        currentValue as UserRole,
+                                      );
+                                      setRoleOpen(false);
+                                    }}
+                                  >
+                                    {userRole.name}
+                                    {userRole.id === field.value ? (
+                                      <Check className="ml-auto" />
+                                    ) : null}
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="clients"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Clients</FormLabel>
+                      <FormControl>
+                        <Popover
+                          open={userClientOpen}
+                          onOpenChange={setClientOpen}
+                        >
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              className="justify-between"
+                            >
+                              {field.value.length === 0
+                                ? "Select Clients..."
+                                : field.value.length === 1
+                                  ? field.value[0].name
+                                  : `${field.value.length} clients selected`}
+                              <ChevronsUpDown className="opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="p-0">
+                            <Command>
+                              <CommandInput
+                                placeholder="Search..."
+                                className="h-9"
+                              />
+                              <CommandList>
+                                <CommandEmpty>No results found.</CommandEmpty>
+                                <CommandGroup>
+                                  {clients.map((client) => {
+                                    const isSelected = field.value.some(
                                       (field) => field.clientId === client.id,
                                     );
-                                    remove(index);
-                                  } else {
-                                    append({
-                                      clientId: client.id,
-                                      name: client.name,
-                                    });
-                                  }
-                                }}
-                              >
-                                {client.name}
-                                {isSelected ? (
-                                  <Check className="ml-auto" />
-                                ) : null}
-                              </CommandItem>
-                            );
-                          })}
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input type="email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Phone</FormLabel>
-              <FormControl>
-                <Input type="phone" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input type="password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button
-          type="submit"
-          disabled={form.formState.isSubmitting}
-          variant="outline"
-        >
-          {form.formState.isSubmitting ? "Creating" : "Create"}
-        </Button>
+
+                                    return (
+                                      <CommandItem
+                                        key={client.id}
+                                        onSelect={() => {
+                                          if (isSelected) {
+                                            const index = field.value.findIndex(
+                                              (field) =>
+                                                field.clientId === client.id,
+                                            );
+                                            remove(index);
+                                          } else {
+                                            append({
+                                              clientId: client.id,
+                                              name: client.name,
+                                            });
+                                          }
+                                        }}
+                                      >
+                                        {client.name}
+                                        {isSelected ? (
+                                          <Check className="ml-auto" />
+                                        ) : null}
+                                      </CommandItem>
+                                    );
+                                  })}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input type="email" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Phone</FormLabel>
+                      <FormControl>
+                        <Input type="phone" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input type="password" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+            </div>
+            <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+              <p className="text-balance text-sm text-muted-foreground">
+                To add more clients, visit{" "}
+                <Link
+                  href={"/clients"}
+                  className="inline-flex items-center space-x-1 text-blue-500"
+                >
+                  <span>Clients</span>
+                  <ExternalLink size={14} />
+                </Link>
+                .
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                type="submit"
+                disabled={
+                  !form.formState.isDirty || form.formState.isSubmitting
+                }
+              >
+                {form.formState.isSubmitting ? "Saving..." : "Save"}
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
       </form>
     </Form>
   );
