@@ -1,4 +1,5 @@
 import { MoveLeft, SquareArrowOutUpRight } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
 
 import {
@@ -17,6 +18,10 @@ import { UpdateGoverningBodyForm } from "./governing-body/form";
 import { UpdatePictureForm } from "./logo/form";
 import { UpdateNameForm } from "./name/form";
 import { UpdatePhoneForm } from "./phone/form";
+
+export const metadata: Metadata = {
+  title: "Reiyen – Settings",
+};
 
 export default async function Settings() {
   const settings = await prisma.settings.findFirst({

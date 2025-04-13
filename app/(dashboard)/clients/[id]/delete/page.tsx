@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { DeleteClientForm } from "@/app/(dashboard)/clients/[id]/delete/form";
@@ -8,6 +9,10 @@ import {
   Heading,
 } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
+
+export const metadata: Metadata = {
+  title: "Reiyen – Delete Client",
+};
 
 export default async function DeleteClient({
   params,

@@ -92,7 +92,7 @@ export function CreateElectricalInstallationConditionReportForm({
                     variant="outline"
                     role="combobox"
                     aria-expanded={clientOpen ? "true" : "false"}
-                    className="max-w-[1024px] justify-between pl-3 text-left font-normal"
+                    className="justify-between pl-3 text-left font-normal"
                   >
                     {field.value
                       ? clients.find((client) => client.id === field.value)
@@ -144,7 +144,7 @@ export function CreateElectricalInstallationConditionReportForm({
                     variant="outline"
                     role="combobox"
                     aria-expanded={propertyOpen ? "true" : "false"}
-                    className="max-w-[1024px] justify-between pl-3 text-left font-normal"
+                    className="justify-between pl-3 text-left font-normal"
                   >
                     {field.value
                       ? clients

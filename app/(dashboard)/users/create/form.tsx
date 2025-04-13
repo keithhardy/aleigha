@@ -109,10 +109,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
               <FormLabel>Role</FormLabel>
               <Popover open={userRoleOpen} onOpenChange={setRoleOpen}>
                 <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="max-w-[1024px] justify-between"
-                  >
+                  <Button variant="outline" className="justify-between">
                     {field.value
                       ? UserRoles.find(
                           (userRole) => userRole.id === field.value,
@@ -160,10 +157,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
               <FormControl>
                 <Popover open={userClientOpen} onOpenChange={setClientOpen}>
                   <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className="max-w-[1024px] justify-between"
-                    >
+                    <Button variant="outline" className="justify-between">
                       {field.value.length === 0
                         ? "Select Clients..."
                         : field.value.length === 1

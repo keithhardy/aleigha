@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import { CreateClientForm } from "@/app/(dashboard)/clients/create/form";
 import {
   Header,
@@ -5,6 +7,10 @@ import {
   HeaderGroup,
   Heading,
 } from "@/components/page-header";
+
+export const metadata: Metadata = {
+  title: "Reiyen – Create Client",
+};
 
 export default function CreateClient() {
   return (

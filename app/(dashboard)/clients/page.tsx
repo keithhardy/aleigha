@@ -1,10 +1,15 @@
 import { MoveLeft } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
 
 import { columns } from "@/app/(dashboard)/clients/components/data-table/columns";
 import { DataTable } from "@/app/(dashboard)/clients/components/data-table/data-table";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
+
+export const metadata: Metadata = {
+  title: "Reiyen – Clients",
+};
 
 export default async function Clients() {
   const clients = await prisma.client.findMany({

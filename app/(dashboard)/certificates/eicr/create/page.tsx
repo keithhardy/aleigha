@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import {
@@ -9,6 +10,10 @@ import {
 import { getCurrentUser } from "@/lib/auth";
 
 import { CreateElectricalInstallationConditionReportForm } from "./form";
+
+export const metadata: Metadata = {
+  title: "Reiyen – Create EICR",
+};
 
 export default async function CreateElectricalInstallationConditionReport() {
   const currentUser = await getCurrentUser();

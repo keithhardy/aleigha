@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { UpdateClientForm } from "@/app/(dashboard)/clients/[id]/update/form";
@@ -8,6 +9,10 @@ import {
   Heading,
 } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
+
+export const metadata: Metadata = {
+  title: "Reiyen – Update Client",
+};
 
 export default async function UpdateClient({
   params,

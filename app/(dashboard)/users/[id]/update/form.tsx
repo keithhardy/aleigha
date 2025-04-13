@@ -134,7 +134,7 @@ export default function UpdateUserForm({
                     variant="outline"
                     role="combobox"
                     aria-expanded={userRoleOpen ? "true" : "false"}
-                    className="max-w-[1024px] justify-between"
+                    className="justify-between"
                   >
                     {field.value
                       ? UserRoles.find(
@@ -183,10 +183,7 @@ export default function UpdateUserForm({
           <FormLabel>Clients</FormLabel>
           <Popover open={userClientOpen} onOpenChange={setClientOpen}>
             <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                className="max-w-[1024px] justify-between"
-              >
+              <Button variant="outline" className="justify-between">
                 {clientsToConnect.length === 0 &&
                 clientsToDisconnect.length === 0
                   ? user.clients.length === 0

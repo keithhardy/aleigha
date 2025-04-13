@@ -100,7 +100,7 @@ export function UpdatePropertyForm({
                       variant="outline"
                       role="combobox"
                       aria-expanded={clientOpen ? "true" : "false"}
-                      className="max-w-[1024px] justify-between"
+                      className="justify-between"
                     >
                       {field.value
                         ? clients.find((client) => client.id === field.value)

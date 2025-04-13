@@ -32,16 +32,24 @@ export default async function DeleteUser({
     notFound();
   }
 
+  const userCount = await prisma.user.count();
+
   return (
     <Modal>
       <Card className="border-none shadow-none">
         <CardHeader className="col-span-2 lg:col-span-1">
           <CardTitle>Delete User</CardTitle>
-          <CardDescription>
-            Are you sure you want to delete{" "}
-            <span className="text-primary">{user.name}</span>? This action is
-            permanent and the user will not be recoverable.
-          </CardDescription>
+          {userCount === 1 ? (
+            <CardDescription>
+              You cannot delete {user.name} because they are the last user. A
+              minimum of one user is required.
+            </CardDescription>
+          ) : (
+            <CardDescription>
+              You are about to delete {user.name}. This action is permanent and
+              cannot be undone.
+            </CardDescription>
+          )}
         </CardHeader>
         <CardContent>
           <DeleteUserForm user={user} />

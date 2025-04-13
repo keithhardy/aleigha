@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import { CreatePropertyForm } from "@/app/(dashboard)/properties/create/form";
 import {
   Header,
@@ -5,6 +7,10 @@ import {
   HeaderGroup,
   Heading,
 } from "@/components/page-header";
+
+export const metadata: Metadata = {
+  title: "Reiyen – Create Property",
+};
 
 export default async function CreateProperty() {
   const clients = await prisma.client.findMany();

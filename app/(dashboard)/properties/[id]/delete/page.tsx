@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { DeletePropertyForm } from "@/app/(dashboard)/properties/[id]/delete/form";
@@ -8,6 +9,10 @@ import {
   Heading,
 } from "@/components/page-header";
 import { prisma } from "@/lib/prisma";
+
+export const metadata: Metadata = {
+  title: "Reiyen – Delete Property",
+};
 
 export async function generateStaticParams() {
   const properties = await prisma.property.findMany({
