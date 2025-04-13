@@ -12,12 +12,12 @@ import {
   getSortedRowModel,
   type OnChangeFn,
   type RowSelectionState,
+  type Row,
 } from "@tanstack/react-table";
 import {
   ArrowDownToLine,
   ArrowUpToLine,
   ListFilterPlus,
-  MoreHorizontal,
   UserPlus2,
   XCircle,
 } from "lucide-react";
@@ -47,12 +47,6 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -192,17 +186,20 @@ export function DataTable({ columns, initialData }: DataTableProps) {
     getSortedRowModel: getSortedRowModel(),
   });
 
+  const getCellById = (row: Row<unknown>, columnId: string) =>
+    row.getVisibleCells().find((cell) => cell.column.id === columnId);
+
   return (
     <div className="space-y-4">
       <div className="flex flex-col justify-between gap-2 md:flex-row">
-        <div className="flex flex-col gap-2 md:flex-row">
+        <div className="flex flex-grow flex-col gap-2 md:flex-row">
           <Input
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="h-[32px] w-full lg:w-[300px]"
           />
-          <div className="flex">
+          <div className="flex w-full">
             <ScrollArea className="w-1 flex-1">
               <div className="flex gap-2">
                 <DialogSheet
@@ -260,30 +257,6 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                     </Command>
                   </DialogSheetContent>
                 </DialogSheet>
-                <Button variant="outline" size="sm">
-                  <ListFilterPlus />
-                  Email
-                </Button>
-                <Button variant="outline" size="sm">
-                  <ListFilterPlus />
-                  Phone
-                </Button>
-                <Button variant="outline" size="sm">
-                  <ListFilterPlus />
-                  Email
-                </Button>
-                <Button variant="outline" size="sm">
-                  <ListFilterPlus />
-                  Phone
-                </Button>
-                <Button variant="outline" size="sm">
-                  <ListFilterPlus />
-                  Email
-                </Button>
-                <Button variant="outline" size="sm">
-                  <ListFilterPlus />
-                  Phone
-                </Button>
                 {roleFilter.length > 0 && (
                   <Button
                     variant="outline"
@@ -330,9 +303,9 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                   </TableHead>
                 ))}
               </TableRow>
@@ -405,78 +378,58 @@ export function DataTable({ columns, initialData }: DataTableProps) {
           </Button>
         </CardFooter>
       </Card>
-
       <div className="flex flex-col gap-4 md:hidden">
-        <Card className="rounded-md shadow-none">
-          <CardHeader className="relative">
-            <CardDescription>Operative</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums">
-              Keith Hardy
-            </CardTitle>
-            <div className="absolute right-4 top-4">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="data-[state=open]:bg-accent"
-                  >
-                    <MoreHorizontal />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem asChild>
-                    <Link href={`/users/${"user.id"}/update`}>Edit</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href={`/users/${"user.id"}/delete`}>Delete</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          </CardHeader>
-          <CardFooter className="flex-col items-start gap-1 text-sm">
-            <div className="line-clamp-1 flex gap-2 font-medium">
-              Reuben55@yahoo.com
-            </div>
-            <div className="text-muted-foreground">07853688540</div>
-          </CardFooter>
-        </Card>
-        <Card className="rounded-md shadow-none">
-          <CardHeader className="relative">
-            <CardDescription>Operative</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums">
-              Edgar Vandervort
-            </CardTitle>
-            <div className="absolute right-4 top-4">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="data-[state=open]:bg-accent"
-                  >
-                    <MoreHorizontal />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem asChild>
-                    <Link href={`/users/${"user.id"}/update`}>Edit</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href={`/users/${"user.id"}/delete`}>Delete</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          </CardHeader>
-          <CardFooter className="flex-col items-start gap-1 text-sm">
-            <div className="line-clamp-1 flex gap-2 font-medium">
-              Reuben55@yahoo.com
-            </div>
-            <div className="text-muted-foreground">07853688540</div>
-          </CardFooter>
-        </Card>
+        {table.getRowModel().rows.map((row: Row<unknown>) => (
+          <Card key={row.id} className="rounded-md shadow-none">
+            <CardHeader className="relative">
+              <CardDescription>
+                {getCellById(row, "role")
+                  ? flexRender(
+                      getCellById(row, "role")!.column.columnDef.cell,
+                      getCellById(row, "role")!.getContext(),
+                    )
+                  : null}
+              </CardDescription>
+              <CardTitle
+                className="text-2xl font-semibold tabular-nums"
+                id={`card-${row.id}`}
+              >
+                {getCellById(row, "name")
+                  ? flexRender(
+                      getCellById(row, "name")!.column.columnDef.cell,
+                      getCellById(row, "name")!.getContext(),
+                    )
+                  : null}
+              </CardTitle>
+              <div className="absolute right-4 top-4">
+                {getCellById(row, "actions")
+                  ? flexRender(
+                      getCellById(row, "actions")!.column.columnDef.cell,
+                      getCellById(row, "actions")!.getContext(),
+                    )
+                  : null}
+              </div>
+            </CardHeader>
+            <CardFooter className="flex-col items-start gap-1 text-sm">
+              <div className="line-clamp-1 flex gap-2 font-medium">
+                {getCellById(row, "email")
+                  ? flexRender(
+                      getCellById(row, "email")!.column.columnDef.cell,
+                      getCellById(row, "email")!.getContext(),
+                    )
+                  : null}
+              </div>
+              <div className="text-muted-foreground">
+                {getCellById(row, "phone")
+                  ? flexRender(
+                      getCellById(row, "phone")!.column.columnDef.cell,
+                      getCellById(row, "phone")!.getContext(),
+                    )
+                  : null}
+              </div>
+            </CardFooter>
+          </Card>
+        ))}
       </div>
     </div>
   );

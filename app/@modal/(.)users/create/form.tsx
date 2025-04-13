@@ -101,51 +101,47 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
           name="role"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel className="mb-1.5">Role</FormLabel>
-              <FormControl>
-                <Popover open={userRoleOpen} onOpenChange={setRoleOpen}>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      aria-expanded={userRoleOpen ? "true" : "false"}
-                      className="w-[414px] justify-between"
-                    >
-                      {field.value
-                        ? UserRoles.find(
-                            (userRole) => userRole.id === field.value,
-                          )?.name
-                        : "Select role..."}
-                      <ChevronsUpDown className="opacity-50" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[414px] p-0">
-                    <Command>
-                      <CommandInput placeholder="Search..." className="h-9" />
-                      <CommandList>
-                        <CommandEmpty>No results found.</CommandEmpty>
-                        <CommandGroup>
-                          {UserRoles.map((userRole) => (
-                            <CommandItem
-                              key={userRole.id}
-                              value={userRole.id}
-                              onSelect={(currentValue) => {
-                                form.setValue("role", currentValue as UserRole);
-                                setRoleOpen(false);
-                              }}
-                            >
-                              {userRole.name}
-                              {userRole.id === field.value ? (
-                                <Check className="ml-auto" />
-                              ) : null}
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
-              </FormControl>
+              <FormLabel>Role</FormLabel>
+              <Popover open={userRoleOpen} onOpenChange={setRoleOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="max-w-[1024px] justify-between"
+                  >
+                    {field.value
+                      ? UserRoles.find(
+                          (userRole) => userRole.id === field.value,
+                        )?.name
+                      : "Select role..."}
+                    <ChevronsUpDown className="opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="p-0">
+                  <Command>
+                    <CommandInput placeholder="Search..." className="h-9" />
+                    <CommandList>
+                      <CommandEmpty>No results found.</CommandEmpty>
+                      <CommandGroup>
+                        {UserRoles.map((userRole) => (
+                          <CommandItem
+                            key={userRole.id}
+                            value={userRole.id}
+                            onSelect={(currentValue) => {
+                              form.setValue("role", currentValue as UserRole);
+                              setRoleOpen(false);
+                            }}
+                          >
+                            {userRole.name}
+                            {userRole.id === field.value ? (
+                              <Check className="ml-auto" />
+                            ) : null}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
               <FormMessage />
             </FormItem>
           )}
@@ -171,7 +167,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                       <ChevronsUpDown className="opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[414px] p-0">
+                  <PopoverContent className="p-0">
                     <Command>
                       <CommandInput placeholder="Search..." className="h-9" />
                       <CommandList>

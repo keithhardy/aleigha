@@ -1,9 +1,12 @@
 "use client";
 
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { useRouter } from "next/navigation";
 
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+} from "@/components/dialog-sheet";
 
 export function Modal({ children }: Readonly<{ children: React.ReactNode }>) {
   const router = useRouter();
@@ -13,13 +16,11 @@ export function Modal({ children }: Readonly<{ children: React.ReactNode }>) {
   }
 
   return (
-    <Dialog open onOpenChange={onDismiss}>
-      <DialogContent>
-        <VisuallyHidden>
-          <DialogTitle />
-        </VisuallyHidden>
+    <DialogSheet open onOpenChange={onDismiss}>
+      <DialogSheetContent className="p-0">
+        <DialogSheetTitle className="hidden" />
         {children}
-      </DialogContent>
-    </Dialog>
+      </DialogSheetContent>
+    </DialogSheet>
   );
 }
