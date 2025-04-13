@@ -14,13 +14,7 @@ import {
   type RowSelectionState,
   type Row,
 } from "@tanstack/react-table";
-import {
-  ArrowDownToLine,
-  ArrowUpToLine,
-  ListFilterPlus,
-  UserPlus2,
-  XCircle,
-} from "lucide-react";
+import { ListFilterPlus, UserPlus2, XCircle } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
@@ -197,7 +191,7 @@ export function DataTable({ columns, initialData }: DataTableProps) {
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-[32px] w-full lg:w-[300px]"
+            className="h-[32px]"
           />
           <div className="flex w-full">
             <ScrollArea className="w-1 flex-1">
@@ -279,18 +273,6 @@ export function DataTable({ columns, initialData }: DataTableProps) {
               Create
             </Button>
           </Link>
-          <Button variant="outline" size="sm">
-            <ArrowDownToLine />
-            Import
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={selectedRows.length <= 0}
-          >
-            <ArrowUpToLine />
-            Export
-          </Button>
         </div>
       </div>
       <Card className="hidden rounded-md shadow-none md:block">
