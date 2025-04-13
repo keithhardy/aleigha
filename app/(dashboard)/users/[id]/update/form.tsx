@@ -41,7 +41,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
 
 import { updateUser } from "./action";
 import { UpdateUserSchema } from "./schema";
@@ -146,15 +145,10 @@ export default function UpdateUserForm({
                   name="role"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>Client</FormLabel>
+                      <FormLabel>Role</FormLabel>
                       <Popover open={userRoleOpen} onOpenChange={setRoleOpen}>
                         <PopoverTrigger asChild>
-                          <Button
-                            variant="outline"
-                            role="combobox"
-                            aria-expanded={userRoleOpen ? "true" : "false"}
-                            className="justify-between"
-                          >
+                          <Button variant="outline" className="justify-between">
                             {field.value
                               ? UserRoles.find(
                                   (userRole) => userRole.id === field.value,
@@ -185,14 +179,9 @@ export default function UpdateUserForm({
                                     }}
                                   >
                                     {userRole.name}
-                                    <Check
-                                      className={cn(
-                                        "ml-auto",
-                                        userRole.id === field.value
-                                          ? "opacity-100"
-                                          : "opacity-0",
-                                      )}
-                                    />
+                                    {userRole.id === field.value ? (
+                                      <Check className="ml-auto" />
+                                    ) : null}
                                   </CommandItem>
                                 ))}
                               </CommandGroup>
