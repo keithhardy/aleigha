@@ -8,13 +8,14 @@ import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
+import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
 import {
   DialogSheet,
   DialogSheetContent,
   DialogSheetTitle,
   DialogSheetTrigger,
 } from "@/components/dialog-sheet";
-import { FormBar } from "@/components/form-bar";
 import { Header, HeaderGroup, Heading } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import {
@@ -60,7 +61,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
-import { UnsavedChangesDialog } from "@/components/unsaved-changes-dialog";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateObservations } from "./action";

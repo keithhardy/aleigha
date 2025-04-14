@@ -7,7 +7,8 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { FormBar } from "@/components/form-bar";
+import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
+import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
 import { Header, HeaderGroup, Heading } from "@/components/header";
 import {
   Card,
@@ -27,7 +28,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
-import { UnsavedChangesDialog } from "@/components/unsaved-changes-dialog";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateSupplyCharacteristicsAndEarthingArrangements } from "./action";

@@ -18,7 +18,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "./ui/command";
+} from "../../../../components/ui/command";
 
 interface FormBarProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -93,7 +93,6 @@ export function FormBar({ form, sections, baseUrl }: FormBarProps) {
               </Command>
             </DialogSheetContent>
           </DialogSheet>
-
           <Button
             variant="outline"
             size="icon"

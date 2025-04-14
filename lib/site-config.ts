@@ -34,27 +34,6 @@ export const siteConfig: Record<string, PageDetails> = {
     backLink: { text: "Back to Dashboard", href: "/" },
     callToAction: { text: "Docs", href: "/documentation" },
   },
-  certificateCreate: {
-    metadata: { title: "Reiyen – Create Certificate" },
-    header: "Create Certificate",
-    description: "Add a new certificate.",
-    backLink: { text: "Back to Certificates", href: "/certificates" },
-    callToAction: { text: "Docs", href: "/documentation" },
-  },
-  certificateUpdate: {
-    metadata: { title: "Reiyen – Update Certificate" },
-    header: "Update Certificate",
-    description: "Edit certificate details.",
-    backLink: { text: "Back to Certificates", href: "/certificates" },
-    callToAction: { text: "Docs", href: "/documentation" },
-  },
-  certificateDelete: {
-    metadata: { title: "Reiyen – Delete Certificate" },
-    header: "Delete Certificate",
-    description: "Remove a certificate from the system.",
-    backLink: { text: "Back to Certificates", href: "/certificates" },
-    callToAction: { text: "Docs", href: "/documentation" },
-  },
   properties: {
     metadata: { title: "Reiyen – Properties" },
     header: "Properties",
