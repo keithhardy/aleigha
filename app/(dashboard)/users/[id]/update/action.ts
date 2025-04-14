@@ -5,7 +5,7 @@ import { z } from "zod";
 
 import { auth0Management } from "@/lib/auth0-management-client";
 import { prisma } from "@/lib/prisma-client";
-import { ServerActionResponse } from "@/lib/types/server-action-response";
+import { ServerActionResponse } from "@/types/server-action-response";
 
 import { UpdateUserSchema } from "./schema";
 

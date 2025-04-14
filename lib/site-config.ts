@@ -1,4 +1,4 @@
-import { PageDetails } from "./types/page-details";
+import { PageDetails } from "../types/page-details";
 
 export const siteConfig: Record<string, PageDetails> = {
   dashboard: {

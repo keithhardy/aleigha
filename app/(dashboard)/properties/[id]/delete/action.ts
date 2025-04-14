@@ -4,7 +4,7 @@ import { z } from "zod";
 
 import { DeletePropertySchema } from "@/app/(dashboard)/properties/[id]/delete/schema";
 import { prisma } from "@/lib/prisma-client";
-import { ServerActionResponse } from "@/lib/types/server-action-response";
+import { ServerActionResponse } from "@/types/server-action-response";
 
 export async function deleteProperty(
   property: z.infer<typeof DeletePropertySchema>,

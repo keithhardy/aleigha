@@ -3,7 +3,7 @@
 import { z } from "zod";
 
 import { prisma } from "@/lib/prisma-client";
-import { ServerActionResponse } from "@/lib/types/server-action-response";
+import { ServerActionResponse } from "@/types/server-action-response";
 
 import { UpdateNameSchema } from "./schema";
 

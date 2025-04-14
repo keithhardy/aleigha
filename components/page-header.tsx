@@ -9,7 +9,7 @@ import {
   Heading,
 } from "@/components/header";
 import { Button } from "@/components/ui/button";
-import { PageDetails } from "@/lib/types/page-details";
+import { PageDetails } from "@/types/page-details";
 
 interface PageHeaderProps {
   siteConfig: PageDetails;
