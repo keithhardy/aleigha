@@ -12,31 +12,31 @@ import { Button } from "@/components/ui/button";
 import { PageDetails } from "@/types/page-details";
 
 interface PageHeaderProps {
-  siteConfig: PageDetails;
+  config: PageDetails;
 }
 
-export function PageHeader({ siteConfig }: PageHeaderProps) {
+export function PageHeader({ config }: PageHeaderProps) {
   return (
     <Header>
       <HeaderGroup>
-        {siteConfig.backLink && (
+        {config.backLink && (
           <Link
-            href={siteConfig.backLink.href}
+            href={config.backLink.href}
             className="inline-flex items-center text-sm font-semibold"
           >
             <MoveLeft size={22} className="mr-2" />
-            <span>{siteConfig.backLink.text}</span>
+            <span>{config.backLink.text}</span>
           </Link>
         )}
-        <Heading>{siteConfig.header}</Heading>
-        {siteConfig.description && (
-          <HeaderDescription>{siteConfig.description}</HeaderDescription>
+        <Heading>{config.header}</Heading>
+        {config.description && (
+          <HeaderDescription>{config.description}</HeaderDescription>
         )}
-        {siteConfig.callToAction && (
+        {config.callToAction && (
           <HeaderActions>
             <Button asChild size="sm" variant="secondary">
-              <Link href={siteConfig.callToAction.href}>
-                {siteConfig.callToAction.text}
+              <Link href={config.callToAction.href}>
+                {config.callToAction.text}
                 <SquareArrowOutUpRight className="ml-2" size={16} />
               </Link>
             </Button>

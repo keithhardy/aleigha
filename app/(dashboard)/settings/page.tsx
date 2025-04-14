@@ -24,7 +24,7 @@ export default async function Settings() {
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader siteConfig={siteConfig.settings} />
+      <PageHeader config={siteConfig.settings} />
       <div className="space-y-4">
         <UpdateNameForm settings={settings} />
         <UpdateAddressForm settings={settings} />

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Changelog() {
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader siteConfig={siteConfig.changelog} />
+      <PageHeader config={siteConfig.changelog} />
     </div>
   );
 }

@@ -30,7 +30,7 @@ export default async function DeleteClient({
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader siteConfig={siteConfig.clientDelete} />
+      <PageHeader config={siteConfig.clientDelete} />
       <DeleteClientForm client={client!} />
     </div>
   );

@@ -40,7 +40,7 @@ export default async function DeleteProperty({
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader siteConfig={siteConfig.propertyDelete} />
+      <PageHeader config={siteConfig.propertyDelete} />
       <DeletePropertyForm property={property} />
     </div>
   );

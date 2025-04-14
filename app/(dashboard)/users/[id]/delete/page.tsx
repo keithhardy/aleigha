@@ -28,7 +28,7 @@ export default async function DeleteUser({
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader siteConfig={siteConfig.userDelete} />
+      <PageHeader config={siteConfig.userDelete} />
       <DeleteUserForm user={user} />
     </div>
   );

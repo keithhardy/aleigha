@@ -20,7 +20,7 @@ export default async function Properties() {
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader siteConfig={siteConfig.properties} />
+      <PageHeader config={siteConfig.properties} />
       <DataTable columns={columns} data={properties} />
     </div>
   );

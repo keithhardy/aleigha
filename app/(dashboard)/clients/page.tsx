@@ -19,7 +19,7 @@ export default async function Clients() {
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader siteConfig={siteConfig.clients} />
+      <PageHeader config={siteConfig.clients} />
       <DataTable columns={columns} data={clients} />
     </div>
   );

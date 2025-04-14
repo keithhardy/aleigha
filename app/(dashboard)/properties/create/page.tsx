@@ -13,7 +13,7 @@ export default async function CreateProperty() {
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader siteConfig={siteConfig.propertyCreate} />
+      <PageHeader config={siteConfig.propertyCreate} />
       <CreatePropertyForm clients={clients} />
     </div>
   );

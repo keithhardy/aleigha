@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function CreateClient() {
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader siteConfig={siteConfig.clientCreate} />
+      <PageHeader config={siteConfig.clientCreate} />
       <CreateClientForm />
     </div>
   );

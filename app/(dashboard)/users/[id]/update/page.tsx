@@ -32,7 +32,7 @@ export default async function UpdateUser({
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader siteConfig={siteConfig.userUpdate} />
+      <PageHeader config={siteConfig.userUpdate} />
       <UpdateUserForm user={user} clients={clients} />
     </div>
   );

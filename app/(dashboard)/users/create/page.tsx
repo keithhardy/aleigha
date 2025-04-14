@@ -15,7 +15,7 @@ export default async function CreateUser() {
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader siteConfig={siteConfig.userCreate} />
+      <PageHeader config={siteConfig.userCreate} />
       <CreateUserForm clients={clients} />
     </div>
   );

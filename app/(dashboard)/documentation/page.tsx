@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Documentation() {
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader siteConfig={siteConfig.documentation} />
+      <PageHeader config={siteConfig.documentation} />
     </div>
   );
 }
