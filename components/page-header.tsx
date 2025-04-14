@@ -9,49 +9,34 @@ import {
   Heading,
 } from "@/components/header";
 import { Button } from "@/components/ui/button";
-
-interface PageDetails {
-  metadata: {
-    title: string;
-  };
-  header: string;
-  description?: string;
-  backLink?: {
-    text: string;
-    href: string;
-  };
-  callToAction?: {
-    text: string;
-    href: string;
-  };
-}
+import { PageDetails } from "@/lib/types/page-details";
 
 interface PageHeaderProps {
-  config: PageDetails;
+  siteConfig: PageDetails;
 }
 
-export function PageHeader({ config }: PageHeaderProps) {
+export function PageHeader({ siteConfig }: PageHeaderProps) {
   return (
     <Header>
       <HeaderGroup>
-        {config.backLink && (
+        {siteConfig.backLink && (
           <Link
-            href={config.backLink.href}
+            href={siteConfig.backLink.href}
             className="inline-flex items-center text-sm font-semibold"
           >
             <MoveLeft size={22} className="mr-2" />
-            <span>{config.backLink.text}</span>
+            <span>{siteConfig.backLink.text}</span>
           </Link>
         )}
-        <Heading>{config.header}</Heading>
-        {config.description && (
-          <HeaderDescription>{config.description}</HeaderDescription>
+        <Heading>{siteConfig.header}</Heading>
+        {siteConfig.description && (
+          <HeaderDescription>{siteConfig.description}</HeaderDescription>
         )}
-        {config.callToAction && (
+        {siteConfig.callToAction && (
           <HeaderActions>
             <Button asChild size="sm" variant="secondary">
-              <Link href={config.callToAction.href}>
-                {config.callToAction.text}
+              <Link href={siteConfig.callToAction.href}>
+                {siteConfig.callToAction.text}
                 <SquareArrowOutUpRight className="ml-2" size={16} />
               </Link>
             </Button>

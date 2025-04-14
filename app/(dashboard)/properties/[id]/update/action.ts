@@ -3,8 +3,8 @@
 import { z } from "zod";
 
 import { UpdatePropertySchema } from "@/app/(dashboard)/properties/[id]/update/schema";
-import { prisma } from "@/lib/prisma";
-import { ServerActionResponse } from "@/lib/types";
+import { prisma } from "@/lib/prisma-client";
+import { ServerActionResponse } from "@/lib/types/server-action-response";
 
 export async function updateProperty(
   property: z.infer<typeof UpdatePropertySchema>,

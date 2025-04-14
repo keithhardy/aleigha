@@ -3,8 +3,8 @@
 import { z } from "zod";
 
 import { DeleteClientSchema } from "@/app/(dashboard)/clients/[id]/delete/schema";
-import { prisma } from "@/lib/prisma";
-import { ServerActionResponse } from "@/lib/types";
+import { prisma } from "@/lib/prisma-client";
+import { ServerActionResponse } from "@/lib/types/server-action-response";
 import { deleteFile } from "@/lib/vercel-blob";
 
 export async function deleteClient(

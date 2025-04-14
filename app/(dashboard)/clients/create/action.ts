@@ -4,8 +4,8 @@ import { Client } from "@prisma/client";
 import { z } from "zod";
 
 import { CreateClientSchema } from "@/app/(dashboard)/clients/create/schema";
-import { prisma } from "@/lib/prisma";
-import { ServerActionResponse } from "@/lib/types";
+import { prisma } from "@/lib/prisma-client";
+import { ServerActionResponse } from "@/lib/types/server-action-response";
 import { uploadFile } from "@/lib/vercel-blob";
 
 export async function createClient(

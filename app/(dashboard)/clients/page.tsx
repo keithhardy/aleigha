@@ -3,11 +3,11 @@ import { Metadata } from "next";
 import { columns } from "@/app/(dashboard)/clients/components/data-table/columns";
 import { DataTable } from "@/app/(dashboard)/clients/components/data-table/data-table";
 import { PageHeader } from "@/components/page-header";
-import { config } from "@/lib/config";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma-client";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: config.clients.metadata.title,
+  title: siteConfig.clients.metadata.title,
 };
 
 export default async function Clients() {
@@ -19,7 +19,7 @@ export default async function Clients() {
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader config={config.clients} />
+      <PageHeader siteConfig={siteConfig.clients} />
       <DataTable columns={columns} data={clients} />
     </div>
   );

@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 
-import { auth0 } from "@/lib/auth0";
-import { prisma } from "@/lib/prisma";
+import { auth0 } from "@/lib/auth0-client";
+import { prisma } from "@/lib/prisma-client";
 
 export async function getCurrentUser(): Promise<User | null> {
   const session = await auth0.getSession();

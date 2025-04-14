@@ -5,8 +5,8 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { customAlphabet } from "nanoid";
 import { z } from "zod";
 
-import { prisma } from "@/lib/prisma";
-import { ServerActionResponse } from "@/lib/types";
+import { prisma } from "@/lib/prisma-client";
+import { ServerActionResponse } from "@/lib/types/server-action-response";
 
 import { CreateElectricalInstallationConditionReportSchema } from "./schema";
 

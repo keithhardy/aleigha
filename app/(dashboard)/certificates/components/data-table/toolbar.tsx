@@ -2,12 +2,8 @@
 
 import { Cross2Icon, PlusCircledIcon } from "@radix-ui/react-icons";
 import { type Table } from "@tanstack/react-table";
-import { addDays } from "date-fns";
 import Link from "next/link";
-import { useRef, useState } from "react";
-import { type DateRange } from "react-day-picker";
 
-import { DatePickerWithRange } from "@/components/date-picker-with-range";
 import {
   DialogSheet,
   DialogSheetContent,
@@ -75,35 +71,6 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
       )
     : [];
 
-  const [, setDateRange] = useState<DateRange | undefined>(undefined);
-  const datePickerRef = useRef<{ reset: () => void }>(null);
-
-  const applyDateRangeFilter = (range: DateRange | undefined) => {
-    const column = table.getColumn("Date");
-    if (column) {
-      const fromDate = range?.from ? range.from.toISOString() : null;
-      const toDate = range?.to ? range.to.toISOString() : null;
-
-      column.setFilterValue({
-        from: fromDate,
-        to: toDate,
-      });
-    }
-  };
-
-  const handleDateRangeSelect = (range: DateRange | undefined) => {
-    if (range?.from) {
-      if (!range.to) {
-        range = { from: range.from, to: addDays(range.from, 1) };
-      } else {
-        range = { from: range.from, to: addDays(range.to, 1) };
-      }
-    }
-
-    setDateRange(range);
-    applyDateRangeFilter(range);
-  };
-
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
@@ -112,11 +79,6 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
           value={(table.getState().globalFilter as string) ?? ""}
           onChange={(event) => table.setGlobalFilter(event.target.value)}
           className="h-8 w-[150px] border-dashed lg:w-[250px]"
-        />
-
-        <DatePickerWithRange
-          ref={datePickerRef}
-          onSelect={handleDateRangeSelect}
         />
 
         {typeColumn && (
@@ -155,7 +117,6 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
           <Button
             variant="ghost"
             onClick={() => {
-              datePickerRef.current?.reset();
               table.resetColumnFilters();
             }}
             className="h-8 px-2 lg:px-3"

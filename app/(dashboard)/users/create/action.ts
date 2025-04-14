@@ -3,9 +3,9 @@
 import { User } from "@prisma/client";
 import { z } from "zod";
 
-import { auth0Management } from "@/lib/auth0-management";
-import { prisma } from "@/lib/prisma";
-import { ServerActionResponse } from "@/lib/types";
+import { auth0Management } from "@/lib/auth0-management-client";
+import { prisma } from "@/lib/prisma-client";
+import { ServerActionResponse } from "@/lib/types/server-action-response";
 
 import { CreateUserSchema } from "./schema";
 

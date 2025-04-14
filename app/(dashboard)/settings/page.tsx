@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 import { PageHeader } from "@/components/page-header";
-import { config } from "@/lib/config";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma-client";
+import { siteConfig } from "@/lib/site-config";
 
 import { UpdateAddressForm } from "./address/form";
 import { UpdateEmailForm } from "./email/form";
@@ -12,7 +12,7 @@ import { UpdateNameForm } from "./name/form";
 import { UpdatePhoneForm } from "./phone/form";
 
 export const metadata: Metadata = {
-  title: config.settings.metadata.title,
+  title: siteConfig.settings.metadata.title,
 };
 
 export default async function Settings() {
@@ -24,7 +24,7 @@ export default async function Settings() {
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader config={config.settings} />
+      <PageHeader siteConfig={siteConfig.settings} />
       <div className="space-y-4">
         <UpdateNameForm settings={settings} />
         <UpdateAddressForm settings={settings} />

@@ -3,11 +3,11 @@ import { notFound } from "next/navigation";
 
 import { UpdatePropertyForm } from "@/app/(dashboard)/properties/[id]/update/form";
 import { PageHeader } from "@/components/page-header";
-import { config } from "@/lib/config";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma-client";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: config.propertyUpdate.metadata.title,
+  title: siteConfig.propertyUpdate.metadata.title,
 };
 
 export default async function UpdateProperty({
@@ -32,7 +32,7 @@ export default async function UpdateProperty({
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader config={config.propertyUpdate} />
+      <PageHeader siteConfig={siteConfig.propertyUpdate} />
       <UpdatePropertyForm property={property} clients={clients} />
     </div>
   );

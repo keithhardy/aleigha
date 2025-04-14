@@ -11,7 +11,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-// import { getCurrentUser } from "@/lib/auth";
+// import { getCurrentUser } from "@/lib/get-current-user";
 
 import { DashboardSidebar } from "./components/dashboard-sidebar";
 

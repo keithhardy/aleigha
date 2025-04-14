@@ -2,13 +2,13 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { PageHeader } from "@/components/page-header";
-import { config } from "@/lib/config";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma-client";
+import { siteConfig } from "@/lib/site-config";
 
 import UpdateUserForm from "./form";
 
 export const metadata: Metadata = {
-  title: config.userUpdate.metadata.title,
+  title: siteConfig.userUpdate.metadata.title,
 };
 
 export default async function UpdateUser({
@@ -32,7 +32,7 @@ export default async function UpdateUser({
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader config={config.userUpdate} />
+      <PageHeader siteConfig={siteConfig.userUpdate} />
       <UpdateUserForm user={user} clients={clients} />
     </div>
   );
