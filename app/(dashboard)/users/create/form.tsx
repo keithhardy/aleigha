@@ -9,6 +9,12 @@ import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/dialog-sheet";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -35,11 +41,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 
 import { createUserAction } from "./action";
@@ -126,24 +127,28 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Role</FormLabel>
-                      <Popover open={userRoleOpen} onOpenChange={setRoleOpen}>
-                        <PopoverTrigger asChild>
-                          <Button variant="outline" className="justify-between">
+                      <DialogSheet
+                        open={userRoleOpen}
+                        onOpenChange={setRoleOpen}
+                      >
+                        <DialogSheetTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className="w-full justify-between"
+                          >
                             {field.value
                               ? UserRoles.find(
                                   (userRole) => userRole.id === field.value,
                                 )?.name
                               : "Select role..."}
-                            <ChevronsUpDown className="opacity-50" />
+                            <ChevronsUpDown />
                           </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="p-0">
-                          <Command>
-                            <CommandInput
-                              placeholder="Search..."
-                              className="h-9"
-                            />
-                            <CommandList>
+                        </DialogSheetTrigger>
+                        <DialogSheetContent className="p-0">
+                          <DialogSheetTitle className="hidden" />
+                          <Command className="pt-2">
+                            <CommandInput placeholder="Search..." />
+                            <CommandList className="scrollbar-hidden mt-1 border-t p-1">
                               <CommandEmpty>No results found.</CommandEmpty>
                               <CommandGroup>
                                 {UserRoles.map((userRole) => (
@@ -167,8 +172,8 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                               </CommandGroup>
                             </CommandList>
                           </Command>
-                        </PopoverContent>
-                      </Popover>
+                        </DialogSheetContent>
+                      </DialogSheet>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -180,30 +185,28 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                     <FormItem className="flex flex-col">
                       <FormLabel>Clients</FormLabel>
                       <FormControl>
-                        <Popover
+                        <DialogSheet
                           open={userClientOpen}
                           onOpenChange={setClientOpen}
                         >
-                          <PopoverTrigger asChild>
+                          <DialogSheetTrigger asChild>
                             <Button
                               variant="outline"
-                              className="justify-between"
+                              className="w-full justify-between"
                             >
                               {field.value.length === 0
                                 ? "Select Clients..."
                                 : field.value.length === 1
                                   ? field.value[0].name
                                   : `${field.value.length} clients selected`}
-                              <ChevronsUpDown className="opacity-50" />
+                              <ChevronsUpDown />
                             </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="p-0">
-                            <Command>
-                              <CommandInput
-                                placeholder="Search..."
-                                className="h-9"
-                              />
-                              <CommandList>
+                          </DialogSheetTrigger>
+                          <DialogSheetContent className="p-0">
+                            <DialogSheetTitle className="hidden" />
+                            <Command className="pt-2">
+                              <CommandInput placeholder="Search..." />
+                              <CommandList className="scrollbar-hidden mt-1 border-t p-1">
                                 <CommandEmpty>No results found.</CommandEmpty>
                                 <CommandGroup>
                                   {clients.map((client) => {
@@ -239,8 +242,8 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                                 </CommandGroup>
                               </CommandList>
                             </Command>
-                          </PopoverContent>
-                        </Popover>
+                          </DialogSheetContent>
+                        </DialogSheet>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
