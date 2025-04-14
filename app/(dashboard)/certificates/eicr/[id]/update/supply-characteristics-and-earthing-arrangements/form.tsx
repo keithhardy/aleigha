@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { FormBar } from "@/components/form-bar";
-import { Header, HeaderGroup, Heading } from "@/components/page-header";
+import { Header, HeaderGroup, Heading } from "@/components/header";
 import {
   Card,
   CardContent,

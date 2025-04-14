@@ -1,15 +1,7 @@
-import { MoveLeft, SquareArrowOutUpRight } from "lucide-react";
 import { Metadata } from "next";
-import Link from "next/link";
 
-import {
-  Header,
-  HeaderActions,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
-import { Button } from "@/components/ui/button";
+import { PageHeader } from "@/components/page-header";
+import { config } from "@/lib/config";
 import { prisma } from "@/lib/prisma";
 
 import { UpdateAddressForm } from "./address/form";
@@ -20,7 +12,7 @@ import { UpdateNameForm } from "./name/form";
 import { UpdatePhoneForm } from "./phone/form";
 
 export const metadata: Metadata = {
-  title: "Reiyen – Settings",
+  title: config.settings.metadata.title,
 };
 
 export default async function Settings() {
@@ -32,30 +24,7 @@ export default async function Settings() {
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <Header>
-        <HeaderGroup>
-          <Link
-            href={"/"}
-            className="inline-flex items-center text-sm font-semibold"
-          >
-            <MoveLeft size={22} className="mr-2" />
-            <span>Back to Dashboard</span>
-          </Link>
-          <Heading>Settings</Heading>
-          <HeaderDescription>
-            Update your organization’s settings. These will be shown on all
-            certificates.
-          </HeaderDescription>
-          <HeaderActions>
-            <Button asChild size="sm" variant="secondary">
-              <Link href="/documentation">
-                Docs
-                <SquareArrowOutUpRight />
-              </Link>
-            </Button>
-          </HeaderActions>
-        </HeaderGroup>
-      </Header>
+      <PageHeader config={config.settings} />
       <div className="space-y-4">
         <UpdateNameForm settings={settings} />
         <UpdateAddressForm settings={settings} />

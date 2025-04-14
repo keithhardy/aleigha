@@ -2,16 +2,12 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { UpdatePropertyForm } from "@/app/(dashboard)/properties/[id]/update/form";
-import {
-  Header,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
+import { PageHeader } from "@/components/page-header";
+import { config } from "@/lib/config";
 import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
-  title: "Reiyen – Update Property",
+  title: config.propertyUpdate.metadata.title,
 };
 
 export default async function UpdateProperty({
@@ -35,17 +31,8 @@ export default async function UpdateProperty({
   const clients = await prisma.client.findMany();
 
   return (
-    <div className="container mx-auto max-w-screen-lg">
-      <Header>
-        <HeaderGroup>
-          <Heading>Update Property</Heading>
-          <HeaderDescription>
-            Edit the details of the selected property below. Make sure to review
-            the information carefully before saving any changes.
-          </HeaderDescription>
-        </HeaderGroup>
-      </Header>
-
+    <div className="container mx-auto max-w-screen-xl flex-grow p-6">
+      <PageHeader config={config.propertyUpdate} />
       <UpdatePropertyForm property={property} clients={clients} />
     </div>
   );

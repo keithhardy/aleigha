@@ -6,7 +6,7 @@ import {
   HeaderDescription,
   HeaderGroup,
   Heading,
-} from "@/components/page-header";
+} from "@/components/header";
 import { getCurrentUser } from "@/lib/auth";
 
 import { CreateElectricalInstallationConditionReportForm } from "./form";

@@ -1,14 +1,13 @@
-import { MoveLeft } from "lucide-react";
 import { Metadata } from "next";
-import Link from "next/link";
 
 import { columns } from "@/app/(dashboard)/clients/components/data-table/columns";
 import { DataTable } from "@/app/(dashboard)/clients/components/data-table/data-table";
-import { Header, HeaderGroup, Heading } from "@/components/page-header";
+import { PageHeader } from "@/components/page-header";
+import { config } from "@/lib/config";
 import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
-  title: "Reiyen – Clients",
+  title: config.clients.metadata.title,
 };
 
 export default async function Clients() {
@@ -20,18 +19,7 @@ export default async function Clients() {
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <Header>
-        <HeaderGroup>
-          <Link
-            href={"/"}
-            className="inline-flex items-center text-sm font-semibold"
-          >
-            <MoveLeft size={22} className="mr-2" />
-            <span>Back to Dashboard</span>
-          </Link>
-          <Heading>Clients</Heading>
-        </HeaderGroup>
-      </Header>
+      <PageHeader config={config.clients} />
       <DataTable columns={columns} data={clients} />
     </div>
   );

@@ -1,14 +1,13 @@
-import { MoveLeft } from "lucide-react";
 import { Metadata } from "next";
-import Link from "next/link";
 
 import { columns } from "@/app/(dashboard)/properties/components/data-table/columns";
 import { DataTable } from "@/app/(dashboard)/properties/components/data-table/data-table";
-import { Header, HeaderGroup, Heading } from "@/components/page-header";
+import { PageHeader } from "@/components/page-header";
+import { config } from "@/lib/config";
 import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
-  title: "Reiyen – Properties",
+  title: config.properties.metadata.title,
 };
 
 export default async function Properties() {
@@ -21,19 +20,7 @@ export default async function Properties() {
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <Header>
-        <HeaderGroup>
-          <Link
-            href={"/"}
-            className="inline-flex items-center text-sm font-semibold"
-          >
-            <MoveLeft size={22} className="mr-2" />
-            <span>Back to Dashboard</span>
-          </Link>
-          <Heading>Properties</Heading>
-        </HeaderGroup>
-      </Header>
-
+      <PageHeader config={config.properties} />
       <DataTable columns={columns} data={properties} />
     </div>
   );

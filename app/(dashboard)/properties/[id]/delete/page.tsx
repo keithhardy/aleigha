@@ -2,16 +2,12 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { DeletePropertyForm } from "@/app/(dashboard)/properties/[id]/delete/form";
-import {
-  Header,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
+import { PageHeader } from "@/components/page-header";
+import { config } from "@/lib/config";
 import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
-  title: "Reiyen – Delete Property",
+  title: config.propertyDelete.metadata.title,
 };
 
 export async function generateStaticParams() {
@@ -43,17 +39,8 @@ export default async function DeleteProperty({
   }
 
   return (
-    <div className="container mx-auto max-w-screen-lg">
-      <Header>
-        <HeaderGroup>
-          <Heading>Delete Property</Heading>
-          <HeaderDescription>
-            Are you sure you want to delete {property.address.streetAddress}?
-            This action cannot be undone.
-          </HeaderDescription>
-        </HeaderGroup>
-      </Header>
-
+    <div className="container mx-auto max-w-screen-xl flex-grow p-6">
+      <PageHeader config={config.propertyDelete} />
       <DeletePropertyForm property={property} />
     </div>
   );

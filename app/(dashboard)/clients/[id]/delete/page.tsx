@@ -2,16 +2,12 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { DeleteClientForm } from "@/app/(dashboard)/clients/[id]/delete/form";
-import {
-  Header,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
+import { PageHeader } from "@/components/page-header";
+import { config } from "@/lib/config";
 import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
-  title: "Reiyen – Delete Client",
+  title: config.clientDelete.metadata.title,
 };
 
 export default async function DeleteClient({
@@ -33,17 +29,8 @@ export default async function DeleteClient({
   }
 
   return (
-    <div className="container mx-auto max-w-screen-lg">
-      <Header>
-        <HeaderGroup>
-          <Heading>Delete Client</Heading>
-          <HeaderDescription>
-            You are about to delete {client.name}. This action is permanent and
-            cannot be undone.
-          </HeaderDescription>
-        </HeaderGroup>
-      </Header>
-
+    <div className="container mx-auto max-w-screen-xl flex-grow p-6">
+      <PageHeader config={config.clientDelete} />
       <DeleteClientForm client={client!} />
     </div>
   );
