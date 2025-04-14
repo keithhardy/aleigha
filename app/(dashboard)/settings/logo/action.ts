@@ -3,8 +3,8 @@
 import { z } from "zod";
 
 import { prisma } from "@/lib/prisma-client";
-import { ServerActionResponse } from "@/types/server-action-response";
 import { updateFile } from "@/lib/vercel-blob";
+import { ServerActionResponse } from "@/types/server-action-response";
 
 import { UpdateLogoSchema } from "./schema";
 

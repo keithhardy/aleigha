@@ -1,17 +1,5 @@
 "use client";
 
-import {
-  LayoutPanelLeft,
-  Users,
-  Settings2,
-  Logs,
-  Building2,
-  House,
-  Folder,
-  BookText,
-  CircleHelp,
-  ScrollText,
-} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -29,39 +17,7 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
-
-const dashboard = [
-  {
-    title: "Dashboard",
-    url: "/",
-    icon: LayoutPanelLeft,
-  },
-  {
-    title: "Logs",
-    url: "/logs",
-    icon: Logs,
-  },
-  {
-    title: "Certificates",
-    url: "/certificates",
-    icon: Folder,
-  },
-  {
-    title: "Properties",
-    url: "/properties",
-    icon: House,
-  },
-  {
-    title: "Clients",
-    url: "/clients",
-    icon: Building2,
-  },
-  {
-    title: "Users",
-    url: "/users",
-    icon: Users,
-  },
-];
+import { dashboardSidebar } from "@/lib/site-config";
 
 export function DashboardSidebar() {
   const { setOpenMobile } = useSidebar();
@@ -88,12 +44,11 @@ export function DashboardSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-
       <SidebarContent className="scrollbar-hidden">
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {dashboard.map((item) => (
+              {dashboardSidebar.main.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     asChild
@@ -112,57 +67,23 @@ export function DashboardSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              tooltip="Help"
-              onClick={() => setOpenMobile(false)}
-            >
-              <Link href="/help">
-                <CircleHelp />
-                <span>Help</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              tooltip="Documentation"
-              onClick={() => setOpenMobile(false)}
-            >
-              <Link href="/documentation">
-                <BookText />
-                <span>Documentation</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              tooltip="Changelog"
-              onClick={() => setOpenMobile(false)}
-            >
-              <Link href="/changelog">
-                <ScrollText />
-                <span>Changelog</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              tooltip="Settings"
-              onClick={() => setOpenMobile(false)}
-            >
-              <Link href="/settings">
-                <Settings2 />
-                <span>Settings</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          {dashboardSidebar.footer.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton
+                asChild
+                tooltip={item.title}
+                isActive={pathname == item.url}
+                onClick={() => setOpenMobile(false)}
+              >
+                <Link href={item.url}>
+                  <item.icon />
+                  <span>{item.title}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
         </SidebarMenu>
       </SidebarFooter>
       <SidebarRail />
