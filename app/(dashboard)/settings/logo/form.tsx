@@ -42,7 +42,7 @@ export function UpdatePictureForm({
 
   const [imagePreview, setImagePreview] = useState(settings?.picture || "");
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const inputPictureRef = useRef<HTMLInputElement>(null);
 
   const form = useForm({
     resolver: zodResolver(UpdateLogoSchema),
@@ -85,8 +85,8 @@ export function UpdatePictureForm({
   };
 
   const handleClear = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+    if (inputPictureRef.current) {
+      inputPictureRef.current.value = "";
     }
     setImagePreview(settings?.picture || "");
     form.reset();
@@ -107,7 +107,7 @@ export function UpdatePictureForm({
               <FormField
                 control={form.control}
                 name="picture"
-                render={() => (
+                render={(field) => (
                   <FormItem>
                     <div className="flex gap-2">
                       <FormControl>
@@ -115,7 +115,7 @@ export function UpdatePictureForm({
                           type="file"
                           accept="image/*"
                           className="h-[32px]"
-                          ref={fileInputRef}
+                          ref={inputPictureRef}
                           onChange={handleFileChange}
                         />
                       </FormControl>

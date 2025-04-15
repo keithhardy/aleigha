@@ -146,6 +146,27 @@ export const siteConfig: Record<string, PageDetails> = {
     backLink: { text: "Back to Dashboard", href: "/" },
     callToAction: { text: "Docs", href: "/documentation" },
   },
+  cookiePolicy: {
+    metadata: { title: "Reiyen – Cookie Policy" },
+    header: "Cookie Policy",
+    description: "How we use cookies and how you can manage them.",
+    backLink: { text: "Back to Dashboard", href: "/" },
+    callToAction: { text: "Docs", href: "/documentation" },
+  },
+  privacyPolicy: {
+    metadata: { title: "Reiyen – Privacy Policy" },
+    header: "Privacy Policy",
+    description: "How we handle your personal information.",
+    backLink: { text: "Back to Dashboard", href: "/" },
+    callToAction: { text: "Docs", href: "/documentation" },
+  },
+  termsOfService: {
+    metadata: { title: "Reiyen – Terms of Service" },
+    header: "Terms of Service",
+    description: "Rules for using Reiyen’s services.",
+    backLink: { text: "Back to Dashboard", href: "/" },
+    callToAction: { text: "Docs", href: "/documentation" },
+  },
 };
 
 export const dashboardSidebar = {
