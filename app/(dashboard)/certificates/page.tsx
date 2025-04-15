@@ -3,11 +3,11 @@ import { Metadata } from "next";
 import { columns } from "@/app/(dashboard)/certificates/components/data-table/columns";
 import { DataTable } from "@/app/(dashboard)/certificates/components/data-table/data-table";
 import { PageHeader } from "@/components/page-header";
+import { pagesConfig } from "@/config/pages";
 import { prisma } from "@/lib/prisma-client";
-import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: siteConfig.certificates.metadata.title,
+  title: pagesConfig.certificates.metadata.title,
 };
 
 export default async function Certificates() {
@@ -46,7 +46,7 @@ export default async function Certificates() {
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader config={siteConfig.certificates} />
+      <PageHeader config={pagesConfig.certificates} />
       <DataTable columns={columns} data={certificates} />
     </div>
   );

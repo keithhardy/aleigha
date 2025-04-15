@@ -3,11 +3,11 @@ import { notFound } from "next/navigation";
 
 import { UpdateClientForm } from "@/app/(dashboard)/clients/[id]/update/form";
 import { PageHeader } from "@/components/page-header";
+import { pagesConfig } from "@/config/pages";
 import { prisma } from "@/lib/prisma-client";
-import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: siteConfig.clientUpdate.metadata.title,
+  title: pagesConfig.clientUpdate.metadata.title,
 };
 
 export default async function UpdateClient({
@@ -30,7 +30,7 @@ export default async function UpdateClient({
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader config={siteConfig.clientUpdate} />
+      <PageHeader config={pagesConfig.clientUpdate} />
       <UpdateClientForm client={client} />
     </div>
   );

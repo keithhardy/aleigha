@@ -3,11 +3,11 @@ import { notFound } from "next/navigation";
 
 import { DeleteClientForm } from "@/app/(dashboard)/clients/[id]/delete/form";
 import { PageHeader } from "@/components/page-header";
+import { pagesConfig } from "@/config/pages";
 import { prisma } from "@/lib/prisma-client";
-import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: siteConfig.clientDelete.metadata.title,
+  title: pagesConfig.clientDelete.metadata.title,
 };
 
 export default async function DeleteClient({
@@ -30,7 +30,7 @@ export default async function DeleteClient({
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader config={siteConfig.clientDelete} />
+      <PageHeader config={pagesConfig.clientDelete} />
       <DeleteClientForm client={client!} />
     </div>
   );
