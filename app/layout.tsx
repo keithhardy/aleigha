@@ -16,8 +16,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  modal,
-}: Readonly<{ children: React.ReactNode; modal: React.ReactNode }>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.className} antialiased`}>
@@ -30,7 +29,6 @@ export default function RootLayout({
           {children}
           <Toaster />
         </ThemeProvider>
-        {modal}
       </body>
     </html>
   );
