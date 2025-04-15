@@ -5,25 +5,11 @@ import { z } from "zod";
 
 import { CreateClientSchema } from "@/app/(dashboard)/clients/create/schema";
 import { prisma } from "@/lib/prisma-client";
-import { uploadFile } from "@/lib/vercel-blob";
 import { ServerActionResponse } from "@/types/server-action-response";
 
 export async function createClient(
   client: z.infer<typeof CreateClientSchema>,
 ): Promise<ServerActionResponse<Client>> {
-  if (client.picture) {
-    try {
-      client.picture =
-        (await uploadFile(client.picture, "client-picture")) || "";
-    } catch {
-      return {
-        status: "error",
-        heading: "Client Creation Failed",
-        message: "There was an issue creating the client. Please try again.",
-      };
-    }
-  }
-
   try {
     await prisma.client.create({
       data: {

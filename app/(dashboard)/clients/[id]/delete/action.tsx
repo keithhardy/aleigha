@@ -4,7 +4,6 @@ import { z } from "zod";
 
 import { DeleteClientSchema } from "@/app/(dashboard)/clients/[id]/delete/schema";
 import { prisma } from "@/lib/prisma-client";
-import { deleteFile } from "@/lib/vercel-blob";
 import { ServerActionResponse } from "@/types/server-action-response";
 
 export async function deleteClient(
@@ -16,10 +15,6 @@ export async function deleteClient(
         id: client.id,
       },
     });
-
-    if (client.picture) {
-      await deleteFile(client.picture);
-    }
 
     return {
       status: "success",
