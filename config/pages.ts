@@ -1,4 +1,4 @@
-type PagesConfig = {
+export type PagesConfig = {
   metadata: {
     title: string;
   };

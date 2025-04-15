@@ -12,13 +12,13 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-type SidebarNavItem = {
+export type SidebarNavItem = {
   title: string;
   url: string;
   icon: LucideIcon;
 };
 
-type DashboardSidebarConfig = {
+export type DashboardSidebarConfig = {
   mainNav: SidebarNavItem[];
   footerNav: SidebarNavItem[];
 };
@@ -79,5 +79,3 @@ export const dashboardSidebarConfig: DashboardSidebarConfig = {
     },
   ],
 };
-
-export type { SidebarNavItem, DashboardSidebarConfig };
