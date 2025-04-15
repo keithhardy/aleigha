@@ -5,7 +5,7 @@ import {
   HeaderDescription,
   HeaderGroup,
   Heading,
-} from "@/components/header";
+} from "@/components/page-header";
 import { auth0 } from "@/lib/auth0-client";
 
 import { CreateElectricalInstallationConditionReportForm } from "./form";
