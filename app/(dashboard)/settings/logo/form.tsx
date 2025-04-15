@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Address, Settings } from "@prisma/client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -40,17 +40,22 @@ export function UpdatePictureForm({
 
   const { toast } = useToast();
 
-  const [imagePreview, setImagePreview] = useState(settings?.picture || "");
+  const [picturePreviewUrl, setPicturePreviewUrl] = useState<string | null>(
+    settings?.picture || null,
+  );
 
-  const inputPictureRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    return () => {
+      if (picturePreviewUrl) URL.revokeObjectURL(picturePreviewUrl);
+    };
+  }, [picturePreviewUrl]);
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof UpdateLogoSchema>>({
     resolver: zodResolver(UpdateLogoSchema),
     defaultValues: {
       id: settings?.id,
-      picture: "",
+      picture: undefined,
     },
-    mode: "onChange",
   });
 
   const onSubmit = async (data: z.infer<typeof UpdateLogoSchema>) => {
@@ -71,27 +76,6 @@ export function UpdatePictureForm({
     }
   };
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setImagePreview(base64String);
-        form.setValue("picture", base64String, { shouldDirty: true });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleClear = () => {
-    if (inputPictureRef.current) {
-      inputPictureRef.current.value = "";
-    }
-    setImagePreview(settings?.picture || "");
-    form.reset();
-  };
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -104,30 +88,41 @@ export function UpdatePictureForm({
               </CardDescription>
             </CardHeader>
             <CardContent className="w-full space-y-4 p-0">
-              <FormField
-                control={form.control}
-                name="picture"
-                render={(field) => (
-                  <FormItem>
-                    <div className="flex gap-2">
+              <FormItem>
+                <FormField
+                  control={form.control}
+                  name="picture"
+                  render={({
+                    field: { onChange, onBlur, name, ref, disabled },
+                  }) => (
+                    <FormItem>
                       <FormControl>
                         <Input
                           type="file"
-                          accept="image/*"
                           className="h-[32px]"
-                          ref={inputPictureRef}
-                          onChange={handleFileChange}
+                          name={name}
+                          ref={ref}
+                          onBlur={onBlur}
+                          disabled={disabled}
+                          onChange={(event) => {
+                            const file = event.target.files?.[0];
+                            if (file) {
+                              onChange(file);
+                              setPicturePreviewUrl(URL.createObjectURL(file));
+                            }
+                          }}
                         />
                       </FormControl>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {imagePreview && (
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormMessage />
+              </FormItem>
+              {picturePreviewUrl && (
                 <div className="w-[100px]">
                   <AspectRatio>
-                    <Image src={imagePreview} alt="Logo Preview" fill />
+                    <Image src={picturePreviewUrl} alt="Logo Preview" fill />
                   </AspectRatio>
                 </div>
               )}
@@ -138,15 +133,6 @@ export function UpdatePictureForm({
               Logo must be less than 1 MB.
             </p>
             <div className="flex gap-2">
-              <Button
-                variant="outline"
-                type="button"
-                size="sm"
-                onClick={handleClear}
-                disabled={!form.formState.isDirty}
-              >
-                Clear
-              </Button>
               <Button
                 variant="outline"
                 type="submit"
