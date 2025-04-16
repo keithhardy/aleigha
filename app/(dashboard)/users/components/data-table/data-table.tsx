@@ -14,7 +14,12 @@ import {
   type RowSelectionState,
   type Row,
 } from "@tanstack/react-table";
-import { ListFilterPlus, UserPlus2, XCircle } from "lucide-react";
+import {
+  ListFilterPlus,
+  MoreHorizontal,
+  UserPlus2,
+  XCircle,
+} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
@@ -26,13 +31,8 @@ import {
 } from "@/components/dialog-sheet";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardFooter } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Command,
   CommandEmpty,
@@ -41,15 +41,14 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -75,7 +74,7 @@ interface User {
 }
 
 interface DataTableProps {
-  columns: ColumnDef<User, unknown>[];
+  columns: ColumnDef<User>[];
   initialData: {
     users: User[];
     totalCount: number;
@@ -96,7 +95,6 @@ export function DataTable({ columns, initialData }: DataTableProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const [roleFilter, setRoleFilter] = useState<$Enums.UserRole[]>([]);
-  const [selectRoleFilterOpen, setSelectRoleFilterOpen] = useState(false);
 
   const rowSelection = useMemo(() => {
     const idSet = new Set(selectedRows);
@@ -196,10 +194,77 @@ export function DataTable({ columns, initialData }: DataTableProps) {
           <div className="flex w-full">
             <ScrollArea className="w-1 flex-1">
               <div className="flex gap-2">
-                <DialogSheet
-                  open={selectRoleFilterOpen}
-                  onOpenChange={setSelectRoleFilterOpen}
-                >
+                <DialogSheet>
+                  <DialogSheetTrigger asChild>
+                    <Button variant="outline" size="sm">
+                      <ListFilterPlus />
+                      Sort
+                      {sorting.length > 0 && (
+                        <Badge variant="secondary">
+                          {sorting[0].id} {sorting[0].desc ? "↓" : "↑"}
+                        </Badge>
+                      )}
+                    </Button>
+                  </DialogSheetTrigger>
+                  <DialogSheetContent className="p-0">
+                    <DialogSheetTitle className="hidden" />
+                    <Command className="pt-2">
+                      <CommandInput placeholder="Search..." autoFocus={false} />
+                      <CommandList className="scrollbar-hidden mt-1 border-t p-1">
+                        <CommandEmpty>No results found.</CommandEmpty>
+                        <CommandGroup>
+                          {columns
+                            .filter(
+                              (col) =>
+                                typeof col.accessorKey === "string" &&
+                                col.enableSorting !== false,
+                            )
+                            .map((col) => {
+                              const key = col.accessorKey;
+
+                              return (
+                                <CommandItem
+                                  key={key}
+                                  onSelect={() => {
+                                    const isCurrent = sorting[0]?.id === key;
+                                    const isDesc = sorting[0]?.desc ?? false;
+
+                                    setSorting([
+                                      {
+                                        id: key,
+                                        desc: isCurrent ? !isDesc : false,
+                                      },
+                                    ]);
+                                    setPageIndex(0);
+                                  }}
+                                >
+                                  <div
+                                    className={cn(
+                                      "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                                      sorting[0]?.id === key
+                                        ? "bg-primary text-primary-foreground"
+                                        : "opacity-50 [&_svg]:invisible",
+                                    )}
+                                  >
+                                    <CheckIcon />
+                                  </div>
+                                  {key.charAt(0).toUpperCase() + key.slice(1)}
+                                  {sorting[0]?.id === key && (
+                                    <span className="ml-auto">
+                                      {sorting[0].desc
+                                        ? "Descending ↓"
+                                        : "Ascending ↑"}
+                                    </span>
+                                  )}
+                                </CommandItem>
+                              );
+                            })}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </DialogSheetContent>
+                </DialogSheet>
+                <DialogSheet>
                   <DialogSheetTrigger asChild>
                     <Button variant="outline" size="sm">
                       <ListFilterPlus />
@@ -241,7 +306,7 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                                 >
                                   <CheckIcon />
                                 </div>
-                                {UserRole[role]}
+                                {role}
                                 <span className="ml-auto">{count}</span>
                               </CommandItem>
                             );
@@ -275,8 +340,8 @@ export function DataTable({ columns, initialData }: DataTableProps) {
           </Link>
         </div>
       </div>
-      <Card className="hidden rounded-md shadow-none md:block">
-        <Table>
+      <Card className="rounded-md shadow-none">
+        <Table className="hidden sm:table">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -319,100 +384,83 @@ export function DataTable({ columns, initialData }: DataTableProps) {
             )}
           </TableBody>
         </Table>
-        <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-          <div className="flex-1 text-sm text-muted-foreground">
-            {selectedRows.length} of {data.totalCount} row(s) selected.
-          </div>
-          <p className="text-sm text-muted-foreground">Rows per page</p>
-          <Select
-            value={`${pageSize}`}
-            onValueChange={(value) => {
-              setPageSize(Number(value));
-              setPageIndex(0);
-            }}
-          >
-            <SelectTrigger className="h-[32px] w-[70px] bg-background">
-              <SelectValue placeholder={pageSize} />
-            </SelectTrigger>
-            <SelectContent side="top" align="center">
-              {[10, 30, 50, 100].map((pageSize) => (
-                <SelectItem key={pageSize} value={`${pageSize}`}>
-                  {pageSize}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className="flex flex-col md:hidden [&_div:last-child]:border-0">
+          {table.getRowModel().rows.length ? (
+            table.getRowModel().rows.map((row) => (
+              <div key={row.id} className="space-y-2 border-b p-6 text-sm">
+                <div>
+                  {flexRender(
+                    getCellById(row, "name")!.column.columnDef.cell,
+                    getCellById(row, "name")!.getContext(),
+                  )}
+                </div>
+                <div>
+                  {flexRender(
+                    getCellById(row, "email")!.column.columnDef.cell,
+                    getCellById(row, "email")!.getContext(),
+                  )}
+                </div>
+                <div>
+                  {flexRender(
+                    getCellById(row, "phone")!.column.columnDef.cell,
+                    getCellById(row, "phone")!.getContext(),
+                  )}
+                </div>
+                <div>
+                  {flexRender(
+                    getCellById(row, "role")!.column.columnDef.cell,
+                    getCellById(row, "role")!.getContext(),
+                  )}
+                </div>
+                <div
+                  className="flex cursor-pointer items-center gap-2"
+                  onClick={() => row.toggleSelected(!row.getIsSelected())}
+                >
+                  <Checkbox checked={row.getIsSelected()} />
+                  <span>Select</span>
+                </div>
+                <div>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="data-[state=open]:bg-accent"
+                      >
+                        <MoreHorizontal />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem asChild>
+                        <Link href={`/users/${row.original.id}/update`}>
+                          Edit
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href={`/users/${row.original.id}/delete`}>
+                          Delete
+                        </Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div>No results.</div>
+          )}
+        </div>
+        <CardFooter className="flex justify-center space-x-4 rounded-b-md border-t bg-muted py-4">
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
-            disabled={pageIndex === 0}
+            onClick={() => setPageSize((prev) => Math.max(prev + 10, 0))}
+            disabled={pageSize >= data.totalCount}
           >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setPageIndex((prev) => prev + 1)}
-            disabled={pageIndex + 1 >= Math.ceil(data.totalCount / pageSize)}
-          >
-            Next
+            See more
           </Button>
         </CardFooter>
       </Card>
-      <div className="flex flex-col gap-4 md:hidden">
-        {table.getRowModel().rows.map((row: Row<unknown>) => (
-          <Card key={row.id} className="rounded-md shadow-none">
-            <CardHeader className="relative">
-              <CardDescription>
-                {getCellById(row, "role")
-                  ? flexRender(
-                      getCellById(row, "role")!.column.columnDef.cell,
-                      getCellById(row, "role")!.getContext(),
-                    )
-                  : null}
-              </CardDescription>
-              <CardTitle
-                className="text-2xl font-semibold tabular-nums"
-                id={`card-${row.id}`}
-              >
-                {getCellById(row, "name")
-                  ? flexRender(
-                      getCellById(row, "name")!.column.columnDef.cell,
-                      getCellById(row, "name")!.getContext(),
-                    )
-                  : null}
-              </CardTitle>
-              <div className="absolute right-4 top-4">
-                {getCellById(row, "actions")
-                  ? flexRender(
-                      getCellById(row, "actions")!.column.columnDef.cell,
-                      getCellById(row, "actions")!.getContext(),
-                    )
-                  : null}
-              </div>
-            </CardHeader>
-            <CardFooter className="flex-col items-start gap-1 text-sm">
-              <div className="line-clamp-1 flex gap-2 font-medium">
-                {getCellById(row, "email")
-                  ? flexRender(
-                      getCellById(row, "email")!.column.columnDef.cell,
-                      getCellById(row, "email")!.getContext(),
-                    )
-                  : null}
-              </div>
-              <div className="text-muted-foreground">
-                {getCellById(row, "phone")
-                  ? flexRender(
-                      getCellById(row, "phone")!.column.columnDef.cell,
-                      getCellById(row, "phone")!.getContext(),
-                    )
-                  : null}
-              </div>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
     </div>
   );
 }
