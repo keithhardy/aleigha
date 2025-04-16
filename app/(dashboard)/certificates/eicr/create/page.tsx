@@ -1,13 +1,12 @@
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
 
 import {
   Header,
   HeaderDescription,
   HeaderGroup,
   Heading,
-} from "@/components/header";
-import { getCurrentUser } from "@/lib/get-current-user";
+} from "@/components/page-header";
+import { auth0 } from "@/lib/auth0-client";
 
 import { CreateElectricalInstallationConditionReportForm } from "./form";
 
@@ -16,9 +15,15 @@ export const metadata: Metadata = {
 };
 
 export default async function CreateElectricalInstallationConditionReport() {
-  const currentUser = await getCurrentUser();
+  const session = await auth0.getSession();
 
-  if (!currentUser) redirect("/auth/login");
+  if (!session || !session.user) {
+    return null;
+  }
+
+  const currentUser = await prisma.user.findUnique({
+    where: { auth0Id: session.user.sub },
+  });
 
   const clients = await prisma.client.findMany({
     include: {

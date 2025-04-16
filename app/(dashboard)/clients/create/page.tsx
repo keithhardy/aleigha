@@ -2,16 +2,16 @@ import { Metadata } from "next";
 
 import { CreateClientForm } from "@/app/(dashboard)/clients/create/form";
 import { PageHeader } from "@/components/page-header";
-import { siteConfig } from "@/lib/site-config";
+import { pagesConfig } from "@/config/pages";
 
 export const metadata: Metadata = {
-  title: siteConfig.clientCreate.metadata.title,
+  title: pagesConfig.clientCreate.metadata.title,
 };
 
 export default function CreateClient() {
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader config={siteConfig.clientCreate} />
+      <PageHeader config={pagesConfig.clientCreate} />
       <CreateClientForm />
     </div>
   );

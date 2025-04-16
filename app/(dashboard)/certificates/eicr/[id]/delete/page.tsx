@@ -5,7 +5,7 @@ import {
   HeaderDescription,
   HeaderGroup,
   Heading,
-} from "@/components/header";
+} from "@/components/page-header";
 import { prisma } from "@/lib/prisma-client";
 
 import { DeleteElectricalInstallationConditionReportForm } from "./form";

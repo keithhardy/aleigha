@@ -4,13 +4,13 @@ import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
 
 export const metadata: Metadata = {
-  title: pagesConfig.changelog.metadata.title,
+  title: pagesConfig.privacyPolicy.metadata.title,
 };
 
-export default function Changelog() {
+export default async function PrivacyPolicy() {
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader config={pagesConfig.changelog} />
+      <PageHeader config={pagesConfig.privacyPolicy} />
     </div>
   );
 }

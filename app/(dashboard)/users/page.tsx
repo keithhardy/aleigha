@@ -1,14 +1,14 @@
 import { Metadata } from "next";
 
 import { PageHeader } from "@/components/page-header";
-import { siteConfig } from "@/lib/site-config";
+import { pagesConfig } from "@/config/pages";
 
 import { columns } from "./components/data-table/columns";
 import { DataTable } from "./components/data-table/data-table";
 import { getPaginatedUsers } from "./components/data-table/get-paginated-users";
 
 export const metadata: Metadata = {
-  title: siteConfig.users.metadata.title,
+  title: pagesConfig.users.metadata.title,
 };
 
 export default async function Users() {
@@ -16,7 +16,7 @@ export default async function Users() {
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader config={siteConfig.users} />
+      <PageHeader config={pagesConfig.users} />
       <DataTable columns={columns} initialData={initialData} />
     </div>
   );

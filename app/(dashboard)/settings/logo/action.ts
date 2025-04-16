@@ -1,9 +1,9 @@
 "use server";
 
+import { put } from "@vercel/blob";
 import { z } from "zod";
 
 import { prisma } from "@/lib/prisma-client";
-import { updateFile } from "@/lib/vercel-blob";
 import { ServerActionResponse } from "@/types/server-action-response";
 
 import { UpdateLogoSchema } from "./schema";
@@ -11,34 +11,34 @@ import { UpdateLogoSchema } from "./schema";
 export async function updateLogo(
   settings: z.infer<typeof UpdateLogoSchema>,
 ): Promise<ServerActionResponse<void>> {
-  const settingsResponse = await prisma.settings.findFirst();
+  let pictureUrl = "";
 
-  if (settings.picture) {
-    try {
-      settings.picture = await updateFile(
-        settings.picture,
-        settingsResponse?.picture ?? undefined,
-        "contractor-picture",
-      );
-    } catch {
-      return {
-        status: "error",
-        heading: "Settings Update Failed",
-        message: "There was an issue updating the settings. Please try again.",
-      };
+  try {
+    if (settings.picture) {
+      const blob = await put(settings.picture.name, settings.picture, {
+        access: "public",
+      });
+
+      pictureUrl = blob.url;
     }
+  } catch {
+    return {
+      status: "error",
+      heading: "Update Failed",
+      message: "Couldn’t update logo. Please try again.",
+    };
   }
 
   try {
     await prisma.settings.upsert({
       where: {
-        id: settings.id || "undefined",
+        id: settings.id || undefined,
       },
       update: {
-        picture: settings.picture,
+        picture: pictureUrl,
       },
       create: {
-        picture: settings.picture,
+        picture: pictureUrl,
       },
     });
 

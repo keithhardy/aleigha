@@ -2,13 +2,13 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { PageHeader } from "@/components/page-header";
+import { pagesConfig } from "@/config/pages";
 import { prisma } from "@/lib/prisma-client";
-import { siteConfig } from "@/lib/site-config";
 
 import { DeleteUserForm } from "./form";
 
 export const metadata: Metadata = {
-  title: siteConfig.userDelete.metadata.title,
+  title: pagesConfig.userDelete.metadata.title,
 };
 
 export default async function DeleteUser({
@@ -28,7 +28,7 @@ export default async function DeleteUser({
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
-      <PageHeader config={siteConfig.userDelete} />
+      <PageHeader config={pagesConfig.userDelete} />
       <DeleteUserForm user={user} />
     </div>
   );

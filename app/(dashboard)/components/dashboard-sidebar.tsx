@@ -17,7 +17,7 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { dashboardSidebar } from "@/lib/site-config";
+import { dashboardSidebarConfig } from "@/config/dashboard-sidebar";
 
 export function DashboardSidebar() {
   const { setOpenMobile } = useSidebar();
@@ -48,7 +48,7 @@ export function DashboardSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {dashboardSidebar.main.map((item) => (
+              {dashboardSidebarConfig.mainNav.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     asChild
@@ -69,7 +69,7 @@ export function DashboardSidebar() {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
-          {dashboardSidebar.footer.map((item) => (
+          {dashboardSidebarConfig.footerNav.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
                 asChild
