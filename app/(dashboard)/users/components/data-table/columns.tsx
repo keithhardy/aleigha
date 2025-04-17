@@ -41,14 +41,14 @@ export const columns: ColumnDef<User>[] = [
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        className="ml-4"
+        className="ml-2 mr-4"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        className="ml-4"
+        className="ml-2 mr-4"
       />
     ),
   },
@@ -138,13 +138,13 @@ export const columns: ColumnDef<User>[] = [
       const user = row.original;
 
       return (
-        <div className="mr-4 flex justify-end">
+        <div className="flex justify-end">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="data-[state=open]:bg-accent"
+                className="mr-2 data-[state=open]:bg-accent"
               >
                 <MoreHorizontal />
               </Button>
