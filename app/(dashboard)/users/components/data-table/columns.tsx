@@ -54,83 +54,45 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "name",
-    header: ({ column }) => {
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className="-ml-4 data-[state=open]:bg-accent"
-            >
-              <span>Name</span>
-              {column.getIsSorted() === "desc" ? (
-                <ArrowDownIcon className="ml-2 h-4 w-4" />
-              ) : column.getIsSorted() === "asc" ? (
-                <ArrowUpIcon className="ml-2 h-4 w-4" />
-              ) : (
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-              )}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start">
-            <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-              <ArrowUpIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
-              Asc
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-              <ArrowDownIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
-              Desc
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-    enableSorting: true,
+    header: ({ column }) => (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="-ml-4 data-[state=open]:bg-accent">
+            <span>Name</span>
+            {column.getIsSorted() === "desc" ? (
+              <ArrowDownIcon className="ml-2 h-4 w-4" />
+            ) : column.getIsSorted() === "asc" ? (
+              <ArrowUpIcon className="ml-2 h-4 w-4" />
+            ) : (
+              <ArrowUpDown className="ml-2 h-4 w-4" />
+            )}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start">
+          <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+            <ArrowUpIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
+            Asc
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
+            <ArrowDownIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
+            Desc
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    ),
   },
   {
     accessorKey: "email",
     header: "Email",
-    enableSorting: false,
   },
   {
     accessorKey: "phone",
     header: "Phone",
-    enableSorting: false,
   },
   {
     accessorKey: "role",
-    header: ({ column }) => {
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className="-ml-4 data-[state=open]:bg-accent"
-            >
-              <span>Role</span>
-              {column.getIsSorted() === "desc" ? (
-                <ArrowDownIcon className="ml-2 h-4 w-4" />
-              ) : column.getIsSorted() === "asc" ? (
-                <ArrowUpIcon className="ml-2 h-4 w-4" />
-              ) : (
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-              )}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start">
-            <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-              <ArrowUpIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
-              Asc
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-              <ArrowDownIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
-              Desc
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-    enableSorting: true,
+    header: "Role",
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
     id: "actions",

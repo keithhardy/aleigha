@@ -4,21 +4,20 @@ import { $Enums, Prisma } from "@prisma/client";
 
 import { prisma } from "@/lib/prisma-client";
 
-export async function getPaginatedUsers({
-  page,
-  pageSize,
-  sortBy = "name",
-  sortOrder = "asc",
-  searchQuery,
-  roles,
-}: {
-  page: number;
-  pageSize: number;
-  sortBy?: string;
+type GetUsersProps = {
+  take?: number;
+  orderBy?: Prisma.UserOrderByWithRelationInput[];
   sortOrder?: "asc" | "desc";
   searchQuery?: string;
   roles?: $Enums.UserRole[];
-}) {
+};
+
+export async function getUsers({
+  take = 10,
+  orderBy,
+  searchQuery,
+  roles,
+}: GetUsersProps = {}) {
   const where = {
     ...(searchQuery && {
       OR: [
@@ -36,11 +35,8 @@ export async function getPaginatedUsers({
 
   const [users, totalCount, roleCountsRaw] = await Promise.all([
     prisma.user.findMany({
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-      orderBy: {
-        [sortBy]: sortOrder,
-      },
+      take,
+      orderBy,
       where,
     }),
     prisma.user.count({ where }),

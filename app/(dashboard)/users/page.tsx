@@ -3,21 +3,21 @@ import { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
 
+import { DataTable } from "./components/data-table/_data-table";
 import { columns } from "./components/data-table/columns";
-import { DataTable } from "./components/data-table/data-table";
-import { getPaginatedUsers } from "./components/data-table/get-paginated-users";
+import { getUsers } from "./components/data-table/get-users";
 
 export const metadata: Metadata = {
   title: pagesConfig.users.metadata.title,
 };
 
 export default async function Users() {
-  const initialData = await getPaginatedUsers({ page: 1, pageSize: 10 });
+  const fetchData = await getUsers();
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
       <PageHeader config={pagesConfig.users} />
-      <DataTable columns={columns} initialData={initialData} />
+      <DataTable columns={columns} data={fetchData} />
     </div>
   );
 }

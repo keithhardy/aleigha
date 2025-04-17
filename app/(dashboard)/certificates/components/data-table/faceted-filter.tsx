@@ -119,7 +119,7 @@ export function FacetedFilter<TData, TValue>({
                     )}
                     <span>{option.label}</span>
                     {facets?.get(option.value) && (
-                      <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
+                      <span className="ml-auto">
                         {facets.get(option.value)}
                       </span>
                     )}

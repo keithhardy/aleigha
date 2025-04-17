@@ -46,9 +46,9 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 
-import { getPaginatedUsers } from "./get-paginated-users";
+import { getUsers } from "./get-users";
 
-interface User {
+type User = {
   name: string;
   id: string;
   auth0Id: string;
@@ -58,21 +58,21 @@ interface User {
   role: $Enums.UserRole;
   createdAt: Date;
   updatedAt: Date;
-}
+};
 
-interface DataTableProps {
+type DataTableProps = {
   columns: ColumnDef<User>[];
   initialData: {
     users: User[];
     totalCount: number;
     roleCounts: Record<UserRole, number>;
   };
-}
+};
 
 export function DataTable({ columns, initialData }: DataTableProps) {
   const [data, setData] = useState(initialData);
 
-  const [pageIndex, setPageIndex] = useState(0);
+  const [pageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -123,9 +123,8 @@ export function DataTable({ columns, initialData }: DataTableProps) {
   useEffect(() => {
     const fetchData = async () => {
       const sort = sorting[0];
-      const result = await getPaginatedUsers({
-        page: pageIndex + 1,
-        pageSize,
+      const result = await getUsers({
+        quantity: pageSize,
         sortBy: sort?.id,
         sortOrder: sort?.desc ? "desc" : "asc",
         searchQuery: searchQuery,
@@ -142,22 +141,11 @@ export function DataTable({ columns, initialData }: DataTableProps) {
     data: data.users,
     columns,
     state: {
-      pagination: {
-        pageIndex,
-        pageSize,
-      },
       rowSelection,
       sorting,
     },
     manualPagination: true,
     manualSorting: true,
-    onPaginationChange: (updater) => {
-      const newPage =
-        typeof updater === "function"
-          ? updater({ pageIndex, pageSize })
-          : updater;
-      setPageIndex(newPage.pageIndex);
-    },
     onRowSelectionChange: handleRowSelectionChange,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
@@ -207,7 +195,6 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                                 value={role}
                                 onSelect={() => {
                                   toggleRoleSelection(role);
-                                  setPageIndex(0);
                                 }}
                               >
                                 <div
@@ -266,9 +253,9 @@ export function DataTable({ columns, initialData }: DataTableProps) {
                         {header.isPlaceholder
                           ? null
                           : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
                       </TableHead>
                     ))}
                   </TableRow>
