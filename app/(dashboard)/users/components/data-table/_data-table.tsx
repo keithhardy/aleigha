@@ -4,6 +4,7 @@ import { User, UserRole } from "@prisma/client";
 import {
   type ColumnDef,
   type ColumnFiltersState,
+  type RowSelectionState,
   type SortingState,
   useReactTable,
   flexRender,
@@ -44,6 +45,7 @@ export function DataTable({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState<string>();
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const table = useReactTable({
     data: data,
@@ -53,6 +55,7 @@ export function DataTable({
       sorting,
       columnFilters,
       globalFilter,
+      rowSelection,
     },
     manualSorting: true,
     onSortingChange: setSorting,
@@ -65,6 +68,8 @@ export function DataTable({
         return new Map(Object.entries(values));
       };
     },
+    onRowSelectionChange: setRowSelection,
+    getRowId: (row) => row.id,
   });
 
   useEffect(() => {
