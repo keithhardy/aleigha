@@ -1,40 +1,18 @@
 "use client";
 
-import { $Enums, UserRole } from "@prisma/client";
-import { CheckIcon } from "@radix-ui/react-icons";
+import { User, UserRole } from "@prisma/client";
 import {
   type ColumnDef,
+  type ColumnFiltersState,
+  type RowSelectionState,
+  type SortingState,
   useReactTable,
   flexRender,
   getCoreRowModel,
-  getPaginationRowModel,
-  type SortingState,
-  getSortedRowModel,
-  type OnChangeFn,
-  type RowSelectionState,
 } from "@tanstack/react-table";
-import { ListFilterPlus, UserPlus2, XCircle } from "lucide-react";
-import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
-import {
-  DialogSheet,
-  DialogSheetContent,
-  DialogSheetTitle,
-  DialogSheetTrigger,
-} from "@/components/dialog-sheet";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardFooter } from "@/components/ui/card";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Table,
@@ -44,205 +22,92 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { cn } from "@/lib/utils";
 
 import { getUsers } from "./get-users";
+import { Pagination } from "./pagination";
+import { Toolbar } from "./toolbar";
 
-type User = {
-  name: string;
-  id: string;
-  auth0Id: string;
-  email: string;
-  phone: string;
-  signature: string | null;
-  role: $Enums.UserRole;
-  createdAt: Date;
-  updatedAt: Date;
-};
-
-type DataTableProps = {
+interface DataTableProps {
   columns: ColumnDef<User>[];
-  initialData: {
+  data: {
     users: User[];
     totalCount: number;
-    roleCounts: Record<UserRole, number>;
+    facetedUniqueValues: Record<string, Record<string, number>>;
   };
-};
+}
 
-export function DataTable({ columns, initialData }: DataTableProps) {
-  const [data, setData] = useState(initialData);
-
-  const [pageIndex] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
-
-  const [selectedRows, setSelectedRows] = useState<string[]>([]);
-
+export function DataTable({
+  columns,
+  data: { users: initialData, totalCount, facetedUniqueValues },
+}: DataTableProps) {
+  const [data, setData] = useState<User[]>(initialData);
+  const [total, setTotal] = useState<number>(totalCount);
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [globalFilter, setGlobalFilter] = useState<string>();
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const [pagination, setPagination] = useState({
+    pageSize: 10,
+    pageIndex: 0,
+  });
 
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const [roleFilter, setRoleFilter] = useState<$Enums.UserRole[]>([]);
-
-  const rowSelection = useMemo(() => {
-    const idSet = new Set(selectedRows);
-    return data.users.reduce<Record<number, boolean>>((acc, user, index) => {
-      if (idSet.has(user.id)) acc[index] = true;
-      return acc;
-    }, {});
-  }, [data.users, selectedRows]);
-
-  const handleRowSelectionChange: OnChangeFn<RowSelectionState> = (
-    updaterOrValue,
-  ) => {
-    const newSelection =
-      typeof updaterOrValue === "function"
-        ? updaterOrValue(rowSelection)
-        : (updaterOrValue ?? {});
-
-    const selectedIds = Object.entries(newSelection)
-      .filter(([, selected]) => selected)
-      .map(([index]) => data.users[Number(index)]?.id)
-      .filter(Boolean);
-
-    const currentPageIds = new Set(data.users.map((user) => user.id));
-
-    setSelectedRows((prev) => {
-      const retained = prev.filter((id) => !currentPageIds.has(id));
-      return Array.from(new Set([...retained, ...selectedIds]));
-    });
-  };
-
-  const toggleRoleSelection = (role: $Enums.UserRole) => {
-    setRoleFilter((prevRoles) =>
-      prevRoles.includes(role)
-        ? prevRoles.filter((r) => r !== role)
-        : [...prevRoles, role],
-    );
-  };
+  const table = useReactTable({
+    data: data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    state: {
+      sorting,
+      columnFilters,
+      globalFilter,
+      rowSelection,
+      pagination,
+    },
+    rowCount: total,
+    manualSorting: true,
+    manualFiltering: true,
+    manualPagination: true,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    onGlobalFilterChange: setGlobalFilter,
+    onRowSelectionChange: setRowSelection,
+    onPaginationChange: setPagination,
+    getFacetedUniqueValues: (_table, columnId) => {
+      return () => {
+        const values = facetedUniqueValues[columnId] ?? {};
+        return new Map(Object.entries(values));
+      };
+    },
+    getRowId: (row) => row.id,
+  });
 
   useEffect(() => {
     const fetchData = async () => {
-      const sort = sorting[0];
-      const result = await getUsers({
-        quantity: pageSize,
-        sortBy: sort?.id,
-        sortOrder: sort?.desc ? "desc" : "asc",
-        searchQuery: searchQuery,
-        roles: roleFilter,
+      const orderBy = sorting.map((sort) => ({
+        [sort.id]: sort.desc ? "desc" : "asc",
+      }));
+
+      const { users, totalCount } = await getUsers({
+        take: pagination.pageSize,
+        skip: pagination.pageIndex * pagination.pageSize,
+        orderBy,
+        roles: columnFilters.find((f) => f.id === "role")?.value as
+          | UserRole[]
+          | undefined,
+        searchQuery: globalFilter,
       });
 
-      setData(result);
+      setData(users);
+      setTotal(totalCount);
     };
 
     fetchData();
-  }, [pageIndex, pageSize, sorting, searchQuery, roleFilter]);
-
-  const table = useReactTable({
-    data: data.users,
-    columns,
-    state: {
-      rowSelection,
-      sorting,
-    },
-    manualPagination: true,
-    manualSorting: true,
-    onRowSelectionChange: handleRowSelectionChange,
-    onSortingChange: setSorting,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-  });
+  }, [sorting, columnFilters, globalFilter, pagination]);
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col justify-between gap-2 md:flex-row">
-        <div className="flex flex-grow flex-col gap-2 md:flex-row">
-          <Input
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-[32px]"
-          />
-          <div className="flex w-full">
-            <ScrollArea className="w-1 flex-1">
-              <div className="flex gap-2">
-                <DialogSheet>
-                  <DialogSheetTrigger asChild>
-                    <Button variant="outline" size="sm">
-                      <ListFilterPlus />
-                      Role
-                      {roleFilter.length > 0 && (
-                        <Badge variant="secondary">
-                          {roleFilter.length} selected
-                        </Badge>
-                      )}
-                    </Button>
-                  </DialogSheetTrigger>
-                  <DialogSheetContent className="p-0">
-                    <DialogSheetTitle className="hidden" />
-                    <Command className="pt-2">
-                      <CommandInput placeholder="Search..." autoFocus={false} />
-                      <CommandList className="scrollbar-hidden mt-1 border-t p-1">
-                        <CommandEmpty>No results found.</CommandEmpty>
-                        <CommandGroup>
-                          {Object.keys(UserRole).map((key) => {
-                            const role = key as $Enums.UserRole;
-                            const count = initialData.roleCounts?.[role] ?? 0;
-
-                            return (
-                              <CommandItem
-                                key={role}
-                                value={role}
-                                onSelect={() => {
-                                  toggleRoleSelection(role);
-                                }}
-                              >
-                                <div
-                                  className={cn(
-                                    "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                                    roleFilter.includes(role)
-                                      ? "bg-primary text-primary-foreground"
-                                      : "opacity-50 [&_svg]:invisible",
-                                  )}
-                                >
-                                  <CheckIcon />
-                                </div>
-                                {role}
-                                <span className="ml-auto">{count}</span>
-                              </CommandItem>
-                            );
-                          })}
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </DialogSheetContent>
-                </DialogSheet>
-                {roleFilter.length > 0 && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setRoleFilter([])}
-                  >
-                    <XCircle />
-                    Clear
-                  </Button>
-                )}
-              </div>
-              <ScrollBar orientation="horizontal" className="hidden md:flex" />
-            </ScrollArea>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <Link href="/users/create">
-            <Button variant="outline" size="sm">
-              <UserPlus2 />
-              Create
-            </Button>
-          </Link>
-        </div>
-      </div>
+      <Toolbar table={table} />
       <Card className="rounded-md shadow-none">
-        <div className="flex w-full">
+        <CardContent className="flex p-0">
           <ScrollArea className="w-1 flex-1">
             <Table>
               <TableHeader>
@@ -289,16 +154,9 @@ export function DataTable({ columns, initialData }: DataTableProps) {
             </Table>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
-        </div>
-        <CardFooter className="flex justify-center space-x-4 rounded-b-md border-t bg-muted py-4">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setPageSize((prev) => Math.max(prev + 10, 0))}
-            disabled={pageSize >= data.totalCount}
-          >
-            {pageSize >= data.totalCount ? "No more to load" : "Load more"}
-          </Button>
+        </CardContent>
+        <CardFooter className="flex justify-end space-x-4 rounded-b-md border-t bg-muted py-4">
+          <Pagination table={table} />
         </CardFooter>
       </Card>
     </div>

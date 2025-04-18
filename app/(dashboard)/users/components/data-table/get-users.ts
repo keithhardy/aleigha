@@ -5,7 +5,8 @@ import { $Enums, Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma-client";
 
 type GetUsersProps = {
-  take?: number;
+  take: number;
+  skip: number;
   orderBy?: Prisma.UserOrderByWithRelationInput[];
   sortOrder?: "asc" | "desc";
   searchQuery?: string;
@@ -13,11 +14,12 @@ type GetUsersProps = {
 };
 
 export async function getUsers({
-  take = 10,
+  take,
+  skip,
   orderBy,
   searchQuery,
   roles,
-}: GetUsersProps = {}) {
+}: GetUsersProps) {
   const where = {
     ...(searchQuery && {
       OR: [
@@ -36,6 +38,7 @@ export async function getUsers({
   const [users, totalCount, roleFacets] = await Promise.all([
     prisma.user.findMany({
       take,
+      skip,
       orderBy,
       where,
     }),
