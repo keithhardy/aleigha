@@ -12,12 +12,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Users() {
-  const fetchData = await getUsers();
+  const fetchedData = await getUsers();
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
       <PageHeader config={pagesConfig.users} />
-      <DataTable columns={columns} data={fetchData} />
+      <DataTable columns={columns} data={fetchedData} />
     </div>
   );
 }

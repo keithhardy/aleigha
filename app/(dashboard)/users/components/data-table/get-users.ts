@@ -33,7 +33,7 @@ export async function getUsers({
     ...(roles?.length && { role: { in: roles } }),
   };
 
-  const [users, totalCount, roleCountsRaw] = await Promise.all([
+  const [users, totalCount, roleFacets] = await Promise.all([
     prisma.user.findMany({
       take,
       orderBy,
@@ -47,18 +47,20 @@ export async function getUsers({
     }),
   ]);
 
-  const roleCounts =
-    roleCountsRaw?.reduce(
-      (acc, item) => {
-        acc[item.role] = item._count.role;
+  const facetedUniqueValues = {
+    role: roleFacets.reduce(
+      (acc, cur) => {
+        acc[cur.role] = cur._count.role;
         return acc;
       },
-      {} as Record<$Enums.UserRole, number>,
-    ) ?? {};
+      {} as Record<string, number>,
+    ),
+  };
 
   return {
     users,
     totalCount,
-    roleCounts,
+    roleFacets,
+    facetedUniqueValues,
   };
 }
