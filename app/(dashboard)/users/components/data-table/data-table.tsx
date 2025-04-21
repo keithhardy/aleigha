@@ -44,7 +44,7 @@ export function DataTable({
   const [total, setTotal] = useState<number>(totalCount);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [globalFilter, setGlobalFilter] = useState<string>();
+  const [globalFilter, setGlobalFilter] = useState<string>("");
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [pagination, setPagination] = useState({
     pageSize: 10,
@@ -73,12 +73,6 @@ export function DataTable({
     onGlobalFilterChange: setGlobalFilter,
     onRowSelectionChange: setRowSelection,
     onPaginationChange: setPagination,
-    getFacetedUniqueValues: (_table, columnId) => {
-      return () => {
-        const values = facetedValues[columnId] ?? {};
-        return new Map(Object.entries(values));
-      };
-    },
     getRowId: (row) => row.id,
   });
 

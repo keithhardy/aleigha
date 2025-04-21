@@ -14,7 +14,9 @@ interface ToolbarProps<TData> {
 }
 
 export function Toolbar<TData>({ table, facetedValues }: ToolbarProps<TData>) {
-  const isFiltered = table.getState().columnFilters.length > 0;
+  const isFiltered =
+    table.getState().columnFilters.length > 0 ||
+    table.getState().globalFilter !== "";
 
   const roleColumn = table.getColumn("role");
   const roleOptions = facetedValues["role"]
@@ -31,6 +33,7 @@ export function Toolbar<TData>({ table, facetedValues }: ToolbarProps<TData>) {
         <div className="flex flex-grow flex-col gap-2 md:flex-row">
           <Input
             placeholder="Search..."
+            value={(table.getState().globalFilter as string) ?? ""}
             onChange={(e) => table.setGlobalFilter(e.target.value)}
             className="h-[32px]"
           />
@@ -50,6 +53,7 @@ export function Toolbar<TData>({ table, facetedValues }: ToolbarProps<TData>) {
                     size="sm"
                     onClick={() => {
                       table.resetColumnFilters();
+                      table.setGlobalFilter("");
                     }}
                   >
                     <XCircle />
