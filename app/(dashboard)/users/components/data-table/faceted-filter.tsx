@@ -25,15 +25,15 @@ interface FilterProps<TData, TValue> {
   options: {
     label: string;
     value: string;
+    number: number;
   }[];
 }
 
-export function Filter<TData, TValue>({
+export function FacetedFilter<TData, TValue>({
   column,
   title,
   options,
 }: FilterProps<TData, TValue>) {
-  const facets = column?.getFacetedUniqueValues();
   const selectedValues = new Set(column?.getFilterValue() as string[]);
 
   return (
@@ -82,11 +82,7 @@ export function Filter<TData, TValue>({
                       <CheckIcon />
                     </div>
                     {option.label}
-                    {facets?.get(option.value) && (
-                      <span className="ml-auto">
-                        {facets.get(option.value)}
-                      </span>
-                    )}
+                    <span className="ml-auto">{option.number}</span>
                   </CommandItem>
                 );
               })}

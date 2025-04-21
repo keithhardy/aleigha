@@ -6,23 +6,23 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
-import { Filter } from "./filter";
+import { FacetedFilter } from "./faceted-filter";
 
 interface ToolbarProps<TData> {
   table: Table<TData>;
+  facetedValues: Record<string, Record<string, number>>;
 }
 
-export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
+export function Toolbar<TData>({ table, facetedValues }: ToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
   const roleColumn = table.getColumn("role");
-  const roleOptions = roleColumn
-    ? Array.from(roleColumn.getFacetedUniqueValues().entries()).map(
-        ([value]) => ({
-          label: String(value),
-          value: String(value),
-        }),
-      )
+  const roleOptions = facetedValues["role"]
+    ? Object.entries(facetedValues["role"]).map(([value, number]) => ({
+        label: value,
+        value: value,
+        number: number,
+      }))
     : [];
 
   return (
@@ -38,7 +38,7 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
             <ScrollArea className="w-1 flex-1">
               <div className="flex gap-2">
                 {roleColumn && (
-                  <Filter
+                  <FacetedFilter
                     column={roleColumn}
                     title="Role"
                     options={roleOptions}

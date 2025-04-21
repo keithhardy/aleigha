@@ -50,6 +50,8 @@ export function DataTable({
     pageSize: 10,
     pageIndex: 0,
   });
+  const [facetedValues, setFacetedValues] =
+    useState<Record<string, Record<string, number>>>(facetedUniqueValues);
 
   const table = useReactTable({
     data: data,
@@ -73,7 +75,7 @@ export function DataTable({
     onPaginationChange: setPagination,
     getFacetedUniqueValues: (_table, columnId) => {
       return () => {
-        const values = facetedUniqueValues[columnId] ?? {};
+        const values = facetedValues[columnId] ?? {};
         return new Map(Object.entries(values));
       };
     },
@@ -86,7 +88,7 @@ export function DataTable({
         [sort.id]: sort.desc ? "desc" : "asc",
       }));
 
-      const { users, totalCount } = await getUsers({
+      const { users, totalCount, facetedUniqueValues } = await getUsers({
         take: pagination.pageSize,
         skip: pagination.pageIndex * pagination.pageSize,
         orderBy,
@@ -98,6 +100,7 @@ export function DataTable({
 
       setData(users);
       setTotal(totalCount);
+      setFacetedValues(facetedUniqueValues);
     };
 
     fetchData();
@@ -105,7 +108,8 @@ export function DataTable({
 
   return (
     <div className="space-y-4">
-      <Toolbar table={table} />
+      <Toolbar table={table} facetedValues={facetedValues} />
+      {JSON.stringify(facetedValues)}
       <Card className="rounded-md shadow-none">
         <CardContent className="flex p-0">
           <ScrollArea className="w-1 flex-1">
@@ -118,9 +122,9 @@ export function DataTable({
                         {header.isPlaceholder
                           ? null
                           : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
                       </TableHead>
                     ))}
                   </TableRow>

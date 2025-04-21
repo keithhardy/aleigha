@@ -20,50 +20,52 @@ export async function getUsers({
   searchQuery,
   roles,
 }: GetUsersProps) {
+  const searchFilter = searchQuery
+    ? {
+        OR: [
+          {
+            name: { contains: searchQuery, mode: Prisma.QueryMode.insensitive },
+          },
+          {
+            email: {
+              contains: searchQuery,
+              mode: Prisma.QueryMode.insensitive,
+            },
+          },
+          {
+            phone: {
+              contains: searchQuery,
+              mode: Prisma.QueryMode.insensitive,
+            },
+          },
+        ],
+      }
+    : {};
+
   const where = {
-    ...(searchQuery && {
-      OR: [
-        { name: { contains: searchQuery, mode: Prisma.QueryMode.insensitive } },
-        {
-          email: { contains: searchQuery, mode: Prisma.QueryMode.insensitive },
-        },
-        {
-          phone: { contains: searchQuery, mode: Prisma.QueryMode.insensitive },
-        },
-      ],
-    }),
-    ...(roles?.length && { role: { in: roles } }),
+    ...searchFilter,
+    ...(roles?.length ? { role: { in: roles } } : {}),
   };
 
   const [users, totalCount, roleFacets] = await Promise.all([
-    prisma.user.findMany({
-      take,
-      skip,
-      orderBy,
-      where,
-    }),
+    prisma.user.findMany({ take, skip, orderBy, where }),
     prisma.user.count({ where }),
     prisma.user.groupBy({
       by: ["role"],
       _count: { role: true },
-      where,
+      where: searchFilter,
     }),
   ]);
 
   const facetedUniqueValues = {
-    role: roleFacets.reduce(
-      (acc, cur) => {
-        acc[cur.role] = cur._count.role;
-        return acc;
-      },
-      {} as Record<string, number>,
+    role: Object.fromEntries(
+      roleFacets.map((facet) => [facet.role, facet._count.role]),
     ),
   };
 
   return {
     users,
     totalCount,
-    roleFacets,
     facetedUniqueValues,
   };
 }
