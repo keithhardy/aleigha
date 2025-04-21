@@ -101,6 +101,31 @@ export function DataTable({
       setData(users);
       setTotal(totalCount);
       setFacetedValues(facetedUniqueValues);
+
+      const cleanedFilters = columnFilters.map((filter) => {
+        const validValues = Object.keys(
+          (facetedUniqueValues as Record<string, Record<string, number>>)[
+            filter.id
+          ] ?? {},
+        );
+
+        if (Array.isArray(filter.value)) {
+          const filteredValues = filter.value.filter((val) =>
+            validValues.includes(val),
+          );
+          return { ...filter, value: filteredValues };
+        }
+
+        return filter;
+      });
+
+      const finalFilters = cleanedFilters.filter(
+        (f) => !(Array.isArray(f.value) && f.value.length === 0),
+      );
+
+      if (JSON.stringify(finalFilters) !== JSON.stringify(columnFilters)) {
+        setColumnFilters(finalFilters);
+      }
     };
 
     fetchData();
@@ -109,7 +134,6 @@ export function DataTable({
   return (
     <div className="space-y-4">
       <Toolbar table={table} facetedValues={facetedValues} />
-      {JSON.stringify(facetedValues)}
       <Card className="rounded-md shadow-none">
         <CardContent className="flex p-0">
           <ScrollArea className="w-1 flex-1">
@@ -122,9 +146,9 @@ export function DataTable({
                         {header.isPlaceholder
                           ? null
                           : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
                       </TableHead>
                     ))}
                   </TableRow>
