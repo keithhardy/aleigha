@@ -86,9 +86,7 @@ export function DataTable({
         take: pagination.pageSize,
         skip: pagination.pageIndex * pagination.pageSize,
         orderBy,
-        roles: columnFilters.find((f) => f.id === "role")?.value as
-          | UserRole[]
-          | undefined,
+        filters: columnFilters,
         searchQuery: globalFilter,
       });
 

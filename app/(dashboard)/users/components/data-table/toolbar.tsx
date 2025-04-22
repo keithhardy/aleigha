@@ -21,10 +21,10 @@ export function Toolbar<TData>({ table, facetedValues }: ToolbarProps<TData>) {
   const roleColumn = table.getColumn("role");
   const roleOptions = facetedValues["role"]
     ? Object.entries(facetedValues["role"]).map(([value, number]) => ({
-        label: value,
-        value: value,
-        number: number,
-      }))
+      label: value,
+      value: value,
+      number: number,
+    }))
     : [];
 
   return (
