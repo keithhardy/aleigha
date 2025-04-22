@@ -1,3 +1,5 @@
+"use client";
+
 import { type Table } from "@tanstack/react-table";
 import { UserPlus2, XCircle } from "lucide-react";
 import Link from "next/link";

@@ -5,6 +5,7 @@ import {
   type ColumnFiltersState,
   type RowSelectionState,
   type SortingState,
+  type Table as TableType,
   useReactTable,
   flexRender,
   getCoreRowModel,
@@ -23,7 +24,6 @@ import {
 } from "@/components/ui/table";
 
 import { Pagination } from "./pagination";
-import { Toolbar } from "./toolbar";
 
 export interface PaginatedResponse<T> {
   data: T[];
@@ -43,12 +43,17 @@ export interface DataTableProps<TData extends { id: string }, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: PaginatedResponse<TData>;
   fetchData: (args: FetchDataArgs) => Promise<PaginatedResponse<TData>>;
+  toolbar?: React.ComponentType<{
+    table: TableType<TData>;
+    facets: Record<string, Record<string, number>>;
+  }>;
 }
 
 export function DataTable<TData extends { id: string }, TValue>({
   columns,
   data: { data: initialData, total: initialTotal, facets: initialFacets },
   fetchData,
+  toolbar: ToolbarComponent,
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = useState<TData[]>(initialData);
   const [total, setTotal] = useState<number>(initialTotal);
@@ -114,7 +119,7 @@ export function DataTable<TData extends { id: string }, TValue>({
 
   return (
     <div className="space-y-4">
-      <Toolbar table={table} facets={facets} />
+      {ToolbarComponent && <ToolbarComponent table={table} facets={facets} />}
       <Card className="rounded-md shadow-none">
         <CardContent className="flex p-0">
           <ScrollArea className="w-1 flex-1">

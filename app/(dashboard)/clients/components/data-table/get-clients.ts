@@ -60,6 +60,6 @@ export async function getClients({
   return {
     data,
     total,
-    facets: {}, // Empty facets
+    facets: {},
   };
 }

@@ -1,11 +1,12 @@
 import { Metadata } from "next";
 
-import { columns } from "@/app/(dashboard)/properties/components/data-table/columns";
-import { DataTable } from "@/app/(dashboard)/properties/components/data-table/data-table";
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
 
+import { columns } from "./components/data-table/columns";
 import { getProperties } from "./components/data-table/get-properties";
+import { DataTable } from "../components/data-table/data-table";
+import { Toolbar } from "./components/data-table/toolbar";
 
 export const metadata: Metadata = {
   title: pagesConfig.properties.metadata.title,
@@ -17,7 +18,12 @@ export default async function Properties() {
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
       <PageHeader config={pagesConfig.properties} />
-      <DataTable columns={columns} data={data} fetchData={getProperties} />
+      <DataTable
+        columns={columns}
+        data={data}
+        fetchData={getProperties}
+        toolbar={Toolbar}
+      />
     </div>
   );
 }
