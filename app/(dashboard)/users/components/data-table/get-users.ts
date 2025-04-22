@@ -22,24 +22,12 @@ export async function getUsers({
 }: GetUsersProps) {
   const searchFilter = searchQuery
     ? {
-        OR: [
-          {
-            name: { contains: searchQuery, mode: Prisma.QueryMode.insensitive },
-          },
-          {
-            email: {
-              contains: searchQuery,
-              mode: Prisma.QueryMode.insensitive,
-            },
-          },
-          {
-            phone: {
-              contains: searchQuery,
-              mode: Prisma.QueryMode.insensitive,
-            },
-          },
-        ],
-      }
+      OR: [
+        { name: { contains: searchQuery, mode: Prisma.QueryMode.insensitive } },
+        { email: { contains: searchQuery, mode: Prisma.QueryMode.insensitive } },
+        { phone: { contains: searchQuery, mode: Prisma.QueryMode.insensitive } },
+      ],
+    }
     : {};
 
   const where = {
@@ -57,10 +45,22 @@ export async function getUsers({
     }),
   ]);
 
+  const roleCounts: Record<string, number> = {};
+
+  roleFacets.forEach((facet) => {
+    roleCounts[facet.role] = facet._count.role;
+  });
+
+  if (roles?.length) {
+    for (const role of roles) {
+      if (!(role in roleCounts)) {
+        roleCounts[role] = 0;
+      }
+    }
+  }
+
   const facetedUniqueValues = {
-    role: Object.fromEntries(
-      roleFacets.map((facet) => [facet.role, facet._count.role]),
-    ),
+    role: roleCounts,
   };
 
   return {
@@ -69,3 +69,4 @@ export async function getUsers({
     facetedUniqueValues,
   };
 }
+
