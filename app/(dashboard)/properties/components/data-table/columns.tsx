@@ -41,13 +41,14 @@ export const columns: ColumnDef<PropertyWithRelations>[] = [
     ),
   },
   {
-    accessorKey: "uprn",
-    header: "UPRN",
+    accessorKey: "client.name",
+    id: "client.name",
+    header: "Client",
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
-    accessorKey: "occupier",
-    header: "Occupier",
-    filterFn: (row, id, value) => value.includes(row.getValue(id)),
+    accessorKey: "uprn",
+    header: "UPRN",
   },
   {
     accessorKey: "address.streetAddress",
@@ -58,9 +59,8 @@ export const columns: ColumnDef<PropertyWithRelations>[] = [
     header: "Postcode",
   },
   {
-    accessorKey: "client.name",
-    id: "client.name",
-    header: "Client",
+    accessorKey: "occupier",
+    header: "Occupier",
     filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {

@@ -21,19 +21,19 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
   const clientColumn = table.getColumn("client.name");
   const clientOptions = facets["client"]
     ? Object.entries(facets["client"]).map(([value, number]) => ({
-        label: value,
-        value: value,
-        number: number,
-      }))
+      label: value,
+      value: value,
+      number: number,
+    }))
     : [];
 
   const occupierColumn = table.getColumn("occupier");
   const occupierOptions = facets["occupier"]
     ? Object.entries(facets["occupier"]).map(([value, number]) => ({
-        label: value,
-        value: value,
-        number: number,
-      }))
+      label: value,
+      value: value,
+      number: number,
+    }))
     : [];
 
   return (
@@ -49,18 +49,18 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
           <div className="flex w-full">
             <ScrollArea className="w-1 flex-1">
               <div className="flex gap-2">
-                {occupierColumn && (
-                  <FacetedFilter
-                    column={occupierColumn}
-                    title="Occupier"
-                    options={occupierOptions}
-                  />
-                )}
                 {clientColumn && (
                   <FacetedFilter
                     column={clientColumn}
                     title="Clients"
                     options={clientOptions}
+                  />
+                )}
+                {occupierColumn && (
+                  <FacetedFilter
+                    column={occupierColumn}
+                    title="Occupier"
+                    options={occupierOptions}
                   />
                 )}
                 {isFiltered && (
