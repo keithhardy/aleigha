@@ -48,11 +48,11 @@ export const columns: ColumnDef<PropertyWithRelations>[] = [
   },
   {
     accessorKey: "uprn",
-    header: "UPRN",
+    header: "Reference Number",
   },
   {
     accessorKey: "address.streetAddress",
-    header: "Street",
+    header: "Street Address",
   },
   {
     accessorKey: "address.postCode",
