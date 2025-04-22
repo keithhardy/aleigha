@@ -69,7 +69,7 @@ export async function getProperties({
     prisma.property.findMany({
       take,
       skip,
-      orderBy: [{ client: { name: "asc" } }],
+      orderBy,
       where,
       include: {
         address: true,

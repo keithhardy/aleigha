@@ -2,7 +2,7 @@
 
 import { Address, Client, Property } from "@prisma/client";
 import { type ColumnDef } from "@tanstack/react-table";
-import { ArrowDownIcon, ArrowUpDown, ArrowUpIcon, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -42,7 +42,7 @@ export const columns: ColumnDef<PropertyWithRelations>[] = [
   },
   {
     accessorKey: "uprn",
-    header: "Occupier",
+    header: "UPRN",
   },
   {
     accessorKey: "occupier",
@@ -55,37 +55,12 @@ export const columns: ColumnDef<PropertyWithRelations>[] = [
   },
   {
     accessorKey: "address.postCode",
-    header: "Post Code",
+    header: "Postcode",
   },
   {
     accessorKey: "client.name",
     id: "client.name",
-    header: ({ column, }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="-ml-4 data-[state=open]:bg-accent">
-            <span>Client</span>
-            {column.getIsSorted() === "desc" ? (
-              <ArrowDownIcon className="ml-2 h-4 w-4" />
-            ) : column.getIsSorted() === "asc" ? (
-              <ArrowUpIcon className="ml-2 h-4 w-4" />
-            ) : (
-              <ArrowUpDown className="ml-2 h-4 w-4" />
-            )}
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
-          <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-            <ArrowUpIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
-            Asc
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-            <ArrowDownIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
-            Desc
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
+    header: "Client",
     filterFn: (row, id, value) => value.includes(row.getValue(id)),
   },
   {
@@ -107,10 +82,10 @@ export const columns: ColumnDef<PropertyWithRelations>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem asChild>
-                <Link href={`/users/${original.id}/update`}>Edit</Link>
+                <Link href={`/properties/${original.id}/update`}>Edit</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href={`/users/${original.id}/delete`}>Delete</Link>
+                <Link href={`/properties/${original.id}/delete`}>Delete</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

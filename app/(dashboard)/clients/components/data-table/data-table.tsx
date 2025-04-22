@@ -88,9 +88,13 @@ export function DataTable<TData extends { id: string }, TValue>({
 
   useEffect(() => {
     const fetch = async () => {
-      const orderBy = sorting.map((sort) => ({
-        [sort.id]: sort.desc ? "desc" : "asc",
-      })) as Record<string, "asc" | "desc">[];
+      const orderBy = sorting.map((sort) => {
+        const keys = sort.id.split(".");
+        if (keys.length === 1) {
+          return { [keys[0]]: sort.desc ? "desc" : "asc" };
+        }
+        return { [keys.join(".")]: sort.desc ? "desc" : "asc" };
+      }) as Array<Record<string, "asc" | "desc">>;
 
       const { data, total, facets } = await fetchData({
         take: pagination.pageSize,
