@@ -1,7 +1,12 @@
-import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
 import { type Column } from "@tanstack/react-table";
-import * as React from "react";
+import { CheckIcon, ListFilterPlus } from "lucide-react";
 
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/dialog-sheet";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,23 +16,16 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
-interface FacetedFilterProps<TData, TValue> {
-  column?: Column<TData, TValue>;
+interface FilterProps<TData, TValue> {
+  column: Column<TData, TValue>;
   title?: string;
   options: {
     label: string;
     value: string;
-    icon?: React.ComponentType<{ className?: string }>;
+    number: number;
   }[];
 }
 
@@ -35,55 +33,25 @@ export function FacetedFilter<TData, TValue>({
   column,
   title,
   options,
-}: FacetedFilterProps<TData, TValue>) {
-  const facets = column?.getFacetedUniqueValues();
+}: FilterProps<TData, TValue>) {
   const selectedValues = new Set(column?.getFilterValue() as string[]);
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8 border-dashed">
-          <PlusCircledIcon className="mr-2 h-4 w-4" />
+    <DialogSheet>
+      <DialogSheetTrigger asChild>
+        <Button variant="outline" size="sm">
+          <ListFilterPlus />
           {title}
-          {selectedValues?.size > 0 && (
-            <>
-              <Separator orientation="vertical" className="mx-2 h-4" />
-              <Badge
-                variant="secondary"
-                className="rounded-sm px-1 font-normal lg:hidden"
-              >
-                {selectedValues.size}
-              </Badge>
-              <div className="hidden space-x-1 lg:flex">
-                {selectedValues.size > 2 ? (
-                  <Badge
-                    variant="secondary"
-                    className="rounded-sm px-1 font-normal"
-                  >
-                    {selectedValues.size} selected
-                  </Badge>
-                ) : (
-                  options
-                    .filter((option) => selectedValues.has(option.value))
-                    .map((option) => (
-                      <Badge
-                        variant="secondary"
-                        key={option.value}
-                        className="rounded-sm px-1 font-normal"
-                      >
-                        {option.label}
-                      </Badge>
-                    ))
-                )}
-              </div>
-            </>
+          {selectedValues.size > 0 && (
+            <Badge variant="secondary">{selectedValues.size} selected</Badge>
           )}
         </Button>
-      </PopoverTrigger>
-      <PopoverContent className="p-0" align="start">
-        <Command>
-          <CommandInput placeholder={title} />
-          <CommandList>
+      </DialogSheetTrigger>
+      <DialogSheetContent className="p-0">
+        <DialogSheetTitle className="hidden" />
+        <Command className="pt-2">
+          <CommandInput placeholder="Search..." autoFocus={false} />
+          <CommandList className="scrollbar-hidden mt-1 border-t p-1">
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup>
               {options.map((option) => {
@@ -102,7 +70,6 @@ export function FacetedFilter<TData, TValue>({
                         filterValues.length ? filterValues : undefined,
                       );
                     }}
-                    className="p-3"
                   >
                     <div
                       className={cn(
@@ -112,37 +79,17 @@ export function FacetedFilter<TData, TValue>({
                           : "opacity-50 [&_svg]:invisible",
                       )}
                     >
-                      <CheckIcon className={cn("h-4 w-4")} />
+                      <CheckIcon />
                     </div>
-                    {option.icon && (
-                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                    )}
-                    <span>{option.label}</span>
-                    {facets?.get(option.value) && (
-                      <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
-                        {facets.get(option.value)}
-                      </span>
-                    )}
+                    {option.label}
+                    <span className="ml-auto">{option.number}</span>
                   </CommandItem>
                 );
               })}
             </CommandGroup>
-            {selectedValues.size > 0 && (
-              <>
-                <CommandSeparator />
-                <CommandGroup>
-                  <CommandItem
-                    onSelect={() => column?.setFilterValue(undefined)}
-                    className="justify-center text-center"
-                  >
-                    Clear filters
-                  </CommandItem>
-                </CommandGroup>
-              </>
-            )}
           </CommandList>
         </Command>
-      </PopoverContent>
-    </Popover>
+      </DialogSheetContent>
+    </DialogSheet>
   );
 }
