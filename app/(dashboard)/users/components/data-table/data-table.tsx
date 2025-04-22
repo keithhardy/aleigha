@@ -152,7 +152,7 @@ export function DataTable({
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </CardContent>
-        <CardFooter className="flex justify-end space-x-4 rounded-b-md border-t bg-muted py-4">
+        <CardFooter className="flex flex-col-reverse md:flex-row justify-center md:justify-between gap-4 rounded-b-md border-t bg-muted py-4">
           <Pagination table={table} />
         </CardFooter>
       </Card>
