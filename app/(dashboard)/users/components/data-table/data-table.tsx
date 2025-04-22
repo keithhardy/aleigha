@@ -1,6 +1,5 @@
 "use client";
 
-import { User, UserRole } from "@prisma/client";
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -23,25 +22,38 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { getUsers } from "./get-users";
 import { Pagination } from "./pagination";
 import { Toolbar } from "./toolbar";
 
-interface DataTableProps {
-  columns: ColumnDef<User>[];
-  data: {
-    users: User[];
-    totalCount: number;
-    facetedUniqueValues: Record<string, Record<string, number>>;
-  };
+export interface PaginatedResponse<T> {
+  data: T[];
+  total: number;
+  facets: Record<string, Record<string, number>>;
 }
 
-export function DataTable({
+export interface FetchDataArgs {
+  take: number;
+  skip: number;
+  orderBy?: Array<Record<string, "asc" | "desc">>;
+  filters?: ColumnFiltersState;
+  searchQuery?: string;
+}
+
+export interface DataTableProps<TData extends { id: string }, TValue> {
+  columns: ColumnDef<TData, TValue>[];
+  data: PaginatedResponse<TData>;
+  fetchData: (args: FetchDataArgs) => Promise<PaginatedResponse<TData>>;
+}
+
+export function DataTable<TData extends { id: string }, TValue>({
   columns,
-  data: { users: initialData, totalCount, facetedUniqueValues },
-}: DataTableProps) {
-  const [data, setData] = useState<User[]>(initialData);
-  const [total, setTotal] = useState<number>(totalCount);
+  data: { data: initialData, total: initialTotal, facets: initialFacets },
+  fetchData,
+}: DataTableProps<TData, TValue>) {
+  const [data, setData] = useState<TData[]>(initialData);
+  const [total, setTotal] = useState<number>(initialTotal);
+  const [facets, setFacets] =
+    useState<Record<string, Record<string, number>>>(initialFacets);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState<string>("");
@@ -50,11 +62,9 @@ export function DataTable({
     pageSize: 10,
     pageIndex: 0,
   });
-  const [facetedValues, setFacetedValues] =
-    useState<Record<string, Record<string, number>>>(facetedUniqueValues);
 
   const table = useReactTable({
-    data: data,
+    data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     state: {
@@ -77,30 +87,30 @@ export function DataTable({
   });
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetch = async () => {
       const orderBy = sorting.map((sort) => ({
         [sort.id]: sort.desc ? "desc" : "asc",
-      }));
+      })) as Record<string, "asc" | "desc">[];
 
-      const { users, totalCount, facetedUniqueValues } = await getUsers({
+      const { data, total, facets } = await fetchData({
         take: pagination.pageSize,
         skip: pagination.pageIndex * pagination.pageSize,
-        orderBy,
+        orderBy: orderBy,
         filters: columnFilters,
         searchQuery: globalFilter,
       });
 
-      setData(users);
-      setTotal(totalCount);
-      setFacetedValues(facetedUniqueValues);
+      setData(data);
+      setTotal(total);
+      setFacets(facets);
     };
 
-    fetchData();
-  }, [sorting, columnFilters, globalFilter, pagination]);
+    fetch();
+  }, [sorting, columnFilters, globalFilter, pagination, fetchData]);
 
   return (
     <div className="space-y-4">
-      <Toolbar table={table} facetedValues={facetedValues} />
+      <Toolbar table={table} facets={facets} />
       <Card className="rounded-md shadow-none">
         <CardContent className="flex p-0">
           <ScrollArea className="w-1 flex-1">
@@ -113,9 +123,9 @@ export function DataTable({
                         {header.isPlaceholder
                           ? null
                           : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
                       </TableHead>
                     ))}
                   </TableRow>
@@ -150,7 +160,7 @@ export function DataTable({
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </CardContent>
-        <CardFooter className="flex flex-col-reverse md:flex-row justify-center md:justify-between gap-4 rounded-b-md border-t bg-muted py-4">
+        <CardFooter className="flex flex-col-reverse justify-center gap-4 rounded-b-md border-t bg-muted py-4 md:flex-row md:justify-between">
           <Pagination table={table} />
         </CardFooter>
       </Card>

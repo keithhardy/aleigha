@@ -10,21 +10,21 @@ import { FacetedFilter } from "./faceted-filter";
 
 interface ToolbarProps<TData> {
   table: Table<TData>;
-  facetedValues: Record<string, Record<string, number>>;
+  facets: Record<string, Record<string, number>>;
 }
 
-export function Toolbar<TData>({ table, facetedValues }: ToolbarProps<TData>) {
+export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
   const isFiltered =
     table.getState().columnFilters.length > 0 ||
     table.getState().globalFilter !== "";
 
   const roleColumn = table.getColumn("role");
-  const roleOptions = facetedValues["role"]
-    ? Object.entries(facetedValues["role"]).map(([value, number]) => ({
-      label: value,
-      value: value,
-      number: number,
-    }))
+  const roleOptions = facets["role"]
+    ? Object.entries(facets["role"]).map(([value, number]) => ({
+        label: value,
+        value: value,
+        number: number,
+      }))
     : [];
 
   return (
