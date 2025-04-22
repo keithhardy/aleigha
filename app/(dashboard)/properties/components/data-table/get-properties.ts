@@ -48,7 +48,7 @@ export async function getProperties({
           acc.occupier = { in: filter.value as string[] };
         }
 
-        if (filter.id === "client" && Array.isArray(filter.value)) {
+        if (filter.id === "client.name" && Array.isArray(filter.value)) {
           acc.client = { name: { in: filter.value as string[] } };
         }
 
@@ -88,7 +88,7 @@ export async function getProperties({
       .groupBy({
         by: ["clientId"],
         _count: { clientId: true },
-        where: buildWhere("client"),
+        where: buildWhere("client.name"),
       })
       .then(async (groups) => {
         const clients = await prisma.client.findMany({
