@@ -5,8 +5,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-
 import { FacetedFilter } from "./faceted-filter";
+
 
 interface ToolbarProps<TData> {
   table: Table<TData>;
@@ -21,10 +21,10 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
   const roleColumn = table.getColumn("role");
   const roleOptions = facets["role"]
     ? Object.entries(facets["role"]).map(([value, number]) => ({
-        label: value,
-        value: value,
-        number: number,
-      }))
+      label: value,
+      value: value,
+      number: number,
+    }))
     : [];
 
   return (

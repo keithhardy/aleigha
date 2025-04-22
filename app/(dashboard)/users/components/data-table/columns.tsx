@@ -97,7 +97,7 @@ export const columns: ColumnDef<User>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const user = row.original;
+      const original = row.original;
 
       return (
         <div className="flex justify-end">
@@ -113,10 +113,10 @@ export const columns: ColumnDef<User>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem asChild>
-                <Link href={`/users/${user.id}/update`}>Edit</Link>
+                <Link href={`/users/${original.id}/update`}>Edit</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href={`/users/${user.id}/delete`}>Delete</Link>
+                <Link href={`/users/${original.id}/delete`}>Delete</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
