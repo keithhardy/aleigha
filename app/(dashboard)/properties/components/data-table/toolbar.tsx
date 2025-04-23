@@ -53,7 +53,7 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
                 {clientColumn && (
                   <FacetedFilter
                     column={clientColumn}
-                    title="Clients"
+                    title="Client"
                     options={clientOptions}
                   />
                 )}

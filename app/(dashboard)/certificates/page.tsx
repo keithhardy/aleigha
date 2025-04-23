@@ -1,53 +1,29 @@
 import { Metadata } from "next";
 
-import { columns } from "@/app/(dashboard)/certificates/components/data-table/columns";
-import { DataTable } from "@/app/(dashboard)/certificates/components/data-table/data-table";
+import { DataTable } from "@/components/data-table/data-table";
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
-import { prisma } from "@/lib/prisma-client";
+
+import { columns } from "./components/data-table/columns";
+import { getCertificates } from "./components/data-table/get-certificates";
+import { Toolbar } from "./components/data-table/toolbar";
 
 export const metadata: Metadata = {
   title: pagesConfig.certificates.metadata.title,
 };
 
 export default async function Certificates() {
-  const certificates =
-    await prisma.electricalInstallationConditionReport.findMany({
-      select: {
-        id: true,
-        type: true,
-        serial: true,
-        status: true,
-        startDate: true,
-        endDate: true,
-        client: {
-          select: {
-            name: true,
-          },
-        },
-        property: {
-          select: {
-            uprn: true,
-            address: {
-              select: {
-                streetAddress: true,
-                postCode: true,
-              },
-            },
-          },
-        },
-        creator: {
-          select: {
-            name: true,
-          },
-        },
-      },
-    });
+  const data = await getCertificates({ take: 10, skip: 0 });
 
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
       <PageHeader config={pagesConfig.certificates} />
-      <DataTable columns={columns} data={certificates} />
+      <DataTable
+        columns={columns}
+        data={data}
+        fetchData={getCertificates}
+        toolbar={Toolbar}
+      />
     </div>
   );
 }

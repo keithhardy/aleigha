@@ -1,198 +1,112 @@
 "use client";
 
-import { Cross2Icon, PlusCircledIcon } from "@radix-ui/react-icons";
 import { type Table } from "@tanstack/react-table";
+import { UserPlus2, XCircle } from "lucide-react";
 import Link from "next/link";
 
-import {
-  DialogSheet,
-  DialogSheetContent,
-  DialogSheetTitle,
-  DialogSheetTrigger,
-} from "@/components/dialog-sheet";
+import { FacetedFilter } from "@/components/data-table/faceted-filter";
 import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
 import { Input } from "@/components/ui/input";
-
-import { FacetedFilter } from "./faceted-filter";
-import { ViewOptions } from "./view-options";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 interface ToolbarProps<TData> {
   table: Table<TData>;
+  facets: Record<string, Record<string, number>>;
 }
 
-export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
-  const isFiltered = table.getState().columnFilters.length > 0;
+export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
+  const isFiltered =
+    table.getState().columnFilters.length > 0 ||
+    table.getState().globalFilter !== "";
+
+  const clientColumn = table.getColumn("client.name");
+  const clientOptions = facets["client"]
+    ? Object.entries(facets["client"]).map(([value, number]) => ({
+        label: value,
+        value: value,
+        number: number,
+      }))
+    : [];
 
   const typeColumn = table.getColumn("type");
-  const typeOptions = typeColumn
-    ? Array.from(typeColumn.getFacetedUniqueValues().entries()).map(
-        ([value]) => ({
-          label: String(value),
-          value: String(value),
-        }),
-      )
-    : [];
-
-  const clientColumn = table.getColumn("client");
-  const clientOptions = clientColumn
-    ? Array.from(clientColumn.getFacetedUniqueValues().entries()).map(
-        ([value]) => ({
-          label: String(value),
-          value: String(value),
-        }),
-      )
-    : [];
-
-  const creatorColumn = table.getColumn("creator");
-  const creatorOptions = creatorColumn
-    ? Array.from(creatorColumn.getFacetedUniqueValues().entries()).map(
-        ([value]) => ({
-          label: String(value),
-          value: String(value),
-        }),
-      )
+  const typeOptions = facets["type"]
+    ? Object.entries(facets["type"]).map(([value, number]) => ({
+        label: value,
+        value: value,
+        number: number,
+      }))
     : [];
 
   const statusColumn = table.getColumn("status");
-  const statusOptions = statusColumn
-    ? Array.from(statusColumn.getFacetedUniqueValues().entries()).map(
-        ([value]) => ({
-          label: String(value),
-          value: String(value),
-        }),
-      )
+  const statusOptions = facets["status"]
+    ? Object.entries(facets["status"]).map(([value, number]) => ({
+        label: value,
+        value: value,
+        number: number,
+      }))
     : [];
 
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex flex-1 items-center space-x-2">
-        <Input
-          placeholder="Search..."
-          value={(table.getState().globalFilter as string) ?? ""}
-          onChange={(event) => table.setGlobalFilter(event.target.value)}
-          className="h-8 w-[150px] border-dashed lg:w-[250px]"
-        />
-
-        {typeColumn && (
-          <FacetedFilter
-            column={typeColumn}
-            title="Type"
-            options={typeOptions}
+    <>
+      <div className="flex flex-col justify-between gap-2 md:flex-row">
+        <div className="flex flex-grow flex-col gap-2 md:flex-row">
+          <Input
+            placeholder="Search..."
+            value={(table.getState().globalFilter as string) ?? ""}
+            onChange={(e) => table.setGlobalFilter(e.target.value)}
+            className="h-[32px]"
           />
-        )}
-
-        {clientColumn && (
-          <FacetedFilter
-            column={clientColumn}
-            title="Client"
-            options={clientOptions}
-          />
-        )}
-
-        {creatorColumn && (
-          <FacetedFilter
-            column={creatorColumn}
-            title="Operative"
-            options={creatorOptions}
-          />
-        )}
-
-        {statusColumn && (
-          <FacetedFilter
-            column={statusColumn}
-            title="Status"
-            options={statusOptions}
-          />
-        )}
-
-        {isFiltered && (
-          <Button
-            variant="ghost"
-            onClick={() => {
-              table.resetColumnFilters();
-            }}
-            className="h-8 px-2 lg:px-3"
-          >
-            Reset
-            <Cross2Icon className="ml-2 h-4 w-4" />
-          </Button>
-        )}
-      </div>
-
-      <div className="flex items-center space-x-2">
-        <DialogSheet>
-          <DialogSheetTrigger asChild>
-            <Button
-              variant="outline"
-              className="w-full justify-between"
-              size="sm"
-            >
-              Create <PlusCircledIcon />
+          <div className="flex w-full">
+            <ScrollArea className="w-1 flex-1">
+              <div className="flex gap-2">
+                {clientColumn && (
+                  <FacetedFilter
+                    column={clientColumn}
+                    title="Client"
+                    options={clientOptions}
+                  />
+                )}
+                {typeColumn && (
+                  <FacetedFilter
+                    column={typeColumn}
+                    title="Type"
+                    options={typeOptions}
+                  />
+                )}
+                {statusColumn && (
+                  <FacetedFilter
+                    column={statusColumn}
+                    title="Status"
+                    options={statusOptions}
+                  />
+                )}
+                {isFiltered && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      table.resetColumnFilters();
+                      table.setGlobalFilter("");
+                    }}
+                  >
+                    <XCircle />
+                    Clear
+                  </Button>
+                )}{" "}
+              </div>
+              <ScrollBar orientation="horizontal" className="hidden md:flex" />
+            </ScrollArea>
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <Link href="/users/create">
+            <Button variant="outline" size="sm">
+              <UserPlus2 />
+              Create
             </Button>
-          </DialogSheetTrigger>
-          <DialogSheetContent className="p-0">
-            <DialogSheetTitle className="hidden" />
-            <Command className="pt-2">
-              <CommandInput placeholder="Search..." />
-              <CommandList className="scrollbar-hidden mt-1 border-t p-1">
-                <CommandEmpty>No results found.</CommandEmpty>
-                <CommandGroup>
-                  <Link href="/certificates/eicr/create">
-                    <CommandItem value="Electrical Installation Condition Report">
-                      Electrical Installation Condition Report
-                    </CommandItem>
-                  </Link>
-                  <Link href="/certificates/eic/create">
-                    <CommandItem value="Electrical Installation Certificate">
-                      Electrical Installation Certificate
-                    </CommandItem>
-                  </Link>
-                  <Link href="/certificates/eic/create">
-                    <CommandItem value="Minor Works Certificate">
-                      Minor Works Certificate
-                    </CommandItem>
-                  </Link>
-                  <Link href="/certificates/eic/create">
-                    <CommandItem value="Fire Detection Installation Certificate">
-                      Fire Detection Installation Certificate
-                    </CommandItem>
-                  </Link>
-                  <Link href="/certificates/eic/create">
-                    <CommandItem value="Domestic Ventilation Installation Certificate">
-                      Domestic Ventilation Installation Certificate
-                    </CommandItem>
-                  </Link>
-                  <Link href="/certificates/eic/create">
-                    <CommandItem value="Emergency Lighting Installation Condition Report">
-                      Emergency Lighting Installation Condition Report
-                    </CommandItem>
-                  </Link>
-                  <Link href="/certificates/eic/create">
-                    <CommandItem value="Emergency Lighting Installation Certificate">
-                      Emergency Lighting Installation Certificate
-                    </CommandItem>
-                  </Link>
-                  <Link href="/certificates/eic/create">
-                    <CommandItem value="Electrical Danger Notification">
-                      Electrical Danger Notification
-                    </CommandItem>
-                  </Link>
-                </CommandGroup>
-              </CommandList>
-            </Command>
-          </DialogSheetContent>
-        </DialogSheet>
-
-        <ViewOptions table={table} />
+          </Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

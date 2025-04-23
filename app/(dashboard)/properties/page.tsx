@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 
+import { DataTable } from "@/components/data-table/data-table";
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
 
 import { columns } from "./components/data-table/columns";
 import { getProperties } from "./components/data-table/get-properties";
 import { Toolbar } from "./components/data-table/toolbar";
-import { DataTable } from "../../../components/data-table/data-table";
 
 export const metadata: Metadata = {
   title: pagesConfig.properties.metadata.title,

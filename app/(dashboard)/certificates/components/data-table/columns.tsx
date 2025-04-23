@@ -1,121 +1,128 @@
 "use client";
 
-import { EICRStatus } from "@prisma/client";
+import {
+  Address,
+  Client,
+  ElectricalInstallationConditionReport,
+  Property,
+} from "@prisma/client";
 import { type ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
+import { MoreHorizontal } from "lucide-react";
+import Link from "next/link";
 
-import { ColumnHeader } from "./column-header";
-import { RowActions } from "./row-actions";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-export const columns: ColumnDef<{
-  id: string;
-  type: string;
-  serial: string;
-  status: EICRStatus | null;
-  startDate: Date | null;
-  endDate: Date | null;
-  client: { name: string };
-  property: {
-    uprn: string;
-    address: { streetAddress: string | null; postCode: string | null };
+export type ElectricalInstalationConditionReportWithRelations =
+  ElectricalInstallationConditionReport & {
+    client: Client | null;
+    property: Property & {
+      address: Address | null;
+    };
   };
-  creator: { name: string };
-}>[] = [
-  {
-    accessorKey: "serial",
-    header: ({ column }) => <ColumnHeader column={column} title="Serial No." />,
-  },
-  {
-    accessorKey: "type",
-    header: ({ column }) => <ColumnHeader column={column} title="Type" />,
-    cell: ({ getValue }) => {
-      const value = getValue() as string;
-      const initials = value
-        .split(" ")
-        .map((word) => word[0])
-        .join("")
-        .toUpperCase();
-      return initials;
+
+export const columns: ColumnDef<ElectricalInstalationConditionReportWithRelations>[] =
+  [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          className="ml-2 mr-4"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          className="ml-2 mr-4"
+        />
+      ),
     },
-    filterFn: (row, id, value) => value.includes(row.getValue(id)),
-  },
-  {
-    accessorFn: (row) => row.client?.name,
-    id: "client",
-    header: ({ column }) => <ColumnHeader column={column} title="Client" />,
-    filterFn: (row, id, value) => value.includes(row.getValue(id)),
-  },
-  {
-    accessorKey: "property.uprn",
-    id: "UPRN",
-    header: ({ column }) => <ColumnHeader column={column} title="UPRN" />,
-  },
-  {
-    accessorKey: "property.address.streetAddress",
-    id: "Address",
-    header: ({ column }) => <ColumnHeader column={column} title="Address" />,
-  },
-  {
-    accessorKey: "property.address.postCode",
-    id: "Postcode",
-    header: ({ column }) => <ColumnHeader column={column} title="Postcode" />,
-  },
-  {
-    accessorKey: "startDate",
-    id: "Date",
-    header: ({ column }) => <ColumnHeader column={column} title="Date" />,
-    cell: ({ getValue }) => {
-      const date = getValue() as string | undefined;
-
-      if (date) {
-        return format(new Date(date), "dd/MM/yy");
-      }
-      return "N/A";
+    {
+      accessorKey: "client.name",
+      id: "client.name",
+      header: "Client",
+      filterFn: (row, id, value) => value.includes(row.getValue(id)),
     },
-    filterFn: (row, id, value) => {
-      const rowDate = new Date(row.getValue(id));
-
-      const startDate = value?.from ? new Date(value.from) : null;
-      const endDate = value?.to ? new Date(value.to) : null;
-
-      if (!rowDate || isNaN(rowDate.getTime())) {
-        return false;
-      }
-
-      if (startDate && endDate) {
-        return rowDate >= startDate && rowDate <= endDate;
-      }
-
-      if (startDate) {
-        return rowDate >= startDate;
-      }
-
-      if (endDate) {
-        return rowDate <= endDate;
-      }
-
-      return true;
+    {
+      accessorKey: "serial",
+      header: "Serial Number",
     },
-  },
-  {
-    accessorFn: (row) => row.creator?.name,
-    id: "creator",
-    header: ({ column }) => <ColumnHeader column={column} title="Operative" />,
-    filterFn: (row, id, value) => value.includes(row.getValue(id)),
-  },
-  {
-    accessorKey: "status",
-    header: ({ column }) => <ColumnHeader column={column} title="Status" />,
-    filterFn: (row, id, value) => value.includes(row.getValue(id)),
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => {
-      return (
-        <div className="text-right">
-          <RowActions electricalInstallationConditionReport={row.original} />
-        </div>
-      );
+    {
+      accessorKey: "type",
+      header: "Type",
+      filterFn: (row, id, value) => value.includes(row.getValue(id)),
     },
-  },
-];
+    {
+      accessorKey: "property.address.streetAddress",
+      header: "Address",
+    },
+    {
+      accessorKey: "property.address.postCode",
+      header: "Postcode",
+    },
+    {
+      accessorKey: "startDate",
+      header: "Date",
+      cell: ({ getValue }) => {
+        const date = getValue() as string | undefined;
+
+        if (date) {
+          return format(new Date(date), "dd/MM/yy");
+        }
+        return "N/A";
+      },
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+    },
+    {
+      id: "actions",
+      cell: ({ row }) => {
+        const original = row.original;
+
+        return (
+          <div className="flex justify-end">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="mr-2 data-[state=open]:bg-accent"
+                >
+                  <MoreHorizontal />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild>
+                  <Link
+                    href={`/certificates/eicr/${original.id}/update/details-of-the-contractor-client-installation`}
+                  >
+                    Edit
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href={`/certificates/eicr/${original.id}/delete`}>
+                    Delete
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        );
+      },
+    },
+  ];
