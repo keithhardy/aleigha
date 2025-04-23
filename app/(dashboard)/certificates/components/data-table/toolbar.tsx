@@ -60,7 +60,7 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
             className="h-[32px] max-w-[250px]"
           />
           <div className="flex w-full">
-            <ScrollArea className="w-1 flex-1">
+            <ScrollArea className="-mb-3 w-1 flex-1 pb-3">
               <div className="flex gap-2">
                 {clientColumn && (
                   <FacetedFilter
