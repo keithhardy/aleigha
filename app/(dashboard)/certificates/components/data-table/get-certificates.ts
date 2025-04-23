@@ -72,6 +72,20 @@ export async function getCertificates({
           acc.client = { name: { in: filter.value as string[] } };
         }
 
+        if (
+          filter.id === "startDate" &&
+          typeof filter.value === "object" &&
+          filter.value !== null
+        ) {
+          const { from, to } = filter.value as { from?: Date; to?: Date };
+          acc.createdAt = {
+            ...(from && { gte: from }),
+            ...(to && {
+              lt: new Date(new Date(to).setDate(new Date(to).getDate() + 1)), // add 1 day
+            }),
+          };
+        }
+
         return acc;
       }, {} as Prisma.ElectricalInstallationConditionReportWhereInput);
 

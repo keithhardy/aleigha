@@ -45,7 +45,7 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
             placeholder="Search..."
             value={(table.getState().globalFilter as string) ?? ""}
             onChange={(e) => table.setGlobalFilter(e.target.value)}
-            className="h-[32px]"
+            className="h-[32px] max-w-[250px]"
           />
           <div className="flex w-full">
             <ScrollArea className="w-1 flex-1">
