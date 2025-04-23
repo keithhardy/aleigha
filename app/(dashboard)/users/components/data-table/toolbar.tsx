@@ -4,7 +4,7 @@ import { type Table } from "@tanstack/react-table";
 import { UserPlus2, XCircle } from "lucide-react";
 import Link from "next/link";
 
-import { FacetedFilter } from "@/app/(dashboard)/components/data-table/faceted-filter";
+import { FacetedFilter } from "@/components/data-table/faceted-filter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";

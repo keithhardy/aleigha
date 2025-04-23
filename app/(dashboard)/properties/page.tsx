@@ -5,8 +5,8 @@ import { pagesConfig } from "@/config/pages";
 
 import { columns } from "./components/data-table/columns";
 import { getProperties } from "./components/data-table/get-properties";
-import { DataTable } from "../components/data-table/data-table";
 import { Toolbar } from "./components/data-table/toolbar";
+import { DataTable } from "../../../components/data-table/data-table";
 
 export const metadata: Metadata = {
   title: pagesConfig.properties.metadata.title,

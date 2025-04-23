@@ -4,9 +4,9 @@ import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
 
 import { columns } from "./components/data-table/columns";
-import { DataTable } from "../components/data-table/data-table";
 import { getUsers } from "./components/data-table/get-users";
 import { Toolbar } from "./components/data-table/toolbar";
+import { DataTable } from "../../../components/data-table/data-table";
 
 export const metadata: Metadata = {
   title: pagesConfig.users.metadata.title,

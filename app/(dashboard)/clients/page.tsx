@@ -5,8 +5,8 @@ import { pagesConfig } from "@/config/pages";
 
 import { columns } from "./components/data-table/columns";
 import { getClients } from "./components/data-table/get-clients";
-import { DataTable } from "../components/data-table/data-table";
 import { Toolbar } from "./components/data-table/toolbar";
+import { DataTable } from "../../../components/data-table/data-table";
 
 export const metadata: Metadata = {
   title: pagesConfig.clients.metadata.title,

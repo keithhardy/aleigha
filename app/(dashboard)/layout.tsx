@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sidebar";
 // import { auth0 } from "@/lib/auth0-client";
 
-import { DashboardSidebar } from "./components/dashboard-sidebar";
+import { DashboardSidebar } from "../../components/dashboard-sidebar";
 
 export default async function DashboardLayout({
   children,
