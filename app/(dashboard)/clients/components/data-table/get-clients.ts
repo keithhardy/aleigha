@@ -9,6 +9,7 @@ type GetClientsProps = {
   skip: number;
   orderBy?: Prisma.ClientOrderByWithRelationInput[];
   searchQuery?: string;
+  filters?: { id: string; value: unknown }[];
 };
 
 export async function getClients({
@@ -17,7 +18,7 @@ export async function getClients({
   orderBy,
   searchQuery,
 }: GetClientsProps) {
-  const searchFilter = searchQuery
+  const baseSearchFilter = searchQuery
     ? {
         OR: [
           {
@@ -49,7 +50,7 @@ export async function getClients({
     : {};
 
   const where = {
-    ...searchFilter,
+    ...baseSearchFilter,
   };
 
   const [data, total] = await Promise.all([

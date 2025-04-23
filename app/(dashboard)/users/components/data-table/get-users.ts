@@ -12,10 +12,6 @@ type GetUsersProps = {
   filters?: { id: string; value: unknown }[];
 };
 
-type FilterConditions = {
-  role?: { in: $Enums.UserRole[] };
-};
-
 export async function getUsers({
   take,
   skip,
@@ -23,7 +19,7 @@ export async function getUsers({
   searchQuery,
   filters = [],
 }: GetUsersProps) {
-  const searchFilter = searchQuery
+  const baseSearchFilter = searchQuery
     ? {
         OR: [
           {
@@ -48,28 +44,37 @@ export async function getUsers({
       }
     : {};
 
-  const filterConditions: FilterConditions = filters.reduce<FilterConditions>(
-    (acc, filter) => {
-      if (filter.id === "role" && Array.isArray(filter.value)) {
-        acc.role = { in: filter.value as $Enums.UserRole[] };
-      }
-      return acc;
-    },
-    {},
-  );
+  const buildWhere = (excludeKey?: string): Prisma.UserWhereInput => {
+    const filterConditions: Prisma.UserWhereInput = filters.reduce(
+      (acc, filter) => {
+        if (filter.id === excludeKey) return acc;
 
-  const where = {
-    ...searchFilter,
-    ...filterConditions,
+        if (filter.id === "role" && Array.isArray(filter.value)) {
+          acc.role = { in: filter.value as $Enums.UserRole[] };
+        }
+
+        return acc;
+      },
+      {} as Prisma.UserWhereInput,
+    );
+
+    return {
+      ...baseSearchFilter,
+      ...filterConditions,
+    };
   };
+
+  const where = buildWhere();
 
   const [data, total, roleFacets] = await Promise.all([
     prisma.user.findMany({ take, skip, orderBy, where }),
+
     prisma.user.count({ where }),
+
     prisma.user.groupBy({
       by: ["role"],
       _count: { role: true },
-      where: searchFilter,
+      where: buildWhere("role"),
     }),
   ]);
 
@@ -77,14 +82,6 @@ export async function getUsers({
   roleFacets.forEach((facet) => {
     roleCounts[facet.role] = facet._count.role;
   });
-
-  if (filterConditions.role?.in?.length) {
-    for (const role of filterConditions.role.in) {
-      if (!(role in roleCounts)) {
-        roleCounts[role] = 0;
-      }
-    }
-  }
 
   return {
     data,

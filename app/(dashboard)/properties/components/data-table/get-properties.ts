@@ -22,19 +22,25 @@ export async function getProperties({
   const baseSearchFilter: Prisma.PropertyWhereInput = searchQuery
     ? {
         OR: [
-          { uprn: { contains: searchQuery, mode: "insensitive" } },
-          { occupier: { contains: searchQuery, mode: "insensitive" } },
+          {
+            uprn: { contains: searchQuery, mode: Prisma.QueryMode.insensitive },
+          },
           {
             address: {
-              streetAddress: { contains: searchQuery, mode: "insensitive" },
+              streetAddress: {
+                contains: searchQuery,
+                mode: Prisma.QueryMode.insensitive,
+              },
             },
           },
           {
             address: {
-              postCode: { contains: searchQuery, mode: "insensitive" },
+              postCode: {
+                contains: searchQuery,
+                mode: Prisma.QueryMode.insensitive,
+              },
             },
           },
-          { client: { name: { contains: searchQuery, mode: "insensitive" } } },
         ],
       }
     : {};
@@ -76,6 +82,7 @@ export async function getProperties({
         client: true,
       },
     }),
+
     prisma.property.count({ where }),
 
     prisma.property.groupBy({

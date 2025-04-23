@@ -23,10 +23,31 @@ export async function getCertificates({
     searchQuery
       ? {
           OR: [
-            { type: { contains: searchQuery, mode: "insensitive" } },
-            { serial: { contains: searchQuery, mode: "insensitive" } },
             {
-              client: { name: { contains: searchQuery, mode: "insensitive" } },
+              serial: {
+                contains: searchQuery,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
+            {
+              property: {
+                address: {
+                  streetAddress: {
+                    contains: searchQuery,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+                },
+              },
+            },
+            {
+              property: {
+                address: {
+                  postCode: {
+                    contains: searchQuery,
+                    mode: Prisma.QueryMode.insensitive,
+                  },
+                },
+              },
             },
           ],
         }
@@ -78,6 +99,7 @@ export async function getCertificates({
           },
         },
       }),
+
       prisma.electricalInstallationConditionReport.count({ where }),
 
       prisma.electricalInstallationConditionReport
