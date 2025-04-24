@@ -22,19 +22,19 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
   const clientColumn = table.getColumn("client.name");
   const clientOptions = facets["client"]
     ? Object.entries(facets["client"]).map(([value, number]) => ({
-        label: value,
-        value: value,
-        number: number,
-      }))
+      label: value,
+      value: value,
+      number: number,
+    }))
     : [];
 
   const occupierColumn = table.getColumn("occupier");
   const occupierOptions = facets["occupier"]
     ? Object.entries(facets["occupier"]).map(([value, number]) => ({
-        label: value,
-        value: value,
-        number: number,
-      }))
+      label: value,
+      value: value,
+      number: number,
+    }))
     : [];
 
   return (
@@ -83,7 +83,7 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
           </div>
         </div>
         <div className="flex gap-2">
-          <Link href="/users/create">
+          <Link href="/properties/create">
             <Button variant="outline" size="sm">
               <UserPlus2 />
               Create
