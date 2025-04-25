@@ -49,7 +49,7 @@ async function main() {
   );
 
   const properties = await Promise.all(
-    Array.from({ length: 250 }).map(() =>
+    Array.from({ length: 50 }).map(() =>
       prisma.property.create({
         data: {
           uprn: faker.string.alphanumeric({ length: 10, case: "upper" }),
@@ -90,7 +90,7 @@ async function main() {
   });
 
   const users = await Promise.all(
-    Array.from({ length: 50 }).map(() =>
+    Array.from({ length: 9 }).map(() =>
       prisma.user.create({
         data: {
           auth0Id: `auth0|${faker.string.alphanumeric({
@@ -118,7 +118,7 @@ async function main() {
   );
 
   const electricalInstallationConditionReports = await Promise.all(
-    Array.from({ length: 50 }).map(() => {
+    Array.from({ length: 10 }).map(() => {
       const property = faker.helpers.arrayElement(properties);
 
       return prisma.electricalInstallationConditionReport.create({
