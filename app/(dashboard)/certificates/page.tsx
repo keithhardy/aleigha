@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 
-import { DataTable } from "@/components/data-table/data-table";
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
 
 import { columns } from "./components/data-table/columns";
+import { DataTable } from "./components/data-table/data-table";
 import { getCertificates } from "./components/data-table/get-certificates";
 import { Toolbar } from "./components/data-table/toolbar";
 

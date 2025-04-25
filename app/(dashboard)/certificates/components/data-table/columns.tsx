@@ -8,7 +8,7 @@ import {
 } from "@prisma/client";
 import { type ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
-import { MoreHorizontal } from "lucide-react";
+import { ChevronsDownUp, ChevronsUpDown, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -88,6 +88,18 @@ export const columns: ColumnDef<ElectricalInstalationConditionReportWithRelation
     {
       accessorKey: "status",
       header: "Status",
+    },
+    {
+      id: "expand",
+      cell: ({ row }) => (
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => row.toggleExpanded()}
+        >
+          {row.getIsExpanded() ? <ChevronsDownUp /> : <ChevronsUpDown />}
+        </Button>
+      ),
     },
     {
       id: "actions",
