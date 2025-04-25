@@ -50,7 +50,7 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
           </div>
         </div>
         <div className="flex gap-2">
-          <Link href="/users/create">
+          <Link href="/clients/create">
             <Button variant="outline" size="sm">
               <UserPlus2 />
               Create

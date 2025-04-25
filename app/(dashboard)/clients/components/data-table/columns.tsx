@@ -111,10 +111,10 @@ export const columns: ColumnDef<Client>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem asChild>
-                <Link href={`/users/${original.id}/update`}>Edit</Link>
+                <Link href={`/clients/${original.id}/update`}>Edit</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href={`/users/${original.id}/delete`}>Delete</Link>
+                <Link href={`/clients/${original.id}/delete`}>Delete</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
