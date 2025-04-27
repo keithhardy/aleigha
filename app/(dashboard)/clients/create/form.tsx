@@ -7,9 +7,15 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { createClient } from "@/app/(dashboard)/clients/create/action";
-import { CreateClientSchema } from "@/app/(dashboard)/clients/create/schema";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -20,6 +26,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+
+import { createClient } from "./action";
+import { CreateClientSchema } from "./schema";
 
 export function CreateClientForm() {
   const router = useRouter();
@@ -81,177 +90,193 @@ export function CreateClientForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="space-y-4 pb-4">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input {...field} autoComplete="new-name" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input type="email" {...field} autoComplete="email" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="phone"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Phone</FormLabel>
-                <FormControl>
-                  <Input type="tel" {...field} autoComplete="tel" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="appointedPerson"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Appointed Person</FormLabel>
-                <FormControl>
-                  <Input
-                    type="tel"
-                    {...field}
-                    autoComplete="appointed-person"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="picture"
-            render={() => (
-              <FormItem>
-                <FormLabel>Company Logo</FormLabel>
-                <FormControl>
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                  />
-                </FormControl>
-                <FormMessage />
-                {imagePreview && (
-                  <div className="mt-2">
-                    <Image
-                      src={imagePreview}
-                      alt="Logo Preview"
-                      width={200}
-                      height={200}
-                      className="rounded border"
-                    />
-                  </div>
-                )}
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="address.streetAddress"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Street Address</FormLabel>
-                <FormControl>
-                  <Input {...field} autoComplete="address-line1" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="address.city"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>City</FormLabel>
-                <FormControl>
-                  <Input {...field} autoComplete="address-level2" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="address.county"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>County</FormLabel>
-                <FormControl>
-                  <Input {...field} autoComplete="address-level1" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="address.postTown"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Post Town</FormLabel>
-                <FormControl>
-                  <Input {...field} autoComplete="address-level2" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="address.postCode"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Postcode</FormLabel>
-                <FormControl>
-                  <Input {...field} autoComplete="postal-code" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="address.country"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Country</FormLabel>
-                <FormControl>
-                  <Input {...field} autoComplete="country-name" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <Button
-            type="submit"
-            disabled={form.formState.isSubmitting}
-            variant="outline"
-          >
-            {form.formState.isSubmitting ? "Saving" : "Save"}
-          </Button>
+        <div className="space-y-4">
+          <Card className="rounded-md shadow-none">
+            <div className="flex flex-col gap-4 p-6 lg:flex-row">
+              <CardHeader className="w-full p-0">
+                <CardTitle>Client Details</CardTitle>
+                <CardDescription className="text-balance">
+                  Please make sure all values are correct.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="w-full space-y-4 p-0">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input {...field} autoComplete="new-name" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input type="email" {...field} autoComplete="email" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Phone</FormLabel>
+                      <FormControl>
+                        <Input type="tel" {...field} autoComplete="tel" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="appointedPerson"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Appointed Person</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="tel"
+                          {...field}
+                          autoComplete="appointed-person"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="picture"
+                  render={() => (
+                    <FormItem>
+                      <FormLabel>Company Logo</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                      {imagePreview && (
+                        <div className="mt-2">
+                          <Image
+                            src={imagePreview}
+                            alt="Logo Preview"
+                            width={200}
+                            height={200}
+                            className="rounded border"
+                          />
+                        </div>
+                      )}
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="address.streetAddress"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Street Address</FormLabel>
+                      <FormControl>
+                        <Input {...field} autoComplete="address-line1" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="address.city"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>City</FormLabel>
+                      <FormControl>
+                        <Input {...field} autoComplete="address-level2" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="address.county"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>County</FormLabel>
+                      <FormControl>
+                        <Input {...field} autoComplete="address-level1" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="address.postTown"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Post Town</FormLabel>
+                      <FormControl>
+                        <Input {...field} autoComplete="address-level2" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="address.postCode"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Postcode</FormLabel>
+                      <FormControl>
+                        <Input {...field} autoComplete="postal-code" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="address.country"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Country</FormLabel>
+                      <FormControl>
+                        <Input {...field} autoComplete="country-name" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+            </div>
+            <CardFooter className="justify-end space-x-4 rounded-b-md border-t bg-muted py-4">
+              <Button
+                variant="outline"
+                size="sm"
+                type="submit"
+                disabled={
+                  !form.formState.isDirty || form.formState.isSubmitting
+                }
+              >
+                {form.formState.isSubmitting ? "Saving..." : "Save"}
+              </Button>
+            </CardFooter>
+          </Card>
         </div>
       </form>
     </Form>

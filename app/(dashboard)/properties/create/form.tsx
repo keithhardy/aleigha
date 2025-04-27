@@ -10,7 +10,21 @@ import { z } from "zod";
 
 import { createProperty } from "@/app/(dashboard)/properties/create/action";
 import { CreatePropertySchema } from "@/app/(dashboard)/properties/create/schema";
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/dialog-sheet";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Command,
   CommandEmpty,
@@ -28,13 +42,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
 
 export function CreatePropertyForm({ clients }: { clients: Client[] }) {
   const router = useRouter();
@@ -81,174 +89,189 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="space-y-4 pb-4">
-          <FormField
-            control={form.control}
-            name="client"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Client</FormLabel>
-                <Popover open={clientOpen} onOpenChange={setClientOpen}>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      aria-expanded={clientOpen ? "true" : "false"}
-                      className="justify-between"
-                    >
-                      {field.value
-                        ? clients.find((client) => client.id === field.value)
-                            ?.name
-                        : "Select client..."}
-                      <ChevronsUpDown className="opacity-50" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="p-0">
-                    <Command>
-                      <CommandInput placeholder="Search..." className="h-9" />
-                      <CommandList>
-                        <CommandEmpty>No results found.</CommandEmpty>
-                        <CommandGroup>
-                          {clients.map((client) => (
-                            <CommandItem
-                              key={client.id}
-                              value={client.id}
-                              onSelect={(currentValue) => {
-                                form.setValue("client", currentValue);
-                                setClientOpen(false);
-                              }}
-                            >
-                              {client.name}
-                              <Check
-                                className={cn(
-                                  "ml-auto",
-                                  client.id === field.value
-                                    ? "opacity-100"
-                                    : "opacity-0",
-                                )}
-                              />
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="uprn"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>UPRN</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="occupier"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Occupier</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="address.streetAddress"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Street Address</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="address.city"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>City</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="address.county"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>County</FormLabel>
-                <FormControl>
-                  <Input {...field} value={field.value ?? ""} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="address.postTown"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Post Town</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="address.postCode"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Postcode</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="address.country"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Country</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button
-            type="submit"
-            disabled={form.formState.isSubmitting}
-            variant="outline"
-          >
-            {form.formState.isSubmitting ? "Saving" : "Save"}
-          </Button>
+        <div className="space-y-4">
+          <Card className="rounded-md shadow-none">
+            <div className="flex flex-col gap-4 p-6 lg:flex-row">
+              <CardHeader className="w-full p-0">
+                <CardTitle>Client Details</CardTitle>
+                <CardDescription className="text-balance">
+                  Please make sure all values are correct.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="w-full space-y-4 p-0">
+                <FormField
+                  control={form.control}
+                  name="client"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Client</FormLabel>
+                      <DialogSheet
+                        open={clientOpen}
+                        onOpenChange={setClientOpen}
+                      >
+                        <DialogSheetTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className="w-full justify-between"
+                          >
+                            {field.value
+                              ? clients.find(
+                                  (client) => client.id === field.value,
+                                )?.name
+                              : "Select client..."}
+                            <ChevronsUpDown />
+                          </Button>
+                        </DialogSheetTrigger>
+                        <DialogSheetContent className="p-0">
+                          <DialogSheetTitle className="hidden" />
+                          <Command className="pt-2">
+                            <CommandInput placeholder="Search..." />
+                            <CommandList className="scrollbar-hidden mt-1 border-t p-1">
+                              <CommandEmpty>No results found.</CommandEmpty>
+                              <CommandGroup>
+                                {clients.map((client) => (
+                                  <CommandItem
+                                    key={client.id}
+                                    value={client.id}
+                                    onSelect={(currentValue) => {
+                                      form.setValue("client", currentValue);
+                                      setClientOpen(false);
+                                    }}
+                                  >
+                                    {client.name}
+                                    {client.id === field.value ? (
+                                      <Check className="ml-auto" />
+                                    ) : null}
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </DialogSheetContent>
+                      </DialogSheet>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="uprn"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>UPRN</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="occupier"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Occupier</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="address.streetAddress"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Street Address</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="address.city"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>City</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="address.county"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>County</FormLabel>
+                      <FormControl>
+                        <Input {...field} value={field.value ?? ""} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="address.postTown"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Post Town</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="address.postCode"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Postcode</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="address.country"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Country</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+            </div>
+            <CardFooter className="justify-end space-x-4 rounded-b-md border-t bg-muted py-4">
+              <Button
+                variant="outline"
+                size="sm"
+                type="submit"
+                disabled={
+                  !form.formState.isDirty || form.formState.isSubmitting
+                }
+              >
+                {form.formState.isSubmitting ? "Saving..." : "Save"}
+              </Button>
+            </CardFooter>
+          </Card>
         </div>
       </form>
     </Form>

@@ -2,8 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Client, UserRole } from "@prisma/client";
-import { Check, ChevronsUpDown, ExternalLink } from "lucide-react";
-import Link from "next/link";
+import { Check, ChevronsUpDown } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -290,18 +289,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                 />
               </CardContent>
             </div>
-            <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-              <p className="text-balance text-sm text-muted-foreground">
-                To add more clients, visit{" "}
-                <Link
-                  href={"/clients"}
-                  className="inline-flex items-center space-x-1 text-blue-500"
-                >
-                  <span>Clients</span>
-                  <ExternalLink size={14} />
-                </Link>
-                .
-              </p>
+            <CardFooter className="justify-end space-x-4 rounded-b-md border-t bg-muted py-4">
               <Button
                 variant="outline"
                 size="sm"
