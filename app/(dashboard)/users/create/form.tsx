@@ -124,7 +124,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                   control={form.control}
                   name="role"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem>
                       <FormLabel>Role</FormLabel>
                       <DialogSheet
                         open={userRoleOpen}
@@ -181,7 +181,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                   control={form.control}
                   name="clients"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem>
                       <FormLabel>Clients</FormLabel>
                       <FormControl>
                         <DialogSheet

@@ -1,6 +1,5 @@
 "use server";
 
-import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { customAlphabet } from "nanoid";
 import { z } from "zod";
@@ -8,26 +7,23 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma-client";
 import { ServerActionResponse } from "@/types/server-action-response";
 
-import { CreateElectricalInstallationConditionReportSchema } from "./schema";
+import { CreateCertificateSchema } from "./schema";
 
 const MAX_RETRIES = 5;
 
-export async function createElectricalInstallationConditionReport(
-  electricalInstallationConditionReport: z.infer<
-    typeof CreateElectricalInstallationConditionReportSchema
-  >,
-): Promise<ServerActionResponse<ElectricalInstallationConditionReport>> {
+export async function createCertificate(
+  certificate: z.infer<typeof CreateCertificateSchema>,
+): Promise<ServerActionResponse<void>> {
   let retries = 0;
 
   while (retries < MAX_RETRIES) {
     try {
       await prisma.electricalInstallationConditionReport.create({
         data: {
-          type: "Electrical Installation Condition Report",
           serial: `EICR${customAlphabet("0123456789", 9)()}`,
-          creatorId: electricalInstallationConditionReport.creatorId,
-          clientId: electricalInstallationConditionReport.clientId,
-          propertyId: electricalInstallationConditionReport.propertyId,
+          creatorId: certificate.creatorId,
+          clientId: certificate.clientId,
+          propertyId: certificate.propertyId,
         },
       });
 

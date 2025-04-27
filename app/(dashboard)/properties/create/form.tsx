@@ -103,7 +103,7 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
                   control={form.control}
                   name="client"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem>
                       <FormLabel>Client</FormLabel>
                       <DialogSheet
                         open={clientOpen}

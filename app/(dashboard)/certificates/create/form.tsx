@@ -40,10 +40,10 @@ import {
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
-import { createElectricalInstallationConditionReport } from "./action";
-import { CreateElectricalInstallationConditionReportSchema } from "./schema";
+import { createCertificate } from "./action";
+import { CreateCertificateSchema } from "./schema";
 
-export function CreateElectricalInstallationConditionReportForm({
+export function CreateCertificateForm({
   currentUser,
   clients,
 }: {
@@ -52,24 +52,22 @@ export function CreateElectricalInstallationConditionReportForm({
 }) {
   const { toast } = useToast();
 
+  const [typeOpen, setTypeOpen] = useState(false);
   const [clientOpen, setClientOpen] = useState(false);
   const [propertyOpen, setPropertyOpen] = useState(false);
 
-  const form = useForm<
-    z.infer<typeof CreateElectricalInstallationConditionReportSchema>
-  >({
-    resolver: zodResolver(CreateElectricalInstallationConditionReportSchema),
+  const form = useForm<z.infer<typeof CreateCertificateSchema>>({
+    resolver: zodResolver(CreateCertificateSchema),
     defaultValues: {
       creatorId: currentUser.id,
+      type: "",
       clientId: "",
       propertyId: "",
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof CreateElectricalInstallationConditionReportSchema>,
-  ) => {
-    const response = await createElectricalInstallationConditionReport(data);
+  const onSubmit = async (data: z.infer<typeof CreateCertificateSchema>) => {
+    const response = await createCertificate(data);
 
     if (response.status === "success") {
       form.reset(data);
@@ -101,9 +99,58 @@ export function CreateElectricalInstallationConditionReportForm({
               <CardContent className="w-full space-y-4 p-0">
                 <FormField
                   control={form.control}
+                  name="type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Type</FormLabel>
+                      <DialogSheet open={typeOpen} onOpenChange={setTypeOpen}>
+                        <DialogSheetTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className="w-full justify-between"
+                          >
+                            {field.value || "Select type..."}
+                            <ChevronsUpDown />
+                          </Button>
+                        </DialogSheetTrigger>
+                        <DialogSheetContent className="p-0">
+                          <DialogSheetTitle className="hidden" />
+                          <Command className="pt-2">
+                            <CommandInput placeholder="Search..." />
+                            <CommandList className="scrollbar-hidden mt-1 border-t p-1">
+                              <CommandEmpty>No results found.</CommandEmpty>
+                              <CommandGroup>
+                                {[
+                                  "Electrical Installation Condition Report",
+                                ].map((type) => (
+                                  <CommandItem
+                                    key={type}
+                                    value={type}
+                                    onSelect={(currentValue) => {
+                                      form.setValue("type", currentValue);
+                                      setTypeOpen(false);
+                                    }}
+                                  >
+                                    {type}
+                                    {type === field.value ? (
+                                      <Check className="ml-auto" />
+                                    ) : null}
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </DialogSheetContent>
+                      </DialogSheet>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
                   name="clientId"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem>
                       <FormLabel>Client</FormLabel>
                       <DialogSheet
                         open={clientOpen}
@@ -157,7 +204,7 @@ export function CreateElectricalInstallationConditionReportForm({
                   control={form.control}
                   name="propertyId"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem>
                       <FormLabel>Property</FormLabel>
                       <DialogSheet
                         open={propertyOpen}

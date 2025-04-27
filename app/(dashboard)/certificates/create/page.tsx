@@ -3,14 +3,15 @@ import { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
 import { auth0 } from "@/lib/auth0-client";
+import { prisma } from "@/lib/prisma-client";
 
-import { CreateElectricalInstallationConditionReportForm } from "./form";
+import { CreateCertificateForm } from "./form";
 
 export const metadata: Metadata = {
   title: pagesConfig.certificateCreate.metadata.title,
 };
 
-export default async function CreateElectricalInstallationConditionReport() {
+export default async function CreateCertificate() {
   const session = await auth0.getSession();
 
   if (!session || !session.user) {
@@ -35,10 +36,7 @@ export default async function CreateElectricalInstallationConditionReport() {
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
       <PageHeader config={pagesConfig.certificateCreate} />
 
-      <CreateElectricalInstallationConditionReportForm
-        currentUser={currentUser}
-        clients={clients}
-      />
+      <CreateCertificateForm currentUser={currentUser!} clients={clients} />
     </div>
   );
 }

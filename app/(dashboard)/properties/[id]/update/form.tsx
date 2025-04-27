@@ -92,7 +92,7 @@ export function UpdatePropertyForm({
             control={form.control}
             name="client"
             render={({ field }) => (
-              <FormItem className="flex flex-col">
+              <FormItem>
                 <FormLabel>Client</FormLabel>
                 <Popover open={clientOpen} onOpenChange={setClientOpen}>
                   <PopoverTrigger asChild>

@@ -145,7 +145,7 @@ export default function UpdateUserForm({
                   control={form.control}
                   name="role"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem>
                       <FormLabel>Role</FormLabel>
                       <DialogSheet
                         open={userRoleOpen}
@@ -198,7 +198,7 @@ export default function UpdateUserForm({
                     </FormItem>
                   )}
                 />
-                <FormItem className="flex flex-col">
+                <FormItem>
                   <FormLabel>Clients</FormLabel>
                   <DialogSheet
                     open={userClientOpen}
