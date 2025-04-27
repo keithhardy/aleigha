@@ -117,7 +117,7 @@ export default function UpdateUserForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="space-y-4">
           <Card className="rounded-md shadow-none">
             <div className="flex flex-col gap-4 p-6 lg:flex-row">
