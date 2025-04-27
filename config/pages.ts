@@ -35,6 +35,13 @@ export const pagesConfig: Record<string, PagesConfig> = {
     backLink: { text: "Back to Dashboard", href: "/" },
     callToAction: { text: "Docs", href: "/documentation" },
   },
+  certificateCreate: {
+    metadata: { title: "Reiyen – Create Certificate" },
+    header: "Create Certificate",
+    description: "Add a new certificate.",
+    backLink: { text: "Back to Certificates", href: "/certificates" },
+    callToAction: { text: "Docs", href: "/documentation" },
+  },
   properties: {
     metadata: { title: "Reiyen – Properties" },
     header: "Properties",

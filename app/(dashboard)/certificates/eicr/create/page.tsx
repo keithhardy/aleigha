@@ -1,17 +1,13 @@
 import { Metadata } from "next";
 
-import {
-  Header,
-  HeaderDescription,
-  HeaderGroup,
-  Heading,
-} from "@/components/page-header";
+import { PageHeader } from "@/components/page-header";
+import { pagesConfig } from "@/config/pages";
 import { auth0 } from "@/lib/auth0-client";
 
 import { CreateElectricalInstallationConditionReportForm } from "./form";
 
 export const metadata: Metadata = {
-  title: "Reiyen – Create EICR",
+  title: pagesConfig.certificateCreate.metadata.title,
 };
 
 export default async function CreateElectricalInstallationConditionReport() {
@@ -36,16 +32,8 @@ export default async function CreateElectricalInstallationConditionReport() {
   });
 
   return (
-    <div className="container mx-auto max-w-screen-lg">
-      <Header>
-        <HeaderGroup>
-          <Heading>Create Electrical Installation Condition Report</Heading>
-          <HeaderDescription>
-            Fill in the details below to create a new Electrical Installation
-            Condition Report (EICR).
-          </HeaderDescription>
-        </HeaderGroup>
-      </Header>
+    <div className="container mx-auto max-w-screen-xl flex-grow p-6">
+      <PageHeader config={pagesConfig.certificateCreate} />
 
       <CreateElectricalInstallationConditionReportForm
         currentUser={currentUser}
