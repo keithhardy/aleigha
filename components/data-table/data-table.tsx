@@ -115,7 +115,7 @@ export function DataTable<TData extends { id: string }, TValue>({
     };
 
     fetch();
-  }, [sorting, columnFilters, globalFilter, pagination, fetchData]);
+  }, [sorting, columnFilters, globalFilter, pagination]);
 
   return (
     <div className="space-y-4">
@@ -132,9 +132,9 @@ export function DataTable<TData extends { id: string }, TValue>({
                         {header.isPlaceholder
                           ? null
                           : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
                       </TableHead>
                     ))}
                   </TableRow>
