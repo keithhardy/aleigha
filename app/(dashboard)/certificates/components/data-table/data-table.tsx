@@ -130,6 +130,7 @@ export function DataTable<
     };
 
     fetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sorting, columnFilters, globalFilter, pagination]);
 
   return (
@@ -147,9 +148,9 @@ export function DataTable<
                         {header.isPlaceholder
                           ? null
                           : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
                       </TableHead>
                     ))}
                   </TableRow>

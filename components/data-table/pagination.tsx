@@ -22,7 +22,7 @@ interface PaginationProps<TData> {
 export function Pagination<TData>({ table }: PaginationProps<TData>) {
   return (
     <>
-      <div className="hidden lg:flex items-center space-x-2">
+      <div className="hidden items-center space-x-2 lg:flex">
         <p className="text-sm font-medium">Rows per page</p>
         <Select
           value={`${table.getState().pagination.pageSize}`}

@@ -115,6 +115,7 @@ export function DataTable<TData extends { id: string }, TValue>({
     };
 
     fetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sorting, columnFilters, globalFilter, pagination]);
 
   return (
@@ -132,9 +133,9 @@ export function DataTable<TData extends { id: string }, TValue>({
                         {header.isPlaceholder
                           ? null
                           : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
                       </TableHead>
                     ))}
                   </TableRow>
@@ -169,7 +170,7 @@ export function DataTable<TData extends { id: string }, TValue>({
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </CardContent>
-        <CardFooter className="flex justify-center lg:justify-between gap-4 rounded-b-md border-t bg-muted py-4">
+        <CardFooter className="flex justify-center gap-4 rounded-b-md border-t bg-muted py-4 lg:justify-between">
           <Pagination table={table} />
         </CardFooter>
       </Card>
