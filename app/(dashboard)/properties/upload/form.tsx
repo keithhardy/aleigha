@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Client } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -32,7 +31,6 @@ import { UploadPropertiesSchema } from "./schema";
 export function CreatePropertyForm({ clients }: { clients: Client[] }) {
   const router = useRouter();
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof UploadPropertiesSchema>>({
     resolver: zodResolver(UploadPropertiesSchema),
@@ -42,11 +40,7 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
   });
 
   const onSubmit = async (data: z.infer<typeof UploadPropertiesSchema>) => {
-    setIsLoading(true);
-
     const response = await uploadProperties(data);
-
-    setIsLoading(false);
 
     toast({
       title: response.heading,
@@ -54,9 +48,9 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
       variant: response.status === "success" ? "default" : "destructive",
     });
 
-    // if (response.status === "success") {
-    //   router.push("/properties");
-    // }
+    if (response.status === "success") {
+      router.push("/properties");
+    }
   };
 
   return (

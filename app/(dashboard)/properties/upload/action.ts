@@ -40,27 +40,27 @@ export async function uploadProperties(
 
     console.log(validatedRecords);
 
-    // await prisma.$transaction(
-    //   validatedRecords.map((property) =>
-    //     prisma.property.create({
-    //       data: {
-    //         uprn: property.uprn,
-    //         occupier: property.occupier,
-    //         client: { connect: { id: property.client } },
-    //         address: {
-    //           create: {
-    //             streetAddress: property.streetAddress,
-    //             city: property.city,
-    //             county: property.county,
-    //             postTown: property.postTown,
-    //             postCode: property.postCode,
-    //             country: property.country,
-    //           },
-    //         },
-    //       },
-    //     }),
-    //   ),
-    // );
+    await prisma.$transaction(
+      validatedRecords.map((property) =>
+        prisma.property.create({
+          data: {
+            uprn: property.uprn,
+            occupier: property.occupier,
+            client: { connect: { id: property.client } },
+            address: {
+              create: {
+                streetAddress: property.streetAddress,
+                city: property.city,
+                county: property.county,
+                postTown: property.postTown,
+                postCode: property.postCode,
+                country: property.country,
+              },
+            },
+          },
+        }),
+      ),
+    );
 
     return {
       status: "success",
