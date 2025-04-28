@@ -248,6 +248,7 @@ export function CreateCertificateForm({
                                         form.setValue(
                                           "propertyId",
                                           currentValue,
+                                          { shouldDirty: true },
                                         );
                                         setPropertyOpen(false);
                                       }}
