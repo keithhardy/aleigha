@@ -200,7 +200,6 @@ export function DataTable<
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </CardContent>
-
         <CardFooter className="flex flex-col-reverse justify-center gap-4 rounded-b-md border-t bg-muted py-4 md:flex-row md:justify-between">
           <Pagination table={table} />
         </CardFooter>
