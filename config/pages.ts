@@ -56,6 +56,13 @@ export const pagesConfig: Record<string, PagesConfig> = {
     backLink: { text: "Back to Properties", href: "/properties" },
     callToAction: { text: "Docs", href: "/documentation" },
   },
+  propertyImport: {
+    metadata: { title: "Reiyen – Import Properties" },
+    header: "Import Properties",
+    description: "Import new properties.",
+    backLink: { text: "Back to Properties", href: "/properties" },
+    callToAction: { text: "Docs", href: "/documentation" },
+  },
   propertyUpdate: {
     metadata: { title: "Reiyen – Update Property" },
     header: "Update Property",

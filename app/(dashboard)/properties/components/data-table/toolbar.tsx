@@ -83,6 +83,12 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
           </div>
         </div>
         <div className="flex gap-2">
+          <Link href="/properties/import">
+            <Button variant="outline" size="sm">
+              <UserPlus2 />
+              Import
+            </Button>
+          </Link>
           <Link href="/properties/create">
             <Button variant="outline" size="sm">
               <UserPlus2 />
