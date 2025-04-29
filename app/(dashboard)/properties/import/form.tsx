@@ -174,7 +174,7 @@ export function ImportPropertiesForm({ clients }: { clients: Client[] }) {
               <p className="text-balance text-sm text-muted-foreground">
                 Download the{" "}
                 <a
-                  href="/property-import-template.csv"
+                  href="/api/download/property-template"
                   className="inline-flex items-center space-x-1 text-blue-500"
                 >
                   <span>CSV template</span>
