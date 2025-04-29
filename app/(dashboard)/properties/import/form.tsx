@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Client } from "@prisma/client";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, FileDown } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -103,8 +103,8 @@ export function ImportPropertiesForm({ clients }: { clients: Client[] }) {
                           >
                             {field.value
                               ? clients.find(
-                                  (client) => client.id === field.value,
-                                )?.name
+                                (client) => client.id === field.value,
+                              )?.name
                               : "Select client..."}
                             <ChevronsUpDown />
                           </Button>
@@ -170,7 +170,14 @@ export function ImportPropertiesForm({ clients }: { clients: Client[] }) {
                 />
               </CardContent>
             </div>
-            <CardFooter className="justify-end space-x-4 rounded-b-md border-t bg-muted py-4">
+            <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
+              <Button
+                variant="outline"
+                size="sm"
+                type="button"
+              >
+                Download CSV template
+              </Button>
               <Button
                 variant="outline"
                 size="sm"
