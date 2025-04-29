@@ -11,12 +11,11 @@ import { ImportPropertiesSchema } from "./schema";
 const PropertySchema = z.object({
   uprn: z.string(),
   occupier: z.string(),
-  client: z.string(),
-  streetAddress: z.string(),
+  street_address: z.string(),
   city: z.string(),
   county: z.string().optional(),
-  postTown: z.string().optional(),
-  postCode: z.string(),
+  post_town: z.string().optional(),
+  post_code: z.string(),
   country: z.string(),
 });
 
@@ -47,11 +46,11 @@ export async function importProperties(
             client: { connect: { id: data.client } },
             address: {
               create: {
-                streetAddress: property.streetAddress,
+                streetAddress: property.street_address,
                 city: property.city,
                 county: property.county,
-                postTown: property.postTown,
-                postCode: property.postCode,
+                postTown: property.post_town,
+                postCode: property.post_code,
                 country: property.country,
               },
             },

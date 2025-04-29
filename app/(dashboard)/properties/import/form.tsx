@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Client } from "@prisma/client";
-import { Check, ChevronsUpDown, FileDown } from "lucide-react";
+import { Check, ChevronsUpDown, ExternalLink } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -103,8 +103,8 @@ export function ImportPropertiesForm({ clients }: { clients: Client[] }) {
                           >
                             {field.value
                               ? clients.find(
-                                (client) => client.id === field.value,
-                              )?.name
+                                  (client) => client.id === field.value,
+                                )?.name
                               : "Select client..."}
                             <ChevronsUpDown />
                           </Button>
@@ -147,11 +147,11 @@ export function ImportPropertiesForm({ clients }: { clients: Client[] }) {
                     field: { onChange, onBlur, name, ref, disabled },
                   }) => (
                     <FormItem>
+                      <FormLabel>File</FormLabel>
                       <FormControl>
                         <Input
                           type="file"
                           accept=".csv"
-                          className="h-[32px]"
                           name={name}
                           ref={ref}
                           onBlur={onBlur}
@@ -171,13 +171,17 @@ export function ImportPropertiesForm({ clients }: { clients: Client[] }) {
               </CardContent>
             </div>
             <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-              <Button
-                variant="outline"
-                size="sm"
-                type="button"
-              >
-                Download CSV template
-              </Button>
+              <p className="text-balance text-sm text-muted-foreground">
+                Download the{" "}
+                <a
+                  href="/property-import-template.csv"
+                  className="inline-flex items-center space-x-1 text-blue-500"
+                >
+                  <span>CSV template</span>
+                  <ExternalLink size={14} />
+                </a>{" "}
+                to get started.
+              </p>
               <Button
                 variant="outline"
                 size="sm"
