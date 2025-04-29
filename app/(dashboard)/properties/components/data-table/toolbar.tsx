@@ -125,7 +125,10 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
             variant="outline"
             size="sm"
             onClick={handleDownload}
-            disabled={isDownloadLoading}
+            disabled={
+              isDownloadLoading ||
+              Object.keys(table.getState().rowSelection).length === 0
+            }
           >
             <Upload />
             Export
