@@ -18,6 +18,9 @@ export async function POST(req: NextRequest) {
     },
     select: {
       name: true,
+      email: true,
+      phone: true,
+      role: true,
       createdAt: true,
       updatedAt: true,
     },
@@ -27,11 +30,14 @@ export async function POST(req: NextRequest) {
     return new Response("No users found", { status: 404 });
   }
 
-  const flattenedUsers = users.map((property) => {
+  const flattenedUsers = users.map((user) => {
     return {
-      name: property.name || "",
-      created_at: property.createdAt.toString() || "",
-      updated_at: property.updatedAt.toString() || "",
+      name: user.name || "",
+      email: user.email || "",
+      phone: user.phone || "",
+      role: user.role || "",
+      created_at: user.createdAt.toString() || "",
+      updated_at: user.updatedAt.toString() || "",
     };
   });
 

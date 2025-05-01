@@ -37,7 +37,7 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "property-export.csv";
+      a.download = "user-export.csv";
       a.click();
       window.URL.revokeObjectURL(url);
     } catch (error) {

@@ -44,41 +44,28 @@ export async function POST(req: NextRequest) {
     return new Response("No certificates found", { status: 404 });
   }
 
-  const flattenedProperties = certificates.map(
-    (electricalInstallationConditionReport) => {
-      return {
-        address_street_address:
-          electricalInstallationConditionReport.property.address
-            ?.streetAddress || "",
-        address_city:
-          electricalInstallationConditionReport.property.address?.city || "",
-        address_county:
-          electricalInstallationConditionReport.property.address?.county || "",
-        address_post_town:
-          electricalInstallationConditionReport.property.address?.postTown ||
-          "",
-        address_post_code:
-          electricalInstallationConditionReport.property.address?.postCode ||
-          "",
-        address_country:
-          electricalInstallationConditionReport.property.address?.country ||
-          "United Kingdom",
-        created_at:
-          electricalInstallationConditionReport.createdAt.toString() || "",
-        updated_at:
-          electricalInstallationConditionReport.updatedAt.toString() || "",
-      };
-    },
-  );
+  const flattenedCertificates = certificates.map((certificate) => {
+    return {
+      address_street_address: certificate.property.address?.streetAddress || "",
+      address_city: certificate.property.address?.city || "",
+      address_county: certificate.property.address?.county || "",
+      address_post_town: certificate.property.address?.postTown || "",
+      address_post_code: certificate.property.address?.postCode || "",
+      address_country:
+        certificate.property.address?.country || "United Kingdom",
+      created_at: certificate.createdAt.toString() || "",
+      updated_at: certificate.updatedAt.toString() || "",
+    };
+  });
 
   const passThroughStream = new PassThrough();
 
   const csvStream = stringify({
     header: true,
-    columns: Object.keys(flattenedProperties[0]),
+    columns: Object.keys(flattenedCertificates[0]),
   });
 
-  Readable.from(flattenedProperties).pipe(csvStream).pipe(passThroughStream);
+  Readable.from(flattenedCertificates).pipe(csvStream).pipe(passThroughStream);
 
   const readableStream = new ReadableStream({
     start(controller) {

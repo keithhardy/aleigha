@@ -22,6 +22,7 @@ export async function POST(req: NextRequest) {
       phone: true,
       createdAt: true,
       updatedAt: true,
+      appointedPerson: true,
       address: {
         select: {
           streetAddress: true,
@@ -39,19 +40,20 @@ export async function POST(req: NextRequest) {
     return new Response("No clients found", { status: 404 });
   }
 
-  const flattenedClients = clients.map((property) => {
+  const flattenedClients = clients.map((client) => {
     return {
-      name: property.name || "",
-      email: property.email || "",
-      phone: property.phone || "",
-      address_street_address: property.address?.streetAddress || "",
-      address_city: property.address?.city || "",
-      address_county: property.address?.county || "",
-      address_post_town: property.address?.postTown || "",
-      address_post_code: property.address?.postCode || "",
-      address_country: property.address?.country || "United Kingdom",
-      created_at: property.createdAt.toString() || "",
-      updated_at: property.updatedAt.toString() || "",
+      name: client.name || "",
+      email: client.email || "",
+      phone: client.phone || "",
+      appointed_person: client.appointedPerson || "",
+      address_street_address: client.address?.streetAddress || "",
+      address_city: client.address?.city || "",
+      address_county: client.address?.county || "",
+      address_post_town: client.address?.postTown || "",
+      address_post_code: client.address?.postCode || "",
+      address_country: client.address?.country || "United Kingdom",
+      created_at: client.createdAt.toString() || "",
+      updated_at: client.updatedAt.toString() || "",
     };
   });
 
