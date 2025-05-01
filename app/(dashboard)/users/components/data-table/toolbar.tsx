@@ -1,8 +1,9 @@
 "use client";
 
 import { type Table } from "@tanstack/react-table";
-import { UserPlus2, XCircle } from "lucide-react";
+import { Upload, UserPlus2, XCircle } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 import { FacetedFilter } from "@/components/data-table/faceted-filter";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,37 @@ interface ToolbarProps<TData> {
 }
 
 export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
+  const [isDownloadLoading, setIsDownloadLoading] = useState(false);
+
+  const handleDownload = async () => {
+    setIsDownloadLoading(true);
+    try {
+      const response = await fetch("/api/download/user-export", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(Object.keys(table.getState().rowSelection)),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to generate CSV");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "property-export.csv";
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading CSV:", error);
+    } finally {
+      setIsDownloadLoading(false);
+    }
+  };
+
   const isFiltered =
     table.getState().columnFilters.length > 0 ||
     table.getState().globalFilter !== "";
@@ -67,6 +99,18 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
           </div>
         </div>
         <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleDownload}
+            disabled={
+              isDownloadLoading ||
+              Object.keys(table.getState().rowSelection).length === 0
+            }
+          >
+            <Upload />
+            Export
+          </Button>
           <Link href="/users/create">
             <Button variant="outline" size="sm">
               <UserPlus2 />

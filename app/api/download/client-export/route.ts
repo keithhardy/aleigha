@@ -12,18 +12,16 @@ export async function POST(req: NextRequest) {
     return new Response("No IDs provided", { status: 400 });
   }
 
-  const properties = await prisma.property.findMany({
+  const clients = await prisma.client.findMany({
     where: {
       id: { in: ids },
     },
     select: {
-      uprn: true,
-      occupier: true,
+      name: true,
+      email: true,
+      phone: true,
       createdAt: true,
       updatedAt: true,
-      client: {
-        select: { name: true },
-      },
       address: {
         select: {
           streetAddress: true,
@@ -37,15 +35,15 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  if (!properties.length) {
-    return new Response("No properties found", { status: 404 });
+  if (!clients.length) {
+    return new Response("No clients found", { status: 404 });
   }
 
-  const flattenedProperties = properties.map((property) => {
+  const flattenedClients = clients.map((property) => {
     return {
-      uprn: property.uprn || "",
-      occupier: property.occupier || "",
-      client_name: property.client?.name || "",
+      name: property.name || "",
+      email: property.email || "",
+      phone: property.phone || "",
       address_street_address: property.address?.streetAddress || "",
       address_city: property.address?.city || "",
       address_county: property.address?.county || "",
@@ -61,10 +59,10 @@ export async function POST(req: NextRequest) {
 
   const csvStream = stringify({
     header: true,
-    columns: Object.keys(flattenedProperties[0]),
+    columns: Object.keys(flattenedClients[0]),
   });
 
-  Readable.from(flattenedProperties).pipe(csvStream).pipe(passThroughStream);
+  Readable.from(flattenedClients).pipe(csvStream).pipe(passThroughStream);
 
   const readableStream = new ReadableStream({
     start(controller) {
@@ -78,7 +76,7 @@ export async function POST(req: NextRequest) {
     status: 200,
     headers: {
       "Content-Type": "text/csv",
-      "Content-Disposition": 'attachment; filename="properties.csv"',
+      "Content-Disposition": 'attachment; filename="clients.csv"',
     },
   });
 }
