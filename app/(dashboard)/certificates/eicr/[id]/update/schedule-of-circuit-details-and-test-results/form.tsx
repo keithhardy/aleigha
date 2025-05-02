@@ -10,22 +10,55 @@ import { z } from "zod";
 
 import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
 import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
-import { DialogSheet, DialogSheetContent, DialogSheetTitle, DialogSheetTrigger } from "@/components/dialog-sheet";
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/dialog-sheet";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Switch } from "@/components/ui/switch";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateScheduleOfCircuitDetailsAndTestResults } from "./action";
@@ -39,7 +72,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
 }) {
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>>({
+  const form = useForm<
+    z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>
+  >({
     resolver: zodResolver(UpdateScheduleOfCircuitDetailsAndTestResultsSchema),
     defaultValues: {
       id: certificate.id,
@@ -47,7 +82,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>) => {
+  const onSubmit = async (
+    data: z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>,
+  ) => {
     const response = await updateScheduleOfCircuitDetailsAndTestResults(data);
 
     if (response.status === "success") {
@@ -71,7 +108,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
   });
 
   const [selectDBOpen, setSelectDBOpen] = useState(false);
-  const [selectedDB, setSelectedDB] = useState<number | null>(consumerUnits.length > 0 ? 0 : null);
+  const [selectedDB, setSelectedDB] = useState<number | null>(
+    consumerUnits.length > 0 ? 0 : null,
+  );
   const [editDBOpen, setEditDBOpen] = useState(false);
 
   const addDb = () => {
@@ -121,12 +160,15 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
     name: `consumerUnits.${selectedDB}.circuits`,
   });
 
-  const [selectedCircuit, setSelectedCircuit] = useState<number | null>(circuits.length > 0 ? 0 : null);
+  const [selectedCircuit, setSelectedCircuit] = useState<number | null>(
+    circuits.length > 0 ? 0 : null,
+  );
   const [editCircuitOpen, setEditCircuitOpen] = useState(false);
 
   useEffect(() => {
     if (selectedDB !== null) {
-      const newCircuits = form.watch(`consumerUnits.${selectedDB}.circuits`) || [];
+      const newCircuits =
+        form.watch(`consumerUnits.${selectedDB}.circuits`) || [];
       replaceCircuits(newCircuits);
     } else {
       replaceCircuits([]);
@@ -180,11 +222,17 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-1 flex-col"
+      >
         <div className="container mx-auto max-w-screen-xl flex-grow p-6">
           <Header>
             <HeaderGroup>
-              <Link href={"/certificates"} className="inline-flex items-center text-sm font-semibold">
+              <Link
+                href={"/certificates"}
+                className="inline-flex items-center text-sm font-semibold"
+              >
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
@@ -197,15 +245,24 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Distribution Boards</CardTitle>
                   <CardDescription className="text-balance">
-                    Review and update the details of the circuits and test results below.
+                    Review and update the details of the circuits and test
+                    results below.
                   </CardDescription>
                 </CardHeader>
                 <div className="flex w-full justify-end space-x-4">
-                  <DialogSheet open={selectDBOpen} onOpenChange={setSelectDBOpen}>
+                  <DialogSheet
+                    open={selectDBOpen}
+                    onOpenChange={setSelectDBOpen}
+                  >
                     <DialogSheetTrigger asChild>
-                      <Button variant="outline" className="w-full justify-between">
+                      <Button
+                        variant="outline"
+                        className="w-full justify-between"
+                      >
                         {selectedDB !== null
-                          ? form.watch(`consumerUnits.${selectedDB}.designation`)
+                          ? form.watch(
+                              `consumerUnits.${selectedDB}.designation`,
+                            )
                           : "Select consumer unit..."}
                         <ChevronsUpDown />
                       </Button>
@@ -226,8 +283,12 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                                   setSelectDBOpen(false);
                                 }}
                               >
-                                {form.watch(`consumerUnits.${index}.designation`)}
-                                {index === selectedDB ? <Check className="ml-auto" /> : null}
+                                {form.watch(
+                                  `consumerUnits.${index}.designation`,
+                                )}
+                                {index === selectedDB ? (
+                                  <Check className="ml-auto" />
+                                ) : null}
                               </CommandItem>
                             ))}
                           </CommandGroup>
@@ -261,7 +322,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                         >
                           Edit
                         </DropdownMenuItem>
-                        <DropdownMenuItem onSelect={() => deleteDb(selectedDB)}>Delete</DropdownMenuItem>
+                        <DropdownMenuItem onSelect={() => deleteDb(selectedDB)}>
+                          Delete
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   )}
@@ -302,8 +365,13 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               name={`consumerUnits.${selectedDB}.confirmationOfSupplyPolarity`}
                               render={({ field }) => (
                                 <FormItem className="flex flex-col">
-                                  <FormLabel>Confirmation of Supply Polarity</FormLabel>
-                                  <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                  <FormLabel>
+                                    Confirmation of Supply Polarity
+                                  </FormLabel>
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
                                   <FormMessage />
                                 </FormItem>
                               )}
@@ -313,7 +381,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               name={`consumerUnits.${selectedDB}.zdb`}
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel>Earth Fault Loop Impedance (Zdb)</FormLabel>
+                                  <FormLabel>
+                                    Earth Fault Loop Impedance (Zdb)
+                                  </FormLabel>
                                   <FormControl>
                                     <div className="relative w-full">
                                       <Input {...field} className="pr-10" />
@@ -331,7 +401,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               name={`consumerUnits.${selectedDB}.ipf`}
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel>Prospective Fault Current (Ipf)</FormLabel>
+                                  <FormLabel>
+                                    Prospective Fault Current (Ipf)
+                                  </FormLabel>
                                   <FormControl>
                                     <div className="relative w-full">
                                       <Input {...field} className="pr-10" />
@@ -349,8 +421,13 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               name={`consumerUnits.${selectedDB}.phaseSequenceConfirmed`}
                               render={({ field }) => (
                                 <FormItem className="flex flex-col">
-                                  <FormLabel>Confirmation of Phase Sequence</FormLabel>
-                                  <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                  <FormLabel>
+                                    Confirmation of Phase Sequence
+                                  </FormLabel>
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
                                   <FormMessage />
                                 </FormItem>
                               )}
@@ -373,8 +450,13 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               name={`consumerUnits.${selectedDB}.spdStatusIndicator`}
                               render={({ field }) => (
                                 <FormItem className="flex flex-col">
-                                  <FormLabel>Confirmation of Phase Sequence</FormLabel>
-                                  <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                  <FormLabel>
+                                    Confirmation of Phase Sequence
+                                  </FormLabel>
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
                                   <FormMessage />
                                 </FormItem>
                               )}
@@ -557,11 +639,17 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                         <CardHeader className="w-full p-0">
                           <CardTitle>Circuits</CardTitle>
                           <CardDescription className="text-balance">
-                            Review and update the details of the circuits and test results below.
+                            Review and update the details of the circuits and
+                            test results below.
                           </CardDescription>
                         </CardHeader>
                         <div className="flex w-full justify-end space-x-4">
-                          <Button variant="outline" size="icon" type="button" onClick={addCircuit}>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            type="button"
+                            onClick={addCircuit}
+                          >
                             <Plus />
                           </Button>
                         </div>
@@ -572,7 +660,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                             <TableRow className="h-8">
                               <TableHead className="pl-6">Number</TableHead>
                               <TableHead>Description</TableHead>
-                              <TableHead className="pr-6 text-right">Actions</TableHead>
+                              <TableHead className="pr-6 text-right">
+                                Actions
+                              </TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
@@ -580,10 +670,14 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               circuits.map((_, index) => (
                                 <TableRow key={index}>
                                   <TableCell className="pl-6">
-                                    {form.watch(`consumerUnits.${selectedDB}.circuits.${index}.number`)}
+                                    {form.watch(
+                                      `consumerUnits.${selectedDB}.circuits.${index}.number`,
+                                    )}
                                   </TableCell>
                                   <TableCell>
-                                    {form.watch(`consumerUnits.${selectedDB}.circuits.${index}.description`)}
+                                    {form.watch(
+                                      `consumerUnits.${selectedDB}.circuits.${index}.description`,
+                                    )}
                                   </TableCell>
                                   <TableCell className="pr-6 text-right">
                                     <DropdownMenu>
@@ -601,7 +695,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                                         >
                                           Edit
                                         </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={() => deleteCircuit(index)}>
+                                        <DropdownMenuItem
+                                          onSelect={() => deleteCircuit(index)}
+                                        >
                                           Delete
                                         </DropdownMenuItem>
                                       </DropdownMenuContent>
@@ -611,7 +707,10 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               ))
                             ) : (
                               <TableRow>
-                                <TableCell colSpan={3} className="py-4 text-center">
+                                <TableCell
+                                  colSpan={3}
+                                  className="py-4 text-center"
+                                >
                                   None Found
                                 </TableCell>
                               </TableRow>
@@ -622,7 +721,10 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                     </Card>
                   </div>
                 )}
-                <DialogSheet open={editCircuitOpen} onOpenChange={setEditCircuitOpen}>
+                <DialogSheet
+                  open={editCircuitOpen}
+                  onOpenChange={setEditCircuitOpen}
+                >
                   <DialogSheetContent className="p-0">
                     <DialogSheetTitle className="hidden" />
                     {selectedCircuit != null && (
@@ -725,7 +827,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.maxDisconnectionTime`}
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel>Maximum Disconnection Time</FormLabel>
+                                  <FormLabel>
+                                    Maximum Disconnection Time
+                                  </FormLabel>
                                   <FormControl>
                                     <Input {...field} />
                                   </FormControl>
@@ -777,7 +881,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.ocpdShortCircuitCapacity`}
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel>OCPD Short Circuit Capacity</FormLabel>
+                                  <FormLabel>
+                                    OCPD Short Circuit Capacity
+                                  </FormLabel>
                                   <FormControl>
                                     <Input {...field} />
                                   </FormControl>
@@ -790,7 +896,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.ocpdMaxPermittedZs`}
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel>OCPD Maximum Permitted Zs</FormLabel>
+                                  <FormLabel>
+                                    OCPD Maximum Permitted Zs
+                                  </FormLabel>
                                   <FormControl>
                                     <Input {...field} />
                                   </FormControl>
@@ -920,7 +1028,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.insulationResistanceLiveLive`}
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel>Insulation Resistance Live Live</FormLabel>
+                                  <FormLabel>
+                                    Insulation Resistance Live Live
+                                  </FormLabel>
                                   <FormControl>
                                     <Input {...field} />
                                   </FormControl>
@@ -933,7 +1043,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.insulationResistanceLiveEarth`}
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel>Insulation Resistance Live Earth</FormLabel>
+                                  <FormLabel>
+                                    Insulation Resistance Live Earth
+                                  </FormLabel>
                                   <FormControl>
                                     <Input {...field} />
                                   </FormControl>
@@ -946,7 +1058,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.insulationResistanceTestVoltage`}
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel>Insulation Resistance Test Voltage</FormLabel>
+                                  <FormLabel>
+                                    Insulation Resistance Test Voltage
+                                  </FormLabel>
                                   <FormControl>
                                     <Input {...field} />
                                   </FormControl>
@@ -959,8 +1073,13 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.polarity`}
                               render={({ field }) => (
                                 <FormItem className="flex flex-col">
-                                  <FormLabel>Confirmation of Polarity</FormLabel>
-                                  <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                  <FormLabel>
+                                    Confirmation of Polarity
+                                  </FormLabel>
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
                                   <FormMessage />
                                 </FormItem>
                               )}
@@ -996,8 +1115,13 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.rcdTestButton`}
                               render={({ field }) => (
                                 <FormItem className="flex flex-col">
-                                  <FormLabel>Confirmation of RCD Test Button</FormLabel>
-                                  <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                  <FormLabel>
+                                    Confirmation of RCD Test Button
+                                  </FormLabel>
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
                                   <FormMessage />
                                 </FormItem>
                               )}
@@ -1007,8 +1131,13 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.afddOTestButton`}
                               render={({ field }) => (
                                 <FormItem className="flex flex-col">
-                                  <FormLabel>Confirmation of AFDD Test Button</FormLabel>
-                                  <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                  <FormLabel>
+                                    Confirmation of AFDD Test Button
+                                  </FormLabel>
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
                                   <FormMessage />
                                 </FormItem>
                               )}
@@ -1031,7 +1160,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                               name={`consumerUnits.${selectedDB}.circuits.${selectedCircuit}.equipmentVunerableToDamage`}
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel>Equipment Vunerable to Damage</FormLabel>
+                                  <FormLabel>
+                                    Equipment Vunerable to Damage
+                                  </FormLabel>
                                   <FormControl>
                                     <Input {...field} />
                                   </FormControl>
@@ -1048,14 +1179,22 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
               </CardContent>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
-                  Ensure the prosumer’s low voltage installation is inspected for condition.
+                  Ensure the prosumer’s low voltage installation is inspected
+                  for condition.
                 </p>
               </CardFooter>
             </Card>
           </div>
         </div>
-        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
-        <UnsavedChangesDialog condition={form.formState.isDirty} action={form.handleSubmit(onSubmit)} />
+        <FormBar
+          form={form}
+          sections={sections}
+          baseUrl={"/certificates/eicr"}
+        />
+        <UnsavedChangesDialog
+          condition={form.formState.isDirty}
+          action={form.handleSubmit(onSubmit)}
+        />
       </form>
     </Form>
   );

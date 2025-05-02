@@ -7,15 +7,32 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateName } from "./action";
 import { UpdateNameSchema } from "./schema";
 
-export function UpdateNameForm({ settings }: { settings: (Settings & { address: Address | null }) | null }) {
+export function UpdateNameForm({
+  settings,
+}: {
+  settings: (Settings & { address: Address | null }) | null;
+}) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -54,7 +71,9 @@ export function UpdateNameForm({ settings }: { settings: (Settings & { address: 
           <div className="flex flex-col gap-4 p-6 lg:flex-row">
             <CardHeader className="w-full p-0">
               <CardTitle>Name</CardTitle>
-              <CardDescription className="text-primary">Provide the trading name of your organization.</CardDescription>
+              <CardDescription className="text-primary">
+                Provide the trading name of your organization.
+              </CardDescription>
             </CardHeader>
             <CardContent className="w-full space-y-4 p-0">
               <FormField
@@ -63,7 +82,11 @@ export function UpdateNameForm({ settings }: { settings: (Settings & { address: 
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Trading Name" className="h-[32px]" />
+                      <Input
+                        {...field}
+                        placeholder="Trading Name"
+                        className="h-[32px]"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

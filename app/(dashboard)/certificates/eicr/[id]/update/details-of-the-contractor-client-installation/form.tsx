@@ -10,11 +10,30 @@ import { z } from "zod";
 
 import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
 import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
-import { DialogSheet, DialogSheetContent, DialogSheetTitle, DialogSheetTrigger } from "@/components/dialog-sheet";
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/dialog-sheet";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
-import { CardTitle, CardDescription, CardFooter, Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import {
+  CardTitle,
+  CardDescription,
+  CardFooter,
+  Card,
+  CardContent,
+  CardHeader,
+} from "@/components/ui/card";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -40,7 +59,9 @@ export function UpdateContractorClientAndInstallationForm({
   const [selectClientOpen, setSelectClientOpen] = useState(false);
   const [selectPropertyOpen, setSelectPropertyOpen] = useState(false);
 
-  const form = useForm<z.infer<typeof UpdateContractorClientAndInstallationSchema>>({
+  const form = useForm<
+    z.infer<typeof UpdateContractorClientAndInstallationSchema>
+  >({
     resolver: zodResolver(UpdateContractorClientAndInstallationSchema),
     defaultValues: {
       id: certificate.id,
@@ -49,7 +70,9 @@ export function UpdateContractorClientAndInstallationForm({
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof UpdateContractorClientAndInstallationSchema>) => {
+  const onSubmit = async (
+    data: z.infer<typeof UpdateContractorClientAndInstallationSchema>,
+  ) => {
     const response = await updateContractorClientAndInstallation(data);
 
     if (response.status === "success") {
@@ -65,15 +88,23 @@ export function UpdateContractorClientAndInstallationForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-1 flex-col"
+      >
         <div className="container mx-auto max-w-screen-xl flex-grow p-6">
           <Header>
             <HeaderGroup>
-              <Link href={"/certificates"} className="inline-flex items-center text-sm font-semibold">
+              <Link
+                href={"/certificates"}
+                className="inline-flex items-center text-sm font-semibold"
+              >
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
-              <Heading>Details of the Contractor, Client and Installation</Heading>
+              <Heading>
+                Details of the Contractor, Client and Installation
+              </Heading>
             </HeaderGroup>
           </Header>
           <div className="space-y-4">
@@ -82,26 +113,58 @@ export function UpdateContractorClientAndInstallationForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Contractor</CardTitle>
                   <CardDescription className="text-balance">
-                    Your company details will be shown here and included on the certificate to identify the contractor
-                    conducting the report.
+                    Your company details will be shown here and included on the
+                    certificate to identify the contractor conducting the
+                    report.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
-                  <Input value={settings?.name ?? ""} readOnly placeholder="Street address" />
-                  <Input value={settings?.address?.streetAddress ?? ""} readOnly placeholder="Street address" />
-                  <Input value={settings?.address?.city ?? ""} readOnly placeholder="City" />
-                  <Input value={settings?.address?.county ?? ""} readOnly placeholder="County" />
-                  <Input value={settings?.address?.postTown ?? ""} readOnly placeholder="Post town" />
+                  <Input
+                    value={settings?.name ?? ""}
+                    readOnly
+                    placeholder="Street address"
+                  />
+                  <Input
+                    value={settings?.address?.streetAddress ?? ""}
+                    readOnly
+                    placeholder="Street address"
+                  />
+                  <Input
+                    value={settings?.address?.city ?? ""}
+                    readOnly
+                    placeholder="City"
+                  />
+                  <Input
+                    value={settings?.address?.county ?? ""}
+                    readOnly
+                    placeholder="County"
+                  />
+                  <Input
+                    value={settings?.address?.postTown ?? ""}
+                    readOnly
+                    placeholder="Post town"
+                  />
                   <div className="flex gap-2">
-                    <Input value={settings?.address?.postCode ?? ""} readOnly placeholder="Post code" />
-                    <Input value={settings?.address?.country ?? ""} readOnly placeholder="Country" />
+                    <Input
+                      value={settings?.address?.postCode ?? ""}
+                      readOnly
+                      placeholder="Post code"
+                    />
+                    <Input
+                      value={settings?.address?.country ?? ""}
+                      readOnly
+                      placeholder="Country"
+                    />
                   </div>
                 </CardContent>
               </div>
               <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-balance text-sm text-muted-foreground">
                   To update the contractor, visit{" "}
-                  <Link href={"/settings"} className="inline-flex items-center space-x-1 text-blue-500">
+                  <Link
+                    href={"/settings"}
+                    className="inline-flex items-center space-x-1 text-blue-500"
+                  >
                     <span>Settings</span>
                     <ExternalLink size={14} />
                   </Link>
@@ -114,8 +177,8 @@ export function UpdateContractorClientAndInstallationForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Client</CardTitle>
                   <CardDescription className="text-balance">
-                    Select the client for whom you are conducting this report. Their details will be included on the
-                    certificate.
+                    Select the client for whom you are conducting this report.
+                    Their details will be included on the certificate.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -123,15 +186,25 @@ export function UpdateContractorClientAndInstallationForm({
                     control={form.control}
                     name="clientId"
                     render={({ field }) => {
-                      const selectedClient = clients.find((client) => client.id === field.value);
+                      const selectedClient = clients.find(
+                        (client) => client.id === field.value,
+                      );
 
                       return (
                         <>
                           <FormItem>
-                            <DialogSheet open={selectClientOpen} onOpenChange={setSelectClientOpen}>
+                            <DialogSheet
+                              open={selectClientOpen}
+                              onOpenChange={setSelectClientOpen}
+                            >
                               <DialogSheetTrigger asChild>
-                                <Button variant="outline" className="w-full justify-between">
-                                  {selectedClient ? selectedClient.name : "Select client..."}
+                                <Button
+                                  variant="outline"
+                                  className="w-full justify-between"
+                                >
+                                  {selectedClient
+                                    ? selectedClient.name
+                                    : "Select client..."}
                                   <ChevronsUpDown />
                                 </Button>
                               </DialogSheetTrigger>
@@ -140,20 +213,27 @@ export function UpdateContractorClientAndInstallationForm({
                                 <Command className="pt-2">
                                   <CommandInput placeholder="Search..." />
                                   <CommandList className="scrollbar-hidden mt-1 border-t p-1">
-                                    <CommandEmpty>No results found.</CommandEmpty>
+                                    <CommandEmpty>
+                                      No results found.
+                                    </CommandEmpty>
                                     <CommandGroup>
                                       {clients.map((client) => (
                                         <CommandItem
                                           key={client.id}
                                           value={client.name}
                                           onSelect={() => {
-                                            form.setValue("clientId", client.id);
+                                            form.setValue(
+                                              "clientId",
+                                              client.id,
+                                            );
                                             form.setValue("propertyId", "");
                                             setSelectClientOpen(false);
                                           }}
                                         >
                                           {client.name}
-                                          {client.id === field.value ? <Check className="ml-auto" /> : null}
+                                          {client.id === field.value ? (
+                                            <Check className="ml-auto" />
+                                          ) : null}
                                         </CommandItem>
                                       ))}
                                     </CommandGroup>
@@ -168,12 +248,32 @@ export function UpdateContractorClientAndInstallationForm({
                             readOnly
                             placeholder="Street address"
                           />
-                          <Input value={selectedClient?.address?.city ?? ""} readOnly placeholder="City" />
-                          <Input value={selectedClient?.address?.county ?? ""} readOnly placeholder="County" />
-                          <Input value={selectedClient?.address?.postTown ?? ""} readOnly placeholder="Post town" />
+                          <Input
+                            value={selectedClient?.address?.city ?? ""}
+                            readOnly
+                            placeholder="City"
+                          />
+                          <Input
+                            value={selectedClient?.address?.county ?? ""}
+                            readOnly
+                            placeholder="County"
+                          />
+                          <Input
+                            value={selectedClient?.address?.postTown ?? ""}
+                            readOnly
+                            placeholder="Post town"
+                          />
                           <div className="flex gap-2">
-                            <Input value={selectedClient?.address?.postCode ?? ""} readOnly placeholder="Post code" />
-                            <Input value={selectedClient?.address?.country ?? ""} readOnly placeholder="Country" />
+                            <Input
+                              value={selectedClient?.address?.postCode ?? ""}
+                              readOnly
+                              placeholder="Post code"
+                            />
+                            <Input
+                              value={selectedClient?.address?.country ?? ""}
+                              readOnly
+                              placeholder="Country"
+                            />
                           </div>
                         </>
                       );
@@ -184,7 +284,10 @@ export function UpdateContractorClientAndInstallationForm({
               <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-balance text-sm text-muted-foreground">
                   To add a new client, visit{" "}
-                  <Link href={"/clients"} className="inline-flex items-center space-x-1 text-blue-500">
+                  <Link
+                    href={"/clients"}
+                    className="inline-flex items-center space-x-1 text-blue-500"
+                  >
                     <span>Clients</span>
                     <ExternalLink size={14} />
                   </Link>
@@ -197,7 +300,8 @@ export function UpdateContractorClientAndInstallationForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Installation</CardTitle>
                   <CardDescription className="text-balance">
-                    Choose the installation for this report. This property will be the subject of the report.
+                    Choose the installation for this report. This property will
+                    be the subject of the report.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -205,15 +309,27 @@ export function UpdateContractorClientAndInstallationForm({
                     control={form.control}
                     name="propertyId"
                     render={({ field }) => {
-                      const selectedClient = clients.find((client) => client.id === form.watch("clientId"));
-                      const selectedProperty = selectedClient?.property.find((property) => property.id === field.value);
+                      const selectedClient = clients.find(
+                        (client) => client.id === form.watch("clientId"),
+                      );
+                      const selectedProperty = selectedClient?.property.find(
+                        (property) => property.id === field.value,
+                      );
                       return (
                         <>
                           <FormItem>
-                            <DialogSheet open={selectPropertyOpen} onOpenChange={setSelectPropertyOpen}>
+                            <DialogSheet
+                              open={selectPropertyOpen}
+                              onOpenChange={setSelectPropertyOpen}
+                            >
                               <DialogSheetTrigger asChild>
-                                <Button variant="outline" className="w-full justify-between">
-                                  {selectedProperty ? selectedProperty.address.streetAddress : "Select property..."}
+                                <Button
+                                  variant="outline"
+                                  className="w-full justify-between"
+                                >
+                                  {selectedProperty
+                                    ? selectedProperty.address.streetAddress
+                                    : "Select property..."}
                                   <ChevronsUpDown />
                                 </Button>
                               </DialogSheetTrigger>
@@ -222,21 +338,33 @@ export function UpdateContractorClientAndInstallationForm({
                                 <Command className="pt-2">
                                   <CommandInput placeholder="Search..." />
                                   <CommandList className="scrollbar-hidden mt-1 border-t p-1">
-                                    <CommandEmpty>No results found.</CommandEmpty>
+                                    <CommandEmpty>
+                                      No results found.
+                                    </CommandEmpty>
                                     <CommandGroup>
-                                      {selectedClient?.property.map((property) => (
-                                        <CommandItem
-                                          key={property.id}
-                                          value={property.address.streetAddress!}
-                                          onSelect={() => {
-                                            form.setValue("propertyId", property.id, { shouldDirty: true });
-                                            setSelectPropertyOpen(false);
-                                          }}
-                                        >
-                                          {property.address.streetAddress}
-                                          {property.id === field.value ? <Check className="ml-auto" /> : null}
-                                        </CommandItem>
-                                      ))}
+                                      {selectedClient?.property.map(
+                                        (property) => (
+                                          <CommandItem
+                                            key={property.id}
+                                            value={
+                                              property.address.streetAddress!
+                                            }
+                                            onSelect={() => {
+                                              form.setValue(
+                                                "propertyId",
+                                                property.id,
+                                                { shouldDirty: true },
+                                              );
+                                              setSelectPropertyOpen(false);
+                                            }}
+                                          >
+                                            {property.address.streetAddress}
+                                            {property.id === field.value ? (
+                                              <Check className="ml-auto" />
+                                            ) : null}
+                                          </CommandItem>
+                                        ),
+                                      )}
                                     </CommandGroup>
                                   </CommandList>
                                 </Command>
@@ -244,12 +372,32 @@ export function UpdateContractorClientAndInstallationForm({
                             </DialogSheet>
                             <FormMessage />
                           </FormItem>
-                          <Input value={selectedProperty?.address?.city ?? ""} readOnly placeholder="City" />
-                          <Input value={selectedProperty?.address?.county ?? ""} readOnly placeholder="County" />
-                          <Input value={selectedProperty?.address?.postTown ?? ""} readOnly placeholder="Post town" />
+                          <Input
+                            value={selectedProperty?.address?.city ?? ""}
+                            readOnly
+                            placeholder="City"
+                          />
+                          <Input
+                            value={selectedProperty?.address?.county ?? ""}
+                            readOnly
+                            placeholder="County"
+                          />
+                          <Input
+                            value={selectedProperty?.address?.postTown ?? ""}
+                            readOnly
+                            placeholder="Post town"
+                          />
                           <div className="flex gap-2">
-                            <Input value={selectedProperty?.address?.postCode ?? ""} readOnly placeholder="Post code" />
-                            <Input value={selectedProperty?.address?.country ?? ""} readOnly placeholder="Country" />
+                            <Input
+                              value={selectedProperty?.address?.postCode ?? ""}
+                              readOnly
+                              placeholder="Post code"
+                            />
+                            <Input
+                              value={selectedProperty?.address?.country ?? ""}
+                              readOnly
+                              placeholder="Country"
+                            />
                           </div>
                         </>
                       );
@@ -260,7 +408,10 @@ export function UpdateContractorClientAndInstallationForm({
               <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
                 <p className="text-balance text-sm text-muted-foreground">
                   To add a new property, visit{" "}
-                  <Link href={"/properties"} className="inline-flex items-center space-x-1 text-blue-500">
+                  <Link
+                    href={"/properties"}
+                    className="inline-flex items-center space-x-1 text-blue-500"
+                  >
                     <span>Properties</span>
                     <ExternalLink size={14} />
                   </Link>
@@ -270,8 +421,15 @@ export function UpdateContractorClientAndInstallationForm({
             </Card>
           </div>
         </div>
-        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
-        <UnsavedChangesDialog condition={form.formState.isDirty} action={form.handleSubmit(onSubmit)} />
+        <FormBar
+          form={form}
+          sections={sections}
+          baseUrl={"/certificates/eicr"}
+        />
+        <UnsavedChangesDialog
+          condition={form.formState.isDirty}
+          action={form.handleSubmit(onSubmit)}
+        />
       </form>
     </Form>
   );

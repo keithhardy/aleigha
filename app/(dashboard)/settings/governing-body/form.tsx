@@ -7,15 +7,32 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateGoverningBody } from "./action";
 import { UpdateGoverningBodySchema } from "./schema";
 
-export function UpdateGoverningBodyForm({ settings }: { settings: (Settings & { address: Address | null }) | null }) {
+export function UpdateGoverningBodyForm({
+  settings,
+}: {
+  settings: (Settings & { address: Address | null }) | null;
+}) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -66,7 +83,11 @@ export function UpdateGoverningBodyForm({ settings }: { settings: (Settings & { 
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Governing Body" className="h-[32px]" />
+                      <Input
+                        {...field}
+                        placeholder="Governing Body"
+                        className="h-[32px]"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -78,7 +99,11 @@ export function UpdateGoverningBodyForm({ settings }: { settings: (Settings & { 
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Governing Body Number" className="h-[32px]" />
+                      <Input
+                        {...field}
+                        placeholder="Governing Body Number"
+                        className="h-[32px]"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

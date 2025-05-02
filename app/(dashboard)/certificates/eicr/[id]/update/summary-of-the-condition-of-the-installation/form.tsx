@@ -10,8 +10,22 @@ import { z } from "zod";
 import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
 import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,19 +42,25 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
 }) {
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>>({
+  const form = useForm<
+    z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>
+  >({
     resolver: zodResolver(UpdateSummaryOfTheConditionOfTheInstallationSchema),
     defaultValues: {
       id: certificate.id,
       generalCondition: certificate.generalCondition || "",
-      estimatedAgeOfElectricalInstallation: certificate.estimatedAgeOfElectricalInstallation || "",
+      estimatedAgeOfElectricalInstallation:
+        certificate.estimatedAgeOfElectricalInstallation || "",
       evidenceOfAlterations: certificate.evidenceOfAlterations ?? false,
       estimatedAgeOfAlterations: certificate.estimatedAgeOfAlterations || "",
-      overallAssessmentOfTheInstallation: certificate.overallAssessmentOfTheInstallation ?? true,
+      overallAssessmentOfTheInstallation:
+        certificate.overallAssessmentOfTheInstallation ?? true,
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>) => {
+  const onSubmit = async (
+    data: z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>,
+  ) => {
     const response = await updateSummaryOfTheConditionOfTheInstallation(data);
 
     if (response.status === "success") {
@@ -56,11 +76,17 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-1 flex-col"
+      >
         <div className="container mx-auto max-w-screen-xl flex-grow p-6">
           <Header>
             <HeaderGroup>
-              <Link href={"/certificates"} className="inline-flex items-center text-sm font-semibold">
+              <Link
+                href={"/certificates"}
+                className="inline-flex items-center text-sm font-semibold"
+              >
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
@@ -73,8 +99,9 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Condition</CardTitle>
                   <CardDescription className="text-balance">
-                    Provide an overview of the electrical installation&apos;s condition, including age, alterations, and
-                    overall assessment.
+                    Provide an overview of the electrical installation&apos;s
+                    condition, including age, alterations, and overall
+                    assessment.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -103,8 +130,8 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Age and Alterations</CardTitle>
                   <CardDescription className="text-balance">
-                    Provide the estimated age of the installation and indicate if any alterations or modifications have
-                    been made to it.
+                    Provide the estimated age of the installation and indicate
+                    if any alterations or modifications have been made to it.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -124,7 +151,10 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                                 if (rawValue === "") {
                                   field.onChange("");
                                 } else {
-                                  const value = Math.max(0, Math.floor(Number(rawValue) || 0)).toString();
+                                  const value = Math.max(
+                                    0,
+                                    Math.floor(Number(rawValue) || 0),
+                                  ).toString();
                                   field.onChange(value);
                                 }
                               }}
@@ -178,7 +208,10 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                                   if (rawValue === "") {
                                     field.onChange("");
                                   } else {
-                                    const value = Math.max(0, Math.floor(Number(rawValue) || 0)).toString();
+                                    const value = Math.max(
+                                      0,
+                                      Math.floor(Number(rawValue) || 0),
+                                    ).toString();
                                     field.onChange(value);
                                   }
                                 }}
@@ -200,7 +233,10 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
                   Not sure about the age? Check out our{" "}
-                  <Link href={"/settings"} className="inline-flex items-center space-x-1 text-blue-500">
+                  <Link
+                    href={"/settings"}
+                    className="inline-flex items-center space-x-1 text-blue-500"
+                  >
                     <span>guide</span>
                     <ExternalLink size={14} />
                   </Link>{" "}
@@ -210,8 +246,15 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
             </Card>
           </div>
         </div>
-        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
-        <UnsavedChangesDialog condition={form.formState.isDirty} action={form.handleSubmit(onSubmit)} />
+        <FormBar
+          form={form}
+          sections={sections}
+          baseUrl={"/certificates/eicr"}
+        />
+        <UnsavedChangesDialog
+          condition={form.formState.isDirty}
+          action={form.handleSubmit(onSubmit)}
+        />
       </form>
     </Form>
   );

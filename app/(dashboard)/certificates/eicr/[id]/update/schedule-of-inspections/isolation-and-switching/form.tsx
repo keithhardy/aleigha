@@ -10,8 +10,22 @@ import { z } from "zod";
 import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
 import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
 import { sections } from "../../components/sections";
@@ -50,7 +64,9 @@ export function UpdateIsolationAndSwitchingForm({
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof UpdateIsolationAndSwitchingSchema>) => {
+  const onSubmit = async (
+    data: z.infer<typeof UpdateIsolationAndSwitchingSchema>,
+  ) => {
     const response = await updateIsolationAndSwitching(data);
 
     if (response.status === "success") {
@@ -66,11 +82,17 @@ export function UpdateIsolationAndSwitchingForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-1 flex-col"
+      >
         <div className="container mx-auto max-w-screen-xl flex-grow p-6">
           <Header>
             <HeaderGroup>
-              <Link href={"/certificates"} className="inline-flex items-center text-sm font-semibold">
+              <Link
+                href={"/certificates"}
+                className="inline-flex items-center text-sm font-semibold"
+              >
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
@@ -83,7 +105,8 @@ export function UpdateIsolationAndSwitchingForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Isolation and switching</CardTitle>
                   <CardDescription className="text-balance">
-                    This section evaluates the isolation and switching arrangements for safety and compliance.
+                    This section evaluates the isolation and switching
+                    arrangements for safety and compliance.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-8 p-0">
@@ -95,9 +118,14 @@ export function UpdateIsolationAndSwitchingForm({
                       name={item.id}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{item.item + " - " + item.label}</FormLabel>
+                          <FormLabel>
+                            {item.item + " - " + item.label}
+                          </FormLabel>
                           <FormControl>
-                            <RadioGroupComponent onChange={field.onChange} value={field.value || "na"} />
+                            <RadioGroupComponent
+                              onChange={field.onChange}
+                              value={field.value || "na"}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -114,8 +142,15 @@ export function UpdateIsolationAndSwitchingForm({
             </Card>
           </div>
         </div>
-        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
-        <UnsavedChangesDialog condition={form.formState.isDirty} action={form.handleSubmit(onSubmit)} />
+        <FormBar
+          form={form}
+          sections={sections}
+          baseUrl={"/certificates/eicr"}
+        />
+        <UnsavedChangesDialog
+          condition={form.formState.isDirty}
+          action={form.handleSubmit(onSubmit)}
+        />
       </form>
     </Form>
   );

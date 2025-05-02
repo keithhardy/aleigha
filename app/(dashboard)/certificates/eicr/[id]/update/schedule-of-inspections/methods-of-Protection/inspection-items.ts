@@ -33,7 +33,8 @@ export const inspectionItems = [
   {
     id: "item_3_1G",
     item: "3.1G",
-    label: "Adequacy and location of main protective bonding conductor connections (544.1.2)",
+    label:
+      "Adequacy and location of main protective bonding conductor connections (544.1.2)",
   },
   {
     id: "item_3_1H",
@@ -43,7 +44,8 @@ export const inspectionItems = [
   {
     id: "item_3_1I",
     item: "3.1I",
-    label: "Provision of earthing / bonding labels at all appropriate locations (514.13.1)",
+    label:
+      "Provision of earthing / bonding labels at all appropriate locations (514.13.1)",
   },
   {
     id: "item_3_2",
@@ -66,6 +68,7 @@ export const inspectionItems = [
   {
     id: "item_3_3F",
     item: "3.3F",
-    label: "Provisions where automatic disconnection of supply is not feasible (419)",
+    label:
+      "Provisions where automatic disconnection of supply is not feasible (419)",
   },
 ];

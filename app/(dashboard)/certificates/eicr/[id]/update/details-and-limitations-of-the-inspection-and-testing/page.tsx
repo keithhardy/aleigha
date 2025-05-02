@@ -10,20 +10,21 @@ export default async function UpdateDetailsAndLimitationsOfTheInspectionAndTesti
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const certificate = await prisma.electricalInstallationConditionReport.findFirst({
-    where: {
-      id: (await params).id,
-    },
-    select: {
-      id: true,
-      regulationAccordanceAsAmendedTo: true,
-      detailsOfTheElectricalInstallation: true,
-      extentOfSampling: true,
-      agreedLimitations: true,
-      agreedLimitationsWith: true,
-      operationalLimitations: true,
-    },
-  });
+  const certificate =
+    await prisma.electricalInstallationConditionReport.findFirst({
+      where: {
+        id: (await params).id,
+      },
+      select: {
+        id: true,
+        regulationAccordanceAsAmendedTo: true,
+        detailsOfTheElectricalInstallation: true,
+        extentOfSampling: true,
+        agreedLimitations: true,
+        agreedLimitationsWith: true,
+        operationalLimitations: true,
+      },
+    });
 
   if (!certificate) {
     notFound();

@@ -41,7 +41,8 @@ export async function createCertificate(
           return {
             status: "error",
             heading: "Certificate Creation Failed",
-            message: "There was an issue creating the certificate. Please try again.",
+            message:
+              "There was an issue creating the certificate. Please try again.",
           };
         }
       } else {

@@ -82,7 +82,9 @@ async function main() {
       phone: "07860562492",
       role: "Admin",
       clients: {
-        connect: faker.helpers.arrayElements(clients, 3).map((client: { id: any }) => ({ id: client.id })),
+        connect: faker.helpers
+          .arrayElements(clients, 3)
+          .map((client: { id: any }) => ({ id: client.id })),
       },
     },
   });
@@ -98,9 +100,17 @@ async function main() {
           name: faker.person.fullName(),
           email: faker.internet.email(),
           phone: `07${faker.string.numeric(9)}`,
-          role: faker.helpers.arrayElement(["Admin", "Manager", "Planner", "Operative", "Client"]),
+          role: faker.helpers.arrayElement([
+            "Admin",
+            "Manager",
+            "Planner",
+            "Operative",
+            "Client",
+          ]),
           clients: {
-            connect: faker.helpers.arrayElements(clients, 3).map((client: { id: any }) => ({ id: client.id })),
+            connect: faker.helpers
+              .arrayElements(clients, 3)
+              .map((client: { id: any }) => ({ id: client.id })),
           },
         },
       }),
@@ -114,7 +124,12 @@ async function main() {
       return prisma.electricalInstallationConditionReport.create({
         data: {
           serial: `EICR${faker.string.numeric(9)}`,
-          status: faker.helpers.arrayElement(["Draft", "Submitted", "Rejected", "Completed"]),
+          status: faker.helpers.arrayElement([
+            "Draft",
+            "Submitted",
+            "Rejected",
+            "Completed",
+          ]),
           creator: {
             connect: { id: faker.helpers.arrayElement(users).id },
           },

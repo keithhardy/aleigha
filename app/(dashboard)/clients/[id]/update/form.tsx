@@ -11,12 +11,30 @@ import { z } from "zod";
 import { updateClient } from "@/app/(dashboard)/clients/[id]/update/action";
 import { UpdateClientSchema } from "@/app/(dashboard)/clients/[id]/update/schema";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
-export function UpdateClientForm({ client }: { client: Client & { address: Address | null } }) {
+export function UpdateClientForm({
+  client,
+}: {
+  client: Client & { address: Address | null };
+}) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -95,7 +113,9 @@ export function UpdateClientForm({ client }: { client: Client & { address: Addre
             <div className="flex flex-col gap-4 p-6 lg:flex-row">
               <CardHeader className="w-full p-0">
                 <CardTitle>Client Details</CardTitle>
-                <CardDescription className="text-balance">Please make sure all values are correct.</CardDescription>
+                <CardDescription className="text-balance">
+                  Please make sure all values are correct.
+                </CardDescription>
               </CardHeader>
               <CardContent className="w-full space-y-4 p-0">
                 <FormField
@@ -144,7 +164,11 @@ export function UpdateClientForm({ client }: { client: Client & { address: Addre
                     <FormItem>
                       <FormLabel>Appointed Person</FormLabel>
                       <FormControl>
-                        <Input type="tel" {...field} autoComplete="appointed-person" />
+                        <Input
+                          type="tel"
+                          {...field}
+                          autoComplete="appointed-person"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -169,9 +193,18 @@ export function UpdateClientForm({ client }: { client: Client & { address: Addre
                       )}
                       <div className="flex items-center gap-2">
                         <FormControl>
-                          <Input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileChange} />
+                          <Input
+                            type="file"
+                            accept="image/*"
+                            ref={fileInputRef}
+                            onChange={handleFileChange}
+                          />
                         </FormControl>
-                        <Button variant="outline" type="button" onClick={handleClear}>
+                        <Button
+                          variant="outline"
+                          type="button"
+                          onClick={handleClear}
+                        >
                           Clear
                         </Button>
                       </div>
@@ -264,7 +297,9 @@ export function UpdateClientForm({ client }: { client: Client & { address: Addre
                 variant="outline"
                 size="sm"
                 type="submit"
-                disabled={!form.formState.isDirty || form.formState.isSubmitting}
+                disabled={
+                  !form.formState.isDirty || form.formState.isSubmitting
+                }
               >
                 {form.formState.isSubmitting ? "Saving..." : "Save"}
               </Button>

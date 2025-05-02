@@ -12,7 +12,11 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript", "plugin:import/recommended"),
+  ...compat.extends(
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:import/recommended",
+  ),
 
   {
     languageOptions: {
@@ -27,7 +31,12 @@ const eslintConfig = [
       "import/order": [
         "error",
         {
-          groups: [["builtin", "external"], ["internal"], ["sibling", "parent"], "index"],
+          groups: [
+            ["builtin", "external"],
+            ["internal"],
+            ["sibling", "parent"],
+            "index",
+          ],
           "newlines-between": "always",
           alphabetize: {
             order: "asc",

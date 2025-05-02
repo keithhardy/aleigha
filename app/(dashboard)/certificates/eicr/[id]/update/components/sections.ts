@@ -36,7 +36,8 @@ export const sections = [
     url: `schedule-of-inspections/intake-equipment`,
   },
   {
-    title: "Presence of adequate arrangements for parallel or switched alternative sources",
+    title:
+      "Presence of adequate arrangements for parallel or switched alternative sources",
     url: `schedule-of-inspections/presence-of-adequate-arrangements-for-parallel-or-switched-alternative-sources`,
   },
   {
@@ -44,7 +45,8 @@ export const sections = [
     url: `schedule-of-inspections/methods-of-Protection`,
   },
   {
-    title: "Distribution equipment, including consumer units and distribution boards",
+    title:
+      "Distribution equipment, including consumer units and distribution boards",
     url: `schedule-of-inspections/distribution-equipment`,
   },
   {

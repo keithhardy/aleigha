@@ -8,6 +8,7 @@ export const inspectionItems = [
   {
     id: "item_2_2",
     item: "2.2",
-    label: "Adequate arrangements where a generating set operates in parallel with the public supply (551.7)",
+    label:
+      "Adequate arrangements where a generating set operates in parallel with the public supply (551.7)",
   },
 ];

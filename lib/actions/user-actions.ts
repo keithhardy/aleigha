@@ -2,10 +2,15 @@
 
 import { UserRole } from "@prisma/client";
 
-import { auth0Management } from "@/lib/auth/auth0-management-client";
 import { CreateUserInput, UpdateUserInput } from "@/lib/schemas/user-schemas";
-
-import { createUser, deleteUser, updateUser } from "../services/user-services";
+import {
+  createAuth0User,
+  createUser,
+  deleteAuth0User,
+  deleteUser,
+  updateAuth0User,
+  updateUser,
+} from "@/lib/services/user-services";
 
 export type ServerActionResponse<T> = Promise<{
   status: "success" | "error";
@@ -14,15 +19,16 @@ export type ServerActionResponse<T> = Promise<{
   payload?: T;
 }>;
 
-export async function createUserAction(data: CreateUserInput): ServerActionResponse<void> {
+export async function createUserAction(
+  data: CreateUserInput,
+): ServerActionResponse<void> {
   try {
-    const { data: auth0User } = await auth0Management.users.create({
+    const auth0User = await createAuth0User({
       connection: "Username-Password-Authentication",
       name: data.name,
       email: data.email,
       password: data.password,
     });
-
     await createUser({
       name: data.name,
       email: data.email,
@@ -30,7 +36,6 @@ export async function createUserAction(data: CreateUserInput): ServerActionRespo
       role: data.role as UserRole,
       auth0Id: auth0User.user_id,
     });
-
     return {
       status: "success",
       heading: "User Created Successfully",
@@ -45,18 +50,15 @@ export async function createUserAction(data: CreateUserInput): ServerActionRespo
   }
 }
 
-export async function updateUserAction(id: string, data: UpdateUserInput): ServerActionResponse<void> {
+export async function updateUserAction(
+  id: string,
+  data: UpdateUserInput,
+): ServerActionResponse<void> {
   try {
-    await auth0Management.users.update(
-      {
-        id: data.auth0Id,
-      },
-      {
-        name: data.name,
-        email: data.email,
-      },
-    );
-
+    await updateAuth0User(id, {
+      name: data.name,
+      email: data.email,
+    });
     await updateUser(id, {
       name: data.name,
       email: data.email,
@@ -68,7 +70,6 @@ export async function updateUserAction(id: string, data: UpdateUserInput): Serve
         disconnect: data.clients.disconnect,
       },
     });
-
     return {
       status: "success",
       heading: "User Updated Successfully",
@@ -85,12 +86,8 @@ export async function updateUserAction(id: string, data: UpdateUserInput): Serve
 
 export async function deleteUserAction(id: string): ServerActionResponse<void> {
   try {
-    await auth0Management.users.delete({
-      id,
-    });
-
+    await deleteAuth0User(id);
     await deleteUser(id);
-
     return {
       status: "success",
       heading: "User Deleted Successfully",

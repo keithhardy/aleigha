@@ -9,7 +9,9 @@ import { ServerActionResponse } from "@/types/server-action-response";
 import { UpdateSummaryOfTheConditionOfTheInstallationSchema } from "./schema";
 
 export async function updateSummaryOfTheConditionOfTheInstallation(
-  electricalInstallationConditionReport: z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>,
+  electricalInstallationConditionReport: z.infer<
+    typeof UpdateSummaryOfTheConditionOfTheInstallationSchema
+  >,
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
@@ -17,12 +19,16 @@ export async function updateSummaryOfTheConditionOfTheInstallation(
         id: electricalInstallationConditionReport.id,
       },
       data: {
-        generalCondition: electricalInstallationConditionReport.generalCondition,
+        generalCondition:
+          electricalInstallationConditionReport.generalCondition,
         estimatedAgeOfElectricalInstallation:
           electricalInstallationConditionReport.estimatedAgeOfElectricalInstallation,
-        evidenceOfAlterations: electricalInstallationConditionReport.evidenceOfAlterations,
-        estimatedAgeOfAlterations: electricalInstallationConditionReport.estimatedAgeOfAlterations,
-        overallAssessmentOfTheInstallation: electricalInstallationConditionReport.overallAssessmentOfTheInstallation,
+        evidenceOfAlterations:
+          electricalInstallationConditionReport.evidenceOfAlterations,
+        estimatedAgeOfAlterations:
+          electricalInstallationConditionReport.estimatedAgeOfAlterations,
+        overallAssessmentOfTheInstallation:
+          electricalInstallationConditionReport.overallAssessmentOfTheInstallation,
       },
     });
 

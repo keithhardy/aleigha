@@ -10,8 +10,22 @@ import { z } from "zod";
 import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
 import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
 import { sections } from "../../components/sections";
@@ -27,7 +41,9 @@ export function UpdateSpecialLocationsAndInstallationsForm({
 }) {
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof UpdateSpecialLocationsAndInstallationsSchema>>({
+  const form = useForm<
+    z.infer<typeof UpdateSpecialLocationsAndInstallationsSchema>
+  >({
     resolver: zodResolver(UpdateSpecialLocationsAndInstallationsSchema),
     defaultValues: {
       id: certificate.id,
@@ -43,7 +59,9 @@ export function UpdateSpecialLocationsAndInstallationsForm({
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof UpdateSpecialLocationsAndInstallationsSchema>) => {
+  const onSubmit = async (
+    data: z.infer<typeof UpdateSpecialLocationsAndInstallationsSchema>,
+  ) => {
     const response = await updateContractorClientAndInstallation(data);
 
     if (response.status === "success") {
@@ -59,11 +77,17 @@ export function UpdateSpecialLocationsAndInstallationsForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-1 flex-col"
+      >
         <div className="container mx-auto max-w-screen-xl flex-grow p-6">
           <Header>
             <HeaderGroup>
-              <Link href={"/certificates"} className="inline-flex items-center text-sm font-semibold">
+              <Link
+                href={"/certificates"}
+                className="inline-flex items-center text-sm font-semibold"
+              >
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
@@ -76,7 +100,8 @@ export function UpdateSpecialLocationsAndInstallationsForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Special locations and installations</CardTitle>
                   <CardDescription className="text-balance">
-                    This section evaluates the condition and safety of special locations and installations.
+                    This section evaluates the condition and safety of special
+                    locations and installations.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-8 p-0">
@@ -88,9 +113,14 @@ export function UpdateSpecialLocationsAndInstallationsForm({
                       name={item.id}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{item.item + " - " + item.label}</FormLabel>
+                          <FormLabel>
+                            {item.item + " - " + item.label}
+                          </FormLabel>
                           <FormControl>
-                            <RadioGroupComponent onChange={field.onChange} value={field.value || "na"} />
+                            <RadioGroupComponent
+                              onChange={field.onChange}
+                              value={field.value || "na"}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -101,14 +131,22 @@ export function UpdateSpecialLocationsAndInstallationsForm({
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
-                  Ensure the condition and safety of special locations and installations is checked.
+                  Ensure the condition and safety of special locations and
+                  installations is checked.
                 </p>
               </CardFooter>
             </Card>
           </div>
         </div>
-        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
-        <UnsavedChangesDialog condition={form.formState.isDirty} action={form.handleSubmit(onSubmit)} />
+        <FormBar
+          form={form}
+          sections={sections}
+          baseUrl={"/certificates/eicr"}
+        />
+        <UnsavedChangesDialog
+          condition={form.formState.isDirty}
+          action={form.handleSubmit(onSubmit)}
+        />
       </form>
     </Form>
   );

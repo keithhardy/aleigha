@@ -5,22 +5,27 @@ import { prisma } from "@/lib/db/prisma-client";
 
 import { UpdateDeclarationForm } from "./form";
 
-export default async function UpdateDeclaration({ params }: { params: Promise<{ id: string }> }) {
-  const certificate = await prisma.electricalInstallationConditionReport.findFirst({
-    where: {
-      id: (await params).id,
-    },
-    select: {
-      id: true,
-      recommendedRetestDate: true,
-      reasonForRecommendation: true,
-      inspectorId: true,
-      inspectionDate: true,
-      reviewerId: true,
-      reviewDate: true,
-      endDate: true,
-    },
-  });
+export default async function UpdateDeclaration({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const certificate =
+    await prisma.electricalInstallationConditionReport.findFirst({
+      where: {
+        id: (await params).id,
+      },
+      select: {
+        id: true,
+        recommendedRetestDate: true,
+        reasonForRecommendation: true,
+        inspectorId: true,
+        inspectionDate: true,
+        reviewerId: true,
+        reviewDate: true,
+        endDate: true,
+      },
+    });
 
   const users = await prisma.user.findMany();
 
@@ -28,5 +33,10 @@ export default async function UpdateDeclaration({ params }: { params: Promise<{ 
     notFound();
   }
 
-  return <UpdateDeclarationForm certificate={certificate as ElectricalInstallationConditionReport} users={users} />;
+  return (
+    <UpdateDeclarationForm
+      certificate={certificate as ElectricalInstallationConditionReport}
+      users={users}
+    />
+  );
 }

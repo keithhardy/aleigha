@@ -45,7 +45,8 @@ const DialogSheetContent = React.forwardRef<
 
   React.useEffect(() => {
     window.visualViewport?.addEventListener("resize", handleResize);
-    return () => window.visualViewport?.removeEventListener("resize", handleResize);
+    return () =>
+      window.visualViewport?.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
   return (
@@ -85,7 +86,10 @@ const DialogSheetContent = React.forwardRef<
 });
 DialogSheetContent.displayName = DialogSheetPrimitive.Content.displayName;
 
-const DialogSheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
+const DialogSheetHeader = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => {
   const isMobile = useIsMobile();
 
   return (
@@ -101,8 +105,17 @@ const DialogSheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDiv
 };
 DialogSheetHeader.displayName = "DialogSheetHeader";
 
-const DialogSheetFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)} {...props} />
+const DialogSheetFooter = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn(
+      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+      className,
+    )}
+    {...props}
+  />
 );
 DialogSheetFooter.displayName = "DialogSheetFooter";
 
@@ -115,7 +128,11 @@ const DialogSheetTitle = React.forwardRef<
   return (
     <DialogSheetPrimitive.Title
       ref={ref}
-      className={cn(isMobile ? "text-foreground" : "leading-none tracking-tight", "text-lg font-semibold", className)}
+      className={cn(
+        isMobile ? "text-foreground" : "leading-none tracking-tight",
+        "text-lg font-semibold",
+        className,
+      )}
       {...props}
     />
   );
@@ -126,9 +143,14 @@ const DialogSheetDescription = React.forwardRef<
   React.ElementRef<typeof DialogSheetPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof DialogSheetPrimitive.Description>
 >(({ className, ...props }, ref) => (
-  <DialogSheetPrimitive.Description ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
+  <DialogSheetPrimitive.Description
+    ref={ref}
+    className={cn("text-sm text-muted-foreground", className)}
+    {...props}
+  />
 ));
-DialogSheetDescription.displayName = DialogSheetPrimitive.Description.displayName;
+DialogSheetDescription.displayName =
+  DialogSheetPrimitive.Description.displayName;
 
 export {
   DialogSheet,

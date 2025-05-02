@@ -10,7 +10,11 @@ export const metadata: Metadata = {
   title: pagesConfig.clientDelete.metadata.title,
 };
 
-export default async function DeleteClient({ params }: { params: Promise<{ id: string }> }) {
+export default async function DeleteClient({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const client = await prisma.client.findUnique({
     where: {
       id: (await params).id,

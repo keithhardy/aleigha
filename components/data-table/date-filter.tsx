@@ -3,7 +3,12 @@ import { ListFilterPlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { type DateRange } from "react-day-picker";
 
-import { DialogSheet, DialogSheetContent, DialogSheetTitle, DialogSheetTrigger } from "@/components/dialog-sheet";
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/dialog-sheet";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -14,7 +19,10 @@ interface FilterProps<TData, TValue> {
   title?: string;
 }
 
-export function DateFilter<TData, TValue>({ column, title = "Date" }: FilterProps<TData, TValue>) {
+export function DateFilter<TData, TValue>({
+  column,
+  title = "Date",
+}: FilterProps<TData, TValue>) {
   const filterValue = column.getFilterValue() as DateRange | undefined;
 
   const [range, setRange] = useState<DateRange | undefined>(filterValue);
@@ -33,7 +41,9 @@ export function DateFilter<TData, TValue>({ column, title = "Date" }: FilterProp
   };
 
   const badgeLabel =
-    range?.from && range?.to ? `${range.from.toLocaleDateString()} - ${range.to.toLocaleDateString()}` : "None";
+    range?.from && range?.to
+      ? `${range.from.toLocaleDateString()} - ${range.to.toLocaleDateString()}`
+      : "None";
 
   return (
     <DialogSheet>

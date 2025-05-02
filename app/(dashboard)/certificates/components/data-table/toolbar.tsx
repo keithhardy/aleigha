@@ -48,7 +48,9 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
     }
   };
 
-  const isFiltered = table.getState().columnFilters.length > 0 || table.getState().globalFilter !== "";
+  const isFiltered =
+    table.getState().columnFilters.length > 0 ||
+    table.getState().globalFilter !== "";
 
   const clientColumn = table.getColumn("client.name");
   const clientOptions = facets["client"]
@@ -92,9 +94,27 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
           <div className="flex w-full">
             <ScrollArea className="-mb-3 w-1 flex-1 pb-3">
               <div className="flex gap-2">
-                {clientColumn && <FacetedFilter column={clientColumn} title="Client" options={clientOptions} />}
-                {typeColumn && <FacetedFilter column={typeColumn} title="Type" options={typeOptions} />}
-                {statusColumn && <FacetedFilter column={statusColumn} title="Status" options={statusOptions} />}
+                {clientColumn && (
+                  <FacetedFilter
+                    column={clientColumn}
+                    title="Client"
+                    options={clientOptions}
+                  />
+                )}
+                {typeColumn && (
+                  <FacetedFilter
+                    column={typeColumn}
+                    title="Type"
+                    options={typeOptions}
+                  />
+                )}
+                {statusColumn && (
+                  <FacetedFilter
+                    column={statusColumn}
+                    title="Status"
+                    options={statusOptions}
+                  />
+                )}
                 {dateColumn && <DateFilter column={dateColumn} title="Date" />}
                 {isFiltered && (
                   <Button
@@ -119,7 +139,10 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
             variant="outline"
             size="sm"
             onClick={handleDownload}
-            disabled={isDownloadLoading || Object.keys(table.getState().rowSelection).length === 0}
+            disabled={
+              isDownloadLoading ||
+              Object.keys(table.getState().rowSelection).length === 0
+            }
           >
             <Upload />
             Export

@@ -12,7 +12,13 @@ type GetUsersProps = {
   filters?: { id: string; value: unknown }[];
 };
 
-export async function getUsers({ take, skip, orderBy, searchQuery, filters = [] }: GetUsersProps) {
+export async function getUsers({
+  take,
+  skip,
+  orderBy,
+  searchQuery,
+  filters = [],
+}: GetUsersProps) {
   const baseSearchFilter = searchQuery
     ? {
         OR: [
@@ -39,15 +45,18 @@ export async function getUsers({ take, skip, orderBy, searchQuery, filters = [] 
     : {};
 
   const buildWhere = (excludeKey?: string): Prisma.UserWhereInput => {
-    const filterConditions: Prisma.UserWhereInput = filters.reduce((acc, filter) => {
-      if (filter.id === excludeKey) return acc;
+    const filterConditions: Prisma.UserWhereInput = filters.reduce(
+      (acc, filter) => {
+        if (filter.id === excludeKey) return acc;
 
-      if (filter.id === "role" && Array.isArray(filter.value)) {
-        acc.role = { in: filter.value as $Enums.UserRole[] };
-      }
+        if (filter.id === "role" && Array.isArray(filter.value)) {
+          acc.role = { in: filter.value as $Enums.UserRole[] };
+        }
 
-      return acc;
-    }, {} as Prisma.UserWhereInput);
+        return acc;
+      },
+      {} as Prisma.UserWhereInput,
+    );
 
     return {
       ...baseSearchFilter,

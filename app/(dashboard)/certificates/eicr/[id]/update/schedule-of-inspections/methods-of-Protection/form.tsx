@@ -10,8 +10,22 @@ import { z } from "zod";
 import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
 import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
 import { sections } from "../../components/sections";
@@ -20,7 +34,11 @@ import { updateMethodsOfProtection } from "./action";
 import { inspectionItems } from "./inspection-items";
 import { UpdateMethodsOfProtectionSchema } from "./schema";
 
-export function UpdateMethodsOfProtectionForm({ certificate }: { certificate: ElectricalInstallationConditionReport }) {
+export function UpdateMethodsOfProtectionForm({
+  certificate,
+}: {
+  certificate: ElectricalInstallationConditionReport;
+}) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof UpdateMethodsOfProtectionSchema>>({
@@ -46,7 +64,9 @@ export function UpdateMethodsOfProtectionForm({ certificate }: { certificate: El
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof UpdateMethodsOfProtectionSchema>) => {
+  const onSubmit = async (
+    data: z.infer<typeof UpdateMethodsOfProtectionSchema>,
+  ) => {
     const response = await updateMethodsOfProtection(data);
 
     if (response.status === "success") {
@@ -62,11 +82,17 @@ export function UpdateMethodsOfProtectionForm({ certificate }: { certificate: El
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-1 flex-col"
+      >
         <div className="container mx-auto max-w-screen-xl flex-grow p-6">
           <Header>
             <HeaderGroup>
-              <Link href={"/certificates"} className="inline-flex items-center text-sm font-semibold">
+              <Link
+                href={"/certificates"}
+                className="inline-flex items-center text-sm font-semibold"
+              >
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
@@ -79,8 +105,10 @@ export function UpdateMethodsOfProtectionForm({ certificate }: { certificate: El
                 <CardHeader className="w-full p-0">
                   <CardTitle>Methods of protection</CardTitle>
                   <CardDescription className="text-balance">
-                    This section assesses the condition and adequacy of earthing, bonding, insulation, and safety
-                    provisions, including main earthing, protective bonding, and equipotential bonding.
+                    This section assesses the condition and adequacy of
+                    earthing, bonding, insulation, and safety provisions,
+                    including main earthing, protective bonding, and
+                    equipotential bonding.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-8 p-0">
@@ -92,9 +120,14 @@ export function UpdateMethodsOfProtectionForm({ certificate }: { certificate: El
                       name={item.id}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{item.item + " - " + item.label}</FormLabel>
+                          <FormLabel>
+                            {item.item + " - " + item.label}
+                          </FormLabel>
                           <FormControl>
-                            <RadioGroupComponent onChange={field.onChange} value={field.value || "na"} />
+                            <RadioGroupComponent
+                              onChange={field.onChange}
+                              value={field.value || "na"}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -111,8 +144,15 @@ export function UpdateMethodsOfProtectionForm({ certificate }: { certificate: El
             </Card>
           </div>
         </div>
-        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
-        <UnsavedChangesDialog condition={form.formState.isDirty} action={form.handleSubmit(onSubmit)} />
+        <FormBar
+          form={form}
+          sections={sections}
+          baseUrl={"/certificates/eicr"}
+        />
+        <UnsavedChangesDialog
+          condition={form.formState.isDirty}
+          action={form.handleSubmit(onSubmit)}
+        />
       </form>
     </Form>
   );

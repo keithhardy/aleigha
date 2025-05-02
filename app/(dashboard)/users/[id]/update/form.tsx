@@ -9,11 +9,37 @@ import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { DialogSheet, DialogSheetContent, DialogSheetTitle, DialogSheetTrigger } from "@/components/dialog-sheet";
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/dialog-sheet";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
@@ -21,7 +47,13 @@ import { updateUser } from "./action";
 import { UpdateUserSchema } from "./schema";
 import { SignatureField } from "../../components/signature-field";
 
-export default function UpdateUserForm({ user, clients }: { user: User & { clients: Client[] }; clients: Client[] }) {
+export default function UpdateUserForm({
+  user,
+  clients,
+}: {
+  user: User & { clients: Client[] };
+  clients: Client[];
+}) {
   const { toast } = useToast();
 
   const [userRoleOpen, setRoleOpen] = useState(false);
@@ -91,7 +123,9 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
             <div className="flex flex-col gap-4 p-6 lg:flex-row">
               <CardHeader className="w-full p-0">
                 <CardTitle>User Details</CardTitle>
-                <CardDescription className="text-balance">Please make sure all values are correct.</CardDescription>
+                <CardDescription className="text-balance">
+                  Please make sure all values are correct.
+                </CardDescription>
               </CardHeader>
               <CardContent className="w-full space-y-4 p-0">
                 <FormField
@@ -113,11 +147,19 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Role</FormLabel>
-                      <DialogSheet open={userRoleOpen} onOpenChange={setRoleOpen}>
+                      <DialogSheet
+                        open={userRoleOpen}
+                        onOpenChange={setRoleOpen}
+                      >
                         <DialogSheetTrigger asChild>
-                          <Button variant="outline" className="w-full justify-between">
+                          <Button
+                            variant="outline"
+                            className="w-full justify-between"
+                          >
                             {field.value
-                              ? UserRoles.find((userRole) => userRole.id === field.value)?.name
+                              ? UserRoles.find(
+                                  (userRole) => userRole.id === field.value,
+                                )?.name
                               : "Select role..."}
                             <ChevronsUpDown />
                           </Button>
@@ -134,12 +176,17 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
                                     key={userRole.id}
                                     value={userRole.id}
                                     onSelect={(currentValue) => {
-                                      form.setValue("role", currentValue as UserRole);
+                                      form.setValue(
+                                        "role",
+                                        currentValue as UserRole,
+                                      );
                                       setRoleOpen(false);
                                     }}
                                   >
                                     {userRole.name}
-                                    {userRole.id === field.value ? <Check className="ml-auto" /> : null}
+                                    {userRole.id === field.value ? (
+                                      <Check className="ml-auto" />
+                                    ) : null}
                                   </CommandItem>
                                 ))}
                               </CommandGroup>
@@ -153,10 +200,17 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
                 />
                 <FormItem>
                   <FormLabel>Clients</FormLabel>
-                  <DialogSheet open={userClientOpen} onOpenChange={setClientOpen}>
+                  <DialogSheet
+                    open={userClientOpen}
+                    onOpenChange={setClientOpen}
+                  >
                     <DialogSheetTrigger asChild>
-                      <Button variant="outline" className="w-full justify-between">
-                        {clientsToConnect.length === 0 && clientsToDisconnect.length === 0
+                      <Button
+                        variant="outline"
+                        className="w-full justify-between"
+                      >
+                        {clientsToConnect.length === 0 &&
+                        clientsToDisconnect.length === 0
                           ? user.clients.length === 0
                             ? "Select Clients..."
                             : `${user.clients.length} clients selected`
@@ -172,10 +226,18 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
                           <CommandEmpty>No results found.</CommandEmpty>
                           <CommandGroup>
                             {clients.map((client) => {
-                              const isInDisconnect = clientsToDisconnect.some((c) => c.clientId === client.id);
-                              const isInConnect = clientsToConnect.some((c) => c.clientId === client.id);
-                              const filteredCurrentClients = user.clients.filter((c) => c !== null);
-                              const isInCurrentClients = filteredCurrentClients.some((c) => c.id === client.id);
+                              const isInDisconnect = clientsToDisconnect.some(
+                                (c) => c.clientId === client.id,
+                              );
+                              const isInConnect = clientsToConnect.some(
+                                (c) => c.clientId === client.id,
+                              );
+                              const filteredCurrentClients =
+                                user.clients.filter((c) => c !== null);
+                              const isInCurrentClients =
+                                filteredCurrentClients.some(
+                                  (c) => c.id === client.id,
+                                );
 
                               return (
                                 <CommandItem
@@ -184,7 +246,10 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
                                     if (isInCurrentClients) {
                                       if (isInDisconnect) {
                                         removeFromDisconnect(
-                                          clientsToDisconnect.findIndex((field) => field.clientId === client.id),
+                                          clientsToDisconnect.findIndex(
+                                            (field) =>
+                                              field.clientId === client.id,
+                                          ),
                                         );
                                       } else {
                                         appendToDisconnect({
@@ -194,7 +259,11 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
                                       }
                                     } else {
                                       if (isInConnect) {
-                                        removeFromConnect(clientsToConnect.findIndex((c) => c.clientId === client.id));
+                                        removeFromConnect(
+                                          clientsToConnect.findIndex(
+                                            (c) => c.clientId === client.id,
+                                          ),
+                                        );
                                       } else {
                                         appendToConnect({
                                           clientId: client.id,
@@ -205,10 +274,13 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
                                   }}
                                 >
                                   {client.name}
-                                  {(isInCurrentClients && !isInDisconnect) || isInConnect ? (
+                                  {(isInCurrentClients && !isInDisconnect) ||
+                                  isInConnect ? (
                                     <Check className="ml-auto" />
                                   ) : null}
-                                  {isInCurrentClients && isInDisconnect ? <X className="ml-auto" /> : null}
+                                  {isInCurrentClients && isInDisconnect ? (
+                                    <X className="ml-auto" />
+                                  ) : null}
                                 </CommandItem>
                               );
                             })}
@@ -262,7 +334,10 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
             <CardFooter className="justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
               <p className="text-balance text-sm text-muted-foreground">
                 To add more clients, visit{" "}
-                <Link href={"/clients"} className="inline-flex items-center space-x-1 text-blue-500">
+                <Link
+                  href={"/clients"}
+                  className="inline-flex items-center space-x-1 text-blue-500"
+                >
                   <span>Clients</span>
                   <ExternalLink size={14} />
                 </Link>
@@ -272,7 +347,9 @@ export default function UpdateUserForm({ user, clients }: { user: User & { clien
                 variant="outline"
                 size="sm"
                 type="submit"
-                disabled={!form.formState.isDirty || form.formState.isSubmitting}
+                disabled={
+                  !form.formState.isDirty || form.formState.isSubmitting
+                }
               >
                 {form.formState.isSubmitting ? "Saving..." : "Save"}
               </Button>

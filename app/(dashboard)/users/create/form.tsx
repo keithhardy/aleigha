@@ -8,11 +8,37 @@ import { useState } from "react";
 import { type SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { DialogSheet, DialogSheetContent, DialogSheetTitle, DialogSheetTrigger } from "@/components/dialog-sheet";
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/dialog-sheet";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
@@ -50,7 +76,9 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
     name: "clients",
   });
 
-  const onSubmit: SubmitHandler<z.infer<typeof CreateUserSchema>> = async (data) => {
+  const onSubmit: SubmitHandler<z.infer<typeof CreateUserSchema>> = async (
+    data,
+  ) => {
     const response = await createUserAction(data);
 
     if (response.status === "success") {
@@ -76,7 +104,9 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
             <div className="flex flex-col gap-4 p-6 lg:flex-row">
               <CardHeader className="w-full p-0">
                 <CardTitle>User Details</CardTitle>
-                <CardDescription className="text-balance">Please make sure all values are correct.</CardDescription>
+                <CardDescription className="text-balance">
+                  Please make sure all values are correct.
+                </CardDescription>
               </CardHeader>
               <CardContent className="w-full space-y-4 p-0">
                 <FormField
@@ -98,11 +128,19 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Role</FormLabel>
-                      <DialogSheet open={userRoleOpen} onOpenChange={setRoleOpen}>
+                      <DialogSheet
+                        open={userRoleOpen}
+                        onOpenChange={setRoleOpen}
+                      >
                         <DialogSheetTrigger asChild>
-                          <Button variant="outline" className="w-full justify-between">
+                          <Button
+                            variant="outline"
+                            className="w-full justify-between"
+                          >
                             {field.value
-                              ? UserRoles.find((userRole) => userRole.id === field.value)?.name
+                              ? UserRoles.find(
+                                  (userRole) => userRole.id === field.value,
+                                )?.name
                               : "Select role..."}
                             <ChevronsUpDown />
                           </Button>
@@ -119,12 +157,17 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                                     key={userRole.id}
                                     value={userRole.id}
                                     onSelect={(currentValue) => {
-                                      form.setValue("role", currentValue as UserRole);
+                                      form.setValue(
+                                        "role",
+                                        currentValue as UserRole,
+                                      );
                                       setRoleOpen(false);
                                     }}
                                   >
                                     {userRole.name}
-                                    {userRole.id === field.value ? <Check className="ml-auto" /> : null}
+                                    {userRole.id === field.value ? (
+                                      <Check className="ml-auto" />
+                                    ) : null}
                                   </CommandItem>
                                 ))}
                               </CommandGroup>
@@ -143,9 +186,15 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                     <FormItem>
                       <FormLabel>Clients</FormLabel>
                       <FormControl>
-                        <DialogSheet open={userClientOpen} onOpenChange={setClientOpen}>
+                        <DialogSheet
+                          open={userClientOpen}
+                          onOpenChange={setClientOpen}
+                        >
                           <DialogSheetTrigger asChild>
-                            <Button variant="outline" className="w-full justify-between">
+                            <Button
+                              variant="outline"
+                              className="w-full justify-between"
+                            >
                               {field.value.length === 0
                                 ? "Select Clients..."
                                 : field.value.length === 1
@@ -162,7 +211,9 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                                 <CommandEmpty>No results found.</CommandEmpty>
                                 <CommandGroup>
                                   {clients.map((client) => {
-                                    const isSelected = field.value.some((field) => field.clientId === client.id);
+                                    const isSelected = field.value.some(
+                                      (field) => field.clientId === client.id,
+                                    );
 
                                     return (
                                       <CommandItem
@@ -170,7 +221,8 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                                         onSelect={() => {
                                           if (isSelected) {
                                             const index = field.value.findIndex(
-                                              (field) => field.clientId === client.id,
+                                              (field) =>
+                                                field.clientId === client.id,
                                             );
                                             remove(index);
                                           } else {
@@ -182,7 +234,9 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                                         }}
                                       >
                                         {client.name}
-                                        {isSelected ? <Check className="ml-auto" /> : null}
+                                        {isSelected ? (
+                                          <Check className="ml-auto" />
+                                        ) : null}
                                       </CommandItem>
                                     );
                                   })}
@@ -242,7 +296,9 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                 variant="outline"
                 size="sm"
                 type="submit"
-                disabled={!form.formState.isDirty || form.formState.isSubmitting}
+                disabled={
+                  !form.formState.isDirty || form.formState.isSubmitting
+                }
               >
                 {form.formState.isSubmitting ? "Saving..." : "Save"}
               </Button>

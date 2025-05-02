@@ -10,8 +10,22 @@ import { z } from "zod";
 import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
 import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
 import { sections } from "../../components/sections";
@@ -27,7 +41,9 @@ export function UpdatePresenceOfAdequateArrangementsForm({
 }) {
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof UpdatePresenceOfAdequateArrangementsSchema>>({
+  const form = useForm<
+    z.infer<typeof UpdatePresenceOfAdequateArrangementsSchema>
+  >({
     resolver: zodResolver(UpdatePresenceOfAdequateArrangementsSchema),
     defaultValues: {
       id: certificate.id,
@@ -36,7 +52,9 @@ export function UpdatePresenceOfAdequateArrangementsForm({
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof UpdatePresenceOfAdequateArrangementsSchema>) => {
+  const onSubmit = async (
+    data: z.infer<typeof UpdatePresenceOfAdequateArrangementsSchema>,
+  ) => {
     const response = await updatePresenceOfAdequateArrangements(data);
 
     if (response.status === "success") {
@@ -52,25 +70,38 @@ export function UpdatePresenceOfAdequateArrangementsForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-1 flex-col"
+      >
         <div className="container mx-auto max-w-screen-xl flex-grow p-6">
           <Header>
             <HeaderGroup>
-              <Link href={"/certificates"} className="inline-flex items-center text-sm font-semibold">
+              <Link
+                href={"/certificates"}
+                className="inline-flex items-center text-sm font-semibold"
+              >
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
-              <Heading>Presence of adequate arrangements for parallel or switched alternative sources</Heading>
+              <Heading>
+                Presence of adequate arrangements for parallel or switched
+                alternative sources
+              </Heading>
             </HeaderGroup>
           </Header>
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
-                  <CardTitle>Presence of adequate arrangements for parallel or switched alternative sources</CardTitle>
+                  <CardTitle>
+                    Presence of adequate arrangements for parallel or switched
+                    alternative sources
+                  </CardTitle>
                   <CardDescription className="text-balance">
-                    This section evaluates the presence of suitable arrangements for parallel or switched alternative
-                    power sources, such as microgenerators.
+                    This section evaluates the presence of suitable arrangements
+                    for parallel or switched alternative power sources, such as
+                    microgenerators.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-8 p-0">
@@ -82,9 +113,14 @@ export function UpdatePresenceOfAdequateArrangementsForm({
                       name={item.id}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>{item.item + " - " + item.label}</FormLabel>
+                          <FormLabel>
+                            {item.item + " - " + item.label}
+                          </FormLabel>
                           <FormControl>
-                            <RadioGroupComponent onChange={field.onChange} value={field.value || "na"} />
+                            <RadioGroupComponent
+                              onChange={field.onChange}
+                              value={field.value || "na"}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -101,8 +137,15 @@ export function UpdatePresenceOfAdequateArrangementsForm({
             </Card>
           </div>
         </div>
-        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
-        <UnsavedChangesDialog condition={form.formState.isDirty} action={form.handleSubmit(onSubmit)} />
+        <FormBar
+          form={form}
+          sections={sections}
+          baseUrl={"/certificates/eicr"}
+        />
+        <UnsavedChangesDialog
+          condition={form.formState.isDirty}
+          action={form.handleSubmit(onSubmit)}
+        />
       </form>
     </Form>
   );

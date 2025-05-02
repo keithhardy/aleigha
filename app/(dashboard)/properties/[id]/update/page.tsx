@@ -10,7 +10,11 @@ export const metadata: Metadata = {
   title: pagesConfig.propertyUpdate.metadata.title,
 };
 
-export default async function UpdateProperty({ params }: { params: Promise<{ id: string }> }) {
+export default async function UpdateProperty({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const property = await prisma.property.findUnique({
     where: {
       id: (await params).id,

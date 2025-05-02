@@ -9,7 +9,9 @@ import { ServerActionResponse } from "@/types/server-action-response";
 
 import { CreateUserSchema } from "./schema";
 
-export async function createUserAction(user: z.infer<typeof CreateUserSchema>): Promise<ServerActionResponse<User>> {
+export async function createUserAction(
+  user: z.infer<typeof CreateUserSchema>,
+): Promise<ServerActionResponse<User>> {
   try {
     const formattedClients = user.clients.map((client) => ({
       id: client.clientId,

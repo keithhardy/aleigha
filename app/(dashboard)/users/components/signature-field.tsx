@@ -51,7 +51,8 @@ export function SignatureField({ value, onChange }: ControllerRenderProps) {
               ref={signaturePad}
               onEnd={handleEndSignature}
               canvasProps={{
-                className: "signature-canvas border rounded-md absolute top-0 left-0 w-full h-full bg-white",
+                className:
+                  "signature-canvas border rounded-md absolute top-0 left-0 w-full h-full bg-white",
               }}
             />
           </div>

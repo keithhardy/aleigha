@@ -1,10 +1,22 @@
 import { type Column } from "@tanstack/react-table";
 import { CheckIcon, ListFilterPlus } from "lucide-react";
 
-import { DialogSheet, DialogSheetContent, DialogSheetTitle, DialogSheetTrigger } from "@/components/dialog-sheet";
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/dialog-sheet";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 
 interface FilterProps<TData, TValue> {
@@ -17,7 +29,11 @@ interface FilterProps<TData, TValue> {
   }[];
 }
 
-export function FacetedFilter<TData, TValue>({ column, title, options }: FilterProps<TData, TValue>) {
+export function FacetedFilter<TData, TValue>({
+  column,
+  title,
+  options,
+}: FilterProps<TData, TValue>) {
   const selectedValues = new Set(column?.getFilterValue() as string[]);
 
   return (
@@ -26,7 +42,9 @@ export function FacetedFilter<TData, TValue>({ column, title, options }: FilterP
         <Button variant="outline" size="sm">
           <ListFilterPlus />
           {title}
-          {selectedValues.size > 0 && <Badge variant="secondary">{selectedValues.size} selected</Badge>}
+          {selectedValues.size > 0 && (
+            <Badge variant="secondary">{selectedValues.size} selected</Badge>
+          )}
         </Button>
       </DialogSheetTrigger>
       <DialogSheetContent className="p-0">
@@ -48,13 +66,17 @@ export function FacetedFilter<TData, TValue>({ column, title, options }: FilterP
                         selectedValues.add(option.value);
                       }
                       const filterValues = Array.from(selectedValues);
-                      column?.setFilterValue(filterValues.length ? filterValues : undefined);
+                      column?.setFilterValue(
+                        filterValues.length ? filterValues : undefined,
+                      );
                     }}
                   >
                     <div
                       className={cn(
                         "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
-                        isSelected ? "bg-primary text-primary-foreground" : "opacity-50 [&_svg]:invisible",
+                        isSelected
+                          ? "bg-primary text-primary-foreground"
+                          : "opacity-50 [&_svg]:invisible",
                       )}
                     >
                       <CheckIcon />

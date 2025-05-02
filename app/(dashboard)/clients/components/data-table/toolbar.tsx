@@ -46,7 +46,9 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
     }
   };
 
-  const isFiltered = table.getState().columnFilters.length > 0 || table.getState().globalFilter !== "";
+  const isFiltered =
+    table.getState().columnFilters.length > 0 ||
+    table.getState().globalFilter !== "";
 
   return (
     <>
@@ -84,7 +86,10 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
             variant="outline"
             size="sm"
             onClick={handleDownload}
-            disabled={isDownloadLoading || Object.keys(table.getState().rowSelection).length === 0}
+            disabled={
+              isDownloadLoading ||
+              Object.keys(table.getState().rowSelection).length === 0
+            }
           >
             <Upload />
             Export

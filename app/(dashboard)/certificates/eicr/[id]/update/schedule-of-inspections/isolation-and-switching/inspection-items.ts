@@ -7,7 +7,8 @@ export const inspectionItems = [
   {
     id: "item_7_1B",
     item: "7.1B",
-    label: "Acceptable location - state if local or remote from equipment in question (462; 537.2.7)",
+    label:
+      "Acceptable location - state if local or remote from equipment in question (462; 537.2.7)",
   },
   {
     id: "item_7_1C",
@@ -38,7 +39,8 @@ export const inspectionItems = [
   {
     id: "item_7_2B",
     item: "7.2B",
-    label: "Capable of being secured in the OFF position where not under continuous supervision (464.2)",
+    label:
+      "Capable of being secured in the OFF position where not under continuous supervision (464.2)",
   },
   {
     id: "item_7_2C",
@@ -48,17 +50,20 @@ export const inspectionItems = [
   {
     id: "item_7_2D",
     item: "7.2D",
-    label: "Clearly identified by position and / or durable marking (537.3.2.4)",
+    label:
+      "Clearly identified by position and / or durable marking (537.3.2.4)",
   },
   {
     id: "item_7_3A",
     item: "7.3A",
-    label: "Presence and condition of appropriate devices (465; 537.3.3; 537.4)",
+    label:
+      "Presence and condition of appropriate devices (465; 537.3.3; 537.4)",
   },
   {
     id: "item_7_3B",
     item: "7.3B",
-    label: "Readily accessible for operation where danger might occur (537.3.3.6)",
+    label:
+      "Readily accessible for operation where danger might occur (537.3.3.6)",
   },
   {
     id: "item_7_3C",
@@ -68,12 +73,14 @@ export const inspectionItems = [
   {
     id: "item_7_3D",
     item: "7.3D",
-    label: "Clearly identified by position and / or durable marking (537.3.3.5; 537.3.3.6; 537.4.3; 537.4.4)",
+    label:
+      "Clearly identified by position and / or durable marking (537.3.3.5; 537.3.3.6; 537.4.3; 537.4.4)",
   },
   {
     id: "item_7_4A",
     item: "7.4A",
-    label: "Presence and condition of appropriate devices (537.3.1.1; 537.3.1.2)",
+    label:
+      "Presence and condition of appropriate devices (537.3.1.1; 537.3.1.2)",
   },
   {
     id: "item_7_4B",

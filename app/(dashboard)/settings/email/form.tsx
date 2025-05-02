@@ -7,15 +7,32 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateEmail } from "./action";
 import { UpdateEmailSchema } from "./schema";
 
-export function UpdateEmailForm({ settings }: { settings: (Settings & { address: Address | null }) | null }) {
+export function UpdateEmailForm({
+  settings,
+}: {
+  settings: (Settings & { address: Address | null }) | null;
+}) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -65,7 +82,11 @@ export function UpdateEmailForm({ settings }: { settings: (Settings & { address:
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="Email" className="h-[32px]" />
+                      <Input
+                        {...field}
+                        placeholder="Email"
+                        className="h-[32px]"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -74,7 +95,9 @@ export function UpdateEmailForm({ settings }: { settings: (Settings & { address:
             </CardContent>
           </div>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">Must be a valid email address.</p>
+            <p className="text-sm text-muted-foreground">
+              Must be a valid email address.
+            </p>
             <Button
               variant="outline"
               size="sm"
