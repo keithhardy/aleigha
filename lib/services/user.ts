@@ -1,5 +1,6 @@
-import { prisma } from "@/lib/prisma-client";
 import { Prisma } from "@prisma/client";
+
+import { prisma } from "@/lib/prisma-client";
 
 export async function createUser(data: Prisma.UserCreateInput) {
   try {
