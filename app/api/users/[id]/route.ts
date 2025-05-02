@@ -1,6 +1,13 @@
+import { UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-import { getUser, updateUser, deleteUser } from "@/lib/services/user-services";
+import {
+  getUser,
+  updateUser,
+  deleteUser,
+  updateAuth0User,
+  deleteAuth0User,
+} from "@/lib/services/user-services";
 
 export async function GET(
   req: Request,
@@ -22,8 +29,23 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    const id = (await params).id;
     const data = await req.json();
-    const user = await updateUser((await params).id, data);
+    await updateAuth0User(id, {
+      name: data.name,
+      email: data.email,
+    });
+    const user = await updateUser(id, {
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      signature: data.signature,
+      role: data.role as UserRole,
+      clients: {
+        connect: data.clients.connect,
+        disconnect: data.clients.disconnect,
+      },
+    });
     return NextResponse.json(user, { status: 200 });
   } catch {
     return NextResponse.json(
@@ -38,7 +60,9 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    await deleteUser((await params).id);
+    const id = (await params).id;
+    await deleteAuth0User(id);
+    await deleteUser(id);
     return NextResponse.json(null, { status: 200 });
   } catch {
     return NextResponse.json(

@@ -1,6 +1,6 @@
 "use server";
 
-import { UserRole } from "@prisma/client";
+import { User, UserRole } from "@prisma/client";
 
 import { CreateUserInput, UpdateUserInput } from "@/lib/schemas/user-schemas";
 import {
@@ -21,7 +21,7 @@ export type ServerActionResponse<T> = Promise<{
 
 export async function createUserAction(
   data: CreateUserInput,
-): ServerActionResponse<void> {
+): ServerActionResponse<User> {
   try {
     const auth0User = await createAuth0User({
       connection: "Username-Password-Authentication",
@@ -29,7 +29,7 @@ export async function createUserAction(
       email: data.email,
       password: data.password,
     });
-    await createUser({
+    const user = await createUser({
       name: data.name,
       email: data.email,
       phone: data.phone,
@@ -37,6 +37,7 @@ export async function createUserAction(
       auth0Id: auth0User.user_id,
     });
     return {
+      payload: user,
       status: "success",
       heading: "User Created Successfully",
       message: "The new user has been created.",
@@ -53,13 +54,13 @@ export async function createUserAction(
 export async function updateUserAction(
   id: string,
   data: UpdateUserInput,
-): ServerActionResponse<void> {
+): ServerActionResponse<User> {
   try {
     await updateAuth0User(id, {
       name: data.name,
       email: data.email,
     });
-    await updateUser(id, {
+    const user = await updateUser(id, {
       name: data.name,
       email: data.email,
       phone: data.phone,
@@ -71,6 +72,7 @@ export async function updateUserAction(
       },
     });
     return {
+      payload: user,
       status: "success",
       heading: "User Updated Successfully",
       message: "The user has been updated.",
