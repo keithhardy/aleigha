@@ -14,7 +14,8 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const user = await getUser((await params).id);
+    const { id } = await params;
+    const user = await getUser(id);
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
@@ -29,7 +30,7 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const id = (await params).id;
+    const { id } = await params;
     const data = await req.json();
     await updateAuth0User(id, {
       name: data.name,
@@ -60,7 +61,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const id = (await params).id;
+    const { id } = await params;
     await deleteAuth0User(id);
     await deleteUser(id);
     return NextResponse.json(null, { status: 200 });
