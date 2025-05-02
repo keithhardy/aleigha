@@ -5,7 +5,7 @@ import { Client, UserRole } from "@prisma/client";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { type SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { DialogSheet, DialogSheetContent, DialogSheetTitle, DialogSheetTrigger } from "@/components/dialog-sheet";
@@ -50,7 +50,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
     name: "clients",
   });
 
-  const onSubmit = async (data: z.infer<typeof CreateUserSchema>) => {
+  const onSubmit: SubmitHandler<z.infer<typeof CreateUserSchema>> = async (data) => {
     const response = await createUserAction(data);
 
     if (response.status === "success") {
