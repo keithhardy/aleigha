@@ -7,8 +7,7 @@ export const inspectionItems = [
   {
     id: "item_5_2",
     item: "5.2",
-    label:
-      "Cables correctly supported throughout their run (521.10.202; 522.8.5)",
+    label: "Cables correctly supported throughout their run (521.10.202; 522.8.5)",
   },
   {
     id: "item_5_3",
@@ -18,14 +17,12 @@ export const inspectionItems = [
   {
     id: "item_5_4",
     item: "5.4",
-    label:
-      "Non-sheathed cables protected by enclosure in conduit, ducting or trunking (521.10.1)",
+    label: "Non-sheathed cables protected by enclosure in conduit, ducting or trunking (521.10.1)",
   },
   {
     id: "item_5_5",
     item: "5.5",
-    label:
-      "Suitability of containment systems for continued use (including flexible conduit) (522)",
+    label: "Suitability of containment systems for continued use (including flexible conduit) (522)",
   },
   {
     id: "item_5_6",
@@ -41,26 +38,22 @@ export const inspectionItems = [
   {
     id: "item_5_8",
     item: "5.8",
-    label:
-      "Adequacy of cables for current-carrying capacity with regard for the type and nature of installation (523)",
+    label: "Adequacy of cables for current-carrying capacity with regard for the type and nature of installation (523)",
   },
   {
     id: "item_5_9",
     item: "5.9",
-    label:
-      "Adequacy of protective devices; type and rated current for fault protection (411.3)",
+    label: "Adequacy of protective devices; type and rated current for fault protection (411.3)",
   },
   {
     id: "item_5_10",
     item: "5.10",
-    label:
-      "Presence and adequacy of circuit protective conductors (411.3.1.1; 543.1)",
+    label: "Presence and adequacy of circuit protective conductors (411.3.1.1; 543.1)",
   },
   {
     id: "item_5_11",
     item: "5.11",
-    label:
-      "Coordination between conductors and overload protective devices (433.1; 533.2.1)",
+    label: "Coordination between conductors and overload protective devices (433.1; 533.2.1)",
   },
   {
     id: "item_5_12",
@@ -71,20 +64,17 @@ export const inspectionItems = [
   {
     id: "item_5_13",
     item: "5.13",
-    label:
-      "Where exposed to direct sunlight, cable of a suitable type (522.11.1)",
+    label: "Where exposed to direct sunlight, cable of a suitable type (522.11.1)",
   },
   {
     id: "item_5_14A",
     item: "5.14A",
-    label:
-      "Installed in prescribed zones (see Section D. Extent and limitations) (522.6.202)",
+    label: "Installed in prescribed zones (see Section D. Extent and limitations) (522.6.202)",
   },
   {
     id: "item_5_15",
     item: "5.15",
-    label:
-      "Provision of fire barriers, sealing arrangements and protection against thermal effects (527)",
+    label: "Provision of fire barriers, sealing arrangements and protection against thermal effects (527)",
   },
   {
     id: "item_5_16",
@@ -109,8 +99,7 @@ export const inspectionItems = [
   {
     id: "item_5_20",
     item: "5.20",
-    label:
-      "Single-pole switching or protective devices in line conductors only (132.14.1; 530.3.3)",
+    label: "Single-pole switching or protective devices in line conductors only (132.14.1; 530.3.3)",
   },
   {
     id: "item_5_21",

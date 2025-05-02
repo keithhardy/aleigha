@@ -8,9 +8,7 @@ import { ServerActionResponse } from "@/types/server-action-response";
 
 import { UpdateLogoSchema } from "./schema";
 
-export async function updateLogo(
-  settings: z.infer<typeof UpdateLogoSchema>,
-): Promise<ServerActionResponse<void>> {
+export async function updateLogo(settings: z.infer<typeof UpdateLogoSchema>): Promise<ServerActionResponse<void>> {
   let pictureUrl = "";
 
   try {

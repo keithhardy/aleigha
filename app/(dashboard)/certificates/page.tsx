@@ -18,12 +18,7 @@ export default async function Certificates() {
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
       <PageHeader config={pagesConfig.certificates} />
-      <DataTable
-        columns={columns}
-        data={data}
-        fetchData={getCertificates}
-        toolbar={Toolbar}
-      />
+      <DataTable columns={columns} data={data} fetchData={getCertificates} toolbar={Toolbar} />
     </div>
   );
 }

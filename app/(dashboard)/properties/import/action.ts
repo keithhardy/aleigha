@@ -33,9 +33,7 @@ export async function importProperties(
       trim: true,
     }) as Property[];
 
-    const validatedRecords = records.map((record) =>
-      PropertySchema.parse(record),
-    );
+    const validatedRecords = records.map((record) => PropertySchema.parse(record));
 
     await prisma.$transaction(
       validatedRecords.map((property) =>
@@ -68,8 +66,7 @@ export async function importProperties(
     return {
       status: "error",
       heading: "Property Upload Failed",
-      message:
-        "There was an issue uploading the properties. Please check your File and try again.",
+      message: "There was an issue uploading the properties. Please check your File and try again.",
     };
   }
 }

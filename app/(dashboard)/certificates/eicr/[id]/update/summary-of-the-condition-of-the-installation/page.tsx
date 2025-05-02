@@ -10,20 +10,19 @@ export default async function UpdateSummaryOfTheConditionOfTheInstallation({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const certificate =
-    await prisma.electricalInstallationConditionReport.findFirst({
-      where: {
-        id: (await params).id,
-      },
-      select: {
-        id: true,
-        generalCondition: true,
-        estimatedAgeOfElectricalInstallation: true,
-        evidenceOfAlterations: true,
-        estimatedAgeOfAlterations: true,
-        overallAssessmentOfTheInstallation: true,
-      },
-    });
+  const certificate = await prisma.electricalInstallationConditionReport.findFirst({
+    where: {
+      id: (await params).id,
+    },
+    select: {
+      id: true,
+      generalCondition: true,
+      estimatedAgeOfElectricalInstallation: true,
+      evidenceOfAlterations: true,
+      estimatedAgeOfAlterations: true,
+      overallAssessmentOfTheInstallation: true,
+    },
+  });
 
   if (!certificate) {
     notFound();

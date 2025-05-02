@@ -8,22 +8,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
@@ -95,9 +81,7 @@ export function CreateClientForm() {
             <div className="flex flex-col gap-4 p-6 lg:flex-row">
               <CardHeader className="w-full p-0">
                 <CardTitle>Client Details</CardTitle>
-                <CardDescription className="text-balance">
-                  Please make sure all values are correct.
-                </CardDescription>
+                <CardDescription className="text-balance">Please make sure all values are correct.</CardDescription>
               </CardHeader>
               <CardContent className="w-full space-y-4 p-0">
                 <FormField
@@ -146,11 +130,7 @@ export function CreateClientForm() {
                     <FormItem>
                       <FormLabel>Appointed Person</FormLabel>
                       <FormControl>
-                        <Input
-                          type="tel"
-                          {...field}
-                          autoComplete="appointed-person"
-                        />
+                        <Input type="tel" {...field} autoComplete="appointed-person" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -163,11 +143,7 @@ export function CreateClientForm() {
                     <FormItem>
                       <FormLabel>Company Logo</FormLabel>
                       <FormControl>
-                        <Input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleFileChange}
-                        />
+                        <Input type="file" accept="image/*" onChange={handleFileChange} />
                       </FormControl>
                       <FormMessage />
                       {imagePreview && (
@@ -269,9 +245,7 @@ export function CreateClientForm() {
                 variant="outline"
                 size="sm"
                 type="submit"
-                disabled={
-                  !form.formState.isDirty || form.formState.isSubmitting
-                }
+                disabled={!form.formState.isDirty || form.formState.isSubmitting}
               >
                 {form.formState.isSubmitting ? "Saving..." : "Save"}
               </Button>

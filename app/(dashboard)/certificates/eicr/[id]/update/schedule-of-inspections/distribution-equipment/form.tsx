@@ -10,22 +10,8 @@ import { z } from "zod";
 import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
 import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
 import { sections } from "../../components/sections";
@@ -73,9 +59,7 @@ export function UpdateDistributionEquipmentForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateDistributionEquipmentSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateDistributionEquipmentSchema>) => {
     const response = await updateContractorClientAndInstallation(data);
 
     if (response.status === "success") {
@@ -91,38 +75,25 @@ export function UpdateDistributionEquipmentForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto max-w-screen-xl flex-grow p-6">
           <Header>
             <HeaderGroup>
-              <Link
-                href={"/certificates"}
-                className="inline-flex items-center text-sm font-semibold"
-              >
+              <Link href={"/certificates"} className="inline-flex items-center text-sm font-semibold">
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
-              <Heading>
-                Distribution equipment, including consumer units and
-                distribution boards
-              </Heading>
+              <Heading>Distribution equipment, including consumer units and distribution boards</Heading>
             </HeaderGroup>
           </Header>
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
-                  <CardTitle>
-                    Distribution equipment, including consumer units and
-                    distribution boards
-                  </CardTitle>
+                  <CardTitle>Distribution equipment, including consumer units and distribution boards</CardTitle>
                   <CardDescription className="text-balance">
-                    This section covers the condition of distribution equipment,
-                    including consumer units, circuit breakers, and distribution
-                    boards.
+                    This section covers the condition of distribution equipment, including consumer units, circuit
+                    breakers, and distribution boards.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-8 p-0">
@@ -134,14 +105,9 @@ export function UpdateDistributionEquipmentForm({
                       name={item.id}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
-                            {item.item + " - " + item.label}
-                          </FormLabel>
+                          <FormLabel>{item.item + " - " + item.label}</FormLabel>
                           <FormControl>
-                            <RadioGroupComponent
-                              onChange={field.onChange}
-                              value={field.value || "na"}
-                            />
+                            <RadioGroupComponent onChange={field.onChange} value={field.value || "na"} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -152,22 +118,14 @@ export function UpdateDistributionEquipmentForm({
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
-                  Ensure all distribution equipment and consumer units are
-                  properly inspected.
+                  Ensure all distribution equipment and consumer units are properly inspected.
                 </p>
               </CardFooter>
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
-        <UnsavedChangesDialog
-          condition={form.formState.isDirty}
-          action={form.handleSubmit(onSubmit)}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
+        <UnsavedChangesDialog condition={form.formState.isDirty} action={form.handleSubmit(onSubmit)} />
       </form>
     </Form>
   );

@@ -9,9 +9,7 @@ import { ServerActionResponse } from "@/types/server-action-response";
 import { UpdateFinalCircuitsSchema } from "./schema";
 
 export async function updateFinalCircuits(
-  electricalInstallationConditionReport: z.infer<
-    typeof UpdateFinalCircuitsSchema
-  >,
+  electricalInstallationConditionReport: z.infer<typeof UpdateFinalCircuitsSchema>,
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({

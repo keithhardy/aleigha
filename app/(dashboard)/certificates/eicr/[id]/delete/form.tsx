@@ -22,16 +22,12 @@ export function DeleteElectricalInstallationConditionReportForm({
 
   const { toast } = useToast();
 
-  const form = useForm<
-    z.infer<typeof DeleteElectricalInstallationConditionReportSchema>
-  >({
+  const form = useForm<z.infer<typeof DeleteElectricalInstallationConditionReportSchema>>({
     resolver: zodResolver(DeleteElectricalInstallationConditionReportSchema),
     defaultValues: electricalInstallationConditionReport,
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof DeleteElectricalInstallationConditionReportSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof DeleteElectricalInstallationConditionReportSchema>) => {
     const response = await deleteElectricalInstallationConditionReport(data);
 
     if (response.status === "success") {

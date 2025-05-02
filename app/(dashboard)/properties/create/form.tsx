@@ -10,37 +10,11 @@ import { z } from "zod";
 
 import { createProperty } from "@/app/(dashboard)/properties/create/action";
 import { CreatePropertySchema } from "@/app/(dashboard)/properties/create/schema";
-import {
-  DialogSheet,
-  DialogSheetContent,
-  DialogSheetTitle,
-  DialogSheetTrigger,
-} from "@/components/dialog-sheet";
+import { DialogSheet, DialogSheetContent, DialogSheetTitle, DialogSheetTrigger } from "@/components/dialog-sheet";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
@@ -94,9 +68,7 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
             <div className="flex flex-col gap-4 p-6 lg:flex-row">
               <CardHeader className="w-full p-0">
                 <CardTitle>Client Details</CardTitle>
-                <CardDescription className="text-balance">
-                  Please make sure all values are correct.
-                </CardDescription>
+                <CardDescription className="text-balance">Please make sure all values are correct.</CardDescription>
               </CardHeader>
               <CardContent className="w-full space-y-4 p-0">
                 <FormField
@@ -105,19 +77,11 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Client</FormLabel>
-                      <DialogSheet
-                        open={clientOpen}
-                        onOpenChange={setClientOpen}
-                      >
+                      <DialogSheet open={clientOpen} onOpenChange={setClientOpen}>
                         <DialogSheetTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="w-full justify-between"
-                          >
+                          <Button variant="outline" className="w-full justify-between">
                             {field.value
-                              ? clients.find(
-                                  (client) => client.id === field.value,
-                                )?.name
+                              ? clients.find((client) => client.id === field.value)?.name
                               : "Select client..."}
                             <ChevronsUpDown />
                           </Button>
@@ -139,9 +103,7 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
                                     }}
                                   >
                                     {client.name}
-                                    {client.id === field.value ? (
-                                      <Check className="ml-auto" />
-                                    ) : null}
+                                    {client.id === field.value ? <Check className="ml-auto" /> : null}
                                   </CommandItem>
                                 ))}
                               </CommandGroup>
@@ -264,9 +226,7 @@ export function CreatePropertyForm({ clients }: { clients: Client[] }) {
                 variant="outline"
                 size="sm"
                 type="submit"
-                disabled={
-                  !form.formState.isDirty || form.formState.isSubmitting
-                }
+                disabled={!form.formState.isDirty || form.formState.isSubmitting}
               >
                 {form.formState.isSubmitting ? "Saving..." : "Save"}
               </Button>

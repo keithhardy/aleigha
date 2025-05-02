@@ -7,9 +7,7 @@ import { CreateClientSchema } from "@/app/(dashboard)/clients/create/schema";
 import { prisma } from "@/lib/prisma-client";
 import { ServerActionResponse } from "@/types/server-action-response";
 
-export async function createClient(
-  client: z.infer<typeof CreateClientSchema>,
-): Promise<ServerActionResponse<Client>> {
+export async function createClient(client: z.infer<typeof CreateClientSchema>): Promise<ServerActionResponse<Client>> {
   try {
     await prisma.client.create({
       data: {

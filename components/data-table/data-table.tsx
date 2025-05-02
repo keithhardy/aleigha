@@ -14,14 +14,7 @@ import { useEffect, useState } from "react";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 import { Pagination } from "./pagination";
 
@@ -57,8 +50,7 @@ export function DataTable<TData extends { id: string }, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = useState<TData[]>(initialData);
   const [total, setTotal] = useState<number>(initialTotal);
-  const [facets, setFacets] =
-    useState<Record<string, Record<string, number>>>(initialFacets);
+  const [facets, setFacets] = useState<Record<string, Record<string, number>>>(initialFacets);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState<string>("");
@@ -130,12 +122,7 @@ export function DataTable<TData extends { id: string }, TValue>({
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
                       <TableHead key={header.id}>
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
+                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                       </TableHead>
                     ))}
                   </TableRow>
@@ -147,20 +134,14 @@ export function DataTable<TData extends { id: string }, TValue>({
                     <TableRow key={row.id}>
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id} className="whitespace-nowrap">
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </TableCell>
                       ))}
                     </TableRow>
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell
-                      colSpan={columns.length}
-                      className="py-4 text-center"
-                    >
+                    <TableCell colSpan={columns.length} className="py-4 text-center">
                       No results.
                     </TableCell>
                   </TableRow>

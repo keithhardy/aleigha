@@ -3,24 +3,21 @@ export const observations = [
     id: 1,
     itemNumber: "1.1",
     code: "C1",
-    description:
-      "Exposed live conductors on the distributor's service cable. (ESQCR - Regulation 24)",
+    description: "Exposed live conductors on the distributor's service cable. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 2,
     itemNumber: "1.1",
     code: "C1",
-    description:
-      "Signs of thermal damage to the distributor's service cable. (ESQCR - Regulation 24)",
+    description: "Signs of thermal damage to the distributor's service cable. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 3,
     itemNumber: "1.1",
     code: "C2",
-    description:
-      "Visual signs of deterioration in the distributor's service cable. (ESQCR - Regulation 24)",
+    description: "Visual signs of deterioration in the distributor's service cable. (ESQCR - Regulation 24)",
     location: "",
   },
   {
@@ -51,24 +48,21 @@ export const observations = [
     id: 7,
     itemNumber: "1.2",
     code: "C1",
-    description:
-      "Signs of thermal damage to the distributor's service head. (ESQCR - Regulation 24)",
+    description: "Signs of thermal damage to the distributor's service head. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 8,
     itemNumber: "1.2",
     code: "C1",
-    description:
-      "Damage to the distributor's service head - exposed live parts. (ESQCR - Regulation 24)",
+    description: "Damage to the distributor's service head - exposed live parts. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 9,
     itemNumber: "1.2",
     code: "C2",
-    description:
-      "Distributor's service head leaking bitumen. (ESQCR - Regulation 24)",
+    description: "Distributor's service head leaking bitumen. (ESQCR - Regulation 24)",
     location: "",
   },
   {
@@ -91,16 +85,14 @@ export const observations = [
     id: 12,
     itemNumber: "1.2",
     code: "C2",
-    description:
-      "Fused neutral at the distributor's service head. (ESQCR - Regulation 7)",
+    description: "Fused neutral at the distributor's service head. (ESQCR - Regulation 7)",
     location: "",
   },
   {
     id: 13,
     itemNumber: "1.2",
     code: "C2",
-    description:
-      "Distributor's service head appears to provide no overcurrent protection. (ESQCR - Regulation 24)",
+    description: "Distributor's service head appears to provide no overcurrent protection. (ESQCR - Regulation 24)",
     location: "",
   },
   {
@@ -115,16 +107,14 @@ export const observations = [
     id: 15,
     itemNumber: "1.2",
     code: "R",
-    description:
-      "No security seal to the distributor's service head. (ESQCR - Regulation 24)",
+    description: "No security seal to the distributor's service head. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 16,
     itemNumber: "1.3",
     code: "C2",
-    description:
-      "No earthing conductor from the distributor's intake to the MET. (ESQCR - Regulation 8)",
+    description: "No earthing conductor from the distributor's intake to the MET. (ESQCR - Regulation 8)",
     location: "",
   },
   {
@@ -139,40 +129,35 @@ export const observations = [
     id: 18,
     itemNumber: "1.3",
     code: "C3",
-    description:
-      "Earthing conductor connects to a single stud connection with other protective conductors. (526.2)",
+    description: "Earthing conductor connects to a single stud connection with other protective conductors. (526.2)",
     location: "",
   },
   {
     id: 19,
     itemNumber: "1.3",
     code: "FI",
-    description:
-      "Distributor's earthing conductor appears to be undersized. (ESQCR - Regulation 24)",
+    description: "Distributor's earthing conductor appears to be undersized. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 20,
     itemNumber: "1.4a",
     code: "C1",
-    description:
-      "Exposed live conductors on the distributor supply conductors. (ESQCR - Regulation 24)",
+    description: "Exposed live conductors on the distributor supply conductors. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 21,
     itemNumber: "1.4a",
     code: "C1",
-    description:
-      "Signs of thermal damage to the distributor supply conductors. (ESQCR - Regulation 24)",
+    description: "Signs of thermal damage to the distributor supply conductors. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 22,
     itemNumber: "1.4a",
     code: "C2",
-    description:
-      "Visual signs of deterioration in the distributor supply conductors. (ESQCR - Regulation 24)",
+    description: "Visual signs of deterioration in the distributor supply conductors. (ESQCR - Regulation 24)",
     location: "",
   },
   {
@@ -203,8 +188,7 @@ export const observations = [
     id: 26,
     itemNumber: "1.4a",
     code: "FI",
-    description:
-      "Distributor supply conductors (meter tails) less than 25 mm. (IET On-Site Guide)",
+    description: "Distributor supply conductors (meter tails) less than 25 mm. (IET On-Site Guide)",
     location: "",
   },
   {
@@ -227,16 +211,14 @@ export const observations = [
     id: 29,
     itemNumber: "1.4b",
     code: "C1",
-    description:
-      "Exposed live conductors on the consumer supply conductors. (ESQCR - Regulation 24)",
+    description: "Exposed live conductors on the consumer supply conductors. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 30,
     itemNumber: "1.4b",
     code: "C1",
-    description:
-      "Signs of thermal damage to the distributor supply conductors. (ESQCR - Regulation 24)",
+    description: "Signs of thermal damage to the distributor supply conductors. (ESQCR - Regulation 24)",
     location: "",
   },
   {
@@ -251,8 +233,7 @@ export const observations = [
     id: 32,
     itemNumber: "1.4b",
     code: "C2",
-    description:
-      "Visual signs of deterioration in the consumer supply conductors. (ESQCR - Regulation 24)",
+    description: "Visual signs of deterioration in the consumer supply conductors. (ESQCR - Regulation 24)",
     location: "",
   },
   {
@@ -283,8 +264,7 @@ export const observations = [
     id: 36,
     itemNumber: "1.4b",
     code: "FI",
-    description:
-      "Consumer supply conductors (meter tails) less than 25 mm. (IET On-Site Guide)",
+    description: "Consumer supply conductors (meter tails) less than 25 mm. (IET On-Site Guide)",
     location: "",
   },
   {
@@ -307,32 +287,28 @@ export const observations = [
     id: 39,
     itemNumber: "1.5",
     code: "C1",
-    description:
-      "Termination cover missing from the metering equipment - exposed live parts. (ESQCR - Regulation 24)",
+    description: "Termination cover missing from the metering equipment - exposed live parts. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 40,
     itemNumber: "1.5",
     code: "C1",
-    description:
-      "Signs of thermal damage to the metering equipment. (ESQCR - Regulation 24)",
+    description: "Signs of thermal damage to the metering equipment. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 41,
     itemNumber: "1.5",
     code: "C1",
-    description:
-      "Damage to the metering equipment - exposed live parts. (ESQCR - Regulation 24)",
+    description: "Damage to the metering equipment - exposed live parts. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 42,
     itemNumber: "1.5",
     code: "C2",
-    description:
-      "Damage to the metering equipment - no immediate access to live parts. (ESQCR - Regulation 24)",
+    description: "Damage to the metering equipment - no immediate access to live parts. (ESQCR - Regulation 24)",
     location: "",
   },
   {
@@ -347,56 +323,49 @@ export const observations = [
     id: 44,
     itemNumber: "1.5",
     code: "FI",
-    description:
-      "Evidence of tampering in order to bypass metering equipment. (ESQCR - Regulation 24)",
+    description: "Evidence of tampering in order to bypass metering equipment. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 45,
     itemNumber: "1.5",
     code: "R",
-    description:
-      "No security seal to the metering equipment. (ESQCR - Regulation 24)",
+    description: "No security seal to the metering equipment. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 46,
     itemNumber: "1.6",
     code: "C1",
-    description:
-      "Termination cover missing from the supplier's isolator - exposed live parts. (ESQCR - Regulation 24)",
+    description: "Termination cover missing from the supplier's isolator - exposed live parts. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 47,
     itemNumber: "1.6",
     code: "C1",
-    description:
-      "Signs of thermal damage to the supplier's isolator. (ESQCR - Regulation 24)",
+    description: "Signs of thermal damage to the supplier's isolator. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 48,
     itemNumber: "1.6",
     code: "C1",
-    description:
-      "Damage to the supplier's isolator - exposed live parts. (ESQCR - Regulation 24)",
+    description: "Damage to the supplier's isolator - exposed live parts. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 49,
     itemNumber: "1.6",
     code: "C1",
-    description:
-      "Spare way within the isolator's enclosure missing a blank plate - access to live parts. (416.2.1)",
+    description: "Spare way within the isolator's enclosure missing a blank plate - access to live parts. (416.2.1)",
     location: "",
   },
   {
     id: 50,
     itemNumber: "1.6",
     code: "C2",
-    description:
-      "Damage to the supplier's isolator - no immediate access to live parts. (ESQCR - Regulation 24)",
+    description: "Damage to the supplier's isolator - no immediate access to live parts. (ESQCR - Regulation 24)",
     location: "",
   },
   {
@@ -435,16 +404,14 @@ export const observations = [
     id: 55,
     itemNumber: "1.6",
     code: "R",
-    description:
-      "No security seal to the supplier's side of the isolator. (ESQCR - Regulation 24)",
+    description: "No security seal to the supplier's side of the isolator. (ESQCR - Regulation 24)",
     location: "",
   },
   {
     id: 56,
     itemNumber: "2.3",
     code: "C2",
-    description:
-      "No warning notice(s) informing of additional sources of supply. (514.15.1)",
+    description: "No warning notice(s) informing of additional sources of supply. (514.15.1)",
     location: "",
   },
   {
@@ -507,32 +474,28 @@ export const observations = [
     id: 64,
     itemNumber: "3.2",
     code: "C2",
-    description:
-      "Termination to the earth electrode not protected against corrosion. (542.3.2)",
+    description: "Termination to the earth electrode not protected against corrosion. (542.3.2)",
     location: "",
   },
   {
     id: 65,
     itemNumber: "3.2",
     code: "C2",
-    description:
-      "The external earth fault loop impedance measurement exceeds 200Ω on a TT system. (Table 41.5 Note 2)",
+    description: "The external earth fault loop impedance measurement exceeds 200Ω on a TT system. (Table 41.5 Note 2)",
     location: "",
   },
   {
     id: 66,
     itemNumber: "3.3",
     code: "C2",
-    description:
-      "Earthing conductor's cross-sectional area undersized. (543.1.1)",
+    description: "Earthing conductor's cross-sectional area undersized. (543.1.1)",
     location: "",
   },
   {
     id: 67,
     itemNumber: "3.3",
     code: "FI",
-    description:
-      "Earthing conductor for the installation not sized in accordance with table 54.7.",
+    description: "Earthing conductor for the installation not sized in accordance with table 54.7.",
     location: "",
   },
   {
@@ -547,8 +510,7 @@ export const observations = [
     id: 69,
     itemNumber: "3.4",
     code: "C2",
-    description:
-      "Main earthing terminal's connections not mechanically satisfactory. (542.3.2)",
+    description: "Main earthing terminal's connections not mechanically satisfactory. (542.3.2)",
     location: "",
   },
   {
@@ -562,32 +524,28 @@ export const observations = [
     id: 71,
     itemNumber: "3.5",
     code: "C2",
-    description:
-      "Main protective bonding conductor(s) undersized at 6 mm only - signs of thermal damage. (544.1.1)",
+    description: "Main protective bonding conductor(s) undersized at 6 mm only - signs of thermal damage. (544.1.1)",
     location: "",
   },
   {
     id: 72,
     itemNumber: "3.5",
     code: "C2",
-    description:
-      "Main protective bonding conductor(s) less than 6 mm. (544.1.1)",
+    description: "Main protective bonding conductor(s) less than 6 mm. (544.1.1)",
     location: "",
   },
   {
     id: 73,
     itemNumber: "3.5",
     code: "C3",
-    description:
-      "Main protective bonding conductor(s) undersized at 6 mm only - no signs of thermal damage. (544.1.1)",
+    description: "Main protective bonding conductor(s) undersized at 6 mm only - no signs of thermal damage. (544.1.1)",
     location: "",
   },
   {
     id: 74,
     itemNumber: "3.6",
     code: "C2",
-    description:
-      "Main protective bonding conductor(s) not installed to extraneous-conductive-part(s). (411.3.1.2)",
+    description: "Main protective bonding conductor(s) not installed to extraneous-conductive-part(s). (411.3.1.2)",
     location: "",
   },
   {
@@ -602,8 +560,7 @@ export const observations = [
     id: 76,
     itemNumber: "3.6",
     code: "C2",
-    description:
-      "Main protective bonding conductor connection deemed to be inadequate. (526.1)",
+    description: "Main protective bonding conductor connection deemed to be inadequate. (526.1)",
     location: "",
   },
   {
@@ -618,8 +575,7 @@ export const observations = [
     id: 78,
     itemNumber: "3.6",
     code: "C3",
-    description:
-      "The main protective bonding conductor connection not made before branch pipework. (544.1.2)",
+    description: "The main protective bonding conductor connection not made before branch pipework. (544.1.2)",
     location: "",
   },
   {
@@ -650,8 +606,7 @@ export const observations = [
     id: 82,
     itemNumber: "3.7",
     code: "FI",
-    description:
-      "Supplementary bonding conductor connections not accessible. (543.3.2)",
+    description: "Supplementary bonding conductor connections not accessible. (543.3.2)",
     location: "",
   },
   {
@@ -666,8 +621,7 @@ export const observations = [
     id: 84,
     itemNumber: "4.1",
     code: "C2",
-    description:
-      "Unable to access the consumer unit due to the surrounding cupboard. (513.1)",
+    description: "Unable to access the consumer unit due to the surrounding cupboard. (513.1)",
     location: "",
   },
   {
@@ -681,16 +635,14 @@ export const observations = [
     id: 86,
     itemNumber: "4.10",
     code: "FI",
-    description:
-      "Circuit protective device(s) not or incorrectly identified/ labelled. (514.8.1)",
+    description: "Circuit protective device(s) not or incorrectly identified/ labelled. (514.8.1)",
     location: "",
   },
   {
     id: 87,
     itemNumber: "4.11a",
     code: "C3",
-    description:
-      "Provision of circuit chart/ schedule information not provided. (514.9.1)",
+    description: "Provision of circuit chart/ schedule information not provided. (514.9.1)",
     location: "",
   },
   {
@@ -705,16 +657,14 @@ export const observations = [
     id: 89,
     itemNumber: "4.11c",
     code: "C3",
-    description:
-      "No next inspection recommendation label from the previous inspection. (514.12.1)",
+    description: "No next inspection recommendation label from the previous inspection. (514.12.1)",
     location: "",
   },
   {
     id: 90,
     itemNumber: "4.11d",
     code: "C3",
-    description:
-      "No test six-monthly label where the installation incorporates an RCD. (514.12.2)",
+    description: "No test six-monthly label where the installation incorporates an RCD. (514.12.2)",
     location: "",
   },
   {
@@ -745,8 +695,7 @@ export const observations = [
     id: 94,
     itemNumber: "4.12",
     code: "C2",
-    description:
-      "Miniature circuit breaker found to be of a model recalled by the manufacturer. (421.1.1)",
+    description: "Miniature circuit breaker found to be of a model recalled by the manufacturer. (421.1.1)",
     location: "",
   },
   {
@@ -769,16 +718,14 @@ export const observations = [
     id: 97,
     itemNumber: "4.12",
     code: "C3",
-    description:
-      "Incorrect selectivity of RCDs where protective devices are connected in series. (536.4.1.4)",
+    description: "Incorrect selectivity of RCDs where protective devices are connected in series. (536.4.1.4)",
     location: "",
   },
   {
     id: 98,
     itemNumber: "4.12",
     code: "C3",
-    description:
-      "Overcurrent protective device underrated for the design current. (433.1.1 i)",
+    description: "Overcurrent protective device underrated for the design current. (433.1.1 i)",
     location: "",
   },
   {
@@ -817,16 +764,14 @@ export const observations = [
     id: 103,
     itemNumber: "4.13",
     code: "C2",
-    description:
-      "Single-pole switch, fuse or circuit-breaker inserted in the neutral conductor. (132.14.1)",
+    description: "Single-pole switch, fuse or circuit-breaker inserted in the neutral conductor. (132.14.1)",
     location: "",
   },
   {
     id: 104,
     itemNumber: "4.14",
     code: "C2",
-    description:
-      "No protection against mechanical damage where cables enter metallic enclosure. (522.8.1)",
+    description: "No protection against mechanical damage where cables enter metallic enclosure. (522.8.1)",
     location: "",
   },
   {
@@ -889,8 +834,7 @@ export const observations = [
     id: 112,
     itemNumber: "4.17",
     code: "C3",
-    description:
-      "RCD operating 50% of the device's operating current. (415.1.1)",
+    description: "RCD operating 50% of the device's operating current. (415.1.1)",
     location: "",
   },
   {
@@ -913,24 +857,21 @@ export const observations = [
     id: 115,
     itemNumber: "4.18",
     code: "C2",
-    description:
-      "Use of an SPD that's not designed for a TT earthing system. (534.4.6)",
+    description: "Use of an SPD that's not designed for a TT earthing system. (534.4.6)",
     location: "",
   },
   {
     id: 116,
     itemNumber: "4.18",
     code: "C2",
-    description:
-      "Conductor between the Type 2 SPD and the main earthing terminal less than 6mm. (534.4.10)",
+    description: "Conductor between the Type 2 SPD and the main earthing terminal less than 6mm. (534.4.10)",
     location: "",
   },
   {
     id: 117,
     itemNumber: "4.18",
     code: "C2",
-    description:
-      "Conductor between the Type 1 SPD and the main earthing terminal less than 16mm. (534.4.10)",
+    description: "Conductor between the Type 1 SPD and the main earthing terminal less than 16mm. (534.4.10)",
     location: "",
   },
   {
@@ -969,8 +910,7 @@ export const observations = [
     id: 122,
     itemNumber: "4.18",
     code: "R",
-    description:
-      "SPDs not provided for protection against transient overvoltage. (443.4)",
+    description: "SPDs not provided for protection against transient overvoltage. (443.4)",
     location: "",
   },
   {
@@ -992,24 +932,21 @@ export const observations = [
     id: 125,
     itemNumber: "4.2",
     code: "C2",
-    description:
-      "Manufacturer's fixing screw(s) absent - no immediate access to live parts. (134.1.1)",
+    description: "Manufacturer's fixing screw(s) absent - no immediate access to live parts. (134.1.1)",
     location: "",
   },
   {
     id: 126,
     itemNumber: "4.2",
     code: "C2",
-    description:
-      "Consumer unit not suitably fixed to the fabric of the building. (133.3)",
+    description: "Consumer unit not suitably fixed to the fabric of the building. (133.3)",
     location: "",
   },
   {
     id: 127,
     itemNumber: "4.2",
     code: "C3",
-    description:
-      "Non-manufacturer's fixing screw securing the consumer unit's cover in place. (134.1.1)",
+    description: "Non-manufacturer's fixing screw securing the consumer unit's cover in place. (134.1.1)",
     location: "",
   },
   {
@@ -1024,8 +961,7 @@ export const observations = [
     id: 129,
     itemNumber: "4.20",
     code: "C2",
-    description:
-      "Terminations within the consumer unit below manufacturer's recommended torque settings. (134.1.1)",
+    description: "Terminations within the consumer unit below manufacturer's recommended torque settings. (134.1.1)",
     location: "",
   },
   {
@@ -1040,16 +976,14 @@ export const observations = [
     id: 131,
     itemNumber: "4.20",
     code: "C2",
-    description:
-      "Conductor connections within the consumer unit incorrectly located in terminals. (526.1)",
+    description: "Conductor connections within the consumer unit incorrectly located in terminals. (526.1)",
     location: "",
   },
   {
     id: 132,
     itemNumber: "4.3",
     code: "C1",
-    description:
-      "Horizontal top surface of the consumer unit exceeds IP4X - access to live parts. (416.2.2)",
+    description: "Horizontal top surface of the consumer unit exceeds IP4X - access to live parts. (416.2.2)",
     location: "",
   },
   {
@@ -1064,8 +998,7 @@ export const observations = [
     id: 134,
     itemNumber: "4.3",
     code: "C2",
-    description:
-      "Horizontal top surface of the consumer unit exceeds IP4X - no access to live parts. (416.2.2)",
+    description: "Horizontal top surface of the consumer unit exceeds IP4X - no access to live parts. (416.2.2)",
     location: "",
   },
   {
@@ -1080,16 +1013,14 @@ export const observations = [
     id: 136,
     itemNumber: "4.3",
     code: "C2",
-    description:
-      "Consumer unit not suitable for the location - signs of water ingress. (522.3.1)",
+    description: "Consumer unit not suitable for the location - signs of water ingress. (522.3.1)",
     location: "",
   },
   {
     id: 137,
     itemNumber: "4.3",
     code: "C2",
-    description:
-      "Consumer unit not suitable for the location - signs of dust ingress. (522.4.1)",
+    description: "Consumer unit not suitable for the location - signs of dust ingress. (522.4.1)",
     location: "",
   },
   {
@@ -1136,24 +1067,21 @@ export const observations = [
     id: 143,
     itemNumber: "4.5",
     code: "C1",
-    description:
-      "Consumer unit's enclosure and/ or cover is damaged - access to live parts. (651.2 v)",
+    description: "Consumer unit's enclosure and/ or cover is damaged - access to live parts. (651.2 v)",
     location: "",
   },
   {
     id: 144,
     itemNumber: "4.5",
     code: "C2",
-    description:
-      "Consumer unit's enclosure and/ or cover is damaged - no immediate access to live parts. (651.2 v)",
+    description: "Consumer unit's enclosure and/ or cover is damaged - no immediate access to live parts. (651.2 v)",
     location: "",
   },
   {
     id: 145,
     itemNumber: "4.5",
     code: "C3",
-    description:
-      "Consumer unit's protective device access flap absent or damaged. (651.2 v)",
+    description: "Consumer unit's protective device access flap absent or damaged. (651.2 v)",
     location: "",
   },
   {
@@ -1176,40 +1104,35 @@ export const observations = [
     id: 148,
     itemNumber: "4.7",
     code: "C2",
-    description:
-      "The main switch does not provide isolation of the installation. (643.10)",
+    description: "The main switch does not provide isolation of the installation. (643.10)",
     location: "",
   },
   {
     id: 149,
     itemNumber: "4.8",
     code: "C2",
-    description:
-      "The main switch is not capable of being secured in the off position. (643.10)",
+    description: "The main switch is not capable of being secured in the off position. (643.10)",
     location: "",
   },
   {
     id: 150,
     itemNumber: "4.9",
     code: "C2",
-    description:
-      "RCD's manual test button fails to operate the device. (643.10)",
+    description: "RCD's manual test button fails to operate the device. (643.10)",
     location: "",
   },
   {
     id: 151,
     itemNumber: "4.9",
     code: "C2",
-    description:
-      "AFDD's manual test button fails to operate the device. (643.10)",
+    description: "AFDD's manual test button fails to operate the device. (643.10)",
     location: "",
   },
   {
     id: 152,
     itemNumber: "4.9",
     code: "C2",
-    description:
-      "Circuit-breaker failing to operate correctly during a functional test. (643.10)",
+    description: "Circuit-breaker failing to operate correctly during a functional test. (643.10)",
     location: "",
   },
   {
@@ -1224,32 +1147,28 @@ export const observations = [
     id: 154,
     itemNumber: "5.1",
     code: "C2",
-    description:
-      "Incorrect identification to neutral conductor(s). (514.3.1 i)",
+    description: "Incorrect identification to neutral conductor(s). (514.3.1 i)",
     location: "",
   },
   {
     id: 155,
     itemNumber: "5.1",
     code: "C2",
-    description:
-      "Incorrect identification to circuit protective conductor(s). (514.4.2)",
+    description: "Incorrect identification to circuit protective conductor(s). (514.4.2)",
     location: "",
   },
   {
     id: 156,
     itemNumber: "5.1",
     code: "C3",
-    description:
-      "Incorrect identification to line conductor(s) - another line conductor colour used. (514.3.1 i)",
+    description: "Incorrect identification to line conductor(s) - another line conductor colour used. (514.3.1 i)",
     location: "",
   },
   {
     id: 157,
     itemNumber: "5.10",
     code: "C2",
-    description:
-      "PVC/ PVC cables buried within the ground - liable impact damage. (522.6.1)",
+    description: "PVC/ PVC cables buried within the ground - liable impact damage. (522.6.1)",
     location: "",
   },
   {
@@ -1264,16 +1183,14 @@ export const observations = [
     id: 159,
     itemNumber: "5.10",
     code: "C2",
-    description:
-      "PVC/ PVC cables not installed within specified zones. (522.6.202)",
+    description: "PVC/ PVC cables not installed within specified zones. (522.6.202)",
     location: "",
   },
   {
     id: 160,
     itemNumber: "5.10",
     code: "C2",
-    description:
-      "SWA buried within the ground with steel strands not connected to earth. (522.8.10)",
+    description: "SWA buried within the ground with steel strands not connected to earth. (522.8.10)",
     location: "",
   },
   {
@@ -1336,16 +1253,14 @@ export const observations = [
     id: 168,
     itemNumber: "5.13",
     code: "C3",
-    description:
-      "Band I & Band II cables contained within the same wiring system. (528.1)",
+    description: "Band I & Band II cables contained within the same wiring system. (528.1)",
     location: "",
   },
   {
     id: 169,
     itemNumber: "5.14",
     code: "C3",
-    description:
-      "Data & power cables contained within the same wiring system. (528.2)",
+    description: "Data & power cables contained within the same wiring system. (528.2)",
     location: "",
   },
   {
@@ -1376,8 +1291,7 @@ export const observations = [
     id: 173,
     itemNumber: "5.16a",
     code: "C1",
-    description:
-      "Connection between conductors or equipment not soundly made - signs of thermal damage. (651.2 ii)",
+    description: "Connection between conductors or equipment not soundly made - signs of thermal damage. (651.2 ii)",
     location: "",
   },
   {
@@ -1391,16 +1305,14 @@ export const observations = [
     id: 175,
     itemNumber: "5.16a",
     code: "C2",
-    description:
-      "Connection between conductors or equipment not soundly made. (526.1)",
+    description: "Connection between conductors or equipment not soundly made. (526.1)",
     location: "",
   },
   {
     id: 176,
     itemNumber: "5.16a",
     code: "C2",
-    description:
-      "Conductor's cores/ strands have been cut to fit terminations. (526.1)",
+    description: "Conductor's cores/ strands have been cut to fit terminations. (526.1)",
     location: "",
   },
   {
@@ -1414,16 +1326,14 @@ export const observations = [
     id: 178,
     itemNumber: "5.16a",
     code: "C2",
-    description:
-      "No continuity of protective conductors to the final circuit. (643.2.1)",
+    description: "No continuity of protective conductors to the final circuit. (643.2.1)",
     location: "",
   },
   {
     id: 179,
     itemNumber: "5.16a",
     code: "C2",
-    description:
-      "Inappropriately sized through crimps used to extend conductors. (526.1)",
+    description: "Inappropriately sized through crimps used to extend conductors. (526.1)",
     location: "",
   },
   {
@@ -1438,80 +1348,70 @@ export const observations = [
     id: 181,
     itemNumber: "5.16a",
     code: "FI",
-    description:
-      "Higher than expected end-to-end continuity to the ring final conductor(s). (526.1)",
+    description: "Higher than expected end-to-end continuity to the ring final conductor(s). (526.1)",
     location: "",
   },
   {
     id: 182,
     itemNumber: "5.16a",
     code: "FI",
-    description:
-      "Higher than expected R1+R2 measurement taken to the final circuit. (526.1)",
+    description: "Higher than expected R1+R2 measurement taken to the final circuit. (526.1)",
     location: "",
   },
   {
     id: 183,
     itemNumber: "5.16a",
     code: "FI",
-    description:
-      "Higher than expected R2 measurement taken to the final circuit. (526.1)",
+    description: "Higher than expected R2 measurement taken to the final circuit. (526.1)",
     location: "",
   },
   {
     id: 184,
     itemNumber: "5.16b",
     code: "C2",
-    description:
-      "Basic insulation of a conductor visible outside of enclosure. (526.8)",
+    description: "Basic insulation of a conductor visible outside of enclosure. (526.8)",
     location: "",
   },
   {
     id: 185,
     itemNumber: "5.16c",
     code: "C1",
-    description:
-      "Connection of live conductors is not adequately enclosed - exposed live parts. (526.5)",
+    description: "Connection of live conductors is not adequately enclosed - exposed live parts. (526.5)",
     location: "",
   },
   {
     id: 186,
     itemNumber: "5.16d",
     code: "C2",
-    description:
-      "SWA cable gland not adequately installed - mechanical strain on terminations. (522.8.5)",
+    description: "SWA cable gland not adequately installed - mechanical strain on terminations. (522.8.5)",
     location: "",
   },
   {
     id: 187,
     itemNumber: "5.16d",
     code: "C2",
-    description:
-      "Flexible cable gland not adequately installed - mechanical strain on terminations. (522.8.5)",
+    description: "Flexible cable gland not adequately installed - mechanical strain on terminations. (522.8.5)",
     location: "",
   },
   {
     id: 188,
     itemNumber: "5.16d",
     code: "C2",
-    description:
-      "Cable entry to enclosure with sharp edges - liable to damage. (522.8.11)",
+    description: "Cable entry to enclosure with sharp edges - liable to damage. (522.8.11)",
     location: "",
   },
   {
     id: 189,
     itemNumber: "5.16d",
     code: "C3",
-    description:
-      "SWA cable gland not adequately installed - no mechanical strain on terminations. (522.8.5)",
+    description: "SWA cable gland not adequately installed - no mechanical strain on terminations. (522.8.5)",
     location: "",
   },
   {
     id: 190,
     itemNumber: "5.16d",
     code: "C3",
-    description:
-      "Flexible cable gland not adequately installed - no mechanical strain on terminations. (522.8.5)",
+    description: "Flexible cable gland not adequately installed - no mechanical strain on terminations. (522.8.5)",
     location: "",
   },
   {
@@ -1525,16 +1425,14 @@ export const observations = [
     id: 192,
     itemNumber: "5.17",
     code: "C1",
-    description:
-      "Accessory not adequately secure - exposed live parts. (416.1)",
+    description: "Accessory not adequately secure - exposed live parts. (416.1)",
     location: "",
   },
   {
     id: 193,
     itemNumber: "5.17",
     code: "C2",
-    description:
-      "Accessory damaged - potential to give access to live parts under continued use. (651.2 v)",
+    description: "Accessory damaged - potential to give access to live parts under continued use. (651.2 v)",
     location: "",
   },
   {
@@ -1549,8 +1447,7 @@ export const observations = [
     id: 195,
     itemNumber: "5.17",
     code: "C3",
-    description:
-      "Accessory not adequately secure - tool required to access to live parts. (134.1.1)",
+    description: "Accessory not adequately secure - tool required to access to live parts. (134.1.1)",
     location: "",
   },
   {
@@ -1634,32 +1531,28 @@ export const observations = [
     id: 206,
     itemNumber: "5.3",
     code: "C1",
-    description:
-      "Damage to the cables outer sheath and basic insulation exposing live conductors. (416.1)",
+    description: "Damage to the cables outer sheath and basic insulation exposing live conductors. (416.1)",
     location: "",
   },
   {
     id: 207,
     itemNumber: "5.3",
     code: "C2",
-    description:
-      "Damage to the cables outer sheath exposing basic insulation. (416.1)",
+    description: "Damage to the cables outer sheath exposing basic insulation. (416.1)",
     location: "",
   },
   {
     id: 208,
     itemNumber: "5.3",
     code: "C2",
-    description:
-      "Presence of degraded di-isoctyl phthalate (green goo/ slime) to insulation and conductors. (651.2 v)",
+    description: "Presence of degraded di-isoctyl phthalate (green goo/ slime) to insulation and conductors. (651.2 v)",
     location: "",
   },
   {
     id: 209,
     itemNumber: "5.3",
     code: "C2",
-    description:
-      "Visual signs of breakdown and deterioration to conductor's insulation. (651.2 v)",
+    description: "Visual signs of breakdown and deterioration to conductor's insulation. (651.2 v)",
     location: "",
   },
   {
@@ -1673,24 +1566,21 @@ export const observations = [
     id: 211,
     itemNumber: "5.3",
     code: "FI",
-    description:
-      "Insulation resistance measurement(s) below 20 MΩ. (IET Guidance Note 3)",
+    description: "Insulation resistance measurement(s) below 20 MΩ. (IET Guidance Note 3)",
     location: "",
   },
   {
     id: 212,
     itemNumber: "5.4",
     code: "C2",
-    description:
-      "Trunking lid absent - exposed single insulated conductors. (521.10.1)",
+    description: "Trunking lid absent - exposed single insulated conductors. (521.10.1)",
     location: "",
   },
   {
     id: 213,
     itemNumber: "5.4",
     code: "C2",
-    description:
-      "Trunking lid absent - exposed basic insulation of conductors. (526.8)",
+    description: "Trunking lid absent - exposed basic insulation of conductors. (526.8)",
     location: "",
   },
   {
@@ -1705,8 +1595,7 @@ export const observations = [
     id: 215,
     itemNumber: "5.5",
     code: "C2",
-    description:
-      "The loading of the circuit exceeds the current carrying capacity of the cable. (523)",
+    description: "The loading of the circuit exceeds the current carrying capacity of the cable. (523)",
     location: "",
   },
   {
@@ -1736,8 +1625,7 @@ export const observations = [
     id: 219,
     itemNumber: "5.6",
     code: "C2",
-    description:
-      "No overcurrent protective device where an RCD is the sole means of protection. (415.1.2)",
+    description: "No overcurrent protective device where an RCD is the sole means of protection. (415.1.2)",
     location: "",
   },
   {
@@ -1752,24 +1640,21 @@ export const observations = [
     id: 221,
     itemNumber: "5.7",
     code: "C2",
-    description:
-      "Lighting circuit with no circuit protective conductor(s) - Class I accessories. (411.3.1.1)",
+    description: "Lighting circuit with no circuit protective conductor(s) - Class I accessories. (411.3.1.1)",
     location: "",
   },
   {
     id: 222,
     itemNumber: "5.7",
     code: "C2",
-    description:
-      "Exposed-conductive-part(s) not connected to a protective conductor. (411.3.1.1)",
+    description: "Exposed-conductive-part(s) not connected to a protective conductor. (411.3.1.1)",
     location: "",
   },
   {
     id: 223,
     itemNumber: "5.7",
     code: "C2",
-    description:
-      "Socket outlet with no circuit protective conductor. (411.3.1.1)",
+    description: "Socket outlet with no circuit protective conductor. (411.3.1.1)",
     location: "",
   },
   {
@@ -1792,16 +1677,14 @@ export const observations = [
     id: 226,
     itemNumber: "5.7",
     code: "C3",
-    description:
-      "Lighting circuit with no circuit protective conductor(s) - Class II accessories. (411.3.1.1)",
+    description: "Lighting circuit with no circuit protective conductor(s) - Class II accessories. (411.3.1.1)",
     location: "",
   },
   {
     id: 227,
     itemNumber: "5.7",
     code: "C3",
-    description:
-      "2.5mm ring final circuit with a 1.0mm circuit protective conductor(s). (543.1.1)",
+    description: "2.5mm ring final circuit with a 1.0mm circuit protective conductor(s). (543.1.1)",
     location: "",
   },
   {
@@ -1824,16 +1707,14 @@ export const observations = [
     id: 230,
     itemNumber: "5.8",
     code: "C2",
-    description:
-      "Overcurrent protective device overrated for the cable's current carrying capacity. (433.1.1 ii)",
+    description: "Overcurrent protective device overrated for the cable's current carrying capacity. (433.1.1 ii)",
     location: "",
   },
   {
     id: 231,
     itemNumber: "5.8",
     code: "C2",
-    description:
-      "Neutral is shared by separately protected final circuits. (314.4)",
+    description: "Neutral is shared by separately protected final circuits. (314.4)",
     location: "",
   },
   {
@@ -1856,8 +1737,7 @@ export const observations = [
     id: 234,
     itemNumber: "5.9",
     code: "C2",
-    description:
-      "Presence of Vulcanised India Rubber cables within final circuits. (651.2)",
+    description: "Presence of Vulcanised India Rubber cables within final circuits. (651.2)",
     location: "",
   },
   {
@@ -1872,8 +1752,7 @@ export const observations = [
     id: 236,
     itemNumber: "5.9",
     code: "C2",
-    description:
-      "PVC/ PVC cables exposed to direct sunlight - showing signs of breakdown. (522.11.1)",
+    description: "PVC/ PVC cables exposed to direct sunlight - showing signs of breakdown. (522.11.1)",
     location: "",
   },
   {
@@ -1888,8 +1767,7 @@ export const observations = [
     id: 238,
     itemNumber: "5.9",
     code: "C2",
-    description:
-      "Accessory inappropriately located in proximity to the cooker - signs of thermal damage. (522.2.1)",
+    description: "Accessory inappropriately located in proximity to the cooker - signs of thermal damage. (522.2.1)",
     location: "",
   },
   {
@@ -1904,24 +1782,21 @@ export const observations = [
     id: 240,
     itemNumber: "5.9",
     code: "C2",
-    description:
-      "Accessory exposed to weather conditions without the required degree of ingress protection. (522.3.1)",
+    description: "Accessory exposed to weather conditions without the required degree of ingress protection. (522.3.1)",
     location: "",
   },
   {
     id: 241,
     itemNumber: "5.9",
     code: "C2",
-    description:
-      "Accessory not suitable for the location - signs of water ingress. (522.3.1)",
+    description: "Accessory not suitable for the location - signs of water ingress. (522.3.1)",
     location: "",
   },
   {
     id: 242,
     itemNumber: "5.9",
     code: "C2",
-    description:
-      "Accessory not suitable for the location - signs of dust ingress. (522.4.1)",
+    description: "Accessory not suitable for the location - signs of dust ingress. (522.4.1)",
     location: "",
   },
   {
@@ -1936,24 +1811,21 @@ export const observations = [
     id: 244,
     itemNumber: "5.9",
     code: "C3",
-    description:
-      "Insufficient number of socket-outlets - extension leads/ multi adapters utilised. (553.1.7)",
+    description: "Insufficient number of socket-outlets - extension leads/ multi adapters utilised. (553.1.7)",
     location: "",
   },
   {
     id: 245,
     itemNumber: "5.9",
     code: "C3",
-    description:
-      "PVC/ PVC cables exposed to direct sunlight - showing no signs of breakdown. (522.11.1)",
+    description: "PVC/ PVC cables exposed to direct sunlight - showing no signs of breakdown. (522.11.1)",
     location: "",
   },
   {
     id: 246,
     itemNumber: "5.9",
     code: "C3",
-    description:
-      "Accessory inappropriately located in proximity to the cooker - no signs of thermal damage. (522.2.1)",
+    description: "Accessory inappropriately located in proximity to the cooker - no signs of thermal damage. (522.2.1)",
     location: "",
   },
   {
@@ -2031,40 +1903,35 @@ export const observations = [
     id: 256,
     itemNumber: "6.3a",
     code: "C3",
-    description:
-      "No warning label to identify where live parts cannot be isolated by a single device. (514.11.1)",
+    description: "No warning label to identify where live parts cannot be isolated by a single device. (514.11.1)",
     location: "",
   },
   {
     id: 257,
     itemNumber: "7.1",
     code: "C1",
-    description:
-      "Horizontal top surface of equipment exceeds IP4X - access to live parts. (416.2.2)",
+    description: "Horizontal top surface of equipment exceeds IP4X - access to live parts. (416.2.2)",
     location: "",
   },
   {
     id: 258,
     itemNumber: "7.1",
     code: "C1",
-    description:
-      "Underside and/ or parallel surface(s) of equipment exceeds IP2X - access to live parts. (416.2.1)",
+    description: "Underside and/ or parallel surface(s) of equipment exceeds IP2X - access to live parts. (416.2.1)",
     location: "",
   },
   {
     id: 259,
     itemNumber: "7.1",
     code: "C2",
-    description:
-      "Horizontal top surface of equipment exceeds IP4X - no access to live parts. (416.2.2)",
+    description: "Horizontal top surface of equipment exceeds IP4X - no access to live parts. (416.2.2)",
     location: "",
   },
   {
     id: 260,
     itemNumber: "7.1",
     code: "C2",
-    description:
-      "Underside and/ or parallel surface(s) of equipment exceeds IP2X - no access to live parts. (416.2.1)",
+    description: "Underside and/ or parallel surface(s) of equipment exceeds IP2X - no access to live parts. (416.2.1)",
     location: "",
   },
   {
@@ -2087,24 +1954,21 @@ export const observations = [
     id: 263,
     itemNumber: "7.3",
     code: "C1",
-    description:
-      "Equipment's enclosure damaged - access to live parts. (651.2 v)",
+    description: "Equipment's enclosure damaged - access to live parts. (651.2 v)",
     location: "",
   },
   {
     id: 264,
     itemNumber: "7.3",
     code: "C2",
-    description:
-      "Equipment's enclosure damaged - no immediate access to live parts. (651.2 v)",
+    description: "Equipment's enclosure damaged - no immediate access to live parts. (651.2 v)",
     location: "",
   },
   {
     id: 265,
     itemNumber: "7.4",
     code: "C2",
-    description:
-      "Equipment not suitable for the environment due to external influences. (512.2.1)",
+    description: "Equipment not suitable for the environment due to external influences. (512.2.1)",
     location: "",
   },
   {
@@ -2126,40 +1990,35 @@ export const observations = [
     id: 268,
     itemNumber: "7.5",
     code: "C2",
-    description:
-      "Equipment's cover fixing screw(s) absent - no immediate access to live parts. (134.1.1)",
+    description: "Equipment's cover fixing screw(s) absent - no immediate access to live parts. (134.1.1)",
     location: "",
   },
   {
     id: 269,
     itemNumber: "7.5",
     code: "C2",
-    description:
-      "Equipment not suitably fixed to the fabric of the building. (133.3)",
+    description: "Equipment not suitably fixed to the fabric of the building. (133.3)",
     location: "",
   },
   {
     id: 270,
     itemNumber: "7.5",
     code: "C3",
-    description:
-      "Non-manufacturer's fixing screw securing the equipment's cover in place. (134.1.1)",
+    description: "Non-manufacturer's fixing screw securing the equipment's cover in place. (134.1.1)",
     location: "",
   },
   {
     id: 271,
     itemNumber: "7.6",
     code: "C2",
-    description:
-      "Downlighters do not have in-built fire protection - room above. (527.1.2)",
+    description: "Downlighters do not have in-built fire protection - room above. (527.1.2)",
     location: "",
   },
   {
     id: 272,
     itemNumber: "7.6",
     code: "C3",
-    description:
-      "Downlighters do not have in-built fire protection - no room above. (527.1.2)",
+    description: "Downlighters do not have in-built fire protection - no room above. (527.1.2)",
     location: "",
   },
   {
@@ -2190,24 +2049,21 @@ export const observations = [
     id: 276,
     itemNumber: "7.7b",
     code: "C2",
-    description:
-      "Downlighter(s) installed near combustible materials. (421.1.2)",
+    description: "Downlighter(s) installed near combustible materials. (421.1.2)",
     location: "",
   },
   {
     id: 277,
     itemNumber: "7.7c",
     code: "C2",
-    description:
-      "Signs of overheating to the downlight's surrounding building fabric. (559.4.1)",
+    description: "Signs of overheating to the downlight's surrounding building fabric. (559.4.1)",
     location: "",
   },
   {
     id: 278,
     itemNumber: "7.7d",
     code: "C1",
-    description:
-      "Signs of overheating to the downlight's conductors/ terminations. (526.1)",
+    description: "Signs of overheating to the downlight's conductors/ terminations. (526.1)",
     location: "",
   },
   {
@@ -2238,16 +2094,14 @@ export const observations = [
     id: 282,
     itemNumber: "8.3",
     code: "C2",
-    description:
-      "Shaver socket does not comply to BS EN 61558-2-5. (701.512.3)",
+    description: "Shaver socket does not comply to BS EN 61558-2-5. (701.512.3)",
     location: "",
   },
   {
     id: 283,
     itemNumber: "8.3",
     code: "FI",
-    description:
-      "Unable to confirm whether the shaver socket complies BS EN 61558-2-5. (701.512.3)",
+    description: "Unable to confirm whether the shaver socket complies BS EN 61558-2-5. (701.512.3)",
     location: "",
   },
   {
@@ -2302,80 +2156,70 @@ export const observations = [
     id: 290,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "No fire detection system in situ. (BS 5839‐6:2019 Clause 4.2)",
+    description: "No fire detection system in situ. (BS 5839‐6:2019 Clause 4.2)",
     location: "",
   },
   {
     id: 291,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Fire detection system does not provide a coverage level of LD2. (BS 5839‐6:2019 Clause 9.2)",
+    description: "Fire detection system does not provide a coverage level of LD2. (BS 5839‐6:2019 Clause 9.2)",
     location: "",
   },
   {
     id: 292,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Fire detection system not interlinked. (BS 5839‐6:2019 Clause 13.2)",
+    description: "Fire detection system not interlinked. (BS 5839‐6:2019 Clause 13.2)",
     location: "",
   },
   {
     id: 293,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Fire detection system to Grade F only. (BS 5839‐6:2019 Clause 9.2)",
+    description: "Fire detection system to Grade F only. (BS 5839‐6:2019 Clause 9.2)",
     location: "",
   },
   {
     id: 294,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Fire (smoke/ heat/ multi) detector head missing. (BS 5839‐6:2019 Clause 26.2)",
+    description: "Fire (smoke/ heat/ multi) detector head missing. (BS 5839‐6:2019 Clause 26.2)",
     location: "",
   },
   {
     id: 295,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Fire (smoke/ heat/ multi) detector damaged. (BS 5839‐6:2019 Clause 26.2)",
+    description: "Fire (smoke/ heat/ multi) detector damaged. (BS 5839‐6:2019 Clause 26.2)",
     location: "",
   },
   {
     id: 296,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Fire (smoke/ heat/ multi) detector heavily painted. (BS 5839‐6:2019 Clause 26.2)",
+    description: "Fire (smoke/ heat/ multi) detector heavily painted. (BS 5839‐6:2019 Clause 26.2)",
     location: "",
   },
   {
     id: 297,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Fire (smoke/ heat/ multi) detector no visible expiry date. (BS 5839‐6:2019 Clause 26.2)",
+    description: "Fire (smoke/ heat/ multi) detector no visible expiry date. (BS 5839‐6:2019 Clause 26.2)",
     location: "",
   },
   {
     id: 298,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Fire (smoke/ heat/ multi) detector has expired. (BS 5839‐6:2019 Clause 26.2)",
+    description: "Fire (smoke/ heat/ multi) detector has expired. (BS 5839‐6:2019 Clause 26.2)",
     location: "",
   },
   {
     id: 299,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Fire (smoke/ heat/ multi) detector expires within this report's recommended date of next inspection.",
+    description: "Fire (smoke/ heat/ multi) detector expires within this report's recommended date of next inspection.",
     location: "",
   },
   {
@@ -2404,16 +2248,14 @@ export const observations = [
     id: 303,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Fire (smoke/ heat/ multi) detector back-up battery depleted. (BS 5839‐6:2019 Clause 26.2)",
+    description: "Fire (smoke/ heat/ multi) detector back-up battery depleted. (BS 5839‐6:2019 Clause 26.2)",
     location: "",
   },
   {
     id: 304,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Unsuitable detector type for the area. (BS 5839‐6:2019 Annex I.2)",
+    description: "Unsuitable detector type for the area. (BS 5839‐6:2019 Annex I.2)",
     location: "",
   },
   {
@@ -2428,48 +2270,42 @@ export const observations = [
     id: 306,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Carbon monoxide detector head missing. (BS EN 50292:2013 Clause 7.7)",
+    description: "Carbon monoxide detector head missing. (BS EN 50292:2013 Clause 7.7)",
     location: "",
   },
   {
     id: 307,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Carbon monoxide detector damaged. (BS EN 50292:2013 Clause 7.7)",
+    description: "Carbon monoxide detector damaged. (BS EN 50292:2013 Clause 7.7)",
     location: "",
   },
   {
     id: 308,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Carbon monoxide detector heavily painted. (BS EN 50292:2013 Clause 7.7)",
+    description: "Carbon monoxide detector heavily painted. (BS EN 50292:2013 Clause 7.7)",
     location: "",
   },
   {
     id: 309,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Carbon monoxide detector no visible expiry date. (BS EN 50292:2013 Clause 7.8)",
+    description: "Carbon monoxide detector no visible expiry date. (BS EN 50292:2013 Clause 7.8)",
     location: "",
   },
   {
     id: 310,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Carbon monoxide detector has expired. (BS EN 50292:2013 Clause 7.8)",
+    description: "Carbon monoxide detector has expired. (BS EN 50292:2013 Clause 7.8)",
     location: "",
   },
   {
     id: 311,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Carbon monoxide detector expires within this report's recommended date of next inspection.",
+    description: "Carbon monoxide detector expires within this report's recommended date of next inspection.",
     location: "",
   },
   {
@@ -2490,24 +2326,21 @@ export const observations = [
     id: 314,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Carbon monoxide detector not sounding when the test button operated. (BS EN 50292:2013 Clause 7.7)",
+    description: "Carbon monoxide detector not sounding when the test button operated. (BS EN 50292:2013 Clause 7.7)",
     location: "",
   },
   {
     id: 315,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Carbon monoxide detector back-up battery depleted. (BS EN 50292:2013 Clause 7.8)",
+    description: "Carbon monoxide detector back-up battery depleted. (BS EN 50292:2013 Clause 7.8)",
     location: "",
   },
   {
     id: 316,
     itemNumber: "9.0",
     code: "R",
-    description:
-      "Fire detection system does not provide a coverage level of LD1. (BS 5839‐6:2019 Clause 9.2)",
+    description: "Fire detection system does not provide a coverage level of LD1. (BS 5839‐6:2019 Clause 9.2)",
     location: "",
   },
   {

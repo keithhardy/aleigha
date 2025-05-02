@@ -24,8 +24,7 @@ export async function GET() {
     status: 200,
     headers: {
       "Content-Type": "text/csv",
-      "Content-Disposition":
-        'attachment; filename="property-import-template.csv"',
+      "Content-Disposition": 'attachment; filename="property-import-template.csv"',
     },
   });
 }

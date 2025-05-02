@@ -10,22 +10,8 @@ import { z } from "zod";
 import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
 import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
 import { sections } from "../../components/sections";
@@ -58,9 +44,7 @@ export function UpdateCurrentUsingEquipmentForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateCurrentUsingEquipmentSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateCurrentUsingEquipmentSchema>) => {
     const response = await updateCurrentUsingEquipment(data);
 
     if (response.status === "success") {
@@ -76,17 +60,11 @@ export function UpdateCurrentUsingEquipmentForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto max-w-screen-xl flex-grow p-6">
           <Header>
             <HeaderGroup>
-              <Link
-                href={"/certificates"}
-                className="inline-flex items-center text-sm font-semibold"
-              >
+              <Link href={"/certificates"} className="inline-flex items-center text-sm font-semibold">
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
@@ -97,12 +75,10 @@ export function UpdateCurrentUsingEquipmentForm({
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
-                  <CardTitle>
-                    Current-using equipment (permanently connected)
-                  </CardTitle>
+                  <CardTitle>Current-using equipment (permanently connected)</CardTitle>
                   <CardDescription className="text-balance">
-                    This section evaluates the condition and safety of
-                    current-using equipment that is permanently connected.
+                    This section evaluates the condition and safety of current-using equipment that is permanently
+                    connected.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-8 p-0">
@@ -114,14 +90,9 @@ export function UpdateCurrentUsingEquipmentForm({
                       name={item.id}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
-                            {item.item + " - " + item.label}
-                          </FormLabel>
+                          <FormLabel>{item.item + " - " + item.label}</FormLabel>
                           <FormControl>
-                            <RadioGroupComponent
-                              onChange={field.onChange}
-                              value={field.value || "na"}
-                            />
+                            <RadioGroupComponent onChange={field.onChange} value={field.value || "na"} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -132,22 +103,14 @@ export function UpdateCurrentUsingEquipmentForm({
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
-                  Ensure the condition and safety of permanently connected
-                  equipment is checked.
+                  Ensure the condition and safety of permanently connected equipment is checked.
                 </p>
               </CardFooter>
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
-        <UnsavedChangesDialog
-          condition={form.formState.isDirty}
-          action={form.handleSubmit(onSubmit)}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
+        <UnsavedChangesDialog condition={form.formState.isDirty} action={form.handleSubmit(onSubmit)} />
       </form>
     </Form>
   );

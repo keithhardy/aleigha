@@ -18,12 +18,7 @@ export default async function Clients() {
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
       <PageHeader config={pagesConfig.clients} />
-      <DataTable
-        columns={columns}
-        data={data}
-        fetchData={getClients}
-        toolbar={Toolbar}
-      />
+      <DataTable columns={columns} data={data} fetchData={getClients} toolbar={Toolbar} />
     </div>
   );
 }

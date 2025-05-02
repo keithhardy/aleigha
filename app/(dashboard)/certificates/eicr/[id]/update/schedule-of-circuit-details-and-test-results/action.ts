@@ -9,9 +9,7 @@ import { ServerActionResponse } from "@/types/server-action-response";
 import { UpdateScheduleOfCircuitDetailsAndTestResultsSchema } from "./schema";
 
 export async function updateScheduleOfCircuitDetailsAndTestResults(
-  electricalInstallationConditionReport: z.infer<
-    typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema
-  >,
+  electricalInstallationConditionReport: z.infer<typeof UpdateScheduleOfCircuitDetailsAndTestResultsSchema>,
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({
@@ -19,9 +17,7 @@ export async function updateScheduleOfCircuitDetailsAndTestResults(
         id: electricalInstallationConditionReport.id,
       },
       data: {
-        consumerUnits: JSON.stringify(
-          electricalInstallationConditionReport.consumerUnits,
-        ),
+        consumerUnits: JSON.stringify(electricalInstallationConditionReport.consumerUnits),
       },
     });
 

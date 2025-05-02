@@ -12,38 +12,37 @@ export async function POST(req: NextRequest) {
     return new Response("No IDs provided", { status: 400 });
   }
 
-  const certificates =
-    await prisma.electricalInstallationConditionReport.findMany({
-      where: {
-        id: { in: ids },
+  const certificates = await prisma.electricalInstallationConditionReport.findMany({
+    where: {
+      id: { in: ids },
+    },
+    select: {
+      serial: true,
+      type: true,
+      status: true,
+      startDate: true,
+      endDate: true,
+      createdAt: true,
+      updatedAt: true,
+      client: {
+        select: { name: true },
       },
-      select: {
-        serial: true,
-        type: true,
-        status: true,
-        startDate: true,
-        endDate: true,
-        createdAt: true,
-        updatedAt: true,
-        client: {
-          select: { name: true },
-        },
-        property: {
-          select: {
-            address: {
-              select: {
-                streetAddress: true,
-                city: true,
-                county: true,
-                postTown: true,
-                postCode: true,
-                country: true,
-              },
+      property: {
+        select: {
+          address: {
+            select: {
+              streetAddress: true,
+              city: true,
+              county: true,
+              postTown: true,
+              postCode: true,
+              country: true,
             },
           },
         },
       },
-    });
+    },
+  });
 
   if (!certificates.length) {
     return new Response("No certificates found", { status: 404 });
@@ -62,8 +61,7 @@ export async function POST(req: NextRequest) {
       address_county: certificate.property.address?.county || "",
       address_post_town: certificate.property.address?.postTown || "",
       address_post_code: certificate.property.address?.postCode || "",
-      address_country:
-        certificate.property.address?.country || "United Kingdom",
+      address_country: certificate.property.address?.country || "United Kingdom",
       created_at: certificate.createdAt.toString() || "",
       updated_at: certificate.updatedAt.toString() || "",
     };

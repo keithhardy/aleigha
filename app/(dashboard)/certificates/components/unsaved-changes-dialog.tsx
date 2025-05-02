@@ -12,13 +12,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-export const UnsavedChangesDialog = ({
-  condition,
-  action,
-}: {
-  condition: boolean;
-  action: () => void;
-}) => {
+export const UnsavedChangesDialog = ({ condition, action }: { condition: boolean; action: () => void }) => {
   const router = useRouter();
   const originalPush = useRef(router.push);
   const [open, setOpen] = useState(false);
@@ -62,18 +56,12 @@ export const UnsavedChangesDialog = ({
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Unsaved Changes</AlertDialogTitle>
-          <AlertDialogDescription>
-            You have unsaved changes. Leave without saving?
-          </AlertDialogDescription>
+          <AlertDialogDescription>You have unsaved changes. Leave without saving?</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="space-y-2 sm:space-y-0">
           <AlertDialogCancel onClick={handleCancel}>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleSaveAndContinue}>
-            Save and continue
-          </AlertDialogAction>
-          <AlertDialogAction onClick={handleContinue}>
-            Continue
-          </AlertDialogAction>
+          <AlertDialogAction onClick={handleSaveAndContinue}>Save and continue</AlertDialogAction>
+          <AlertDialogAction onClick={handleContinue}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

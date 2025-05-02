@@ -11,11 +11,7 @@ export const metadata: Metadata = {
   title: pagesConfig.userUpdate.metadata.title,
 };
 
-export default async function UpdateUser({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function UpdateUser({ params }: { params: Promise<{ id: string }> }) {
   const user = await prisma.user.findFirst({
     where: {
       id: decodeURIComponent((await params).id),

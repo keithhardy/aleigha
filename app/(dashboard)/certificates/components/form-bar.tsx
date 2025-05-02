@@ -3,12 +3,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import { type UseFormReturn } from "react-hook-form";
 
-import {
-  DialogSheet,
-  DialogSheetContent,
-  DialogSheetTitle,
-  DialogSheetTrigger,
-} from "@/components/dialog-sheet";
+import { DialogSheet, DialogSheetContent, DialogSheetTitle, DialogSheetTrigger } from "@/components/dialog-sheet";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -31,14 +26,9 @@ export function FormBar({ form, sections, baseUrl }: FormBarProps) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const currentIndex = sections.findIndex((section) =>
-    pathname.endsWith(section.url),
-  );
+  const currentIndex = sections.findIndex((section) => pathname.endsWith(section.url));
   const prevSection = currentIndex > 0 ? sections[currentIndex - 1] : null;
-  const nextSection =
-    currentIndex >= 0 && currentIndex < sections.length - 1
-      ? sections[currentIndex + 1]
-      : null;
+  const nextSection = currentIndex >= 0 && currentIndex < sections.length - 1 ? sections[currentIndex + 1] : null;
 
   const [sectionsOpen, setSectionsOpen] = useState(false);
 
@@ -50,12 +40,7 @@ export function FormBar({ form, sections, baseUrl }: FormBarProps) {
           size="icon"
           type="button"
           disabled={!prevSection}
-          onClick={() =>
-            prevSection &&
-            router.push(
-              `${baseUrl}/${form.getValues("id")}/update/${prevSection.url}`,
-            )
-          }
+          onClick={() => prevSection && router.push(`${baseUrl}/${form.getValues("id")}/update/${prevSection.url}`)}
         >
           <ArrowLeft />
         </Button>
@@ -79,9 +64,7 @@ export function FormBar({ form, sections, baseUrl }: FormBarProps) {
                         value={section.title}
                         onSelect={() => {
                           setSectionsOpen(false);
-                          router.push(
-                            `${baseUrl}/${form.getValues("id")}/update/${section.url}`,
-                          );
+                          router.push(`${baseUrl}/${form.getValues("id")}/update/${section.url}`);
                         }}
                         className="truncate"
                       >
@@ -93,12 +76,7 @@ export function FormBar({ form, sections, baseUrl }: FormBarProps) {
               </Command>
             </DialogSheetContent>
           </DialogSheet>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => form.reset()}
-            disabled={!form.formState.isDirty}
-          >
+          <Button variant="outline" size="icon" onClick={() => form.reset()} disabled={!form.formState.isDirty}>
             <RotateCcw />
           </Button>
           <Button
@@ -115,12 +93,7 @@ export function FormBar({ form, sections, baseUrl }: FormBarProps) {
           size="icon"
           type="button"
           disabled={!nextSection}
-          onClick={() =>
-            nextSection &&
-            router.push(
-              `${baseUrl}/${form.getValues("id")}/update/${nextSection.url}`,
-            )
-          }
+          onClick={() => nextSection && router.push(`${baseUrl}/${form.getValues("id")}/update/${nextSection.url}`)}
         >
           <ArrowRight />
         </Button>

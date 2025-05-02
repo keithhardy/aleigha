@@ -18,12 +18,7 @@ export default async function Users() {
   return (
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
       <PageHeader config={pagesConfig.users} />
-      <DataTable
-        columns={columns}
-        data={data}
-        fetchData={getUsers}
-        toolbar={Toolbar}
-      />
+      <DataTable columns={columns} data={data} fetchData={getUsers} toolbar={Toolbar} />
     </div>
   );
 }

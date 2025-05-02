@@ -10,22 +10,8 @@ import { z } from "zod";
 import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
 import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
@@ -41,30 +27,22 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
 }) {
   const { toast } = useToast();
 
-  const form = useForm<
-    z.infer<typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema>
-  >({
-    resolver: zodResolver(
-      UpdateParticularsOfInstallationsReferredToInThisReportSchema,
-    ),
+  const form = useForm<z.infer<typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema>>({
+    resolver: zodResolver(UpdateParticularsOfInstallationsReferredToInThisReportSchema),
     defaultValues: {
       id: certificate.id,
       maximumDemand: certificate.maximumDemand || "",
       distributorsFacility: certificate.distributorsFacility ?? true,
-      installationEarthElectrodes:
-        certificate.installationEarthElectrodes ?? false,
+      installationEarthElectrodes: certificate.installationEarthElectrodes ?? false,
       earthElectrodeType: certificate.earthElectrodeType || "",
       earthElectrodeLocation: certificate.earthElectrodeLocation || "",
       electrodeResistanceToEarth: certificate.electrodeResistanceToEarth || "",
       earthingConductorMaterial: certificate.earthingConductorMaterial || "",
       earthingConductorCSA: certificate.earthingConductorCSA || "",
       earthingConductorVerified: certificate.earthingConductorVerified ?? false,
-      mainProtectiveBondingConductorMaterial:
-        certificate.mainProtectiveBondingConductorMaterial || "",
-      mainProtectiveBondingConductorCSA:
-        certificate.mainProtectiveBondingConductorCSA || "",
-      mainProtectiveBondingConductorVerified:
-        certificate.mainProtectiveBondingConductorVerified ?? false,
+      mainProtectiveBondingConductorMaterial: certificate.mainProtectiveBondingConductorMaterial || "",
+      mainProtectiveBondingConductorCSA: certificate.mainProtectiveBondingConductorCSA || "",
+      mainProtectiveBondingConductorVerified: certificate.mainProtectiveBondingConductorVerified ?? false,
       waterInstallationPipes: certificate.waterInstallationPipes || "",
       gasInstallationPipes: certificate.gasInstallationPipes || "",
       structuralSteel: certificate.structuralSteel || "",
@@ -78,23 +56,15 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
       mainSwitchPoles: certificate.mainSwitchPoles || "",
       mainSwitchCurrentRating: certificate.mainSwitchCurrentRating || "",
       mainSwitchVoltageRating: certificate.mainSwitchVoltageRating || "",
-      mainSwitchRCDOperatingCurrent:
-        certificate.mainSwitchRCDOperatingCurrent || "",
+      mainSwitchRCDOperatingCurrent: certificate.mainSwitchRCDOperatingCurrent || "",
       mainSwitchRCDType: certificate.mainSwitchRCDType || "",
-      mainSwitchRCDRatedTimeDelay:
-        certificate.mainSwitchRCDRatedTimeDelay || "",
-      mainSwitchRCDMeasuredOperatingTime:
-        certificate.mainSwitchRCDMeasuredOperatingTime || "",
+      mainSwitchRCDRatedTimeDelay: certificate.mainSwitchRCDRatedTimeDelay || "",
+      mainSwitchRCDMeasuredOperatingTime: certificate.mainSwitchRCDMeasuredOperatingTime || "",
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<
-      typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema
-    >,
-  ) => {
-    const response =
-      await updateParticularsOfInstallationsReferredToInThisReport(data);
+  const onSubmit = async (data: z.infer<typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema>) => {
+    const response = await updateParticularsOfInstallationsReferredToInThisReport(data);
 
     if (response.status === "success") {
       form.reset(data);
@@ -109,17 +79,11 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto max-w-screen-xl flex-grow p-6">
           <Header>
             <HeaderGroup>
-              <Link
-                href={"/certificates"}
-                className="inline-flex items-center text-sm font-semibold"
-              >
+              <Link href={"/certificates"} className="inline-flex items-center text-sm font-semibold">
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
@@ -158,10 +122,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
                   Not sure how to calculate maximum demand? Check out our{" "}
-                  <Link
-                    href={"/settings"}
-                    className="inline-flex items-center space-x-1 text-blue-500"
-                  >
+                  <Link href={"/settings"} className="inline-flex items-center space-x-1 text-blue-500">
                     <span>guide</span>
                     <ExternalLink size={14} />
                   </Link>{" "}
@@ -184,10 +145,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Distributor&apos;s Facility?</FormLabel>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
+                        <Switch checked={field.value} onCheckedChange={field.onChange} />
                         <FormMessage />
                       </FormItem>
                     )}
@@ -298,10 +256,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Conductor Verified</FormLabel>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
+                        <Switch checked={field.value} onCheckedChange={field.onChange} />
                         <FormMessage />
                       </FormItem>
                     )}
@@ -360,10 +315,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Conductor Verified</FormLabel>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
+                        <Switch checked={field.value} onCheckedChange={field.onChange} />
                         <FormMessage />
                       </FormItem>
                     )}
@@ -561,15 +513,8 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
-        <UnsavedChangesDialog
-          condition={form.formState.isDirty}
-          action={form.handleSubmit(onSubmit)}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
+        <UnsavedChangesDialog condition={form.formState.isDirty} action={form.handleSubmit(onSubmit)} />
       </form>
     </Form>
   );

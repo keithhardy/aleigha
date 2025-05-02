@@ -7,9 +7,7 @@ import { ServerActionResponse } from "@/types/server-action-response";
 
 import { UpdateNameSchema } from "./schema";
 
-export async function updateName(
-  settings: z.infer<typeof UpdateNameSchema>,
-): Promise<ServerActionResponse<void>> {
+export async function updateName(settings: z.infer<typeof UpdateNameSchema>): Promise<ServerActionResponse<void>> {
   try {
     await prisma.settings.upsert({
       where: {

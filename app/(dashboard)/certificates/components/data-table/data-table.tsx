@@ -18,14 +18,7 @@ import { Pagination } from "@/components/data-table/pagination";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 import { ElectricalInstalationConditionReportWithRelations } from "./columns";
 
@@ -43,10 +36,7 @@ export interface FetchDataArgs {
   searchQuery?: string;
 }
 
-export interface DataTableProps<
-  TData extends ElectricalInstalationConditionReportWithRelations,
-  TValue,
-> {
+export interface DataTableProps<TData extends ElectricalInstalationConditionReportWithRelations, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: PaginatedResponse<TData>;
   fetchData: (args: FetchDataArgs) => Promise<PaginatedResponse<TData>>;
@@ -56,10 +46,7 @@ export interface DataTableProps<
   }>;
 }
 
-export function DataTable<
-  TData extends ElectricalInstalationConditionReportWithRelations,
-  TValue,
->({
+export function DataTable<TData extends ElectricalInstalationConditionReportWithRelations, TValue>({
   columns,
   data: { data: initialData, total: initialTotal, facets: initialFacets },
   fetchData,
@@ -67,8 +54,7 @@ export function DataTable<
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = useState<TData[]>(initialData);
   const [total, setTotal] = useState<number>(initialTotal);
-  const [facets, setFacets] =
-    useState<Record<string, Record<string, number>>>(initialFacets);
+  const [facets, setFacets] = useState<Record<string, Record<string, number>>>(initialFacets);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState<string>("");
@@ -145,12 +131,7 @@ export function DataTable<
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
                       <TableHead key={header.id}>
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
+                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                       </TableHead>
                     ))}
                   </TableRow>
@@ -162,14 +143,8 @@ export function DataTable<
                     <Fragment key={row.id}>
                       <TableRow>
                         {row.getVisibleCells().map((cell) => (
-                          <TableCell
-                            className="whitespace-nowrap"
-                            key={cell.id}
-                          >
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext(),
-                            )}
+                          <TableCell className="whitespace-nowrap" key={cell.id}>
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
                           </TableCell>
                         ))}
                       </TableRow>
@@ -177,9 +152,7 @@ export function DataTable<
                         <CollapsibleContent asChild>
                           <TableRow>
                             <TableCell colSpan={columns.length}>
-                              <div className="py-2 text-center">
-                                {row.original.property.address?.streetAddress}
-                              </div>
+                              <div className="py-2 text-center">{row.original.property.address?.streetAddress}</div>
                             </TableCell>
                           </TableRow>
                         </CollapsibleContent>
@@ -188,10 +161,7 @@ export function DataTable<
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell
-                      colSpan={columns.length}
-                      className="py-4 text-center"
-                    >
+                    <TableCell colSpan={columns.length} className="py-4 text-center">
                       No results.
                     </TableCell>
                   </TableRow>

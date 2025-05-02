@@ -10,55 +10,22 @@ import { z } from "zod";
 
 import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
 import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
-import {
-  DialogSheet,
-  DialogSheetContent,
-  DialogSheetTitle,
-  DialogSheetTrigger,
-} from "@/components/dialog-sheet";
+import { DialogSheet, DialogSheetContent, DialogSheetTitle, DialogSheetTrigger } from "@/components/dialog-sheet";
 import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
@@ -67,11 +34,7 @@ import { rates } from "./rates";
 import { UpdateScheduleOfRatesSchema } from "./schema";
 import { sections } from "../components/sections";
 
-export function UpdateScheduleOfRatesForm({
-  certificate,
-}: {
-  certificate: ElectricalInstallationConditionReport;
-}) {
+export function UpdateScheduleOfRatesForm({ certificate }: { certificate: ElectricalInstallationConditionReport }) {
   const { toast } = useToast();
 
   const [selectedRate, setSelectedRate] = useState<number | null>(null);
@@ -86,9 +49,7 @@ export function UpdateScheduleOfRatesForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateScheduleOfRatesSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateScheduleOfRatesSchema>) => {
     const response = await updateScheduleOfRates(data);
 
     if (response.status === "success") {
@@ -120,17 +81,11 @@ export function UpdateScheduleOfRatesForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto max-w-screen-xl flex-grow p-6">
           <Header>
             <HeaderGroup>
-              <Link
-                href={"/certificates"}
-                className="inline-flex items-center text-sm font-semibold"
-              >
+              <Link href={"/certificates"} className="inline-flex items-center text-sm font-semibold">
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
@@ -148,15 +103,9 @@ export function UpdateScheduleOfRatesForm({
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
                   <FormItem>
-                    <DialogSheet
-                      open={selectRateOpen}
-                      onOpenChange={setSelectRateOpen}
-                    >
+                    <DialogSheet open={selectRateOpen} onOpenChange={setSelectRateOpen}>
                       <DialogSheetTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className="w-full justify-between"
-                        >
+                        <Button variant="outline" className="w-full justify-between">
                           Select a rate
                           <ChevronsUpDown />
                         </Button>
@@ -178,9 +127,7 @@ export function UpdateScheduleOfRatesForm({
                                   }}
                                 >
                                   {rate.name}
-                                  {rate.id === selectedRate ? (
-                                    <Check className="ml-auto" />
-                                  ) : null}
+                                  {rate.id === selectedRate ? <Check className="ml-auto" /> : null}
                                 </CommandItem>
                               ))}
                             </CommandGroup>
@@ -201,17 +148,13 @@ export function UpdateScheduleOfRatesForm({
                             <TableRow className="h-8">
                               <TableHead className="pl-6">Name</TableHead>
                               <TableHead>Description</TableHead>
-                              <TableHead className="pr-6 text-right">
-                                Actions
-                              </TableHead>
+                              <TableHead className="pr-6 text-right">Actions</TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
                             {fields.map((field, index) => (
                               <TableRow key={index}>
-                                <TableCell className="pl-6">
-                                  {field.name}
-                                </TableCell>
+                                <TableCell className="pl-6">{field.name}</TableCell>
                                 <TableCell>{field.description}</TableCell>
                                 <TableCell className="pr-6 text-right">
                                   <DropdownMenu>
@@ -229,11 +172,7 @@ export function UpdateScheduleOfRatesForm({
                                       >
                                         Edit
                                       </DropdownMenuItem>
-                                      <DropdownMenuItem
-                                        onSelect={() => remove(index)}
-                                      >
-                                        Delete
-                                      </DropdownMenuItem>
+                                      <DropdownMenuItem onSelect={() => remove(index)}>Delete</DropdownMenuItem>
                                     </DropdownMenuContent>
                                   </DropdownMenu>
                                 </TableCell>
@@ -256,15 +195,9 @@ export function UpdateScheduleOfRatesForm({
                                     </div>
                                     <DropdownMenu>
                                       <DropdownMenuTrigger asChild>
-                                        <Button
-                                          variant="ghost"
-                                          size="icon"
-                                          className="-mt-2"
-                                        >
+                                        <Button variant="ghost" size="icon" className="-mt-2">
                                           <Ellipsis className="h-4 w-4" />
-                                          <span className="sr-only">
-                                            Open menu
-                                          </span>
+                                          <span className="sr-only">Open menu</span>
                                         </Button>
                                       </DropdownMenuTrigger>
                                       <DropdownMenuContent>
@@ -296,10 +229,7 @@ export function UpdateScheduleOfRatesForm({
                         </div>
                       </CardContent>
                     </Card>
-                    <DialogSheet
-                      open={editRateOpen}
-                      onOpenChange={setEditRateOpen}
-                    >
+                    <DialogSheet open={editRateOpen} onOpenChange={setEditRateOpen}>
                       <DialogSheetContent className="p-0">
                         <DialogSheetTitle className="hidden" />
                         {selectedRate !== null && (
@@ -325,10 +255,7 @@ export function UpdateScheduleOfRatesForm({
                                   <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                      <Textarea
-                                        {...field}
-                                        className="min-h-[100px]"
-                                      />
+                                      <Textarea {...field} className="min-h-[100px]" />
                                     </FormControl>
                                     <FormMessage />
                                   </FormItem>
@@ -350,15 +277,8 @@ export function UpdateScheduleOfRatesForm({
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
-        <UnsavedChangesDialog
-          condition={form.formState.isDirty}
-          action={form.handleSubmit(onSubmit)}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
+        <UnsavedChangesDialog condition={form.formState.isDirty} action={form.handleSubmit(onSubmit)} />
       </form>
     </Form>
   );

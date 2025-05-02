@@ -8,9 +8,7 @@ import { ServerActionResponse } from "@/types/server-action-response";
 
 import { UpdateClientSchema } from "./schema";
 
-export async function updateClient(
-  client: z.infer<typeof UpdateClientSchema>,
-): Promise<ServerActionResponse<Client>> {
+export async function updateClient(client: z.infer<typeof UpdateClientSchema>): Promise<ServerActionResponse<Client>> {
   try {
     await prisma.client.update({
       where: {

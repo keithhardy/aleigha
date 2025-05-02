@@ -6,9 +6,7 @@ import { DeleteClientSchema } from "@/app/(dashboard)/clients/[id]/delete/schema
 import { prisma } from "@/lib/prisma-client";
 import { ServerActionResponse } from "@/types/server-action-response";
 
-export async function deleteClient(
-  client: z.infer<typeof DeleteClientSchema>,
-): Promise<ServerActionResponse<void>> {
+export async function deleteClient(client: z.infer<typeof DeleteClientSchema>): Promise<ServerActionResponse<void>> {
   try {
     await prisma.client.delete({
       where: {

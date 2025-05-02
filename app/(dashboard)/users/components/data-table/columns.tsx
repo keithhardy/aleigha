@@ -2,12 +2,7 @@
 
 import { $Enums } from "@prisma/client";
 import { type ColumnDef } from "@tanstack/react-table";
-import {
-  ArrowDownIcon,
-  ArrowUpDown,
-  ArrowUpIcon,
-  MoreHorizontal,
-} from "lucide-react";
+import { ArrowDownIcon, ArrowUpDown, ArrowUpIcon, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -36,10 +31,7 @@ export const columns: ColumnDef<User>[] = [
     id: "select",
     header: ({ table }) => (
       <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
+        checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         className="ml-2 mr-4"
       />
@@ -103,11 +95,7 @@ export const columns: ColumnDef<User>[] = [
         <div className="flex justify-end">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="mr-2 data-[state=open]:bg-accent"
-              >
+              <Button variant="ghost" size="icon" className="mr-2 data-[state=open]:bg-accent">
                 <MoreHorizontal />
               </Button>
             </DropdownMenuTrigger>

@@ -9,18 +9,14 @@ import { ServerActionResponse } from "@/types/server-action-response";
 
 import { UpdateUserSchema } from "./schema";
 
-export async function updateUser(
-  user: z.infer<typeof UpdateUserSchema>,
-): Promise<ServerActionResponse<User>> {
+export async function updateUser(user: z.infer<typeof UpdateUserSchema>): Promise<ServerActionResponse<User>> {
   const formattedClientsToConnect = user.clientsToConnect.map((client) => ({
     id: client.clientId,
   }));
 
-  const formattedClientsToDisconnect = user.clientsToDisconnect.map(
-    (client) => ({
-      id: client.clientId,
-    }),
-  );
+  const formattedClientsToDisconnect = user.clientsToDisconnect.map((client) => ({
+    id: client.clientId,
+  }));
 
   try {
     await auth0Management.users.update(

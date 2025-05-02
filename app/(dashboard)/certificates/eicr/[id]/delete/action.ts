@@ -8,9 +8,7 @@ import { ServerActionResponse } from "@/types/server-action-response";
 import { DeleteElectricalInstallationConditionReportSchema } from "./schema";
 
 export async function deleteElectricalInstallationConditionReport(
-  electricalInstallationConditionReport: z.infer<
-    typeof DeleteElectricalInstallationConditionReportSchema
-  >,
+  electricalInstallationConditionReport: z.infer<typeof DeleteElectricalInstallationConditionReportSchema>,
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.delete({
