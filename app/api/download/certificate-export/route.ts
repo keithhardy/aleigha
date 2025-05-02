@@ -18,6 +18,11 @@ export async function POST(req: NextRequest) {
         id: { in: ids },
       },
       select: {
+        serial: true,
+        type: true,
+        status: true,
+        startDate: true,
+        endDate: true,
         createdAt: true,
         updatedAt: true,
         client: {
@@ -46,6 +51,12 @@ export async function POST(req: NextRequest) {
 
   const flattenedCertificates = certificates.map((certificate) => {
     return {
+      serial_number: certificate.serial || "",
+      type: certificate.type || "",
+      status: certificate.status || "",
+      client: certificate.client.name || "",
+      startDate: certificate.startDate?.toString() || "",
+      endDate: certificate.endDate?.toString() || "",
       address_street_address: certificate.property.address?.streetAddress || "",
       address_city: certificate.property.address?.city || "",
       address_county: certificate.property.address?.county || "",
