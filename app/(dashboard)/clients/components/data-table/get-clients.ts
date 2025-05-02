@@ -2,7 +2,7 @@
 
 import { Prisma } from "@prisma/client";
 
-import { prisma } from "@/lib/prisma-client";
+import { prisma } from "@/lib/db/prisma-client";
 
 type GetClientsProps = {
   take: number;

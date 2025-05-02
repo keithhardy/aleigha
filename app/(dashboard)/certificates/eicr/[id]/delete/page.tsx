@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { Header, HeaderDescription, HeaderGroup, Heading } from "@/components/page-header";
-import { prisma } from "@/lib/prisma-client";
+import { prisma } from "@/lib/db/prisma-client";
 
 import { DeleteElectricalInstallationConditionReportForm } from "./form";
 

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { createUser, getUsers } from "@/lib/services/user";
+import { createUser, getUsers } from "@/lib/services/user-services";
 
 export async function GET() {
   try {

@@ -3,7 +3,7 @@
 import { parse } from "csv-parse/sync";
 import { z } from "zod";
 
-import { prisma } from "@/lib/prisma-client";
+import { prisma } from "@/lib/db/prisma-client";
 import { ServerActionResponse } from "@/types/server-action-response";
 
 import { ImportPropertiesSchema } from "./schema";

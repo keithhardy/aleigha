@@ -3,8 +3,8 @@
 import { User } from "@prisma/client";
 import { z } from "zod";
 
-import { auth0Management } from "@/lib/auth0-management-client";
-import { prisma } from "@/lib/prisma-client";
+import { auth0Management } from "@/lib/auth/auth0-management-client";
+import { prisma } from "@/lib/db/prisma-client";
 import { ServerActionResponse } from "@/types/server-action-response";
 
 import { CreateUserSchema } from "./schema";

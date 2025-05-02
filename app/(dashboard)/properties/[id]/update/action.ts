@@ -3,7 +3,7 @@
 import { z } from "zod";
 
 import { UpdatePropertySchema } from "@/app/(dashboard)/properties/[id]/update/schema";
-import { prisma } from "@/lib/prisma-client";
+import { prisma } from "@/lib/db/prisma-client";
 import { ServerActionResponse } from "@/types/server-action-response";
 
 export async function updateProperty(

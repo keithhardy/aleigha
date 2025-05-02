@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 
-import { prisma } from "@/lib/prisma-client";
+import { prisma } from "@/lib/db/prisma-client";
 
 export async function createUser(data: Prisma.UserCreateInput) {
   try {
@@ -40,4 +40,12 @@ export async function deleteUser(id: string) {
   } catch {
     throw new Error("Failed to delete user");
   }
+}
+
+export async function checkUserEmailExists(email: string): Promise<boolean> {
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user) {
+    return false;
+  }
+  return true;
 }

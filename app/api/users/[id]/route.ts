@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { getUser, updateUser, deleteUser } from "@/lib/services/user";
+import { getUser, updateUser, deleteUser } from "@/lib/services/user-services";
 
 export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {

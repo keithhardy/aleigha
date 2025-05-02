@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { DeletePropertyForm } from "@/app/(dashboard)/properties/[id]/delete/form";
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
-import { prisma } from "@/lib/prisma-client";
+import { prisma } from "@/lib/db/prisma-client";
 
 export const metadata: Metadata = {
   title: pagesConfig.propertyDelete.metadata.title,

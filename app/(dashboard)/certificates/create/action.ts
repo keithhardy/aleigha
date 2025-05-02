@@ -4,7 +4,7 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { customAlphabet } from "nanoid";
 import { z } from "zod";
 
-import { prisma } from "@/lib/prisma-client";
+import { prisma } from "@/lib/db/prisma-client";
 import { ServerActionResponse } from "@/types/server-action-response";
 
 import { CreateCertificateSchema } from "./schema";
