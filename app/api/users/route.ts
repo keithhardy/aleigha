@@ -1,7 +1,8 @@
 import { UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-import { createAuth0User, createUser, getUsers } from "@/lib/services/user";
+import { createAuth0User } from "@/auth0";
+import { createUser, getUsers } from "@/prisma";
 
 export async function GET() {
   try {

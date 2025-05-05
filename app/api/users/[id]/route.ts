@@ -1,13 +1,8 @@
 import { UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-import {
-  getUser,
-  updateUser,
-  deleteUser,
-  updateAuth0User,
-  deleteAuth0User,
-} from "@/lib/services/user";
+import { updateAuth0User, deleteAuth0User } from "@/auth0";
+import { getUser, updateUser, deleteUser } from "@/prisma";
 
 export async function GET({ params }: { params: Promise<{ id: string }> }) {
   try {

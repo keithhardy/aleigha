@@ -3,15 +3,12 @@
 import { User, UserRole } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-import { CreateUserInput, UpdateUserInput } from "@/lib/schemas/user";
 import {
-  createAuth0User,
-  createUser,
-  deleteAuth0User,
-  deleteUser,
-  updateAuth0User,
-  updateUser,
-} from "@/lib/services/user";
+  CreateUserInput,
+  UpdateUserInput,
+} from "@/app/strategies/users/schema";
+import { createAuth0User, deleteAuth0User, updateAuth0User } from "@/auth0";
+import { createUser, deleteUser, updateUser } from "@/prisma";
 
 export type ServerActionResponse<T = undefined> = Promise<{
   status: "success" | "error";

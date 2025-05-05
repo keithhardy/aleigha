@@ -1,4 +1,4 @@
-import { getUsers } from "@/lib/services/user";
+import { getUsers } from "@/prisma";
 
 export const revalidate = 3600;
 

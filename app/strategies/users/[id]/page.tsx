@@ -1,4 +1,4 @@
-import { getUser, getUsers } from "@/lib/services/user";
+import { getUser, getUsers } from "@/prisma";
 
 export const revalidate = 3600;
 
@@ -15,6 +15,6 @@ export default async function User({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const users = await getUser(id);
-  return <pre>{JSON.stringify(users, null, 2)}</pre>;
+  const user = await getUser(id);
+  return <pre>{JSON.stringify(user, null, 2)}</pre>;
 }

@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
+import { getAuth0User } from "@/auth0";
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
-import { getCurrentUser } from "@/lib/services/auth";
 import { prisma } from "@/prisma";
 
 import { CreateCertificateForm } from "./form";
@@ -12,7 +12,13 @@ export const metadata: Metadata = {
 };
 
 export default async function CreateCertificate() {
-  const currentUser = await getCurrentUser();
+  const currentUser = await getAuth0User();
+
+  const user = await prisma.user.findUnique({
+    where: {
+      auth0Id: currentUser?.sub,
+    },
+  });
 
   const clients = await prisma.client.findMany({
     include: {
@@ -28,7 +34,7 @@ export default async function CreateCertificate() {
     <div className="container mx-auto max-w-screen-xl flex-grow p-6">
       <PageHeader config={pagesConfig.certificateCreate} />
 
-      <CreateCertificateForm currentUser={currentUser!} clients={clients} />
+      <CreateCertificateForm currentUser={user!} clients={clients} />
     </div>
   );
 }
