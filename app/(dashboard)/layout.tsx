@@ -1,6 +1,7 @@
 import { LogOut } from "lucide-react";
 import { cookies } from "next/headers";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -10,12 +11,19 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { getCurrentUser } from "@/lib/services/auth";
 
 import { DashboardSidebar } from "../../components/dashboard-sidebar";
 
 export default async function DashboardLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
+    redirect("/auth/login");
+  }
+
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
 

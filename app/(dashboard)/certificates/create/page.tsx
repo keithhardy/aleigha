@@ -2,6 +2,7 @@ import { Metadata } from "next";
 
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
+import { getCurrentUser } from "@/lib/services/auth";
 import { prisma } from "@/prisma";
 
 import { CreateCertificateForm } from "./form";
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CreateCertificate() {
-  const currentUser = await prisma.user.findFirst();
+  const currentUser = await getCurrentUser();
 
   const clients = await prisma.client.findMany({
     include: {
