@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth0 } from "./auth0/auth0";
+import { auth0 } from "./auth0/client";
 import { verifyJwt } from "./auth0/verify-jwt";
 
 export async function middleware(request: NextRequest) {
