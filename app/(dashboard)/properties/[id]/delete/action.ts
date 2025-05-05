@@ -3,7 +3,7 @@
 import { z } from "zod";
 
 import { DeletePropertySchema } from "@/app/(dashboard)/properties/[id]/delete/schema";
-import { prisma } from "@/lib/db/prisma-client";
+import { prisma } from "@/prisma";
 import { ServerActionResponse } from "@/types/server-action-response";
 
 export async function deleteProperty(

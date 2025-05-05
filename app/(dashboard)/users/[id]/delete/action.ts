@@ -3,7 +3,7 @@
 import { z } from "zod";
 
 import { auth0Management } from "@/lib/auth/auth0-management-client";
-import { prisma } from "@/lib/db/prisma-client";
+import { prisma } from "@/prisma";
 import { ServerActionResponse } from "@/types/server-action-response";
 
 import { DeleteUserSchema } from "./schema";

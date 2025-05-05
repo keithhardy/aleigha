@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-import { prisma } from "@/lib/db/prisma-client";
+import { prisma } from "@/prisma";
 import { ServerActionResponse } from "@/types/server-action-response";
 
 import { UpdateFinalCircuitsSchema } from "./schema";

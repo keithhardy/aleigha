@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
 import { auth0 } from "@/lib/auth/auth0-client";
-import { prisma } from "@/lib/db/prisma-client";
+import { prisma } from "@/prisma";
 
 import { CreateCertificateForm } from "./form";
 

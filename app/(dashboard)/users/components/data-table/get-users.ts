@@ -2,7 +2,7 @@
 
 import { $Enums, Prisma } from "@prisma/client";
 
-import { prisma } from "@/lib/db/prisma-client";
+import { prisma } from "@/prisma";
 
 type GetUsersProps = {
   take: number;

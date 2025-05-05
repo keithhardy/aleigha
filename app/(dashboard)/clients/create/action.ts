@@ -4,7 +4,7 @@ import { Client } from "@prisma/client";
 import { z } from "zod";
 
 import { CreateClientSchema } from "@/app/(dashboard)/clients/create/schema";
-import { prisma } from "@/lib/db/prisma-client";
+import { prisma } from "@/prisma";
 import { ServerActionResponse } from "@/types/server-action-response";
 
 export async function createClient(
