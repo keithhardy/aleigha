@@ -1,6 +1,7 @@
 "use server";
 
 import { User, UserRole } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 import { CreateUserInput, UpdateUserInput } from "@/lib/schemas/user";
 import {
@@ -12,11 +13,10 @@ import {
   updateUser,
 } from "@/lib/services/user";
 
-export type ServerActionResponse<T> = Promise<{
+export type ServerActionResponse<T = undefined> = Promise<{
   status: "success" | "error";
-  heading: string;
   message: string;
-  payload?: T;
+  data?: T;
 }>;
 
 export async function createUserAction(
@@ -36,16 +36,15 @@ export async function createUserAction(
       role: data.role as UserRole,
       auth0Id: auth0User.user_id,
     });
+    revalidatePath("/users");
     return {
-      payload: user,
       status: "success",
-      heading: "User Created Successfully",
       message: "The new user has been created.",
+      data: user,
     };
   } catch {
     return {
       status: "error",
-      heading: "User Creation Failed",
       message: "There was an issue creating the user. Please try again.",
     };
   }
@@ -71,16 +70,15 @@ export async function updateUserAction(
         disconnect: data.clients.disconnect,
       },
     });
+    revalidatePath("/users");
     return {
-      payload: user,
       status: "success",
-      heading: "User Updated Successfully",
       message: "The user has been updated.",
+      data: user,
     };
   } catch {
     return {
       status: "error",
-      heading: "User Update Failed",
       message: "There was an issue updating the user. Please try again.",
     };
   }
@@ -90,15 +88,14 @@ export async function deleteUserAction(id: string): ServerActionResponse<void> {
   try {
     await deleteAuth0User(id);
     await deleteUser(id);
+    revalidatePath("/users");
     return {
       status: "success",
-      heading: "User Deleted Successfully",
       message: "The user has been deleted.",
     };
   } catch {
     return {
       status: "error",
-      heading: "User Delete Failed",
       message: "There was an issue deleting the user. Please try again.",
     };
   }
