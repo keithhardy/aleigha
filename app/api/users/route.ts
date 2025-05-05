@@ -16,9 +16,9 @@ export async function GET() {
   }
 }
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   try {
-    const data = await req.json();
+    const data = await request.json();
     const auth0User = await createAuth0User({
       connection: "Username-Password-Authentication",
       name: data.name,

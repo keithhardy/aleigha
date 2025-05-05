@@ -1,9 +1,39 @@
-import type { NextRequest } from "next/server";
-
+import { NextRequest, NextResponse } from "next/server";
 import { auth0 } from "./lib/auth/auth0-client";
+import { verifyJwt } from "./lib/auth/verify-jwt";
 
 export async function middleware(request: NextRequest) {
-  return await auth0.middleware(request);
+  const { pathname } = request.nextUrl;
+
+  if (pathname.startsWith("/api")) {
+    const unauthorized = (message: string) =>
+      NextResponse.json({ error: message }, { status: 401 });
+
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return unauthorized("Missing or invalid Authorization header");
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    try {
+      const payload = await verifyJwt(token);
+      if (!payload?.sub) {
+        return NextResponse.json(
+          { error: "Invalid token: missing subject (sub)" },
+          { status: 401 },
+        );
+      }
+      return NextResponse.next();
+    } catch {
+      return NextResponse.json(
+        { error: "Invalid or expired token" },
+        { status: 401 },
+      );
+    }
+  }
+
+  return auth0.middleware(request);
 }
 
 export const config = {

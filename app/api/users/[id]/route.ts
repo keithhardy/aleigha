@@ -9,10 +9,7 @@ import {
   deleteAuth0User,
 } from "@/lib/services/user-services";
 
-export async function GET(
-  req: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET({ params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const user = await getUser(id);
@@ -26,12 +23,12 @@ export async function GET(
 }
 
 export async function PATCH(
-  req: Request,
+  request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
-    const data = await req.json();
+    const data = await request.json();
     await updateAuth0User(id, {
       name: data.name,
       email: data.email,
@@ -56,10 +53,7 @@ export async function PATCH(
   }
 }
 
-export async function DELETE(
-  req: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function DELETE({ params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     await deleteAuth0User(id);
