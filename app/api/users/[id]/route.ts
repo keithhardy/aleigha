@@ -7,7 +7,7 @@ import {
   deleteUser,
   updateAuth0User,
   deleteAuth0User,
-} from "@/lib/services/user-services";
+} from "@/lib/services/user";
 
 export async function GET({ params }: { params: Promise<{ id: string }> }) {
   try {

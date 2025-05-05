@@ -2,7 +2,7 @@
 
 import { User, UserRole } from "@prisma/client";
 
-import { CreateUserInput, UpdateUserInput } from "@/lib/schemas/user-schemas";
+import { CreateUserInput, UpdateUserInput } from "@/lib/schemas/user";
 import {
   createAuth0User,
   createUser,
@@ -10,7 +10,7 @@ import {
   deleteUser,
   updateAuth0User,
   updateUser,
-} from "@/lib/services/user-services";
+} from "@/lib/services/user";
 
 export type ServerActionResponse<T> = Promise<{
   status: "success" | "error";

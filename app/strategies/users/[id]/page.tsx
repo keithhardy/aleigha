@@ -1,4 +1,4 @@
-import { getUser } from "@/lib/services/user-services";
+import { getUser } from "@/lib/services/user";
 
 export default async function User({
   params,

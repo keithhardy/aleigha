@@ -44,9 +44,9 @@ export async function getUser(id: string) {
   }
 }
 
-export async function getUsers() {
+export async function getUsers(args?: Prisma.UserFindManyArgs) {
   try {
-    return await prisma.user.findMany();
+    return await prisma.user.findMany(args);
   } catch {
     throw new Error("Failed to get users");
   }
