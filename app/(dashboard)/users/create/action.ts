@@ -3,7 +3,6 @@
 import { User } from "@prisma/client";
 import { z } from "zod";
 
-import { auth0Management } from "@/lib/auth/auth0-management-client";
 import { prisma } from "@/prisma";
 import { ServerActionResponse } from "@/types/server-action-response";
 
@@ -17,20 +16,13 @@ export async function createUserAction(
       id: client.clientId,
     }));
 
-    const auth0User = await auth0Management.users.create({
-      connection: "Username-Password-Authentication",
-      name: user.name,
-      email: user.email,
-      password: user.password,
-    });
-
     await prisma.user.create({
       data: {
         name: user.name,
         email: user.email,
         phone: user.phone,
         role: user.role,
-        auth0Id: auth0User.data.user_id,
+        auth0Id: "auth0User.data.user_id",
         clients: {
           connect: formattedClients,
         },

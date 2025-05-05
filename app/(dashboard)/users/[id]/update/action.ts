@@ -3,7 +3,6 @@
 import { User } from "@prisma/client";
 import { z } from "zod";
 
-import { auth0Management } from "@/lib/auth/auth0-management-client";
 import { prisma } from "@/prisma";
 import { ServerActionResponse } from "@/types/server-action-response";
 
@@ -23,16 +22,6 @@ export async function updateUser(
   );
 
   try {
-    await auth0Management.users.update(
-      {
-        id: user.auth0Id,
-      },
-      {
-        name: user.name,
-        email: user.email,
-      },
-    );
-
     await prisma.user.update({
       where: {
         id: user.id,

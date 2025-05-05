@@ -2,7 +2,6 @@ import { Metadata } from "next";
 
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
-import { auth0 } from "@/lib/auth/auth0-client";
 import { prisma } from "@/prisma";
 
 import { CreateCertificateForm } from "./form";
@@ -12,15 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CreateCertificate() {
-  const session = await auth0.getSession();
-  if (!session) {
-    return null;
-  }
-  const user = session.user;
-
-  const currentUser = await prisma.user.findUnique({
-    where: { auth0Id: user.sub },
-  });
+  const currentUser = await prisma.user.findFirst();
 
   const clients = await prisma.client.findMany({
     include: {

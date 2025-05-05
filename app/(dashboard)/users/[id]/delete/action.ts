@@ -2,7 +2,6 @@
 
 import { z } from "zod";
 
-import { auth0Management } from "@/lib/auth/auth0-management-client";
 import { prisma } from "@/prisma";
 import { ServerActionResponse } from "@/types/server-action-response";
 
@@ -12,10 +11,6 @@ export async function deleteUser(
   user: z.infer<typeof DeleteUserSchema>,
 ): Promise<ServerActionResponse<void>> {
   try {
-    await auth0Management.users.delete({
-      id: user.auth0Id,
-    });
-
     await prisma.user.delete({
       where: {
         id: user.id,

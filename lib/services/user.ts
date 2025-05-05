@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { UserCreate, UserUpdate } from "auth0";
 
-import { auth0Management } from "@/lib/auth/auth0-management-client";
+import { auth0Management } from "@/auth0/auth0-management";
 import { prisma } from "@/prisma";
 
 export async function createAuth0User(data: UserCreate) {
