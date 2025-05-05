@@ -7,7 +7,7 @@ export async function getAuth0User() {
   try {
     return (await auth0.getSession())?.user.sub;
   } catch {
-    throw new Error("Failed to get current user");
+    return null;
   }
 }
 

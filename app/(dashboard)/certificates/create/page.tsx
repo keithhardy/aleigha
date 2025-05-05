@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 import { getAuth0User } from "@/auth0";
 import { PageHeader } from "@/components/page-header";
@@ -14,9 +15,13 @@ export const metadata: Metadata = {
 export default async function CreateCertificate() {
   const currentUser = await getAuth0User();
 
+  if (!currentUser) {
+    redirect("/auth/login");
+  }
+
   const user = await prisma.user.findUnique({
     where: {
-      auth0Id: currentUser?.sub,
+      auth0Id: currentUser,
     },
   });
 

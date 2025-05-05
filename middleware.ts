@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth0 } from "./auth0/client";
-import { verifyJwt } from "./auth0";
+import { verifyJwt } from "./auth0/utils/jwt";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
