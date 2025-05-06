@@ -1,14 +1,10 @@
 "use server";
 
-import { User, UserRole } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-import {
-  CreateUserInput,
-  UpdateUserInput,
-} from "@/app/strategies/users/schema";
 import { createAuth0User, deleteAuth0User, updateAuth0User } from "@/auth0";
-import { createUser, deleteUser, updateUser } from "@/prisma";
+import { userService } from "@/lib/factories/user-service-factory";
+import { CreateUserDto, UpdateUserDto, UserDto } from "@/lib/schemas/user";
 
 export type ServerActionResponse<T = undefined> = Promise<{
   status: "success" | "error";
@@ -17,21 +13,21 @@ export type ServerActionResponse<T = undefined> = Promise<{
 }>;
 
 export async function createUserAction(
-  data: CreateUserInput,
-): ServerActionResponse<User> {
+  data: CreateUserDto,
+): ServerActionResponse<UserDto> {
   try {
     const auth0User = await createAuth0User({
       connection: "Username-Password-Authentication",
       name: data.name,
       email: data.email,
-      password: data.password,
+      // password: data.password,
     });
-    const user = await createUser({
+    const user = await userService.createUser({
+      auth0Id: auth0User.user_id,
       name: data.name,
       email: data.email,
       phone: data.phone,
-      role: data.role as UserRole,
-      auth0Id: auth0User.user_id,
+      role: data.role,
     });
     revalidatePath("/users");
     return {
@@ -49,19 +45,19 @@ export async function createUserAction(
 
 export async function updateUserAction(
   id: string,
-  data: UpdateUserInput,
-): ServerActionResponse<User> {
+  data: UpdateUserDto,
+): ServerActionResponse<UserDto> {
   try {
     await updateAuth0User(id, {
       name: data.name,
       email: data.email,
     });
-    const user = await updateUser(id, {
+    const user = await userService.updateUser(id, {
       name: data.name,
       email: data.email,
       phone: data.phone,
       signature: data.signature,
-      role: data.role as UserRole,
+      role: data.role,
       clients: {
         connect: data.clients.connect,
         disconnect: data.clients.disconnect,
@@ -84,7 +80,7 @@ export async function updateUserAction(
 export async function deleteUserAction(id: string): ServerActionResponse<void> {
   try {
     await deleteAuth0User(id);
-    await deleteUser(id);
+    await userService.deleteUser(id);
     revalidatePath("/users");
     return {
       status: "success",

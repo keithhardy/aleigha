@@ -1,9 +1,9 @@
-import { getUser, getUsers } from "@/prisma";
+import { userService } from "@/lib/factories/user-service-factory";
 
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  const users = await getUsers();
+  const users = await userService.getUsers();
   return users.map((user) => ({
     id: String(user.id),
   }));
@@ -15,6 +15,6 @@ export default async function UpdateUser({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const user = await getUser(id);
+  const user = await userService.getUser(id);
   return <pre>{JSON.stringify(user, null, 2)}</pre>;
 }
