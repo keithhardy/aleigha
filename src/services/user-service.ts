@@ -12,7 +12,7 @@ export class UserService {
     private readonly auth0Provider: IAuthUserProvider,
   ) {}
 
-  async createUser(input: Omit<CreateUserDto, "auth0Id">, password: string) {
+  async createUser(password: string, input: Omit<CreateUserDto, "auth0Id">) {
     CreateAuthUserSchema.parse({
       email: input.email,
       name: input.name,

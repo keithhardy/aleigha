@@ -16,5 +16,5 @@ export default async function UpdateUser({
 }) {
   const { id } = await params;
   const user = await userService.getUser(id);
-  return <pre>{JSON.stringify(user, null, 2)}</pre>;
+  return JSON.stringify(user, null, 2);
 }

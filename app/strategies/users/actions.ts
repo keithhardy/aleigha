@@ -12,19 +12,11 @@ export type ServerActionResponse<T = undefined> = Promise<{
 }>;
 
 export async function createUserAction(
-  data: CreateUserDto,
   password: string,
+  data: Omit<CreateUserDto, "auth0Id">,
 ): ServerActionResponse<UserDto> {
   try {
-    const user = await userService.createUser(
-      {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        role: data.role,
-      },
-      password,
-    );
+    const user = await userService.createUser(password, data);
     revalidatePath("/users");
     return {
       status: "success",
@@ -44,17 +36,7 @@ export async function updateUserAction(
   data: UpdateUserDto,
 ): ServerActionResponse<UserDto> {
   try {
-    const user = await userService.updateUser(id, {
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      signature: data.signature,
-      role: data.role,
-      clients: {
-        connect: data.clients.connect,
-        disconnect: data.clients.disconnect,
-      },
-    });
+    const user = await userService.updateUser(id, data);
     revalidatePath("/users");
     return {
       status: "success",

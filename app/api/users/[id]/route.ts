@@ -1,4 +1,4 @@
-import { UserRole } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 import { userService } from "@/src/factories/user-service-factory";
@@ -26,17 +26,8 @@ export async function PATCH(
   try {
     const { id } = await params;
     const data = await request.json();
-    const user = await userService.updateUser(id, {
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      signature: data.signature,
-      role: data.role as UserRole,
-      clients: {
-        connect: data.clients.connect,
-        disconnect: data.clients.disconnect,
-      },
-    });
+    const user = await userService.updateUser(id, data);
+    revalidatePath("/users");
     return NextResponse.json(user, { status: 200 });
   } catch {
     return NextResponse.json(
@@ -53,6 +44,7 @@ export async function DELETE(
   try {
     const { id } = await params;
     await userService.deleteUser(id);
+    revalidatePath("/users");
     return NextResponse.json(null, { status: 200 });
   } catch {
     return NextResponse.json(
