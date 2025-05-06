@@ -4,8 +4,8 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { customAlphabet } from "nanoid";
 import { z } from "zod";
 
+import { ServerActionResponse } from "@/next.types";
 import { prisma } from "@/prisma";
-import { ServerActionResponse } from "@/types/server-action-response";
 
 import { CreateCertificateSchema } from "./schema";
 

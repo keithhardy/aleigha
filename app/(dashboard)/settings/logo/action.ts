@@ -3,8 +3,8 @@
 import { put } from "@vercel/blob";
 import { z } from "zod";
 
+import { ServerActionResponse } from "@/next.types";
 import { prisma } from "@/prisma";
-import { ServerActionResponse } from "@/types/server-action-response";
 
 import { UpdateLogoSchema } from "./schema";
 

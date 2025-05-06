@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 
-import { createAuth0User } from "@/auth0";
 import { userService } from "@/src/factories/user-service-factory";
 
 export async function GET() {
@@ -15,19 +14,15 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const data = await request.json();
-    const auth0User = await createAuth0User({
-      connection: "Username-Password-Authentication",
-      name: data.name,
-      email: data.email,
-      password: data.password,
-    });
-    const user = await userService.createUser({
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      role: data.role,
-      auth0Id: auth0User.user_id,
-    });
+    const user = await userService.createUser(
+      {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        role: data.role,
+      },
+      data.password,
+    );
     return NextResponse.json(user, { status: 201 });
   } catch {
     return NextResponse.json(

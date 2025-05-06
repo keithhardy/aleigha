@@ -2,8 +2,8 @@
 
 import { z } from "zod";
 
+import { ServerActionResponse } from "@/next.types";
 import { prisma } from "@/prisma";
-import { ServerActionResponse } from "@/types/server-action-response";
 
 import { UpdateEmailSchema } from "./schema";
 

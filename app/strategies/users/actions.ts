@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 
-import { createAuth0User, deleteAuth0User, updateAuth0User } from "@/auth0";
 import { userService } from "@/src/factories/user-service-factory";
 import { CreateUserDto, UpdateUserDto, UserDto } from "@/src/schemas/user";
 
@@ -14,21 +13,18 @@ export type ServerActionResponse<T = undefined> = Promise<{
 
 export async function createUserAction(
   data: CreateUserDto,
+  password: string,
 ): ServerActionResponse<UserDto> {
   try {
-    const auth0User = await createAuth0User({
-      connection: "Username-Password-Authentication",
-      name: data.name,
-      email: data.email,
-      // password: data.password,
-    });
-    const user = await userService.createUser({
-      auth0Id: auth0User.user_id,
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      role: data.role,
-    });
+    const user = await userService.createUser(
+      {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        role: data.role,
+      },
+      password,
+    );
     revalidatePath("/users");
     return {
       status: "success",
@@ -48,10 +44,6 @@ export async function updateUserAction(
   data: UpdateUserDto,
 ): ServerActionResponse<UserDto> {
   try {
-    await updateAuth0User(id, {
-      name: data.name,
-      email: data.email,
-    });
     const user = await userService.updateUser(id, {
       name: data.name,
       email: data.email,
@@ -79,7 +71,6 @@ export async function updateUserAction(
 
 export async function deleteUserAction(id: string): ServerActionResponse<void> {
   try {
-    await deleteAuth0User(id);
     await userService.deleteUser(id);
     revalidatePath("/users");
     return {

@@ -1,7 +1,6 @@
 import { UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-import { updateAuth0User, deleteAuth0User } from "@/auth0";
 import { userService } from "@/src/factories/user-service-factory";
 
 export async function GET(
@@ -27,10 +26,6 @@ export async function PATCH(
   try {
     const { id } = await params;
     const data = await request.json();
-    await updateAuth0User(id, {
-      name: data.name,
-      email: data.email,
-    });
     const user = await userService.updateUser(id, {
       name: data.name,
       email: data.email,
@@ -57,7 +52,6 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    await deleteAuth0User(id);
     await userService.deleteUser(id);
     return NextResponse.json(null, { status: 200 });
   } catch {

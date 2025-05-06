@@ -3,8 +3,8 @@
 import { User } from "@prisma/client";
 import { z } from "zod";
 
+import { ServerActionResponse } from "@/next.types";
 import { prisma } from "@/prisma";
-import { ServerActionResponse } from "@/types/server-action-response";
 
 import { UpdateUserSchema } from "./schema";
 

@@ -12,7 +12,7 @@ export class UserService {
     private readonly auth0Provider: IAuthUserProvider,
   ) {}
 
-  async createUser(input: CreateUserDto, password: string) {
+  async createUser(input: Omit<CreateUserDto, "auth0Id">, password: string) {
     CreateAuthUserSchema.parse({
       email: input.email,
       name: input.name,
@@ -20,14 +20,17 @@ export class UserService {
       password,
     });
 
-    await this.auth0Provider.createUser({
+    const auth0User = await this.auth0Provider.createUser({
       email: input.email,
       name: input.name,
       connection: "Username-Password-Authentication",
       password,
     });
 
-    return this.prismaProvider.createUser(input);
+    return this.prismaProvider.createUser({
+      ...input,
+      auth0Id: auth0User.user_id,
+    });
   }
 
   async getUser(id: string) {
