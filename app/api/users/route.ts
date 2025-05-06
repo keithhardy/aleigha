@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { createAuth0User } from "@/auth0";
-import { userService } from "@/lib/factories/user-service-factory";
+import { userService } from "@/src/factories/user-service-factory";
 
 export async function GET() {
   try {

@@ -1,5 +1,5 @@
-import { IUserProvider } from "@/lib/interfaces/user-provider";
-import { CreateUserDto, UpdateUserDto } from "@/lib/schemas/user";
+import { IUserProvider } from "@/src/interfaces/user-provider";
+import { CreateUserDto, UpdateUserDto } from "@/src/schemas/user";
 
 export class UserService {
   constructor(private readonly provider: IUserProvider) {}

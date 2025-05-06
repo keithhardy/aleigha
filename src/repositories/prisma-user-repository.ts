@@ -1,6 +1,6 @@
-import { IUserProvider } from "@/lib/interfaces/user-provider";
-import { CreateUserDto, UpdateUserDto } from "@/lib/schemas/user";
 import { prisma } from "@/prisma";
+import { IUserProvider } from "@/src/interfaces/user-provider";
+import { CreateUserDto, UpdateUserDto } from "@/src/schemas/user";
 
 export class PrismaUserRepository implements IUserProvider {
   async createUser(data: CreateUserDto) {

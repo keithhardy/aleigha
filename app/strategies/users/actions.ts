@@ -3,8 +3,8 @@
 import { revalidatePath } from "next/cache";
 
 import { createAuth0User, deleteAuth0User, updateAuth0User } from "@/auth0";
-import { userService } from "@/lib/factories/user-service-factory";
-import { CreateUserDto, UpdateUserDto, UserDto } from "@/lib/schemas/user";
+import { userService } from "@/src/factories/user-service-factory";
+import { CreateUserDto, UpdateUserDto, UserDto } from "@/src/schemas/user";
 
 export type ServerActionResponse<T = undefined> = Promise<{
   status: "success" | "error";

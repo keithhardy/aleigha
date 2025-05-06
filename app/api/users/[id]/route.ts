@@ -2,7 +2,7 @@ import { UserRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 import { updateAuth0User, deleteAuth0User } from "@/auth0";
-import { getUser, updateUser, deleteUser } from "@/prisma";
+import { userService } from "@/src/factories/user-service-factory";
 
 export async function GET(
   request: Request,
@@ -10,7 +10,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const user = await getUser(id);
+    const user = await userService.getUser(id);
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
@@ -31,7 +31,7 @@ export async function PATCH(
       name: data.name,
       email: data.email,
     });
-    const user = await updateUser(id, {
+    const user = await userService.updateUser(id, {
       name: data.name,
       email: data.email,
       phone: data.phone,
@@ -58,7 +58,7 @@ export async function DELETE(
   try {
     const { id } = await params;
     await deleteAuth0User(id);
-    await deleteUser(id);
+    await userService.deleteUser(id);
     return NextResponse.json(null, { status: 200 });
   } catch {
     return NextResponse.json(
