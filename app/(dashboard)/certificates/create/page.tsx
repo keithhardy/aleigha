@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { getAuth0User } from "@/auth0";
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
-import { prisma } from "@/prisma";
+import { prisma } from "@/prisma/prisma";
 
 import { CreateCertificateForm } from "./form";
 

@@ -1,4 +1,4 @@
-import { prisma } from "@/prisma";
+import { prisma } from "@/prisma/prisma";
 import { IClientProvider } from "@/src/interfaces/client-provider";
 import { CreateClientDto, UpdateClientDto } from "@/src/schemas/client";
 

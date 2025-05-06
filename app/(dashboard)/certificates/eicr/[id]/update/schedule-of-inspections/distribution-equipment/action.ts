@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { ServerActionResponse } from "@/next.types";
-import { prisma } from "@/prisma";
+import { prisma } from "@/prisma/prisma";
 
 import { UpdateDistributionEquipmentSchema } from "./schema";
 

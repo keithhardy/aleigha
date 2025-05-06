@@ -4,7 +4,7 @@ import { z } from "zod";
 
 import { DeleteClientSchema } from "@/app/(dashboard)/clients/[id]/delete/schema";
 import { ServerActionResponse } from "@/next.types";
-import { prisma } from "@/prisma";
+import { prisma } from "@/prisma/prisma";
 
 export async function deleteClient(
   client: z.infer<typeof DeleteClientSchema>,

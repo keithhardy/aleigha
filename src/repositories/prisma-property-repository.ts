@@ -1,4 +1,4 @@
-import { prisma } from "@/prisma";
+import { prisma } from "@/prisma/prisma";
 import { IPropertyProvider } from "@/src/interfaces/property-provider";
 import { CreatePropertyDto, UpdatePropertyDto } from "@/src/schemas/property";
 

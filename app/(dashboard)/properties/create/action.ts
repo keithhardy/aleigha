@@ -5,7 +5,7 @@ import { z } from "zod";
 
 import { CreatePropertySchema } from "@/app/(dashboard)/properties/create/schema";
 import { ServerActionResponse } from "@/next.types";
-import { prisma } from "@/prisma";
+import { prisma } from "@/prisma/prisma";
 
 export async function createProperty(
   property: z.infer<typeof CreatePropertySchema>,

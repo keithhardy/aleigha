@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
-import { prisma } from "@/prisma";
+import { prisma } from "@/prisma/prisma";
 
 import { ImportPropertiesForm } from "./form";
 
