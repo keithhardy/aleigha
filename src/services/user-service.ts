@@ -1,26 +1,65 @@
+import { IAuthUserProvider } from "@/src/interfaces/auth-user-provider";
 import { IUserProvider } from "@/src/interfaces/user-provider";
+import {
+  CreateAuthUserSchema,
+  UpdateAuthUserSchema,
+} from "@/src/schemas/auth-user";
 import { CreateUserDto, UpdateUserDto } from "@/src/schemas/user";
 
 export class UserService {
-  constructor(private readonly provider: IUserProvider) {}
+  constructor(
+    private readonly prismaProvider: IUserProvider,
+    private readonly auth0Provider: IAuthUserProvider,
+  ) {}
 
-  createUser(input: CreateUserDto) {
-    return this.provider.createUser(input);
+  async createUser(input: CreateUserDto, password: string) {
+    CreateAuthUserSchema.parse({
+      email: input.email,
+      name: input.name,
+      connection: "Username-Password-Authentication",
+      password,
+    });
+
+    await this.auth0Provider.createUser({
+      email: input.email,
+      name: input.name,
+      connection: "Username-Password-Authentication",
+      password,
+    });
+
+    return this.prismaProvider.createUser(input);
   }
 
-  getUser(id: string) {
-    return this.provider.getUser(id);
+  async getUser(id: string) {
+    return this.prismaProvider.getUser(id);
   }
 
-  getUsers() {
-    return this.provider.getUsers();
+  async getUsers() {
+    return this.prismaProvider.getUsers();
   }
 
-  updateUser(id: string, input: UpdateUserDto) {
-    return this.provider.updateUser(id, input);
+  async updateUser(id: string, input: UpdateUserDto) {
+    const user = await this.prismaProvider.getUser(id);
+    if (!user) throw new Error(`User with id ${id} not found`);
+
+    UpdateAuthUserSchema.parse({
+      email: input.email,
+      name: input.name,
+    });
+
+    await this.auth0Provider.updateUser(user.auth0Id, {
+      email: input.email,
+      name: input.name,
+    });
+
+    return this.prismaProvider.updateUser(id, input);
   }
 
-  deleteUser(id: string) {
-    return this.provider.deleteUser(id);
+  async deleteUser(id: string) {
+    const user = await this.prismaProvider.getUser(id);
+    if (!user) throw new Error(`User with id ${id} not found`);
+
+    await this.auth0Provider.deleteUser(user.auth0Id);
+    return this.prismaProvider.deleteUser(id);
   }
 }
