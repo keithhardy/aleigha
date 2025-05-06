@@ -24,6 +24,18 @@ export const AuthUserSchema = z.object({
   family_name: z.string(),
 });
 
+export const AuthCurrentUserSchema = z.object({
+  sub: z.string(),
+  name: z.string().optional(),
+  nickname: z.string().optional(),
+  given_name: z.string().optional(),
+  family_name: z.string().optional(),
+  picture: z.string().optional(),
+  email: z.string().email().optional(),
+  email_verified: z.boolean().optional(),
+  org_id: z.string().optional(),
+});
+
 export const CreateAuthUserSchema = z.object({
   email: z.string().email(),
   name: z.string(),
@@ -37,5 +49,6 @@ export const UpdateAuthUserSchema = z.object({
 });
 
 export type AuthUserDto = z.infer<typeof AuthUserSchema>;
+export type AuthCurrentUserDto = z.infer<typeof AuthCurrentUserSchema>;
 export type CreateAuthUserDto = z.infer<typeof CreateAuthUserSchema>;
 export type UpdateAuthUserDto = z.infer<typeof UpdateAuthUserSchema>;

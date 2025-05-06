@@ -37,6 +37,10 @@ export class UserService {
     return this.prismaProvider.getUser(id);
   }
 
+  async getCurrentUser() {
+    return this.auth0Provider.getCurrentUser();
+  }
+
   async getUsers() {
     return this.prismaProvider.getUsers();
   }
