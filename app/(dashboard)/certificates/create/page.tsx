@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-import { getAuth0User } from "@/auth0";
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
-import { prisma } from "@/prisma/prisma";
+import { prisma } from "@/prisma";
+import { userService } from "@/src/factories/user-service-factory";
 
 import { CreateCertificateForm } from "./form";
 
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CreateCertificate() {
-  const currentUser = await getAuth0User();
+  const currentUser = await userService.getCurrentUser();
 
   if (!currentUser) {
     redirect("/auth/login");
@@ -21,7 +21,7 @@ export default async function CreateCertificate() {
 
   const user = await prisma.user.findUnique({
     where: {
-      auth0Id: currentUser,
+      auth0Id: currentUser.sub,
     },
   });
 

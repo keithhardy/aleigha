@@ -1,4 +1,3 @@
-export * from "./client";
-export * from "./management";
-export * from "./utils/jwt";
-export * from "./managers/user";
+export * from "./auth0";
+export * from "./auth0-management";
+export * from "./jwt";

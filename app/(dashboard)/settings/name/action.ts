@@ -3,7 +3,7 @@
 import { z } from "zod";
 
 import { ServerActionResponse } from "@/next.types";
-import { prisma } from "@/prisma/prisma";
+import { prisma } from "@/prisma";
 
 import { UpdateNameSchema } from "./schema";
 

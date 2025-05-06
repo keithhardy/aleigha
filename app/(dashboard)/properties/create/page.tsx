@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { CreatePropertyForm } from "@/app/(dashboard)/properties/create/form";
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
-import { prisma } from "@/prisma/prisma";
+import { prisma } from "@/prisma";
 
 export const metadata: Metadata = {
   title: pagesConfig.propertyCreate.metadata.title,

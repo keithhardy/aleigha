@@ -1,38 +1,36 @@
-// import { NextRequest, NextResponse } from "next/server";
-import { NextRequest } from "next/server";
-import { auth0 } from "./auth0/client";
-// import { verifyJwt } from "./auth0/utils/jwt";
+import { NextRequest, NextResponse } from "next/server";
+import { auth0, verifyJwt } from "./auth0";
 
 export async function middleware(request: NextRequest) {
-  // const { pathname } = request.nextUrl;
+  const { pathname } = request.nextUrl;
 
-  // if (pathname.startsWith("/api")) {
-  //   const unauthorized = (message: string) =>
-  //     NextResponse.json({ error: message }, { status: 401 });
+  if (pathname.startsWith("/api")) {
+    const unauthorized = (message: string) =>
+      NextResponse.json({ error: message }, { status: 401 });
 
-  //   const authHeader = request.headers.get("authorization");
-  //   if (!authHeader?.startsWith("Bearer ")) {
-  //     return unauthorized("Missing or invalid Authorization header");
-  //   }
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return unauthorized("Missing or invalid Authorization header");
+    }
 
-  //   const token = authHeader.split(" ")[1];
+    const token = authHeader.split(" ")[1];
 
-  //   try {
-  //     const payload = await verifyJwt(token);
-  //     if (!payload?.sub) {
-  //       return NextResponse.json(
-  //         { error: "Invalid token: missing subject (sub)" },
-  //         { status: 401 },
-  //       );
-  //     }
-  //     return NextResponse.next();
-  //   } catch {
-  //     return NextResponse.json(
-  //       { error: "Invalid or expired token" },
-  //       { status: 401 },
-  //     );
-  //   }
-  // }
+    try {
+      const payload = await verifyJwt(token);
+      if (!payload?.sub) {
+        return NextResponse.json(
+          { error: "Invalid token: missing subject (sub)" },
+          { status: 401 },
+        );
+      }
+      return NextResponse.next();
+    } catch {
+      return NextResponse.json(
+        { error: "Invalid or expired token" },
+        { status: 401 },
+      );
+    }
+  }
 
   return auth0.middleware(request);
 }

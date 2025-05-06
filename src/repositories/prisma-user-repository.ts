@@ -1,4 +1,4 @@
-import { prisma } from "@/prisma/prisma";
+import { prisma } from "@/prisma";
 import { IUserProvider } from "@/src/interfaces/user-provider";
 import { CreateUserDto, UpdateUserDto } from "@/src/schemas/user";
 

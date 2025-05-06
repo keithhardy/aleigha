@@ -5,7 +5,7 @@ import { customAlphabet } from "nanoid";
 import { z } from "zod";
 
 import { ServerActionResponse } from "@/next.types";
-import { prisma } from "@/prisma/prisma";
+import { prisma } from "@/prisma";
 
 import { CreateCertificateSchema } from "./schema";
 

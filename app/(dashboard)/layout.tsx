@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { getAuth0User } from "@/auth0";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -12,13 +11,14 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { userService } from "@/src/factories/user-service-factory";
 
 import { DashboardSidebar } from "../../components/dashboard-sidebar";
 
 export default async function DashboardLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const currentUser = await getAuth0User();
+  const currentUser = await userService.getCurrentUser();
 
   if (!currentUser) {
     redirect("/auth/login");

@@ -1,7 +1,7 @@
 import { ElectricalInstallationConditionReport } from "@prisma/client";
 import { notFound } from "next/navigation";
 
-import { prisma } from "@/prisma/prisma";
+import { prisma } from "@/prisma";
 
 import { UpdatePresenceOfAdequateArrangementsForm } from "./form";
 
