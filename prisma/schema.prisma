@@ -44,7 +44,6 @@ enum UserRole {
 
 model User {
   id                                               String                                  @id @default(cuid())
-  auth0Id                                          String                                  @unique
   name                                             String
   email                                            String                                  @unique
   phone                                            String

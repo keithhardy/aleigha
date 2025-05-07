@@ -22,7 +22,6 @@ export async function createUserAction(
         email: user.email,
         phone: user.phone,
         role: user.role,
-        auth0Id: "auth0User.data.user_id",
         clients: {
           connect: formattedClients,
         },

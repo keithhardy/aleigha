@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { userService } from "@/src/factories/user-service-factory";
-import { CreateUserDto, UpdateUserDto, UserDto } from "@/src/schemas/user";
+import { CreateUser, UpdateUser, User } from "@/src/schemas/user";
 
 export type ServerActionResponse<T = undefined> = Promise<{
   status: "success" | "error";
@@ -13,8 +13,8 @@ export type ServerActionResponse<T = undefined> = Promise<{
 
 export async function createUserAction(
   password: string,
-  data: Omit<CreateUserDto, "auth0Id">,
-): ServerActionResponse<UserDto> {
+  data: CreateUser,
+): ServerActionResponse<User> {
   try {
     const user = await userService.createUser(password, data);
     revalidatePath("/users");
@@ -33,8 +33,8 @@ export async function createUserAction(
 
 export async function updateUserAction(
   id: string,
-  data: UpdateUserDto,
-): ServerActionResponse<UserDto> {
+  data: UpdateUser,
+): ServerActionResponse<User> {
   try {
     const user = await userService.updateUser(id, data);
     revalidatePath("/users");

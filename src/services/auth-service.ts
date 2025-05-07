@@ -8,8 +8,8 @@ export class AuthService {
     return this.auth0Provider.createUser(input);
   }
 
-  getUser(id: string) {
-    return this.auth0Provider.getUser(id);
+  getUser(email: string) {
+    return this.auth0Provider.getUser(email);
   }
 
   updateUser(id: string, input: UpdateUser) {

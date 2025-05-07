@@ -8,7 +8,7 @@ export class UserService {
     private readonly auth0Provider: IAuthProvider,
   ) {}
 
-  createUser(password: string, input: Omit<CreateUser, "auth0Id">) {
+  createUser(password: string, input: CreateUser) {
     return this.auth0Provider
       .createUser({
         email: input.email,
@@ -16,12 +16,7 @@ export class UserService {
         connection: "Username-Password-Authentication",
         password,
       })
-      .then((auth0User) =>
-        this.prismaProvider.createUser({
-          ...input,
-          auth0Id: auth0User.user_id,
-        }),
-      );
+      .then(() => this.prismaProvider.createUser(input));
   }
 
   getUser(id: string) {
@@ -36,12 +31,17 @@ export class UserService {
     return this.prismaProvider.getUser(id).then((user) => {
       if (!user) throw new Error(`User with id ${id} not found`);
 
-      return this.auth0Provider
-        .updateUser(user.auth0Id, {
-          email: input.email,
-          name: input.name,
-        })
-        .then(() => this.prismaProvider.updateUser(id, input));
+      return this.auth0Provider.getUser(user.email).then((auth0User) => {
+        if (!auth0User)
+          throw new Error(`User with email ${user.email} not found`);
+
+        return this.auth0Provider
+          .updateUser(auth0User.user_id, {
+            email: input.email,
+            name: input.name,
+          })
+          .then(() => this.prismaProvider.updateUser(id, input));
+      });
     });
   }
 
@@ -49,9 +49,14 @@ export class UserService {
     return this.prismaProvider.getUser(id).then((user) => {
       if (!user) throw new Error(`User with id ${id} not found`);
 
-      return this.auth0Provider
-        .deleteUser(user.auth0Id)
-        .then(() => this.prismaProvider.deleteUser(id));
+      return this.auth0Provider.getUser(user.email).then((auth0User) => {
+        if (!auth0User)
+          throw new Error(`User with email ${user.email} not found`);
+
+        return this.auth0Provider
+          .deleteUser(auth0User.user_id)
+          .then(() => this.prismaProvider.deleteUser(id));
+      });
     });
   }
 }

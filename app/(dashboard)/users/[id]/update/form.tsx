@@ -68,7 +68,6 @@ export default function UpdateUserForm({
     resolver: zodResolver(UpdateUserSchema),
     defaultValues: {
       id: user.id,
-      auth0Id: user.auth0Id,
       name: user.name,
       email: user.email,
       phone: user.phone || "",

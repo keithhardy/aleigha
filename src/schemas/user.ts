@@ -10,7 +10,6 @@ export const UserRoleEnum = z.enum([
 
 export const UserSchema = z.object({
   id: z.string(),
-  auth0Id: z.string(),
   name: z.string(),
   email: z.string(),
   phone: z.string(),
@@ -21,7 +20,6 @@ export const UserSchema = z.object({
 });
 
 export const CreateUserSchema = z.object({
-  auth0Id: z.string(),
   name: z.string(),
   email: z.string(),
   phone: z.string(),

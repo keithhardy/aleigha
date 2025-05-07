@@ -22,7 +22,6 @@ import {
 interface User {
   name: string;
   id: string;
-  auth0Id: string;
   email: string;
   phone: string;
   signature: string | null;

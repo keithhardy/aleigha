@@ -8,8 +8,10 @@ export class Auth0AuthRepository implements IAuthProvider {
     return auth0Management.users.create(data).then((res) => res.data);
   }
 
-  getUser(id: string) {
-    return auth0Management.users.get({ id }).then((res) => res.data);
+  getUser(email: string) {
+    return auth0Management.usersByEmail
+      .getByEmail({ email })
+      .then((res) => res.data[0]);
   }
 
   updateUser(id: string, data: UpdateUser) {
