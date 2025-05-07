@@ -1,25 +1,25 @@
 import { prisma } from "@/prisma";
 import { IClientProvider } from "@/src/interfaces/client-provider";
-import { CreateClientDto, UpdateClientDto } from "@/src/schemas/client";
+import { CreateClient, UpdateClient } from "@/src/schemas/client";
 
 export class PrismaClientRepository implements IClientProvider {
-  async createClient(data: CreateClientDto) {
+  createClient(data: CreateClient) {
     return prisma.client.create({ data });
   }
 
-  async getClient(id: string) {
+  getClient(id: string) {
     return prisma.client.findUnique({ where: { id } });
   }
 
-  async getClients() {
+  getClients() {
     return prisma.client.findMany();
   }
 
-  async updateClient(id: string, data: UpdateClientDto) {
+  updateClient(id: string, data: UpdateClient) {
     return prisma.client.update({ where: { id }, data });
   }
 
-  async deleteClient(id: string) {
+  deleteClient(id: string) {
     return prisma.client.delete({ where: { id } });
   }
 }

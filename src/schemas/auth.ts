@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const AuthUserSchema = z.object({
+export const UserSchema = z.object({
   user_id: z.string(),
   email: z.string(),
   email_verified: z.boolean(),
@@ -24,7 +24,19 @@ export const AuthUserSchema = z.object({
   family_name: z.string(),
 });
 
-export const AuthCurrentUserSchema = z.object({
+export const CreateUserSchema = z.object({
+  email: z.string().email(),
+  name: z.string(),
+  connection: z.string(),
+  password: z.string().optional(),
+});
+
+export const UpdateUserSchema = z.object({
+  email: z.string().email().optional(),
+  name: z.string().optional(),
+});
+
+export const CurrentUserSchema = z.object({
   sub: z.string(),
   name: z.string().optional(),
   nickname: z.string().optional(),
@@ -36,19 +48,7 @@ export const AuthCurrentUserSchema = z.object({
   org_id: z.string().optional(),
 });
 
-export const CreateAuthUserSchema = z.object({
-  email: z.string().email(),
-  name: z.string(),
-  connection: z.string(),
-  password: z.string().optional(),
-});
-
-export const UpdateAuthUserSchema = z.object({
-  email: z.string().email().optional(),
-  name: z.string().optional(),
-});
-
-export type AuthUserDto = z.infer<typeof AuthUserSchema>;
-export type AuthCurrentUserDto = z.infer<typeof AuthCurrentUserSchema>;
-export type CreateAuthUserDto = z.infer<typeof CreateAuthUserSchema>;
-export type UpdateAuthUserDto = z.infer<typeof UpdateAuthUserSchema>;
+export type User = z.infer<typeof UserSchema>;
+export type CurrentUser = z.infer<typeof CurrentUserSchema>;
+export type CreateUser = z.infer<typeof CreateUserSchema>;
+export type UpdateUser = z.infer<typeof UpdateUserSchema>;

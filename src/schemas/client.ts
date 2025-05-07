@@ -47,6 +47,6 @@ export const UpdateClientSchema = z.object({
   }),
 });
 
-export type ClientDto = z.infer<typeof ClientSchema>;
-export type CreateClientDto = z.infer<typeof CreateClientSchema>;
-export type UpdateClientDto = z.infer<typeof UpdateClientSchema>;
+export type Client = z.infer<typeof ClientSchema>;
+export type CreateClient = z.infer<typeof CreateClientSchema>;
+export type UpdateClient = z.infer<typeof UpdateClientSchema>;

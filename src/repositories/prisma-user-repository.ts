@@ -1,25 +1,25 @@
 import { prisma } from "@/prisma";
 import { IUserProvider } from "@/src/interfaces/user-provider";
-import { CreateUserDto, UpdateUserDto } from "@/src/schemas/user";
+import { CreateUser, UpdateUser } from "@/src/schemas/user";
 
 export class PrismaUserRepository implements IUserProvider {
-  async createUser(data: CreateUserDto) {
+  createUser(data: CreateUser) {
     return prisma.user.create({ data });
   }
 
-  async getUser(id: string) {
+  getUser(id: string) {
     return prisma.user.findUnique({ where: { id } });
   }
 
-  async getUsers() {
+  getUsers() {
     return prisma.user.findMany();
   }
 
-  async updateUser(id: string, data: UpdateUserDto) {
+  updateUser(id: string, data: UpdateUser) {
     return prisma.user.update({ where: { id }, data });
   }
 
-  async deleteUser(id: string) {
+  deleteUser(id: string) {
     return prisma.user.delete({ where: { id } });
   }
 }

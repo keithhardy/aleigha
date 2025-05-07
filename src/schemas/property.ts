@@ -48,6 +48,6 @@ export const UpdatePropertySchema = z.object({
   }),
 });
 
-export type PropertyDto = z.infer<typeof PropertySchema>;
-export type CreatePropertyDto = z.infer<typeof CreatePropertySchema>;
-export type UpdatePropertyDto = z.infer<typeof UpdatePropertySchema>;
+export type Property = z.infer<typeof PropertySchema>;
+export type CreateProperty = z.infer<typeof CreatePropertySchema>;
+export type UpdateProperty = z.infer<typeof UpdatePropertySchema>;

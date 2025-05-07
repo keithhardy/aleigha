@@ -1,13 +1,9 @@
-import {
-  CreateClientDto,
-  UpdateClientDto,
-  ClientDto,
-} from "@/src/schemas/client";
+import { CreateClient, UpdateClient, Client } from "@/src/schemas/client";
 
 export interface IClientProvider {
-  createClient(data: CreateClientDto): Promise<ClientDto>;
-  getClient(id: string): Promise<ClientDto | null>;
-  getClients(): Promise<ClientDto[]>;
-  updateClient(id: string, data: UpdateClientDto): Promise<ClientDto>;
-  deleteClient(id: string): Promise<ClientDto>;
+  createClient(data: CreateClient): Promise<Client>;
+  getClient(id: string): Promise<Client | null>;
+  getClients(): Promise<Client[]>;
+  updateClient(id: string, data: UpdateClient): Promise<Client>;
+  deleteClient(id: string): Promise<Client>;
 }

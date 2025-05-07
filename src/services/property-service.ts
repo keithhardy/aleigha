@@ -1,10 +1,10 @@
 import { IPropertyProvider } from "@/src/interfaces/property-provider";
-import { CreatePropertyDto, UpdatePropertyDto } from "@/src/schemas/property";
+import { CreateProperty, UpdateProperty } from "@/src/schemas/property";
 
 export class PropertyService {
   constructor(private readonly provider: IPropertyProvider) {}
 
-  createProperty(input: CreatePropertyDto) {
+  createProperty(input: CreateProperty) {
     return this.provider.createProperty(input);
   }
 
@@ -16,7 +16,7 @@ export class PropertyService {
     return this.provider.getPropertys();
   }
 
-  updateProperty(id: string, input: UpdatePropertyDto) {
+  updateProperty(id: string, input: UpdateProperty) {
     return this.provider.updateProperty(id, input);
   }
 

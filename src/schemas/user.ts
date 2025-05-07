@@ -63,6 +63,6 @@ export const UpdateUserSchema = z.object({
   }),
 });
 
-export type UserDto = z.infer<typeof UserSchema>;
-export type CreateUserDto = z.infer<typeof CreateUserSchema>;
-export type UpdateUserDto = z.infer<typeof UpdateUserSchema>;
+export type User = z.infer<typeof UserSchema>;
+export type CreateUser = z.infer<typeof CreateUserSchema>;
+export type UpdateUser = z.infer<typeof UpdateUserSchema>;

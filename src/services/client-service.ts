@@ -1,10 +1,10 @@
 import { IClientProvider } from "@/src/interfaces/client-provider";
-import { CreateClientDto, UpdateClientDto } from "@/src/schemas/client";
+import { CreateClient, UpdateClient } from "@/src/schemas/client";
 
 export class ClientService {
   constructor(private readonly provider: IClientProvider) {}
 
-  createClient(input: CreateClientDto) {
+  createClient(input: CreateClient) {
     return this.provider.createClient(input);
   }
 
@@ -16,7 +16,7 @@ export class ClientService {
     return this.provider.getClients();
   }
 
-  updateClient(id: string, input: UpdateClientDto) {
+  updateClient(id: string, input: UpdateClient) {
     return this.provider.updateClient(id, input);
   }
 
