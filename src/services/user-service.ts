@@ -31,7 +31,7 @@ export class UserService {
     return this.prismaProvider.getUser(id).then((user) => {
       if (!user) throw new Error(`User with id ${id} not found`);
 
-      return this.auth0Provider.getUser(user.email).then((auth0User) => {
+      return this.auth0Provider.getUserByEmail(user.email).then((auth0User) => {
         if (!auth0User)
           throw new Error(`User with email ${user.email} not found`);
 
@@ -49,7 +49,7 @@ export class UserService {
     return this.prismaProvider.getUser(id).then((user) => {
       if (!user) throw new Error(`User with id ${id} not found`);
 
-      return this.auth0Provider.getUser(user.email).then((auth0User) => {
+      return this.auth0Provider.getUserByEmail(user.email).then((auth0User) => {
         if (!auth0User)
           throw new Error(`User with email ${user.email} not found`);
 
