@@ -2,25 +2,25 @@ import { IPropertyProvider } from "@/src/interfaces/property-provider";
 import { CreateProperty, UpdateProperty } from "@/src/schemas/property";
 
 export class PropertyService {
-  constructor(private readonly provider: IPropertyProvider) {}
+  constructor(private readonly propertyProvider: IPropertyProvider) {}
 
   createProperty(input: CreateProperty) {
-    return this.provider.createProperty(input);
+    return this.propertyProvider.createProperty(input);
   }
 
   getProperty(id: string) {
-    return this.provider.getProperty(id);
+    return this.propertyProvider.getProperty(id);
   }
 
   getPropertys() {
-    return this.provider.getPropertys();
+    return this.propertyProvider.getPropertys();
   }
 
   updateProperty(id: string, input: UpdateProperty) {
-    return this.provider.updateProperty(id, input);
+    return this.propertyProvider.updateProperty(id, input);
   }
 
   deleteProperty(id: string) {
-    return this.provider.deleteProperty(id);
+    return this.propertyProvider.deleteProperty(id);
   }
 }

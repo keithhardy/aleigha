@@ -2,25 +2,25 @@ import { IAuthProvider } from "@/src/interfaces/auth-provider";
 import { CreateUser, UpdateUser } from "@/src/schemas/auth";
 
 export class AuthService {
-  constructor(private readonly auth0Provider: IAuthProvider) {}
+  constructor(private readonly authProvider: IAuthProvider) {}
 
   createUser(input: CreateUser) {
-    return this.auth0Provider.createUser(input);
+    return this.authProvider.createUser(input);
   }
 
   getUserByEmail(email: string) {
-    return this.auth0Provider.getUserByEmail(email);
+    return this.authProvider.getUserByEmail(email);
   }
 
   updateUser(id: string, input: UpdateUser) {
-    return this.auth0Provider.updateUser(id, input);
+    return this.authProvider.updateUser(id, input);
   }
 
   deleteUser(id: string) {
-    return this.auth0Provider.deleteUser(id);
+    return this.authProvider.deleteUser(id);
   }
 
   getCurrentUser() {
-    return this.auth0Provider.getCurrentUser();
+    return this.authProvider.getCurrentUser();
   }
 }
