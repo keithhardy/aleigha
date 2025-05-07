@@ -4,25 +4,28 @@ import { IAuthProvider } from "@/src/interfaces/auth-provider";
 import { CreateUser, UpdateUser } from "@/src/schemas/auth";
 
 export class Auth0AuthRepository implements IAuthProvider {
-  createUser(data: CreateUser) {
-    return auth0Management.users.create(data).then((res) => res.data);
+  async createUser(data: CreateUser) {
+    const res = await auth0Management.users.create(data);
+    return res.data;
   }
 
-  getUserByEmail(email: string) {
-    return auth0Management.usersByEmail
-      .getByEmail({ email })
-      .then((res) => res.data[0]);
+  async getUserByEmail(email: string) {
+    const res = await auth0Management.usersByEmail.getByEmail({ email });
+    return res.data[0];
   }
 
-  updateUser(id: string, data: UpdateUser) {
-    return auth0Management.users.update({ id }, data).then((res) => res.data);
+  async updateUser(id: string, data: UpdateUser) {
+    const res = await auth0Management.users.update({ id }, data);
+    return res.data;
   }
 
-  deleteUser(id: string) {
-    return auth0Management.users.delete({ id }).then((res) => res.data);
+  async deleteUser(id: string) {
+    const res = await auth0Management.users.delete({ id });
+    return res.data;
   }
 
-  getCurrentUser() {
-    return auth0.getSession().then((session) => session?.user ?? null);
+  async getCurrentUser() {
+    const session = await auth0.getSession();
+    return session?.user ?? null;
   }
 }

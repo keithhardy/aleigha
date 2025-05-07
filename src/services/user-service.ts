@@ -8,15 +8,15 @@ export class UserService {
     private readonly auth0Provider: IAuthProvider,
   ) {}
 
-  createUser(password: string, input: CreateUser) {
-    return this.auth0Provider
-      .createUser({
-        email: input.email,
-        name: input.name,
-        connection: "Username-Password-Authentication",
-        password,
-      })
-      .then(() => this.prismaProvider.createUser(input));
+  async createUser(password: string, input: CreateUser) {
+    await this.auth0Provider.createUser({
+      email: input.email,
+      name: input.name,
+      connection: "Username-Password-Authentication",
+      password,
+    });
+
+    return await this.prismaProvider.createUser(input);
   }
 
   getUser(id: string) {
@@ -27,36 +27,30 @@ export class UserService {
     return this.prismaProvider.getUsers();
   }
 
-  updateUser(id: string, input: UpdateUser) {
-    return this.prismaProvider.getUser(id).then((user) => {
-      if (!user) throw new Error(`User with id ${id} not found`);
+  async updateUser(id: string, input: UpdateUser) {
+    const user = await this.prismaProvider.getUser(id);
+    if (!user) throw new Error(`User with id ${id} not found`);
 
-      return this.auth0Provider.getUserByEmail(user.email).then((auth0User) => {
-        if (!auth0User)
-          throw new Error(`User with email ${user.email} not found`);
+    const auth0User = await this.auth0Provider.getUserByEmail(user.email);
+    if (!auth0User) throw new Error(`User with email ${user.email} not found`);
 
-        return this.auth0Provider
-          .updateUser(auth0User.user_id, {
-            email: input.email,
-            name: input.name,
-          })
-          .then(() => this.prismaProvider.updateUser(id, input));
-      });
+    await this.auth0Provider.updateUser(auth0User.user_id, {
+      email: input.email,
+      name: input.name,
     });
+
+    return await this.prismaProvider.updateUser(id, input);
   }
 
-  deleteUser(id: string) {
-    return this.prismaProvider.getUser(id).then((user) => {
-      if (!user) throw new Error(`User with id ${id} not found`);
+  async deleteUser(id: string) {
+    const user = await this.prismaProvider.getUser(id);
+    if (!user) throw new Error(`User with id ${id} not found`);
 
-      return this.auth0Provider.getUserByEmail(user.email).then((auth0User) => {
-        if (!auth0User)
-          throw new Error(`User with email ${user.email} not found`);
+    const auth0User = await this.auth0Provider.getUserByEmail(user.email);
+    if (!auth0User) throw new Error(`User with email ${user.email} not found`);
 
-        return this.auth0Provider
-          .deleteUser(auth0User.user_id)
-          .then(() => this.prismaProvider.deleteUser(id));
-      });
-    });
+    await this.auth0Provider.deleteUser(auth0User.user_id);
+
+    return await this.prismaProvider.deleteUser(id);
   }
 }

@@ -36,17 +36,19 @@ export const UpdateUserSchema = z.object({
   name: z.string().optional(),
 });
 
-export const CurrentUserSchema = z.object({
-  sub: z.string(),
-  name: z.string().optional(),
-  nickname: z.string().optional(),
-  given_name: z.string().optional(),
-  family_name: z.string().optional(),
-  picture: z.string().optional(),
-  email: z.string().email().optional(),
-  email_verified: z.boolean().optional(),
-  org_id: z.string().optional(),
-});
+export const CurrentUserSchema = z
+  .object({
+    sub: z.string(),
+    name: z.string().optional(),
+    nickname: z.string().optional(),
+    given_name: z.string().optional(),
+    family_name: z.string().optional(),
+    picture: z.string().optional(),
+    email: z.string().email().optional(),
+    email_verified: z.boolean().optional(),
+    org_id: z.string().optional(),
+  })
+  .catchall(z.any());
 
 export type User = z.infer<typeof UserSchema>;
 export type CurrentUser = z.infer<typeof CurrentUserSchema>;
