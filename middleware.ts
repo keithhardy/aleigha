@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth0 } from "@/src/lib/auth/auth0-client";
-import { verifyJwt } from "@/src/lib/auth/verify-jwt";
+import { auth0, verifyJwt } from "@/auth0";
 
 export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith("/api")) {
