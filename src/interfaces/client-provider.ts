@@ -5,5 +5,5 @@ export interface IClientProvider {
   getClient(id: string): Promise<Client | null>;
   getClients(): Promise<Client[]>;
   updateClient(id: string, data: UpdateClient): Promise<Client>;
-  deleteClient(id: string): Promise<void>;
+  deleteClient(id: string): Promise<Client>;
 }

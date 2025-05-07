@@ -12,11 +12,10 @@ export type ServerActionResponse<T = undefined> = Promise<{
 }>;
 
 export async function createUserAction(
-  password: string,
   data: CreateUser,
 ): ServerActionResponse<User> {
   try {
-    const user = await userService.createUser(password, data);
+    const user = await userService.createUser(data);
     revalidatePath("/users");
     return {
       status: "success",

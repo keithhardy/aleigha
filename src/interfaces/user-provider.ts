@@ -5,5 +5,5 @@ export interface IUserProvider {
   getUser(id: string): Promise<User | null>;
   getUsers(): Promise<User[]>;
   updateUser(id: string, data: UpdateUser): Promise<User>;
-  deleteUser(id: string): Promise<void>;
+  deleteUser(id: string): Promise<User>;
 }

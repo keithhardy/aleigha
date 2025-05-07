@@ -9,5 +9,5 @@ export interface IPropertyProvider {
   getProperty(id: string): Promise<Property | null>;
   getPropertys(): Promise<Property[]>;
   updateProperty(id: string, data: UpdateProperty): Promise<Property>;
-  deleteProperty(id: string): Promise<void>;
+  deleteProperty(id: string): Promise<Property>;
 }
