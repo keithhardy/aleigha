@@ -1,9 +1,5 @@
 import { IAuthUserProvider } from "@/src/interfaces/auth-user-provider";
 import { IUserProvider } from "@/src/interfaces/user-provider";
-import {
-  CreateAuthUserSchema,
-  UpdateAuthUserSchema,
-} from "@/src/schemas/auth-user";
 import { CreateUserDto, UpdateUserDto } from "@/src/schemas/user";
 
 export class UserService {
@@ -13,13 +9,6 @@ export class UserService {
   ) {}
 
   async createUser(password: string, input: Omit<CreateUserDto, "auth0Id">) {
-    CreateAuthUserSchema.parse({
-      email: input.email,
-      name: input.name,
-      connection: "Username-Password-Authentication",
-      password,
-    });
-
     const auth0User = await this.auth0Provider.createUser({
       email: input.email,
       name: input.name,
@@ -48,11 +37,6 @@ export class UserService {
   async updateUser(id: string, input: UpdateUserDto) {
     const user = await this.prismaProvider.getUser(id);
     if (!user) throw new Error(`User with id ${id} not found`);
-
-    UpdateAuthUserSchema.parse({
-      email: input.email,
-      name: input.name,
-    });
 
     await this.auth0Provider.updateUser(user.auth0Id, {
       email: input.email,

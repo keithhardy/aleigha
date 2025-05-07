@@ -1,4 +1,5 @@
-import { auth0, auth0Management } from "@/auth0";
+import { auth0 } from "@/auth0";
+import { auth0Management } from "@/auth0/auth0-management";
 import { IAuthUserProvider } from "@/src/interfaces/auth-user-provider";
 import { CreateAuthUserDto, UpdateAuthUserDto } from "@/src/schemas/auth-user";
 
