@@ -8,9 +8,6 @@
     "start": "next start",
     "lint": "next lint --fix"
   },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
-  },
   "dependencies": {
     "@auth0/nextjs-auth0": "^4.5.1",
     "@faker-js/faker": "^9.5.0",

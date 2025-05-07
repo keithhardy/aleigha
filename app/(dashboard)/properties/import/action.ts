@@ -4,7 +4,7 @@ import { parse } from "csv-parse/sync";
 import { z } from "zod";
 
 import { ServerActionResponse } from "@/next.types";
-import { prisma } from "@/prisma";
+import { prisma } from "@/src/lib/db/prisma-client";
 
 import { ImportPropertiesSchema } from "./schema";
 

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { UpdateClientForm } from "@/app/(dashboard)/clients/[id]/update/form";
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
-import { prisma } from "@/prisma";
+import { prisma } from "@/src/lib/db/prisma-client";
 
 export const metadata: Metadata = {
   title: pagesConfig.clientUpdate.metadata.title,

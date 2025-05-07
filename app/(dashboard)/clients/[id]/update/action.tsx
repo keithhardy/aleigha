@@ -4,7 +4,7 @@ import { Client } from "@prisma/client";
 import { z } from "zod";
 
 import { ServerActionResponse } from "@/next.types";
-import { prisma } from "@/prisma";
+import { prisma } from "@/src/lib/db/prisma-client";
 
 import { UpdateClientSchema } from "./schema";
 

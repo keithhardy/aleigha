@@ -1,5 +1,5 @@
-import { prisma } from "@/prisma";
 import { IClientProvider } from "@/src/interfaces/client-provider";
+import { prisma } from "@/src/lib/db/prisma-client";
 import { CreateClientDto, UpdateClientDto } from "@/src/schemas/client";
 
 export class PrismaClientRepository implements IClientProvider {

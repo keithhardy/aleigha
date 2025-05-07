@@ -1,5 +1,5 @@
-import { prisma } from "@/prisma";
 import { IUserProvider } from "@/src/interfaces/user-provider";
+import { prisma } from "@/src/lib/db/prisma-client";
 import { CreateUserDto, UpdateUserDto } from "@/src/schemas/user";
 
 export class PrismaUserRepository implements IUserProvider {
