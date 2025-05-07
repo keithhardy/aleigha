@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { ServerActionResponse } from "@/next.types";
-import { prisma } from "@/src/lib/db/prisma-client";
+import { prisma } from "@/prisma";
 
 import { UpdateScheduleOfCircuitDetailsAndTestResultsSchema } from "./schema";
 

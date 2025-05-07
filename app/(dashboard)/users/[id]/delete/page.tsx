@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
-import { prisma } from "@/src/lib/db/prisma-client";
+import { prisma } from "@/prisma";
 
 import { DeleteUserForm } from "./form";
 

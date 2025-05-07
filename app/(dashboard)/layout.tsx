@@ -1,7 +1,5 @@
 import { LogOut } from "lucide-react";
-import { cookies } from "next/headers";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -11,26 +9,14 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { userService } from "@/src/factories/user-service-factory";
 
 import { DashboardSidebar } from "../../components/dashboard-sidebar";
 
 export default async function DashboardLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const currentUser = await userService.getCurrentUser();
-
-  if (!currentUser) {
-    redirect("/auth/login");
-  }
-
-  const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
-
-  const currentYear = new Date().getFullYear();
-
   return (
-    <SidebarProvider defaultOpen={defaultOpen}>
+    <SidebarProvider defaultOpen={false}>
       <DashboardSidebar />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
@@ -50,7 +36,7 @@ export default async function DashboardLayout({
         <main className="flex flex-1 flex-col">{children}</main>
         <footer className="flex flex-col items-center justify-between gap-2 border-t py-4 lg:flex-row">
           <div className="flex items-center gap-2 px-6 text-sm">
-            © {currentYear} Reiyen Group | All Rights Reserved.
+            © {new Date().getFullYear()} Reiyen Group | All Rights Reserved.
           </div>
           <div className="flex items-center gap-2 px-6 text-sm">
             <Link

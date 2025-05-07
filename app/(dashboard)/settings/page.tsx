@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
-import { prisma } from "@/src/lib/db/prisma-client";
+import { prisma } from "@/prisma";
 
 import { UpdateAddressForm } from "./address/form";
 import { UpdateEmailForm } from "./email/form";

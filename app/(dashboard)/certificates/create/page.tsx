@@ -3,8 +3,8 @@ import { redirect } from "next/navigation";
 
 import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
+import { prisma } from "@/prisma";
 import { userService } from "@/src/factories/user-service-factory";
-import { prisma } from "@/src/lib/db/prisma-client";
 
 import { CreateCertificateForm } from "./form";
 

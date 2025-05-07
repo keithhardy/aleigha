@@ -1,5 +1,5 @@
+import { prisma } from "@/prisma";
 import { IPropertyProvider } from "@/src/interfaces/property-provider";
-import { prisma } from "@/src/lib/db/prisma-client";
 import { CreatePropertyDto, UpdatePropertyDto } from "@/src/schemas/property";
 
 export class PrismaPropertyRepository implements IPropertyProvider {

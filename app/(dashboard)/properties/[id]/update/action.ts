@@ -4,7 +4,7 @@ import { z } from "zod";
 
 import { UpdatePropertySchema } from "@/app/(dashboard)/properties/[id]/update/schema";
 import { ServerActionResponse } from "@/next.types";
-import { prisma } from "@/src/lib/db/prisma-client";
+import { prisma } from "@/prisma";
 
 export async function updateProperty(
   property: z.infer<typeof UpdatePropertySchema>,

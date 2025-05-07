@@ -3,9 +3,7 @@ import { auth0 } from "@/src/lib/auth/auth0-client";
 import { verifyJwt } from "@/src/lib/auth/verify-jwt";
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-
-  if (pathname.startsWith("/api/v1")) {
+  if (request.nextUrl.pathname.startsWith("/api")) {
     const authHeader = request.headers.get("authorization");
 
     if (!authHeader?.startsWith("Bearer ")) {
@@ -15,28 +13,26 @@ export async function middleware(request: NextRequest) {
       );
     }
 
-    const jwt = authHeader.split(" ")[1];
+    const token = authHeader.split(" ")[1];
+    const { payload } = await verifyJwt(token);
 
-    try {
-      const { payload } = await verifyJwt(jwt);
-
-      if (!payload.sub) {
-        return NextResponse.json(
-          { error: "Invalid token: missing subject (sub)" },
-          { status: 401 },
-        );
-      }
-
-      return NextResponse.next();
-    } catch {
-      return NextResponse.json(
-        { error: "Invalid or expired token" },
-        { status: 401 },
-      );
+    if (!payload) {
+      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
     }
+
+    return NextResponse.next();
   }
 
-  return auth0.middleware(request);
+  if (request.nextUrl.pathname.startsWith("/auth")) {
+    return await auth0.middleware(request);
+  }
+
+  const session = await auth0.getSession();
+  if (!session) {
+    return NextResponse.redirect(new URL("/auth/login", request.url));
+  }
+
+  return await auth0.middleware(request);
 }
 
 export const config = {
