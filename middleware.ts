@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth0, verifyJwt } from "./auth0";
+import { auth0 } from "@/src/lib/auth/auth0-client";
+import { verifyJwt } from "@/src/lib/auth/verify-jwt";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -19,7 +20,7 @@ export async function middleware(request: NextRequest) {
     try {
       const { payload } = await verifyJwt(jwt);
 
-      if (!payload?.sub) {
+      if (!payload.sub) {
         return NextResponse.json(
           { error: "Invalid token: missing subject (sub)" },
           { status: 401 },
