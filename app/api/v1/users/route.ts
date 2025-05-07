@@ -14,8 +14,8 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { password, data } = await request.json();
-    const user = await userService.createUser(password, data);
+    const { data } = await request.json();
+    const user = await userService.createUser(data);
     revalidatePath("/users");
     return NextResponse.json(user, { status: 201 });
   } catch {

@@ -8,13 +8,8 @@ export class UserService {
     private readonly authProvider: IAuthProvider,
   ) {}
 
-  async createUser(password: string, input: CreateUser) {
-    await this.authProvider.createUser({
-      email: input.email,
-      name: input.name,
-      password,
-    });
-
+  async createUser(input: CreateUser) {
+    await this.authProvider.createUser(input);
     return await this.userProvider.createUser(input);
   }
 
@@ -30,10 +25,10 @@ export class UserService {
     const user = await this.userProvider.getUser(id);
     if (!user) throw new Error(`User with id ${id} not found`);
 
-    const auth0User = await this.authProvider.getUserByEmail(user.email);
-    if (!auth0User) throw new Error(`User with email ${user.email} not found`);
+    const authUser = await this.authProvider.getUserByEmail(user.email);
+    if (!authUser) throw new Error(`User with email ${user.email} not found`);
 
-    await this.authProvider.updateUser(auth0User.id, {
+    await this.authProvider.updateUser(authUser.id, {
       email: input.email,
       name: input.name,
     });
@@ -45,10 +40,10 @@ export class UserService {
     const user = await this.userProvider.getUser(id);
     if (!user) throw new Error(`User with id ${id} not found`);
 
-    const auth0User = await this.authProvider.getUserByEmail(user.email);
-    if (!auth0User) throw new Error(`User with email ${user.email} not found`);
+    const authUser = await this.authProvider.getUserByEmail(user.email);
+    if (!authUser) throw new Error(`User with email ${user.email} not found`);
 
-    await this.authProvider.deleteUser(auth0User.id);
+    await this.authProvider.deleteUser(authUser.id);
 
     return await this.userProvider.deleteUser(id);
   }
