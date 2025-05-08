@@ -1,67 +1,7 @@
-import { LogOut } from "lucide-react";
-import Link from "next/link";
-
-import { ThemeToggle } from "@/components/theme-toggle";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
-
-import { DashboardSidebar } from "../../components/dashboard-sidebar";
+import { DashboardWrapper } from "@/components/dashboard";
 
 export default async function DashboardLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <SidebarProvider defaultOpen={false}>
-      <DashboardSidebar />
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-6">
-            <SidebarTrigger className="-ml-1" />
-          </div>
-          <div className="flex items-center gap-2 px-6">
-            <ThemeToggle />
-            <Separator orientation="vertical" className="h-4" />
-            <a href="/auth/logout">
-              <Button variant="ghost" size="icon" className="h-7 w-7">
-                <LogOut />
-              </Button>
-            </a>
-          </div>
-        </header>
-        <main className="flex flex-1 flex-col">{children}</main>
-        <footer className="flex flex-col items-center justify-between gap-2 border-t py-4 lg:flex-row">
-          <div className="flex items-center gap-2 px-6 text-sm">
-            © {new Date().getFullYear()} Reiyen Group | All Rights Reserved.
-          </div>
-          <div className="flex items-center gap-2 px-6 text-sm">
-            <Link
-              href="/terms-of-service"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Terms of Service
-            </Link>{" "}
-            |{" "}
-            <Link
-              href="privacy-policy"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Privacy Policy
-            </Link>{" "}
-            |{" "}
-            <Link
-              href="cookie-policy"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Cookie Policy
-            </Link>
-          </div>
-        </footer>
-      </SidebarInset>
-    </SidebarProvider>
-  );
+  return <DashboardWrapper>{children}</DashboardWrapper>;
 }

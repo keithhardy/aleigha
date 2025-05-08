@@ -21,7 +21,6 @@ import { dashboardSidebarConfig } from "@/config/dashboard-sidebar";
 
 export function DashboardSidebar() {
   const { setOpenMobile } = useSidebar();
-
   const pathname = usePathname();
 
   return (
@@ -29,21 +28,19 @@ export function DashboardSidebar() {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-            >
+            <SidebarMenuButton size="lg">
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                 <Logo className="size-4" />
               </div>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">Reiyen</span>
-                <span className="truncate text-xs">Enterprise</span>
+              <div className="grid">
+                <span className="font-semibold">Reiyen</span>
+                <span className="text-xs">Enterprise</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+
       <SidebarContent className="scrollbar-hidden">
         <SidebarGroup>
           <SidebarGroupContent>
@@ -53,7 +50,7 @@ export function DashboardSidebar() {
                   <SidebarMenuButton
                     asChild
                     tooltip={item.title}
-                    isActive={pathname == item.url}
+                    isActive={pathname === item.url}
                     onClick={() => setOpenMobile(false)}
                   >
                     <Link href={item.url}>
@@ -67,6 +64,7 @@ export function DashboardSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
       <SidebarFooter>
         <SidebarMenu>
           {dashboardSidebarConfig.footerNav.map((item) => (
@@ -74,7 +72,7 @@ export function DashboardSidebar() {
               <SidebarMenuButton
                 asChild
                 tooltip={item.title}
-                isActive={pathname == item.url}
+                isActive={pathname === item.url}
                 onClick={() => setOpenMobile(false)}
               >
                 <Link href={item.url}>
