@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-import { PageHeader } from "@/components/page-header";
+import { PageHeader } from "@/components/ui/page-header";
 import { pagesConfig } from "@/config/pages";
 import { prisma } from "@/prisma";
 import { authService } from "@/src/factories/auth-service-factory";
@@ -36,7 +36,7 @@ export default async function CreateCertificate() {
   });
 
   return (
-    <div className="container mx-auto max-w-screen-xl flex-grow p-6">
+    <div className="container mx-auto p-6">
       <PageHeader config={pagesConfig.certificateCreate} />
 
       <CreateCertificateForm currentUser={user!} clients={clients} />

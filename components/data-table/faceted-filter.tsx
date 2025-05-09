@@ -1,12 +1,6 @@
 import { type Column } from "@tanstack/react-table";
 import { CheckIcon, ListFilterPlus } from "lucide-react";
 
-import {
-  DialogSheet,
-  DialogSheetContent,
-  DialogSheetTitle,
-  DialogSheetTrigger,
-} from "@/components/dialog-sheet";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +11,12 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/ui/dialog-sheet";
 import { cn } from "@/lib/utils";
 
 interface FilterProps<TData, TValue> {

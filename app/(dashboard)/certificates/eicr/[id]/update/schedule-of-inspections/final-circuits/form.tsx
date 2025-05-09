@@ -9,7 +9,6 @@ import { z } from "zod";
 
 import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
 import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
-import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import {
   Card,
   CardContent,
@@ -26,6 +25,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Header, HeaderGroup, Heading } from "@/components/ui/page-header";
 import { useToast } from "@/hooks/use-toast";
 
 import { sections } from "../../components/sections";
@@ -96,7 +96,7 @@ export function UpdateFinalCircuitsForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-1 flex-col"
       >
-        <div className="container mx-auto max-w-screen-xl flex-grow p-6">
+        <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
               <Link

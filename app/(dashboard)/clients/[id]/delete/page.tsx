@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { DeleteClientForm } from "@/app/(dashboard)/clients/[id]/delete/form";
-import { PageHeader } from "@/components/page-header";
+import { PageHeader } from "@/components/ui/page-header";
 import { pagesConfig } from "@/config/pages";
 import { prisma } from "@/prisma";
 
@@ -29,7 +29,7 @@ export default async function DeleteClient({
   }
 
   return (
-    <div className="container mx-auto max-w-screen-xl flex-grow p-6">
+    <div className="container mx-auto p-6">
       <PageHeader config={pagesConfig.clientDelete} />
       <DeleteClientForm client={client!} />
     </div>

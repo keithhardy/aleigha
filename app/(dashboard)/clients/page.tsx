@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 import { DataTable } from "@/components/data-table/data-table";
-import { PageHeader } from "@/components/page-header";
+import { PageHeader } from "@/components/ui/page-header";
 import { pagesConfig } from "@/config/pages";
 
 import { columns } from "./components/data-table/columns";
@@ -16,7 +16,7 @@ export default async function Clients() {
   const data = await getClients({ take: 10, skip: 0 });
 
   return (
-    <div className="container mx-auto max-w-screen-xl flex-grow p-6">
+    <div className="container mx-auto p-6">
       <PageHeader config={pagesConfig.clients} />
       <DataTable
         columns={columns}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function DashboardFooter() {
+export function Footer() {
   return (
     <footer className="flex flex-col items-center justify-between gap-2 border-t px-6 py-4 text-sm lg:flex-row">
       <div>{new Date().getFullYear()} Reiyen Group © All Rights Reserved.</div>

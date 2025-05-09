@@ -10,12 +10,6 @@ import { z } from "zod";
 
 import { updateProperty } from "@/app/(dashboard)/properties/[id]/update/action";
 import { UpdatePropertySchema } from "@/app/(dashboard)/properties/[id]/update/schema";
-import {
-  DialogSheet,
-  DialogSheetContent,
-  DialogSheetTitle,
-  DialogSheetTrigger,
-} from "@/components/dialog-sheet";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -33,6 +27,12 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import {
+  DialogSheet,
+  DialogSheetContent,
+  DialogSheetTitle,
+  DialogSheetTrigger,
+} from "@/components/ui/dialog-sheet";
 import {
   Form,
   FormControl,

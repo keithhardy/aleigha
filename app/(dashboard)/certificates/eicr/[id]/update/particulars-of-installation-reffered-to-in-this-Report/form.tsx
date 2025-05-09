@@ -9,7 +9,6 @@ import { z } from "zod";
 
 import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
 import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
-import { Header, HeaderGroup, Heading } from "@/components/page-header";
 import {
   Card,
   CardContent,
@@ -27,6 +26,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Header, HeaderGroup, Heading } from "@/components/ui/page-header";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 
@@ -113,7 +113,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-1 flex-col"
       >
-        <div className="container mx-auto max-w-screen-xl flex-grow p-6">
+        <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
               <Link

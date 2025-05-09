@@ -1,7 +1,17 @@
-import { DashboardWrapper } from "@/components/dashboard";
+import { Header, Sidebar, Wrapper, Footer } from "@/components/dashboard";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 export default async function DashboardLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return <DashboardWrapper>{children}</DashboardWrapper>;
+  return (
+    <SidebarProvider defaultOpen={false}>
+      <Sidebar />
+      <SidebarInset>
+        <Header />
+        <Wrapper>{children}</Wrapper>
+        <Footer />
+      </SidebarInset>
+    </SidebarProvider>
+  );
 }

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 import Logo from "@/components/logo";
 import {
-  Sidebar,
+  Sidebar as SidebarRoot,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
@@ -19,12 +19,12 @@ import {
 } from "@/components/ui/sidebar";
 import { dashboardSidebarConfig } from "@/config/dashboard-sidebar";
 
-export function DashboardSidebar() {
+export function Sidebar() {
   const { setOpenMobile } = useSidebar();
   const pathname = usePathname();
 
   return (
-    <Sidebar collapsible="icon">
+    <SidebarRoot collapsible="icon">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -85,6 +85,6 @@ export function DashboardSidebar() {
         </SidebarMenu>
       </SidebarFooter>
       <SidebarRail />
-    </Sidebar>
+    </SidebarRoot>
   );
 }

@@ -4,7 +4,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
-export function DashboardHeader() {
+export function Header() {
   return (
     <header className="flex h-12 items-center justify-between border-b px-6">
       <SidebarTrigger className="-ml-1" />

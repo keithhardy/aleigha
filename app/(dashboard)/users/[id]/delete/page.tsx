@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { PageHeader } from "@/components/page-header";
+import { PageHeader } from "@/components/ui/page-header";
 import { pagesConfig } from "@/config/pages";
 import { prisma } from "@/prisma";
 
@@ -27,7 +27,7 @@ export default async function DeleteUser({
   }
 
   return (
-    <div className="container mx-auto max-w-screen-xl flex-grow p-6">
+    <div className="container mx-auto p-6">
       <PageHeader config={pagesConfig.userDelete} />
       <DeleteUserForm user={user} />
     </div>
