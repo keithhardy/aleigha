@@ -28,7 +28,7 @@ const HeaderGroup = ({
 );
 HeaderGroup.displayName = "HeaderGroup";
 
-const Heading = ({
+const HeaderTitle = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLHeadingElement>) => (
@@ -37,13 +37,13 @@ const Heading = ({
     {...props}
   />
 );
-Heading.displayName = "Heading";
+HeaderTitle.displayName = "HeaderTitle";
 
 const HeaderDescription = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLParagraphElement>) => (
-  <p
+  <h2
     className={cn("text-balance text-sm text-muted-foreground", className)}
     {...props}
   />
@@ -89,7 +89,7 @@ const PageHeader = ({ config }: PageHeaderProps) => {
             <span>{config.backLink.text}</span>
           </Link>
         )}
-        <Heading>{config.header}</Heading>
+        <HeaderTitle>{config.header}</HeaderTitle>
         {config.description && (
           <HeaderDescription>{config.description}</HeaderDescription>
         )}
@@ -113,7 +113,7 @@ export {
   PageHeader,
   Header,
   HeaderGroup,
-  Heading,
+  HeaderTitle,
   HeaderDescription,
   HeaderActions,
 };

@@ -26,7 +26,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Header, HeaderGroup, Heading } from "@/components/ui/page-header";
+import { Header, HeaderGroup, HeaderTitle } from "@/components/ui/page-header";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 
@@ -105,9 +105,9 @@ export function UpdateSupplyCharacteristicsAndEarthingArrangementsForm({
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
-              <Heading>
+              <HeaderTitle>
                 Supply characteristics and earthing arrangements
-              </Heading>
+              </HeaderTitle>
             </HeaderGroup>
           </Header>
           <div className="space-y-4">

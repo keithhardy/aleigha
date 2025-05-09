@@ -25,7 +25,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Header, HeaderGroup, Heading } from "@/components/ui/page-header";
+import { Header, HeaderGroup, HeaderTitle } from "@/components/ui/page-header";
 import { useToast } from "@/hooks/use-toast";
 
 import { sections } from "../../components/sections";
@@ -105,7 +105,7 @@ export function UpdateDistributionCircuitsForm({
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
-              <Heading>Distribution circuits</Heading>
+              <HeaderTitle>Distribution circuits</HeaderTitle>
             </HeaderGroup>
           </Header>
           <div className="space-y-4">

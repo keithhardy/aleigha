@@ -48,7 +48,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Header, HeaderGroup, Heading } from "@/components/ui/page-header";
+import { Header, HeaderGroup, HeaderTitle } from "@/components/ui/page-header";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Switch } from "@/components/ui/switch";
 import {
@@ -236,7 +236,9 @@ export function UpdateScheduleOfCircuitDetailsAndTestResultsForm({
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
-              <Heading>Schedule of circuit details and test results</Heading>
+              <HeaderTitle>
+                Schedule of circuit details and test results
+              </HeaderTitle>
             </HeaderGroup>
           </Header>
           <div className="space-y-4">

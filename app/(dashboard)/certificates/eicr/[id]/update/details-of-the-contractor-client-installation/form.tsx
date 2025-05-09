@@ -35,7 +35,7 @@ import {
 } from "@/components/ui/dialog-sheet";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Header, HeaderGroup, Heading } from "@/components/ui/page-header";
+import { Header, HeaderGroup, HeaderTitle } from "@/components/ui/page-header";
 import { useToast } from "@/hooks/use-toast";
 
 import { updateContractorClientAndInstallation } from "./action";
@@ -102,9 +102,9 @@ export function UpdateContractorClientAndInstallationForm({
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
-              <Heading>
+              <HeaderTitle>
                 Details of the Contractor, Client and Installation
-              </Heading>
+              </HeaderTitle>
             </HeaderGroup>
           </Header>
           <div className="space-y-4">

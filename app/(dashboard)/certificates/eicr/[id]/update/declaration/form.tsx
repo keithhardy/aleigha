@@ -43,7 +43,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Header, HeaderGroup, Heading } from "@/components/ui/page-header";
+import { Header, HeaderGroup, HeaderTitle } from "@/components/ui/page-header";
 import {
   Popover,
   PopoverContent,
@@ -120,7 +120,7 @@ export function UpdateDeclarationForm({
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
-              <Heading>Declaration</Heading>
+              <HeaderTitle>Declaration</HeaderTitle>
             </HeaderGroup>
           </Header>
           <div className="space-y-4">

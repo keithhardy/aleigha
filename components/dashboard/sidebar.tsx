@@ -40,7 +40,6 @@ export function Sidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-
       <SidebarContent className="scrollbar-hidden">
         <SidebarGroup>
           <SidebarGroupContent>
@@ -64,7 +63,6 @@ export function Sidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-
       <SidebarFooter>
         <SidebarMenu>
           {dashboardSidebarConfig.footerNav.map((item) => (

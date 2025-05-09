@@ -48,7 +48,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Header, HeaderGroup, Heading } from "@/components/ui/page-header";
+import { Header, HeaderGroup, HeaderTitle } from "@/components/ui/page-header";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -134,7 +134,7 @@ export function UpdateScheduleOfRatesForm({
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
-              <Heading>Schedule of rates</Heading>
+              <HeaderTitle>Schedule of rates</HeaderTitle>
             </HeaderGroup>
           </Header>
           <div className="space-y-4">
