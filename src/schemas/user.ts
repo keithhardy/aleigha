@@ -25,20 +25,13 @@ export const CreateUserSchema = z.object({
   phone: z.string(),
   role: UserRoleEnum,
   signature: z.string().nullable().optional(),
-  clients: z
-    .object({
-      connect: z.array(
-        z.object({
-          id: z.string(),
-        }),
-      ),
-      disconnect: z.array(
-        z.object({
-          id: z.string(),
-        }),
-      ),
-    })
-    .optional(),
+  clients: z.object({
+    connect: z.array(
+      z.object({
+        id: z.string(),
+      }),
+    ),
+  }),
 });
 
 export const UpdateUserSchema = z.object({

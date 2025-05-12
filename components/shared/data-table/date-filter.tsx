@@ -5,14 +5,13 @@ import { type DateRange } from "react-day-picker";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   DialogSheet,
   DialogSheetContent,
   DialogSheetTitle,
   DialogSheetTrigger,
 } from "@/components/ui/dialog-sheet";
-
-import { Calendar } from "../ui/calendar";
 
 interface FilterProps<TData, TValue> {
   column: Column<TData, TValue>;
