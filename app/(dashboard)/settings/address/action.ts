@@ -2,8 +2,8 @@
 
 import { z } from "zod";
 
+import { prisma } from "@/lib/db/prisma-client";
 import { ServerActionResponse } from "@/next.types";
-import { prisma } from "@/prisma";
 
 import { UpdateAddressSchema } from "./schema";
 

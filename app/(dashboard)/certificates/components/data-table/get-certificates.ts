@@ -2,7 +2,7 @@
 
 import { EICRStatus, Prisma } from "@prisma/client";
 
-import { prisma } from "@/prisma";
+import { prisma } from "@/lib/db/prisma-client";
 
 type GetCertificatesProps = {
   take: number;

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 import { CreateClientForm } from "@/app/(dashboard)/clients/create/form";
-import { PageHeader } from "@/components/ui/page-header";
+import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
 
 export const metadata: Metadata = {

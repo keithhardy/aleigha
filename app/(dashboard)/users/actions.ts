@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/prisma";
+import { prisma } from "@/lib/db/prisma-client";
 
 export async function checkEmailExists(email: string): Promise<boolean> {
   const user = await prisma.user.findUnique({

@@ -1,9 +1,4 @@
-import {
-  Header,
-  Sidebar,
-  Footer,
-  Wrapper,
-} from "@/components/layout/dashboard";
+import { Header, Sidebar, Footer, Wrapper } from "@/components/dashboard";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 export default async function DashboardLayout({

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { prisma } from "@/prisma";
+import { prisma } from "@/lib/db/prisma-client";
 
 import { UpdateContractorClientAndInstallationForm } from "./form";
 

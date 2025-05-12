@@ -3,8 +3,8 @@
 import { parse } from "csv-parse/sync";
 import { z } from "zod";
 
+import { prisma } from "@/lib/db/prisma-client";
 import { ServerActionResponse } from "@/next.types";
-import { prisma } from "@/prisma";
 
 import { ImportPropertiesSchema } from "./schema";
 

@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { DeleteClientForm } from "@/app/(dashboard)/clients/[id]/delete/form";
-import { PageHeader } from "@/components/ui/page-header";
+import { PageHeader } from "@/components/page-header";
 import { pagesConfig } from "@/config/pages";
-import { prisma } from "@/prisma";
+import { prisma } from "@/lib/db/prisma-client";
 
 export const metadata: Metadata = {
   title: pagesConfig.clientDelete.metadata.title,

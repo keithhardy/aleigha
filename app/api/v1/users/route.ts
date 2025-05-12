@@ -1,7 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
-import { userService } from "@/src/factories/user-service-factory";
+import { userService } from "@/lib/di/factories/user-service-factory";
 
 export async function GET() {
   try {

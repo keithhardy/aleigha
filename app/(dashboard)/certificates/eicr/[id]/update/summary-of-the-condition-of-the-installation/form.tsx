@@ -9,6 +9,7 @@ import { z } from "zod";
 
 import { FormBar } from "@/app/(dashboard)/certificates/components/form-bar";
 import { UnsavedChangesDialog } from "@/app/(dashboard)/certificates/components/unsaved-changes-dialog";
+import { Header, HeaderGroup, HeaderTitle } from "@/components/page-header";
 import {
   Card,
   CardContent,
@@ -26,7 +27,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Header, HeaderGroup, HeaderTitle } from "@/components/ui/page-header";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
