@@ -1,5 +1,5 @@
-import { PropertyProvider } from "@/lib/di/interfaces/property-provider";
-import { CreateProperty, UpdateProperty } from "@/lib/di/schemas/property";
+import { PropertyProvider } from "@/di/interfaces/property-provider";
+import { CreateProperty, UpdateProperty } from "@/di/schemas/property";
 
 export class PropertyService {
   constructor(private readonly propertyProvider: PropertyProvider) {}

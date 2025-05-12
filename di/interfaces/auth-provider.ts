@@ -1,4 +1,4 @@
-import { CreateUser, UpdateUser, User } from "@/lib/di/schemas/auth";
+import { CreateUser, UpdateUser, User } from "@/di/schemas/auth";
 
 export interface AuthProvider {
   createUser(data: CreateUser): Promise<User>;

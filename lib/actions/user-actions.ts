@@ -2,8 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 
-import { userService } from "@/lib/di/factories/user-service-factory";
-import { CreateUser, UpdateUser, User } from "@/lib/di/schemas/user";
+import { userService } from "@/di/factories/user-service-factory";
+import { CreateUser, UpdateUser, User } from "@/di/schemas/user";
 
 export type ServerActionResponse<T = undefined> = Promise<{
   status: "success" | "error";

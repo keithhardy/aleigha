@@ -1,6 +1,6 @@
 import { auth0Management } from "@/lib/auth/auth0-management-client";
-import { AuthProvider } from "@/lib/di/interfaces/auth-provider";
-import { CreateUser, UpdateUser } from "@/lib/di/schemas/auth";
+import { AuthProvider } from "@/di/interfaces/auth-provider";
+import { CreateUser, UpdateUser } from "@/di/schemas/auth";
 
 export class Auth0AuthRepository implements AuthProvider {
   async createUser(data: CreateUser) {

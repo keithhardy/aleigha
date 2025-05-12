@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/db/prisma-client";
-import { ClientProvider } from "@/lib/di/interfaces/client-provider";
-import { CreateClient, UpdateClient } from "@/lib/di/schemas/client";
+import { ClientProvider } from "@/di/interfaces/client-provider";
+import { CreateClient, UpdateClient } from "@/di/schemas/client";
 
 export class PrismaClientRepository implements ClientProvider {
   createClient(data: CreateClient) {

@@ -2,7 +2,7 @@ import {
   CreateProperty,
   UpdateProperty,
   Property,
-} from "@/lib/di/schemas/property";
+} from "@/di/schemas/property";
 
 export interface PropertyProvider {
   createProperty(data: CreateProperty): Promise<Property>;

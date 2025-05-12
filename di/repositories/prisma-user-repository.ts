@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/db/prisma-client";
-import { UserProvider } from "@/lib/di/interfaces/user-provider";
-import { CreateUser, UpdateUser } from "@/lib/di/schemas/user";
+import { UserProvider } from "@/di/interfaces/user-provider";
+import { CreateUser, UpdateUser } from "@/di/schemas/user";
 
 export class PrismaUserRepository implements UserProvider {
   createUser(data: CreateUser) {

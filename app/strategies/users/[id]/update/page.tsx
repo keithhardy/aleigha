@@ -1,4 +1,4 @@
-import { userService } from "@/lib/di/factories/user-service-factory";
+import { userService } from "@/di/factories/user-service-factory";
 
 export const revalidate = 3600;
 

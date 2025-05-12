@@ -1,6 +1,6 @@
-import { AuthProvider } from "@/lib/di/interfaces/auth-provider";
-import { UserProvider } from "@/lib/di/interfaces/user-provider";
-import { CreateUser, UpdateUser } from "@/lib/di/schemas/user";
+import { AuthProvider } from "@/di/interfaces/auth-provider";
+import { UserProvider } from "@/di/interfaces/user-provider";
+import { CreateUser, UpdateUser } from "@/di/schemas/user";
 
 export class UserService {
   constructor(
