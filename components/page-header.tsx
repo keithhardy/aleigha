@@ -60,10 +60,10 @@ HeaderActions.displayName = "HeaderActions";
 
 type PageHeaderProps = {
   config: {
-    metadata: {
+    metadata?: {
       title: string;
     };
-    header: string;
+    title: string;
     description?: string;
     backLink?: {
       text: string;
@@ -89,7 +89,7 @@ const PageHeader = ({ config }: PageHeaderProps) => {
             <span>{config.backLink.text}</span>
           </Link>
         )}
-        <HeaderTitle>{config.header}</HeaderTitle>
+        <HeaderTitle>{config.title}</HeaderTitle>
         {config.description && (
           <HeaderDescription>{config.description}</HeaderDescription>
         )}
