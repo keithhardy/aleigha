@@ -4,7 +4,7 @@ import {
   Header,
   HeaderDescription,
   HeaderGroup,
-  Heading,
+  HeaderTitle,
 } from "@/components/ui/page-header";
 import { prisma } from "@/prisma";
 
@@ -53,7 +53,9 @@ export default async function DeleteElectricalInstallationConditionReport({
     <div className="container mx-auto max-w-screen-lg">
       <Header>
         <HeaderGroup>
-          <Heading>Delete Electrical Installation Condition Report</Heading>
+          <HeaderTitle>
+            Delete Electrical Installation Condition Report
+          </HeaderTitle>
           <HeaderDescription>
             Are you sure you want to delete{" "}
             {electricalInstallationConditionReport.serial}? This action cannot
