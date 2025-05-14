@@ -13,11 +13,11 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 
-interface ViewOptionsProps<TData> {
+interface TableViewOptionsProps<TData> {
   table: Table<TData>;
 }
 
-export function ViewOptions<TData>({ table }: ViewOptionsProps<TData>) {
+export function TableViewOptions<TData>({ table }: TableViewOptionsProps<TData>) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

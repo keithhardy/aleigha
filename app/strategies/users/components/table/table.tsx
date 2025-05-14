@@ -6,7 +6,6 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  SortingState,
   useReactTable,
 } from "@tanstack/react-table";
 import * as React from "react";
@@ -20,8 +19,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { Pagination } from "./pagination";
-import { ViewOptions } from "./view-options";
+import { TablePagination } from "./table-pagination";
+import { TableViewOptions } from "./table-view-options";
+import { TableFilters } from "./table-filters";
+import { useFilters } from "./useTableFilters";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -32,7 +33,7 @@ export function Table<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const filters = useFilters()
 
   const table = useReactTable({
     // Table
@@ -41,20 +42,30 @@ export function Table<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
 
     // Pagination
-    getPaginationRowModel: getPaginationRowModel(),
+    manualPagination: true,
+    onPaginationChange: filters.setPagination,
+    rowCount: 100, // TODO: Fetch this from the server
 
     // Sorting
-    onSortingChange: setSorting,
+    onSortingChange: filters.setSorting,
     getSortedRowModel: getSortedRowModel(),
+
+    // State
     state: {
-      sorting,
+      sorting: filters.sorting,
+      pagination: filters.pagination,
     },
   });
 
   return (
     <>
-      <ViewOptions table={table} />
+      {/* Filters */}
+      <TableFilters table={table} />
 
+      {/* View options */}
+      <TableViewOptions table={table} />
+
+      {/* Table */}
       <TableRoot>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -65,9 +76,9 @@ export function Table<TData, TValue>({
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
                   </TableHead>
                 );
               })}
@@ -99,7 +110,7 @@ export function Table<TData, TValue>({
       </TableRoot>
 
       {/* Pagination */}
-      <Pagination table={table} />
+      <TablePagination table={table} />
     </>
   );
 }
