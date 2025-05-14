@@ -1,5 +1,5 @@
 import { type Column } from "@tanstack/react-table";
-import { ArrowDown, ArrowUp, ChevronsUpDown, EyeOff } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpDown, EyeOff } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,14 +22,14 @@ export function ColumnHeader<TData, TValue>({ column }: ColumnHeaderProps<TData,
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="-ml-4 capitalize">
+        <Button variant="ghost" className="-ml-4 capitalize data-[state=open]:bg-accent">
           <span>{column.id}</span>
           {column.getIsSorted() === "desc" ? (
             <ArrowDown />
           ) : column.getIsSorted() === "asc" ? (
             <ArrowUp />
           ) : (
-            <ChevronsUpDown />
+            <ArrowUpDown />
           )}
         </Button>
       </DropdownMenuTrigger>

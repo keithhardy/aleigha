@@ -52,7 +52,7 @@ export const columns: ColumnDef<User>[] = [
     cell: () => (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" className="data-[state=open]:bg-accent">
             <MoreHorizontal />
           </Button>
         </DropdownMenuTrigger>
