@@ -19,13 +19,11 @@ interface ColumnFiltersState {
   value: unknown;
 }
 
-type GlobalFilterState = string;
-
 interface UseFiltersProps {
   initialPagination?: PaginationState;
   initialSorting?: SortingState[];
   initialRowSelection?: RowSelectionState;
-  initialGlobalFilter?: GlobalFilterState;
+  initialGlobalFilter?: string;
   initialColumnFilters?: ColumnFiltersState[];
 }
 

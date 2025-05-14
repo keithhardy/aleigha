@@ -1,6 +1,5 @@
 "use client";
 
-import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { type Table } from "@tanstack/react-table";
 import { Settings2 } from "lucide-react";
 
@@ -11,6 +10,7 @@ import {
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 interface TableViewOptionsProps<TData> {
@@ -21,12 +21,12 @@ export function TableViewOptions<TData>({ table }: TableViewOptionsProps<TData>)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="ml-auto hidden h-8 lg:flex">
+        <Button variant="outline" size="sm">
           <Settings2 />
           View
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[150px]">
+      <DropdownMenuContent>
         <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {table

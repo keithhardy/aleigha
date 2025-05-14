@@ -2,7 +2,7 @@ import { type Row, type Table } from "@tanstack/react-table";
 
 import { Checkbox } from "@/components/ui/checkbox";
 
-interface SelectAllProps<TData> {
+interface SelectAllPageRowsProps<TData> {
   table: Table<TData>;
 }
 
@@ -10,7 +10,7 @@ interface SelectRowProps<TData> {
   row: Row<TData>;
 }
 
-export function SelectAll<TData>({ table }: SelectAllProps<TData>) {
+export function SelectAllPageRows<TData>({ table }: SelectAllPageRowsProps<TData>) {
   return (
     <Checkbox
       checked={
