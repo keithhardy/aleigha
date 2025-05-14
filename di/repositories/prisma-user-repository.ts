@@ -2,7 +2,6 @@ import { prisma } from "@/lib/db/prisma-client";
 import { UserProvider } from "@/di/interfaces/user-provider";
 import { CreateUser, UpdateUser } from "@/di/schemas/user";
 import { Filters } from "@/app/strategies/users/components/table/useFilters";
-import { $Enums } from "@prisma/client";
 
 export class PrismaUserRepository implements UserProvider {
   createUser(data: CreateUser) {
@@ -14,50 +13,54 @@ export class PrismaUserRepository implements UserProvider {
   }
 
   getUsers(filters?: Filters) {
-    const getOrderBy = () =>
-      filters?.sorting?.map(({ id, desc }) => {
-        const key = id.split(".").join(".");
-        return { [key]: desc ? "desc" : "asc" };
-      });
-
-    const getRoleFilter = () => {
-      const role = filters?.columnFilters?.find(
-        (f) => f.id === "role" && Array.isArray(f.value) && f.value.length > 0,
-      );
-      return role ? { role: { in: role.value as $Enums.UserRole[] } } : {};
-    };
-
-    const getGlobalFilter = () => {
-      if (!filters?.globalFilter) return {};
-      const fields = ["name", "email", "phone"];
-      return {
-        OR: fields.map((field) => ({
-          [field]: {
-            contains: filters.globalFilter,
-            mode: "insensitive",
-          },
-        })),
-      };
-    };
+    const globalFilter = ["name", "email", "phone"];
 
     const where = {
-      ...getRoleFilter(),
-      ...getGlobalFilter(),
+      ...(filters?.columnFilters?.reduce(
+        (acc, filter) => {
+          if (Array.isArray(filter.value) && filter.value.length > 0) {
+            return {
+              ...acc,
+              [filter.id]: { in: filter.value },
+            };
+          }
+          return acc;
+        },
+        {} as Record<string, any>,
+      ) ?? {}),
+
+      ...(filters?.globalFilter
+        ? {
+            OR: globalFilter.map((field) => ({
+              [field]: {
+                contains: filters.globalFilter,
+                mode: "insensitive",
+              },
+            })),
+          }
+        : {}),
     };
 
-    const pagination = filters?.pagination
-      ? {
-          take: filters.pagination.pageSize,
-          skip: filters.pagination.pageIndex * filters.pagination.pageSize,
+    const orderBy =
+      filters?.sorting?.map((sort) => {
+        const keys = sort.id.split(".");
+        if (keys.length === 1) {
+          return { [keys[0]]: sort.desc ? "desc" : "asc" };
         }
-      : {};
+        return { [keys.join(".")]: sort.desc ? "desc" : "asc" };
+      }) ?? undefined;
 
-    const orderBy = getOrderBy();
+    const take = filters?.pagination?.pageSize;
+
+    const skip = filters?.pagination
+      ? filters.pagination.pageIndex * filters.pagination.pageSize
+      : undefined;
 
     return prisma.user.findMany({
-      ...pagination,
-      ...(orderBy && { orderBy }),
-      ...(Object.keys(where).length > 0 && { where }),
+      where,
+      orderBy,
+      take,
+      skip,
     });
   }
 

@@ -1,4 +1,4 @@
-import { Row, Table } from "@tanstack/react-table";
+import { type Row, type Table } from "@tanstack/react-table";
 
 import { Checkbox } from "@/components/ui/checkbox";
 

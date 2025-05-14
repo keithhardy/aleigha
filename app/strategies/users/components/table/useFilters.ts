@@ -1,25 +1,25 @@
 import * as React from "react";
 
-export interface PaginationState {
+interface PaginationState {
   pageIndex: number;
   pageSize: number;
 }
 
-export interface SortingState {
+interface SortingState {
   id: string;
   desc: boolean;
 }
 
-export interface RowSelectionState {
+interface RowSelectionState {
   [key: string]: boolean;
 }
 
-export interface ColumnFiltersState {
+interface ColumnFiltersState {
   id: string;
   value: unknown;
 }
 
-export type GlobalFilterState = string;
+type GlobalFilterState = string;
 
 interface UseFiltersProps {
   initialPagination?: PaginationState;
@@ -27,6 +27,13 @@ interface UseFiltersProps {
   initialRowSelection?: RowSelectionState;
   initialGlobalFilter?: GlobalFilterState;
   initialColumnFilters?: ColumnFiltersState[];
+}
+
+export interface Filters {
+  pagination?: PaginationState;
+  sorting?: SortingState[];
+  globalFilter?: string;
+  columnFilters?: ColumnFiltersState[];
 }
 
 export function useFilters({
@@ -42,26 +49,16 @@ export function useFilters({
   const [globalFilter, setGlobalFilter] = React.useState(initialGlobalFilter);
   const [columnFilters, setColumnFilters] = React.useState(initialColumnFilters);
 
-  return React.useMemo(
-    () => ({
-      pagination,
-      setPagination,
-      sorting,
-      setSorting,
-      rowSelection,
-      setRowSelection,
-      globalFilter,
-      setGlobalFilter,
-      columnFilters,
-      setColumnFilters,
-    }),
-    [pagination, sorting, rowSelection, globalFilter, columnFilters],
-  );
-}
-
-export interface Filters {
-  pagination?: PaginationState;
-  sorting?: SortingState[];
-  globalFilter?: string;
-  columnFilters?: ColumnFiltersState[];
+  return {
+    pagination,
+    setPagination,
+    sorting,
+    setSorting,
+    rowSelection,
+    setRowSelection,
+    globalFilter,
+    setGlobalFilter,
+    columnFilters,
+    setColumnFilters,
+  };
 }

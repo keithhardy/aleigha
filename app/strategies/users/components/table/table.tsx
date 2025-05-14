@@ -1,6 +1,6 @@
 "use client";
 
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { type ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import * as React from "react";
 
 import {
@@ -30,7 +30,18 @@ export function Table<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = React.useState<TData[]>(initialData || []);
 
-  const filters = useFilters();
+  const {
+    pagination,
+    setPagination,
+    sorting,
+    setSorting,
+    rowSelection,
+    setRowSelection,
+    globalFilter,
+    setGlobalFilter,
+    columnFilters,
+    setColumnFilters,
+  } = useFilters();
 
   const table = useReactTable({
     // Table
@@ -40,46 +51,46 @@ export function Table<TData, TValue>({
 
     // Pagination
     manualPagination: true,
-    onPaginationChange: filters.setPagination,
+    onPaginationChange: setPagination,
     rowCount: 9, // TODO: Fetch this from the server
 
     // Sorting
     manualSorting: true,
-    onSortingChange: filters.setSorting,
+    onSortingChange: setSorting,
 
     // Row selection
-    onRowSelectionChange: filters.setRowSelection,
+    onRowSelectionChange: setRowSelection,
     getRowId: (row, index) => (row as { id: string }).id ?? index.toString(), // TODO: Fix the type of row
 
     // Filters
     manualFiltering: true,
-    onGlobalFilterChange: filters.setGlobalFilter,
-    onColumnFiltersChange: filters.setColumnFilters,
+    onGlobalFilterChange: setGlobalFilter,
+    onColumnFiltersChange: setColumnFilters,
 
     // State
     state: {
-      sorting: filters.sorting,
-      pagination: filters.pagination,
-      rowSelection: filters.rowSelection,
-      globalFilter: filters.globalFilter,
-      columnFilters: filters.columnFilters,
+      sorting,
+      pagination,
+      rowSelection,
+      globalFilter,
+      columnFilters,
     },
   });
 
-  const fetchData = React.useCallback(async () => {
-    const data = await getData({
-      pagination: filters.pagination,
-      sorting: filters.sorting,
-      globalFilter: filters.globalFilter,
-      columnFilters: filters.columnFilters,
-    });
-
-    setData(data);
-  }, [filters.pagination, filters.sorting, filters.globalFilter, filters.columnFilters]);
-
   React.useEffect(() => {
+    const fetchData = async () => {
+      const data = await getData({
+        sorting,
+        pagination,
+        globalFilter,
+        columnFilters,
+      });
+
+      setData(data);
+    };
+
     fetchData();
-  }, [fetchData]);
+  }, [sorting, pagination, globalFilter, columnFilters]);
 
   return (
     <>

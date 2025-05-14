@@ -1,6 +1,6 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
+import { type ColumnDef } from "@tanstack/react-table";
 
 import { ColumnActions } from "./column-actions";
 import { ColumnHeader } from "./column-header";
