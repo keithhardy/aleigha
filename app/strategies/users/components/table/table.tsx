@@ -90,7 +90,7 @@ export function Table<TData, TValue>({
     };
 
     fetchData();
-  }, [sorting, pagination, globalFilter, columnFilters]);
+  }, [sorting, pagination, globalFilter, columnFilters]); // TODO: Fix missing getData dependency
 
   return (
     <>
