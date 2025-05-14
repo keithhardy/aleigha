@@ -10,27 +10,19 @@ import { TableFacetedFilter } from "./table-faceted-filter";
 
 interface TableFiltersProps<TData> {
   table: Table<TData>;
+  facets: Record<string, { value: string; count: number }[]>;
 }
 
-export function TableFilters<TData>({ table }: TableFiltersProps<TData>) {
+export function TableFilters<TData>({ table, facets }: TableFiltersProps<TData>) {
   const isFiltered =
     table.getState().columnFilters.length > 0 || table.getState().globalFilter !== "";
   const resetFilters = () => {
     table.resetColumnFilters();
     table.setGlobalFilter("");
   };
-  const facets = {
-    user: [
-      { value: "Admin", count: 4 },
-      { value: "Manager", count: 3 },
-      { value: "Operative", count: 2 },
-      { value: "Planner", count: 2 },
-      { value: "Client", count: 7 },
-    ],
-  };
 
   const roleColumn = table.getColumn("role");
-  const roleFacets = facets["user"];
+  const roleFacets = facets["role"];
 
   return (
     <>

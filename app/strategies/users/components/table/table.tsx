@@ -16,19 +16,25 @@ import { TableFilters } from "./table-filters";
 import { TablePagination } from "./table-pagination";
 import { TableViewOptions } from "./table-view-options";
 import { Filters, useFilters } from "./useFilters";
+import { getFacets } from "../../actions";
 
 interface DataTableProps<TData, TValue> {
   initialData?: TData[];
   getData: (filters?: Filters) => Promise<TData[]>;
   columns: ColumnDef<TData, TValue>[];
+  initialFacets: Record<string, { value: string; count: number }[]>;
 }
 
 export function Table<TData, TValue>({
   initialData,
   getData,
   columns,
+  initialFacets,
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = React.useState<TData[]>(initialData || []);
+  const [facets, setFacets] = React.useState<Record<string, { value: string; count: number }[]>>(
+    initialFacets || [],
+  );
 
   const {
     pagination,
@@ -86,7 +92,13 @@ export function Table<TData, TValue>({
         columnFilters,
       });
 
+      const facets = await getFacets({
+        globalFilter,
+        columnFilters,
+      });
+
       setData(data);
+      setFacets(facets);
     };
 
     fetchData();
@@ -95,7 +107,7 @@ export function Table<TData, TValue>({
   return (
     <>
       {/* Filters */}
-      <TableFilters table={table} />
+      <TableFilters table={table} facets={facets} />
 
       {/* View options */}
       <TableViewOptions table={table} />

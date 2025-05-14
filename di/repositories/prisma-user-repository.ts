@@ -25,6 +25,23 @@ export class PrismaUserRepository implements UserProvider {
     });
   }
 
+  async getFacets(filters?: Filters) {
+    const [roleFacets] = await Promise.all([
+      prisma.user.groupBy({
+        by: ["role"],
+        _count: { role: true },
+        where: toPrismaWhere(filters, ["name", "email", "phone"], "role"),
+      }),
+    ]);
+
+    return {
+      role: roleFacets.map((facet) => ({
+        value: facet.role,
+        count: facet._count.role,
+      })),
+    };
+  }
+
   updateUser(id: string, data: UpdateUser) {
     return prisma.user.update({ where: { id }, data });
   }
