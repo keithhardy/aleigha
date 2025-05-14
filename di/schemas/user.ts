@@ -52,3 +52,4 @@ export type User = z.infer<typeof UserSchema>;
 export type CreateUser = z.infer<typeof CreateUserSchema>;
 export type UpdateUser = z.infer<typeof UpdateUserSchema>;
 export type UserFacets = Record<string, { value: string; count: number }[]>;
+export type UserTotal = number;

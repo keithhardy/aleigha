@@ -1,4 +1,4 @@
-import { getFacets, getUsers } from "./actions";
+import { getFacets, getTotal, getUsers } from "./actions";
 import { columns } from "./components/table/columns";
 import { Table } from "./components/table/table";
 
@@ -8,8 +8,16 @@ export default async function Users() {
   const data = await getUsers({
     pagination: { pageIndex: 0, pageSize: 10 },
   });
-
   const facets = await getFacets();
+  const total = await getTotal();
 
-  return <Table initialData={data} getData={getUsers} columns={columns} initialFacets={facets} />;
+  return (
+    <Table
+      initialData={data}
+      initialFacets={facets}
+      initialTotal={total}
+      getData={getUsers}
+      columns={columns}
+    />
+  );
 }

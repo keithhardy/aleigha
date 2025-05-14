@@ -42,6 +42,12 @@ export class PrismaUserRepository implements UserProvider {
     };
   }
 
+  async getTotal(filters?: Filters) {
+    return prisma.user.count({
+      where: toPrismaWhere(filters, ["name", "email", "phone"]),
+    });
+  }
+
   updateUser(id: string, data: UpdateUser) {
     return prisma.user.update({ where: { id }, data });
   }

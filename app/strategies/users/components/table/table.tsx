@@ -16,25 +16,28 @@ import { TableFilters } from "./table-filters";
 import { TablePagination } from "./table-pagination";
 import { TableViewOptions } from "./table-view-options";
 import { Filters, useFilters } from "./useFilters";
-import { getFacets } from "../../actions";
+import { getFacets, getTotal } from "../../actions";
 
 interface DataTableProps<TData, TValue> {
   initialData?: TData[];
+  initialFacets: Record<string, { value: string; count: number }[]>;
+  initialTotal: number;
   getData: (filters?: Filters) => Promise<TData[]>;
   columns: ColumnDef<TData, TValue>[];
-  initialFacets: Record<string, { value: string; count: number }[]>;
 }
 
 export function Table<TData, TValue>({
   initialData,
+  initialFacets,
+  initialTotal,
   getData,
   columns,
-  initialFacets,
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = React.useState<TData[]>(initialData || []);
   const [facets, setFacets] = React.useState<Record<string, { value: string; count: number }[]>>(
     initialFacets || [],
   );
+  const [total, setTotal] = React.useState<number>(initialTotal);
 
   const {
     pagination,
@@ -58,7 +61,7 @@ export function Table<TData, TValue>({
     // Pagination
     manualPagination: true,
     onPaginationChange: setPagination,
-    rowCount: 9, // TODO: Fetch this from the server
+    rowCount: total,
 
     // Sorting
     manualSorting: true,
@@ -97,8 +100,14 @@ export function Table<TData, TValue>({
         columnFilters,
       });
 
+      const total = await getTotal({
+        globalFilter,
+        columnFilters,
+      });
+
       setData(data);
       setFacets(facets);
+      setTotal(total);
     };
 
     fetchData();

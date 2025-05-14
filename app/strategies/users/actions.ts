@@ -11,3 +11,7 @@ export async function getUsers(filters?: Filters) {
 export async function getFacets(filters?: Filters) {
   return userService.getFacets(filters);
 }
+
+export async function getTotal(filters?: Filters) {
+  return userService.getTotal(filters);
+}

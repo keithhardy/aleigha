@@ -26,6 +26,10 @@ export class UserService {
     return this.userProvider.getFacets(filters);
   }
 
+  getTotal(filters?: Filters) {
+    return this.userProvider.getTotal(filters);
+  }
+
   async updateUser(id: string, input: UpdateUser) {
     const user = await this.userProvider.getUser(id);
     if (!user) throw new Error(`User with id ${id} not found`);
