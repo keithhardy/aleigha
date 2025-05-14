@@ -25,8 +25,7 @@ export const columns: ColumnDef<PropertyWithRelations>[] = [
     header: ({ table }) => (
       <Checkbox
         checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+          table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         className="ml-2 mr-4"
@@ -72,11 +71,7 @@ export const columns: ColumnDef<PropertyWithRelations>[] = [
         <div className="flex justify-end">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="mr-2 data-[state=open]:bg-accent"
-              >
+              <Button variant="ghost" size="icon" className="mr-2 data-[state=open]:bg-accent">
                 <MoreHorizontal />
               </Button>
             </DropdownMenuTrigger>

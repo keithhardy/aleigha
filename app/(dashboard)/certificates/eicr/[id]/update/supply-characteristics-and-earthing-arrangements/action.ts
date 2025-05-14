@@ -31,16 +31,12 @@ export async function updateSupplyCharacteristicsAndEarthingArrangements(
           electricalInstallationConditionReport.numberAndTypeOfLiveConductors,
         confirmationOfSupplyPolarity:
           electricalInstallationConditionReport.confirmationOfSupplyPolarity,
-        otherSourcesOfSupply:
-          electricalInstallationConditionReport.otherSourcesOfSupply,
+        otherSourcesOfSupply: electricalInstallationConditionReport.otherSourcesOfSupply,
         nominalVoltageBetweenLines:
           electricalInstallationConditionReport.nominalVoltageBetweenLines,
-        nominalLineVoltageToEarth:
-          electricalInstallationConditionReport.nominalLineVoltageToEarth,
-        nominalFrequency:
-          electricalInstallationConditionReport.nominalFrequency,
-        prospectiveFaultCurrent:
-          electricalInstallationConditionReport.prospectiveFaultCurrent,
+        nominalLineVoltageToEarth: electricalInstallationConditionReport.nominalLineVoltageToEarth,
+        nominalFrequency: electricalInstallationConditionReport.nominalFrequency,
+        prospectiveFaultCurrent: electricalInstallationConditionReport.prospectiveFaultCurrent,
         externalEarthFaultLoopImpedance:
           electricalInstallationConditionReport.externalEarthFaultLoopImpedance,
       },

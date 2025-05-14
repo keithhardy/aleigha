@@ -4,8 +4,6 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import * as React from "react";
@@ -19,9 +17,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+import { TableFilters } from "./table-filters";
 import { TablePagination } from "./table-pagination";
 import { TableViewOptions } from "./table-view-options";
-import { TableFilters } from "./table-filters";
 import { useFilters } from "./useTableFilters";
 
 interface DataTableProps<TData, TValue> {
@@ -29,11 +27,8 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function Table<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
-  const filters = useFilters()
+export function Table<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+  const filters = useFilters();
 
   const table = useReactTable({
     // Table
@@ -47,13 +42,25 @@ export function Table<TData, TValue>({
     rowCount: 100, // TODO: Fetch this from the server
 
     // Sorting
+    manualSorting: true,
     onSortingChange: filters.setSorting,
-    getSortedRowModel: getSortedRowModel(),
+
+    // Row selection
+    onRowSelectionChange: filters.setRowSelection,
+    getRowId: (row, index) => (row as { id: string }).id ?? index.toString(), // TODO: Fix the type of row
+
+    // Filters
+    manualFiltering: true,
+    onGlobalFilterChange: filters.setGlobalFilter,
+    onColumnFiltersChange: filters.setColumnFilters,
 
     // State
     state: {
       sorting: filters.sorting,
       pagination: filters.pagination,
+      rowSelection: filters.rowSelection,
+      globalFilter: filters.globalFilter,
+      columnFilters: filters.columnFilters,
     },
   });
 
@@ -75,10 +82,7 @@ export function Table<TData, TValue>({
                   <TableHead key={header.id}>
                     {header.isPlaceholder
                       ? null
-                      : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
+                      : flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
                 );
               })}
@@ -88,10 +92,7 @@ export function Table<TData, TValue>({
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
+              <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -10,21 +10,20 @@ export default async function UpdatePurposeOfTheReport({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const certificate =
-    await prisma.electricalInstallationConditionReport.findFirst({
-      where: {
-        id: (await params).id,
-      },
-      select: {
-        id: true,
-        purpose: true,
-        startDate: true,
-        endDate: true,
-        recordsAvailable: true,
-        previousReportAvailable: true,
-        previousReportDate: true,
-      },
-    });
+  const certificate = await prisma.electricalInstallationConditionReport.findFirst({
+    where: {
+      id: (await params).id,
+    },
+    select: {
+      id: true,
+      purpose: true,
+      startDate: true,
+      endDate: true,
+      recordsAvailable: true,
+      previousReportAvailable: true,
+      previousReportDate: true,
+    },
+  });
 
   if (!certificate) {
     notFound();

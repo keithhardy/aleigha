@@ -10,17 +10,16 @@ export default async function UpdatePresenceOfAdequateArrangements({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const certificate =
-    await prisma.electricalInstallationConditionReport.findFirst({
-      where: {
-        id: (await params).id,
-      },
-      select: {
-        id: true,
-        item_2_1: true,
-        item_2_2: true,
-      },
-    });
+  const certificate = await prisma.electricalInstallationConditionReport.findFirst({
+    where: {
+      id: (await params).id,
+    },
+    select: {
+      id: true,
+      item_2_1: true,
+      item_2_2: true,
+    },
+  });
 
   if (!certificate) {
     notFound();

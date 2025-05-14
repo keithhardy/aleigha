@@ -9,9 +9,7 @@ import { ServerActionResponse } from "@/next.types";
 import { UpdateIsolationAndSwitchingSchema } from "./schema";
 
 export async function updateIsolationAndSwitching(
-  electricalInstallationConditionReport: z.infer<
-    typeof UpdateIsolationAndSwitchingSchema
-  >,
+  electricalInstallationConditionReport: z.infer<typeof UpdateIsolationAndSwitchingSchema>,
 ): Promise<ServerActionResponse<void>> {
   try {
     await prisma.electricalInstallationConditionReport.update({

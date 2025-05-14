@@ -2,14 +2,12 @@ export const inspectionItems = [
   {
     id: "item_9_1B",
     item: "9.1B",
-    label:
-      "Where used as a protective measure, requirements for SELV or PELV met (701.414.4.5)",
+    label: "Where used as a protective measure, requirements for SELV or PELV met (701.414.4.5)",
   },
   {
     id: "item_9_1C",
     item: "9.1C",
-    label:
-      "Shaver supply units complying with BS EN 61558-2-5 formerly BS 3535 (701.512.3)",
+    label: "Shaver supply units complying with BS EN 61558-2-5 formerly BS 3535 (701.512.3)",
   },
   {
     id: "item_9_1D",
@@ -32,8 +30,7 @@ export const inspectionItems = [
   {
     id: "item_9_1G",
     item: "9.1G",
-    label:
-      "Suitability of accessories and controlgear etc. for a particular zone (701.512.3)",
+    label: "Suitability of accessories and controlgear etc. for a particular zone (701.512.3)",
   },
   {
     id: "item_9_1H",

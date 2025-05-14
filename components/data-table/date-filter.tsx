@@ -18,10 +18,7 @@ interface FilterProps<TData, TValue> {
   title?: string;
 }
 
-export function DateFilter<TData, TValue>({
-  column,
-  title = "Date",
-}: FilterProps<TData, TValue>) {
+export function DateFilter<TData, TValue>({ column, title = "Date" }: FilterProps<TData, TValue>) {
   const filterValue = column.getFilterValue() as DateRange | undefined;
 
   const [range, setRange] = useState<DateRange | undefined>(filterValue);

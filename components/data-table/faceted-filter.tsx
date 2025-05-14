@@ -66,9 +66,7 @@ export function FacetedFilter<TData, TValue>({
                         selectedValues.add(option.value);
                       }
                       const filterValues = Array.from(selectedValues);
-                      column?.setFilterValue(
-                        filterValues.length ? filterValues : undefined,
-                      );
+                      column?.setFilterValue(filterValues.length ? filterValues : undefined);
                     }}
                   >
                     <div

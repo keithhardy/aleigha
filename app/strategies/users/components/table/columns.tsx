@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { ColumnActions } from "./column-actions";
 import { ColumnHeader } from "./column-header";
+import { SelectAll, SelectRow } from "./column-select";
 
 export type User = {
   id: string;
@@ -17,6 +18,11 @@ export type User = {
 };
 
 export const columns: ColumnDef<User>[] = [
+  {
+    id: "select",
+    header: ({ table }) => <SelectAll table={table} />,
+    cell: ({ row }) => <SelectRow row={row} />,
+  },
   {
     accessorKey: "name",
     header: ({ column }) => <ColumnHeader column={column} title="Email" />,

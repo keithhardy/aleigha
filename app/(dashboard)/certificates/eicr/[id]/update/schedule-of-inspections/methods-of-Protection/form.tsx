@@ -64,9 +64,7 @@ export function UpdateMethodsOfProtectionForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateMethodsOfProtectionSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateMethodsOfProtectionSchema>) => {
     const response = await updateMethodsOfProtection(data);
 
     if (response.status === "success") {
@@ -82,10 +80,7 @@ export function UpdateMethodsOfProtectionForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
@@ -105,10 +100,9 @@ export function UpdateMethodsOfProtectionForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Methods of protection</CardTitle>
                   <CardDescription className="text-balance">
-                    This section assesses the condition and adequacy of
-                    earthing, bonding, insulation, and safety provisions,
-                    including main earthing, protective bonding, and
-                    equipotential bonding.
+                    This section assesses the condition and adequacy of earthing, bonding,
+                    insulation, and safety provisions, including main earthing, protective bonding,
+                    and equipotential bonding.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-8 p-0">
@@ -120,9 +114,7 @@ export function UpdateMethodsOfProtectionForm({
                       name={item.id}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
-                            {item.item + " - " + item.label}
-                          </FormLabel>
+                          <FormLabel>{item.item + " - " + item.label}</FormLabel>
                           <FormControl>
                             <RadioGroupComponent
                               onChange={field.onChange}
@@ -144,11 +136,7 @@ export function UpdateMethodsOfProtectionForm({
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

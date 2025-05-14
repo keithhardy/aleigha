@@ -7,8 +7,7 @@ export const inspectionItems = [
   {
     id: "item_6_2",
     item: "6.2",
-    label:
-      "Cables correctly supported throughout their run (521.10.202; 522.8.5)",
+    label: "Cables correctly supported throughout their run (521.10.202; 522.8.5)",
   },
   {
     id: "item_6_3",
@@ -18,8 +17,7 @@ export const inspectionItems = [
   {
     id: "item_6_4",
     item: "6.4",
-    label:
-      "Non-sheathed cables protected by enclosure in conduit, ducting or trunking (521.10.1)",
+    label: "Non-sheathed cables protected by enclosure in conduit, ducting or trunking (521.10.1)",
   },
   {
     id: "item_6_5",
@@ -36,20 +34,17 @@ export const inspectionItems = [
   {
     id: "item_6_7",
     item: "6.7",
-    label:
-      "Adequacy of protective devices; type and rated current for fault protection (411.3)",
+    label: "Adequacy of protective devices; type and rated current for fault protection (411.3)",
   },
   {
     id: "item_6_8",
     item: "6.8",
-    label:
-      "Presence and adequacy of circuit protective conductors (411.3.1.1; 543.1)",
+    label: "Presence and adequacy of circuit protective conductors (411.3.1.1; 543.1)",
   },
   {
     id: "item_6_9",
     item: "6.9",
-    label:
-      "Coordination between conductors and overload protective devices (433.1; 533.2.1)",
+    label: "Coordination between conductors and overload protective devices (433.1; 533.2.1)",
   },
   {
     id: "item_6_10",
@@ -60,14 +55,12 @@ export const inspectionItems = [
   {
     id: "item_6_11",
     item: "6.11",
-    label:
-      "Where exposed to direct sunlight, cable of a suitable type (522.11.1)",
+    label: "Where exposed to direct sunlight, cable of a suitable type (522.11.1)",
   },
   {
     id: "item_6_12A",
     item: "6.12A",
-    label:
-      "Installed in prescribed zones (see Section D. Extent and limitations) (522.6.202)",
+    label: "Installed in prescribed zones (see Section D. Extent and limitations) (522.6.202)",
   },
   {
     id: "item_6_13A",
@@ -83,8 +76,7 @@ export const inspectionItems = [
   {
     id: "item_6_13C",
     item: "6.13C",
-    label:
-      "*For cables concealed in walls at a depth of less than 50 mm (522.6.202)",
+    label: "*For cables concealed in walls at a depth of less than 50 mm (522.6.202)",
   },
   {
     id: "item_6_13D",
@@ -122,8 +114,7 @@ export const inspectionItems = [
   {
     id: "item_6_17B",
     item: "6.17B",
-    label:
-      "No basic insulation of a conductor visible outside enclosure (526.8)",
+    label: "No basic insulation of a conductor visible outside enclosure (526.8)",
   },
   {
     id: "item_6_17C",
@@ -133,14 +124,12 @@ export const inspectionItems = [
   {
     id: "item_6_17D",
     item: "6.17D",
-    label:
-      "Adequately connected at point of entry to enclosure (glands, bushes, etc.) (522.8.5)",
+    label: "Adequately connected at point of entry to enclosure (glands, bushes, etc.) (522.8.5)",
   },
   {
     id: "item_6_18",
     item: "6.18",
-    label:
-      "Condition of accessories including socket-outlets, switches and joint boxes (651.2)",
+    label: "Condition of accessories including socket-outlets, switches and joint boxes (651.2)",
   },
   {
     id: "item_6_19",

@@ -20,54 +20,38 @@ export async function updateParticularsOfInstallationsReferredToInThisReport(
       },
       data: {
         maximumDemand: electricalInstallationConditionReport.maximumDemand,
-        distributorsFacility:
-          electricalInstallationConditionReport.distributorsFacility,
+        distributorsFacility: electricalInstallationConditionReport.distributorsFacility,
         installationEarthElectrodes:
           electricalInstallationConditionReport.installationEarthElectrodes,
-        earthElectrodeType:
-          electricalInstallationConditionReport.earthElectrodeType,
-        earthElectrodeLocation:
-          electricalInstallationConditionReport.earthElectrodeLocation,
+        earthElectrodeType: electricalInstallationConditionReport.earthElectrodeType,
+        earthElectrodeLocation: electricalInstallationConditionReport.earthElectrodeLocation,
         electrodeResistanceToEarth:
           electricalInstallationConditionReport.electrodeResistanceToEarth,
-        earthingConductorMaterial:
-          electricalInstallationConditionReport.earthingConductorMaterial,
-        earthingConductorCSA:
-          electricalInstallationConditionReport.earthingConductorCSA,
-        earthingConductorVerified:
-          electricalInstallationConditionReport.earthingConductorVerified,
+        earthingConductorMaterial: electricalInstallationConditionReport.earthingConductorMaterial,
+        earthingConductorCSA: electricalInstallationConditionReport.earthingConductorCSA,
+        earthingConductorVerified: electricalInstallationConditionReport.earthingConductorVerified,
         mainProtectiveBondingConductorMaterial:
           electricalInstallationConditionReport.mainProtectiveBondingConductorMaterial,
         mainProtectiveBondingConductorCSA:
           electricalInstallationConditionReport.mainProtectiveBondingConductorCSA,
         mainProtectiveBondingConductorVerified:
           electricalInstallationConditionReport.mainProtectiveBondingConductorVerified,
-        waterInstallationPipes:
-          electricalInstallationConditionReport.waterInstallationPipes,
-        gasInstallationPipes:
-          electricalInstallationConditionReport.gasInstallationPipes,
+        waterInstallationPipes: electricalInstallationConditionReport.waterInstallationPipes,
+        gasInstallationPipes: electricalInstallationConditionReport.gasInstallationPipes,
         structuralSteel: electricalInstallationConditionReport.structuralSteel,
-        oilInstallationPipes:
-          electricalInstallationConditionReport.oilInstallationPipes,
-        lightningProtection:
-          electricalInstallationConditionReport.lightningProtection,
+        oilInstallationPipes: electricalInstallationConditionReport.oilInstallationPipes,
+        lightningProtection: electricalInstallationConditionReport.lightningProtection,
         other: electricalInstallationConditionReport.other,
-        mainSwitchLocation:
-          electricalInstallationConditionReport.mainSwitchLocation,
-        mainSwitchBSNumber:
-          electricalInstallationConditionReport.mainSwitchBSNumber,
+        mainSwitchLocation: electricalInstallationConditionReport.mainSwitchLocation,
+        mainSwitchBSNumber: electricalInstallationConditionReport.mainSwitchBSNumber,
         mainSwitchType: electricalInstallationConditionReport.mainSwitchType,
-        mainSwitchRating:
-          electricalInstallationConditionReport.mainSwitchRating,
+        mainSwitchRating: electricalInstallationConditionReport.mainSwitchRating,
         mainSwitchPoles: electricalInstallationConditionReport.mainSwitchPoles,
-        mainSwitchCurrentRating:
-          electricalInstallationConditionReport.mainSwitchCurrentRating,
-        mainSwitchVoltageRating:
-          electricalInstallationConditionReport.mainSwitchVoltageRating,
+        mainSwitchCurrentRating: electricalInstallationConditionReport.mainSwitchCurrentRating,
+        mainSwitchVoltageRating: electricalInstallationConditionReport.mainSwitchVoltageRating,
         mainSwitchRCDOperatingCurrent:
           electricalInstallationConditionReport.mainSwitchRCDOperatingCurrent,
-        mainSwitchRCDType:
-          electricalInstallationConditionReport.mainSwitchRCDType,
+        mainSwitchRCDType: electricalInstallationConditionReport.mainSwitchRCDType,
         mainSwitchRCDRatedTimeDelay:
           electricalInstallationConditionReport.mainSwitchRCDRatedTimeDelay,
         mainSwitchRCDMeasuredOperatingTime:

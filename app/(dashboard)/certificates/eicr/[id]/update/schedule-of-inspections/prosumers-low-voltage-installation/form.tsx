@@ -41,9 +41,7 @@ export function UpdateProsumersLowVoltageInstallationForm({
 }) {
   const { toast } = useToast();
 
-  const form = useForm<
-    z.infer<typeof UpdateProsumersLowVoltageInstallationSchema>
-  >({
+  const form = useForm<z.infer<typeof UpdateProsumersLowVoltageInstallationSchema>>({
     resolver: zodResolver(UpdateProsumersLowVoltageInstallationSchema),
     defaultValues: {
       id: certificate.id,
@@ -51,9 +49,7 @@ export function UpdateProsumersLowVoltageInstallationForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateProsumersLowVoltageInstallationSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateProsumersLowVoltageInstallationSchema>) => {
     const response = await updateContractorClientAndInstallation(data);
 
     if (response.status === "success") {
@@ -69,10 +65,7 @@ export function UpdateProsumersLowVoltageInstallationForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
@@ -83,21 +76,17 @@ export function UpdateProsumersLowVoltageInstallationForm({
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
-              <HeaderTitle>
-                Prosumer&apos;s low voltage installation
-              </HeaderTitle>
+              <HeaderTitle>Prosumer&apos;s low voltage installation</HeaderTitle>
             </HeaderGroup>
           </Header>
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
-                  <CardTitle>
-                    Prosumer&apos;s low voltage installation
-                  </CardTitle>
+                  <CardTitle>Prosumer&apos;s low voltage installation</CardTitle>
                   <CardDescription className="text-balance">
-                    Observations regarding the condition of the prosumer&apos;s
-                    low voltage installation.
+                    Observations regarding the condition of the prosumer&apos;s low voltage
+                    installation.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-8 p-0">
@@ -109,9 +98,7 @@ export function UpdateProsumersLowVoltageInstallationForm({
                       name={item.id}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
-                            {item.item + " - " + item.label}
-                          </FormLabel>
+                          <FormLabel>{item.item + " - " + item.label}</FormLabel>
                           <FormControl>
                             <RadioGroupComponent
                               onChange={field.onChange}
@@ -127,18 +114,13 @@ export function UpdateProsumersLowVoltageInstallationForm({
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
-                  Ensure the prosumer’s low voltage installation is inspected
-                  for condition.
+                  Ensure the prosumer’s low voltage installation is inspected for condition.
                 </p>
               </CardFooter>
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

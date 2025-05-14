@@ -9,17 +9,16 @@ export default async function UpdateContractorClientAndInstallation({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const certificate =
-    await prisma.electricalInstallationConditionReport.findFirst({
-      where: {
-        id: (await params).id,
-      },
-      select: {
-        id: true,
-        clientId: true,
-        propertyId: true,
-      },
-    });
+  const certificate = await prisma.electricalInstallationConditionReport.findFirst({
+    where: {
+      id: (await params).id,
+    },
+    select: {
+      id: true,
+      clientId: true,
+      propertyId: true,
+    },
+  });
 
   if (!certificate) {
     notFound();

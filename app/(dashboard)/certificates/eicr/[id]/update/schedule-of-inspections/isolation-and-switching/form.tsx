@@ -64,9 +64,7 @@ export function UpdateIsolationAndSwitchingForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateIsolationAndSwitchingSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateIsolationAndSwitchingSchema>) => {
     const response = await updateIsolationAndSwitching(data);
 
     if (response.status === "success") {
@@ -82,10 +80,7 @@ export function UpdateIsolationAndSwitchingForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
@@ -105,8 +100,8 @@ export function UpdateIsolationAndSwitchingForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Isolation and switching</CardTitle>
                   <CardDescription className="text-balance">
-                    This section evaluates the isolation and switching
-                    arrangements for safety and compliance.
+                    This section evaluates the isolation and switching arrangements for safety and
+                    compliance.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-8 p-0">
@@ -118,9 +113,7 @@ export function UpdateIsolationAndSwitchingForm({
                       name={item.id}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
-                            {item.item + " - " + item.label}
-                          </FormLabel>
+                          <FormLabel>{item.item + " - " + item.label}</FormLabel>
                           <FormControl>
                             <RadioGroupComponent
                               onChange={field.onChange}
@@ -142,11 +135,7 @@ export function UpdateIsolationAndSwitchingForm({
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

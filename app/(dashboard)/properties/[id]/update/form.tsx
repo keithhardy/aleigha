@@ -112,19 +112,11 @@ export function UpdatePropertyForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Client</FormLabel>
-                      <DialogSheet
-                        open={clientOpen}
-                        onOpenChange={setClientOpen}
-                      >
+                      <DialogSheet open={clientOpen} onOpenChange={setClientOpen}>
                         <DialogSheetTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="w-full justify-between"
-                          >
+                          <Button variant="outline" className="w-full justify-between">
                             {field.value
-                              ? clients.find(
-                                  (client) => client.id === field.value,
-                                )?.name
+                              ? clients.find((client) => client.id === field.value)?.name
                               : "Select client..."}
                             <ChevronsUpDown />
                           </Button>
@@ -271,9 +263,7 @@ export function UpdatePropertyForm({
                 variant="outline"
                 size="sm"
                 type="submit"
-                disabled={
-                  !form.formState.isDirty || form.formState.isSubmitting
-                }
+                disabled={!form.formState.isDirty || form.formState.isSubmitting}
               >
                 {form.formState.isSubmitting ? "Saving..." : "Save"}
               </Button>

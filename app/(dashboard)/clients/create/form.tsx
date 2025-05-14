@@ -146,11 +146,7 @@ export function CreateClientForm() {
                     <FormItem>
                       <FormLabel>Appointed Person</FormLabel>
                       <FormControl>
-                        <Input
-                          type="tel"
-                          {...field}
-                          autoComplete="appointed-person"
-                        />
+                        <Input type="tel" {...field} autoComplete="appointed-person" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -163,11 +159,7 @@ export function CreateClientForm() {
                     <FormItem>
                       <FormLabel>Company Logo</FormLabel>
                       <FormControl>
-                        <Input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleFileChange}
-                        />
+                        <Input type="file" accept="image/*" onChange={handleFileChange} />
                       </FormControl>
                       <FormMessage />
                       {imagePreview && (
@@ -269,9 +261,7 @@ export function CreateClientForm() {
                 variant="outline"
                 size="sm"
                 type="submit"
-                disabled={
-                  !form.formState.isDirty || form.formState.isSubmitting
-                }
+                disabled={!form.formState.isDirty || form.formState.isSubmitting}
               >
                 {form.formState.isSubmitting ? "Saving..." : "Save"}
               </Button>

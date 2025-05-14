@@ -5,10 +5,7 @@ export const CreateClientSchema = z.object({
   email: z.string().email("Invalid email format"),
   phone: z
     .string()
-    .regex(
-      /^[\d\s+()-]+$/,
-      "Phone number can only contain digits, spaces, +, (), and -",
-    ),
+    .regex(/^[\d\s+()-]+$/, "Phone number can only contain digits, spaces, +, (), and -"),
   picture: z
     .string()
     .optional()
@@ -21,25 +18,13 @@ export const CreateClientSchema = z.object({
       }
       return true;
     }, "File must be an image and less than 1 MB."),
-  appointedPerson: z
-    .string()
-    .min(2, "Appointed person must be at least 2 characters long"),
+  appointedPerson: z.string().min(2, "Appointed person must be at least 2 characters long"),
   address: z.object({
-    streetAddress: z
-      .string()
-      .min(3, "Street address must be at least 3 characters"),
+    streetAddress: z.string().min(3, "Street address must be at least 3 characters"),
     city: z.string().min(2, "City must be at least 2 characters"),
-    county: z.preprocess(
-      (val) => (val === "" ? undefined : val),
-      z.string().optional(),
-    ),
-    postTown: z.preprocess(
-      (val) => (val === "" ? undefined : val),
-      z.string().optional(),
-    ),
-    postCode: z
-      .string()
-      .regex(/^[A-Z0-9\s]{5,10}$/i, "Invalid postcode format"),
+    county: z.preprocess((val) => (val === "" ? undefined : val), z.string().optional()),
+    postTown: z.preprocess((val) => (val === "" ? undefined : val), z.string().optional()),
+    postCode: z.string().regex(/^[A-Z0-9\s]{5,10}$/i, "Invalid postcode format"),
     country: z.string().min(2, "Country must be at least 2 characters"),
   }),
 });

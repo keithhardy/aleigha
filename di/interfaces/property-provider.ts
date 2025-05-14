@@ -1,8 +1,4 @@
-import {
-  CreateProperty,
-  UpdateProperty,
-  Property,
-} from "@/di/schemas/property";
+import { CreateProperty, UpdateProperty, Property } from "@/di/schemas/property";
 
 export interface PropertyProvider {
   createProperty(data: CreateProperty): Promise<Property>;

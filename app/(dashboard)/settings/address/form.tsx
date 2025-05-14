@@ -15,13 +15,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
@@ -90,11 +84,7 @@ export function UpdateAddressForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="Street Address"
-                        className="h-[32px]"
-                      />
+                      <Input {...field} placeholder="Street Address" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -106,11 +96,7 @@ export function UpdateAddressForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="City"
-                        className="h-[32px]"
-                      />
+                      <Input {...field} placeholder="City" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -139,11 +125,7 @@ export function UpdateAddressForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="Post Town"
-                        className="h-[32px]"
-                      />
+                      <Input {...field} placeholder="Post Town" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -155,11 +137,7 @@ export function UpdateAddressForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="Postcode"
-                        className="h-[32px]"
-                      />
+                      <Input {...field} placeholder="Postcode" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -171,11 +149,7 @@ export function UpdateAddressForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="Country"
-                        className="h-[32px]"
-                      />
+                      <Input {...field} placeholder="Country" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -184,9 +158,7 @@ export function UpdateAddressForm({
             </CardContent>
           </div>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">
-              Your registered organization address.
-            </p>
+            <p className="text-sm text-muted-foreground">Your registered organization address.</p>
             <Button
               variant="outline"
               size="sm"

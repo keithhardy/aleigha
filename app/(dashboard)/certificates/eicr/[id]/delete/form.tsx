@@ -22,9 +22,7 @@ export function DeleteElectricalInstallationConditionReportForm({
 
   const { toast } = useToast();
 
-  const form = useForm<
-    z.infer<typeof DeleteElectricalInstallationConditionReportSchema>
-  >({
+  const form = useForm<z.infer<typeof DeleteElectricalInstallationConditionReportSchema>>({
     resolver: zodResolver(DeleteElectricalInstallationConditionReportSchema),
     defaultValues: electricalInstallationConditionReport,
   });

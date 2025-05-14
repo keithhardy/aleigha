@@ -19,45 +19,44 @@ export async function getCertificates({
   searchQuery,
   filters = [],
 }: GetCertificatesProps) {
-  const baseSearchFilter: Prisma.ElectricalInstallationConditionReportWhereInput =
-    searchQuery
-      ? {
-          OR: [
-            {
-              serial: {
-                contains: searchQuery,
-                mode: Prisma.QueryMode.insensitive,
-              },
+  const baseSearchFilter: Prisma.ElectricalInstallationConditionReportWhereInput = searchQuery
+    ? {
+        OR: [
+          {
+            serial: {
+              contains: searchQuery,
+              mode: Prisma.QueryMode.insensitive,
             },
-            {
-              property: {
-                address: {
-                  streetAddress: {
-                    contains: searchQuery,
-                    mode: Prisma.QueryMode.insensitive,
-                  },
+          },
+          {
+            property: {
+              address: {
+                streetAddress: {
+                  contains: searchQuery,
+                  mode: Prisma.QueryMode.insensitive,
                 },
               },
             },
-            {
-              property: {
-                address: {
-                  postCode: {
-                    contains: searchQuery,
-                    mode: Prisma.QueryMode.insensitive,
-                  },
+          },
+          {
+            property: {
+              address: {
+                postCode: {
+                  contains: searchQuery,
+                  mode: Prisma.QueryMode.insensitive,
                 },
               },
             },
-          ],
-        }
-      : {};
+          },
+        ],
+      }
+    : {};
 
   const buildWhere = (
     excludeKey?: string,
   ): Prisma.ElectricalInstallationConditionReportWhereInput => {
-    const filterConditions: Prisma.ElectricalInstallationConditionReportWhereInput =
-      filters.reduce((acc, filter) => {
+    const filterConditions: Prisma.ElectricalInstallationConditionReportWhereInput = filters.reduce(
+      (acc, filter) => {
         if (filter.id === excludeKey) return acc;
 
         if (filter.id === "type" && Array.isArray(filter.value)) {
@@ -87,7 +86,9 @@ export async function getCertificates({
         }
 
         return acc;
-      }, {} as Prisma.ElectricalInstallationConditionReportWhereInput);
+      },
+      {} as Prisma.ElectricalInstallationConditionReportWhereInput,
+    );
 
     return {
       ...baseSearchFilter,
@@ -97,59 +98,56 @@ export async function getCertificates({
 
   const where = buildWhere();
 
-  const [data, total, clientFacets, typeFacets, statusFacets] =
-    await Promise.all([
-      prisma.electricalInstallationConditionReport.findMany({
-        take,
-        skip,
-        orderBy,
-        where,
-        include: {
-          client: true,
-          property: {
-            include: {
-              address: true,
-            },
+  const [data, total, clientFacets, typeFacets, statusFacets] = await Promise.all([
+    prisma.electricalInstallationConditionReport.findMany({
+      take,
+      skip,
+      orderBy,
+      where,
+      include: {
+        client: true,
+        property: {
+          include: {
+            address: true,
           },
         },
+      },
+    }),
+
+    prisma.electricalInstallationConditionReport.count({ where }),
+
+    prisma.electricalInstallationConditionReport
+      .groupBy({
+        by: ["clientId"],
+        _count: { clientId: true },
+        where: buildWhere("client.name"),
+      })
+      .then(async (groups) => {
+        const clients = await prisma.client.findMany({
+          where: {
+            id: { in: groups.map((g) => g.clientId) },
+          },
+          select: { id: true, name: true },
+        });
+        const clientMap = Object.fromEntries(clients.map((c) => [c.id, c.name]));
+        return groups.map((g) => ({
+          name: clientMap[g.clientId] || "Unknown",
+          count: g._count.clientId,
+        }));
       }),
 
-      prisma.electricalInstallationConditionReport.count({ where }),
+    prisma.electricalInstallationConditionReport.groupBy({
+      by: ["type"],
+      _count: { type: true },
+      where: buildWhere("type"),
+    }),
 
-      prisma.electricalInstallationConditionReport
-        .groupBy({
-          by: ["clientId"],
-          _count: { clientId: true },
-          where: buildWhere("client.name"),
-        })
-        .then(async (groups) => {
-          const clients = await prisma.client.findMany({
-            where: {
-              id: { in: groups.map((g) => g.clientId) },
-            },
-            select: { id: true, name: true },
-          });
-          const clientMap = Object.fromEntries(
-            clients.map((c) => [c.id, c.name]),
-          );
-          return groups.map((g) => ({
-            name: clientMap[g.clientId] || "Unknown",
-            count: g._count.clientId,
-          }));
-        }),
-
-      prisma.electricalInstallationConditionReport.groupBy({
-        by: ["type"],
-        _count: { type: true },
-        where: buildWhere("type"),
-      }),
-
-      prisma.electricalInstallationConditionReport.groupBy({
-        by: ["status"],
-        _count: { status: true },
-        where: buildWhere("status"),
-      }),
-    ]);
+    prisma.electricalInstallationConditionReport.groupBy({
+      by: ["status"],
+      _count: { status: true },
+      where: buildWhere("status"),
+    }),
+  ]);
 
   const clientNameCounts: Record<string, number> = {};
   clientFacets.forEach((facet) => {

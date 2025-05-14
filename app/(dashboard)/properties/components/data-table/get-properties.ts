@@ -46,22 +46,19 @@ export async function getProperties({
     : {};
 
   const buildWhere = (excludeKey?: string): Prisma.PropertyWhereInput => {
-    const filterConditions: Prisma.PropertyWhereInput = filters.reduce(
-      (acc, filter) => {
-        if (filter.id === excludeKey) return acc;
+    const filterConditions: Prisma.PropertyWhereInput = filters.reduce((acc, filter) => {
+      if (filter.id === excludeKey) return acc;
 
-        if (filter.id === "occupier" && Array.isArray(filter.value)) {
-          acc.occupier = { in: filter.value as string[] };
-        }
+      if (filter.id === "occupier" && Array.isArray(filter.value)) {
+        acc.occupier = { in: filter.value as string[] };
+      }
 
-        if (filter.id === "client.name" && Array.isArray(filter.value)) {
-          acc.client = { name: { in: filter.value as string[] } };
-        }
+      if (filter.id === "client.name" && Array.isArray(filter.value)) {
+        acc.client = { name: { in: filter.value as string[] } };
+      }
 
-        return acc;
-      },
-      {} as Prisma.PropertyWhereInput,
-    );
+      return acc;
+    }, {} as Prisma.PropertyWhereInput);
 
     return {
       ...baseSearchFilter,
@@ -104,9 +101,7 @@ export async function getProperties({
           },
           select: { id: true, name: true },
         });
-        const clientMap = Object.fromEntries(
-          clients.map((c) => [c.id, c.name]),
-        );
+        const clientMap = Object.fromEntries(clients.map((c) => [c.id, c.name]));
         return groups.map((g) => ({
           name: clientMap[g.clientId] || "Unknown",
           count: g._count.clientId,

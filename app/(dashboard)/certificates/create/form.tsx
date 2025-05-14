@@ -31,13 +31,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 
 import { createCertificate } from "./action";
@@ -105,10 +99,7 @@ export function CreateCertificateForm({
                       <FormLabel>Type</FormLabel>
                       <DialogSheet open={typeOpen} onOpenChange={setTypeOpen}>
                         <DialogSheetTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="w-full justify-between"
-                          >
+                          <Button variant="outline" className="w-full justify-between">
                             {field.value || "Select type..."}
                             <ChevronsUpDown />
                           </Button>
@@ -120,9 +111,7 @@ export function CreateCertificateForm({
                             <CommandList className="scrollbar-hidden mt-1 border-t p-1">
                               <CommandEmpty>No results found.</CommandEmpty>
                               <CommandGroup>
-                                {[
-                                  "Electrical Installation Condition Report",
-                                ].map((type) => (
+                                {["Electrical Installation Condition Report"].map((type) => (
                                   <CommandItem
                                     key={type}
                                     value={type}
@@ -132,9 +121,7 @@ export function CreateCertificateForm({
                                     }}
                                   >
                                     {type}
-                                    {type === field.value ? (
-                                      <Check className="ml-auto" />
-                                    ) : null}
+                                    {type === field.value ? <Check className="ml-auto" /> : null}
                                   </CommandItem>
                                 ))}
                               </CommandGroup>
@@ -152,19 +139,11 @@ export function CreateCertificateForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Client</FormLabel>
-                      <DialogSheet
-                        open={clientOpen}
-                        onOpenChange={setClientOpen}
-                      >
+                      <DialogSheet open={clientOpen} onOpenChange={setClientOpen}>
                         <DialogSheetTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="w-full justify-between"
-                          >
+                          <Button variant="outline" className="w-full justify-between">
                             {field.value
-                              ? clients.find(
-                                  (client) => client.id === field.value,
-                                )?.name
+                              ? clients.find((client) => client.id === field.value)?.name
                               : "Select client..."}
                             <ChevronsUpDown />
                           </Button>
@@ -206,24 +185,14 @@ export function CreateCertificateForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Property</FormLabel>
-                      <DialogSheet
-                        open={propertyOpen}
-                        onOpenChange={setPropertyOpen}
-                      >
+                      <DialogSheet open={propertyOpen} onOpenChange={setPropertyOpen}>
                         <DialogSheetTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="w-full justify-between"
-                          >
+                          <Button variant="outline" className="w-full justify-between">
                             {field.value
                               ? clients
-                                  .find(
-                                    (client) =>
-                                      client.id === form.getValues("clientId"),
-                                  )
-                                  ?.property.find(
-                                    (property) => property.id === field.value,
-                                  )?.address.streetAddress
+                                  .find((client) => client.id === form.getValues("clientId"))
+                                  ?.property.find((property) => property.id === field.value)
+                                  ?.address.streetAddress
                               : "Select property..."}
                             <ChevronsUpDown />
                           </Button>
@@ -236,20 +205,15 @@ export function CreateCertificateForm({
                               <CommandEmpty>No results found.</CommandEmpty>
                               <CommandGroup>
                                 {clients
-                                  .find(
-                                    (client) =>
-                                      client.id === form.getValues("clientId"),
-                                  )
+                                  .find((client) => client.id === form.getValues("clientId"))
                                   ?.property.map((property) => (
                                     <CommandItem
                                       key={property.id}
                                       value={property.id}
                                       onSelect={(currentValue) => {
-                                        form.setValue(
-                                          "propertyId",
-                                          currentValue,
-                                          { shouldDirty: true },
-                                        );
+                                        form.setValue("propertyId", currentValue, {
+                                          shouldDirty: true,
+                                        });
                                         setPropertyOpen(false);
                                       }}
                                     >
@@ -275,9 +239,7 @@ export function CreateCertificateForm({
                 variant="outline"
                 size="sm"
                 type="submit"
-                disabled={
-                  !form.formState.isDirty || form.formState.isSubmitting
-                }
+                disabled={!form.formState.isDirty || form.formState.isSubmitting}
               >
                 {form.formState.isSubmitting ? "Saving..." : "Save"}
               </Button>

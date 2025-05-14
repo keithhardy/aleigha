@@ -11,9 +11,7 @@ export type ServerActionResponse<T = undefined> = Promise<{
   data?: T;
 }>;
 
-export async function createUserAction(
-  data: CreateUser,
-): ServerActionResponse<User> {
+export async function createUserAction(data: CreateUser): ServerActionResponse<User> {
   try {
     const user = await userService.createUser(data);
     revalidatePath("/users");

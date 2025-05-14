@@ -18,12 +18,7 @@ export default async function Properties() {
   return (
     <div className="container mx-auto p-6">
       <PageHeader config={pagesConfig.properties} />
-      <DataTable
-        columns={columns}
-        data={data}
-        fetchData={getProperties}
-        toolbar={Toolbar}
-      />
+      <DataTable columns={columns} data={data} fetchData={getProperties} toolbar={Toolbar} />
     </div>
   );
 }

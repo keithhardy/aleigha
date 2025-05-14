@@ -15,11 +15,9 @@ export async function updateUser(
     id: client.clientId,
   }));
 
-  const formattedClientsToDisconnect = user.clientsToDisconnect.map(
-    (client) => ({
-      id: client.clientId,
-    }),
-  );
+  const formattedClientsToDisconnect = user.clientsToDisconnect.map((client) => ({
+    id: client.clientId,
+  }));
 
   try {
     await prisma.user.update({

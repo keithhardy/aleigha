@@ -29,11 +29,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
@@ -63,9 +59,7 @@ export function UpdatePurposeOfTheReportForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdatePurposeOfTheReportSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdatePurposeOfTheReportSchema>) => {
     const response = await updatePurposeOfTheReport(data);
 
     if (response.status === "success") {
@@ -81,10 +75,7 @@ export function UpdatePurposeOfTheReportForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
@@ -104,8 +95,8 @@ export function UpdatePurposeOfTheReportForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Purpose</CardTitle>
                   <CardDescription className="text-balance">
-                    Please specify the reason for generating this report and any
-                    specific objectives or requirements for the inspection.
+                    Please specify the reason for generating this report and any specific objectives
+                    or requirements for the inspection.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -142,8 +133,8 @@ export function UpdatePurposeOfTheReportForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Dates</CardTitle>
                   <CardDescription className="text-balance">
-                    Please specify the start and end dates of the inspection and
-                    testing to accurately reflect the report timeline.
+                    Please specify the start and end dates of the inspection and testing to
+                    accurately reflect the report timeline.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -180,8 +171,7 @@ export function UpdatePurposeOfTheReportForm({
                               selected={field.value}
                               onSelect={field.onChange}
                               disabled={(date) =>
-                                date > new Date() ||
-                                date < new Date("1900-01-01")
+                                date > new Date() || date < new Date("1900-01-01")
                               }
                               initialFocus
                             />
@@ -224,8 +214,7 @@ export function UpdatePurposeOfTheReportForm({
                               selected={field.value}
                               onSelect={field.onChange}
                               disabled={(date) =>
-                                date > new Date() ||
-                                date < new Date("1900-01-01")
+                                date > new Date() || date < new Date("1900-01-01")
                               }
                               initialFocus
                             />
@@ -248,8 +237,8 @@ export function UpdatePurposeOfTheReportForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Records</CardTitle>
                   <CardDescription className="text-balance">
-                    Please describe the purpose of the inspection, including the
-                    inspection dates and related information.
+                    Please describe the purpose of the inspection, including the inspection dates
+                    and related information.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -260,10 +249,7 @@ export function UpdatePurposeOfTheReportForm({
                       <FormItem className="flex flex-col">
                         <FormLabel>Are Inspection Records Available?</FormLabel>
                         <FormControl>
-                          <Switch
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
+                          <Switch checked={field.value} onCheckedChange={field.onChange} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -276,10 +262,7 @@ export function UpdatePurposeOfTheReportForm({
                       <FormItem className="flex flex-col">
                         <FormLabel>Is Previous Report Available?</FormLabel>
                         <FormControl>
-                          <Switch
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
+                          <Switch checked={field.value} onCheckedChange={field.onChange} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -311,17 +294,13 @@ export function UpdatePurposeOfTheReportForm({
                                 </Button>
                               </FormControl>
                             </PopoverTrigger>
-                            <PopoverContent
-                              className="w-auto p-0"
-                              align="center"
-                            >
+                            <PopoverContent className="w-auto p-0" align="center">
                               <Calendar
                                 mode="single"
                                 selected={field.value}
                                 onSelect={field.onChange}
                                 disabled={(date) =>
-                                  date > new Date() ||
-                                  date < new Date("1900-01-01")
+                                  date > new Date() || date < new Date("1900-01-01")
                                 }
                                 initialFocus
                               />
@@ -350,11 +329,7 @@ export function UpdatePurposeOfTheReportForm({
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

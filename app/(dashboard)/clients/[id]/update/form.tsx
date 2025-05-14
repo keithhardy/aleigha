@@ -30,11 +30,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
-export function UpdateClientForm({
-  client,
-}: {
-  client: Client & { address: Address | null };
-}) {
+export function UpdateClientForm({ client }: { client: Client & { address: Address | null } }) {
   const router = useRouter();
 
   const { toast } = useToast();
@@ -164,11 +160,7 @@ export function UpdateClientForm({
                     <FormItem>
                       <FormLabel>Appointed Person</FormLabel>
                       <FormControl>
-                        <Input
-                          type="tel"
-                          {...field}
-                          autoComplete="appointed-person"
-                        />
+                        <Input type="tel" {...field} autoComplete="appointed-person" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -200,11 +192,7 @@ export function UpdateClientForm({
                             onChange={handleFileChange}
                           />
                         </FormControl>
-                        <Button
-                          variant="outline"
-                          type="button"
-                          onClick={handleClear}
-                        >
+                        <Button variant="outline" type="button" onClick={handleClear}>
                           Clear
                         </Button>
                       </div>
@@ -297,9 +285,7 @@ export function UpdateClientForm({
                 variant="outline"
                 size="sm"
                 type="submit"
-                disabled={
-                  !form.formState.isDirty || form.formState.isSubmitting
-                }
+                disabled={!form.formState.isDirty || form.formState.isSubmitting}
               >
                 {form.formState.isSubmitting ? "Saving..." : "Save"}
               </Button>

@@ -56,10 +56,7 @@ export interface DataTableProps<
   }>;
 }
 
-export function DataTable<
-  TData extends ElectricalInstalationConditionReportWithRelations,
-  TValue,
->({
+export function DataTable<TData extends ElectricalInstalationConditionReportWithRelations, TValue>({
   columns,
   data: { data: initialData, total: initialTotal, facets: initialFacets },
   fetchData,
@@ -67,8 +64,7 @@ export function DataTable<
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = useState<TData[]>(initialData);
   const [total, setTotal] = useState<number>(initialTotal);
-  const [facets, setFacets] =
-    useState<Record<string, Record<string, number>>>(initialFacets);
+  const [facets, setFacets] = useState<Record<string, Record<string, number>>>(initialFacets);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState<string>("");
@@ -147,10 +143,7 @@ export function DataTable<
                       <TableHead key={header.id}>
                         {header.isPlaceholder
                           ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
+                          : flexRender(header.column.columnDef.header, header.getContext())}
                       </TableHead>
                     ))}
                   </TableRow>
@@ -162,14 +155,8 @@ export function DataTable<
                     <Fragment key={row.id}>
                       <TableRow>
                         {row.getVisibleCells().map((cell) => (
-                          <TableCell
-                            className="whitespace-nowrap"
-                            key={cell.id}
-                          >
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext(),
-                            )}
+                          <TableCell className="whitespace-nowrap" key={cell.id}>
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
                           </TableCell>
                         ))}
                       </TableRow>
@@ -188,10 +175,7 @@ export function DataTable<
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell
-                      colSpan={columns.length}
-                      className="py-4 text-center"
-                    >
+                    <TableCell colSpan={columns.length} className="py-4 text-center">
                       No results.
                     </TableCell>
                   </TableRow>

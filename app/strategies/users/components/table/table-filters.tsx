@@ -7,7 +7,5 @@ interface TableFiltersProps<TData> {
 }
 
 export function TableFilters<TData>({ table }: TableFiltersProps<TData>) {
-  return (
-    <></>
-  );
+  return <></>;
 }

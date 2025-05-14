@@ -73,9 +73,7 @@ export function UpdateDistributionCircuitsForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateDistributionCircuitsSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateDistributionCircuitsSchema>) => {
     const response = await updateDistributionCircuits(data);
 
     if (response.status === "success") {
@@ -91,10 +89,7 @@ export function UpdateDistributionCircuitsForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
@@ -114,8 +109,8 @@ export function UpdateDistributionCircuitsForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Distribution circuits</CardTitle>
                   <CardDescription className="text-balance">
-                    This section covers the condition and adequacy of the
-                    distribution circuits in the system.
+                    This section covers the condition and adequacy of the distribution circuits in
+                    the system.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-8 p-0">
@@ -127,9 +122,7 @@ export function UpdateDistributionCircuitsForm({
                       name={item.id}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
-                            {item.item + " - " + item.label}
-                          </FormLabel>
+                          <FormLabel>{item.item + " - " + item.label}</FormLabel>
                           <FormControl>
                             <RadioGroupComponent
                               onChange={field.onChange}
@@ -151,11 +144,7 @@ export function UpdateDistributionCircuitsForm({
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

@@ -44,15 +44,12 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
   const form = useForm<
     z.infer<typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema>
   >({
-    resolver: zodResolver(
-      UpdateParticularsOfInstallationsReferredToInThisReportSchema,
-    ),
+    resolver: zodResolver(UpdateParticularsOfInstallationsReferredToInThisReportSchema),
     defaultValues: {
       id: certificate.id,
       maximumDemand: certificate.maximumDemand || "",
       distributorsFacility: certificate.distributorsFacility ?? true,
-      installationEarthElectrodes:
-        certificate.installationEarthElectrodes ?? false,
+      installationEarthElectrodes: certificate.installationEarthElectrodes ?? false,
       earthElectrodeType: certificate.earthElectrodeType || "",
       earthElectrodeLocation: certificate.earthElectrodeLocation || "",
       electrodeResistanceToEarth: certificate.electrodeResistanceToEarth || "",
@@ -61,8 +58,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
       earthingConductorVerified: certificate.earthingConductorVerified ?? false,
       mainProtectiveBondingConductorMaterial:
         certificate.mainProtectiveBondingConductorMaterial || "",
-      mainProtectiveBondingConductorCSA:
-        certificate.mainProtectiveBondingConductorCSA || "",
+      mainProtectiveBondingConductorCSA: certificate.mainProtectiveBondingConductorCSA || "",
       mainProtectiveBondingConductorVerified:
         certificate.mainProtectiveBondingConductorVerified ?? false,
       waterInstallationPipes: certificate.waterInstallationPipes || "",
@@ -78,23 +74,17 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
       mainSwitchPoles: certificate.mainSwitchPoles || "",
       mainSwitchCurrentRating: certificate.mainSwitchCurrentRating || "",
       mainSwitchVoltageRating: certificate.mainSwitchVoltageRating || "",
-      mainSwitchRCDOperatingCurrent:
-        certificate.mainSwitchRCDOperatingCurrent || "",
+      mainSwitchRCDOperatingCurrent: certificate.mainSwitchRCDOperatingCurrent || "",
       mainSwitchRCDType: certificate.mainSwitchRCDType || "",
-      mainSwitchRCDRatedTimeDelay:
-        certificate.mainSwitchRCDRatedTimeDelay || "",
-      mainSwitchRCDMeasuredOperatingTime:
-        certificate.mainSwitchRCDMeasuredOperatingTime || "",
+      mainSwitchRCDRatedTimeDelay: certificate.mainSwitchRCDRatedTimeDelay || "",
+      mainSwitchRCDMeasuredOperatingTime: certificate.mainSwitchRCDMeasuredOperatingTime || "",
     },
   });
 
   const onSubmit = async (
-    data: z.infer<
-      typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema
-    >,
+    data: z.infer<typeof UpdateParticularsOfInstallationsReferredToInThisReportSchema>,
   ) => {
-    const response =
-      await updateParticularsOfInstallationsReferredToInThisReport(data);
+    const response = await updateParticularsOfInstallationsReferredToInThisReport(data);
 
     if (response.status === "success") {
       form.reset(data);
@@ -109,10 +99,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
@@ -184,10 +171,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Distributor&apos;s Facility?</FormLabel>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
+                        <Switch checked={field.value} onCheckedChange={field.onChange} />
                         <FormMessage />
                       </FormItem>
                     )}
@@ -298,10 +282,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Conductor Verified</FormLabel>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
+                        <Switch checked={field.value} onCheckedChange={field.onChange} />
                         <FormMessage />
                       </FormItem>
                     )}
@@ -360,10 +341,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Conductor Verified</FormLabel>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
+                        <Switch checked={field.value} onCheckedChange={field.onChange} />
                         <FormMessage />
                       </FormItem>
                     )}
@@ -561,11 +539,7 @@ export function UpdateParticularsOfInstallationsReferredToInThisReportForm({
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

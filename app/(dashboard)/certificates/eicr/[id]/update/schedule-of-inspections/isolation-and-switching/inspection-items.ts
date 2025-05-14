@@ -50,20 +50,17 @@ export const inspectionItems = [
   {
     id: "item_7_2D",
     item: "7.2D",
-    label:
-      "Clearly identified by position and / or durable marking (537.3.2.4)",
+    label: "Clearly identified by position and / or durable marking (537.3.2.4)",
   },
   {
     id: "item_7_3A",
     item: "7.3A",
-    label:
-      "Presence and condition of appropriate devices (465; 537.3.3; 537.4)",
+    label: "Presence and condition of appropriate devices (465; 537.3.3; 537.4)",
   },
   {
     id: "item_7_3B",
     item: "7.3B",
-    label:
-      "Readily accessible for operation where danger might occur (537.3.3.6)",
+    label: "Readily accessible for operation where danger might occur (537.3.3.6)",
   },
   {
     id: "item_7_3C",
@@ -79,8 +76,7 @@ export const inspectionItems = [
   {
     id: "item_7_4A",
     item: "7.4A",
-    label:
-      "Presence and condition of appropriate devices (537.3.1.1; 537.3.1.2)",
+    label: "Presence and condition of appropriate devices (537.3.1.1; 537.3.1.2)",
   },
   {
     id: "item_7_4B",

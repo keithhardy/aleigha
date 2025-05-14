@@ -48,8 +48,7 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
   };
 
   const isFiltered =
-    table.getState().columnFilters.length > 0 ||
-    table.getState().globalFilter !== "";
+    table.getState().columnFilters.length > 0 || table.getState().globalFilter !== "";
 
   const roleColumn = table.getColumn("role");
   const roleOptions = facets["role"]
@@ -74,11 +73,7 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
             <ScrollArea className="w-1 flex-1">
               <div className="flex gap-2">
                 {roleColumn && (
-                  <FacetedFilter
-                    column={roleColumn}
-                    title="Role"
-                    options={roleOptions}
-                  />
+                  <FacetedFilter column={roleColumn} title="Role" options={roleOptions} />
                 )}
                 {isFiltered && (
                   <Button
@@ -103,10 +98,7 @@ export function Toolbar<TData>({ table, facets }: ToolbarProps<TData>) {
             variant="outline"
             size="sm"
             onClick={handleDownload}
-            disabled={
-              isDownloadLoading ||
-              Object.keys(table.getState().rowSelection).length === 0
-            }
+            disabled={isDownloadLoading || Object.keys(table.getState().rowSelection).length === 0}
           >
             <Upload />
             Export

@@ -3,10 +3,7 @@ import { NextResponse } from "next/server";
 
 import { userService } from "@/di/factories/user-service-factory";
 
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const user = await userService.getUser(id);
@@ -19,10 +16,7 @@ export async function GET(
   }
 }
 
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const data = await request.json();
@@ -30,26 +24,17 @@ export async function PATCH(
     revalidatePath("/users");
     return NextResponse.json(user, { status: 200 });
   } catch {
-    return NextResponse.json(
-      { error: "Failed to update user" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Failed to update user" }, { status: 500 });
   }
 }
 
-export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     await userService.deleteUser(id);
     revalidatePath("/users");
     return NextResponse.json(null, { status: 200 });
   } catch {
-    return NextResponse.json(
-      { error: "Failed to delete user" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Failed to delete user" }, { status: 500 });
   }
 }

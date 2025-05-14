@@ -19,14 +19,11 @@ export async function updateSummaryOfTheConditionOfTheInstallation(
         id: electricalInstallationConditionReport.id,
       },
       data: {
-        generalCondition:
-          electricalInstallationConditionReport.generalCondition,
+        generalCondition: electricalInstallationConditionReport.generalCondition,
         estimatedAgeOfElectricalInstallation:
           electricalInstallationConditionReport.estimatedAgeOfElectricalInstallation,
-        evidenceOfAlterations:
-          electricalInstallationConditionReport.evidenceOfAlterations,
-        estimatedAgeOfAlterations:
-          electricalInstallationConditionReport.estimatedAgeOfAlterations,
+        evidenceOfAlterations: electricalInstallationConditionReport.evidenceOfAlterations,
+        estimatedAgeOfAlterations: electricalInstallationConditionReport.estimatedAgeOfAlterations,
         overallAssessmentOfTheInstallation:
           electricalInstallationConditionReport.overallAssessmentOfTheInstallation,
       },

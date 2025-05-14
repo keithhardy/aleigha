@@ -44,8 +44,7 @@ export function Pagination<TData>({ table }: PaginationProps<TData>) {
       </div>
       <div className="flex items-center space-x-2">
         <p className="text-sm font-medium">
-          Page {table.getState().pagination.pageIndex + 1} of{" "}
-          {table.getPageCount()}
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
         </p>
         <div className="flex items-center space-x-2">
           <Button

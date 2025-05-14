@@ -73,9 +73,7 @@ export function UpdateDistributionEquipmentForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateDistributionEquipmentSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateDistributionEquipmentSchema>) => {
     const response = await updateContractorClientAndInstallation(data);
 
     if (response.status === "success") {
@@ -91,10 +89,7 @@ export function UpdateDistributionEquipmentForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
@@ -106,8 +101,7 @@ export function UpdateDistributionEquipmentForm({
                 <span>Back to Certificates</span>
               </Link>
               <HeaderTitle>
-                Distribution equipment, including consumer units and
-                distribution boards
+                Distribution equipment, including consumer units and distribution boards
               </HeaderTitle>
             </HeaderGroup>
           </Header>
@@ -116,13 +110,11 @@ export function UpdateDistributionEquipmentForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>
-                    Distribution equipment, including consumer units and
-                    distribution boards
+                    Distribution equipment, including consumer units and distribution boards
                   </CardTitle>
                   <CardDescription className="text-balance">
-                    This section covers the condition of distribution equipment,
-                    including consumer units, circuit breakers, and distribution
-                    boards.
+                    This section covers the condition of distribution equipment, including consumer
+                    units, circuit breakers, and distribution boards.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-8 p-0">
@@ -134,9 +126,7 @@ export function UpdateDistributionEquipmentForm({
                       name={item.id}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
-                            {item.item + " - " + item.label}
-                          </FormLabel>
+                          <FormLabel>{item.item + " - " + item.label}</FormLabel>
                           <FormControl>
                             <RadioGroupComponent
                               onChange={field.onChange}
@@ -152,18 +142,13 @@ export function UpdateDistributionEquipmentForm({
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
-                  Ensure all distribution equipment and consumer units are
-                  properly inspected.
+                  Ensure all distribution equipment and consumer units are properly inspected.
                 </p>
               </CardFooter>
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

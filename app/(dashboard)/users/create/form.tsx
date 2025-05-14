@@ -76,9 +76,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
     name: "clients",
   });
 
-  const onSubmit: SubmitHandler<z.infer<typeof CreateUserSchema>> = async (
-    data,
-  ) => {
+  const onSubmit: SubmitHandler<z.infer<typeof CreateUserSchema>> = async (data) => {
     const response = await createUserAction(data);
 
     if (response.status === "success") {
@@ -128,19 +126,11 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Role</FormLabel>
-                      <DialogSheet
-                        open={userRoleOpen}
-                        onOpenChange={setRoleOpen}
-                      >
+                      <DialogSheet open={userRoleOpen} onOpenChange={setRoleOpen}>
                         <DialogSheetTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="w-full justify-between"
-                          >
+                          <Button variant="outline" className="w-full justify-between">
                             {field.value
-                              ? UserRoles.find(
-                                  (userRole) => userRole.id === field.value,
-                                )?.name
+                              ? UserRoles.find((userRole) => userRole.id === field.value)?.name
                               : "Select role..."}
                             <ChevronsUpDown />
                           </Button>
@@ -157,10 +147,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                                     key={userRole.id}
                                     value={userRole.id}
                                     onSelect={(currentValue) => {
-                                      form.setValue(
-                                        "role",
-                                        currentValue as UserRole,
-                                      );
+                                      form.setValue("role", currentValue as UserRole);
                                       setRoleOpen(false);
                                     }}
                                   >
@@ -186,15 +173,9 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                     <FormItem>
                       <FormLabel>Clients</FormLabel>
                       <FormControl>
-                        <DialogSheet
-                          open={userClientOpen}
-                          onOpenChange={setClientOpen}
-                        >
+                        <DialogSheet open={userClientOpen} onOpenChange={setClientOpen}>
                           <DialogSheetTrigger asChild>
-                            <Button
-                              variant="outline"
-                              className="w-full justify-between"
-                            >
+                            <Button variant="outline" className="w-full justify-between">
                               {field.value.length === 0
                                 ? "Select Clients..."
                                 : field.value.length === 1
@@ -221,8 +202,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                                         onSelect={() => {
                                           if (isSelected) {
                                             const index = field.value.findIndex(
-                                              (field) =>
-                                                field.clientId === client.id,
+                                              (field) => field.clientId === client.id,
                                             );
                                             remove(index);
                                           } else {
@@ -234,9 +214,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                                         }}
                                       >
                                         {client.name}
-                                        {isSelected ? (
-                                          <Check className="ml-auto" />
-                                        ) : null}
+                                        {isSelected ? <Check className="ml-auto" /> : null}
                                       </CommandItem>
                                     );
                                   })}
@@ -296,9 +274,7 @@ export default function CreateUserForm({ clients }: { clients: Client[] }) {
                 variant="outline"
                 size="sm"
                 type="submit"
-                disabled={
-                  !form.formState.isDirty || form.formState.isSubmitting
-                }
+                disabled={!form.formState.isDirty || form.formState.isSubmitting}
               >
                 {form.formState.isSubmitting ? "Saving..." : "Save"}
               </Button>

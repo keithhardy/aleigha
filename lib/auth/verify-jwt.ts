@@ -1,8 +1,6 @@
 import { jwtVerify, createRemoteJWKSet } from "jose";
 
-const jwks = createRemoteJWKSet(
-  new URL(`${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`),
-);
+const jwks = createRemoteJWKSet(new URL(`${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`));
 
 export async function verifyJwt(jwt: string) {
   return await jwtVerify(jwt, jwks, {

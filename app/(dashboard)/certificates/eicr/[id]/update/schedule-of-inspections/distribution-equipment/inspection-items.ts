@@ -2,8 +2,7 @@ export const inspectionItems = [
   {
     id: "item_4_1",
     item: "4.1",
-    label:
-      "Adequacy of working space / accessibility to equipment (132.12; 513.1)",
+    label: "Adequacy of working space / accessibility to equipment (132.12; 513.1)",
   },
   { id: "item_4_2", item: "4.2", label: "Security of fixing (134.1.1)" },
   {
@@ -24,14 +23,12 @@ export const inspectionItems = [
   {
     id: "item_4_6",
     item: "4.6",
-    label:
-      "Condition of enclosure(s) in terms of fire rating, etc. (421.1.201; 421.1.6; 526.5)",
+    label: "Condition of enclosure(s) in terms of fire rating, etc. (421.1.201; 421.1.6; 526.5)",
   },
   {
     id: "item_4_7",
     item: "4.7",
-    label:
-      "Enclosure not damaged / deteriorated so as to impair safety (651.2)",
+    label: "Enclosure not damaged / deteriorated so as to impair safety (651.2)",
   },
   {
     id: "item_4_8",
@@ -41,8 +38,7 @@ export const inspectionItems = [
   {
     id: "item_4_9",
     item: "4.9",
-    label:
-      "Presence of main switch(es), linked where required (462.1; 462.1.201; 462.2)",
+    label: "Presence of main switch(es), linked where required (462.1; 462.1.201; 462.2)",
   },
   {
     id: "item_4_10",
@@ -52,8 +48,7 @@ export const inspectionItems = [
   {
     id: "item_4_11",
     item: "4.11",
-    label:
-      "Manual operation of circuit-breakers, RCDs and AFDDs to prove functionality (643.10)",
+    label: "Manual operation of circuit-breakers, RCDs and AFDDs to prove functionality (643.10)",
   },
   {
     id: "item_4_12",
@@ -99,8 +94,7 @@ export const inspectionItems = [
   {
     id: "item_4_19",
     item: "4.19",
-    label:
-      "Presence of next inspection recommendation label, where required (514.12.1)",
+    label: "Presence of next inspection recommendation label, where required (514.12.1)",
   },
   {
     id: "item_4_20",

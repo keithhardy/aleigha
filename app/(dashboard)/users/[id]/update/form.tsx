@@ -146,19 +146,11 @@ export default function UpdateUserForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Role</FormLabel>
-                      <DialogSheet
-                        open={userRoleOpen}
-                        onOpenChange={setRoleOpen}
-                      >
+                      <DialogSheet open={userRoleOpen} onOpenChange={setRoleOpen}>
                         <DialogSheetTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="w-full justify-between"
-                          >
+                          <Button variant="outline" className="w-full justify-between">
                             {field.value
-                              ? UserRoles.find(
-                                  (userRole) => userRole.id === field.value,
-                                )?.name
+                              ? UserRoles.find((userRole) => userRole.id === field.value)?.name
                               : "Select role..."}
                             <ChevronsUpDown />
                           </Button>
@@ -175,10 +167,7 @@ export default function UpdateUserForm({
                                     key={userRole.id}
                                     value={userRole.id}
                                     onSelect={(currentValue) => {
-                                      form.setValue(
-                                        "role",
-                                        currentValue as UserRole,
-                                      );
+                                      form.setValue("role", currentValue as UserRole);
                                       setRoleOpen(false);
                                     }}
                                   >
@@ -199,17 +188,10 @@ export default function UpdateUserForm({
                 />
                 <FormItem>
                   <FormLabel>Clients</FormLabel>
-                  <DialogSheet
-                    open={userClientOpen}
-                    onOpenChange={setClientOpen}
-                  >
+                  <DialogSheet open={userClientOpen} onOpenChange={setClientOpen}>
                     <DialogSheetTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className="w-full justify-between"
-                      >
-                        {clientsToConnect.length === 0 &&
-                        clientsToDisconnect.length === 0
+                      <Button variant="outline" className="w-full justify-between">
+                        {clientsToConnect.length === 0 && clientsToDisconnect.length === 0
                           ? user.clients.length === 0
                             ? "Select Clients..."
                             : `${user.clients.length} clients selected`
@@ -231,12 +213,10 @@ export default function UpdateUserForm({
                               const isInConnect = clientsToConnect.some(
                                 (c) => c.clientId === client.id,
                               );
-                              const filteredCurrentClients =
-                                user.clients.filter((c) => c !== null);
-                              const isInCurrentClients =
-                                filteredCurrentClients.some(
-                                  (c) => c.id === client.id,
-                                );
+                              const filteredCurrentClients = user.clients.filter((c) => c !== null);
+                              const isInCurrentClients = filteredCurrentClients.some(
+                                (c) => c.id === client.id,
+                              );
 
                               return (
                                 <CommandItem
@@ -246,8 +226,7 @@ export default function UpdateUserForm({
                                       if (isInDisconnect) {
                                         removeFromDisconnect(
                                           clientsToDisconnect.findIndex(
-                                            (field) =>
-                                              field.clientId === client.id,
+                                            (field) => field.clientId === client.id,
                                           ),
                                         );
                                       } else {
@@ -273,8 +252,7 @@ export default function UpdateUserForm({
                                   }}
                                 >
                                   {client.name}
-                                  {(isInCurrentClients && !isInDisconnect) ||
-                                  isInConnect ? (
+                                  {(isInCurrentClients && !isInDisconnect) || isInConnect ? (
                                     <Check className="ml-auto" />
                                   ) : null}
                                   {isInCurrentClients && isInDisconnect ? (
@@ -346,9 +324,7 @@ export default function UpdateUserForm({
                 variant="outline"
                 size="sm"
                 type="submit"
-                disabled={
-                  !form.formState.isDirty || form.formState.isSubmitting
-                }
+                disabled={!form.formState.isDirty || form.formState.isSubmitting}
               >
                 {form.formState.isSubmitting ? "Saving..." : "Save"}
               </Button>

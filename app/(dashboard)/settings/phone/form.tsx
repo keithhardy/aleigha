@@ -15,13 +15,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
@@ -82,11 +76,7 @@ export function UpdatePhoneForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="Phone"
-                        className="h-[32px]"
-                      />
+                      <Input {...field} placeholder="Phone" className="h-[32px]" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -95,9 +85,7 @@ export function UpdatePhoneForm({
             </CardContent>
           </div>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">
-              Must be a valid uk phone number.
-            </p>
+            <p className="text-sm text-muted-foreground">Must be a valid uk phone number.</p>
             <Button
               variant="outline"
               size="sm"

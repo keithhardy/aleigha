@@ -10,24 +10,23 @@ export default async function UpdateSpecialLocationsAndInstallations({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const certificate =
-    await prisma.electricalInstallationConditionReport.findFirst({
-      where: {
-        id: (await params).id,
-      },
-      select: {
-        id: true,
-        item_9_1A: true,
-        item_9_1B: true,
-        item_9_1C: true,
-        item_9_1D: true,
-        item_9_1E: true,
-        item_9_1F: true,
-        item_9_1G: true,
-        item_9_1H: true,
-        item_9_2: true,
-      },
-    });
+  const certificate = await prisma.electricalInstallationConditionReport.findFirst({
+    where: {
+      id: (await params).id,
+    },
+    select: {
+      id: true,
+      item_9_1A: true,
+      item_9_1B: true,
+      item_9_1C: true,
+      item_9_1D: true,
+      item_9_1E: true,
+      item_9_1F: true,
+      item_9_1G: true,
+      item_9_1H: true,
+      item_9_2: true,
+    },
+  });
 
   if (!certificate) {
     notFound();

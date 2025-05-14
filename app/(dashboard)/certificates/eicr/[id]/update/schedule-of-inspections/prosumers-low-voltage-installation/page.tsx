@@ -10,16 +10,15 @@ export default async function UpdateProsumersLowVoltageInstallation({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const certificate =
-    await prisma.electricalInstallationConditionReport.findFirst({
-      where: {
-        id: (await params).id,
-      },
-      select: {
-        id: true,
-        item_10_0: true,
-      },
-    });
+  const certificate = await prisma.electricalInstallationConditionReport.findFirst({
+    where: {
+      id: (await params).id,
+    },
+    select: {
+      id: true,
+      item_10_0: true,
+    },
+  });
 
   if (!certificate) {
     notFound();

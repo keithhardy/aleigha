@@ -12,12 +12,7 @@ type GetClientsProps = {
   filters?: { id: string; value: unknown }[];
 };
 
-export async function getClients({
-  take,
-  skip,
-  orderBy,
-  searchQuery,
-}: GetClientsProps) {
+export async function getClients({ take, skip, orderBy, searchQuery }: GetClientsProps) {
   const baseSearchFilter = searchQuery
     ? {
         OR: [

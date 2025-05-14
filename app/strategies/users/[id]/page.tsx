@@ -9,11 +9,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function User({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function User({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const user = await userService.getUser(id);
   return JSON.stringify(user, null, 2);

@@ -23,14 +23,10 @@ export async function updateDetailsAndLimitationsOfTheInspectionAndTesting(
           electricalInstallationConditionReport.regulationAccordanceAsAmendedTo,
         detailsOfTheElectricalInstallation:
           electricalInstallationConditionReport.detailsOfTheElectricalInstallation,
-        extentOfSampling:
-          electricalInstallationConditionReport.extentOfSampling,
-        agreedLimitations:
-          electricalInstallationConditionReport.agreedLimitations,
-        agreedLimitationsWith:
-          electricalInstallationConditionReport.agreedLimitationsWith,
-        operationalLimitations:
-          electricalInstallationConditionReport.operationalLimitations,
+        extentOfSampling: electricalInstallationConditionReport.extentOfSampling,
+        agreedLimitations: electricalInstallationConditionReport.agreedLimitations,
+        agreedLimitationsWith: electricalInstallationConditionReport.agreedLimitationsWith,
+        operationalLimitations: electricalInstallationConditionReport.operationalLimitations,
       },
     });
 

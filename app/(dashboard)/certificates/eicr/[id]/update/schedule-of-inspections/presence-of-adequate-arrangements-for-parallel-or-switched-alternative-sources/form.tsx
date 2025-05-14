@@ -41,9 +41,7 @@ export function UpdatePresenceOfAdequateArrangementsForm({
 }) {
   const { toast } = useToast();
 
-  const form = useForm<
-    z.infer<typeof UpdatePresenceOfAdequateArrangementsSchema>
-  >({
+  const form = useForm<z.infer<typeof UpdatePresenceOfAdequateArrangementsSchema>>({
     resolver: zodResolver(UpdatePresenceOfAdequateArrangementsSchema),
     defaultValues: {
       id: certificate.id,
@@ -52,9 +50,7 @@ export function UpdatePresenceOfAdequateArrangementsForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdatePresenceOfAdequateArrangementsSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdatePresenceOfAdequateArrangementsSchema>) => {
     const response = await updatePresenceOfAdequateArrangements(data);
 
     if (response.status === "success") {
@@ -70,10 +66,7 @@ export function UpdatePresenceOfAdequateArrangementsForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
@@ -85,8 +78,7 @@ export function UpdatePresenceOfAdequateArrangementsForm({
                 <span>Back to Certificates</span>
               </Link>
               <HeaderTitle>
-                Presence of adequate arrangements for parallel or switched
-                alternative sources
+                Presence of adequate arrangements for parallel or switched alternative sources
               </HeaderTitle>
             </HeaderGroup>
           </Header>
@@ -95,13 +87,11 @@ export function UpdatePresenceOfAdequateArrangementsForm({
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
                   <CardTitle>
-                    Presence of adequate arrangements for parallel or switched
-                    alternative sources
+                    Presence of adequate arrangements for parallel or switched alternative sources
                   </CardTitle>
                   <CardDescription className="text-balance">
-                    This section evaluates the presence of suitable arrangements
-                    for parallel or switched alternative power sources, such as
-                    microgenerators.
+                    This section evaluates the presence of suitable arrangements for parallel or
+                    switched alternative power sources, such as microgenerators.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-8 p-0">
@@ -113,9 +103,7 @@ export function UpdatePresenceOfAdequateArrangementsForm({
                       name={item.id}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
-                            {item.item + " - " + item.label}
-                          </FormLabel>
+                          <FormLabel>{item.item + " - " + item.label}</FormLabel>
                           <FormControl>
                             <RadioGroupComponent
                               onChange={field.onChange}
@@ -137,11 +125,7 @@ export function UpdatePresenceOfAdequateArrangementsForm({
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

@@ -77,9 +77,7 @@ export function UpdateObservationsForm({
 
   const [selectObservationOpen, setSelectObservationOpen] = useState(false);
   const [observationDialogOpen, setObservationDialogOpen] = useState(false);
-  const [selectedObservation, setSelectedObservation] = useState<number | null>(
-    null,
-  );
+  const [selectedObservation, setSelectedObservation] = useState<number | null>(null);
 
   const form = useForm<z.infer<typeof UpdateObservationsSchema>>({
     resolver: zodResolver(UpdateObservationsSchema),
@@ -127,10 +125,7 @@ export function UpdateObservationsForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
@@ -160,10 +155,7 @@ export function UpdateObservationsForm({
                       onOpenChange={setSelectObservationOpen}
                     >
                       <DialogSheetTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className="w-full justify-between"
-                        >
+                        <Button variant="outline" className="w-full justify-between">
                           Select an observation
                           <ChevronsUpDown />
                         </Button>
@@ -180,9 +172,7 @@ export function UpdateObservationsForm({
                                   key={observation.id}
                                   value={`${observation.itemNumber} ${observation.description}`}
                                   onSelect={() => {
-                                    handleObservationSelect(
-                                      observation.id.toString(),
-                                    );
+                                    handleObservationSelect(observation.id.toString());
                                     setSelectObservationOpen(false);
                                   }}
                                 >
@@ -205,22 +195,16 @@ export function UpdateObservationsForm({
                         <Table className="text-sm">
                           <TableHeader>
                             <TableRow className="h-8">
-                              <TableHead className="pl-6">
-                                Item Number
-                              </TableHead>
+                              <TableHead className="pl-6">Item Number</TableHead>
                               <TableHead>Code</TableHead>
                               <TableHead>Description</TableHead>
-                              <TableHead className="pr-6 text-right">
-                                Actions
-                              </TableHead>
+                              <TableHead className="pr-6 text-right">Actions</TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
                             {fields.map((field, index) => (
                               <TableRow key={index}>
-                                <TableCell className="pl-6">
-                                  {field.itemNumber}
-                                </TableCell>
+                                <TableCell className="pl-6">{field.itemNumber}</TableCell>
                                 <TableCell>{field.code}</TableCell>
                                 <TableCell>{field.description}</TableCell>
                                 <TableCell className="pr-6 text-right">
@@ -239,9 +223,7 @@ export function UpdateObservationsForm({
                                       >
                                         Edit
                                       </DropdownMenuItem>
-                                      <DropdownMenuItem
-                                        onSelect={() => remove(index)}
-                                      >
+                                      <DropdownMenuItem onSelect={() => remove(index)}>
                                         Delete
                                       </DropdownMenuItem>
                                     </DropdownMenuContent>
@@ -261,19 +243,12 @@ export function UpdateObservationsForm({
                               <div className="flex items-center justify-between gap-2">
                                 <div>
                                   <span>{field.itemNumber}</span>
-                                  <span className="text-muted-foreground">
-                                    {" "}
-                                    -{" "}
-                                  </span>
+                                  <span className="text-muted-foreground"> - </span>
                                   <span>{field.code}</span>
                                 </div>
                                 <DropdownMenu>
                                   <DropdownMenuTrigger asChild>
-                                    <Button
-                                      variant="ghost"
-                                      size="icon"
-                                      className="-mt-2"
-                                    >
+                                    <Button variant="ghost" size="icon" className="-mt-2">
                                       <Ellipsis className="h-4 w-4" />
                                       <span className="sr-only">Open menu</span>
                                     </Button>
@@ -346,11 +321,7 @@ export function UpdateObservationsForm({
                                   <FormItem>
                                     <FormLabel>Observation</FormLabel>
                                     <FormControl>
-                                      <Textarea
-                                        {...field}
-                                        className="min-h-[100px]"
-                                        readOnly
-                                      />
+                                      <Textarea {...field} className="min-h-[100px]" readOnly />
                                     </FormControl>
                                     <FormMessage />
                                   </FormItem>
@@ -409,14 +380,9 @@ export function UpdateObservationsForm({
                                     name={`observations.${selectedObservation}.descriptionOfActionTaken`}
                                     render={({ field }) => (
                                       <FormItem>
-                                        <FormLabel>
-                                          Description of action taken
-                                        </FormLabel>
+                                        <FormLabel>Description of action taken</FormLabel>
                                         <FormControl>
-                                          <Textarea
-                                            className="min-h-[100px]"
-                                            {...field}
-                                          />
+                                          <Textarea className="min-h-[100px]" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                       </FormItem>
@@ -427,9 +393,7 @@ export function UpdateObservationsForm({
                                     name={`observations.${selectedObservation}.photoOfActionTaken`}
                                     render={({ field }) => (
                                       <FormItem>
-                                        <FormLabel>
-                                          Photo of completed remedial
-                                        </FormLabel>
+                                        <FormLabel>Photo of completed remedial</FormLabel>
                                         <FormControl>
                                           <Input type="file" {...field} />
                                         </FormControl>
@@ -442,9 +406,7 @@ export function UpdateObservationsForm({
                                     name={`observations.${selectedObservation}.codeAfterRemedial`}
                                     render={({ field }) => (
                                       <FormItem>
-                                        <FormLabel>
-                                          Code after remedial
-                                        </FormLabel>
+                                        <FormLabel>Code after remedial</FormLabel>
                                         <FormControl>
                                           <Input {...field} />
                                         </FormControl>
@@ -478,11 +440,7 @@ export function UpdateObservationsForm({
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

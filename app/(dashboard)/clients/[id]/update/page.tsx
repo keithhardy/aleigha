@@ -10,11 +10,7 @@ export const metadata: Metadata = {
   title: pagesConfig.clientUpdate.metadata.title,
 };
 
-export default async function UpdateClient({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function UpdateClient({ params }: { params: Promise<{ id: string }> }) {
   const client = await prisma.client.findUnique({
     where: {
       id: (await params).id,

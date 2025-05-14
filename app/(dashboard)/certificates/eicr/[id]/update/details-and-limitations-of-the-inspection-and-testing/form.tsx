@@ -41,18 +41,12 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
 }) {
   const { toast } = useToast();
 
-  const form = useForm<
-    z.infer<typeof UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema>
-  >({
-    resolver: zodResolver(
-      UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema,
-    ),
+  const form = useForm<z.infer<typeof UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema>>({
+    resolver: zodResolver(UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema),
     defaultValues: {
       id: certificate.id,
-      regulationAccordanceAsAmendedTo:
-        certificate.regulationAccordanceAsAmendedTo || "",
-      detailsOfTheElectricalInstallation:
-        certificate.detailsOfTheElectricalInstallation || "",
+      regulationAccordanceAsAmendedTo: certificate.regulationAccordanceAsAmendedTo || "",
+      detailsOfTheElectricalInstallation: certificate.detailsOfTheElectricalInstallation || "",
       extentOfSampling: certificate.extentOfSampling || "",
       agreedLimitations: certificate.agreedLimitations || "",
       agreedLimitationsWith: certificate.agreedLimitationsWith || "",
@@ -61,12 +55,9 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
   });
 
   const onSubmit = async (
-    data: z.infer<
-      typeof UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema
-    >,
+    data: z.infer<typeof UpdateDetailsAndLimitationsOfTheInspectionAndTestingSchema>,
   ) => {
-    const response =
-      await updateDetailsAndLimitationsOfTheInspectionAndTesting(data);
+    const response = await updateDetailsAndLimitationsOfTheInspectionAndTesting(data);
 
     if (response.status === "success") {
       form.reset(data);
@@ -81,10 +72,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
@@ -95,9 +83,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
-              <HeaderTitle>
-                Details and limitations of the inspection and testing
-              </HeaderTitle>
+              <HeaderTitle>Details and limitations of the inspection and testing</HeaderTitle>
             </HeaderGroup>
           </Header>
           <div className="space-y-4">
@@ -106,8 +92,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Regulation</CardTitle>
                   <CardDescription className="text-balance">
-                    Specify the regulations the inspection follows, e.g., BS
-                    7671.
+                    Specify the regulations the inspection follows, e.g., BS 7671.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -127,8 +112,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
-                  Provide detailed information regarding the inspection process
-                  and limitations.
+                  Provide detailed information regarding the inspection process and limitations.
                 </p>
               </CardFooter>
             </Card>
@@ -137,9 +121,8 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Scope</CardTitle>
                   <CardDescription className="text-balance">
-                    Provide details regarding the inspection, any regulatory
-                    compliance, limitations of the testing, and the scope of the
-                    report.
+                    Provide details regarding the inspection, any regulatory compliance, limitations
+                    of the testing, and the scope of the report.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -148,9 +131,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                     name="detailsOfTheElectricalInstallation"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          Electrical Installation Covered by This Report
-                        </FormLabel>
+                        <FormLabel>Electrical Installation Covered by This Report</FormLabel>
                         <FormControl>
                           <Textarea {...field} className="min-h-[200px]" />
                         </FormControl>
@@ -175,8 +156,7 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
-                  Provide detailed information regarding the inspection process
-                  and limitations.
+                  Provide detailed information regarding the inspection process and limitations.
                 </p>
               </CardFooter>
             </Card>
@@ -185,9 +165,8 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Limitations</CardTitle>
                   <CardDescription className="text-balance">
-                    Provide details regarding the inspection, any regulatory
-                    compliance, limitations of the testing, and the scope of the
-                    report.
+                    Provide details regarding the inspection, any regulatory compliance, limitations
+                    of the testing, and the scope of the report.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -234,18 +213,13 @@ export function UpdateDetailsAndLimitationsOfTheInspectionAndTestingForm({
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
-                  Provide detailed information regarding the inspection process
-                  and limitations.
+                  Provide detailed information regarding the inspection process and limitations.
                 </p>
               </CardFooter>
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

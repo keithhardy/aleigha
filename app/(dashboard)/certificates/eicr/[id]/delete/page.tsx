@@ -1,11 +1,6 @@
 import { notFound } from "next/navigation";
 
-import {
-  Header,
-  HeaderDescription,
-  HeaderGroup,
-  HeaderTitle,
-} from "@/components/page-header";
+import { Header, HeaderDescription, HeaderGroup, HeaderTitle } from "@/components/page-header";
 import { prisma } from "@/lib/db/prisma-client";
 
 import { DeleteElectricalInstallationConditionReportForm } from "./form";
@@ -53,21 +48,16 @@ export default async function DeleteElectricalInstallationConditionReport({
     <div className="container mx-auto max-w-screen-lg">
       <Header>
         <HeaderGroup>
-          <HeaderTitle>
-            Delete Electrical Installation Condition Report
-          </HeaderTitle>
+          <HeaderTitle>Delete Electrical Installation Condition Report</HeaderTitle>
           <HeaderDescription>
-            Are you sure you want to delete{" "}
-            {electricalInstallationConditionReport.serial}? This action cannot
-            be undone.
+            Are you sure you want to delete {electricalInstallationConditionReport.serial}? This
+            action cannot be undone.
           </HeaderDescription>
         </HeaderGroup>
       </Header>
 
       <DeleteElectricalInstallationConditionReportForm
-        electricalInstallationConditionReport={
-          electricalInstallationConditionReport!
-        }
+        electricalInstallationConditionReport={electricalInstallationConditionReport!}
       />
     </div>
   );

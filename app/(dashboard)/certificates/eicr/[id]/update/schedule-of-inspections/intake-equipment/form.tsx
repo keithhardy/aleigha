@@ -56,9 +56,7 @@ export function UpdateIntakeEquipmentForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateIntakeEquipmentSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateIntakeEquipmentSchema>) => {
     const response = await updateIntakeEquipment(data);
 
     if (response.status === "success") {
@@ -74,10 +72,7 @@ export function UpdateIntakeEquipmentForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
@@ -95,14 +90,11 @@ export function UpdateIntakeEquipmentForm({
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
-                  <CardTitle>
-                    Intake equipment (visual inspection only)
-                  </CardTitle>
+                  <CardTitle>Intake equipment (visual inspection only)</CardTitle>
                   <CardDescription className="text-balance">
-                    This section covers all outcomes related to the inspection
-                    of intake equipment. Any findings other than those regarding
-                    access to live parts should not influence the overall
-                    evaluation.
+                    This section covers all outcomes related to the inspection of intake equipment.
+                    Any findings other than those regarding access to live parts should not
+                    influence the overall evaluation.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-8 p-0">
@@ -114,9 +106,7 @@ export function UpdateIntakeEquipmentForm({
                       name={item.id}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
-                            {item.item + " - " + item.label}
-                          </FormLabel>
+                          <FormLabel>{item.item + " - " + item.label}</FormLabel>
                           <FormControl>
                             <RadioGroupComponent
                               onChange={field.onChange}
@@ -138,11 +128,7 @@ export function UpdateIntakeEquipmentForm({
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

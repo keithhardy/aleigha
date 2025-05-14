@@ -86,9 +86,7 @@ export function UpdateScheduleOfRatesForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateScheduleOfRatesSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateScheduleOfRatesSchema>) => {
     const response = await updateScheduleOfRates(data);
 
     if (response.status === "success") {
@@ -120,10 +118,7 @@ export function UpdateScheduleOfRatesForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
@@ -148,15 +143,9 @@ export function UpdateScheduleOfRatesForm({
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
                   <FormItem>
-                    <DialogSheet
-                      open={selectRateOpen}
-                      onOpenChange={setSelectRateOpen}
-                    >
+                    <DialogSheet open={selectRateOpen} onOpenChange={setSelectRateOpen}>
                       <DialogSheetTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className="w-full justify-between"
-                        >
+                        <Button variant="outline" className="w-full justify-between">
                           Select a rate
                           <ChevronsUpDown />
                         </Button>
@@ -178,9 +167,7 @@ export function UpdateScheduleOfRatesForm({
                                   }}
                                 >
                                   {rate.name}
-                                  {rate.id === selectedRate ? (
-                                    <Check className="ml-auto" />
-                                  ) : null}
+                                  {rate.id === selectedRate ? <Check className="ml-auto" /> : null}
                                 </CommandItem>
                               ))}
                             </CommandGroup>
@@ -201,17 +188,13 @@ export function UpdateScheduleOfRatesForm({
                             <TableRow className="h-8">
                               <TableHead className="pl-6">Name</TableHead>
                               <TableHead>Description</TableHead>
-                              <TableHead className="pr-6 text-right">
-                                Actions
-                              </TableHead>
+                              <TableHead className="pr-6 text-right">Actions</TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
                             {fields.map((field, index) => (
                               <TableRow key={index}>
-                                <TableCell className="pl-6">
-                                  {field.name}
-                                </TableCell>
+                                <TableCell className="pl-6">{field.name}</TableCell>
                                 <TableCell>{field.description}</TableCell>
                                 <TableCell className="pr-6 text-right">
                                   <DropdownMenu>
@@ -229,9 +212,7 @@ export function UpdateScheduleOfRatesForm({
                                       >
                                         Edit
                                       </DropdownMenuItem>
-                                      <DropdownMenuItem
-                                        onSelect={() => remove(index)}
-                                      >
+                                      <DropdownMenuItem onSelect={() => remove(index)}>
                                         Delete
                                       </DropdownMenuItem>
                                     </DropdownMenuContent>
@@ -256,15 +237,9 @@ export function UpdateScheduleOfRatesForm({
                                     </div>
                                     <DropdownMenu>
                                       <DropdownMenuTrigger asChild>
-                                        <Button
-                                          variant="ghost"
-                                          size="icon"
-                                          className="-mt-2"
-                                        >
+                                        <Button variant="ghost" size="icon" className="-mt-2">
                                           <Ellipsis className="h-4 w-4" />
-                                          <span className="sr-only">
-                                            Open menu
-                                          </span>
+                                          <span className="sr-only">Open menu</span>
                                         </Button>
                                       </DropdownMenuTrigger>
                                       <DropdownMenuContent>
@@ -296,10 +271,7 @@ export function UpdateScheduleOfRatesForm({
                         </div>
                       </CardContent>
                     </Card>
-                    <DialogSheet
-                      open={editRateOpen}
-                      onOpenChange={setEditRateOpen}
-                    >
+                    <DialogSheet open={editRateOpen} onOpenChange={setEditRateOpen}>
                       <DialogSheetContent className="p-0">
                         <DialogSheetTitle className="hidden" />
                         {selectedRate !== null && (
@@ -325,10 +297,7 @@ export function UpdateScheduleOfRatesForm({
                                   <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                      <Textarea
-                                        {...field}
-                                        className="min-h-[100px]"
-                                      />
+                                      <Textarea {...field} className="min-h-[100px]" />
                                     </FormControl>
                                     <FormMessage />
                                   </FormItem>
@@ -350,11 +319,7 @@ export function UpdateScheduleOfRatesForm({
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

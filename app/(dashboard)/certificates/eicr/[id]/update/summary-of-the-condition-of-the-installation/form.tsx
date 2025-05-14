@@ -42,19 +42,15 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
 }) {
   const { toast } = useToast();
 
-  const form = useForm<
-    z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>
-  >({
+  const form = useForm<z.infer<typeof UpdateSummaryOfTheConditionOfTheInstallationSchema>>({
     resolver: zodResolver(UpdateSummaryOfTheConditionOfTheInstallationSchema),
     defaultValues: {
       id: certificate.id,
       generalCondition: certificate.generalCondition || "",
-      estimatedAgeOfElectricalInstallation:
-        certificate.estimatedAgeOfElectricalInstallation || "",
+      estimatedAgeOfElectricalInstallation: certificate.estimatedAgeOfElectricalInstallation || "",
       evidenceOfAlterations: certificate.evidenceOfAlterations ?? false,
       estimatedAgeOfAlterations: certificate.estimatedAgeOfAlterations || "",
-      overallAssessmentOfTheInstallation:
-        certificate.overallAssessmentOfTheInstallation ?? true,
+      overallAssessmentOfTheInstallation: certificate.overallAssessmentOfTheInstallation ?? true,
     },
   });
 
@@ -76,10 +72,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
@@ -90,9 +83,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
-              <HeaderTitle>
-                Summary of the condition of the installation
-              </HeaderTitle>
+              <HeaderTitle>Summary of the condition of the installation</HeaderTitle>
             </HeaderGroup>
           </Header>
           <div className="space-y-4">
@@ -101,9 +92,8 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Condition</CardTitle>
                   <CardDescription className="text-balance">
-                    Provide an overview of the electrical installation&apos;s
-                    condition, including age, alterations, and overall
-                    assessment.
+                    Provide an overview of the electrical installation&apos;s condition, including
+                    age, alterations, and overall assessment.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -132,8 +122,8 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
                 <CardHeader className="w-full p-0">
                   <CardTitle>Age and Alterations</CardTitle>
                   <CardDescription className="text-balance">
-                    Provide the estimated age of the installation and indicate
-                    if any alterations or modifications have been made to it.
+                    Provide the estimated age of the installation and indicate if any alterations or
+                    modifications have been made to it.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-4 p-0">
@@ -248,11 +238,7 @@ export function UpdateSummaryOfTheConditionOfTheInstallationForm({
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

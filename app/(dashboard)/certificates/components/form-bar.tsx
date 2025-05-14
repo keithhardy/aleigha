@@ -31,14 +31,10 @@ export function FormBar({ form, sections, baseUrl }: FormBarProps) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const currentIndex = sections.findIndex((section) =>
-    pathname.endsWith(section.url),
-  );
+  const currentIndex = sections.findIndex((section) => pathname.endsWith(section.url));
   const prevSection = currentIndex > 0 ? sections[currentIndex - 1] : null;
   const nextSection =
-    currentIndex >= 0 && currentIndex < sections.length - 1
-      ? sections[currentIndex + 1]
-      : null;
+    currentIndex >= 0 && currentIndex < sections.length - 1 ? sections[currentIndex + 1] : null;
 
   const [sectionsOpen, setSectionsOpen] = useState(false);
 
@@ -52,9 +48,7 @@ export function FormBar({ form, sections, baseUrl }: FormBarProps) {
           disabled={!prevSection}
           onClick={() =>
             prevSection &&
-            router.push(
-              `${baseUrl}/${form.getValues("id")}/update/${prevSection.url}`,
-            )
+            router.push(`${baseUrl}/${form.getValues("id")}/update/${prevSection.url}`)
           }
         >
           <ArrowLeft />
@@ -79,9 +73,7 @@ export function FormBar({ form, sections, baseUrl }: FormBarProps) {
                         value={section.title}
                         onSelect={() => {
                           setSectionsOpen(false);
-                          router.push(
-                            `${baseUrl}/${form.getValues("id")}/update/${section.url}`,
-                          );
+                          router.push(`${baseUrl}/${form.getValues("id")}/update/${section.url}`);
                         }}
                         className="truncate"
                       >
@@ -117,9 +109,7 @@ export function FormBar({ form, sections, baseUrl }: FormBarProps) {
           disabled={!nextSection}
           onClick={() =>
             nextSection &&
-            router.push(
-              `${baseUrl}/${form.getValues("id")}/update/${nextSection.url}`,
-            )
+            router.push(`${baseUrl}/${form.getValues("id")}/update/${nextSection.url}`)
           }
         >
           <ArrowRight />

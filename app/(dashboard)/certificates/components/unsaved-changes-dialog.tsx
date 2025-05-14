@@ -68,12 +68,8 @@ export const UnsavedChangesDialog = ({
         </AlertDialogHeader>
         <AlertDialogFooter className="space-y-2 sm:space-y-0">
           <AlertDialogCancel onClick={handleCancel}>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleSaveAndContinue}>
-            Save and continue
-          </AlertDialogAction>
-          <AlertDialogAction onClick={handleContinue}>
-            Continue
-          </AlertDialogAction>
+          <AlertDialogAction onClick={handleSaveAndContinue}>Save and continue</AlertDialogAction>
+          <AlertDialogAction onClick={handleContinue}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

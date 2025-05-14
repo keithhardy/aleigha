@@ -44,8 +44,7 @@ const DialogSheetContent = React.forwardRef<
 
   React.useEffect(() => {
     window.visualViewport?.addEventListener("resize", handleResize);
-    return () =>
-      window.visualViewport?.removeEventListener("resize", handleResize);
+    return () => window.visualViewport?.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
   return (
@@ -85,10 +84,7 @@ const DialogSheetContent = React.forwardRef<
 });
 DialogSheetContent.displayName = DialogSheetPrimitive.Content.displayName;
 
-const DialogSheetHeader = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => {
+const DialogSheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
   const isMobile = useIsMobile();
 
   return (
@@ -104,15 +100,9 @@ const DialogSheetHeader = ({
 };
 DialogSheetHeader.displayName = "DialogSheetHeader";
 
-const DialogSheetFooter = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
+const DialogSheetFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn(
-      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-      className,
-    )}
+    className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)}
     {...props}
   />
 );
@@ -148,8 +138,7 @@ const DialogSheetDescription = React.forwardRef<
     {...props}
   />
 ));
-DialogSheetDescription.displayName =
-  DialogSheetPrimitive.Description.displayName;
+DialogSheetDescription.displayName = DialogSheetPrimitive.Description.displayName;
 
 export {
   DialogSheet,

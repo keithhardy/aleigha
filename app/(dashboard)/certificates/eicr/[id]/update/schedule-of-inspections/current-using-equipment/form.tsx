@@ -58,9 +58,7 @@ export function UpdateCurrentUsingEquipmentForm({
     },
   });
 
-  const onSubmit = async (
-    data: z.infer<typeof UpdateCurrentUsingEquipmentSchema>,
-  ) => {
+  const onSubmit = async (data: z.infer<typeof UpdateCurrentUsingEquipmentSchema>) => {
     const response = await updateCurrentUsingEquipment(data);
 
     if (response.status === "success") {
@@ -76,10 +74,7 @@ export function UpdateCurrentUsingEquipmentForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-1 flex-col"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 flex-col">
         <div className="container mx-auto p-6">
           <Header>
             <HeaderGroup>
@@ -90,21 +85,17 @@ export function UpdateCurrentUsingEquipmentForm({
                 <MoveLeft size={22} className="mr-2" />
                 <span>Back to Certificates</span>
               </Link>
-              <HeaderTitle>
-                Current-using equipment (permanently connected)
-              </HeaderTitle>
+              <HeaderTitle>Current-using equipment (permanently connected)</HeaderTitle>
             </HeaderGroup>
           </Header>
           <div className="space-y-4">
             <Card className="rounded-md shadow-none">
               <div className="flex flex-col gap-4 p-6 lg:flex-row">
                 <CardHeader className="w-full p-0">
-                  <CardTitle>
-                    Current-using equipment (permanently connected)
-                  </CardTitle>
+                  <CardTitle>Current-using equipment (permanently connected)</CardTitle>
                   <CardDescription className="text-balance">
-                    This section evaluates the condition and safety of
-                    current-using equipment that is permanently connected.
+                    This section evaluates the condition and safety of current-using equipment that
+                    is permanently connected.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="w-full space-y-8 p-0">
@@ -116,9 +107,7 @@ export function UpdateCurrentUsingEquipmentForm({
                       name={item.id}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>
-                            {item.item + " - " + item.label}
-                          </FormLabel>
+                          <FormLabel>{item.item + " - " + item.label}</FormLabel>
                           <FormControl>
                             <RadioGroupComponent
                               onChange={field.onChange}
@@ -134,18 +123,13 @@ export function UpdateCurrentUsingEquipmentForm({
               </div>
               <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-6">
                 <p className="text-balance text-sm text-muted-foreground">
-                  Ensure the condition and safety of permanently connected
-                  equipment is checked.
+                  Ensure the condition and safety of permanently connected equipment is checked.
                 </p>
               </CardFooter>
             </Card>
           </div>
         </div>
-        <FormBar
-          form={form}
-          sections={sections}
-          baseUrl={"/certificates/eicr"}
-        />
+        <FormBar form={form} sections={sections} baseUrl={"/certificates/eicr"} />
         <UnsavedChangesDialog
           condition={form.formState.isDirty}
           action={form.handleSubmit(onSubmit)}

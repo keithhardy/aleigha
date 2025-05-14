@@ -18,13 +18,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 
@@ -92,9 +86,7 @@ export function UpdatePictureForm({
                 <FormField
                   control={form.control}
                   name="picture"
-                  render={({
-                    field: { onChange, onBlur, name, ref, disabled },
-                  }) => (
+                  render={({ field: { onChange, onBlur, name, ref, disabled } }) => (
                     <FormItem>
                       <FormControl>
                         <Input
@@ -129,17 +121,13 @@ export function UpdatePictureForm({
             </CardContent>
           </div>
           <CardFooter className="flex justify-between space-x-4 rounded-b-md border-t bg-muted py-4">
-            <p className="text-sm text-muted-foreground">
-              Logo must be less than 1 MB.
-            </p>
+            <p className="text-sm text-muted-foreground">Logo must be less than 1 MB.</p>
             <div className="flex gap-2">
               <Button
                 variant="outline"
                 type="submit"
                 size="sm"
-                disabled={
-                  !form.formState.isDirty || form.formState.isSubmitting
-                }
+                disabled={!form.formState.isDirty || form.formState.isSubmitting}
               >
                 {form.formState.isSubmitting ? "Saving..." : "Save"}
               </Button>

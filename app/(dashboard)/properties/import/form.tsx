@@ -92,19 +92,11 @@ export function ImportPropertiesForm({ clients }: { clients: Client[] }) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Client</FormLabel>
-                      <DialogSheet
-                        open={clientOpen}
-                        onOpenChange={setClientOpen}
-                      >
+                      <DialogSheet open={clientOpen} onOpenChange={setClientOpen}>
                         <DialogSheetTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="w-full justify-between"
-                          >
+                          <Button variant="outline" className="w-full justify-between">
                             {field.value
-                              ? clients.find(
-                                  (client) => client.id === field.value,
-                                )?.name
+                              ? clients.find((client) => client.id === field.value)?.name
                               : "Select client..."}
                             <ChevronsUpDown />
                           </Button>
@@ -143,9 +135,7 @@ export function ImportPropertiesForm({ clients }: { clients: Client[] }) {
                 <FormField
                   control={form.control}
                   name="file"
-                  render={({
-                    field: { onChange, onBlur, name, ref, disabled },
-                  }) => (
+                  render={({ field: { onChange, onBlur, name, ref, disabled } }) => (
                     <FormItem>
                       <FormLabel>File</FormLabel>
                       <FormControl>
@@ -186,9 +176,7 @@ export function ImportPropertiesForm({ clients }: { clients: Client[] }) {
                 variant="outline"
                 size="sm"
                 type="submit"
-                disabled={
-                  !form.formState.isDirty || form.formState.isSubmitting
-                }
+                disabled={!form.formState.isDirty || form.formState.isSubmitting}
               >
                 {form.formState.isSubmitting ? "Saving..." : "Save"}
               </Button>

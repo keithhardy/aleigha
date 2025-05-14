@@ -11,10 +11,7 @@ export type ServerActionResponse<T = undefined> = Promise<{
   data?: T;
 }>;
 
-export async function updateUserAction(
-  id: string,
-  data: UpdateUser,
-): ServerActionResponse<User> {
+export async function updateUserAction(id: string, data: UpdateUser): ServerActionResponse<User> {
   try {
     const user = await userService.updateUser(id, data);
     revalidatePath("/users");

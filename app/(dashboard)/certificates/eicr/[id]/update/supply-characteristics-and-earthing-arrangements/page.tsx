@@ -10,27 +10,26 @@ export default async function UpdateSupplyCharacteristicsAndEarthingArrangements
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const certificate =
-    await prisma.electricalInstallationConditionReport.findFirst({
-      where: {
-        id: (await params).id,
-      },
-      select: {
-        id: true,
-        systemTypeAndEarthingArrangements: true,
-        supplyProtectiveDeviceBSNumber: true,
-        supplyProtectiveDeviceType: true,
-        supplyProtectiveDeviceRatedCurrent: true,
-        numberAndTypeOfLiveConductors: true,
-        confirmationOfSupplyPolarity: true,
-        otherSourcesOfSupply: true,
-        nominalVoltageBetweenLines: true,
-        nominalLineVoltageToEarth: true,
-        nominalFrequency: true,
-        prospectiveFaultCurrent: true,
-        externalEarthFaultLoopImpedance: true,
-      },
-    });
+  const certificate = await prisma.electricalInstallationConditionReport.findFirst({
+    where: {
+      id: (await params).id,
+    },
+    select: {
+      id: true,
+      systemTypeAndEarthingArrangements: true,
+      supplyProtectiveDeviceBSNumber: true,
+      supplyProtectiveDeviceType: true,
+      supplyProtectiveDeviceRatedCurrent: true,
+      numberAndTypeOfLiveConductors: true,
+      confirmationOfSupplyPolarity: true,
+      otherSourcesOfSupply: true,
+      nominalVoltageBetweenLines: true,
+      nominalLineVoltageToEarth: true,
+      nominalFrequency: true,
+      prospectiveFaultCurrent: true,
+      externalEarthFaultLoopImpedance: true,
+    },
+  });
 
   if (!certificate) {
     notFound();
