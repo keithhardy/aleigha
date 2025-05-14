@@ -15,7 +15,7 @@ interface ColumnHeaderProps<TData, TValue> extends React.HTMLAttributes<HTMLDivE
 }
 
 export function ColumnHeader<TData, TValue>({ column }: ColumnHeaderProps<TData, TValue>) {
-  if (!column.getCanSort()) {
+  if (!column.getCanSort() && !column.getCanHide()) {
     return <div className="capitalize">{column.id}</div>;
   }
 
@@ -24,29 +24,36 @@ export function ColumnHeader<TData, TValue>({ column }: ColumnHeaderProps<TData,
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="-ml-4 capitalize data-[state=open]:bg-accent">
           <span>{column.id}</span>
-          {column.getIsSorted() === "desc" ? (
-            <ArrowDown />
-          ) : column.getIsSorted() === "asc" ? (
-            <ArrowUp />
-          ) : (
-            <ArrowUpDown />
-          )}
+          {column.getCanSort() &&
+            (column.getIsSorted() === "desc" ? (
+              <ArrowDown />
+            ) : column.getIsSorted() === "asc" ? (
+              <ArrowUp />
+            ) : (
+              <ArrowUpDown />
+            ))}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-          <ArrowUp />
-          Asc
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-          <ArrowDown />
-          Desc
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
-          <EyeOff />
-          Hide
-        </DropdownMenuItem>
+        {column.getCanSort() && (
+          <>
+            <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+              <ArrowUp />
+              Asc
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
+              <ArrowDown />
+              Desc
+            </DropdownMenuItem>
+          </>
+        )}
+        {column.getCanHide() && column.getCanSort() && <DropdownMenuSeparator />}
+        {column.getCanHide() && (
+          <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
+            <EyeOff />
+            Hide
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

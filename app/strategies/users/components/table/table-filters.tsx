@@ -31,7 +31,9 @@ export function TableFilters<TData>({ table, facets }: TableFiltersProps<TData>)
 
       {Object.entries(facets).map(([key, facet]) => {
         const column = table.getColumn(key);
-        return column ? <TableFacetedFilter key={key} column={column} facets={facet} /> : null;
+        return column && column?.getCanFilter() ? (
+          <TableFacetedFilter key={key} column={column} facets={facet} />
+        ) : null;
       })}
 
       {isFiltered && (

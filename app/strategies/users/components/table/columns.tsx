@@ -34,18 +34,25 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => <ColumnHeader column={column} />,
+    enableHiding: false,
+    enableColumnFilter: false,
   },
   {
     accessorKey: "email",
-    header: "Email",
+    header: ({ column }) => <ColumnHeader column={column} />,
+    enableSorting: false,
+    enableColumnFilter: false,
   },
   {
     accessorKey: "phone",
-    header: "Phone",
+    header: ({ column }) => <ColumnHeader column={column} />,
+    enableSorting: false,
+    enableColumnFilter: false,
   },
   {
     accessorKey: "role",
-    header: "Role",
+    header: ({ column }) => <ColumnHeader column={column} />,
+    enableSorting: false,
   },
   {
     id: "actions",
