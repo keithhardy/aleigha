@@ -42,16 +42,21 @@ export function useFilters({
   const [globalFilter, setGlobalFilter] = React.useState(initialGlobalFilter);
   const [columnFilters, setColumnFilters] = React.useState(initialColumnFilters);
 
-  return {
-    pagination,
-    setPagination,
-    sorting,
-    setSorting,
-    rowSelection,
-    setRowSelection,
-    globalFilter,
-    setGlobalFilter,
-    columnFilters,
-    setColumnFilters,
-  };
+  return React.useMemo(
+    () => ({
+      pagination,
+      setPagination,
+      sorting,
+      setSorting,
+      rowSelection,
+      setRowSelection,
+      globalFilter,
+      setGlobalFilter,
+      columnFilters,
+      setColumnFilters,
+    }),
+    [pagination, sorting, rowSelection, globalFilter, columnFilters],
+  );
 }
+
+export type FiltersState = ReturnType<typeof useFilters>;

@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import * as React from "react";
 
 import {
@@ -29,7 +24,6 @@ interface DataTableProps<TData, TValue> {
 
 export function Table<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
   const filters = useFilters();
-
   const table = useReactTable({
     // Table
     data,
