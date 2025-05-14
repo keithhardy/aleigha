@@ -15,15 +15,23 @@ import {
 import { TableFilters } from "./table-filters";
 import { TablePagination } from "./table-pagination";
 import { TableViewOptions } from "./table-view-options";
-import { useFilters } from "./useTableFilters";
+import { Filters, useFilters } from "./useFilters";
 
 interface DataTableProps<TData, TValue> {
+  initialData?: TData[];
+  getData: (filters?: Filters) => Promise<TData[]>;
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
 }
 
-export function Table<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function Table<TData, TValue>({
+  initialData,
+  getData,
+  columns,
+}: DataTableProps<TData, TValue>) {
+  const [data, setData] = React.useState<TData[]>(initialData || []);
+
   const filters = useFilters();
+
   const table = useReactTable({
     // Table
     data,
@@ -57,6 +65,21 @@ export function Table<TData, TValue>({ columns, data }: DataTableProps<TData, TV
       columnFilters: filters.columnFilters,
     },
   });
+
+  const fetchData = React.useCallback(async () => {
+    const data = await getData({
+      pagination: filters.pagination,
+      sorting: filters.sorting,
+      globalFilter: filters.globalFilter,
+      columnFilters: filters.columnFilters,
+    });
+
+    setData(data);
+  }, [filters.pagination, filters.sorting, filters.globalFilter, filters.columnFilters]);
+
+  React.useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   return (
     <>

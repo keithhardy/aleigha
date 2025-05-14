@@ -59,4 +59,9 @@ export function useFilters({
   );
 }
 
-export type FiltersState = ReturnType<typeof useFilters>;
+export interface Filters {
+  pagination?: PaginationState;
+  sorting?: SortingState[];
+  globalFilter?: string;
+  columnFilters?: ColumnFiltersState[];
+}

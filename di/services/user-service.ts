@@ -1,3 +1,4 @@
+import { Filters } from "@/app/strategies/users/components/table/useFilters";
 import { AuthProvider } from "@/di/interfaces/auth-provider";
 import { UserProvider } from "@/di/interfaces/user-provider";
 import { CreateUser, UpdateUser } from "@/di/schemas/user";
@@ -17,8 +18,8 @@ export class UserService {
     return this.userProvider.getUser(id);
   }
 
-  getUsers() {
-    return this.userProvider.getUsers();
+  getUsers(filters?: Filters) {
+    return this.userProvider.getUsers(filters);
   }
 
   async updateUser(id: string, input: UpdateUser) {
