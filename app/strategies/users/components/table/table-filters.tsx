@@ -36,7 +36,7 @@ export function TableFilters<TData>({ table, facets }: TableFiltersProps<TData>)
 
       {isFiltered && (
         <Button variant="outline" size="sm" onClick={resetFilters}>
-          <XCircle className="mr-2 h-4 w-4" />
+          <XCircle />
           Clear
         </Button>
       )}

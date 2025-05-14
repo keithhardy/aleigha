@@ -17,7 +17,6 @@ export function SelectAllPageRows<TData>({ table }: SelectAllPageRowsProps<TData
         table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")
       }
       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-      className="ml-2 mr-4"
     />
   );
 }
@@ -27,7 +26,6 @@ export function SelectRow<TData>({ row }: SelectRowProps<TData>) {
     <Checkbox
       checked={row.getIsSelected()}
       onCheckedChange={(value) => row.toggleSelected(!!value)}
-      className="ml-2 mr-4"
     />
   );
 }

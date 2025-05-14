@@ -1,8 +1,16 @@
 "use client";
 
 import { type ColumnDef } from "@tanstack/react-table";
+import { MoreHorizontal } from "lucide-react";
 
-import { ColumnActions } from "./column-actions";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 import { ColumnHeader } from "./column-header";
 import { SelectAllPageRows, SelectRow } from "./column-select";
 
@@ -25,7 +33,7 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "name",
-    header: ({ column }) => <ColumnHeader column={column} title="Name" />,
+    header: ({ column }) => <ColumnHeader column={column} />,
   },
   {
     accessorKey: "email",
@@ -41,6 +49,18 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <ColumnActions row={row} />,
+    cell: () => (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <MoreHorizontal />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem>Edit</DropdownMenuItem>
+          <DropdownMenuItem>Delete</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    ),
   },
 ];
