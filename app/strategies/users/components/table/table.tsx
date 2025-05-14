@@ -41,7 +41,7 @@ export function Table<TData, TValue>({
     // Pagination
     manualPagination: true,
     onPaginationChange: filters.setPagination,
-    rowCount: 100, // TODO: Fetch this from the server
+    rowCount: 9, // TODO: Fetch this from the server
 
     // Sorting
     manualSorting: true,

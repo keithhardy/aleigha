@@ -14,45 +14,48 @@ export class PrismaUserRepository implements UserProvider {
   }
 
   getUsers(filters?: Filters) {
-    const orderBy =
-      filters?.sorting?.map((sort) => {
-        const keys = sort.id.split(".");
-        if (keys.length === 1) {
-          return { [keys[0]]: sort.desc ? "desc" : "asc" };
-        }
-        return { [keys.join(".")]: sort.desc ? "desc" : "asc" };
-      }) ?? undefined;
+    const getOrderBy = () =>
+      filters?.sorting?.map(({ id, desc }) => {
+        const key = id.split(".").join(".");
+        return { [key]: desc ? "desc" : "asc" };
+      });
 
-    const roleFilter = filters?.columnFilters?.find(
-      (f) => f.id === "role" && Array.isArray(f.value) && f.value.length > 0,
-    );
-
-    const where = {
-      ...(roleFilter
-        ? {
-            role: {
-              in: roleFilter.value as $Enums.UserRole[],
-            },
-          }
-        : {}),
-
-      ...(filters?.globalFilter
-        ? {
-            OR: ["name", "email", "phone"].map((field) => ({
-              [field]: {
-                contains: filters.globalFilter,
-                mode: "insensitive",
-              },
-            })),
-          }
-        : {}),
+    const getRoleFilter = () => {
+      const role = filters?.columnFilters?.find(
+        (f) => f.id === "role" && Array.isArray(f.value) && f.value.length > 0,
+      );
+      return role ? { role: { in: role.value as $Enums.UserRole[] } } : {};
     };
 
+    const getGlobalFilter = () => {
+      if (!filters?.globalFilter) return {};
+      const fields = ["name", "email", "phone"];
+      return {
+        OR: fields.map((field) => ({
+          [field]: {
+            contains: filters.globalFilter,
+            mode: "insensitive",
+          },
+        })),
+      };
+    };
+
+    const where = {
+      ...getRoleFilter(),
+      ...getGlobalFilter(),
+    };
+
+    const pagination = filters?.pagination
+      ? {
+          take: filters.pagination.pageSize,
+          skip: filters.pagination.pageIndex * filters.pagination.pageSize,
+        }
+      : {};
+
+    const orderBy = getOrderBy();
+
     return prisma.user.findMany({
-      ...(filters?.pagination && {
-        take: filters.pagination.pageSize,
-        skip: filters.pagination.pageIndex * filters.pagination.pageSize,
-      }),
+      ...pagination,
       ...(orderBy && { orderBy }),
       ...(Object.keys(where).length > 0 && { where }),
     });

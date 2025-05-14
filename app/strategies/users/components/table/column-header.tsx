@@ -29,7 +29,7 @@ export function ColumnHeader<TData, TValue>({
     <div className={cn("flex items-center space-x-2", className)}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="sm" className="-ml-3 h-8 data-[state=open]:bg-accent">
+          <Button variant="ghost" className="-ml-3 h-8 data-[state=open]:bg-accent">
             <span>{title}</span>
             {column.getIsSorted() === "desc" ? (
               <ArrowDown />

@@ -25,7 +25,7 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "name",
-    header: ({ column }) => <ColumnHeader column={column} title="Email" />,
+    header: ({ column }) => <ColumnHeader column={column} title="Name" />,
   },
   {
     accessorKey: "email",
