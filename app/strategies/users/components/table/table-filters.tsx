@@ -21,9 +21,6 @@ export function TableFilters<TData>({ table, facets }: TableFiltersProps<TData>)
     table.setGlobalFilter("");
   };
 
-  const roleColumn = table.getColumn("role");
-  const roleFacets = facets["role"];
-
   return (
     <>
       <Input
@@ -32,11 +29,14 @@ export function TableFilters<TData>({ table, facets }: TableFiltersProps<TData>)
         onChange={(e) => table.setGlobalFilter(e.target.value)}
       />
 
-      {roleColumn && <TableFacetedFilter column={roleColumn} facets={roleFacets} />}
+      {Object.entries(facets).map(([key, facet]) => {
+        const column = table.getColumn(key);
+        return column ? <TableFacetedFilter key={key} column={column} facets={facet} /> : null;
+      })}
 
       {isFiltered && (
         <Button variant="outline" size="sm" onClick={resetFilters}>
-          <XCircle />
+          <XCircle className="mr-2 h-4 w-4" />
           Clear
         </Button>
       )}
