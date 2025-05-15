@@ -1,6 +1,11 @@
 "use client";
 
-import { type ColumnDef, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import {
+  type ColumnDef,
+  type ExpandedState,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 import * as React from "react";
 
 import { TableContent } from "./table-content";
@@ -17,6 +22,7 @@ interface DataTableProps<TData extends { id: string }, TValue> {
   initialData?: TData[];
   initialFacets: Record<string, { value: string; count: number }[]>;
   initialTotal: number;
+  renderExpandedRow?: (row: TData) => React.ReactNode;
 }
 
 export function Table<TData extends { id: string }, TValue>({
@@ -27,12 +33,15 @@ export function Table<TData extends { id: string }, TValue>({
   initialData,
   initialFacets,
   initialTotal,
+  renderExpandedRow,
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = React.useState<TData[]>(initialData || []);
   const [facets, setFacets] = React.useState<Record<string, { value: string; count: number }[]>>(
     initialFacets || [],
   );
   const [total, setTotal] = React.useState<number>(initialTotal);
+
+  const [expanded, setExpanded] = React.useState<ExpandedState>({});
   const initialLoad = React.useRef(true);
 
   const {
@@ -62,12 +71,16 @@ export function Table<TData extends { id: string }, TValue>({
     manualFiltering: true,
     onGlobalFilterChange: setGlobalFilter,
     onColumnFiltersChange: setColumnFilters,
+    manualExpanding: true,
+    getRowCanExpand: () => true,
+    onExpandedChange: setExpanded,
     state: {
       sorting,
       pagination,
       rowSelection,
       globalFilter,
       columnFilters,
+      expanded,
     },
   });
 
@@ -107,7 +120,7 @@ export function Table<TData extends { id: string }, TValue>({
     <>
       <TableFilters table={table} facets={facets} />
       <TableViewOptions table={table} />
-      <TableContent table={table} columns={columns} />
+      <TableContent table={table} columns={columns} renderExpandedRow={renderExpandedRow} />
       <TablePagination table={table} />
     </>
   );

@@ -3,6 +3,7 @@
 import { type ColumnDef } from "@tanstack/react-table";
 
 import { ColumnActions } from "./column-actions";
+import { ExpandToggle } from "./column-expand-toggle";
 import { ColumnHeader } from "./column-header";
 import { SelectAllPageRows, SelectRow } from "./column-select";
 import { User } from "./table-types";
@@ -40,6 +41,10 @@ export const columns: ColumnDef<User>[] = [
     enableSorting: false,
     enableHiding: true,
     enableColumnFilter: true,
+  },
+  {
+    id: "expand",
+    cell: ({ row }) => <ExpandToggle row={row} />,
   },
   {
     id: "actions",

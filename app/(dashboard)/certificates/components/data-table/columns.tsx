@@ -84,11 +84,15 @@ export const columns: ColumnDef<ElectricalInstalationConditionReportWithRelation
   },
   {
     id: "expand",
-    cell: ({ row }) => (
-      <Button variant="ghost" size="icon" onClick={() => row.toggleExpanded()}>
-        {row.getIsExpanded() ? <ChevronUp /> : <ChevronDown />}
-      </Button>
-    ),
+    cell: ({ row }) => {
+      return row.getCanExpand() ? (
+        <Button variant="ghost" size="icon" onClick={row.getToggleExpandedHandler()}>
+          {row.getIsExpanded() ? <ChevronUp /> : <ChevronDown />}
+        </Button>
+      ) : (
+        ""
+      );
+    },
   },
   {
     id: "actions",

@@ -1,4 +1,5 @@
 import { type ColumnDef, flexRender, type Table as ReactTable } from "@tanstack/react-table";
+import { Fragment } from "react";
 
 import {
   Table,
@@ -12,9 +13,14 @@ import {
 interface TableContentProps<TData, TValue> {
   table: ReactTable<TData>;
   columns: ColumnDef<TData, TValue>[];
+  renderExpandedRow?: (row: TData) => React.ReactNode;
 }
 
-export function TableContent<TData, TValue>({ table, columns }: TableContentProps<TData, TValue>) {
+export function TableContent<TData, TValue>({
+  table,
+  columns,
+  renderExpandedRow,
+}: TableContentProps<TData, TValue>) {
   return (
     <Table>
       <TableHeader>
@@ -33,13 +39,22 @@ export function TableContent<TData, TValue>({ table, columns }: TableContentProp
       <TableBody>
         {table.getRowModel().rows?.length ? (
           table.getRowModel().rows.map((row) => (
-            <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-              {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))}
-            </TableRow>
+            <Fragment key={row.id}>
+              <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </TableRow>
+              {row.getIsExpanded() && (
+                <TableRow>
+                  <TableCell colSpan={columns.length}>
+                    {renderExpandedRow?.(row.original)}
+                  </TableCell>
+                </TableRow>
+              )}
+            </Fragment>
           ))
         ) : (
           <TableRow>

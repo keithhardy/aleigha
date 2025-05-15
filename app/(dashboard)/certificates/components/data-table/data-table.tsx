@@ -10,13 +10,11 @@ import {
   useReactTable,
   flexRender,
   getCoreRowModel,
-  getExpandedRowModel,
 } from "@tanstack/react-table";
 import { Fragment, useEffect, useState } from "react";
 
 import { Pagination } from "@/components/data-table/pagination";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   Table,
@@ -98,8 +96,10 @@ export function DataTable<TData extends ElectricalInstalationConditionReportWith
     onRowSelectionChange: setRowSelection,
     onPaginationChange: setPagination,
     getRowId: (row) => row.id,
+
+    manualExpanding: true,
+    getRowCanExpand: () => true,
     onExpandedChange: setExpanded,
-    getExpandedRowModel: getExpandedRowModel(),
   });
 
   useEffect(() => {
@@ -160,17 +160,15 @@ export function DataTable<TData extends ElectricalInstalationConditionReportWith
                           </TableCell>
                         ))}
                       </TableRow>
-                      <Collapsible asChild open={row.getIsExpanded()}>
-                        <CollapsibleContent asChild>
-                          <TableRow>
-                            <TableCell colSpan={columns.length}>
-                              <div className="py-2 text-center">
-                                {row.original.property.address?.streetAddress}
-                              </div>
-                            </TableCell>
-                          </TableRow>
-                        </CollapsibleContent>
-                      </Collapsible>
+                      {row.getIsExpanded() && (
+                        <TableRow>
+                          <TableCell colSpan={columns.length}>
+                            <div className="py-2 text-center">
+                              {row.original.property.address?.streetAddress}
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      )}
                     </Fragment>
                   ))
                 ) : (
