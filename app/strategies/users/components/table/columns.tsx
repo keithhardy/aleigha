@@ -5,7 +5,7 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { ColumnActions } from "./column-actions";
 import { ColumnHeader } from "./column-header";
 import { SelectAllPageRows, SelectRow } from "./column-select";
-import { User } from "./types";
+import { User } from "./table-types";
 
 export const columns: ColumnDef<User>[] = [
   {

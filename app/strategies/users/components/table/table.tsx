@@ -33,6 +33,7 @@ export function Table<TData extends { id: string }, TValue>({
     initialFacets || [],
   );
   const [total, setTotal] = React.useState<number>(initialTotal);
+  const initialLoad = React.useRef(true);
 
   const {
     pagination,
@@ -71,6 +72,11 @@ export function Table<TData extends { id: string }, TValue>({
   });
 
   React.useEffect(() => {
+    if (initialLoad.current) {
+      initialLoad.current = false;
+      return;
+    }
+
     const fetchData = async () => {
       const data = await getData({
         sorting,

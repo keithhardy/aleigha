@@ -13,7 +13,7 @@ import {
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 
-import { User } from "./types";
+import { User } from "./table-types";
 
 interface ColumnActionsProps {
   row: Row<User>;
