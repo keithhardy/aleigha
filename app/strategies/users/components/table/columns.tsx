@@ -1,29 +1,11 @@
 "use client";
 
 import { type ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
+import { ColumnActions } from "./column-actions";
 import { ColumnHeader } from "./column-header";
 import { SelectAllPageRows, SelectRow } from "./column-select";
-
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  role: "Admin" | "Manager" | "Planner" | "Operative" | "Client";
-  signature: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { User } from "./types";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -34,6 +16,7 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => <ColumnHeader column={column} />,
+    enableSorting: true,
     enableHiding: false,
     enableColumnFilter: false,
   },
@@ -41,33 +24,25 @@ export const columns: ColumnDef<User>[] = [
     accessorKey: "email",
     header: ({ column }) => <ColumnHeader column={column} />,
     enableSorting: false,
+    enableHiding: true,
     enableColumnFilter: false,
   },
   {
     accessorKey: "phone",
     header: ({ column }) => <ColumnHeader column={column} />,
     enableSorting: false,
+    enableHiding: true,
     enableColumnFilter: false,
   },
   {
     accessorKey: "role",
     header: ({ column }) => <ColumnHeader column={column} />,
     enableSorting: false,
+    enableHiding: true,
+    enableColumnFilter: true,
   },
   {
     id: "actions",
-    cell: () => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon" className="data-[state=open]:bg-accent">
-            <MoreHorizontal />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuItem>Delete</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
+    cell: ({ row }) => <ColumnActions row={row} />,
   },
 ];

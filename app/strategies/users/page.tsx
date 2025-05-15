@@ -13,11 +13,13 @@ export default async function Users() {
 
   return (
     <Table
+      columns={columns}
+      getData={getUsers}
+      getFacets={getFacets}
+      getTotal={getTotal}
       initialData={data}
       initialFacets={facets}
       initialTotal={total}
-      getData={getUsers}
-      columns={columns}
     />
   );
 }

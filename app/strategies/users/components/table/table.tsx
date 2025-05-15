@@ -1,36 +1,31 @@
 "use client";
 
-import { type ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { type ColumnDef, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import * as React from "react";
 
-import {
-  Table as TableRoot,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
+import { TableContent } from "./table-content";
 import { TableFilters } from "./table-filters";
 import { TablePagination } from "./table-pagination";
 import { TableViewOptions } from "./table-view-options";
 import { Filters, useFilters } from "./useFilters";
-import { getFacets, getTotal } from "../../actions";
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData extends { id: string }, TValue> {
   initialData?: TData[];
   initialFacets: Record<string, { value: string; count: number }[]>;
   initialTotal: number;
   getData: (filters?: Filters) => Promise<TData[]>;
+  getFacets: (filters?: Filters) => Promise<Record<string, { value: string; count: number }[]>>;
+  getTotal: (filters?: Filters) => Promise<number>;
   columns: ColumnDef<TData, TValue>[];
 }
 
-export function Table<TData, TValue>({
+export function Table<TData extends { id: string }, TValue>({
   initialData,
   initialFacets,
   initialTotal,
   getData,
+  getFacets,
+  getTotal,
   columns,
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = React.useState<TData[]>(initialData || []);
@@ -53,30 +48,19 @@ export function Table<TData, TValue>({
   } = useFilters();
 
   const table = useReactTable({
-    // Table
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-
-    // Pagination
     manualPagination: true,
     onPaginationChange: setPagination,
     rowCount: total,
-
-    // Sorting
     manualSorting: true,
     onSortingChange: setSorting,
-
-    // Row selection
     onRowSelectionChange: setRowSelection,
-    getRowId: (row, index) => (row as { id: string }).id ?? index.toString(), // TODO: Fix the type of row
-
-    // Filters
+    getRowId: (row) => row.id,
     manualFiltering: true,
     onGlobalFilterChange: setGlobalFilter,
     onColumnFiltersChange: setColumnFilters,
-
-    // State
     state: {
       sorting,
       pagination,
@@ -111,55 +95,13 @@ export function Table<TData, TValue>({
     };
 
     fetchData();
-  }, [sorting, pagination, globalFilter, columnFilters]); // TODO: Fix missing getData dependency
+  }, [sorting, pagination, globalFilter, columnFilters]);
 
   return (
     <>
-      {/* Filters */}
       <TableFilters table={table} facets={facets} />
-
-      {/* View options */}
       <TableViewOptions table={table} />
-
-      {/* Table */}
-      <TableRoot>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </TableRoot>
-
-      {/* Pagination */}
+      <TableContent table={table} columns={columns} />
       <TablePagination table={table} />
     </>
   );
