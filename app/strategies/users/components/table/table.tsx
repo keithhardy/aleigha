@@ -10,23 +10,23 @@ import { TableViewOptions } from "./table-view-options";
 import { Filters, useFilters } from "./useFilters";
 
 interface DataTableProps<TData extends { id: string }, TValue> {
-  initialData?: TData[];
-  initialFacets: Record<string, { value: string; count: number }[]>;
-  initialTotal: number;
+  columns: ColumnDef<TData, TValue>[];
   getData: (filters?: Filters) => Promise<TData[]>;
   getFacets: (filters?: Filters) => Promise<Record<string, { value: string; count: number }[]>>;
   getTotal: (filters?: Filters) => Promise<number>;
-  columns: ColumnDef<TData, TValue>[];
+  initialData?: TData[];
+  initialFacets: Record<string, { value: string; count: number }[]>;
+  initialTotal: number;
 }
 
 export function Table<TData extends { id: string }, TValue>({
-  initialData,
-  initialFacets,
-  initialTotal,
+  columns,
   getData,
   getFacets,
   getTotal,
-  columns,
+  initialData,
+  initialFacets,
+  initialTotal,
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = React.useState<TData[]>(initialData || []);
   const [facets, setFacets] = React.useState<Record<string, { value: string; count: number }[]>>(
