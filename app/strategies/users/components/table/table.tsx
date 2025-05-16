@@ -94,22 +94,11 @@ export function Table<TData extends { id: string }, TValue>({
     }
 
     const fetchData = async () => {
-      const data = await getData({
-        sorting,
-        pagination,
-        globalFilter,
-        columnFilters,
-      });
-
-      const facets = await getFacets({
-        globalFilter,
-        columnFilters,
-      });
-
-      const total = await getTotal({
-        globalFilter,
-        columnFilters,
-      });
+      const [data, facets, total] = await Promise.all([
+        getData({ sorting, pagination, globalFilter, columnFilters }),
+        getFacets({ globalFilter, columnFilters }),
+        getTotal({ globalFilter, columnFilters }),
+      ]);
 
       setData(data);
       setFacets(facets);
