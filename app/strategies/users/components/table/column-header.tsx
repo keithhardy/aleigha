@@ -22,7 +22,7 @@ export function ColumnHeader<TData, TValue>({ column }: ColumnHeaderProps<TData,
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="-ml-4 capitalize data-[state=open]:bg-accent">
+        <Button variant="ghost" className="-ml-4 capitalize">
           <span>{column.id}</span>
           {column.getCanSort() &&
             (column.getIsSorted() === "desc" ? (

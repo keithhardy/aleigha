@@ -26,7 +26,7 @@ export function TableFacetedFilter<TData, TValue>({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="capitalize data-[state=open]:bg-accent">
+        <Button variant="outline" size="sm" className="capitalize">
           <ListFilterPlus />
           {column.id}
           {selectedValues.size > 0 && (

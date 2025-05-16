@@ -21,7 +21,7 @@ export function ColumnActions({ row }: ColumnActionsProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="data-[state=open]:bg-accent">
+        <Button variant="ghost" size="icon">
           <MoreHorizontal />
         </Button>
       </DropdownMenuTrigger>

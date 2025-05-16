@@ -20,7 +20,7 @@ export function TableViewOptions<TData>({ table }: TableViewOptionsProps<TData>)
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="sm" className="data-[state=open]:bg-accent">
+          <Button variant="outline" size="sm">
             <Settings2 />
             View
           </Button>
