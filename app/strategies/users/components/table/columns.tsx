@@ -43,11 +43,12 @@ export const columns: ColumnDef<User>[] = [
     enableColumnFilter: true,
   },
   {
-    id: "expand",
-    cell: ({ row }) => <ExpandToggle row={row} />,
-  },
-  {
     id: "actions",
-    cell: ({ row }) => <ColumnActions row={row} />,
+    cell: ({ row }) => (
+      <div className="flex justify-end">
+        <ExpandToggle row={row} />
+        <ColumnActions row={row} />
+      </div>
+    ),
   },
 ];
