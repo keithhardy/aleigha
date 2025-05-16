@@ -1,6 +1,5 @@
 import { type Table } from "@tanstack/react-table";
 import { XCircle } from "lucide-react";
-import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,28 +12,14 @@ interface TableFiltersProps<TData> {
 }
 
 export function TableFilters<TData>({ table, facets }: TableFiltersProps<TData>) {
-  const [searchTerm, setSearchTerm] = useState(table.getState().globalFilter ?? "");
   const isFiltered = !!table.getState().globalFilter || table.getState().columnFilters.length > 0;
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      table.setGlobalFilter(searchTerm);
-    }, 300);
-    return () => clearTimeout(timeout);
-  }, [searchTerm, table]);
-
-  const resetFilters = () => {
-    table.resetColumnFilters();
-    table.setGlobalFilter("");
-    setSearchTerm("");
-  };
 
   return (
     <div className="flex flex-wrap items-center gap-2">
       <Input
         placeholder="Search..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        value={table.getState().globalFilter}
+        onChange={(e) => table.setGlobalFilter(e.target.value)}
         className="w-auto"
       />
 
@@ -45,7 +30,14 @@ export function TableFilters<TData>({ table, facets }: TableFiltersProps<TData>)
       )}
 
       {isFiltered && (
-        <Button variant="outline" size="sm" onClick={resetFilters}>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => {
+            table.resetColumnFilters();
+            table.setGlobalFilter("");
+          }}
+        >
           <XCircle className="mr-1 h-4 w-4" />
           Clear
         </Button>
