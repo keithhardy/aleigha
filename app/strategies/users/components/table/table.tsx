@@ -119,8 +119,10 @@ export function Table<TData extends { id: string }, TValue>({
 
   return (
     <>
-      <TableFilters table={table} facets={facets} />
-      <TableViewOptions table={table} />
+      <div className="flex justify-between">
+        <TableFilters table={table} facets={facets} />
+        <TableViewOptions table={table} />
+      </div>
       <TableContent table={table} columns={columns} renderExpandedRow={renderExpandedRow} />
       <TablePagination table={table} />
     </>

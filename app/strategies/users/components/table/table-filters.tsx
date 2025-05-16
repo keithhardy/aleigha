@@ -15,18 +15,20 @@ export function TableFilters<TData>({ table, facets }: TableFiltersProps<TData>)
   const isFiltered = !!table.getState().globalFilter || table.getState().columnFilters.length > 0;
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="flex">
       <Input
         placeholder="Search..."
         value={table.getState().globalFilter}
         onChange={(e) => table.setGlobalFilter(e.target.value)}
-        className="w-auto"
+        className="h-8"
       />
 
-      {Object.entries(facets).map(([key, facet]) =>
-        table.getColumn(key)?.getCanFilter() ? (
-          <TableFacetedFilter key={key} column={table.getColumn(key)!} facets={facet} />
-        ) : null,
+      {Object.entries(facets).map(
+        ([key, facet]) =>
+          table.getColumn(key)?.getCanFilter() ? (
+            <TableFacetedFilter key={key} column={table.getColumn(key)!} facets={facet} />
+          ) : null,
+        1,
       )}
 
       {isFiltered && (
@@ -38,7 +40,7 @@ export function TableFilters<TData>({ table, facets }: TableFiltersProps<TData>)
             table.setGlobalFilter("");
           }}
         >
-          <XCircle className="mr-1 h-4 w-4" />
+          <XCircle />
           Clear
         </Button>
       )}
