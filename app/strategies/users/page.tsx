@@ -1,7 +1,7 @@
 import { getFacets, getTotal, getUsers } from "./actions";
 import { columns } from "./components/table/columns";
 import { Table } from "./components/table/table";
-import { expandedUserRow } from "./components/table/table-expanded-user-row";
+import { ExpandedUserRow } from "./components/table/table-expanded-user-row";
 
 export const revalidate = 3600;
 
@@ -21,7 +21,7 @@ export default async function Users() {
       initialData={data}
       initialFacets={facets}
       initialTotal={total}
-      renderExpandedRow={expandedUserRow}
+      renderExpandedRow={ExpandedUserRow}
     />
   );
 }

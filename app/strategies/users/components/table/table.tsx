@@ -4,6 +4,7 @@ import {
   type ColumnDef,
   type ExpandedState,
   getCoreRowModel,
+  type Row,
   useReactTable,
 } from "@tanstack/react-table";
 import * as React from "react";
@@ -22,7 +23,7 @@ interface DataTableProps<TData extends { id: string }, TValue> {
   initialData?: TData[];
   initialFacets: Record<string, { value: string; count: number }[]>;
   initialTotal: number;
-  renderExpandedRow?: (row: TData) => React.ReactNode;
+  renderExpandedRow?: ({ row }: { row: Row<TData> }) => React.ReactNode;
 }
 
 export function Table<TData extends { id: string }, TValue>({

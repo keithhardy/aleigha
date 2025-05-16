@@ -1,4 +1,9 @@
-import { type ColumnDef, flexRender, type Table as ReactTable } from "@tanstack/react-table";
+import {
+  type ColumnDef,
+  flexRender,
+  type Table as ReactTable,
+  type Row,
+} from "@tanstack/react-table";
 import { Fragment } from "react";
 
 import {
@@ -13,7 +18,7 @@ import {
 interface TableContentProps<TData, TValue> {
   table: ReactTable<TData>;
   columns: ColumnDef<TData, TValue>[];
-  renderExpandedRow?: (row: TData) => React.ReactNode;
+  renderExpandedRow?: ({ row }: { row: Row<TData> }) => React.ReactNode;
 }
 
 export function TableContent<TData, TValue>({
@@ -47,11 +52,9 @@ export function TableContent<TData, TValue>({
                   </TableCell>
                 ))}
               </TableRow>
-              {row.getIsExpanded() && (
+              {renderExpandedRow && row.getIsExpanded() && (
                 <TableRow>
-                  <TableCell colSpan={columns.length}>
-                    {renderExpandedRow?.(row.original)}
-                  </TableCell>
+                  <TableCell colSpan={columns.length}>{renderExpandedRow({ row })}</TableCell>
                 </TableRow>
               )}
             </Fragment>

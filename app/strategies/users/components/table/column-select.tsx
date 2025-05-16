@@ -6,10 +6,6 @@ interface SelectAllPageRowsProps<TData> {
   table: Table<TData>;
 }
 
-interface SelectRowProps<TData> {
-  row: Row<TData>;
-}
-
 export function SelectAllPageRows<TData>({ table }: SelectAllPageRowsProps<TData>) {
   return (
     <Checkbox
@@ -19,6 +15,10 @@ export function SelectAllPageRows<TData>({ table }: SelectAllPageRowsProps<TData
       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
     />
   );
+}
+
+interface SelectRowProps<TData> {
+  row: Row<TData>;
 }
 
 export function SelectRow<TData>({ row }: SelectRowProps<TData>) {
