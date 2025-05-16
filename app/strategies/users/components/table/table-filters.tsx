@@ -15,7 +15,7 @@ export function TableFilters<TData>({ table, facets }: TableFiltersProps<TData>)
   const isFiltered = !!table.getState().globalFilter || table.getState().columnFilters.length > 0;
 
   return (
-    <div className="flex">
+    <div className="flex space-x-2">
       <Input
         placeholder="Search..."
         value={table.getState().globalFilter}

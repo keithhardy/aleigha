@@ -9,6 +9,8 @@ import {
 } from "@tanstack/react-table";
 import * as React from "react";
 
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+
 import { TableContent } from "./table-content";
 import { TableFilters } from "./table-filters";
 import { TablePagination } from "./table-pagination";
@@ -118,13 +120,19 @@ export function Table<TData extends { id: string }, TValue>({
   }, [sorting, pagination, globalFilter, columnFilters]);
 
   return (
-    <>
+    <div className="space-y-4 p-12">
       <div className="flex justify-between">
         <TableFilters table={table} facets={facets} />
         <TableViewOptions table={table} />
       </div>
-      <TableContent table={table} columns={columns} renderExpandedRow={renderExpandedRow} />
-      <TablePagination table={table} />
-    </>
+      <Card className="rounded-md shadow-none">
+        <CardContent className="flex p-0">
+          <TableContent table={table} columns={columns} renderExpandedRow={renderExpandedRow} />
+        </CardContent>
+        <CardFooter className="justify-center gap-4 rounded-b-md border-t bg-muted py-4 lg:justify-between">
+          <TablePagination table={table} />
+        </CardFooter>
+      </Card>
+    </div>
   );
 }

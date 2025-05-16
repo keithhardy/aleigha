@@ -16,7 +16,7 @@ interface TablePaginationProps<TData> {
 
 export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
   return (
-    <div className="flex justify-between">
+    <>
       <div className="flex items-center space-x-2">
         <p className="text-sm font-medium">Rows per page</p>
         <Select
@@ -76,6 +76,6 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
           <ChevronsRight />
         </Button>
       </div>
-    </div>
+    </>
   );
 }
