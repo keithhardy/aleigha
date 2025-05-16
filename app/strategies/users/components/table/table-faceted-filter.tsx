@@ -1,5 +1,3 @@
-"use client";
-
 import { type Column } from "@tanstack/react-table";
 import { ListFilterPlus } from "lucide-react";
 

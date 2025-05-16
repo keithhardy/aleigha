@@ -19,19 +19,19 @@ interface ColumnFiltersState {
   value: unknown;
 }
 
+export interface Filters {
+  pagination?: PaginationState;
+  sorting?: SortingState[];
+  globalFilter?: string;
+  columnFilters?: ColumnFiltersState[];
+}
+
 interface UseFiltersProps {
   initialPagination?: PaginationState;
   initialSorting?: SortingState[];
   initialRowSelection?: RowSelectionState;
   initialGlobalFilter?: string;
   initialColumnFilters?: ColumnFiltersState[];
-}
-
-export interface Filters {
-  pagination?: PaginationState;
-  sorting?: SortingState[];
-  globalFilter?: string;
-  columnFilters?: ColumnFiltersState[];
 }
 
 export function useFilters({

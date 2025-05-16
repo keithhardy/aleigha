@@ -1,5 +1,3 @@
-"use client";
-
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { type Row } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";

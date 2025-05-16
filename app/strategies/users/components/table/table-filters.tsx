@@ -1,5 +1,3 @@
-"use client";
-
 import { type Table } from "@tanstack/react-table";
 import { XCircle } from "lucide-react";
 
@@ -23,6 +21,7 @@ export function TableFilters<TData>({ table, facets }: TableFiltersProps<TData>)
 
   return (
     <>
+      {/* TODO: Add debounce to search */}
       <Input
         placeholder="Search..."
         value={table.getState().globalFilter}

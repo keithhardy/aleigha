@@ -9,5 +9,5 @@ interface ExpandedUserRowProps {
 }
 
 export function ExpandedUserRow({ row }: ExpandedUserRowProps) {
-  return <div>{JSON.stringify(row.original.name)}</div>;
+  return <div>{JSON.stringify(row.original)}</div>;
 }
